@@ -1,7 +1,7 @@
 # SIESTA-REMAG
 
 GPU acceleration of SIESTA for magnetic materials. REMAG uses persistent
-electronic state, sparse data structures and CUDA kernels to reduce the time
+electronic state, sparse data structures and custom CUDA kernels to reduce the time
 to a converged calculation, with fully relativistic noncollinear magnetism
 and spin–orbit coupling (SOC) as its primary targets.
 
