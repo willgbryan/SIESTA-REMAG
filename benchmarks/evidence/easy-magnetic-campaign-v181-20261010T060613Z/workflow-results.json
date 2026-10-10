@@ -1,0 +1,851 @@
+[
+  {
+    "name": "Fe3C collinear",
+    "cases": [
+      "fe3c16_collinear"
+    ],
+    "required_families": [
+      "native",
+      "elsi"
+    ],
+    "screens": [
+      {
+        "config_key": "native2-t4",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 144.476083417
+      },
+      {
+        "config_key": "native2-r4-b32",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 294.10390538800004
+      },
+      {
+        "config_key": "elsi2-r16-b8",
+        "family": "elsi",
+        "passed": false,
+        "wall_seconds": 38.36134438299996
+      },
+      {
+        "config_key": "elsi1-r16-b8",
+        "family": "elsi",
+        "passed": false,
+        "wall_seconds": 127.34655580399999
+      }
+    ],
+    "finalists": [
+      {
+        "family": "native",
+        "config_key": "native2-t4",
+        "config": {
+          "route": "native-2stage",
+          "block_size": 64,
+          "threads": 4,
+          "mpi_ranks": 1
+        },
+        "gpu_execution_verified": true,
+        "remote_qualified": true,
+        "pairs": [
+          {
+            "repeat": 1,
+            "order": [
+              "native",
+              "candidate"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 152.31288163600004,
+              "candidate": 2.834449581999934
+            }
+          },
+          {
+            "repeat": 2,
+            "order": [
+              "candidate",
+              "native"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 135.462752691,
+              "candidate": 2.839490099000045
+            }
+          },
+          {
+            "repeat": 3,
+            "order": [
+              "native",
+              "candidate"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 144.06467930099996,
+              "candidate": 2.9413141740001265
+            }
+          }
+        ],
+        "case_timings": [
+          {
+            "case": "fe3c16_collinear",
+            "performance_qualified": true,
+            "errors": [],
+            "upstream_gpu": {
+              "seconds": [
+                152.31288163600004,
+                135.462752691,
+                144.06467930099996
+              ],
+              "median_seconds": 144.06467930099996,
+              "iterations": [
+                73,
+                73,
+                73
+              ],
+              "blas_threads": [
+                4,
+                4,
+                4
+              ],
+              "sampled_gpu_memory_peak_mib": [
+                685.0,
+                685.0,
+                685.0
+              ]
+            },
+            "remag": {
+              "seconds": [
+                2.834449581999934,
+                2.839490099000045,
+                2.9413141740001265
+              ],
+              "median_seconds": 2.839490099000045,
+              "iterations": [
+                65,
+                65,
+                72
+              ],
+              "blas_threads": [
+                1,
+                1,
+                1
+              ],
+              "sampled_gpu_memory_peak_mib": [
+                2049.0,
+                2049.0,
+                2049.0
+              ]
+            },
+            "speedup_over_upstream_gpu": 50.73610904709045,
+            "scope": "Process start through initialization, SCF, final observables and requested exports; excludes build, provisioning and evidence transfer",
+            "tuning": "Repeated timing for this qualified configuration; final selection uses a complete directional pair"
+          }
+        ],
+        "medians": {
+          "upstream": 144.06467930099996,
+          "candidate": 2.839490099000045
+        },
+        "remote_provisional_speedup": 50.73610904709045,
+        "scientific_qualified": true,
+        "performance_qualified": true,
+        "speedup_over_upstream_gpu": 50.73610904709045
+      }
+    ],
+    "candidate_repeats": [
+      {
+        "repeat": 1,
+        "passed": true,
+        "seconds": 2.834449581999934
+      },
+      {
+        "repeat": 2,
+        "passed": true,
+        "seconds": 2.839490099000045
+      },
+      {
+        "repeat": 3,
+        "passed": true,
+        "seconds": 2.9413141740001265
+      }
+    ],
+    "remote_qualified": false,
+    "performance_qualified": false,
+    "speedup_over_upstream_gpu": null,
+    "missing_families": [
+      "elsi"
+    ],
+    "selected_config": {
+      "route": "native-2stage",
+      "block_size": 64,
+      "threads": 4,
+      "mpi_ranks": 1
+    },
+    "selected_config_key": "native2-t4",
+    "selected_family": "native",
+    "medians": {
+      "upstream": 144.06467930099996,
+      "candidate": 2.839490099000045
+    },
+    "pairs": [
+      {
+        "repeat": 1,
+        "order": [
+          "native",
+          "candidate"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 152.31288163600004,
+          "candidate": 2.834449581999934
+        }
+      },
+      {
+        "repeat": 2,
+        "order": [
+          "candidate",
+          "native"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 135.462752691,
+          "candidate": 2.839490099000045
+        }
+      },
+      {
+        "repeat": 3,
+        "order": [
+          "native",
+          "candidate"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 144.06467930099996,
+          "candidate": 2.9413141740001265
+        }
+      }
+    ],
+    "remote_provisional_speedup": 50.73610904709045,
+    "scientific_qualified": false,
+    "best_verified_finalist_speedup": 50.73610904709045
+  },
+  {
+    "name": "Fe54 collinear",
+    "cases": [
+      "fe54_collinear"
+    ],
+    "required_families": [
+      "native",
+      "elsi"
+    ],
+    "screens": [
+      {
+        "config_key": "elsi2-r8",
+        "family": "elsi",
+        "passed": false,
+        "wall_seconds": 202.782551561
+      },
+      {
+        "config_key": "elsi2-r4-b32",
+        "family": "elsi",
+        "passed": true,
+        "wall_seconds": 102.93532000699997
+      },
+      {
+        "config_key": "native2-t4",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 124.33507310599998
+      },
+      {
+        "config_key": "native2-r4-b32",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 270.22637843300004
+      }
+    ],
+    "finalists": [
+      {
+        "family": "native",
+        "config_key": "native2-t4",
+        "config": {
+          "route": "native-2stage",
+          "block_size": 64,
+          "threads": 4,
+          "mpi_ranks": 1
+        },
+        "gpu_execution_verified": true,
+        "remote_qualified": true,
+        "pairs": [
+          {
+            "repeat": 1,
+            "order": [
+              "native",
+              "elsi",
+              "candidate"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 131.79213680500015,
+              "candidate": 7.425738153000111
+            }
+          },
+          {
+            "repeat": 2,
+            "order": [
+              "candidate",
+              "elsi",
+              "native"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 129.12238525899966,
+              "candidate": 7.843675305000033
+            }
+          },
+          {
+            "repeat": 3,
+            "order": [
+              "native",
+              "elsi",
+              "candidate"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 125.92732839500013,
+              "candidate": 7.414528536000034
+            }
+          }
+        ],
+        "case_timings": [
+          {
+            "case": "fe54_collinear",
+            "performance_qualified": true,
+            "errors": [],
+            "upstream_gpu": {
+              "seconds": [
+                131.79213680500015,
+                129.12238525899966,
+                125.92732839500013
+              ],
+              "median_seconds": 129.12238525899966,
+              "iterations": [
+                74,
+                73,
+                71
+              ],
+              "blas_threads": [
+                4,
+                4,
+                4
+              ],
+              "sampled_gpu_memory_peak_mib": [
+                695.0,
+                695.0,
+                695.0
+              ]
+            },
+            "remag": {
+              "seconds": [
+                7.425738153000111,
+                7.843675305000033,
+                7.414528536000034
+              ],
+              "median_seconds": 7.425738153000111,
+              "iterations": [
+                107,
+                127,
+                114
+              ],
+              "blas_threads": [
+                1,
+                1,
+                1
+              ],
+              "sampled_gpu_memory_peak_mib": [
+                3229.0,
+                3229.0,
+                3285.0
+              ]
+            },
+            "speedup_over_upstream_gpu": 17.388491567916684,
+            "scope": "Process start through initialization, SCF, final observables and requested exports; excludes build, provisioning and evidence transfer",
+            "tuning": "Repeated timing for this qualified configuration; final selection uses a complete directional pair"
+          }
+        ],
+        "medians": {
+          "upstream": 129.12238525899966,
+          "candidate": 7.425738153000111
+        },
+        "remote_provisional_speedup": 17.388491567916684,
+        "scientific_qualified": true,
+        "performance_qualified": true,
+        "speedup_over_upstream_gpu": 17.388491567916684
+      },
+      {
+        "family": "elsi",
+        "config_key": "elsi2-r4-b32",
+        "config": {
+          "route": "elsi-2stage",
+          "block_size": 32,
+          "threads": 1,
+          "mpi_ranks": 4
+        },
+        "gpu_execution_verified": true,
+        "remote_qualified": true,
+        "pairs": [
+          {
+            "repeat": 1,
+            "order": [
+              "native",
+              "elsi",
+              "candidate"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 104.23722245900012,
+              "candidate": 7.425738153000111
+            }
+          },
+          {
+            "repeat": 2,
+            "order": [
+              "candidate",
+              "elsi",
+              "native"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 104.26391460900004,
+              "candidate": 7.843675305000033
+            }
+          },
+          {
+            "repeat": 3,
+            "order": [
+              "native",
+              "elsi",
+              "candidate"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 103.34408651400008,
+              "candidate": 7.414528536000034
+            }
+          }
+        ],
+        "case_timings": [
+          {
+            "case": "fe54_collinear",
+            "performance_qualified": true,
+            "errors": [],
+            "upstream_gpu": {
+              "seconds": [
+                104.23722245900012,
+                104.26391460900004,
+                103.34408651400008
+              ],
+              "median_seconds": 104.23722245900012,
+              "iterations": [
+                79,
+                79,
+                79
+              ],
+              "blas_threads": [
+                1,
+                1,
+                1
+              ],
+              "sampled_gpu_memory_peak_mib": [
+                2378.0,
+                2370.0,
+                2378.0
+              ]
+            },
+            "remag": {
+              "seconds": [
+                7.425738153000111,
+                7.843675305000033,
+                7.414528536000034
+              ],
+              "median_seconds": 7.425738153000111,
+              "iterations": [
+                107,
+                127,
+                114
+              ],
+              "blas_threads": [
+                1,
+                1,
+                1
+              ],
+              "sampled_gpu_memory_peak_mib": [
+                3229.0,
+                3229.0,
+                3285.0
+              ]
+            },
+            "speedup_over_upstream_gpu": 14.037287648890057,
+            "scope": "Process start through initialization, SCF, final observables and requested exports; excludes build, provisioning and evidence transfer",
+            "tuning": "Repeated timing for this qualified configuration; final selection uses a complete directional pair"
+          }
+        ],
+        "medians": {
+          "upstream": 104.23722245900012,
+          "candidate": 7.425738153000111
+        },
+        "remote_provisional_speedup": 14.037287648890057,
+        "scientific_qualified": true,
+        "performance_qualified": true,
+        "speedup_over_upstream_gpu": 14.037287648890057
+      }
+    ],
+    "candidate_repeats": [
+      {
+        "repeat": 1,
+        "passed": true,
+        "seconds": 7.425738153000111
+      },
+      {
+        "repeat": 2,
+        "passed": true,
+        "seconds": 7.843675305000033
+      },
+      {
+        "repeat": 3,
+        "passed": true,
+        "seconds": 7.414528536000034
+      }
+    ],
+    "remote_qualified": true,
+    "performance_qualified": true,
+    "speedup_over_upstream_gpu": 14.037287648890057,
+    "selected_config": {
+      "route": "elsi-2stage",
+      "block_size": 32,
+      "threads": 1,
+      "mpi_ranks": 4
+    },
+    "selected_config_key": "elsi2-r4-b32",
+    "selected_family": "elsi",
+    "medians": {
+      "upstream": 104.23722245900012,
+      "candidate": 7.425738153000111
+    },
+    "pairs": [
+      {
+        "repeat": 1,
+        "order": [
+          "native",
+          "elsi",
+          "candidate"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 104.23722245900012,
+          "candidate": 7.425738153000111
+        }
+      },
+      {
+        "repeat": 2,
+        "order": [
+          "candidate",
+          "elsi",
+          "native"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 104.26391460900004,
+          "candidate": 7.843675305000033
+        }
+      },
+      {
+        "repeat": 3,
+        "order": [
+          "native",
+          "elsi",
+          "candidate"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 103.34408651400008,
+          "candidate": 7.414528536000034
+        }
+      }
+    ],
+    "remote_provisional_speedup": 14.037287648890057,
+    "scientific_qualified": true,
+    "best_verified_finalist_speedup": 14.037287648890057
+  },
+  {
+    "name": "Fe3C noncollinear",
+    "cases": [
+      "fe3c16_noncollinear"
+    ],
+    "required_families": [
+      "native"
+    ],
+    "screens": [
+      {
+        "config_key": "native2-t4",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 429.20419752099997
+      },
+      {
+        "config_key": "native1-t4",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 433.5560178679998
+      },
+      {
+        "config_key": "native2-r4-b32",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 370.9022678799997
+      }
+    ],
+    "finalists": [
+      {
+        "family": "native",
+        "config_key": "native2-r4-b32",
+        "config": {
+          "route": "native-2stage",
+          "block_size": 32,
+          "threads": 1,
+          "mpi_ranks": 4
+        },
+        "gpu_execution_verified": true,
+        "remote_qualified": true,
+        "pairs": [
+          {
+            "repeat": 1,
+            "order": [
+              "native",
+              "candidate"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 360.35077029400054,
+              "candidate": 3.3475332680000065
+            }
+          },
+          {
+            "repeat": 2,
+            "order": [
+              "candidate",
+              "native"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 360.2013342050004,
+              "candidate": 3.2520779189999303
+            }
+          },
+          {
+            "repeat": 3,
+            "order": [
+              "native",
+              "candidate"
+            ],
+            "passed": true,
+            "seconds": {
+              "upstream": 366.6469657509997,
+              "candidate": 3.2553646079995815
+            }
+          }
+        ],
+        "case_timings": [
+          {
+            "case": "fe3c16_noncollinear",
+            "performance_qualified": true,
+            "errors": [],
+            "upstream_gpu": {
+              "seconds": [
+                360.35077029400054,
+                360.2013342050004,
+                366.6469657509997
+              ],
+              "median_seconds": 360.35077029400054,
+              "iterations": [
+                100,
+                100,
+                100
+              ],
+              "blas_threads": [
+                1,
+                1,
+                1
+              ],
+              "sampled_gpu_memory_peak_mib": [
+                2182.0,
+                2182.0,
+                2180.0
+              ]
+            },
+            "remag": {
+              "seconds": [
+                3.3475332680000065,
+                3.2520779189999303,
+                3.2553646079995815
+              ],
+              "median_seconds": 3.2553646079995815,
+              "iterations": [
+                71,
+                65,
+                69
+              ],
+              "blas_threads": [
+                1,
+                1,
+                1
+              ],
+              "sampled_gpu_memory_peak_mib": [
+                2199.0,
+                2199.0,
+                2199.0
+              ]
+            },
+            "speedup_over_upstream_gpu": 110.6944424622948,
+            "scope": "Process start through initialization, SCF, final observables and requested exports; excludes build, provisioning and evidence transfer",
+            "tuning": "Repeated timing for this qualified configuration; final selection uses a complete directional pair"
+          }
+        ],
+        "medians": {
+          "upstream": 360.35077029400054,
+          "candidate": 3.2553646079995815
+        },
+        "remote_provisional_speedup": 110.6944424622948,
+        "scientific_qualified": true,
+        "performance_qualified": true,
+        "speedup_over_upstream_gpu": 110.6944424622948
+      }
+    ],
+    "candidate_repeats": [
+      {
+        "repeat": 1,
+        "passed": true,
+        "seconds": 3.3475332680000065
+      },
+      {
+        "repeat": 2,
+        "passed": true,
+        "seconds": 3.2520779189999303
+      },
+      {
+        "repeat": 3,
+        "passed": true,
+        "seconds": 3.2553646079995815
+      }
+    ],
+    "remote_qualified": true,
+    "performance_qualified": true,
+    "speedup_over_upstream_gpu": 110.6944424622948,
+    "selected_config": {
+      "route": "native-2stage",
+      "block_size": 32,
+      "threads": 1,
+      "mpi_ranks": 4
+    },
+    "selected_config_key": "native2-r4-b32",
+    "selected_family": "native",
+    "medians": {
+      "upstream": 360.35077029400054,
+      "candidate": 3.2553646079995815
+    },
+    "pairs": [
+      {
+        "repeat": 1,
+        "order": [
+          "native",
+          "candidate"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 360.35077029400054,
+          "candidate": 3.3475332680000065
+        }
+      },
+      {
+        "repeat": 2,
+        "order": [
+          "candidate",
+          "native"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 360.2013342050004,
+          "candidate": 3.2520779189999303
+        }
+      },
+      {
+        "repeat": 3,
+        "order": [
+          "native",
+          "candidate"
+        ],
+        "passed": true,
+        "seconds": {
+          "upstream": 366.6469657509997,
+          "candidate": 3.2553646079995815
+        }
+      }
+    ],
+    "remote_provisional_speedup": 110.6944424622948,
+    "scientific_qualified": true,
+    "best_verified_finalist_speedup": 110.6944424622948
+  },
+  {
+    "name": "Fe2B full-SOC x/z",
+    "cases": [
+      "fe2b12_soc_z",
+      "fe2b12_soc_x"
+    ],
+    "required_families": [
+      "native"
+    ],
+    "screens": [
+      {
+        "config_key": "native1-t4",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 371.74052989200027
+      },
+      {
+        "config_key": "native2-t4",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 403.99989258799997
+      },
+      {
+        "config_key": "native2-r4-b32",
+        "family": "native",
+        "passed": true,
+        "wall_seconds": 553.965018502
+      }
+    ],
+    "finalists": [
+      {
+        "family": "native",
+        "config_key": "native1-t4",
+        "config": {
+          "route": "native-1stage",
+          "block_size": 64,
+          "threads": 4,
+          "mpi_ranks": 1
+        },
+        "gpu_execution_verified": true,
+        "remote_qualified": false,
+        "pairs": [],
+        "scientific_qualified": false,
+        "performance_qualified": false,
+        "speedup_over_upstream_gpu": null
+      }
+    ],
+    "candidate_repeats": [],
+    "remote_qualified": false,
+    "performance_qualified": false,
+    "speedup_over_upstream_gpu": null,
+    "failure": "Insufficient reserved time for the next complete trial and checkpoint",
+    "budget_exhausted": true,
+    "scientific_qualified": false
+  }
+]

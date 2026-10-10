@@ -30,6 +30,34 @@ benchmarks/published/gold-water/
 !.env.example
 .modal.toml
 .aws/
+.DS_Store
+
+# Local AI-assistant instructions, state, prompts and conversation history.
+# Keep these on disk; they are not part of the source release.
 .codex/
 .agents/
-.DS_Store
+.agent/
+.claude/
+.cursor/
+.gemini/
+.opencode/
+.continue/
+.windsurf/
+.aider*
+.cursorrules
+.windsurfrules
+AGENTS.md
+AGENTS.override.md
+CLAUDE.md
+CLAUDE.local.md
+GEMINI.md
+/.github/copilot-instructions.md
+/.github/instructions/
+/.github/prompts/
+
+# Local task specification and development journals. Public engineering docs
+# and selected scientific benchmark evidence remain versioned.
+/docs/SPEC.md
+/docs/PROGRESS.md
+/docs/DEVELOPMENT_NOTES.md
+/docs/SPEEDUP_CLAIMS_AUDIT.md

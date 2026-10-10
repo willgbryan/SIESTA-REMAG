@@ -4,6 +4,57 @@ These existing records are copied verbatim from completed experiments. The
 [manifest](manifest.json) records their original local paths and SHA-256 hashes.
 No new calculations were performed to populate this directory.
 
+## Expanded magnetic campaign, 10 October 2026
+
+The [campaign summary](easy-magnetic-campaign-v181-20261010T060613Z/summary.json)
+and [per-family results](easy-magnetic-campaign-v181-20261010T060613Z/workflow-results.json)
+record four qualified comparisons across three workflows. Each finalist has
+three fresh upstream GPU repetitions and three REMAG repetitions; the two Fe54
+families share the same three REMAG runs.
+
+| Workload / upstream GPU family | Upstream median | REMAG median | Speedup |
+| --- | ---: | ---: | ---: |
+| Fe54 collinear / ELSI ELPA | 104.237 s | 7.426 s | 14.037× |
+| Fe54 collinear / native ELPA | 129.122 s | 7.426 s | 17.388× |
+| Fe3C collinear / native ELPA | 144.065 s | 2.839 s | 50.736× |
+| Fe3C noncollinear / native ELPA | 360.351 s | 3.255 s | 110.694× |
+
+All contenders ran sequentially on one A100-SXM4-80GB, driver 580.95.05, with
+16 reserved CPU cores. REMAG uses the v178 numerical binary, one thread and
+default tile modes. All upstream finalists use two-stage ELPA. Fe54 ELSI and
+Fe3C noncollinear use four MPI ranks, one thread per rank and block size 32;
+the two native collinear finalists use one rank, four threads and block size 64.
+These settings were screened, without a claim of exhaustive tuning.
+
+All 21 timed runs pass [direct pristine-CPU checks](easy-magnetic-campaign-v181-20261010T060613Z/upstream-comparison.json)
+of science, requested exports and convergence. Independent diagnostics verify
+upstream GPU execution. Exact inputs, source/binary/pseudopotential identities
+and runtime settings are retained in the [metadata](easy-magnetic-campaign-v181-20261010T060613Z/metadata.json).
+The [49-calculation ledger](easy-magnetic-campaign-v181-20261010T060613Z/ledger.json)
+includes all screening failures, diagnostics and timed repetitions.
+
+Coverage is incomplete, and the full-suite aggregate fields are **null**:
+
+- Fe54 collinear and Fe3C noncollinear pass every required solver-family gate.
+  Fe54's primary ratio uses the faster passing ELSI finalist. Its separate
+  eight-rank/block-64 ELSI screen reached the 200-SCF cap; that failure does not
+  invalidate the historical passing ELSI comparison below.
+- Fe3C collinear qualifies against native ELPA only. Both valid-layout ELSI
+  screens (16 ranks, block size 8) converged in 65 iterations but failed the
+  required eigenvalue-output check. Their timings do not qualify for speedup.
+- Fe2B full-SOC x/z completed screening and GPU diagnostics but no timed
+  repetitions. FePt16 full-SOC x/z, Fe16 noncollinear and Fe5PB2 full-SOC x/z
+  were unstarted when the compute budget ended. This campaign adds no repeated
+  full-SOC or directional MAE result.
+
+SCF counts differ despite matching input thresholds and equivalent converged
+outputs: Fe3C noncollinear uses 100 upstream iterations versus 71/65/69 for
+REMAG; Fe54 ELSI uses 79 versus 107/127/114. These are end-to-end solution
+speedups, not fixed-iteration kernel ratios. The Fe3C fixtures use
+nonrelativistic pseudopotentials and do not establish SOC performance.
+
+## Earlier comparisons
+
 | Record | What it supports |
 | --- | --- |
 | [FePt16 v143](upstream-gpu-refresh-v143-20261009T101214Z/qualification.json) | Three complete x/z pairs: 573.311 → 9.838 s medians, 58.275× versus native upstream GPU; measured REMAG v142 |
@@ -22,8 +73,8 @@ The Fe54 calculation group completed before a later Fe16 calculation in that
 app was preempted. Its [recovery record](spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/recovery.json)
 preserves that distinction. Other failed experiments remain in the full local
 archive; the table is a selection of published results, not a complete attempt
-ledger. The newer easy-convergence suite is still being evaluated and is not
-included in this snapshot.
+ledger. The expanded campaign above retains its full compact ledger and
+must be interpreted within its separate hardware, build and coverage scope.
 
 All timings include process startup, initialization, SCF, final observables
 and requested output exports. Build/provisioning, diagnostic traces and artifact

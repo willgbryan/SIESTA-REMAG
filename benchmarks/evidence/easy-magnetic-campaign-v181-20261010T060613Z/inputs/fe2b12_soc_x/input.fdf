@@ -1,0 +1,80 @@
+SystemName REMAG regression fe2b12_soc_x
+SystemLabel remag
+NumberOfAtoms 12
+NumberOfSpecies 2
+%block ChemicalSpeciesLabel
+1 26 Fe
+2 5 B
+%endblock ChemicalSpeciesLabel
+LatticeConstant 1.0 Ang
+%block LatticeVectors
+5.077 0 0
+0 5.077 0
+0 0 4.254
+%endblock LatticeVectors
+AtomicCoordinatesFormat Fractional
+%block AtomicCoordinatesAndAtomicSpecies
+0.167300000000 0.667300000000 0.000000000000 1
+0.332700000000 0.167300000000 0.000000000000 1
+0.832700000000 0.332700000000 0.000000000000 1
+0.667300000000 0.832700000000 0.000000000000 1
+0.667300000000 0.167300000000 0.500000000000 1
+0.832700000000 0.667300000000 0.500000000000 1
+0.332700000000 0.832700000000 0.500000000000 1
+0.167300000000 0.332700000000 0.500000000000 1
+0.000000000000 0.000000000000 0.250000000000 2
+0.000000000000 0.000000000000 0.750000000000 2
+0.500000000000 0.500000000000 0.250000000000 2
+0.500000000000 0.500000000000 0.750000000000 2
+%endblock AtomicCoordinatesAndAtomicSpecies
+%block kgrid_Monkhorst_Pack
+2 0 0 0.0
+0 2 0 0.0
+0 0 2 0.0
+%endblock kgrid_Monkhorst_Pack
+Spin spin-orbit
+%block DM.InitSpin
+1 2.0 90.0 0.
+2 2.0 90.0 0.
+3 2.0 90.0 0.
+4 2.0 90.0 0.
+5 2.0 90.0 0.
+6 2.0 90.0 0.
+7 2.0 90.0 0.
+8 2.0 90.0 0.
+9 0.0 90.0 0.
+10 0.0 90.0 0.
+11 0.0 90.0 0.
+12 0.0 90.0 0.
+%endblock DM.InitSpin
+PAO.BasisSize SZP
+MeshCutoff 100 Ry
+XC.functional GGA
+XC.authors PBE
+ElectronicTemperature 1000 K
+SolutionMethod diagon
+Diag.Algorithm divide-and-conquer
+MaxSCFIterations 200
+SCF.MustConverge true
+DM.Tolerance 1e-9
+SCF.H.Tolerance 1e-8 eV
+DM.MixingWeight 0.05
+DM.NumberPulay 8
+SCF.Mix.Spin all
+DM.UseSaveDM false
+WriteForces true
+WriteMullikenPop 1
+SaveRho true
+SaveDeltaRho true
+SaveHS true
+UseTreeTimer true
+UseParallelTimer false
+UseWallTime true
+Timing.Split.SCF.Steps false
+Write.DM false
+Write.DM.End.Of.Cycle true
+TS.DE.Save false
+CDF.Save false
+Charge.Mulliken init+geometry+end
+Charge.Mulliken.Format 1
+Charge.Spin init+scf+geometry+end

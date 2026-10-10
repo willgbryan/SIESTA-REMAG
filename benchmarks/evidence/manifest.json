@@ -130,6 +130,81 @@
       "path": "large-upstream-comparison-v172-20261009T172335Z/inputs/fept128_soc_z/input.fdf",
       "local_source": "results/large-upstream-comparison-v172-20261009T172335Z/inputs/fept128_soc_z/input.fdf",
       "sha256": "9a88da444830d15e87f22606f3116e7aa9225f8931656884ee2ed91f11413f94"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/summary.json",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/summary.json",
+      "sha256": "4e4a68c7d88c3e8ba435a0747cf51dce9b2260fa380f85279a7bddcda44d26f2"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/workflow-results.json",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/workflow-results.json",
+      "sha256": "dbbdd0b59320fd03f07d8dddb15636db32488bf0dd44847613670196ca56ca52"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/upstream-comparison.json",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/upstream-comparison.json",
+      "sha256": "49d2cd31bfcd657ea845e3647f079c2a1c3e490523a295922e42f5ff73cc20d8"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/ledger.json",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/ledger.json",
+      "sha256": "7dd5bed870f82b3c01b7b8e7313409ab267ce8edd11427f00ad0d93cd0f8766a"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/metadata.json",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/metadata.json",
+      "sha256": "8baa98049e30350f9e7f8d12338a4e60ad8dc44c5eec20cf9c127c6cfb25c6de"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe16_noncollinear/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe16_noncollinear/input.fdf",
+      "sha256": "3602afc93642d3aaf393530d0c440b3dc65b57af72360e4a390fdcfe28f732ec"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe2b12_soc_x/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe2b12_soc_x/input.fdf",
+      "sha256": "1987a287dd32acdf7fe7e190e9363673b31b257ba2d3722a62674d69f3e031ac"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe2b12_soc_z/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe2b12_soc_z/input.fdf",
+      "sha256": "4ed2ed5b40f6cd2fc689061fcefbfa31fd6ed935e3ff8544ffb870a307935ddf"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe3c16_collinear/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe3c16_collinear/input.fdf",
+      "sha256": "833c95fbd300f7ee745f87027f613379f47fbcff7d5c12f8abd930b0c1e42cbf"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe3c16_noncollinear/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe3c16_noncollinear/input.fdf",
+      "sha256": "d4561abad7720d8b554784fa3a44c5f92e46164651e5422beee89182333bb05e"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe54_collinear/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe54_collinear/input.fdf",
+      "sha256": "705a76444e50a1096898f71b64f769c5575128c4ab93acce486f2149784e1005"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe5pb2_32_soc_x/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe5pb2_32_soc_x/input.fdf",
+      "sha256": "76d3a02f41466bcc148615565c74f1ab175171006fb90263dae2e81e2a08dbca"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe5pb2_32_soc_z/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fe5pb2_32_soc_z/input.fdf",
+      "sha256": "fa042284e6a283e00cf013ef12060a1fb760e7354ce7c9189574636561b99123"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fept16_soc_x/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fept16_soc_x/input.fdf",
+      "sha256": "2636385ff78d16342c8d79e6ed814a52b8009ae73b594122d7fbfb620f2fb5a5"
+    },
+    {
+      "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fept16_soc_z/input.fdf",
+      "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fept16_soc_z/input.fdf",
+      "sha256": "ea290e77b26b088836049ef4ef3376ef8067509fa1cd2a7dc1910b601c28e46b"
     }
   ]
 }

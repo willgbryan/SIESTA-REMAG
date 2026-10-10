@@ -32,6 +32,12 @@ Small benchmark records intended for publication belong in
 `benchmarks/evidence/`; retain the full local evidence separately. Do not
 regenerate expensive GPU runs for a documentation or formatting change.
 
+Keep AI-assistant instructions, prompts, conversation history and working
+journals local. The ignore rules preserve these files on disk while excluding
+them from version control; the source manifest also excludes the local planning
+documents. Technical documentation, regression tests and scientific evidence
+belong in the release regardless of which tools helped create them.
+
 Describe the concrete change, relevant validation and known limits in a pull
 request. Contributions use the repository's existing license; preserve all
 upstream and third-party notices.

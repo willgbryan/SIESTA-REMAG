@@ -5,11 +5,11 @@ forces, stress, density fields and population observables on the GPU, retains
 electronic state, and gates H/D/E downloads on requested outputs or supported
 host consumers. The [broad production qualification](../results/20261007T184850Z/qualification-summary.json)
 and [current boundary summary](GPU_RESIDENCY.md#latest-accepted-checkpoint)
-record the accepted implementation; [current progress](PROGRESS.md) records
+record the accepted implementation; [selected benchmark evidence](../benchmarks/evidence/README.md) records
 later numerical and performance results. CPU geometry/setup and ionic work
 remain. The dated stages below describe the migration history, not a current
 list of unimplemented force consumers. Exhaustive residency certification is
-not a delivery prerequisite under the [revised specification](SPEC.md).
+not a delivery prerequisite; see the [project scope](../README.md#limitations).
 
 At the initial sparse-state checkpoint on 6 October, the sparse owner exported
 H/Hold/D/Dold/E/Eold after SCF because final force/stress and analysis still

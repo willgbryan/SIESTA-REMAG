@@ -1,0 +1,89 @@
+SystemName REMAG regression fe3c16_noncollinear
+SystemLabel remag
+NumberOfAtoms 16
+NumberOfSpecies 2
+%block ChemicalSpeciesLabel
+1 26 Fe_nc
+2 6 C
+%endblock ChemicalSpeciesLabel
+LatticeConstant 1.0 Ang
+%block LatticeVectors
+5.081 0.0 0.0
+0.0 6.754 0.0
+0.0 0.0 4.515
+%endblock LatticeVectors
+AtomicCoordinatesFormat Fractional
+%block AtomicCoordinatesAndAtomicSpecies
+0.184600000000 0.059400000000 0.334000000000 1
+0.184600000000 0.440600000000 0.334000000000 1
+0.815400000000 0.559400000000 0.666000000000 1
+0.315400000000 0.559400000000 0.834000000000 1
+0.684600000000 0.440600000000 0.166000000000 1
+0.684600000000 0.059400000000 0.166000000000 1
+0.315400000000 0.940600000000 0.834000000000 1
+0.815400000000 0.940600000000 0.666000000000 1
+0.034600000000 0.250000000000 0.837700000000 1
+0.965400000000 0.750000000000 0.162300000000 1
+0.465400000000 0.750000000000 0.337700000000 1
+0.534600000000 0.250000000000 0.662300000000 1
+0.898400000000 0.250000000000 0.446700000000 2
+0.101600000000 0.750000000000 0.553300000000 2
+0.601600000000 0.750000000000 0.946700000000 2
+0.398400000000 0.250000000000 0.053300000000 2
+%endblock AtomicCoordinatesAndAtomicSpecies
+%block kgrid_Monkhorst_Pack
+2 0 0 0.0
+0 2 0 0.0
+0 0 2 0.0
+%endblock kgrid_Monkhorst_Pack
+Spin non-collinear
+%block DM.InitSpin
+1 2.5 30.0 45.0
+2 2.5 30.0 45.0
+3 2.5 30.0 45.0
+4 2.5 30.0 45.0
+5 2.5 30.0 45.0
+6 2.5 30.0 45.0
+7 2.5 30.0 45.0
+8 2.5 30.0 45.0
+9 2.5 30.0 45.0
+10 2.5 30.0 45.0
+11 2.5 30.0 45.0
+12 2.5 30.0 45.0
+13 0.0 30.0 45.0
+14 0.0 30.0 45.0
+15 0.0 30.0 45.0
+16 0.0 30.0 45.0
+%endblock DM.InitSpin
+PAO.BasisSize SZP
+PAO.EnergyShift 300 meV
+MeshCutoff 100 Ry
+XC.functional GGA
+XC.authors PBE
+ElectronicTemperature 300 K
+SolutionMethod diagon
+Diag.Algorithm divide-and-conquer
+MaxSCFIterations 200
+SCF.MustConverge true
+DM.Tolerance 1e-9
+SCF.H.Tolerance 1e-8 eV
+DM.MixingWeight 0.05
+DM.NumberPulay 6
+SCF.Mix.Spin all
+DM.UseSaveDM false
+WriteForces true
+WriteMullikenPop 1
+SaveRho true
+SaveDeltaRho true
+SaveHS true
+UseTreeTimer true
+UseParallelTimer false
+UseWallTime true
+Timing.Split.SCF.Steps false
+Write.DM false
+Write.DM.End.Of.Cycle true
+TS.DE.Save false
+CDF.Save false
+Charge.Mulliken init+geometry+end
+Charge.Mulliken.Format 1
+Charge.Spin init+scf+geometry+end

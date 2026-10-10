@@ -6,6 +6,7 @@ recursive-include docs *.md
 include benchmarks/README.md
 recursive-include benchmarks/solver-regressions *.json *.npz
 recursive-include benchmarks/evidence *.md *.json *.fdf
+exclude docs/SPEC.md docs/PROGRESS.md docs/DEVELOPMENT_NOTES.md docs/SPEEDUP_CLAIMS_AUDIT.md
 prune upstream
 prune build
 prune results
@@ -15,3 +16,6 @@ prune artifacts
 prune benchmarks/generated
 prune benchmarks/published
 global-exclude __pycache__ *.py[cod] .DS_Store
+global-exclude AGENTS.md AGENTS.override.md CLAUDE.md CLAUDE.local.md GEMINI.md
+global-exclude */.codex/* */.agents/* */.agent/* */.claude/* */.cursor/* */.gemini/*
+global-exclude */.opencode/* */.continue/* */.windsurf/* .aider* .cursorrules .windsurfrules

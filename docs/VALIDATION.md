@@ -72,4 +72,9 @@ Each REMAG run used one A100 instance, with sequential reference/candidate execu
 
 ## Remaining work
 
-The full electronic state still crosses host/device boundaries. Hartree/XC, occupations, sparse Fourier assembly, density-matrix construction, mixing and final forces remain CPU operations. Broader boride/carbide/nitride fixtures, larger spinor/SOC regressions, orientation-state reuse, concurrent k-point scheduling, mixed precision, complete CUDA activity traces and learned SCF acceleration remain unfinished. See [engineering status](PROGRESS.md) and [architecture](ARCHITECTURE.md).
+At this 5 October checkpoint, Hartree/XC, occupations, sparse Fourier assembly,
+density-matrix construction, mixing and final forces remained CPU operations.
+Later stages moved the supported operations to the GPU. See the
+[current capabilities](../README.md#capabilities) and
+[residency record](GPU_RESIDENCY.md) for the implemented path and remaining
+boundaries.

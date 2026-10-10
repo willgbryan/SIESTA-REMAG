@@ -1,0 +1,88 @@
+SystemName REMAG regression fept16_soc_x
+SystemLabel remag
+NumberOfAtoms 16
+NumberOfSpecies 2
+%block ChemicalSpeciesLabel
+1 26 Fe_fept_SOC
+2 78 Pt_fept_SOC
+%endblock ChemicalSpeciesLabel
+LatticeConstant 1.0 Ang
+%block LatticeVectors
+5.46 0.0 0.0
+0.0 5.46 0.0
+0.0 0.0 7.58
+%endblock LatticeVectors
+AtomicCoordinatesFormat NotScaledCartesianAng
+%block AtomicCoordinatesAndAtomicSpecies
+0.000000000000 0.000000000000 0.000000000000 1
+1.365000000000 1.365000000000 1.895000000000 2
+0.000000000000 0.000000000000 3.790000000000 1
+1.365000000000 1.365000000000 5.685000000000 2
+0.000000000000 2.730000000000 0.000000000000 1
+1.365000000000 4.095000000000 1.895000000000 2
+0.000000000000 2.730000000000 3.790000000000 1
+1.365000000000 4.095000000000 5.685000000000 2
+2.730000000000 0.000000000000 0.000000000000 1
+4.095000000000 1.365000000000 1.895000000000 2
+2.730000000000 0.000000000000 3.790000000000 1
+4.095000000000 1.365000000000 5.685000000000 2
+2.730000000000 2.730000000000 0.000000000000 1
+4.095000000000 4.095000000000 1.895000000000 2
+2.730000000000 2.730000000000 3.790000000000 1
+4.095000000000 4.095000000000 5.685000000000 2
+%endblock AtomicCoordinatesAndAtomicSpecies
+%block kgrid_Monkhorst_Pack
+2 0 0 0.0
+0 2 0 0.0
+0 0 2 0.0
+%endblock kgrid_Monkhorst_Pack
+Spin spin-orbit
+%block DM.InitSpin
+1 2.5 90.0 0.
+2 0.3 90.0 0.
+3 2.5 90.0 0.
+4 0.3 90.0 0.
+5 2.5 90.0 0.
+6 0.3 90.0 0.
+7 2.5 90.0 0.
+8 0.3 90.0 0.
+9 2.5 90.0 0.
+10 0.3 90.0 0.
+11 2.5 90.0 0.
+12 0.3 90.0 0.
+13 2.5 90.0 0.
+14 0.3 90.0 0.
+15 2.5 90.0 0.
+16 0.3 90.0 0.
+%endblock DM.InitSpin
+PAO.BasisSize SZP
+MeshCutoff 100 Ry
+XC.functional GGA
+XC.authors PBE
+ElectronicTemperature 1000 K
+SolutionMethod diagon
+Diag.Algorithm divide-and-conquer
+MaxSCFIterations 200
+SCF.MustConverge true
+DM.Tolerance 1e-9
+SCF.H.Tolerance 1e-8 eV
+DM.MixingWeight 0.05
+DM.NumberPulay 8
+SCF.Mix.Spin all
+DM.UseSaveDM false
+WriteForces true
+WriteMullikenPop 1
+SaveRho true
+SaveDeltaRho true
+SaveHS true
+UseTreeTimer true
+UseParallelTimer false
+UseWallTime true
+Timing.Split.SCF.Steps false
+Write.DM false
+Write.DM.End.Of.Cycle true
+TS.DE.Save false
+CDF.Save false
+Charge.Mulliken init+geometry+end
+Charge.Mulliken.Format 1
+Charge.Spin init+scf+geometry+end

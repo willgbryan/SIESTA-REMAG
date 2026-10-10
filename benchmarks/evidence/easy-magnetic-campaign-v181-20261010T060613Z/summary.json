@@ -1,0 +1,23 @@
+{
+  "scientific_qualified": false,
+  "performance_qualified": false,
+  "local_cpu_verification_pending": false,
+  "remote_complete": true,
+  "budget_exhausted": true,
+  "declared_workflows": 7,
+  "observed_workflows": 4,
+  "unstarted_workflows": [
+    "FePt16 full-SOC x/z",
+    "Fe16 noncollinear",
+    "Fe5PB2 full-SOC x/z"
+  ],
+  "remote_all_workflows_passed": false,
+  "allocation_elapsed_seconds": 6457.169878971,
+  "geometric_mean_speedup": null,
+  "total_suite_speedup": null,
+  "scope": "One A100-80GB and 16 reserved CPU cores. Current v178 binary, default tile modes, fresh processes and unchanged saved inputs. More upstream parallel layouts; no claim of exhaustive tuning, production convergence or general SIESTA average.",
+  "qualified_workflows": 2,
+  "allocation_released": true,
+  "qualified_at_utc": "2026-10-10T08:07:25.065995+00:00",
+  "aggregation_scope": "Equal-workflow geometric mean only after all seven declared workflows and all their required upstream solver families pass direct pristine-CPU science/export/convergence checks. Directional x/z pairs count once. Partial results retain explicit coverage, without a full-suite average."
+}

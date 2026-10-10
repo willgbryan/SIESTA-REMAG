@@ -1,13 +1,14 @@
 # GPU residency: architecture and historical evidence
 
-**Priority revised by the user on 8 October 2026:** GPU-first execution and
+**Engineering priority, revised 8 October 2026:** GPU-first execution and
 purpose-built GPU data structures must deliver an end-to-end speedup over
 upstream GPU SIESTA. Validate numerical results directly against upstream SIESTA.
 Keep state on device and remove costly transfers where this improves the
 implementation, but do not require exhaustive residency certification or build
 further observer/audit infrastructure as a prerequisite. The prepared v114 NVBit
-diagnostic is deferred. The [current specification](SPEC.md) and `AGENTS.md`
-override older acceptance gates in this historical record.
+diagnostic is deferred. The [project scope](../README.md#limitations) and
+[contribution guidelines](../CONTRIBUTING.md) supersede older acceptance gates
+in this historical record.
 
 The following records the earlier residency target, implementation evidence and
 remaining boundaries. It remains useful for choosing and measuring optimizations.
@@ -59,7 +60,7 @@ workload-specific result qualifies performance; strict residency remains unprove
 and is not a delivery prerequisite. The larger FePt128 z comparison subsequently
 measures a provisional **43.1289×** in one matched pair, with direct local
 science/export checks passing for both contenders and their GPU comparison.
-[Current scope](PROGRESS.md) records the timing details and limits.
+[Selected benchmark evidence](../benchmarks/evidence/README.md) records the timing details and limits.
 
 Run [20261007T184850Z](../results/20261007T184850Z/qualification-summary.json)
 is the latest broad scientific and CPU-comparison checkpoint for the promoted
@@ -283,7 +284,7 @@ larger-spinor coverage remained pending. Subsequent direct upstream checks
 qualify Fe3C collinear/noncollinear (v169), full-SOC Fe2B x/z and MAE (v173), and
 the 128-atom, 2,304-state FePt full-SOC x/z pair (v167). The larger FePt z case
 also has a verified single-pair upstream-GPU timing comparison (v172). Their
-inputs, limits and evidence are recorded in [current progress](PROGRESS.md).
+inputs, limits and evidence are described in the [benchmark guide](../benchmarks/README.md).
 More complicated materials and the difficult Fe4N noncollinear case remain
 unqualified.
 
@@ -333,8 +334,8 @@ Steps overlap where dependencies allow. A port that leaves a consumer on CPU is 
 
 ## Acceptance gates
 
-Status below reflects accepted v103 evidence; staged initialization changes are
-tracked in [PROGRESS.md](PROGRESS.md) and do not count as production qualification.
+Status below reflects accepted v103 evidence. Staged initialization experiments
+at that checkpoint do not count as production qualification.
 
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
