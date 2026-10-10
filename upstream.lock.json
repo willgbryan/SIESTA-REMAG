@@ -1,0 +1,6 @@
+{
+  "url": "https://gitlab.com/siesta-project/siesta.git",
+  "tag": "5.4.2",
+  "commit": "e486d12067b96ff688179f0496d0ec21b6fae0ab",
+  "submodules": ["External/libfdf", "External/xmlf90", "External/libpsml", "External/libgridxc"]
+}

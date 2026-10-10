@@ -1,0 +1,17 @@
+{
+  "scientific_qualified": true,
+  "performance_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "provisional_single_pair_speedup": 43.128884266872156,
+  "local_cpu_verification_pending": false,
+  "mae_verified": false,
+  "actual_gpu_execution_verified": true,
+  "full_upstream_completed": true,
+  "full_candidate_completed": true,
+  "reference_seconds": 10060.055474984,
+  "candidate_seconds": 233.25563937,
+  "direct_cpu_comparison": "upstream-comparison.json",
+  "raw_output_files": 18,
+  "allocation_released": true,
+  "artifact_recovery": "upstream-HSX-recovery.json"
+}

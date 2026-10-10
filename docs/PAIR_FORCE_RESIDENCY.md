@@ -1,0 +1,81 @@
+# Kinetic and overlap force contractions
+
+The conventional resident baseline must retain the final density and energy-density matrices through all force consumers. The existing grid snapshot already owns both matrices. Kinetic and overlap still use exported CPU matrices and CPU integral contractions. The `native/pair_force.{hpp,cu}` primitive now participates in an independently qualified material shadow against retained device D/E; CPU outputs remain authoritative.
+
+## Pinned arithmetic and indexing
+
+The oracle extracts the sparse accumulation and force blocks literally from pristine `kinefsm.F` and `overfsm.f90`. Each row first accumulates every matching sparse entry, including duplicate columns, with the spin loop inside the sparse-entry loop. These terms read `spin%spinor` components: one for unpolarized calculations and two for collinear, non-collinear and SOC calculations. Additional stored D/E components are not used by these two terms.
+
+For each retained neighbor query, kinetic adds `Di(jo)*Tij` to kinetic energy and `Di(jo)*grTij` to the first unit-cell atom's force, subtracting it from the second. Overlap uses `-Di(jo)*grSij` and does not use the integral's scalar value or change energy. Both add `xij(jx)*fij(ix)/volume` to `stress(jx,ix)`. The primitive keeps this multiplication and division order, including the column-major stress layout. Outer strict cutoffs and periodic query selection remain the geometry owner's responsibility; the previously qualified two-center evaluator has its own inclusive cutoff.
+
+`PairForceView` uses one-based orbital and atom indices, zero-based sparse row offsets, a padded sparse capacity stride, and interleaved value/gradient and displacement arrays. Each GPU query sums its matching sparse entries in upstream order. Force, stress and kinetic energy then accumulate with device atomics; their global summation order can differ from the serial reference. The kernel launches on a caller-provided stream without allocation, copies, synchronization, host status polling or I/O. Configuration/index and nonfinite-arithmetic errors update a sticky device status. Invalid queries do not contribute, and accumulation overflow also marks the result invalid. A nonzero status always disqualifies physical output.
+
+## CPU oracle
+
+[The retained oracle](../results/pair-force-oracle-20261006/reference.json) has 52 fixtures covering empty queries/rows, repeated sparse columns, gaps in padded storage, periodic atom pairs including identical unit-cell atoms, absent density entries, storage with one/two/four/eight components, one/three additive executions, and a 131,073-query strided tail. Exact input bytes are reconstructable from the saved arrays and configuration hashes. A second reference omits the final query for tail-fault validation.
+
+[Independent reanalysis](../results/pair-force-oracle-20261006/pair-force-oracle-verification.json) reproduces all input hashes and checks the contractions using separate array gathers. Maximum discrepancy from the literal serial Fortran output is 4.974e-13. GPU qualification and material integration are separate requirements; CPU oracle success establishes neither.
+
+## Isolated GPU qualification
+
+[Run 20261006T190534Z](../results/20261006T190534Z/REPORT.md) passes all 202 GPU scenarios and independent retained-input/output checks. The audit reconstructs all 1,352 executed input arrays. The 104 normal executions cover all 52 pristine Fortran fixtures in ordinary and captured modes; maximum absolute discrepancy is 4.122e-13. All 98 captured executions contain one kernel and no forbidden nodes. Fault checks include invalid indices and sparse spans, nonfinite inputs, arithmetic and accumulator overflow, sticky status, unused spin components, overlap's unused scalar value, host rejection and the 131,073-query launch tail. Shape-derived allocations and explicit probe transfers reconcile independently.
+
+The complete probe was committed before Modal preempted the container. The platform retry failed because its run directory already existed; the recovered run contains no completed material result. Its 166 source hashes, six retained component hashes and 166 corresponding working runtime files verify. The probe library hash matches the preceding run exactly. That preceding run's Fe2 force regression independently reproduces from raw stdout, eigenvalues and RHO/DRHO, but its original probe verdict remains failed because two host-error checks expected stage 2 instead of stage 3. Correcting that expectation changed the checker, not the native library. No identity of the two runs' SIESTA executables is claimed.
+
+The A100-SXM4-80GB allocation is stopped with zero tasks and an empty container inventory. Local validation passes 75 tests. This qualifies the isolated primitive only: no production force consumer uses it yet, and no material speedup, electronic-export removal or complete residency claim follows from these checks.
+
+## Material handoff still required
+
+Connect the qualified primitive to the actual query topology and retained D/E, with complete material shadows before making results authoritative. Keep immutable S/T tables for their table lifetime and stage geometry/index mappings once per geometry before SCF. Do not upload final D/E or download intermediate integral/force arrays for the production path.
+
+The existing shared grid accumulator spans core, neutral and dfscf. Kinetic precedes the CPU nonlocal term, while overlap follows the grid terms. Its current initial-host-force equality guard must not be bypassed to fit the new consumers. Extend ownership and accumulation deliberately across that ordering, migrate scalar and complex off-site SOC nonlocal contractions, and publish final forces/stress only once. Retain legacy exports until every supported consumer has moved. Final scientific gates include forces, stress, relaxation, density and both directional MAE comparisons.
+
+## Material shadow under validation
+
+`--pair-force-shadow` requires the device SCF cycle, authoritative grid forces and `--two-center-shadow`. It adds an ordered kinetic/overlap lease to the immutable final D/E snapshot. Kinetic must complete before grid consumers start; overlap must follow their completion. Analysis and geometry reset reject incomplete pair consumers. The original grid accumulator and its unchanged-host-input guard remain intact.
+
+At each pair consumer, the adapter verifies sparse metadata against a fingerprint retained by the actual grid geometry owner, records each orbital/atom mapping immediately after its integral query, and requires one-to-one alignment. The same captured graph generates two-center values/gradients, performs their complete comparison and contracts the GPU result against retained D or E. No density matrix is uploaded. CPU energy/forces/stress remain authoritative during this shadow.
+
+Diagnostic query/CSR metadata and initial force/stress values currently stage after SCF. Complete small energy/force/stress output vectors return for comparison and are buffered in `remag-pair-force.json` until shutdown. The distinct `pair_force_shadow` accounting boundary includes those transfers; none are claimed removed by this diagnostic. Per consumer, its upload is `16*queries + 8*rows + 4*capacity + 16 + 8*(3*atoms+10)` bytes and its output is `8*(3*atoms+10)` bytes. Integral inputs, full derivative references and the shared terminal status remain accounted under the existing two-center boundary. Empty queries retain one contraction kernel to validate device configuration.
+
+The native handoff probe covers 22 lifecycle/metadata scenarios at four spin-storage widths, including mutation of the original D/E device buffers after snapshot retention. Material shadow qualification has passed. Next move compact query/topology preparation before SCF and connect production contributions to an extended final accumulator; the diagnostic's CPU reference uploads and per-consumer exports must disappear before residency is qualified.
+
+### Recovered Fe2 evidence
+
+[Interrupted run 20261006T192943Z](../results/20261006T192943Z/REPORT.md) completed Fe2 forces and all nine relaxation geometries before its worker disappeared. Both scientific comparisons independently reproduce from raw stdout, eigenvalues and RHO/DRHO. All 20 pair contributions pass across 280,360 queries; maximum energy, force and stress discrepancies are 8.669e-13 Ry, 3.123e-16 Ry/Bohr and 7.720e-17 Ry/Bohr³. The recovered 202-case primitive audit passes. All 88 handoff scenarios and all 957 recovered component hashes now pass independent verification. This is partial material coverage, not the full collinear/non-collinear/SOC qualification.
+
+The automatic restart initially failed on the existing run directory. The launcher now gives each attempt an input/source/binary identity, preserves interrupted attempts in separate directories, and uses a distinct runtime hardware identity per attempt. A completed response can be repackaged without rerunning. No scientific or timing evidence is merged across attempts. Three local recovery tests bring the suite to 78 passing tests. A real preemption in the next run exercised the new preservation/restart path successfully. The subsequent run `20261006T195822Z` completed and passed the full material gate, as recorded below.
+
+## Kinetic/overlap retained-state material shadow qualified
+
+[Run 20261006T195822Z](../results/20261006T195822Z/REPORT.md) passes all nine materials and both Gamma/sampled-k directional MAE comparisons. All eleven scientific checks reproduce from raw stdout, eigenvalues and requested RHO/DRHO. Across 17 geometries, including nine relaxation steps, 34 kinetic/overlap contributions cover 1,370,568 queries using retained device D/E and GPU-generated S/T derivatives. Maximum energy, force and stress discrepancies are 4.514e-11 Ry, 1.833e-15 Ry/Bohr and 2.554e-15 Ry/Bohr³. Energy uses the existing absolute-plus-relative gate; no gate changed.
+
+All 88 retained-state handoff scenarios, 202 pair-contraction scenarios, 79 two-center scenarios, 52 comparison scenarios and 26 two-center owner scenarios pass independent audits. The shared-force/grid-owner checks pass, together with cycle, force, final-grid, density and 18 retained-field checks. All 173 archived source hashes and 957 component-evidence hashes verify; 173 working runtime files matched at recovery before beginning the SOC-projector addition. Local validation passes 78 tests.
+
+All 350 electronic iterations record zero explicit host/device transfers. This run is untraced and does not close independent larger-case CUDA, managed/mapped-memory or complete I/O coverage. Pair diagnostics add 28,185,968 upload bytes and 7,520 output bytes after SCF, with zero D/E upload bytes. CPU pair outputs remain authoritative. No electronic export has been removed by this shadow and no new speedup is qualified.
+
+The completed attempt ran on an A100 80GB PCIe with driver 580.95.05. Its app stopped with zero tasks and an empty container inventory. An earlier automatically interrupted attempt was preserved separately; all completed material evidence belongs to attempt `2ff40ef2fd78420386d1c6bea0643dda`, with no cross-attempt merge.
+
+Next stage geometry/index data before SCF, move scalar and complex SOC nonlocal contractions to the retained electronic state, extend final accumulation across all force consumers, and remove intermediate reference uploads/readbacks and legacy electronic exports after their remaining consumers migrate. Learned acceleration remains deferred.
+
+## Pre-SCF shared pair geometry: implementation awaiting GPU qualification
+
+The next candidate stages orbital-pair row/column/atom mappings, registry pairs, displacements and sparse metadata during the matrix-only kinetic H0 traversal. Kinetic and overlap use the same strict orbital cutoff and traversal; both final traversals must reproduce the staged mappings and coordinates exactly. `pair_geometry_state` binds the preparation after the grid epoch advances, preserves the device snapshot through kinetic and overlap, and rejects stale or unordered consumption. No new runtime switch bypasses validation: this replaces geometry staging inside the existing pair shadow.
+
+The new `pair_geometry` boundary stages `48*queries + 8*rows + 4*capacity` bytes once per geometry before SCF. Pair consumers subsequently upload only their diagnostic problem and initial output vectors, `16 + 8*(3*atoms+10)` bytes each. The two-center shadow borrows registry/coordinate device pointers and still uploads complete CPU derivative references. On the previously qualified 17-geometry corpus, the shape-derived projection is 36,018,040 geometry bytes instead of 72,036,080 repeated metadata bytes. These are projections, not measurements from the new implementation. CPU pair outputs, diagnostic comparisons/readbacks and legacy electronic exports remain.
+
+Strict C++ syntax checks, compilation of the patched Fortran adapters/consumers and all 78 local tests pass. A six-scenario native probe covers immutable device snapshots, two consumers, empty queries, correction/reuse and stale leases. It is wired into the next single-GPU material run but has not run on CUDA yet. The existing 20261006T232754Z run qualifies the preceding nonlocal-owner change; it does not contain this new staging implementation. The shared final accumulator and single final publication remain the next production migration.
+
+## Completed shared geometry qualification
+
+Run [20261006T235525Z](../results/20261006T235525Z/REPORT.md) verifies the projected reduction: 36,018,040 initial geometry bytes replace 72,036,080 repeated bytes for matched topology/query records. All nine materials, two MAE comparisons and six geometry probes pass retained-evidence checks. 373 electronic iterations have zero explicit copies. CPU pair/nonlocal outputs remain authoritative in this archive. The subsequent shared accumulator candidate is locally compiled but not GPU validated.
+
+## Authoritative shared accumulator candidate
+
+The opt-in `--integral-force` candidate replaces final CPU kinetic, scalar/SOC nonlocal and overlap traversals with the prepared geometry and retained GPU D/E. One stream accumulates those terms, retained Hartree stress, atomic grid terms and dfscf. The ten energy components and force/stress vectors stay in a contiguous device allocation. A single terminal publication reads sticky status and then the complete result; no per-term status/vector readback or CPU derivative-reference upload occurs in this code path. Geometry, basis and electronic owners remain held until that publication succeeds. Native kernel graphs are checked to contain only the expected kernels.
+
+This mode requires authoritative grid/atomic/orbital derivatives and final-grid reuse; pair/nonlocal/two-center shadows are mutually exclusive. Initial neutral-ion forces/stress still come from CPU naefs/dnaefs. Grid geometry/configuration staging, CPU global energy/stress bookkeeping, legacy electronic analysis exports and final diagnostic files remain tracked boundaries, so this candidate is not a claim of fully GPU-resident final observables.
+
+The adapter now bypasses the CPU integral block in final_H_f_stress, leaves the host initial force/stress unchanged through all consumers, and defers update_E0 until terminal energies arrive. Offsite SOC publishes the same scalar plus four real/four imaginary energy layout as the validated shadow. The new retained-input auditor reconciles prepared geometry, derivative owners, graph/query counts and explicit staging/output bytes, and requires separate raw upstream scientific comparisons.
+
+Local strict C++ syntax, patched Fortran and 78 tests passed. A full image build caught an overlong fixed-format error message before GPU allocation; the message was shortened and every patched Fortran unit now compiles with the production 72-column limit. The failed build is retained under results/preflight-integral-force-v77. Corrected single-A100 validation is in progress. New production publication/terminal-failure probes, material agreement and transfer reanalysis remain pending; no new speedup or complete-residency qualification is claimed.

@@ -1,0 +1,214 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_cycle
+  use iso_c_binding, only: c_int,c_double,c_ptr,c_loc,c_null_ptr
+  use m_remag_dm, only: remag_dm_check,remag_cycle_enabled,remag_cycle_request,remag_initialization_enabled
+  use m_remag_scf, only: remag_scf_guard,remag_scf_charge
+  use m_remag_integral_force, only: remag_integral_force_enabled
+  use m_remag_population, only: remag_population_prepare
+  implicit none
+  interface
+    integer(c_int) function remag_cycle_h_export_gated() bind(C)
+      import c_int
+    end function
+    integer(c_int) function remag_cycle_spectrum_deferred() bind(C)
+      import c_int
+    end function
+    integer(c_int) function remag_cycle_analysis_spectrum(n,e) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: n
+      real(c_double),intent(out) :: e(*)
+    end function
+    integer(c_int) function remag_cycle_prepare(c,v,num,ptr,cols,mapping,xyz,k,w,s,kin,vkb,on,off, &
+        h,hold,d,dold,e,eold) bind(C)
+      import c_int,c_double,c_ptr
+      integer(c_int),intent(in) :: c(*),num(*),ptr(*),cols(*),mapping(*)
+      real(c_double),intent(in) :: v(*),xyz(*),k(*),w(*),s(*),kin(*),vkb(*)
+      type(c_ptr),value :: on,off,eold
+      real(c_double),intent(inout) :: h(*),hold(*),d(*),dold(*),e(*)
+    end function
+    integer(c_int) function remag_cycle_execute(geometry,iterations,converged) bind(C)
+      import c_int
+      integer(c_int),value :: geometry
+      integer(c_int),intent(out) :: iterations,converged
+    end function
+    integer(c_int) function remag_cycle_initial_result(values,mix,note) bind(C)
+      import c_int,c_double
+      real(c_double),intent(out) :: values(*)
+      integer(c_int),intent(out) :: mix,note
+    end function
+    integer(c_int) function remag_cycle_export(n,e,q) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: n
+      real(c_double),intent(out) :: e(*),q(*)
+    end function
+    integer(c_int) function remag_cycle_diagnostic(iteration,v,converged) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: iteration
+      real(c_double),intent(out) :: v(*)
+      integer(c_int),intent(out) :: converged
+    end function
+  end interface
+contains
+  subroutine remag_cycle_guard()
+    use siesta_options
+    use m_check_walltime, only: WALLTIME_WARNING
+    use fdf
+    use sys, only: die
+    use parallel, only: SIESTA_worker
+    use atomlist, only: no_u,no_l
+    call remag_scf_guard()
+    if(remag_cycle_spectrum_deferred()==1.and.writetdwf) &
+        call die('REMAG deferred spectrum: TD wavefunctions still require host occupations')
+    if(.not.SIESTA_worker.or.no_l/=no_u.or.neigwanted/=no_u.or.fixspin.or.diag_wfs_cache/=0) &
+        call die('REMAG device SCF: requires serial full-band diagonalization, variable spin')
+    if(.not.leqi(fdf_string('OccupationFunction','FD'),'FD').or.fdf_get('SingleExcitation',.false.)) &
+        call die('REMAG device SCF: requires FD occupations without excitation')
+    if(fdf_get('Read-H-from-file',.false.).or.fdf_get('timing-split-scf-steps',.false.).or. &
+        WALLTIME_WARNING<huge(1._c_double)) &
+        call die('REMAG device SCF: read-H, per-step timing and walltime callbacks unsupported')
+  end subroutine
+  subroutine remag_cycle_run(geometry,iterations,converged)
+    use precision, only: dp
+    use m_dhscf, only: nmpl
+    use m_remag_basis, only: remag_basis_prepare
+    use m_remag_atomic_basis, only: remag_atomic_basis_prepare
+    use sparse_matrices
+    use class_dSpData1D, only: val
+    use class_dSpData2D, only: val
+    use class_zSpData2D, only: val
+    use atomlist, only: no_u,no_s,indxuo,Qtot
+    use m_spin, only: spin
+    use m_energies, only: Ena,Eions,Emad,Ecorrec,E_dftu_so,E_correc_dc,DUext,Emm,Emeta,Edftu,Evdw_d3,E_bulk_bias
+    use siesta_options
+    use m_mixing_scf, only: scf_mix
+    use kpoint_scf_m, only: gamma_scf,kpoint_scf
+    use m_eo, only: eo,qo,scf_eigenvalues_available
+    use m_compute_dm, only: PreviousCallDiagon
+    use m_ts_options, only: TS_DE_save
+    use m_ts_options, only: TS_HS_save,ts_write_history=>write_tshs_history
+    use band, only: nbk
+    use writewave, only: nwk
+    use m_ksvinit, only: nkpol
+    use fdf, only: fdf_get,fdf_isblock
+    use m_steps, only: istp
+    use m_remag_history, only: remag_history_enabled
+    use m_remag_force, only: remag_final_grid_shadow_enabled,remag_final_density_shadow_enabled
+    use sys, only: die
+    use parallel, only: IONode
+    integer,intent(in) :: geometry
+    integer,intent(out) :: iterations
+    logical,intent(out) :: converged
+    integer(c_int) :: c(19),decision,mask,nk,ns,soc,kind,need_final_h,energy_exports,density_exports,initial_mix,initial_note
+    integer(c_int) :: h_exports
+    real(dp) :: initial_values(2)
+    real(dp) :: v(15)
+    real(dp),allocatable :: k(:,:),w(:)
+    real(dp),pointer :: kin(:),vkb(:),on(:,:)
+    complex(dp),pointer :: off(:,:)
+    type(c_ptr) :: onp,offp,eoldp
+    call remag_cycle_guard()
+    if(E_dftu_so/=0._dp.or.E_correc_dc/=0._dp.or.DUext/=0._dp.or.Ecorrec/=0._dp.or. &
+        Emm/=0._dp.or.Emeta/=0._dp.or.Edftu/=0._dp.or.Evdw_d3/=0._dp.or.E_bulk_bias/=0._dp) &
+        call die('REMAG device SCF: unsupported energy correction')
+    nk=merge(1,kpoint_scf%N,gamma_scf)
+    allocate(k(3,nk),w(nk))
+    ns=spin%spinor
+    if(gamma_scf) then
+      k=0._dp;w=1._dp
+      if(spin%NCol) then
+        ns=1;w=0.5_dp
+      endif
+    else
+      k=kpoint_scf%k;w=kpoint_scf%w
+    endif
+    kind=merge(0,2,spin%none.or.spin%Col)+merge(0,1,gamma_scf)
+    kin=>val(H_kin_1D);vkb=>val(H_vkb_1D)
+    soc=0;onp=c_null_ptr;offp=c_null_ptr;eoldp=c_null_ptr
+    if(associated(Eold)) eoldp=c_loc(Eold(1,1))
+    if(spin%SO_onsite) then
+      on=>val(H_so_on_2D);onp=c_loc(on(1,1));soc=1
+    else if(spin%SO_offsite) then
+      off=>val(H_so_off_2D);offp=c_loc(off(1,1));soc=2
+    endif
+    mask=merge(1,0,converge_DM)+merge(2,0,converge_H)+merge(4,0,converge_EDM)+ &
+         merge(8,0,converge_Eharr)+merge(16,0,converge_FreeE)
+    need_final_h=merge(1,0,recompute_H_after_scf)
+#ifdef FINAL_CHECK_HS
+    need_final_h=1
+#endif
+    ! Host H is needed only by explicit files, legacy analysis or diagnostics.
+    ! Keep the compatibility path unchanged unless the gated mode is selected.
+    h_exports=1
+    if(remag_cycle_h_export_gated()==1)then
+      h_exports=merge(2,0,write_H_at_end_of_cycle)+ &
+          merge(4,0,savehs.or.write_coop.or.write_hs_history)+ &
+          merge(8,0,TS_HS_save.or.ts_write_history)+merge(16,0,idyn==6.and.fc_save_dhs)
+      if(nbk>0.or.nwk>0.or.nkpol>0.or.bornz.or.do_pdos.or.write_coop.or.w90_processing.or. &
+          w90_wrapper_processing.or.writetdwf.or.fdf_isblock('LocalDensityOfStates').or. &
+          fdf_get('OpticalCalculation',.false.))h_exports=h_exports+32
+      if(need_final_h==1.or.remag_final_grid_shadow_enabled()==1)h_exports=h_exports+64
+    endif
+    energy_exports=merge(0,1,remag_integral_force_enabled()/=0)+merge(2,0,TS_DE_save)
+    ! D consumers: legacy history/forces, DM, TSDE, NetCDF, legacy analysis,
+    ! and diagnostic shadows. Keep each boundary explicit in native evidence.
+    density_exports=merge(0,1,remag_history_enabled()==1)+merge(4,0,TS_DE_save)
+    if(write_DM_at_end_of_cycle.and. &
+        (.not.(idyn==6.or.idyn==7.or.idyn==9).or.istp==1))density_exports=density_exports+2
+    if(dumpcharge.or.bornz.or.(spin%SO.and.orbmoms))density_exports=density_exports+16
+    if(remag_final_grid_shadow_enabled()==1.or.remag_final_density_shadow_enabled()==1) &
+        density_exports=density_exports+32
+#if defined(CDF) && defined(NCDF_4)
+    ! The resident-SCF guard rejects per-iteration DM writes. The remaining
+    ! NetCDF EDM consumer is save_density_matrix at the end of this cycle.
+    if(write_cdf.and.write_DM_at_end_of_cycle) energy_exports=energy_exports+4
+    if(write_cdf.and.write_DM_at_end_of_cycle)density_exports=density_exports+8
+#endif
+    c=[kind,no_u,maxnh,spin%H,no_s,nk,scf_mix%n_hist,ns,soc,merge(1,0,converge_EDM), &
+        merge(1,0,mix_scf_first),mask,min_nscf,nscf,need_final_h,merge(1,0,saverho)+merge(2,0,savedrho), &
+        energy_exports,density_exports,h_exports]
+    v=[scf_mix%w,scf_mix%rv(1),scf_mix%rv(-3),Temp,Qtot,dm_normalization_tol,occtol, &
+        dDtol,dHtol,tolerance_EDM,tolerance_Eharr,tolerance_FreeE,Ena,Eions,Emad]
+    if(.not.associated(eo).or..not.associated(qo)) call die('REMAG cycle: missing spectrum storage')
+    if(size(eo)/=no_u*spin%spinor*nk.or.size(qo)/=size(eo)) call die('REMAG cycle: spectrum shape mismatch')
+    call remag_basis_prepare(nmpl)
+    call remag_atomic_basis_prepare()
+    call remag_population_prepare()
+    call remag_dm_check(remag_cycle_prepare(c,v,numh,listhptr,listh,indxuo,xijo,k,w,S,kin,vkb,onp,offp, &
+        H,Hold,Dscf,Dold,Escf,eoldp))
+    call timer('remag_device_cycle',1)
+    call remag_dm_check(remag_cycle_execute(geometry,iterations,decision))
+    call timer('remag_device_cycle',2)
+    if(remag_initialization_enabled()==1)then
+      call remag_dm_check(remag_cycle_initial_result(initial_values,initial_mix,initial_note))
+      mix_scf_first=initial_mix==1
+      if(initial_note==1.and.IONode)write(6,'(a,2f20.8)') &
+          'Note: For starting DM, Qtot, Tr[D*S] =',Qtot,initial_values(1)
+    endif
+    call remag_dm_check(remag_cycle_export(size(eo),eo,qo))
+    converged=decision==1;PreviousCallDiagon=.true.;scf_eigenvalues_available=.true.;Ecorrec=0._dp
+    deallocate(k,w)
+  end subroutine
+  subroutine remag_cycle_report(iteration,dD,dH,dE,dQ,expected)
+    use m_energies
+    use siesta_options, only: converge_EDM
+    use atomlist, only: Qtot
+    use m_spin, only: spin
+    integer,intent(in) :: iteration
+    real(c_double),intent(out) :: dD,dH,dE,dQ
+    logical,intent(out) :: expected
+    real(c_double) :: v(28)
+    integer(c_int) :: decision
+    call remag_dm_check(remag_cycle_diagnostic(iteration,v,decision))
+    Ebs=v(1);DEharr=v(2);Etot=v(3);Eharrs=v(4);FreeE=v(5);DEna=v(6)
+    dD=v(7);dH=v(8);dE=-1._c_double
+    if(converge_EDM) dE=v(9)
+    remag_scf_charge=0._c_double;remag_scf_charge(1:4)=v(10:13)
+    dQ=v(10)-Qtot
+    if(spin%Grid>1) dQ=dQ+v(11)
+    Ekin=v(14);Enl=v(15);Eso=v(16);Ef=v(17);Efs=Ef;Entropy=v(18)
+    Uscf=v(20);DUscf=v(21);Uatm=v(22);Enaatm=v(23);Enascf=v(24)
+    Ex=v(25);Ec=v(26);Exc=Ex+Ec;Dxc=v(27)+v(28)
+    call update_E0()
+    expected=decision==1
+  end subroutine
+end module

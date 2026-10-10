@@ -1,0 +1,183 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_basis
+  use iso_c_binding, only: c_int,c_double,c_float
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  private
+  public :: remag_basis_prepare,remag_initial_mesh_shadow_enabled,remag_initial_mesh_check
+  public :: remag_initial_mesh_enabled,remag_initial_mesh_produce
+  interface
+    integer(c_int) function remag_initial_mesh_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_initial_mesh_poison_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_initial_mesh_host_poison(phi,density,harris) bind(C)
+      import
+      real(c_float),intent(in) :: phi(*)
+      real(c_double),intent(in) :: density(*)
+      real(c_double),value :: harris
+    end function
+    integer(c_int) function remag_initial_mesh_prepare(c,b,cutoff,volume,ends,orbitals,unit,occupation) bind(C)
+      import
+      integer(c_int),intent(in) :: c(*),ends(*),orbitals(*),unit(*)
+      real(c_double),intent(in) :: b(*),occupation(*)
+      real(c_double),value :: cutoff,volume
+    end function
+    integer(c_int) function remag_initial_mesh_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_initial_mesh_shadow(c,b,cutoff,volume,ends,unit,occupation, &
+        phi,density,potential,harris,stress) bind(C)
+      import
+      integer(c_int),intent(in) :: c(*),ends(*),unit(*)
+      real(c_double),intent(in) :: b(*),occupation(*),density(*),potential(*),stress(*)
+      real(c_float),intent(in) :: phi(*)
+      real(c_double),value :: cutoff,volume,harris
+    end function
+    integer(c_int) function remag_orbital_basis_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_orbital_basis_prepared(no,np,entries,nsp) bind(C)
+      import
+      integer(c_int),value :: no,np,entries,nsp
+    end function
+    integer(c_int) function remag_orbital_basis_stage(c,pi,sp,orb,radial,values,second, &
+        entry_orbital,entry_offset,orbital_atom,orbital_local,atom_species,offset,subpoint,atom_offset) bind(C)
+      import
+      integer(c_int),intent(in) :: c(*),sp(*),orb(*),entry_orbital(*),entry_offset(*), &
+          orbital_atom(*),orbital_local(*),atom_species(*)
+      real(c_double),value :: pi
+      real(c_double),intent(in) :: radial(*),values(*),second(*),offset(*),subpoint(*),atom_offset(*)
+    end function
+  end interface
+contains
+  subroutine remag_initial_mesh_produce(mesh,nsm,no,nuo,np,cell,occupation,density,harris)
+    use precision, only: dp,grid_p,phi_grid_p,sp
+    use meshphi, only: endpht,lstpht,phi,DirectPhi
+    use atomlist, only: indxuo
+    use cellsubs, only: reclat,volcel
+    use m_chkgmx, only: chkgmx
+    use parallel, only: Nodes
+    use sys, only: die
+    use, intrinsic :: ieee_arithmetic, only: ieee_value,ieee_quiet_nan
+    integer,intent(in) :: mesh(3),nsm,no,nuo,np
+    real(dp),intent(in) :: cell(3,3),occupation(*)
+    real(dp),intent(out) :: density(*),harris
+    integer(c_int) :: config(8)
+    real(dp) :: b(3,3),cutoff,zero(3),volume
+    if(remag_initial_mesh_enabled()/=1)call die('REMAG initial mesh production not enabled')
+    if(Nodes/=1.or.DirectPhi.or.grid_p/=dp.or.phi_grid_p/=sp) &
+      call die('REMAG initial mesh: requires serial stored FP32 orbitals and FP64 grids')
+    if(remag_initial_mesh_shadow_enabled()==1.or.remag_orbital_basis_active()/=1) &
+      call die('REMAG initial mesh: incompatible shadow/basis settings')
+    call remag_basis_prepare(np)
+    config=[mesh,nsm,no,nuo,np,endpht(np)]
+    call reclat(cell,b,1)
+    cutoff=1.e30_dp;zero=0._dp
+    call chkgmx(zero,b,mesh,cutoff)
+    volume=volcel(cell)
+    call timer('remag_initial_mesh',1)
+    call remag_dm_check(remag_initial_mesh_prepare(config,b,cutoff,volume,endpht,lstpht,indxuo,occupation))
+    call timer('remag_initial_mesh',2)
+    harris=ieee_value(0._dp,ieee_quiet_nan)
+    if(remag_initial_mesh_poison_enabled()==1)then
+      phi(:,1:endpht(np))=ieee_value(0._sp,ieee_quiet_nan)
+      density(1:product(mesh))=ieee_value(0._dp,ieee_quiet_nan)
+      call remag_dm_check(remag_initial_mesh_host_poison(phi,density,harris))
+    endif
+  end subroutine
+  subroutine remag_initial_mesh_check(mesh,nsm,no,nuo,np,cell,occupation,density,potential,harris,stress)
+    use precision, only: dp,grid_p,phi_grid_p,sp
+    use meshphi, only: endpht,phi,DirectPhi
+    use atomlist, only: indxuo
+    use cellsubs, only: reclat,volcel
+    use m_chkgmx, only: chkgmx
+    use parallel, only: Nodes
+    use sys, only: die
+    integer,intent(in) :: mesh(3),nsm,no,nuo,np
+    real(dp),intent(in) :: cell(3,3),occupation(*),density(*),potential(*),harris,stress(3,3)
+    integer(c_int) :: config(8)
+    real(dp) :: b(3,3),cutoff,zero(3),volume
+    if(remag_initial_mesh_shadow_enabled()/=1)return
+    if(Nodes/=1.or.DirectPhi.or.grid_p/=dp.or.phi_grid_p/=sp) &
+      call die('REMAG initial mesh: requires serial stored FP32 orbitals and FP64 grids')
+    if(remag_orbital_basis_active()/=1) call die('REMAG initial mesh: requires orbital basis owner')
+    call remag_basis_prepare(np)
+    config=[mesh,nsm,no,nuo,np,endpht(np)]
+    call reclat(cell,b,1)
+    cutoff=1.e30_dp;zero=0._dp
+    call chkgmx(zero,b,mesh,cutoff)
+    volume=volcel(cell)
+    call timer('remag_initial_mesh_shadow',1)
+    call remag_dm_check(remag_initial_mesh_shadow(config,b,cutoff,volume,endpht,indxuo,occupation, &
+      phi,density,potential,harris,stress))
+    call timer('remag_initial_mesh_shadow',2)
+  end subroutine
+  subroutine remag_basis_prepare(nmpl)
+    use atm_types, only: species,nspecies
+    use atomlist, only: no_s,iaorb,iphorb
+    use siesta_geom, only: na_s,isa
+    use mesh, only: dxa,xdop,xdsp,nsp,mop
+    use meshphi, only: endpht,lstpht,listp2,DirectPhi
+    use units, only: pi
+    use parallel, only: Nodes
+    use precision, only: dp,grid_p
+    use sys, only: die
+    integer,intent(in) :: nmpl
+    integer(c_int) :: config(9),prepared
+    integer(c_int),allocatable :: sp(:,:),orb(:,:),sample_begin(:)
+    real(c_double),allocatable :: radial(:,:),values(:),second(:)
+    integer :: is,ir,io,n,total,nb,begin,sample,maxrad,index
+    if(remag_orbital_basis_active()/=1) return
+    if(Nodes/=1.or.DirectPhi.or.grid_p/=dp) call die('REMAG orbital basis requires serial stored FP64 grids')
+    if(nmpl<1.or..not.associated(endpht)) call die('REMAG orbital basis: absent mesh')
+    prepared=remag_orbital_basis_prepared(no_s,nmpl,endpht(nmpl),nsp)
+    if(prepared<0) call remag_dm_check(prepared)
+    if(prepared==1) return
+    if(.not.allocated(species).or.nspecies<1) call die('REMAG orbital basis: missing species')
+    nb=0;total=0;maxrad=0
+    do is=1,nspecies
+      nb=nb+species(is)%norbs;maxrad=max(maxrad,species(is)%n_orbnl)
+      if(.not.associated(species(is)%orbnl)) call die('REMAG orbital basis: missing radial tables')
+      do ir=1,species(is)%n_orbnl
+        n=species(is)%orbnl(ir)%n
+        if(n<0.or.n==1) call die('REMAG orbital basis: invalid radial sample count')
+        total=total+n
+      enddo
+    enddo
+    if(.not.associated(endpht).or..not.associated(lstpht).or..not.associated(listp2)) &
+      call die('REMAG orbital basis: missing mesh mapping')
+    if(size(dxa,2)<na_s.or.size(xdop,2)<mop.or.size(xdsp,2)<nsp) &
+      call die('REMAG orbital basis: incomplete mesh coordinates')
+    allocate(sp(2,nspecies),orb(4,nb),radial(2,nb),values(max(1,total)),second(max(1,total)),sample_begin(maxrad))
+    values=0._c_double;second=0._c_double;begin=0;sample=0
+    do is=1,nspecies
+      sp(:,is)=[begin,species(is)%norbs]
+      do ir=1,species(is)%n_orbnl
+        n=species(is)%orbnl(ir)%n;sample_begin(ir)=sample
+        if(n>0) then
+          if(.not.associated(species(is)%orbnl(ir)%f).or..not.associated(species(is)%orbnl(ir)%d2)) &
+            call die('REMAG orbital basis: absent radial samples')
+          values(sample+1:sample+n)=species(is)%orbnl(ir)%f(1:n)
+          second(sample+1:sample+n)=species(is)%orbnl(ir)%d2(1:n)
+        endif
+        sample=sample+n
+      enddo
+      do io=1,species(is)%norbs
+        ir=species(is)%orb_index(io);index=begin+io
+        if(ir<1.or.ir>species(is)%n_orbnl) call die('REMAG orbital basis: invalid radial index')
+        orb(:,index)=[species(is)%orbnl(ir)%n,sample_begin(ir),species(is)%orb_l(io),species(is)%orb_m(io)]
+        radial(:,index)=[species(is)%orbnl(ir)%cutoff,species(is)%orbnl(ir)%delta]
+      enddo
+      begin=begin+species(is)%norbs
+    enddo
+    config=[nspecies,nb,total,endpht(nmpl),nsp,no_s,na_s,mop,nmpl]
+    call timer('remag_basis_setup',1)
+    call remag_dm_check(remag_orbital_basis_stage(config,pi,sp,orb,radial,values,second, &
+      lstpht,listp2,iaorb,iphorb,isa,xdop,xdsp,dxa))
+    call timer('remag_basis_setup',2)
+    deallocate(sp,orb,radial,values,second,sample_begin)
+  end subroutine
+end module

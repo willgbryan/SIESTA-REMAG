@@ -1,0 +1,17 @@
+include README.md CONTRIBUTING.md LICENSE NOTICE upstream.lock.json modal_app.py requirements-dev.lock.txt
+recursive-include native *.cpp *.cu *.cuh *.hpp *.in *.inc *.f90 CMakeLists.txt GRIDXC_NOTICE
+recursive-include scripts *.py
+recursive-include tests *.py *.json
+recursive-include docs *.md
+include benchmarks/README.md
+recursive-include benchmarks/solver-regressions *.json *.npz
+recursive-include benchmarks/evidence *.md *.json *.fdf
+prune upstream
+prune build
+prune results
+prune runs
+prune tmp
+prune artifacts
+prune benchmarks/generated
+prune benchmarks/published
+global-exclude __pycache__ *.py[cod] .DS_Store

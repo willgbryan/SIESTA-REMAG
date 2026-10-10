@@ -1,0 +1,151 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_nonlocal_force
+  use iso_c_binding, only: c_int,c_double,c_double_complex,c_ptr,c_loc,c_null_ptr
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  interface
+    integer(c_int) function remag_nonlocal_h0_poison_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_nonlocal_h0_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_nonlocal_h0_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_nonlocal_h0_neighbor(orbital,xyz) bind(C)
+      import
+      integer(c_int),value :: orbital
+      real(c_double),intent(in) :: xyz(*)
+    end function
+    integer(c_int) function remag_nonlocal_h0_projectors(neighbors,projectors,registry) bind(C)
+      import
+      integer(c_int),value :: neighbors,projectors
+      integer(c_int),intent(in) :: registry(*)
+    end function
+    integer(c_int) function remag_nonlocal_h0_split_warning() bind(C)
+      import
+    end function
+    integer(c_int) function remag_nonlocal_h0_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_nonlocal_h0_matrix(phase,capacity,h,z) bind(C)
+      import
+      integer(c_int),value :: phase,capacity
+      type(c_ptr),value :: h,z
+    end function
+    integer(c_int) function remag_nonlocal_force_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_nonlocal_force_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_nonlocal_begin(mode,consumer,atoms,rows,columns,capacity,split,volume, &
+        num,ptr,list,force,stress) bind(C)
+      import
+      integer(c_int),value :: mode,consumer,atoms,rows,columns,capacity,split
+      real(c_double),value :: volume
+      integer(c_int),intent(in) :: num(*),ptr(*),list(*)
+      real(c_double),intent(in) :: force(*),stress(*)
+    end function
+    integer(c_int) function remag_nonlocal_center(count,projectors,atom,blocks,row,column,atoms,offset,angular,epsilon) bind(C)
+      import
+      integer(c_int),value :: count,projectors,atom,blocks
+      integer(c_int),intent(in) :: row(*),column(*),atoms(*),offset(*),angular(*)
+      real(c_double),intent(in) :: epsilon(*)
+    end function
+    integer(c_int) function remag_nonlocal_end(mode,energy,force,stress) bind(C)
+      import
+      integer(c_int),value :: mode
+      real(c_double),intent(in) :: energy(*),force(*),stress(*)
+    end function
+    integer(c_int) function remag_nonlocal_bind_geometry() bind(C)
+      import
+    end function
+  end interface
+contains
+  subroutine remag_nonlocal_h0_warning(ill_defined)
+    logical,intent(out) :: ill_defined
+    integer(c_int) :: code
+    code=remag_nonlocal_h0_split_warning()
+    if(code<0)call remag_dm_check(code)
+    ill_defined=code==1
+  end subroutine
+  subroutine remag_nonlocal_h0_capture(phase,capacity,h,z)
+    use, intrinsic :: ieee_arithmetic, only: ieee_value,ieee_quiet_nan
+    integer,intent(in) :: phase,capacity
+    real(c_double),intent(inout),target :: h(*)
+    complex(c_double_complex),intent(inout),target,optional :: z(*)
+    type(c_ptr) :: off
+    real(c_double) :: poison
+    off=c_null_ptr
+    if(present(z)) off=c_loc(z(1))
+    call remag_dm_check(remag_nonlocal_h0_matrix(phase,capacity,c_loc(h(1)),off))
+    if(phase==1.and.remag_nonlocal_h0_poison_enabled()==1)then
+      poison=ieee_value(0._c_double,ieee_quiet_nan)
+      h(1:capacity)=poison
+      if(present(z))z(1:4*capacity)=cmplx(poison,poison,kind=c_double_complex)
+      call remag_dm_check(remag_nonlocal_h0_matrix(2,capacity,c_loc(h(1)),off))
+    endif
+  end subroutine
+  subroutine remag_nonlocal_record_center(consumer,nua,nno,nkb,kua,iano,iono,iph,ks)
+    use parallel, only: Node,Nodes
+    use parallelsubs, only: GlobalToLocalOrb
+    use atmfuncs, only: epskb,kbproj_gindex
+    use atm_types, only: species
+    use sys, only: die
+    integer,intent(in) :: consumer,nua,nno,nkb,kua,iano(*),iono(*),iph(*),ks
+    integer,allocatable :: rows(:),offset(:),angular(:),registry(:)
+    real(c_double),allocatable :: epsilon(:,:)
+    integer :: i,b,l,first,last,width
+    if(remag_nonlocal_force_active()/=1) return
+    if(nkb==0) then
+      if(nno/=0) call die('REMAG zero-projector nonlocal center has neighbors')
+      return
+    endif
+    if(remag_nonlocal_h0_enabled()==1)then
+      allocate(registry(nkb))
+      do i=1,nkb
+        registry(i)=kbproj_gindex(ks,iph(i))
+      enddo
+      call remag_dm_check(remag_nonlocal_h0_projectors(nno,nkb,registry))
+    endif
+    allocate(rows(max(1,nno)),offset(nkb),angular(nkb),epsilon(2,nkb))
+    rows=0;offset=0;angular=0;epsilon=0._c_double
+    do i=1,nno
+      if(iano(i)<=nua) call GlobalToLocalOrb(iono(i),Node,Nodes,rows(i))
+    enddo
+    b=0;i=1
+    do while(i<=nkb)
+      b=b+1
+      if(consumer==2) then
+        offset(b)=i-1;epsilon(1,b)=epskb(ks,iph(i));i=i+1
+      else
+        first=-iph(i)
+        if(first<1.or.first>nkb) call die('REMAG invalid SOC projector index')
+        l=species(ks)%pj_l(first);angular(b)=l;offset(b)=first-1
+        if(l<0.or.l>5) call die('REMAG unsupported SOC projector angular order')
+        width=1
+        if(l>0) width=2*(2*l+1)
+        if(i+width-1>nkb) call die('REMAG truncated SOC projector block')
+        last=-iph(i+width-1)
+        if(last-first+1/=width) call die('REMAG SOC projector slice width differs')
+        epsilon(1,b)=epskb(ks,first)
+        if(l>0) epsilon(2,b)=epskb(ks,last)
+        i=i+width
+      endif
+    enddo
+    call remag_dm_check(remag_nonlocal_center(nno,nkb,kua,b,rows,iono,iano,offset,angular,epsilon))
+  end subroutine
+  subroutine remag_nonlocal_finish(matrix_only,enl,force,stress,eso)
+    logical,intent(in) :: matrix_only
+    real(c_double),intent(in) :: enl,force(*),stress(*)
+    complex(c_double),intent(in),optional :: eso(4)
+    real(c_double) :: energy(9)
+    energy=0._c_double;energy(1)=enl
+    if(present(eso)) then
+      energy(2:5)=real(eso,kind=c_double);energy(6:9)=aimag(eso)
+    endif
+    call remag_dm_check(remag_nonlocal_end(merge(0,1,matrix_only),energy,force,stress))
+  end subroutine
+end module

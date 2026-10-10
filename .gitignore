@@ -1,0 +1,35 @@
+# Local environments and Python caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Upstream checkout, builds, and raw experimental evidence stay local.
+# Selected, compact records are versioned under benchmarks/evidence/.
+upstream/
+build/
+dist/
+runs/
+results/
+tmp/
+artifacts/
+*.nsys-rep
+*.sqlite
+benchmarks/generated/
+benchmarks/published/gold-water/
+.modal-run.lock
+
+# Credentials and local application state
+.env
+.env.*
+!.env.example
+.modal.toml
+.aws/
+.codex/
+.agents/
+.DS_Store

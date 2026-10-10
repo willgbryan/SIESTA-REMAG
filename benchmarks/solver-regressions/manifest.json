@@ -1,0 +1,67 @@
+{
+  "scope": "Finite positive-overlap Fe54 inputs where the experimental XsyevBatched block solver failed; expected successful solve, never accepted physical output from a failed run.",
+  "arrays_file": "fe54-failures.npz",
+  "arrays_sha256": "a857b3b30034f2def44008dad1938b16673ecb032cd80e1f9e85fbb36df9ec09",
+  "cases": [
+    {
+      "label": "fe54_from_local64_failure",
+      "source_run": "20261006T090823Z",
+      "source_failure": {
+        "status": 1,
+        "producer_status": 3,
+        "stage": 1,
+        "block": 0,
+        "pass": 1,
+        "accepted_iterations": 36,
+        "dimension": 486,
+        "complex_values": false,
+        "local_solver_info": 22,
+        "local_pair": 7,
+        "local_round": 0,
+        "local_sweep": 10,
+        "matrix_layout": "Fortran column-major, last assembled solver input"
+      },
+      "n": 486,
+      "complex": false,
+      "expected_status": 0,
+      "lower_triangle_authoritative": true,
+      "source_sha256": {
+        "remag-failed-h.bin": "f43589f7ed0e2870f908693456c912868c37108bd825ca5f1da4522f9fd4cb84",
+        "remag-failed-s.bin": "1690d609e160459d1941c842b7bd94efc54df82fefb205e1fbc5fd85a4d01964"
+      }
+    },
+    {
+      "label": "fe54_from_local32_failure",
+      "source_run": "20261006T092854Z",
+      "source_failure": {
+        "status": 1,
+        "producer_status": 3,
+        "stage": 1,
+        "block": 1,
+        "pass": 1,
+        "accepted_iterations": 3,
+        "dimension": 486,
+        "complex_values": false,
+        "local_solver_info": 30,
+        "local_pair": 3,
+        "local_round": 12,
+        "local_sweep": 6,
+        "local_dimension": 32,
+        "matrix_layout": "Fortran column-major, last assembled solver input"
+      },
+      "n": 486,
+      "complex": false,
+      "expected_status": 0,
+      "lower_triangle_authoritative": true,
+      "source_sha256": {
+        "remag-failed-h.bin": "3fbcbde198d2903d08b7fcf8831bdc6aadf33115fc97d347b9e8b7b97eaa9187",
+        "remag-failed-s.bin": "c1ce7fabe2bd8cbd675c01b80ea2235bcdcc313a46782a7020fd812ab23371e0"
+      }
+    }
+  ],
+  "reference": {
+    "solver": "scipy.linalg.eigh, gvd, lower-triangle Hermitian reconstruction",
+    "scipy": "1.18.1",
+    "numpy": "2.5.3"
+  }
+}

@@ -1,0 +1,99 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_two_center
+  use iso_c_binding, only: c_int,c_double,c_int64_t
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  private
+  public :: remag_two_center_prepare,remag_two_center_shadow_enabled,remag_two_center_active
+  public :: remag_two_center_begin,remag_two_center_finish,remag_two_center_record,remag_dm_check
+  interface
+    integer(c_int) function remag_two_center_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_two_center_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_two_center_begin(consumer) bind(C)
+      import
+      integer(c_int),value :: consumer
+    end function
+    integer(c_int) function remag_two_center_finish(consumer) bind(C)
+      import
+      integer(c_int),value :: consumer
+    end function
+    integer(c_int) function remag_two_center_observe(kind,a,b,xyz,value,gradient) bind(C)
+      import
+      integer(c_int),value :: kind,a,b
+      real(c_double),intent(in) :: xyz(*),gradient(*)
+      real(c_double),value :: value
+    end function
+    integer(c_int) function remag_two_center_stage(kind,c,delta,pi,ind,offsets,ilm,ri,cutoff,radial,coefficients) bind(C)
+      import
+      integer(c_int),value :: kind
+      integer(c_int),intent(in) :: c(*),ind(*),offsets(*),ilm(*),ri(*)
+      real(c_double),value :: delta,pi
+      real(c_double),intent(in) :: cutoff(*),radial(*),coefficients(*)
+    end function
+  end interface
+contains
+  subroutine remag_two_center_record(kind,a,b,xyz,value,gradient)
+    integer,intent(in) :: kind,a,b
+    real(c_double),intent(in) :: xyz(3),value,gradient(3)
+    if(remag_two_center_active()/=1) return
+    call remag_dm_check(remag_two_center_observe(kind,a,b,xyz,value,gradient))
+  end subroutine
+  subroutine remag_two_center_prepare(s,t)
+    use precision, only: dp
+    use parallel, only: Nodes
+    use matel_table_m, only: matel_t
+    use sys, only: die
+    type(matel_t),intent(in) :: s,t
+    if(remag_two_center_active()/=1) return
+    if(Nodes/=1.or.dp/=c_double) call die('REMAG two-center shadow requires serial FP64 tables')
+    call timer('remag_two_center_setup',1)
+    call stage(1,s);call stage(2,t)
+    call timer('remag_two_center_setup',2)
+  end subroutine
+  subroutine stage(kind,t)
+    use matel_table_m, only: matel_t
+    use matel_params_m, only: NRTAB,DRTAB,pi
+    use m_matel_registry, only: rcut
+    use sys, only: die
+    type(matel_t),intent(in) :: t
+    integer,intent(in) :: kind
+    integer(c_int) :: c(11)
+    integer :: nf,i
+    integer(c_int64_t) :: cells,bytes
+    real(c_double),allocatable :: cutoff(:),radial(:,:,:),coefficient(:)
+    integer(c_int),allocatable :: ind(:),offsets(:),ilm(:),ri(:)
+    if(.not.associated(t%SpHa1).or..not.associated(t%SpHa2)) call die('REMAG missing two-center expansions')
+    if(.not.associated(t%SpHa1,t%SpHa2).or.t%SpHa1%base/=0.or.NRTAB/=1024.or.t%MODE/=kind) &
+      call die('REMAG unsupported two-center table owner')
+    nf=t%SpHa1%N
+    if(nf<1.or.t%NFFR<0.or.t%NFFY<0.or.t%MAT_ROWS<1.or.t%MAT_COLS<1) call die('REMAG empty two-center table')
+    cells=int(t%MAT_ROWS,c_int64_t)*int(t%MAT_COLS,c_int64_t)
+    if(nf>1000000.or.t%NFFR>1000000.or.t%NFFY>100000000.or.cells>100000000_c_int64_t) &
+      call die('REMAG two-center dimensions exceed staging limits')
+    bytes=4_c_int64_t*(int(nf,c_int64_t)+1+cells+1+2_c_int64_t*t%NFFY)+ &
+          8_c_int64_t*(int(nf,c_int64_t)+2050_c_int64_t*t%NFFR+t%NFFY)
+    if(bytes>4_c_int64_t*1024**3) call die('REMAG two-center table exceeds 4 GiB staging limit')
+    if(.not.associated(t%SpHa1%IND).or..not.associated(t%INDFFY).or..not.associated(t%FFR).or. &
+       .not.associated(t%FFY).or..not.associated(t%ILMFF).or..not.associated(t%INDFFR)) &
+      call die('REMAG missing two-center table arrays')
+    if(size(t%SpHa1%IND)<nf+1.or.size(t%INDFFY,kind=c_int64_t)<cells+1.or. &
+       lbound(t%FFR,1)/=0.or.size(t%FFR,1)<1025.or.size(t%FFR,2)/=2.or.size(t%FFR,3)<t%NFFR.or. &
+       size(t%FFY,1)/=1.or.size(t%FFY,2)<t%NFFY.or.size(t%ILMFF)<t%NFFY.or.size(t%INDFFR)<t%NFFY) &
+      call die('REMAG truncated two-center table')
+    allocate(cutoff(nf),ind(nf+1),offsets(int(cells)+1), &
+      radial(0:1024,2,max(1,t%NFFR)),coefficient(max(1,t%NFFY)),ilm(max(1,t%NFFY)),ri(max(1,t%NFFY)))
+    do i=1,nf
+      cutoff(i)=rcut(i)
+    enddo
+    ind=t%SpHa1%IND(1:nf+1);offsets=t%INDFFY(1:size(offsets))
+    radial=0._c_double;coefficient=0._c_double;ilm=1;ri=1
+    radial(:,:,1:t%NFFR)=t%FFR(0:1024,1:2,1:t%NFFR)
+    coefficient(1:t%NFFY)=t%FFY(1,1:t%NFFY);ilm(1:t%NFFY)=t%ILMFF(1:t%NFFY);ri(1:t%NFFY)=t%INDFFR(1:t%NFFY)
+    c=[nf,t%NFFR,t%NFFY,t%MAT_ROWS,t%MAT_COLS,t%BASE_SPHA1,t%BASE_SPHA2,t%min_ig1,t%max_ig1,t%min_ig2,t%max_ig2]
+    call remag_dm_check(remag_two_center_stage(kind,c,DRTAB,pi,ind,offsets,ilm,ri,cutoff,radial,coefficient))
+  end subroutine
+end module

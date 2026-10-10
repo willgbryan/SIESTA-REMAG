@@ -1,0 +1,361 @@
+{
+  "integrated": true,
+  "integrated_at_utc": "2026-10-09T22:37:03.633882+00:00",
+  "run_id": "fp64-matrix-qualification-v178-20261009T215709Z",
+  "base_run": "fp64-vector-qualification-v175-20261009T205055Z",
+  "candidate_screen": "fp64-matrix-tiles-v176-20261009T213621Z",
+  "image_id": "im-1U2ZnxmQQlDqw1VEGqVh5x",
+  "numerical_image_id": "im-0wOd8z0UeArUgXqXgyQQt8",
+  "changed_files": [
+    "native/block_jacobi.cu",
+    "modal_app.py",
+    "src/siesta_remag/runner.py"
+  ],
+  "production_sha256": {
+    "native/block_jacobi.hpp": "4b2a49237a1c26bc9545642230f33fabb2663fe595fa4750bd39d0bb426ad789",
+    "native/atomic_density.cu": "ccc74782ad4ae33de764fca3b63d8aa8765731a24cfaa6d6e1cb65660cf5ea1c",
+    "native/scf_convergence.hpp": "a3a3bd7c008064b143ae4a933d7b95d558e4d0738c92f9257ea1855db8d9750b",
+    "native/initial_state.hpp": "3b5febc4cf0811a3f70ab57234740e600ac7d5448fff0a30859b0fe4f469f4db",
+    "native/nonlocal_h0_state.hpp": "63278c9984ccb78fc67b591c3609c9cd572cb93a716792e3e3699bd0891bba80",
+    "native/spin_rotation.cu": "14eb57f475524e5a4f74035d248612a049f2d527018e2fa20278c276aadd29e9",
+    "native/radial_batch.cu": "6199f152ce3a00b5dbcb57e9ce68a6d54e4e1f5cb96a7dac44d060adf723dde1",
+    "native/pair_force.cu": "1212f4514dcfe5594c21a439ead5f20f86294782f30aec91757d08a27f68f457",
+    "native/population.cu": "107bb51fbf27eb9dd3e32889a3a078474bb9b4eb8f00c0d99b5b0500362a658b",
+    "native/check_hamiltonian_graph.cu": "acf88c2e2bb00772d861a1faa1fc931febec4499e1b98ed241f434dd4b36e7e4",
+    "native/atomic_grid_force_shadow.cpp": "944de4ca171b69634490920edc5debcfdb1a8042ad2f738c19f958477b8b9378",
+    "native/spin_rotation.hpp": "c3937e37acdd1da576c070dc1715324d358631f2704f08cb4dd3d33ed0e34790",
+    "native/final_grid_state.cpp": "203447421f97ac891eecc71ae7bce15fe4501417ea1fc02fdeb48182751069ab",
+    "native/population_observables.cu": "8c9903f4cdf8dda55c5560caa268aea3849756b4419405be33dcdc0e87da2f04",
+    "native/nonlocal_compact.hpp": "7d66052d0f3601d2bda1ae15c0dae42c15d858924a10d01cf35af0b38d822db6",
+    "native/scf_control.cu": "aad88e0a009355c305883d1332f3090c8235b83c60ee331b5362f502c6d8fede",
+    "native/pair_force_state.hpp": "a776d57c2bbc9f895dd8e025b5589c353ff8686d343d085ed6afc86934982490",
+    "native/check_atomic_basis.cu": "c42b1c5fbcff5f0e5b63b0b0eb5f8d89fbe579452211591a9f20bccd71b508b3",
+    "native/hamiltonian.hpp": "687815333e412f48e56098f366282da77d9ca75455a8309310af19f5fc9ea028",
+    "native/check_hartree.cu": "18d6e9dbe46dc11c24023c8dc445246b54a2636ca0ae645fb0164dc703b31572",
+    "native/occupation_state.cpp": "09d76ddba375bdb6a6635bfba6bcfa250abfe095487ba9020fc567c407549cd5",
+    "native/check_pbe.cu": "139b6dcb38b5c352289c7f42924deb20c8224562258291ce5cf8a0d5014b84fa",
+    "native/initial_harris.hpp": "0c650fa8b2928f58a6ea271e38132ad09f8b00d1461da52a4e4b6189e6383030",
+    "native/nonlocal_h0.hpp": "faa72cf3ea40a3c810a7646ef0fa359e80737e9f729f0cf2fc387856f0a87d59",
+    "native/nonlocal_force.hpp": "b1cf402b50474adfe8924ee700bc9f59b90fa728325323eed85547bb4b71f9a7",
+    "native/nonlocal_force_state.cpp": "408a6a4f004e326f287d9c4276ac93421207774209bece0d1a9e24963b127b87",
+    "native/scf_scalars.hpp": "3d98a9a119f3e97203526c67265b75327781a91fd9a2e6d140f32e6f43eee822",
+    "native/sparse_state.cu": "8ac220a8505077a7ea7203de5a50246bc91167cf2e5104d725c551f152a9e70e",
+    "native/CMakeLists.txt": "911df5ec48ca40b2ea64dc982b3dec778f272b9476115637e2970546116db834",
+    "native/final_grid.hpp": "9002b16c91c26b13a8f1f92bd4fb7948bf8ea66c25396d7ed2bc5355278e735b",
+    "native/check_grid_owner.cpp": "0ac2fc0abbb96899745a984a89029937d73da5fd47b86b7859a4476223e65e4c",
+    "native/atomic_basis.hpp": "b880b980222ee67c99413af7ca3d24b6cf2b64e13aa45f8198882fae21a3e4e2",
+    "native/pulay.hpp": "e6942282fbf95ab9f1b9b9e6a2f23b6cd985468e07df3a19bf6c6e21dfa3781e",
+    "native/check_integral_publication.cpp": "218ebc09d6c4a2293f1b9921c46f07bb8df7ba502624eb5b98ba46284a431aee",
+    "native/check_nonlocal_compact.cu": "f243dce987ad9341ca218e7516f19f8c7b7df61e2f1a36d0534323a0aa193317",
+    "native/soc_projector.cu": "25d25c67d13edc2d6841ff64d3061cbee8cbe16bff262f49e32502ed3c10a668",
+    "native/grid_force.cu": "6cb9919be2926d1d47522dfcbf1e53036150e44e5f2181d771b989aa9bc496a9",
+    "native/atomic_basis_comparison.cu": "c5417ff4ec1a22b6e3ddbfb695adc44aaf591e10729dc273b934dc10c263d0d3",
+    "native/grid_force.hpp": "b5dbb3a8069f00947629cbd0a7ec2509a51172e5415a0626317bfef9b25414e0",
+    "native/check_final_force.cpp": "19ef27b4a351fe5f57b77617bca2a1c2700a51c42dabdae95b08ca280e347138",
+    "native/check_atomic_grid_force.cu": "e4061f760827fddf6ad1cff600d1e53a20d01731eb5804e2c7c8b7b9b40cafed",
+    "native/two_center_state.cpp": "5e4bafa5921943b3b4efb66ff0f8776277a7b6ea6a1331d37968468de73b6b58",
+    "native/density_history.cu": "14c1bea45a86c4b01d4ee15f3e0914aa0ecc74ee9954ac022499b14e4e7ddab7",
+    "native/hartree.hpp": "028d3ce138812baed30152acf04c3fe0ebb4ee8f77006338d6751c9750292fec",
+    "native/check_grid_graph.cu": "f2aa06694064e9f2c2a393246928959bb871934a885555b2a6d814bfec7cf478",
+    "native/density_history_state.cpp": "4d23d04d7562918fa9dfd5c18962ccdfa75743065e2f4980190fcb5913e9233f",
+    "native/grid_potential_state.cpp": "a334034a24482f75588b24738fc8ae81a577b9f6a00c1d748dd418ba39771a0f",
+    "native/check_orbital_owner.cpp": "b9407cc7473afd692ed0a0abca6f74a92690ce3ff3ba1fb69c76033b886abaf4",
+    "native/initial_mesh_state.cpp": "14282be711e0455a86f58efcea1cfb4dbb251ad5877edd9dd5eca952c5972ede",
+    "native/remag_history.F90.in": "e613b152517f8067a97e44a4d6aa7c70bfa57d2db22319a531d5bb27157393b1",
+    "native/population.hpp": "50b2470014451c8127177aa2737c0bd1bf35d823be51f03e85040d2c7954eb48",
+    "native/grid.cu": "65158abb478a6a79c277dd9cac0d9cad933ba36c1ea8fd60c6143479e5b5f375",
+    "native/remag_orientations.F90.in": "ce2658ad4ac8ee162d383a0b137a19432780ea5317f3b68afd299443ee75005b",
+    "native/check_scf_convergence.cu": "bd6187e054b00033e46442946b35d1048753b3c1cad36e9b01b729c80e3228ce",
+    "native/check_pulay.cu": "87784c4b00c75687c012d6d774531fc7f94a44bd96b4de19b0f647e1db189687",
+    "native/check_nonlocal_owner.cpp": "0cd43a2e9904dae52c58c0984408b5ac6355b54f3eba4df26c46cd7b38c8dd5a",
+    "native/execution.hpp": "c4a4d61bfdeddebfc67ad73ab9f3d15ee5b48240b65ee04099e941221d37f832",
+    "native/orbital_basis_state.cpp": "29acaeedd1fdb517ec541134140cba8bd826c13e43bc1e96d0b115ea830cabdc",
+    "native/hamiltonian_seeds.hpp": "9f353ab235fb65b935ed779add56e6a29ab6aa3f45d096409f89459d085729e3",
+    "native/check_scf_cycle.cu": "0f58563a75be416159c29548dc61e4d8f717cc5444122f421e98310a4c060af0",
+    "native/orbital_basis.hpp": "677e2cf981909d4506946c94f4fb69f2f35a07831d3985648907b882e4b68644",
+    "native/check_two_center_owner.cpp": "684a4fc28b40d866a990295f2819a2f24074045dfd95773a0d983cae6e5cce51",
+    "native/check_soc_projector.cu": "d03d49ef006e8b7431c9366ad8c93541e18a8b23139bbbe9e773ed6f60a050a7",
+    "native/pair_force.hpp": "faf19ed584aafe8179ccd3d8a7853be0c57bdc855a7271a9e878ea17acfdb23a",
+    "native/check_atomic_owner.cpp": "fde57c71f0351554067b69ca22425924c523bd6991318f926efd736616351b66",
+    "native/population_status.cu": "2468fff64e0d4f6fc4d187c29b17b3e32b2a93f00554616b19d812cf0c1af819",
+    "native/check_grid_force.cu": "c76d5c2474ea989c07b54c3cc2d6b286b94f7b3929b9dd07940de292f7532b8f",
+    "native/atomic_grid_force.hpp": "cca3edd3783b1e1d13650d8fad2508f7c5faf8b0006b01dda141367c4e36fe4d",
+    "native/population_observables.hpp": "f3aa0809812df4184bb0550af2375ad977e8f9c815bfc014da47eb6676041b68",
+    "native/integral_force_state.cpp": "62366eb3f966a24c5877ff4eebd562c18bffdfcbaa239fcda0f235f929459f78",
+    "native/resident.hpp": "e66faa69a5e8129f53a6aee191a911e6ddd1e5fd5a1972cf943678a8d21194a6",
+    "native/density_history_math.hpp": "f184e70dcdb063030aeb5275938a5595f0e8635fe68c63e8ee81df034ebbf7f8",
+    "native/scf_cycle.hpp": "3ebc96fa2ee991991248967915aacbf0bc4b105906a48dca28d732722a67c26a",
+    "native/grid.hpp": "26b5279c454e9fe4bc4f39de7f04ddd2a16c77e712a76f9fdf79e694499968b1",
+    "native/scf_cycle.cu": "1bd22d20bd293184dbf20157624c047eaa7391e07c2b1b15d2f31fe14573e5b9",
+    "native/nonlocal_h0_detail.cuh": "f95f611144017e1a07a6d0560fcb05b0dbdfc2efe34e75203b88e0329deab820",
+    "native/population_state.hpp": "5069951a8c9d096aef8b43a314566cdb177a5be83e26eeeaad15cafb48feda2e",
+    "native/atomic_basis_state.hpp": "9f6c0cd1b7ee837329d9d2b2d3bace1074cbab94b3e3803f009e0e5e525afe82",
+    "native/remag_integral_force.F90.in": "80c7c36afcaed5a682914d291f8fef83647cda4595d0c751e2de0c0bcd7d564b",
+    "native/pair_geometry_state.hpp": "583727688b8a1c61dcc9d5b0a261f4aaa74c141192a1db96240b9105c961b6db",
+    "native/initial_harris.cu": "5ffa46810a42f48aff46272938fe57dec927c721b57f9420b56a437a9386628d",
+    "native/check_scf_scalars.cu": "a587ba4d0f54b167f38cb258e81566044ac7bcbd04fea405f43299b452f53542",
+    "native/pulay_math.hpp": "7cf2e0bb6bc2a5439ed605b744db162e2e6c3be90046f6ffe68b6938d1e0bf09",
+    "native/check_block_jacobi.cu": "f2791709eb76926a9154e3fe662a2ec47aa9b37cf9a155faf870e43992371570",
+    "native/check_initial_density.cu": "19f220f7c80e78ce144aa72ec5a4ef0bb793498dabc0a4e0417d3305d18b6e22",
+    "native/pulay.cu": "c894ed27d971d0c7756639b9caf43aa204ab90a9dffffa98324e7c2e4bb801a4",
+    "native/check_pair_force.cu": "33aa54fd102a5eeeee96f618ca726f52c4308f5deb8fe4f256ce861150ecb7f1",
+    "native/hartree_state.cpp": "fa38fcbc3b645ab8699e61911910e76d6eb528d9c0c63a28225fe3ae2c597e1c",
+    "native/activity.cpp": "9581321fe8f30c196a7b64d4f40e5286c591cc5b0d1026d09ffe83f07801289a",
+    "native/check_population.cpp": "2c224d0ca03ff50431935e11a242e32d601cc3e21b42c9c9335b63a1731609f7",
+    "native/hamiltonian_seeds.cu": "150284d119087ff312519b901884e6e311d8b5f9b84036ca492f81e807b8a4d3",
+    "native/remag_cycle.F90.in": "2fe89a0621ea88ca9770baf4714c039958cdc32c4c46ce17f9f14b743ed6d423",
+    "native/remag_atomic_basis.F90.in": "9fb04f97d957a87308c147f47c7449cc2cddf5baeb7fab29eb61ed48285d997b",
+    "native/initial_mesh_state.hpp": "9a381aa9f776c2f91df7f46b52aca25a1058fbdb921f751fd982142421f525c6",
+    "native/final_accumulator.cu": "517bc5a3888940e422cf11754727a1858a6206350c790b4ebaccae91c9ee477a",
+    "native/atomic_basis.cu": "0410108dd7d05fd327cc13bdeb8c7dd6ac22f2dfba3d6e93a2eb2ee51e5b6647",
+    "native/density_history.hpp": "ad2500c7bed630003dc655dd564137462df6c8f1f3033474797c75c2655f543a",
+    "native/scf_control.hpp": "88d9a9c738d4fe56ab36c4cc80f5442544540314ff40e9c98400aa5d3f42dcd0",
+    "native/check_pair_handoff.cpp": "5b5c9932235c890dfb83b8aca4b72197b1eb5eb2a83120dc352e8dc1673b7896",
+    "native/execution.cpp": "66658b6798b19a9277d268c42f231196902556f68942588f4a67ac312d34b830",
+    "native/orbital_basis_state.hpp": "afd42b0e8588559fdb3ab0eebf615ea4dfe57d286283d6e43d26edf8eccec0c2",
+    "native/final_grid.cu": "374698fbe94875409b44de31ba66335cb317d6a83f006a02b553a450790e551b",
+    "native/hartree.cu": "cc58f5595f8eb0bfbf8e159221ecddf7b19b468f72cb38d8b82646fff3e01d6f",
+    "native/grid_force_shadow.cpp": "715250cc4eefd26cca7fa15c5d795211436abd7c61742db5fbcff1c7690d2331",
+    "native/scf_scalars.cu": "c7031cbdf0b709ee3e8c8a37d8f8d6863b0f4196ddeea7501742cc21b0a32cff",
+    "native/soc_projector.hpp": "7a5d09fdca2e1966051e2efb4473786c8ee05ea26d574face47ff96fcb7f17a9",
+    "native/GRIDXC_NOTICE": "95cad0d9f8b7db366ce51608bf5b83600a0ac296aa753f37321ecaf93aae05eb",
+    "native/integral_force_state.hpp": "a6ec78d40f70e2be8eb337b87c643b9db0eb187fd5877a4b3a0142d614828fc9",
+    "native/soc_projector_detail.cuh": "e5e07439621378426d1fde6a4a1aa9e97d239f484ded41660f5fc711eb4bae79",
+    "native/pbe.hpp": "fee4ceb5467ee03d9636f1d0062dcafb70f4115bd6a31a7fc8b6d1558f5d4979",
+    "native/two_center_comparison.cu": "2529ff6ed2b651df74be5a319858b18798dace2a2a6383a34e2beb41ac46961a",
+    "native/check_hamiltonian_seeds.cu": "59e55d3ae8193a2d34ae9b075e5ff50e058163ccf3f3d45fb97636da21adffe8",
+    "native/occupations.hpp": "f4d471eb2e2d8a21722e346e01e43118e31fb508fc372d81e0337bff237e07cb",
+    "native/check_small_eigensolver.cu": "00c3ac863e75d15fedc175b31bea146bf0be913af85a8c0390b938eb6e4abb4c",
+    "native/orbital_basis.cu": "3e44a2cbcbad537e5ec37c8e363730afd650b0475810e03c6ffb9fab0d1647fa",
+    "native/nonlocal_force_detail.cuh": "863f968fb7f4ef61899e9979c5aea6c5bce041995025cd697bb455a1ce1c42ab",
+    "native/density_matrix.cu": "2a7b0f32fce7be5c962fb63da212b4b8be5e4caa1bd87b33c14afc75b87b1550",
+    "native/remag_population.F90.in": "705f1d5679267750a72bbb98fb9dcb84df01c4e85cc41efd270c1048fa090a26",
+    "native/probe_graph.cu": "c9c713e94d75688baeb913e448413ac1faf3530304ff8edd06356238adf39374",
+    "native/initial_mesh_production.cpp": "f19a3c79df221cd4f5f1e6cffdb55becce8811a3efcc0cacf8895cf6d7e092d8",
+    "native/check_density_history.cu": "a4bbef04335ccb01e3c67d360c29f78e277b15894ed588b39e3f9b9abf75696c",
+    "native/nonlocal_force.cu": "7dc823b7af5a9652b48706d2bc12fbe99d63a9b220c51d253a65522c82ba09dc",
+    "native/atomic_basis_state.cpp": "4a25e89acb7021ac0ec917967e9daef2e9838aa23ed4e5065a56cc32e19a73b3",
+    "native/nonlocal_query.cu": "93a4158679dc94de5626c0e583eb5bf1ba342ceff4e67bd4546bc23a6166a8ed",
+    "native/population_state.cpp": "dfef0f7b584e1fad4be485fb18e6a89c1a960196eeee051eba35c229f865df26",
+    "native/grid_potential.cu": "8a19abb1df54a13d014dd73fa36fa3c7639ba7e207f686925f1d717d9038b732",
+    "native/population_observables_reference.f90": "764aa5f86bd833793bc2955cba47f0450c4c734938ee2dcf8d2ebdeaec727a93",
+    "native/nonlocal_compact.cu": "cb8007e100419c1842ddfceca2094e3f1b1790f54c7cbe094e0f62876c53fa1d",
+    "native/pair_geometry_state.cpp": "6a5e0f4c257c033e7108dc0c11a84513d61460c895ce84f43f3cf9e5d1c41d13",
+    "native/check_nonlocal_force.cu": "628e3476d321344de2bafaa8eabcbd21b649fb69c8e8a4a8ed111515d787c306",
+    "native/sparse_state.hpp": "df848451aea7ca14810bb507d0e15f3e1d5588c8129deb7d1c8d030bb54925a0",
+    "native/pbe_math.hpp": "445613656857853d214435db5849031052a7234d145f8640ae25c021823d3de4",
+    "native/two_center.cu": "754c49eeb2c7e6507725ac0e4c33d68b069cec4d584f75376bb37b0b5ca2c90d",
+    "native/remag_nonlocal_force.F90.in": "2ab38bb704c88a1b99d213ddd1c2c1b9bdcdb09d70dd572829439dc02f302e20",
+    "native/check_sparse_state.cu": "d3edc6e89512dae6b29ebe0e3a3ccb66c22fb94c21fff0336dfc6074a6bef364",
+    "native/hamiltonian.cu": "c449e54cb5d306e5f92446c0a41b5336ee328c79b7304c57615860f2f46aceaf",
+    "native/density_unique_kernels.inc": "0c06104a8838891d2af4fb5cdc4414bfa981ed66c5384aa9a0b096dd3671bab8",
+    "native/check_grid_potential.cu": "64ce9fc007d2b046e755618996facf41fbbd817e472e37580b030e8afe360b34",
+    "native/check_density_graph.cu": "7f31f2b9cd844bed1fdbc77016315d5031d276f02cb2c84544653cd74c1669cf",
+    "native/check_orbital_basis.cu": "649d55af561305ed989d29995fb751f8aee4b7ae5b10051d07a0b64605330f1c",
+    "native/initial_state.cpp": "9a21dacf2a87f8aa63e5aee418cce1ebb9483febe010ab175775c34641a278b3",
+    "native/initial_density.hpp": "26f1cad7d3b6806a73d432040f40f0ccb338004e1eccae6c9f45c02e85d42e6f",
+    "native/nonlocal_h0_state.cpp": "53c021e8540e492bf2d891e182c52c85480cca887347c774a78b59af52987ccc",
+    "native/nonlocal_query.hpp": "0aab233afd84a9b0909ce821c0b17d6ed25b956b7f7022c68d9824ceaa404fce",
+    "native/check_two_center.cu": "c7643ad54701b6082ddf63a2635014fa6314333af81664a29bb7d15dac835dbf",
+    "native/check_activity.cu": "cbc05f5d89f1f2b68f8f86c577b4173b949b774ad039cc83e3522087778e9c97",
+    "native/remag_force.F90.in": "aa111db498994069b2b0abc33f988b3930e2d24041fea4aa9d866745f8a2bb95",
+    "native/shared_local_jacobi.inc": "fd572fbf13e5aaed3e51f7986533a2b42021582b33af2c4cbac5f5699f307227",
+    "native/final_grid_state.hpp": "bfd7a6d4ef6c935a28c7f7ce3e1fd610381346ea71b35cc5968c5befec9b75d3",
+    "native/remag_pair_force.F90.in": "96b5efdc56f3e7dd8908fedae03b926a8cce46ae72dedcfa8e305b98da25bdd6",
+    "native/atomic_grid_force.cu": "16ae6e97ff8c9ee9e693a68acfef60a1586642e72cc24be81fa0e4e818c091be",
+    "native/pair_force_state.cpp": "b28a5af83335de8e4526910826d2641acbd89b8df6dd76c280709608efa1fd34",
+    "native/check_initial_state.cpp": "b0bb476e9cf89c1607f6187b0e8918823ccf15b5e012a8cf34a5fad435dcae75",
+    "native/scf_convergence.cu": "35ac469e960a79afd0d3faeda423ff94af79d69f2d5bcaadde35673f26ab1528",
+    "native/check_pair_geometry.cpp": "de57f4c46ea50b5fc23641c4735c1c049356e0d965b436c2e67688026edad23f",
+    "native/atomic_density.hpp": "074997b079556dcde769755cd3469246e28fb74d8c1ea1a58defc44adf60b2c2",
+    "native/remag_two_center.F90.in": "a3c20f3bebabe508af8f3366b2c2816ff8bceca223ae41b7d2be69a011011e00",
+    "native/scf_cycle_state.cpp": "c91d91dacaa6dd77bc463456857c1b88ff03c8f846b617ee764443c1087c0db8",
+    "native/nonlocal_force_state.hpp": "7b1c69d29d7d3f7a08ec4f06ee8f05d9ae25eecfda412e411c7abead0b713019",
+    "native/block_jacobi.cu": "dd36de7c23f67f60301ebeef9dac791147635f4292e878e5cc5acf765684e4f5",
+    "native/solver.cpp": "b791a980c08083c864a7eb0a4b20e3edb36d0b267a82cc6be7aa78b7aac931ed",
+    "native/initial_density.cu": "531a7c57143284458cf2839cd1c1d507f2fdfb145d5c0e31f305eea9891d8901",
+    "native/check_scf_control.cu": "606a5126a4620e167154af098b3bcaad77a7830bd1186e1119c538b77e769fa7",
+    "native/two_center.hpp": "c09de8972c1a8aaa420b5f0d7a205bca06bf9c5813d4d74e4e633b475fbf6688",
+    "native/occupations.cu": "40065cb1daa0458ceda732d3bd7bf345a4b22b104d454da4ec8197374fba8f64",
+    "native/nonlocal_h0.cu": "7e19ded35ba089e5e6902c471b46107fb6fd1eb2fc2251c6b3ac271cc9f2552e",
+    "native/two_center_state.hpp": "56996d4877d60c8be7b9cc3d1b399845fcfc8a9f9c0696b9d43888d0b8d72de0",
+    "native/check_occupations.cpp": "503d8cb88e905749d6c9bbc58bbd17a7828942775a69428f4c3f51021f64b04c",
+    "native/grid_potential.hpp": "98be127f3009e0f15d47515a3dbb880b4e558fce45003854572e8ca806313fc4",
+    "native/density_matrix.hpp": "c183835178358e29a40081375b211e04ad51898657c9d50903fb138e310487b5",
+    "native/density_history_state.hpp": "97ad015455a09f65f4d84e87db4a04e4c3e1793340e06cbbc1988d32bd8ba4a9",
+    "native/remag_basis.F90.in": "cad205b95b04ebc290d16d57eb355dd72c07e2efad3429977247c638a77e2a04",
+    "native/pbe.cu": "e8ded3e8b78808c9d7bf35be15a6b34d47bafde9e5026a18d7a5ea2d7ff2d9a1",
+    "scripts/patch_siesta.py": "c26ca661198914780bb47fa6ffadf4a5814a9546c9da696c1280ed187e68aa83",
+    "modal_app.py": "df4054ad120433c572a58d432d14498826b72d3cd9966fcb91b97296f5c9df3d",
+    "src/siesta_remag/runner.py": "c703408b267dc629eeeda7a8fe14770418386a5cdc9592293945fbf74513333c",
+    "src/siesta_remag/residency.py": "2c84b1ca77b5569375465bfd3baaf70a194193be04d2ddfbd87e16464c3294b4"
+  },
+  "measured_native_source_matches": true,
+  "measured_source_exception": "Unchanged inherited diagnostic-only check_seeded.cu and CMake test-library suffix remain outside production; their hashes match the accepted v163 image. The production kernel is byte-identical to the measured candidate.",
+  "measured_binary_sha256": {
+    "/opt/remag-fp64-matrix-control/siesta": "e9c444827228c6b680dc5f9a62bf54f422a0220e5a6add27766ecbc0a2da40d1",
+    "/opt/remag-candidate/Src/siesta": "e9c444827228c6b680dc5f9a62bf54f422a0220e5a6add27766ecbc0a2da40d1",
+    "/opt/remag-fp64-matrix-control/libremag_gpu.so": "bc9fab9790a8af74c9780f8485ae859b6c15f00471dc41805cad2048c24be3d2",
+    "/opt/remag-candidate/remag-native/libremag_gpu.so": "479381a3d20051a2540c12c823d2143bee091cd53c51d8ee4bfb2068dcaa50b6"
+  },
+  "change": "Complex Hermitian matrix rotation evaluates U_row^H P(A) U_col using FP64 8x8x4 tensor-core tiles and four shared 32x36 double planes. The intermediate remains in shared memory, and each lower-triangular tile writes its conjugate partner. No persistent workspace is added; precision, stopping tolerance and maximum sweeps are unchanged.",
+  "enable": {
+    "cli": "--fp64-matrix-rotation",
+    "environment": "REMAG_BLOCK_FP64_MATRIX=1",
+    "default": false,
+    "launcher_requires": [
+      "block_width=32",
+      "device_scf",
+      "vector_cache",
+      "fused_matrix_rotation"
+    ],
+    "measured_with": "FP64 vector rotation, shared local Jacobi, warm basis and eight solver lanes; exact settings in metadata.json"
+  },
+  "validation": {
+    "six_large_pristine_cpu_checks_passed": true,
+    "large_x_and_direct_mae_passed": true,
+    "direct_pristine_cpu": "upstream-comparison.json",
+    "remote_science": "remote-run-summary.json",
+    "timing_calculations": 18,
+    "large_x_calculations": 1,
+    "existing_regressions": [
+      "fe3_linear_soc_k2_xyz",
+      "fe54_collinear",
+      "fe16_noncollinear",
+      "fe2_relax"
+    ],
+    "orientation_sweep_passed": true,
+    "small_mae_checks": 9,
+    "generalized_solver_checks_reused": 36,
+    "seeded_trajectories_reused": 2,
+    "reuse_reason": "Exact v176 numerical libraries reused in v178",
+    "local_integration_checks": [
+      "Python compilation of modal_app.py and runner.py",
+      "Modal CLI help exposes --fp64-matrix-rotation without allocating compute",
+      "12 existing tests in tests/test_regression.py passed",
+      "Measured native kernel hash matches; other native numerical sources unchanged",
+      "Upstream clean at pinned e486d12067b96ff688179f0496d0ec21b6fae0ab"
+    ],
+    "local_wiring_note": "CLI guards, forwarding and result telemetry added after measurement; numerical source is unchanged."
+  },
+  "performance_qualified": true,
+  "performance_scope": "Incremental REMAG-v175 comparison on FePt128 full off-site SOC z on one A100-SXM4-80GB; no new upstream-GPU ratio.",
+  "large_statistics": {
+    "complete": true,
+    "medians": {
+      "accepted": 203.27527914899997,
+      "candidate": 190.832317299
+    },
+    "means": {
+      "accepted": 203.47249893733334,
+      "candidate": 190.92423687300004
+    },
+    "faster_pairs": 3,
+    "performance_improved": true,
+    "incremental_speedup": 1.0652036406941707
+  },
+  "small_statistics": {
+    "complete": true,
+    "medians": {
+      "accepted": 11.011168807999994,
+      "candidate": 11.02457983299999
+    },
+    "means": {
+      "accepted": 11.029370896666654,
+      "candidate": 11.021230029333339
+    },
+    "faster_pairs": 2,
+    "provisional_incremental_speedup": 0.9987835341388837,
+    "performance_improved": false
+  },
+  "large_pairs": [
+    {
+      "repeat": 1,
+      "seconds": {
+        "accepted": 204.13548844200005,
+        "candidate": 190.832317299
+      }
+    },
+    {
+      "repeat": 2,
+      "seconds": {
+        "candidate": 189.67925770600004,
+        "accepted": 203.006729221
+      }
+    },
+    {
+      "repeat": 3,
+      "seconds": {
+        "accepted": 203.27527914899997,
+        "candidate": 192.26113561400007
+      }
+    }
+  ],
+  "small_pairs": [
+    {
+      "repeat": 1,
+      "seconds": {
+        "accepted": 11.011168807999994,
+        "candidate": 10.904200316000015
+      }
+    },
+    {
+      "repeat": 2,
+      "seconds": {
+        "candidate": 11.02457983299999,
+        "accepted": 11.249782460999995
+      }
+    },
+    {
+      "repeat": 3,
+      "seconds": {
+        "accepted": 10.827161420999971,
+        "candidate": 11.13490993900001
+      }
+    }
+  ],
+  "large_mae": {
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.13804499999969266,
+    "candidate_mae_ev": 0.13804499999969266,
+    "convention": "E(x)-E(z)"
+  },
+  "large_workspace_bytes": [
+    9132023264
+  ],
+  "speedup_over_upstream_gpu": null,
+  "hardware": [
+    "NVIDIA A100-SXM4-80GB, GPU-6548a085-0f42-b2cc-fb83-6820dc8e3911, 580.95.05"
+  ],
+  "limits": [
+    "Small FePt16 pair median is slightly higher; no established gain and the flag stays off by default.",
+    "No automatic size threshold or broader hardware/material qualification.",
+    "SZP/100 Ry magnetic regression settings are not production materials convergence studies.",
+    "Existing upstream-GPU ratios are separate measurements and are not multiplied by this incremental gain."
+  ],
+  "allocation_release": {
+    "app_id": "ap-36wKE79QK30NarbAv5cubM",
+    "lifecycle": {
+      "lifecycle": {
+        "app_state": "APP_STATE_STOPPED",
+        "created_at": 1791583024.013514,
+        "created_by": "will-bryan421",
+        "stopped_at": 1791584865.447665
+      }
+    },
+    "containers": [],
+    "app_containers": [],
+    "allocation_released": true,
+    "inspected_at_utc": "2026-10-09T22:28:15.178782+00:00"
+  },
+  "evidence": {
+    "ledger": "ledger.json",
+    "summary": "summary.json",
+    "direct_cpu": "upstream-comparison.json",
+    "raw_downloads": "raw-output-recovery.json",
+    "source_archive": "implementation.tar.gz",
+    "source_notes": "../../docs/PROGRESS.md"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "recovered_at_utc": "2026-10-08T22:42:26.245025+00:00",
+  "app_id": "ap-gxG43r3SPMdWVQOpt8z6bc",
+  "remote_volume_path": "spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef",
+  "overall_attempt_complete": false,
+  "terminal_reason": "Modal preemption during Fe16; automatic new attempt stopped to avoid repeating completed Fe54 work",
+  "completed_case": "fe54_collinear",
+  "case_performance_qualified": true,
+  "case_speedup_over_upstream_gpu": 8.371629576363082,
+  "completed_case_summary_matches_preemption_backup": true,
+  "interrupted_case": "fe16_noncollinear",
+  "cross_attempt_timing_merge": false,
+  "raw_attempt_marker_preserved": true,
+  "large_raw_arrays": "Retained in the same Modal volume folder; compact evidence recovered locally"
+}

@@ -1,0 +1,23 @@
+SIESTA-REMAG
+
+This project's code is distributed under GPL-3.0-or-later, except where a
+file or third-party notice identifies different terms. See LICENSE.
+
+SIESTA
+  https://gitlab.com/siesta-project/siesta
+  Upstream source is fetched separately at the revision in upstream.lock.json.
+  SIESTA-REMAG modifies disposable copies through scripts/patch_siesta.py;
+  it is an independent derivative, not an official SIESTA release.
+  Preserve the copyright and license notices in the upstream distribution.
+
+libGridXC
+  The GPU PBE implementation adapts routines from pinned libGridXC.
+  The original copyright, redistribution conditions and disclaimer are
+  retained in native/GRIDXC_NOTICE and apply to those adapted portions.
+
+Other dependencies and data
+  NVIDIA CUDA libraries, Modal, Python packages and upstream submodules are
+  obtained separately and retain their respective licenses. They are not
+  relicensed by this repository. Benchmark pseudopotentials are obtained
+  from their recorded sources; generated inputs and the local raw-output
+  archive are not bundled in this source release.

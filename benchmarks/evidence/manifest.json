@@ -1,0 +1,135 @@
+{
+  "scope": "Selected existing comparison records and exact FDF inputs; raw binary outputs and historical source archives remain local. Records are copied verbatim, not remeasured.",
+  "files": [
+    {
+      "path": "upstream-gpu-refresh-v143-20261009T101214Z/qualification.json",
+      "local_source": "results/upstream-gpu-refresh-v143-20261009T101214Z/qualification.json",
+      "sha256": "604a204ee5176c42781f87fe1e38cac102784ff6c62cfbc1a529ab557733078d"
+    },
+    {
+      "path": "upstream-gpu-refresh-v143-20261009T101214Z/performance.json",
+      "local_source": "results/upstream-gpu-refresh-v143-20261009T101214Z/performance.json",
+      "sha256": "667e772b20269e4aab76e62fe4e8910d23b609c559d5ace1b3ab00b55d09d68c"
+    },
+    {
+      "path": "upstream-gpu-refresh-v143-20261009T101214Z/metadata.json",
+      "local_source": "results/upstream-gpu-refresh-v143-20261009T101214Z/metadata.json",
+      "sha256": "974802e0c9472fa3810e92a39a6ba803345b2b06591961fdb1d64465de0ea583"
+    },
+    {
+      "path": "upstream-gpu-refresh-v143-20261009T101214Z/direct-comparisons.json",
+      "local_source": "results/upstream-gpu-refresh-v143-20261009T101214Z/direct-comparisons.json",
+      "sha256": "f675cb7de30b42b30021c3bb9d2647fc5ecef6bc1294e3fb2a68c15df8247b03"
+    },
+    {
+      "path": "upstream-gpu-refresh-v143-20261009T101214Z/mae.json",
+      "local_source": "results/upstream-gpu-refresh-v143-20261009T101214Z/mae.json",
+      "sha256": "1ebeef74f5e149ca198f602b596ef6ce322631c3b17e953d928c0f5b14f66929"
+    },
+    {
+      "path": "upstream-gpu-refresh-v143-20261009T101214Z/inputs/fept16_soc_x/input.fdf",
+      "local_source": "results/upstream-gpu-refresh-v143-20261009T101214Z/inputs/fept16_soc_x/input.fdf",
+      "sha256": "2636385ff78d16342c8d79e6ed814a52b8009ae73b594122d7fbfb620f2fb5a5"
+    },
+    {
+      "path": "upstream-gpu-refresh-v143-20261009T101214Z/inputs/fept16_soc_z/input.fdf",
+      "local_source": "results/upstream-gpu-refresh-v143-20261009T101214Z/inputs/fept16_soc_z/input.fdf",
+      "sha256": "ea290e77b26b088836049ef4ef3376ef8067509fa1cd2a7dc1910b601c28e46b"
+    },
+    {
+      "path": "spin-layout-performance-v127b-20261008T224249Z/summary.json",
+      "local_source": "results/spin-layout-performance-v127b-20261008T224249Z/summary.json",
+      "sha256": "08fbbc6621734d6786c2375370db1ee65d716d07ec985e7eb4b91c1fe64f0376"
+    },
+    {
+      "path": "spin-layout-performance-v127b-20261008T224249Z/metadata.json",
+      "local_source": "results/spin-layout-performance-v127b-20261008T224249Z/metadata.json",
+      "sha256": "b7ea41c61a94d1897df9c39e74268a5b78df034bd2774ceda8d20de75f9f4f47"
+    },
+    {
+      "path": "spin-layout-performance-v127b-20261008T224249Z/inputs/fe16_noncollinear/input.fdf",
+      "local_source": "results/spin-layout-performance-v127b-20261008T224249Z/inputs/fe16_noncollinear/input.fdf",
+      "sha256": "3602afc93642d3aaf393530d0c440b3dc65b57af72360e4a390fdcfe28f732ec"
+    },
+    {
+      "path": "spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/summary.json",
+      "local_source": "results/spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/summary.json",
+      "sha256": "8b27c8ccff02bd3b71821364ac85b8cf82ddcf531647d7e371e91b8ac7daabba"
+    },
+    {
+      "path": "spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/metadata.json",
+      "local_source": "results/spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/metadata.json",
+      "sha256": "ba478d2c1108c25a1c0b2c7b93d8323faf9df58bba226b06b3ed267fc69620af"
+    },
+    {
+      "path": "spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/recovery.json",
+      "local_source": "results/spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/recovery.json",
+      "sha256": "c04727a577a4f1e48ffa50ed448a6ec58e432086c67a26d44f817325033696c4"
+    },
+    {
+      "path": "spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/inputs/fe16_noncollinear/input.fdf",
+      "local_source": "results/spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/inputs/fe16_noncollinear/input.fdf",
+      "sha256": "3602afc93642d3aaf393530d0c440b3dc65b57af72360e4a390fdcfe28f732ec"
+    },
+    {
+      "path": "spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/inputs/fe54_collinear/input.fdf",
+      "local_source": "results/spin-layout-performance-v127-20261008T220559Z-interrupted-c7b6eddcebea4576b95627dfced200ef/inputs/fe54_collinear/input.fdf",
+      "sha256": "705a76444e50a1096898f71b64f769c5575128c4ab93acce486f2149784e1005"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/production-integration.json",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/production-integration.json",
+      "sha256": "3642d476ff757056e09c0017ca0ef92c23f51916b531550d895accb47874b0fc"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/inputs/fe16_noncollinear/input.fdf",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/inputs/fe16_noncollinear/input.fdf",
+      "sha256": "3602afc93642d3aaf393530d0c440b3dc65b57af72360e4a390fdcfe28f732ec"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/inputs/fe2_relax/input.fdf",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/inputs/fe2_relax/input.fdf",
+      "sha256": "ccfd851e97c86c0a71b766542745eee7a3eaeaa921488bdec6b4c6ccc854b2eb"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/inputs/fe3_linear_soc_k2_xyz/input.fdf",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/inputs/fe3_linear_soc_k2_xyz/input.fdf",
+      "sha256": "4dbd3bbf6a8137dd11bfe883c1e437b5c66c9b38d4a32ce5a96d5bc4ea01b111"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/inputs/fe54_collinear/input.fdf",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/inputs/fe54_collinear/input.fdf",
+      "sha256": "705a76444e50a1096898f71b64f769c5575128c4ab93acce486f2149784e1005"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/inputs/fept128_soc_x/input.fdf",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/inputs/fept128_soc_x/input.fdf",
+      "sha256": "2f405c86ce8a0a624f78c86ef8ee8e3ae2be8ae5489eb689c49e13e808316c0a"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/inputs/fept128_soc_z/input.fdf",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/inputs/fept128_soc_z/input.fdf",
+      "sha256": "9a88da444830d15e87f22606f3116e7aa9225f8931656884ee2ed91f11413f94"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/inputs/fept16_soc_x/input.fdf",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/inputs/fept16_soc_x/input.fdf",
+      "sha256": "2636385ff78d16342c8d79e6ed814a52b8009ae73b594122d7fbfb620f2fb5a5"
+    },
+    {
+      "path": "fp64-matrix-qualification-v178-20261009T215709Z/inputs/fept16_soc_z/input.fdf",
+      "local_source": "results/fp64-matrix-qualification-v178-20261009T215709Z/inputs/fept16_soc_z/input.fdf",
+      "sha256": "ea290e77b26b088836049ef4ef3376ef8067509fa1cd2a7dc1910b601c28e46b"
+    },
+    {
+      "path": "large-upstream-comparison-v172-20261009T172335Z/summary.json",
+      "local_source": "results/large-upstream-comparison-v172-20261009T172335Z/summary.json",
+      "sha256": "b1d5d4f83cff5c6e47b6a0d2ff9de26cc46de6ee1f485ef76b057d001d8d694a"
+    },
+    {
+      "path": "large-upstream-comparison-v172-20261009T172335Z/inputs/fept128_soc_z/input.fdf",
+      "local_source": "results/large-upstream-comparison-v172-20261009T172335Z/inputs/fept128_soc_z/input.fdf",
+      "sha256": "9a88da444830d15e87f22606f3116e7aa9225f8931656884ee2ed91f11413f94"
+    }
+  ]
+}

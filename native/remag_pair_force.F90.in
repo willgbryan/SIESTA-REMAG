@@ -1,0 +1,48 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_pair_force
+  use iso_c_binding, only: c_int,c_double
+  implicit none
+  interface
+    integer(c_int) function remag_pair_force_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_pair_geometry_prepare(atoms,rows,columns,capacity,volume,num,ptr,list) bind(C)
+      import
+      integer(c_int),value :: atoms,rows,columns,capacity
+      real(c_double),value :: volume
+      integer(c_int),intent(in) :: num(*),ptr(*),list(*)
+    end function
+    integer(c_int) function remag_pair_geometry_add(row,column,a,b,registry_a,registry_b,xyz) bind(C)
+      import
+      integer(c_int),value :: row,column,a,b,registry_a,registry_b
+      real(c_double),intent(in) :: xyz(*)
+    end function
+    integer(c_int) function remag_pair_geometry_finish() bind(C)
+      import
+    end function
+    integer(c_int) function remag_pair_geometry_bind() bind(C)
+      import
+    end function
+    integer(c_int) function remag_pair_force_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_pair_force_begin(consumer,atoms,rows,columns,capacity,spinor,volume, &
+        num,ptr,list,force,stress) bind(C)
+      import
+      integer(c_int),value :: consumer,atoms,rows,columns,capacity,spinor
+      real(c_double),value :: volume
+      integer(c_int),intent(in) :: num(*),ptr(*),list(*)
+      real(c_double),intent(in) :: force(*),stress(*)
+    end function
+    integer(c_int) function remag_pair_force_observe(row,column,a,b) bind(C)
+      import
+      integer(c_int),value :: row,column,a,b
+    end function
+    integer(c_int) function remag_pair_force_reference(consumer,energy,force,stress) bind(C)
+      import
+      integer(c_int),value :: consumer
+      real(c_double),value :: energy
+      real(c_double),intent(in) :: force(*),stress(*)
+    end function
+  end interface
+end module

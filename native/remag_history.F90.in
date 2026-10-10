@@ -1,0 +1,78 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_history
+  use iso_c_binding, only: c_int,c_double
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  private
+  public :: remag_history_enabled,remag_history_policy,remag_history_count
+  public :: remag_history_select,remag_history_geometry,remag_history_print,remag_history_finish
+  logical,save :: reuse_selected=.false.
+  interface
+    integer(c_int) function remag_history_enabled() bind(C)
+      import c_int
+    end function
+    integer(c_int) function remag_history_configure(depth,mode) bind(C)
+      import c_int
+      integer(c_int),value :: depth,mode
+    end function
+    integer(c_int) function remag_history_count() bind(C)
+      import c_int
+    end function
+    integer(c_int) function select_density(reuse) bind(C,name='remag_history_select')
+      import c_int
+      integer(c_int),value :: reuse
+    end function
+    integer(c_int) function remag_history_geometry(atoms,rows,capacity,spins,num,ptr,col,nsc,xyz) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: atoms,rows,capacity,spins
+      integer(c_int),intent(in) :: num(*),ptr(*),col(*),nsc(*)
+      real(c_double),intent(in) :: xyz(3,*)
+    end function
+    integer(c_int) function remag_history_coefficients(count,values) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: count
+      real(c_double),intent(out) :: values(*)
+    end function
+    integer(c_int) function remag_history_finish(save_density) bind(C)
+      import c_int
+      integer(c_int),value :: save_density
+    end function
+  end interface
+contains
+  subroutine remag_history_policy(depth)
+    use fdf, only: fdf_get
+    integer,intent(in) :: depth
+    integer :: mode
+    mode=0
+    if(fdf_get('UseDIISforDMExtrapolation',.true.))then
+      if(fdf_get('UseSVDExperimental',.false.))then
+        mode=3
+      else if(fdf_get('UseSVD',.true.))then
+        mode=2
+      else
+        mode=1
+      endif
+    endif
+    call remag_dm_check(remag_history_configure(depth,mode))
+  end subroutine
+  subroutine remag_history_select(reuse)
+    logical,intent(in) :: reuse
+    call remag_dm_check(select_density(merge(1,0,reuse)))
+    reuse_selected=reuse
+  end subroutine
+  subroutine remag_history_print()
+    use parallel, only: IONode
+    use sys, only: die
+    real(c_double),allocatable :: coefficients(:)
+    integer :: n,i
+    if(.not.reuse_selected.or..not.IONode)return
+    n=remag_history_count()
+    if(n<=0)call die('REMAG history: missing reused density')
+    allocate(coefficients(n))
+    call remag_dm_check(remag_history_coefficients(n,coefficients))
+    print *, 'DM extrapolation coefficients: '
+    do i=1,n
+      print '(i0,f10.5)', i,coefficients(i)
+    enddo
+  end subroutine
+end module

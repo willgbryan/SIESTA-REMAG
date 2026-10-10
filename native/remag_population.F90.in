@@ -1,0 +1,170 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_population
+  use iso_c_binding, only: c_int,c_double
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  logical,save :: initial_population_context=.false.
+  interface
+    integer(c_int) function remag_initial_state_enabled() bind(C)
+      import c_int
+    end function
+    integer(c_int) function remag_initial_state_begin(atoms,rows,capacity,spins,species,requests, &
+        num,ptr,overlap,density,lasto,ids,valence) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: atoms,rows,capacity,spins,species,requests
+      integer(c_int),intent(in) :: num(*),ptr(*),lasto(*),ids(*)
+      real(c_double),intent(in) :: overlap(*),density(*),valence(*)
+    end function
+    integer(c_int) function remag_initial_state_end() bind(C)
+      import c_int
+    end function
+    integer(c_int) function remag_population_enabled() bind(C)
+      import c_int
+    end function
+    integer(c_int) function remag_population_begin(atoms,rows,capacity,spins,species,lasto,ids,valence) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: atoms,rows,capacity,spins,species
+      integer(c_int),intent(in) :: lasto(*),ids(*)
+      real(c_double),intent(in) :: valence(*)
+    end function
+    integer(c_int) function remag_population_read(kind,atoms,rows,spins,count,output) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: kind,atoms,rows,spins,count
+      real(c_double),intent(out) :: output(*)
+    end function
+  end interface
+contains
+  integer function remag_population_active()
+    remag_population_active=remag_population_enabled()
+    if(initial_population_context)remag_population_active=remag_initial_state_enabled()
+  end function
+  subroutine remag_population_initial(spin_requested,mulliken_requested)
+    use m_remag_history, only: remag_history_enabled,remag_history_geometry,remag_history_print
+    use atomlist, only: no_u,lasto
+    use siesta_geom, only: na_u,isa,nsc,xa
+    use atm_types, only: nspecies
+    use atmfuncs, only: zvalfis
+    use sparse_matrices, only: maxnh,numh,listhptr,listh,S,Dscf
+    use m_spin, only: spin
+    use sys, only: die
+    logical,intent(in) :: spin_requested,mulliken_requested
+    real(c_double),allocatable :: valence(:)
+    integer :: i,requests
+    if(initial_population_context)call die('REMAG initial population window already open')
+    initial_population_context=.true.
+    if(remag_initial_state_enabled()/=1)return
+    allocate(valence(nspecies))
+    do i=1,nspecies
+      valence(i)=zvalfis(i)
+    enddo
+    requests=merge(1,0,spin_requested)+merge(2,0,mulliken_requested)
+    if(remag_history_enabled()==1) &
+      call remag_dm_check(remag_history_geometry(na_u,no_u,maxnh,spin%DM,numh,listhptr,listh,nsc,xa))
+    call remag_dm_check(remag_initial_state_begin(na_u,no_u,maxnh,spin%DM,nspecies,requests, &
+        numh,listhptr,S,Dscf,lasto,isa,valence))
+    if(remag_history_enabled()==1)call remag_history_print()
+  end subroutine
+  subroutine remag_population_initial_end()
+    use sys, only: die
+    if(.not.initial_population_context)call die('REMAG initial population window missing')
+    if(remag_initial_state_enabled()==1)call remag_dm_check(remag_initial_state_end())
+    initial_population_context=.false.
+  end subroutine
+  subroutine remag_population_prepare()
+    use atomlist, only: no_u,lasto
+    use siesta_geom, only: na_u,isa
+    use atm_types, only: nspecies
+    use atmfuncs, only: zvalfis
+    use sparse_matrices, only: maxnh
+    use m_spin, only: spin
+    real(c_double),allocatable :: valence(:)
+    integer :: i
+    if(remag_population_enabled()/=1)return
+    allocate(valence(nspecies))
+    do i=1,nspecies
+      valence(i)=zvalfis(i)
+    enddo
+    call remag_dm_check(remag_population_begin(na_u,no_u,maxnh,spin%DM,nspecies,lasto,isa,valence))
+  end subroutine
+  subroutine remag_population_charge(qspin)
+    use atomlist, only: no_u
+    use siesta_geom, only: na_u
+    use m_spin, only: spin
+    real(c_double),intent(out) :: qspin(spin%Grid)
+    call remag_dm_check(remag_population_read(3,na_u,no_u,spin%DM,size(qspin),qspin))
+  end subroutine
+  subroutine remag_population_values(atoms,rows,qorb,qatom)
+    use m_spin, only: spin
+    integer,intent(in) :: atoms,rows
+    real(c_double),allocatable,intent(out) :: qorb(:,:),qatom(:,:)
+    allocate(qorb(spin%Grid,rows),qatom(spin%Grid,atoms))
+    call remag_dm_check(remag_population_read(1,atoms,rows,spin%DM,size(qorb),qorb(1,1)))
+    call remag_dm_check(remag_population_read(2,atoms,rows,spin%DM,size(qatom),qatom(1,1)))
+  end subroutine
+  subroutine remag_population_views(atoms,rows,species,orbital,atomic,species_totals)
+    use m_spin, only: spin
+    integer,intent(in) :: atoms,rows,species
+    real(c_double),allocatable,intent(out) :: orbital(:,:),atomic(:,:),species_totals(:,:)
+    allocate(orbital(5,rows),atomic(6,atoms),species_totals(5,species))
+    call remag_dm_check(remag_population_read(4,atoms,rows,spin%DM,size(orbital),orbital(1,1)))
+    call remag_dm_check(remag_population_read(5,atoms,rows,spin%DM,size(atomic),atomic(1,1)))
+    call remag_dm_check(remag_population_read(6,atoms,rows,spin%DM,size(species_totals),species_totals(1,1)))
+  end subroutine
+  subroutine remag_population_summary(summary)
+    use atomlist, only: no_u
+    use siesta_geom, only: na_u
+    use m_spin, only: spin
+    real(c_double),intent(out) :: summary(10)
+    call remag_dm_check(remag_population_read(7,na_u,no_u,spin%DM,size(summary),summary))
+  end subroutine
+  subroutine remag_population_partial(nspin,atoms,qout,stot,svec,dqtot)
+    use atomlist, only: no_u
+    use m_spin, only: spin
+    use sys, only: die
+    integer,intent(in) :: nspin,atoms
+    real(c_double),allocatable,intent(out) :: qout(:,:)
+    real(c_double),intent(out) :: stot,svec(3),dqtot
+    real(c_double) :: atomic(6,atoms),summary(10)
+    integer :: columns
+    if(nspin/=spin%Grid)call die('REMAG partial population spin mismatch')
+    select case(nspin)
+    case(1)
+      columns=2
+    case(2)
+      columns=3
+    case(4)
+      columns=6
+    case default
+      call die('REMAG partial population spin unsupported')
+    end select
+    call remag_dm_check(remag_population_read(5,atoms,no_u,spin%DM,size(atomic),atomic(1,1)))
+    call remag_population_summary(summary)
+    allocate(qout(columns,atoms))
+    qout=atomic(1:columns,:)
+    dqtot=summary(6);stot=summary(7);svec=summary(8:10)
+  end subroutine
+  subroutine remag_population_print_spin()
+    use m_spin, only: spin
+    use siesta_cml
+    use parallel, only: IONode
+    real(c_double) :: summary(10),Stot,Svec(3)
+    if(.not.IONode)return
+    call remag_population_summary(summary)
+    Stot=summary(2);Svec=summary(3:5)
+    if(spin%Grid==2)then
+      write(6,'(5x,a,2(f10.1,tr1),f10.5,tr1,"}",tr2,f10.5)') &
+          'spin moment: {S} , |S| = { ', Svec, Stot
+      if(cml_p)call cmlAddProperty(xf=mainXML,value=Stot, &
+          dictref='siesta:stot',units='siestaUnits:spin')
+    else if(spin%Grid==4)then
+      write(6,'(5x,a,2(f10.5,tr1),f10.5,tr1,"}",tr2,f10.5)') &
+          'spin moment: {S} , |S| = { ', Svec, Stot
+      if(cml_p)then
+        call cmlAddProperty(xf=mainXML,value=Stot, &
+            dictref='siesta:stot',units='siestaUnits:spin')
+        call cmlAddProperty(xf=mainXML,value=Svec, &
+            dictref='siesta:svec',units='siestaUnits:spin')
+      endif
+    endif
+  end subroutine
+end module

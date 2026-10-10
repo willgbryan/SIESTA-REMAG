@@ -1,0 +1,111 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_atomic_basis
+  use iso_c_binding, only: c_int,c_int64_t,c_double
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  private
+  public :: remag_atomic_basis_prepare
+  interface
+    integer(c_int) function remag_atomic_basis_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_atomic_basis_stage(c,z,index,parameters,values,second, &
+        pair_atom,pair_offset,pair_cluster,atom_species,unit_atom,offset,subpoint,atom_offset) bind(C)
+      import
+      integer(c_int),intent(in) :: c(*),z(*),index(*),pair_atom(*),pair_offset(*),pair_cluster(*),atom_species(*),unit_atom(*)
+      real(c_double),intent(in) :: parameters(*),values(*),second(*),offset(*),subpoint(*),atom_offset(*)
+    end function
+  end interface
+contains
+  subroutine remag_atomic_basis_prepare()
+    use precision, only: dp,grid_p
+    use parallel, only: Nodes
+    use atm_types, only: species,nspecies
+    use radial, only: rad_func
+    use atomlist, only: indxua
+    use siesta_geom, only: na_s,isa
+    use mesh, only: ipa,idop,indexp,mop,nsp,nsm,nmeshg,xdop,xdsp,dxa
+    use m_dhscf, only: npcc,ntpl
+    use sys, only: die
+    integer(c_int) :: config(13)
+    integer(c_int),allocatable :: z(:),index(:,:,:),pa(:),po(:),pc(:)
+    real(c_double),allocatable :: parameters(:,:,:),values(:),second(:)
+    type(rad_func),pointer :: radial
+    integer :: is,kind,n,total,pairs,ia,iop,ip,p,sample
+    integer(c_int64_t) :: extended
+    if(remag_atomic_basis_active()/=1) return
+    if(Nodes/=1.or.grid_p/=dp) call die('REMAG atomic basis requires serial FP64 grids')
+    if(.not.allocated(species).or.nspecies<1.or.na_s<1.or.mop<1.or.nsp<1) &
+      call die('REMAG atomic basis: missing geometry/species')
+    call timer('remag_atomic_basis_setup',1)
+    if(.not.associated(ipa).or..not.associated(idop).or..not.associated(indexp)) &
+      call die('REMAG atomic basis: missing mesh maps')
+    if(size(dxa,2)<na_s.or.size(xdop,2)<mop.or.size(xdsp,2)<nsp) &
+      call die('REMAG atomic basis: missing coordinates')
+    total=0
+    do is=1,nspecies
+      if(species(is)%z<0) cycle ! Only the cutoff is used for floating species.
+      do kind=1,2
+        if(kind==1) then
+          if(npcc==0) cycle
+          radial=>species(is)%core
+        else
+          radial=>species(is)%vna
+        endif
+        n=radial%n
+        if(n<0.or.n==1.or.n>100000000-total) call die('REMAG atomic basis: invalid radial count')
+        total=total+n
+      enddo
+    enddo
+    pairs=0
+    do ia=1,na_s
+      if(ipa(ia)==0) cycle
+      do iop=1,mop
+        extended=int(ipa(ia),c_int64_t)+int(idop(iop),c_int64_t)
+        if(extended<lbound(indexp,1).or.extended>ubound(indexp,1)) call die('REMAG atomic basis: extended mesh index')
+        if(indexp(int(extended))<=0) cycle
+        pairs=pairs+1
+        if(pairs>20000000) call die('REMAG atomic basis: compact map too large')
+      enddo
+    enddo
+    if(pairs<1) call die('REMAG atomic basis: empty compact geometry')
+    allocate(z(nspecies),index(2,2,nspecies),parameters(2,2,nspecies), &
+      values(max(1,total)),second(max(1,total)),pa(pairs),po(pairs),pc(pairs))
+    values=0._c_double;second=0._c_double;sample=0
+    do is=1,nspecies
+      z(is)=species(is)%z
+      do kind=1,2
+        if(kind==1) then
+          radial=>species(is)%core
+        else
+          radial=>species(is)%vna
+        endif
+        index(:,kind,is)=[0,sample];parameters(:,kind,is)=[0._c_double,1._c_double]
+        if(kind==1.and.npcc==0) cycle
+        parameters(1,kind,is)=radial%cutoff
+        if(z(is)<0) cycle
+        n=radial%n;index(1,kind,is)=n
+        if(n>0) then
+          if(.not.associated(radial%f).or..not.associated(radial%d2)) call die('REMAG atomic basis: missing radial samples')
+          if(size(radial%f)<n.or.size(radial%d2)<n) call die('REMAG atomic basis: truncated radial samples')
+          parameters(2,kind,is)=radial%delta
+          values(sample+1:sample+n)=radial%f(1:n);second(sample+1:sample+n)=radial%d2(1:n)
+        endif
+        sample=sample+n
+      enddo
+    enddo
+    p=0
+    do ia=1,na_s
+      if(ipa(ia)==0) cycle
+      do iop=1,mop
+        ip=indexp(ipa(ia)+idop(iop))
+        if(ip<=0) cycle
+        p=p+1;pa(p)=ia;po(p)=iop;pc(p)=ip
+      enddo
+    enddo
+    config=[nspecies,total,pairs,nsp,na_s,mop,maxval(indxua(1:na_s)),ntpl,nsm,nmeshg,npcc]
+    call remag_dm_check(remag_atomic_basis_stage(config,z,index,parameters,values,second,pa,po,pc,isa,indxua,xdop,xdsp,dxa))
+    deallocate(z,index,parameters,values,second,pa,po,pc)
+    call timer('remag_atomic_basis_setup',2)
+  end subroutine
+end module

@@ -1,0 +1,102 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_orientations
+  use iso_c_binding, only: c_int,c_double
+  use files, only: slabel,label_length
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  private
+  public :: remag_orientations_init,remag_orientation_begin,remag_orientation_end
+  public :: remag_orientations_restore,remag_direction_count
+  public :: remag_reuse_orientation_geometry
+  logical,save :: cache_geometry=.false.
+  integer,save :: current_direction=0
+  real(c_double),allocatable,save :: fixed_positions(:,:)
+  real(c_double),save :: fixed_cell(3,3)
+  integer,save :: remag_direction_count=0
+  real(c_double),save :: rotations(4,256)
+  character(len=label_length),save :: original_label
+  interface
+    integer(c_int) function remag_orientation_cache_mode(enabled,atomic_guess) bind(C)
+      import c_int
+      integer(c_int),value :: enabled,atomic_guess
+    end function
+    integer(c_int) function remag_orientation_set(direction,q) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: direction
+      real(c_double),intent(in) :: q(4)
+    end function
+  end interface
+contains
+  subroutine remag_orientations_init()
+    use fdf
+    use sys, only: die
+    use siesta_options, only: idyn,nmove,td_elec_dyn,harrisfun,write_cdf,usesavedm
+    use m_steps, only: inicoor,fincoor
+    use m_spin, only: spin
+    use parallel, only: Nodes
+    use m_remag_history, only: remag_history_enabled
+    use m_remag_dm, only: remag_cycle_enabled
+    type(block_fdf) :: bfdf
+    type(parsed_line),pointer :: line=>null()
+    integer :: k
+    if(.not.fdf_block('REMAG.SpinRotations',bfdf))return
+    if(fdf_get('DM.AllowReuse',.true.)) &
+      call die('REMAG spin sweeps currently require DM.AllowReuse false (independent atomic guesses)')
+    if(Nodes/=1.or.idyn/=0.or.nmove/=0.or.inicoor/=fincoor.or.td_elec_dyn.or.harrisfun) &
+      call die('REMAG spin rotations require serial fixed-geometry SCF calculations')
+    if((.not.spin%NCol.and..not.spin%SO).or.remag_history_enabled()/=1.or.remag_cycle_enabled()/=1) &
+      call die('REMAG spin rotations require NC/SOC device SCF and GPU density history')
+    if(fdf_get('DM.AllowExtrapolation',.false.).or.usesavedm) &
+      call die('REMAG spin rotations require atomic initialization or last-density reuse without extrapolation')
+    if(write_cdf)call die('REMAG spin rotations: per-direction NetCDF output is not yet supported')
+    if(.not.fdf_get('SCF.MustConverge',.true.))call die('REMAG spin rotations require converged SCF at every direction')
+    cache_geometry=fdf_get('REMAG.ReuseOrientationGeometry',.false.)
+    call remag_dm_check(remag_orientation_cache_mode(merge(1,0,cache_geometry), &
+      merge(0,1,fdf_get('DM.AllowReuse',.true.))))
+    original_label=slabel
+    if(len_trim(slabel)>label_length-5)call die('SystemLabel is too long for direction suffixes')
+    do while(fdf_bline(bfdf,line))
+      if(.not.fdf_bmatch(line,'vvvv'))call die('REMAG.SpinRotations rows require quaternion w x y z')
+      if(remag_direction_count==256)call die('REMAG.SpinRotations supports at most 256 directions per sweep')
+      remag_direction_count=remag_direction_count+1
+      do k=1,4
+        rotations(k,remag_direction_count)=fdf_bvalues(line,k)
+      enddo
+    enddo
+    call fdf_bclose(bfdf)
+    if(remag_direction_count==0)call die('REMAG.SpinRotations is empty')
+  end subroutine
+  subroutine remag_orientation_begin(direction)
+    use m_steps, only: final
+    integer,intent(in) :: direction
+    character(len=5) :: suffix
+    write(suffix,'(a,i3.3)') '.o',direction
+    slabel=trim(original_label)//suffix
+    final=.false.
+    current_direction=direction
+    call remag_dm_check(remag_orientation_set(direction,rotations(:,direction)))
+    write(*,'(a,i0,1x,a,4(1x,es24.16))') 'REMAG ORIENTATION BEGIN ',direction,trim(slabel),rotations(:,direction)
+  end subroutine
+  subroutine remag_orientation_end(direction)
+    use siesta_geom, only: na_u,xa,ucell
+    integer,intent(in) :: direction
+    if(cache_geometry.and.direction==1)then
+      allocate(fixed_positions(3,na_u))
+      fixed_positions=xa(:,1:na_u);fixed_cell=ucell
+    endif
+    write(*,'(a,i0)') 'REMAG ORIENTATION END ',direction
+  end subroutine
+  logical function remag_reuse_orientation_geometry()
+    use siesta_geom, only: na_u,xa,ucell
+    use sys, only: die
+    remag_reuse_orientation_geometry=cache_geometry.and.current_direction>1
+    if(.not.remag_reuse_orientation_geometry)return
+    if(.not.allocated(fixed_positions))call die('REMAG: no completed geometry to reuse')
+    if(size(fixed_positions,2)/=na_u)call die('REMAG: atom count changed during spin sweep')
+    if(any(fixed_positions/=xa(:,1:na_u)).or.any(fixed_cell/=ucell)) &
+      call die('REMAG: crystal geometry changed during spin sweep')
+  end function
+  subroutine remag_orientations_restore()
+    slabel=original_label
+  end subroutine
+end module

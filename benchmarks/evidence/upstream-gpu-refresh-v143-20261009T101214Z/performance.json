@@ -1,0 +1,120 @@
+[
+  {
+    "case": "fept16_soc_z",
+    "config": {
+      "block_size": 64,
+      "route": "native-2stage",
+      "threads": 1
+    },
+    "performance_qualified": true,
+    "errors": [],
+    "upstream_gpu": {
+      "seconds": [
+        320.618512494,
+        321.50422765200005,
+        319.3178219720003
+      ],
+      "median_seconds": 320.618512494,
+      "iterations": [
+        106,
+        106,
+        106
+      ],
+      "blas_threads": [
+        1,
+        1,
+        1
+      ],
+      "sampled_gpu_memory_peak_mib": [
+        557.0,
+        557.0,
+        557.0
+      ]
+    },
+    "remag": {
+      "seconds": [
+        5.082426274999989,
+        4.967734279000069,
+        4.964099434999753
+      ],
+      "median_seconds": 4.967734279000069,
+      "iterations": [
+        82,
+        85,
+        89
+      ],
+      "blas_threads": [
+        1,
+        1,
+        1
+      ],
+      "sampled_gpu_memory_peak_mib": [
+        2545.0,
+        2545.0,
+        2545.0
+      ]
+    },
+    "speedup_over_upstream_gpu": 64.5401896493014,
+    "scope": "Process start through initialization, SCF, final observables and requested exports; excludes build, provisioning and evidence transfer",
+    "tuning": "Repeated timing for this qualified configuration; final selection uses a complete directional pair"
+  },
+  {
+    "case": "fept16_soc_x",
+    "config": {
+      "block_size": 64,
+      "route": "native-2stage",
+      "threads": 1
+    },
+    "performance_qualified": true,
+    "errors": [],
+    "upstream_gpu": {
+      "seconds": [
+        257.697900987,
+        251.80690825200008,
+        253.02751403599996
+      ],
+      "median_seconds": 253.02751403599996,
+      "iterations": [
+        82,
+        82,
+        82
+      ],
+      "blas_threads": [
+        1,
+        1,
+        1
+      ],
+      "sampled_gpu_memory_peak_mib": [
+        557.0,
+        557.0,
+        557.0
+      ]
+    },
+    "remag": {
+      "seconds": [
+        4.971673142999862,
+        4.776544880000074,
+        4.873999238000124
+      ],
+      "median_seconds": 4.873999238000124,
+      "iterations": [
+        81,
+        79,
+        80
+      ],
+      "blas_threads": [
+        1,
+        1,
+        1
+      ],
+      "sampled_gpu_memory_peak_mib": [
+        2545.0,
+        2545.0,
+        2545.0
+      ]
+    },
+    "speedup_over_upstream_gpu": 51.913736888440916,
+    "scope": "Process start through initialization, SCF, final observables and requested exports; excludes build, provisioning and evidence transfer",
+    "tuning": "Repeated timing for this qualified configuration; final selection uses a complete directional pair"
+  }
+]

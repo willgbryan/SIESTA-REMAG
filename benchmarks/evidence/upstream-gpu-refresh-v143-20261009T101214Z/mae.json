@@ -1,0 +1,112 @@
+[
+  {
+    "label": "candidate-qualification",
+    "reference_label": null,
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "upstream-offload",
+    "reference_label": null,
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "upstream-repeat-1",
+    "reference_label": null,
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "candidate-repeat-1",
+    "reference_label": null,
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "candidate-repeat-1",
+    "reference_label": "upstream-repeat-1",
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "candidate-repeat-2",
+    "reference_label": null,
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "upstream-repeat-2",
+    "reference_label": null,
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "candidate-repeat-2",
+    "reference_label": "upstream-repeat-2",
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "upstream-repeat-3",
+    "reference_label": null,
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "candidate-repeat-3",
+    "reference_label": null,
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "label": "candidate-repeat-3",
+    "reference_label": "upstream-repeat-3",
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  }
+]

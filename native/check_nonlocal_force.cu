@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+#include "nonlocal_force.hpp"
+#include <cstdio>
+#include <stdexcept>
+#include <vector>
+struct NonlocalForceCheck {size_t allocated,staged,exported;int graph_nodes,forbidden_nodes,stage;};
+namespace {
+void check(cudaError_t e){if(e!=cudaSuccess)throw std::runtime_error(cudaGetErrorString(e));}
+struct Context {
+    cudaStream_t stream=nullptr;cudaGraph_t graph=nullptr;cudaGraphExec_t executable=nullptr;
+    std::vector<void*> memory;size_t staged=0,allocated=0;
+    Context(){check(cudaStreamCreateWithFlags(&stream,cudaStreamNonBlocking));}
+    ~Context(){if(stream)cudaStreamSynchronize(stream);if(executable)cudaGraphExecDestroy(executable);if(graph)cudaGraphDestroy(graph);for(auto p:memory)cudaFree(p);if(stream)cudaStreamDestroy(stream);}
+    template<class T>T* upload(size_t n,const T* source){T* p=nullptr;size_t bytes=(n?n:1)*sizeof(T);check(cudaMalloc(reinterpret_cast<void**>(&p),bytes));memory.push_back(p);allocated+=bytes;
+        if(n){check(cudaMemcpyAsync(p,source,n*sizeof(T),cudaMemcpyHostToDevice,stream));staged+=n*sizeof(T);}return p;}
+};
+}
+// config: entries,atoms,rows,columns,capacity,components,spinor,cycles,kind,split.
+extern "C" int remag_check_nonlocal_force(const int* config,double volume,int captured,int initial,
+        const int* qr,const int* qc,const int* atoms,const int* num,const int* ptr,const int* list,
+        const double* scalar,const double* operators,const double* xyz,const double* density,const double* initial_values,
+        double* result,int* status,NonlocalForceCheck* report) {
+    try {
+        if(!config||!qr||!qc||!atoms||!num||!ptr||!list||!scalar||!operators||!xyz||!density||!initial_values||!result||!status||!report)return -1;
+        *report={};const int n=config[0],na=config[1],nr=config[2],nc=config[3],cap=config[4],components=config[5],spinor=config[6],cycles=config[7];
+        if(n<0||n>1000000||na<1||na>10000||nr<1||nr>10000||nc<1||cap<1||cap>1000000||
+           (components!=1&&components!=2&&components!=4&&components!=8)||components<spinor||cycles<1||cycles>3||(captured!=0&&captured!=1))return -1;
+        report->stage=1;Context context;
+        remag::NonlocalForceView view{n,na,nr,nc,cap,components,spinor,context.upload(n,qr),context.upload(n,qc),context.upload(2*size_t(n),atoms),
+            context.upload(nr,num),context.upload(nr,ptr),context.upload(cap,list),context.upload(6*size_t(n),scalar),
+            context.upload(33*size_t(n),operators),context.upload(3*size_t(n),xyz)};
+        remag::NonlocalForceProblem problem{volume,config[8],config[9]};
+        auto device_problem=context.upload(1,&problem);auto d=context.upload(size_t(cap)*components,density);
+        auto out=context.upload(3*na+18,initial_values);auto code=context.upload(1,&initial);check(cudaStreamSynchronize(context.stream));
+        report->allocated=context.allocated;report->staged=context.staged;report->stage=2;
+        auto apply=[&]{check(remag::add_nonlocal_force_device(view,device_problem,d,out,out+9,out+9+3*na,code,context.stream));};
+        if(captured){check(cudaStreamBeginCapture(context.stream,cudaStreamCaptureModeGlobal));apply();check(cudaStreamEndCapture(context.stream,&context.graph));
+            size_t count=0;check(cudaGraphGetNodes(context.graph,nullptr,&count));std::vector<cudaGraphNode_t> nodes(count);check(cudaGraphGetNodes(context.graph,nodes.data(),&count));report->graph_nodes=count;
+            for(auto node:nodes){cudaGraphNodeType type;check(cudaGraphNodeGetType(node,&type));if(type!=cudaGraphNodeTypeKernel)report->forbidden_nodes++;}
+            check(cudaGraphInstantiate(&context.executable,context.graph,0));}
+        report->stage=3;for(int i=0;i<cycles;i++){if(captured)check(cudaGraphLaunch(context.executable,context.stream));else apply();}
+        check(cudaStreamSynchronize(context.stream));report->stage=4;
+        check(cudaMemcpy(result,out,8*(3*na+18),cudaMemcpyDeviceToHost));check(cudaMemcpy(status,code,4,cudaMemcpyDeviceToHost));
+        report->exported=8*(3*na+18)+4;return 0;
+    }catch(const std::exception& e){std::fprintf(stderr,"Nonlocal force probe: %s\n",e.what());return -1;}
+}

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "siesta-remag"
+version = "0.1.0"
+description = "Measured GPU acceleration of SIESTA magnetic-material workflows"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["numpy>=2,<3", "psutil>=6,<8"]
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE", "NOTICE", "native/GRIDXC_NOTICE"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "scipy>=1.14,<2"]
+netcdf = ["netCDF4==1.7.2"]
+modal = ["modal==1.6.1"]
+
+[project.scripts]
+remag = "siesta_remag.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

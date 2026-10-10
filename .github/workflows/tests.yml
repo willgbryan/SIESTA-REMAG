@@ -1,0 +1,35 @@
+name: Local tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install the harness and test dependencies
+        run: python -m pip install -e '.[dev,netcdf,modal]'
+      - name: Fetch the pinned source for the patch test (no build)
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          pin = json.loads(Path('upstream.lock.json').read_text())
+          source = 'upstream/siesta'
+          subprocess.run(['git', 'clone', '--depth', '1', '--branch', pin['tag'], pin['url'], source], check=True)
+          actual = subprocess.check_output(['git', '-C', source, 'rev-parse', 'HEAD'], text=True).strip()
+          if actual != pin['commit']:
+              raise SystemExit(f'Upstream revision mismatch: {actual}')
+          PY
+      - name: Run local tests without GPU or cloud credentials
+        run: python -m pytest -q

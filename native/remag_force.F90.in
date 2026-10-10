@@ -1,0 +1,108 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_force
+  use iso_c_binding
+  implicit none
+  interface
+    integer(c_int) function remag_atomic_basis_device_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_atomic_basis_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_atomic_basis_point(kind,atom,offset,sub,point,unit_atom,value,gradient,displacement) bind(C)
+      import
+      integer(c_int),value :: kind,atom,offset,sub,point,unit_atom
+      real(c_double),value :: value
+      real(c_double),intent(in) :: gradient(*),displacement(*)
+    end function
+    integer(c_int) function remag_orbital_basis_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_final_density_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_final_density_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_final_density_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_final_density(kind,capacity,spins,grid_spins,mesh,nsm,density,rho) bind(C)
+      import
+      integer(c_int),value :: kind,capacity,spins,grid_spins,nsm
+      integer(c_int),intent(in) :: mesh(*)
+      real(c_double),intent(in) :: density(*)
+      real(c_double),intent(inout) :: rho(*)
+    end function
+    integer(c_int) function remag_final_grid_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_final_grid_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_final_grid_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_final_grid(capacity,spins,grid_spins,mesh,nsm,core, &
+        dvol,volume,density,h,values,hs,xs) bind(C)
+      import
+      integer(c_int),value :: capacity,spins,grid_spins,nsm,core
+      integer(c_int),intent(in) :: mesh(*)
+      real(c_double),value :: dvol,volume
+      real(c_double),intent(in) :: density(*)
+      real(c_double),intent(inout) :: h(*),values(*),hs(*),xs(*)
+    end function
+    integer(c_int) function remag_atomic_grid_force_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_atomic_force_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_atomic_force_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_atomic_force_begin(kind,points,atoms,nsd,mesh,nsm, &
+        dvol,volume,forces,stress,force,tensor) bind(C)
+      import
+      integer(c_int),value :: kind,points,atoms,nsd,nsm,forces,stress
+      integer(c_int),intent(in) :: mesh(*)
+      real(c_double),value :: dvol,volume
+      real(c_double),intent(in) :: force(*),tensor(*)
+    end function
+    integer(c_int) function remag_atomic_force_point(point,atom,gradient,displacement) bind(C)
+      import
+      integer(c_int),value :: point,atom
+      real(c_double),intent(in) :: gradient(*),displacement(*)
+    end function
+    integer(c_int) function remag_atomic_force_finish(force,stress) bind(C)
+      import
+      real(c_double),intent(in) :: force(*),stress(*)
+    end function
+    integer(c_int) function remag_grid_force_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_force_active() bind(C)
+      import
+    end function
+    integer(c_int) function remag_force_shadow_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_force_shadow_begin(no,nuo,np,nsp,capacity,nh,atoms,entries, &
+        orbital_atoms,density,occupation,potential,auxiliary,dvol,volume,forces,stress,initial_force,initial_stress) bind(C)
+      import
+      integer(c_int),value :: no,nuo,np,nsp,capacity,nh,atoms,entries,forces,stress
+      integer(c_int),intent(in) :: orbital_atoms(*)
+      real(c_double),value :: dvol,volume
+      real(c_double),intent(in) :: density(*),occupation(*),potential(*),auxiliary(*),initial_force(*),initial_stress(*)
+    end function
+    integer(c_int) function remag_force_shadow_orbital(entry,phi,gradient,displacement) bind(C)
+      import
+      integer(c_int),value :: entry
+      real(c_double),intent(in) :: phi(*),gradient(*),displacement(*)
+    end function
+    integer(c_int) function remag_force_shadow_finish(force,stress) bind(C)
+      import
+      real(c_double),intent(inout) :: force(*),stress(*)
+    end function
+  end interface
+end module

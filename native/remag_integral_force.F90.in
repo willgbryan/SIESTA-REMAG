@@ -1,0 +1,25 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_integral_force
+  use iso_c_binding, only: c_int,c_double
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  interface
+    integer(c_int) function remag_integral_force_enabled() bind(C)
+      import
+    end function
+    integer(c_int) function remag_integral_force_begin(atoms,force,stress) bind(C)
+      import
+      integer(c_int),value :: atoms
+      real(c_double),intent(in) :: force(*),stress(*)
+    end function
+    integer(c_int) function remag_integral_force_finish(atoms,force,stress,energy) bind(C)
+      import
+      integer(c_int),value :: atoms
+      real(c_double),intent(inout) :: force(*),stress(*)
+      real(c_double),intent(out) :: energy(*)
+    end function
+    integer(c_int) function remag_integral_hartree_stress() bind(C)
+      import
+    end function
+  end interface
+end module
