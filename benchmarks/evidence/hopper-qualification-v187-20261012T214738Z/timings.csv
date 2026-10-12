@@ -1,0 +1,11 @@
+case,label,passed,wall_seconds,scf_iterations,cycle_seconds,gpu_memory_peak_mib,returncode,timed_out
+fe54_collinear,candidate,True,6.691102592000021,77,1.90003134,3543.0,0,False
+fe16_noncollinear,candidate,True,3.6684528709999995,72,1.079391756,5069.0,0,False
+fe3_linear_soc_k2_xyz,candidate,True,2.238600634999983,242,0.473863858,2475.0,0,False
+fept16_soc_z,candidate,True,5.496264556,80,1.10438802,5327.0,0,False
+fept16_soc_x,candidate,True,5.3965816199999495,70,0.968121435,5327.0,0,False
+dzp_m400_k4_t300_z,candidate,True,8.000493871000003,64,1.063663919,4857.0,0,False
+dzp_m400_k4_t300_x,candidate,True,7.725772436999989,51,0.862948188,4857.0,0,False
+fept128_soc_z,candidate,True,188.99610841699996,128,175.809691655,15257.0,0,False
+fept128_soc_z,fp64-tiles,True,107.55250573199999,102,95.619681605,15251.0,0,False
+fept16_soc_z,gpu-radial,True,3.977323781999985,73,1.029669154,5327.0,0,False

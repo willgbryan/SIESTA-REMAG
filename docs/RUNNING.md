@@ -29,8 +29,15 @@ python scripts/run_modal.py \
   --orbital-basis --atomic-basis --integral-force --population \
   --gpu-initialization --initial-populations --gpu-history \
   --final-spectra --gate-h-export --nonlocal-h0 \
-  --gpu-radial-tables --gpu-initial-mesh --grid-potential-spins --defer-scf-log
+  --gpu-initial-mesh --grid-potential-spins --defer-scf-log
 ```
+
+Use `--gpu-model H100` in the same command to select one Hopper GPU.
+The [H100 qualification record](HOPPER.md) lists tested inputs, numerical gates
+and hardware. The historical A100 timing table does not establish H100 speedups.
+The example keeps radial-table setup on the CPU: the optional
+`--gpu-radial-tables` path passed selected SZP regressions but failed a stronger
+DZP numerical comparison. GPU SCF remains enabled with upstream radial tables.
 
 The app uses a bounded timeout, one GPU, no warm pool and no retries. Image
 builds use CPU builders. Launching incurs Modal charges; do not start another
@@ -43,6 +50,26 @@ README. The many flags above expose previously measured implementation stages;
 their presence does not imply every combination or material is qualified.
 FP64 vector/matrix tile experiments remain optional and are intentionally
 omitted here because their gains are workload-dependent.
+
+## CUDA build targets
+
+A fresh native CMake build defaults to `CMAKE_CUDA_ARCHITECTURES="80;90"`.
+Both the production library and CUDA check targets inherit this selection;
+CUDA 12.6 emits native code and PTX for each architecture. To build only SM90:
+
+```sh
+cmake -S native -B build/native-h100 -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_CUDA_ARCHITECTURES=90
+cmake --build build/native-h100 --target remag_gpu --parallel 8
+```
+
+This builds the native library; a runnable SIESTA executable also requires the
+integration patch and Fortran build. The Modal image builds both together.
+The same CMake option works when the native project is embedded in a patched
+SIESTA build. Explicit CMake settings and the `CUDAARCHS` environment variable
+override the default. Reconfigure an existing build explicitly to change its
+cached architecture list. H100 qualification uses native SM90 with PTX JIT
+disabled; it does not establish support for every GPU in the Hopper family.
 
 ## Inputs and numerical checks
 

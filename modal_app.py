@@ -364,8 +364,8 @@ def benchmark(cases: list[str], run_id: str, grid: bool = False, dm: bool = Fals
         raise ValueError("Force shadow requires the GPU grid topology")
     os.environ["REMAG_BLOCK_WIDTH"]=str(block_width)
     os.environ["REMAG_BLOCK_LOCAL_SOLVER"]=block_local_solver
-    if gpu_model not in ("A100-40GB","A100-80GB"):
-        raise ValueError("Choose one supported A100 model; the GPU count remains one")
+    if gpu_model not in ("A100-40GB","A100-80GB","H100"):
+        raise ValueError("Choose A100-40GB, A100-80GB or H100; the GPU count remains one")
     if io_policy not in IO_POLICIES:
         raise ValueError(f"Unknown I/O policy: {io_policy}")
     if candidate_repeats < 1 or candidate_repeats > 5 or (ablation and not dm):
@@ -1651,8 +1651,8 @@ def main(cases: str = "fe16_collinear,fe2_noncollinear,fept2_soc_z,fept2_soc_x,f
         raise ValueError("Eigensolver warm start requires device SCF and vector cache")
     if gpu_radial_tables and not integral_force:
         raise ValueError("GPU radial tables require the production integral-force path")
-    if gpu_model not in ("A100-40GB","A100-80GB"):
-        raise ValueError("Choose one supported A100 model; the GPU count remains one")
+    if gpu_model not in ("A100-40GB","A100-80GB","H100"):
+        raise ValueError("Choose A100-40GB, A100-80GB or H100; the GPU count remains one")
     run_id = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     print(f"Run ID: {run_id}; full artifacts: siesta-remag-results/{run_id}", flush=True)
     function=benchmark if gpu_model=="A100-40GB" else benchmark.with_options(gpu=gpu_model+":1",max_containers=1)

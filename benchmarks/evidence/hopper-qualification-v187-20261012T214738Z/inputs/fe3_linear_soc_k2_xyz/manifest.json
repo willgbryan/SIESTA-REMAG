@@ -1,0 +1,53 @@
+{
+  "name": "fe3_linear_soc",
+  "atoms": 3,
+  "spin": "spin-orbit",
+  "kmesh": [
+    1,
+    1,
+    2
+  ],
+  "repeat": [
+    1,
+    1,
+    1
+  ],
+  "theta_deg": null,
+  "pseudopotentials": {
+    "Fe_fept_SOC.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978"
+  },
+  "energy_density_outputs": {
+    "tsde": false,
+    "netcdf": false
+  },
+  "initial_population_output": true,
+  "input_sha256": "4dbd3bbf6a8137dd11bfe883c1e437b5c66c9b38d4a32ce5a96d5bc4ea01b111",
+  "purpose": "exploratory-numerical-regression",
+  "orientation_constrained": false,
+  "io_policy": "end-of-cycle",
+  "split_scf_timings": false,
+  "orientation_family_sha256": "7af211920d0c4eb9647e5ae1b7c242029d0bc1c180d9d64319f57113f408dfc2",
+  "density_matrix_output": true,
+  "hamiltonian_output": true,
+  "seed_phi_deg": 45.0,
+  "basis": "SZP",
+  "weight": 0.01,
+  "bond_bohr": 3.644,
+  "soc_strength": 1.0,
+  "zero_soc_control": false,
+  "geometry_source": "upstream/siesta/Tests/02.SpinPolarization/base_fe3.fdf",
+  "motivation": "https://doi.org/10.1088/2515-7639/aae7db",
+  "isolated_cluster_convergence_verified": false,
+  "stable_canted_state_verified": false,
+  "gpu_qualified": false,
+  "comparison_protocol": {
+    "parent_input_sha256": "f05af21e2bc4af8e89b28e30a1c609c4a283fbf2dede947bd3dd116ba3ebcd5a",
+    "changes": {
+      "DM.Tolerance": "1e-9",
+      "SCF.H.Tolerance": "1e-8 eV"
+    },
+    "applied_equally_to_all_contenders": true,
+    "comparison_tolerances_changed": false,
+    "reason": "Both native GPU and REMAG exceeded saved-DM tolerance on the original Fe3 inputs"
+  }
+}

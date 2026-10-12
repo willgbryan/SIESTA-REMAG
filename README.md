@@ -8,7 +8,7 @@ and spin–orbit coupling (SOC) as its primary targets.
 REMAG is an independent derivative of **SIESTA 5.4.2** and an experimental
 source release. It applies an integration patch to a disposable copy of the
 [pinned upstream source](upstream.lock.json), keeping pristine SIESTA as the
-numerical reference. Execution currently targets one NVIDIA A100 GPU.
+numerical reference. Execution supports one NVIDIA A100 or H100 GPU.
 
 ## Capabilities
 
@@ -61,7 +61,9 @@ checks and the latest campaign's failed screens and incomplete coverage.
 ## Installation
 
 Use a source checkout with Python 3.12+, Git, CMake, C/C++ and Fortran compilers,
-and BLAS/LAPACK. The GPU implementation uses CUDA 12.6 and targets A100 (SM80).
+and BLAS/LAPACK. The GPU implementation uses CUDA 12.6 and builds native code
+for A100 (SM80) and H100 (SM90). See [Hopper qualification](docs/HOPPER.md) for
+the tested configuration and scope.
 The Modal image provides the Linux/CUDA build environment. The Python package
 is a harness; it does not include a compiled SIESTA executable.
 
@@ -99,7 +101,8 @@ python scripts/run_modal.py --cases fe2_collinear --grid --dm
 The launcher serializes execution and refuses an existing REMAG app or another
 active or unknown GPU allocation. Each run uses one GPU, a bounded timeout,
 no warm pool and no retries. It defaults to an A100 40 GB;
-`--gpu-model A100-80GB` selects the 80 GB model. Launches incur cloud charges.
+`--gpu-model A100-80GB` selects the 80 GB model, and `--gpu-model H100` selects
+one Hopper GPU. Launches incur cloud charges.
 
 This small integration run compares against upstream **CPU** SIESTA. See
 [the full device-SCF configuration](docs/RUNNING.md#single-gpu-execution) to
@@ -108,7 +111,7 @@ also requires the recorded GPU-enabled upstream build and solver settings.
 
 ## Limitations
 
-- The candidate runs in one process on one A100; MPI and multi-GPU candidate
+- The candidate runs in one process on one GPU; MPI and multi-GPU candidate
   execution are not supported.
 - Current evidence uses regression settings. Production magnetic anisotropy
   calculations require basis, mesh, k-point, smearing and SCF convergence studies.

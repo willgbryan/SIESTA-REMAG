@@ -1,0 +1,42 @@
+{
+  "name": "dzp_m400_k4_t300_z",
+  "atoms": 2,
+  "spin": "spin-orbit",
+  "kmesh": [
+    4,
+    4,
+    4
+  ],
+  "repeat": [
+    1,
+    1,
+    1
+  ],
+  "theta_deg": 0,
+  "pseudopotentials": {
+    "Fe_fept_SOC.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+    "Pt_fept_SOC.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+  },
+  "energy_density_outputs": {
+    "tsde": false,
+    "netcdf": false
+  },
+  "initial_population_output": true,
+  "input_sha256": "2a5ab010be5e329471a73f8eb6c76476d6c886d2640a4731fff296b0625e94ab",
+  "purpose": "magnetic-property-convergence-discovery",
+  "orientation_constrained": false,
+  "io_policy": "end-of-cycle",
+  "split_scf_timings": false,
+  "orientation_family_sha256": "cf095d12c186d9aba46978b4f7a106717a196a819a05e42a7bd1f24fa854ebb0",
+  "density_matrix_output": true,
+  "hamiltonian_output": true,
+  "property_point": "dzp_m400_k4_t300",
+  "basis": "DZP",
+  "mesh_cutoff_ry": 400,
+  "electronic_temperature_k": 300,
+  "formula_units": 1,
+  "fixed_cell_volume_ang3": 28.246491,
+  "lattice_relaxed": false,
+  "orbital_moment_output": true,
+  "physical_accuracy_qualified": false
+}

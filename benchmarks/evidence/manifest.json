@@ -205,6 +205,141 @@
       "path": "easy-magnetic-campaign-v181-20261010T060613Z/inputs/fept16_soc_z/input.fdf",
       "local_source": "results/easy-magnetic-campaign-v181-20261010T060613Z/inputs/fept16_soc_z/input.fdf",
       "sha256": "ea290e77b26b088836049ef4ef3376ef8067509fa1cd2a7dc1910b601c28e46b"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/qualification.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/qualification.json",
+      "sha256": "2308eb3f33b6e0d0c7ac4b71b3febc101654ae85928224408fcd315965fcfafa"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/metadata.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/metadata.json",
+      "sha256": "94935b6ae43001ca3772e959bb08460483afdb1cf2f74041e878003c869d3e11"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/ledger.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/ledger.json",
+      "sha256": "5d994f2ad4108a951c41ab34dd029a680b8056bf5f80af473ea287fb765e5158"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/mae.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/mae.json",
+      "sha256": "28f9379e804fdb8fece80f2b0b72b5c901ee1c796c712656c1a788040ba1e2cb"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/kernel-checks.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/kernel-checks.json",
+      "sha256": "3a3a975933c828c291f0080fe35cd8e19560631084d8e946eb12140ee89ff930"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/timings.csv",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/timings.csv",
+      "sha256": "cb0466610560883169e4606282ecd34731224b452c01a0aec598d1900ae642b7"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/native-cubins.log",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/native-cubins.log",
+      "sha256": "5be2753385f0bd102f6915e820aa528ca4febe566eb53df09e4758bf688ed315"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/allocation-release.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/allocation-release.json",
+      "sha256": "6c8929cc6ba5a76c24315ea5f61f07f8c819ddbd569618ce1ce30f3f4dfa1add"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/run-attempt.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/run-attempt.json",
+      "sha256": "bd7580e798bc37b6ac981ca713a07ace6f08ab47ee797ca8178b36cfe2215481"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/solver-default/checks.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/solver-default/checks.json",
+      "sha256": "45a9fa170833665202c60ca6a2b037498e5e5b861031566705873e43d82bfaeb"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/solver-fp64-tiles/checks.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/solver-fp64-tiles/checks.json",
+      "sha256": "d90313433299ef4fc76d3a5c5d600df6fb4955347ee4f4630a5cd0c5ececef07"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fe54_collinear/input.fdf",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fe54_collinear/input.fdf",
+      "sha256": "705a76444e50a1096898f71b64f769c5575128c4ab93acce486f2149784e1005"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fe54_collinear/manifest.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fe54_collinear/manifest.json",
+      "sha256": "825bc65ce0d77323661e486126eb148da74851d1d87bcf1bc4e2be2991c31eb2"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fe16_noncollinear/input.fdf",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fe16_noncollinear/input.fdf",
+      "sha256": "3602afc93642d3aaf393530d0c440b3dc65b57af72360e4a390fdcfe28f732ec"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fe16_noncollinear/manifest.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fe16_noncollinear/manifest.json",
+      "sha256": "e65d0889e12889e00822c88e42b97c427a075ef61ae0fd56eb2ab953967147f1"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fe3_linear_soc_k2_xyz/input.fdf",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fe3_linear_soc_k2_xyz/input.fdf",
+      "sha256": "4dbd3bbf6a8137dd11bfe883c1e437b5c66c9b38d4a32ce5a96d5bc4ea01b111"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fe3_linear_soc_k2_xyz/manifest.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fe3_linear_soc_k2_xyz/manifest.json",
+      "sha256": "263a21028816a33f778258b1201c4237c6ad84a64a17e903b54cd12e6cbd3ea9"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fept16_soc_z/input.fdf",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fept16_soc_z/input.fdf",
+      "sha256": "ea290e77b26b088836049ef4ef3376ef8067509fa1cd2a7dc1910b601c28e46b"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fept16_soc_z/manifest.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fept16_soc_z/manifest.json",
+      "sha256": "54189be371bd8d3e9bf834337106e3788dcfc0dda35d67dc7c54a8807d8d62b2"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fept16_soc_x/input.fdf",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fept16_soc_x/input.fdf",
+      "sha256": "2636385ff78d16342c8d79e6ed814a52b8009ae73b594122d7fbfb620f2fb5a5"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fept16_soc_x/manifest.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fept16_soc_x/manifest.json",
+      "sha256": "688b960223848f49d41f6ab0097f5d91d3e0a13b357d51e1ec38746970732c36"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/dzp_m400_k4_t300_z/input.fdf",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/dzp_m400_k4_t300_z/input.fdf",
+      "sha256": "2a5ab010be5e329471a73f8eb6c76476d6c886d2640a4731fff296b0625e94ab"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/dzp_m400_k4_t300_z/manifest.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/dzp_m400_k4_t300_z/manifest.json",
+      "sha256": "3a954ccf7943075e6e93e73a1fa6792d4a6afb6478e686c62c64910d12655852"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/dzp_m400_k4_t300_x/input.fdf",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/dzp_m400_k4_t300_x/input.fdf",
+      "sha256": "b57d249af6fb999c948db1945174fe6ddc32925a57bab355777042fac256095a"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/dzp_m400_k4_t300_x/manifest.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/dzp_m400_k4_t300_x/manifest.json",
+      "sha256": "a91c0f5004c967843f6b12b01f949a5391c202e5e90d2c1be217b7e57169bd49"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fept128_soc_z/input.fdf",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fept128_soc_z/input.fdf",
+      "sha256": "9a88da444830d15e87f22606f3116e7aa9225f8931656884ee2ed91f11413f94"
+    },
+    {
+      "path": "hopper-qualification-v187-20261012T214738Z/inputs/fept128_soc_z/manifest.json",
+      "local_source": "results/hopper-qualification-v187-20261012T214738Z/inputs/fept128_soc_z/manifest.json",
+      "sha256": "8d12b31ae445ab123a50dc160347fc2987f6e1b9b93ea6e18aa3468710494932"
     }
   ]
 }

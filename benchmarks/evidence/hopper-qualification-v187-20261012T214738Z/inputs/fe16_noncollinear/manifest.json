@@ -1,0 +1,42 @@
+{
+  "name": "fe16_noncollinear",
+  "atoms": 16,
+  "spin": "non-collinear",
+  "kmesh": [
+    2,
+    2,
+    2
+  ],
+  "repeat": [
+    2,
+    2,
+    2
+  ],
+  "theta_deg": 30,
+  "pseudopotentials": {
+    "Fe_nc.psf": "43829da4a9189b60bb7ebb43c0fbdb3de49519ab6c6c48487fb50c6f7f031895"
+  },
+  "energy_density_outputs": {
+    "tsde": false,
+    "netcdf": false
+  },
+  "initial_population_output": true,
+  "input_sha256": "3602afc93642d3aaf393530d0c440b3dc65b57af72360e4a390fdcfe28f732ec",
+  "purpose": "numerical-regression",
+  "orientation_constrained": false,
+  "io_policy": "end-of-cycle",
+  "split_scf_timings": false,
+  "orientation_family_sha256": "0b19bfd5d5cd01dfb7f107c6ff709794b5845de6e36daa11a4bbae4a620ab2e7",
+  "density_matrix_output": true,
+  "hamiltonian_output": true,
+  "comparison_protocol": {
+    "parent_input_sha256": "f81e840686061a229a2b1f5839814e556f1b9cc8507442be6031562d6d77dc62",
+    "changes": {
+      "DM.Tolerance": "1e-9",
+      "SCF.H.Tolerance": "1e-8 eV"
+    },
+    "applied_equally_to_all_contenders": true,
+    "comparison_tolerances_changed": false,
+    "reason": "Investigate the warm-start Fe16 saved-DM discrepancy at matched tighter SCF stopping criteria"
+  }
+}

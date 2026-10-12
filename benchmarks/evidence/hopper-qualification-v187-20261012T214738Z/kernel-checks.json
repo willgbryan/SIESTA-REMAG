@@ -1,0 +1,14 @@
+[
+  {
+    "mode": "default",
+    "passed": true,
+    "checks": 36,
+    "report": "solver-default/checks.json"
+  },
+  {
+    "mode": "fp64-tiles",
+    "passed": true,
+    "checks": 36,
+    "report": "solver-fp64-tiles/checks.json"
+  }
+]

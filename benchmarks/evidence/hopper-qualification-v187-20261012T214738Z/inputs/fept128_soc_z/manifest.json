@@ -1,0 +1,43 @@
+{
+  "name": "fept128_soc_z",
+  "atoms": 128,
+  "spin": "spin-orbit",
+  "kmesh": [
+    2,
+    2,
+    2
+  ],
+  "repeat": [
+    4,
+    4,
+    4
+  ],
+  "theta_deg": 0,
+  "pseudopotentials": {
+    "Fe_fept_SOC.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+    "Pt_fept_SOC.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+  },
+  "energy_density_outputs": {
+    "tsde": false,
+    "netcdf": false
+  },
+  "initial_population_output": true,
+  "input_sha256": "9a88da444830d15e87f22606f3116e7aa9225f8931656884ee2ed91f11413f94",
+  "purpose": "numerical-regression",
+  "orientation_constrained": false,
+  "io_policy": "end-of-cycle",
+  "split_scf_timings": false,
+  "orientation_family_sha256": "f2994624cb0e3d2363f8ed3f87bf43c76c7061106f2d504477483a44a723a483",
+  "density_matrix_output": true,
+  "hamiltonian_output": true,
+  "comparison_protocol": {
+    "parent_input_sha256": "76f67ed9720d2a248aa62fafdb85ce5649bc923dd039fca3e7164ddf0f5bed86",
+    "changes": {
+      "DM.Tolerance": "1e-9",
+      "SCF.H.Tolerance": "1e-8 eV"
+    },
+    "applied_equally_to_all_contenders": true,
+    "comparison_tolerances_changed": false,
+    "reason": "Use the tightened FePt protocol qualified at v124b; all scientific comparison gates unchanged"
+  }
+}

@@ -2,3 +2,5 @@
 *.npz binary
 *.png binary
 *.zip binary
+# Preserve original CSV bytes so retained evidence matches its recorded hashes.
+benchmarks/evidence/**/*.csv -text whitespace=cr-at-eol

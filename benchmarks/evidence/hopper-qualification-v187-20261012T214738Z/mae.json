@@ -1,0 +1,22 @@
+[
+  {
+    "x": "fept16_soc_x",
+    "z": "fept16_soc_z",
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": 0.056828000000678,
+    "candidate_mae_ev": 0.056828000000678,
+    "convention": "E(x)-E(z)"
+  },
+  {
+    "x": "dzp_m400_k4_t300_x",
+    "z": "dzp_m400_k4_t300_z",
+    "passed": true,
+    "max_absolute_error": 0.0,
+    "tolerance": 5e-06,
+    "reference_mae_ev": -0.001261999999769614,
+    "candidate_mae_ev": -0.001261999999769614,
+    "convention": "E(x)-E(z)"
+  }
+]

@@ -4,6 +4,20 @@ These existing records are copied verbatim from completed experiments. The
 [manifest](manifest.json) records their original local paths and SHA-256 hashes.
 No new calculations were performed to populate this directory.
 
+## H100 native-architecture qualification, 12 October 2026
+
+[Hopper qualification](hopper-qualification-v187-20261012T214738Z/qualification.json) records 72 passing
+solver checks and ten passing material calculations across eight inputs,
+including nonparallel SOC, FePt128 and the stronger DZP FePt x/z pair. The
+SM80/SM90 native library ran on one H100 with PTX JIT disabled and direct
+retained pristine-CPU science/export/convergence comparisons. Both directional
+checks pass. The GPU allocation is released.
+
+This is numerical portability coverage. Timings are individual observations;
+there is no new upstream-GPU speedup, A100/H100 comparison or physical
+convergence claim. See [Hopper support](../../docs/HOPPER.md) for the tested
+configuration and limits. Raw outputs remain in the local archive.
+
 ## Expanded magnetic campaign, 10 October 2026
 
 The [campaign summary](easy-magnetic-campaign-v181-20261010T060613Z/summary.json)

@@ -1,0 +1,62 @@
+SystemName REMAG linear Fe3 full SOC nonparallel preflight
+SystemLabel remag
+NumberOfAtoms 3
+NumberOfSpecies 1
+%block ChemicalSpeciesLabel
+1 26 Fe_fept_SOC
+%endblock ChemicalSpeciesLabel
+LatticeConstant 1.0 Bohr
+%block LatticeVectors
+12.0 0.0 0.0
+0.0 12.0 0.0
+0.0 0.0 20.0
+%endblock LatticeVectors
+AtomicCoordinatesFormat NotScaledCartesianBohr
+%block AtomicCoordinatesAndAtomicSpecies
+0.0 0.0 3.644 1
+0.0 0.0 0.0 1
+0.0 0.0 -3.644 1
+%endblock AtomicCoordinatesAndAtomicSpecies
+%block kgrid_Monkhorst_Pack
+1 0 0 0.0
+0 1 0 0.0
+0 0 2 0.0
+%endblock kgrid_Monkhorst_Pack
+Spin spin-orbit
+Spin.OrbitStrength 1.0
+%block DM.InitSpin
+1 3.0 0.0 45.0
+2 1.5 90.0 45.0
+3 3.0 180.0 45.0
+%endblock DM.InitSpin
+PAO.BasisSize SZP
+MeshCutoff 100 Ry
+XC.functional GGA
+XC.authors PBE
+ElectronicTemperature 300 K
+SolutionMethod diagon
+Diag.Algorithm divide-and-conquer
+MaxSCFIterations 1500
+SCF.MustConverge true
+DM.Tolerance 1e-9
+SCF.H.Tolerance 1e-8 eV
+DM.MixingWeight 0.01
+DM.NumberPulay 8
+SCF.Mix.Spin all
+DM.UseSaveDM false
+WriteForces true
+WriteMullikenPop 1
+SaveRho true
+SaveDeltaRho true
+SaveHS true
+UseTreeTimer true
+UseParallelTimer false
+UseWallTime true
+Timing.Split.SCF.Steps false
+Write.DM false
+Write.DM.End.Of.Cycle true
+TS.DE.Save false
+CDF.Save false
+Charge.Mulliken init+geometry+end
+Charge.Mulliken.Format 1
+Charge.Spin init+scf+geometry+end
