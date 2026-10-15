@@ -14,8 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_host_kloop_matches_diag3k(tmp_path):
     result = subprocess.run([sys.executable, str(ROOT/"scripts/check_host_kloop.py"), "--output", str(tmp_path)],
                             capture_output=True, text=True, timeout=900)
+    assert result.returncode == 0, result.stdout[-2000:] + result.stderr[-2000:]
     report = json.loads((tmp_path/"check.json").read_text())
-    assert result.returncode == 0 and report["passed"], result.stderr[-2000:]
+    assert report["passed"]
     cases = report["cases"]
     # Every solver, kept and recomputed vectors, several thread counts, and the unfactored phases.
     assert {c["solver"] for c in cases} == {"divide", "mrrr", "qr"}
