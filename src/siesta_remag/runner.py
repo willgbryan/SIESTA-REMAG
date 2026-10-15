@@ -61,9 +61,17 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
     vector_cache = env.get('REMAG_DEVICE_VECTOR_CACHE') == '1'
     if env.get('REMAG_DEVICE_VECTOR_CACHE', '0') not in ('0', '1') or (vector_cache and not device_cycle):
         raise ValueError('Vector cache requires device SCF and a zero/one mode')
+    k_loop = env.get('REMAG_SCF_K_LOOP', '0')
+    if k_loop not in ('0', '1') or (k_loop == '1' and not device_cycle):
+        raise ValueError('The device k loop requires device SCF and a zero/one mode')
     solver_lanes = env.get('REMAG_SCF_SOLVER_LANES', '1')
-    if solver_lanes not in ('1', '2', '4', '8') or (solver_lanes != '1' and not device_cycle):
-        raise ValueError('Parallel solver workspaces require device SCF and a count of 1, 2, 4 or 8')
+    batched = env.get('REMAG_SCF_BATCHED_SOLVER', '0')
+    if batched not in ('0', '1') or (batched == '1' and k_loop != '1'):
+        raise ValueError('The batched solver requires the device k loop and a zero/one mode')
+    lane_counts = ('1', '2', '4', '8', '16', '32', '64', '128') if k_loop == '1' else ('1', '2', '4', '8')
+    if batched == '1': lane_counts += ('256', '512', '1024')
+    if solver_lanes not in lane_counts or (solver_lanes != '1' and not device_cycle):
+        raise ValueError('Parallel solver workspaces require device SCF and a count of ' + ', '.join(lane_counts))
     warm_start = env.get('REMAG_SCF_WARM_START', '0')
     if warm_start not in ('0', '1') or (warm_start == '1' and not device_cycle):
         raise ValueError('Eigensolver warm start requires device SCF and a zero/one mode')
@@ -637,7 +645,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
                   upstream=provenance, parse_errors=parse_errors,
                   runtime_settings={key: env.get(key) for key in
                                     ("REMAG_INITIAL_MESH", "REMAG_INITIAL_MESH_POISON_HOST", "REMAG_INITIAL_MESH_SHADOW", "REMAG_NONLOCAL_H0_POISON_HOST", "REMAG_NONLOCAL_H0", "REMAG_NONLOCAL_H0_SHADOW", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "REMAG_GPU", "REMAG_GRID", "REMAG_DM",
-                                     "REMAG_GRID_POTENTIAL_SPINS", "REMAG_GRID_EPOCH", "REMAG_GRID_VERIFY_EPOCH", "REMAG_NORMALIZE", "REMAG_OCCUPATIONS", "REMAG_RESIDENT_SPECTRA", "REMAG_HS", "REMAG_HARTREE", "REMAG_RESIDENT_GRID", "REMAG_RESIDENT_SCF", "REMAG_DEVICE_SCF", "REMAG_DEVICE_VECTOR_CACHE", "REMAG_BLOCK_SOLVER", "REMAG_BLOCK_WIDTH", "REMAG_BLOCK_LOCAL_SOLVER", "REMAG_BLOCK_SHARED_JACOBI", "REMAG_BLOCK_FUSED_MATRIX", "REMAG_BLOCK_FP64_VECTORS", "REMAG_BLOCK_FP64_MATRIX", "REMAG_FORCE_SHADOW", "REMAG_FORCE_SHADOW_RESIDENT", "REMAG_GRID_FORCE", "REMAG_ATOMIC_GRID_FORCE", "REMAG_ATOMIC_FORCE_SHADOW", "REMAG_FINAL_GRID", "REMAG_FINAL_GRID_SHADOW", "REMAG_FINAL_DENSITY", "REMAG_FINAL_DENSITY_SHADOW", "REMAG_ORBITAL_BASIS_SHADOW", "REMAG_ORBITAL_BASIS", "REMAG_ATOMIC_BASIS_SHADOW", "REMAG_ATOMIC_BASIS", "REMAG_TWO_CENTER_SHADOW", "REMAG_PAIR_FORCE_SHADOW", "REMAG_NONLOCAL_FORCE_SHADOW", "REMAG_INTEGRAL_FORCE", "REMAG_POPULATION", "REMAG_TRACE_IO", "REMAG_TRACE_CUDA", "REMAG_SCF_STAGE_PROFILE", "REMAG_SCF_SOLVER_LANES", "REMAG_SCF_WARM_START", "REMAG_RADIAL_BATCH",
+                                     "REMAG_GRID_POTENTIAL_SPINS", "REMAG_GRID_EPOCH", "REMAG_GRID_VERIFY_EPOCH", "REMAG_NORMALIZE", "REMAG_OCCUPATIONS", "REMAG_RESIDENT_SPECTRA", "REMAG_HS", "REMAG_HARTREE", "REMAG_RESIDENT_GRID", "REMAG_RESIDENT_SCF", "REMAG_DEVICE_SCF", "REMAG_DEVICE_VECTOR_CACHE", "REMAG_BLOCK_SOLVER", "REMAG_BLOCK_WIDTH", "REMAG_BLOCK_LOCAL_SOLVER", "REMAG_BLOCK_SHARED_JACOBI", "REMAG_BLOCK_FUSED_MATRIX", "REMAG_BLOCK_FP64_VECTORS", "REMAG_BLOCK_FP64_MATRIX", "REMAG_FORCE_SHADOW", "REMAG_FORCE_SHADOW_RESIDENT", "REMAG_GRID_FORCE", "REMAG_ATOMIC_GRID_FORCE", "REMAG_ATOMIC_FORCE_SHADOW", "REMAG_FINAL_GRID", "REMAG_FINAL_GRID_SHADOW", "REMAG_FINAL_DENSITY", "REMAG_FINAL_DENSITY_SHADOW", "REMAG_ORBITAL_BASIS_SHADOW", "REMAG_ORBITAL_BASIS", "REMAG_ATOMIC_BASIS_SHADOW", "REMAG_ATOMIC_BASIS", "REMAG_TWO_CENTER_SHADOW", "REMAG_PAIR_FORCE_SHADOW", "REMAG_NONLOCAL_FORCE_SHADOW", "REMAG_INTEGRAL_FORCE", "REMAG_POPULATION", "REMAG_TRACE_IO", "REMAG_TRACE_CUDA", "REMAG_SCF_STAGE_PROFILE", "REMAG_SCF_SOLVER_LANES", "REMAG_SCF_WARM_START", "REMAG_SCF_K_LOOP", "REMAG_SCF_BATCHED_SOLVER", "REMAG_RADIAL_BATCH",
                                      "REMAG_GPU_INITIALIZATION", "REMAG_GPU_HISTORY", "REMAG_FINAL_SPECTRA", "REMAG_GATE_H_EXPORT", "REMAG_DEFER_SCF_LOG", "GFORTRAN_FORMATTED_BUFFER_SIZE",
                                      "GFORTRAN_UNBUFFERED_ALL", "GFORTRAN_UNBUFFERED_PRECONNECTED")},
                   returncode=returncode, timed_out=timed_out, wall_seconds=wall,

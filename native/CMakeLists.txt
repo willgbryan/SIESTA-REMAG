@@ -219,3 +219,26 @@ set_source_files_properties(radial_batch.cu PROPERTIES COMPILE_OPTIONS "--fmad=f
 
 target_sources(remag_gpu PRIVATE spin_rotation.cu)
 set_source_files_properties(spin_rotation.cu PROPERTIES COMPILE_OPTIONS "--fmad=false")
+# Site spin constraints share spin_constraint_math.hpp with the host path and
+# its CPU oracle; contraction is disabled so both round identically.
+target_sources(remag_gpu PRIVATE spin_constraint.cu spin_constraint_state.cpp)
+set_source_files_properties(spin_constraint.cu PROPERTIES COMPILE_OPTIONS "--fmad=false")
+add_library(remag_spin_constraint_check SHARED spin_constraint.cu check_spin_constraint.cu)
+set_target_properties(remag_spin_constraint_check PROPERTIES CUDA_STANDARD 17)
+target_link_libraries(remag_spin_constraint_check PRIVATE CUDA::cudart)
+# Tetrahedron occupations for the SCF k grid (OccupationFunction Tetrahedra.*).
+# Host, and in the device SCF cycle (tetrahedra_device.cu); the legacy device
+# occupation route accepts FD alone.
+target_sources(remag_gpu PRIVATE tetrahedra.cpp tetrahedra_device.cu)
+add_library(remag_tetra_check SHARED check_tetrahedra_device.cu)
+set_target_properties(remag_tetra_check PROPERTIES CUDA_STANDARD 17)
+target_link_libraries(remag_tetra_check PRIVATE remag_gpu CUDA::cudart)
+# Threaded CPU k-point loop for spin-orbit diagonalization (REMAG.HostK.Threads).
+# It calls LAPACK zhegvd and BLAS zgemm, resolved from SIESTA's LAPACK when embedded.
+target_sources(remag_gpu PRIVATE host_kloop.cpp)
+find_package(Threads REQUIRED)
+target_link_libraries(remag_gpu PRIVATE Threads::Threads)
+find_package(LAPACK QUIET)
+if(LAPACK_FOUND)
+  target_link_libraries(remag_gpu PRIVATE ${LAPACK_LIBRARIES})
+endif()

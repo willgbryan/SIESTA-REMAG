@@ -5,6 +5,7 @@ module m_remag_cycle
   use m_remag_scf, only: remag_scf_guard,remag_scf_charge
   use m_remag_integral_force, only: remag_integral_force_enabled
   use m_remag_population, only: remag_population_prepare
+  use m_remag_tetrahedra, only: remag_tetra_method,remag_tetra_cycle_config
   implicit none
   interface
     integer(c_int) function remag_cycle_h_export_gated() bind(C)
@@ -61,8 +62,9 @@ contains
         call die('REMAG deferred spectrum: TD wavefunctions still require host occupations')
     if(.not.SIESTA_worker.or.no_l/=no_u.or.neigwanted/=no_u.or.fixspin.or.diag_wfs_cache/=0) &
         call die('REMAG device SCF: requires serial full-band diagonalization, variable spin')
-    if(.not.leqi(fdf_string('OccupationFunction','FD'),'FD').or.fdf_get('SingleExcitation',.false.)) &
-        call die('REMAG device SCF: requires FD occupations without excitation')
+    if((.not.leqi(fdf_string('OccupationFunction','FD'),'FD').and.remag_tetra_method()==0).or. &
+        fdf_get('SingleExcitation',.false.)) &
+        call die('REMAG device SCF: requires FD or tetrahedron occupations without excitation')
     if(fdf_get('Read-H-from-file',.false.).or.fdf_get('timing-split-scf-steps',.false.).or. &
         WALLTIME_WARNING<huge(1._c_double)) &
         call die('REMAG device SCF: read-H, per-step timing and walltime callbacks unsupported')
@@ -170,6 +172,8 @@ contains
         dDtol,dHtol,tolerance_EDM,tolerance_Eharr,tolerance_FreeE,Ena,Eions,Emad]
     if(.not.associated(eo).or..not.associated(qo)) call die('REMAG cycle: missing spectrum storage')
     if(size(eo)/=no_u*spin%spinor*nk.or.size(qo)/=size(eo)) call die('REMAG cycle: spectrum shape mismatch')
+    if(gamma_scf.and.remag_tetra_method()>0) call die('REMAG device SCF: tetrahedra need a k grid')
+    if(.not.gamma_scf) call remag_tetra_cycle_config()
     call remag_basis_prepare(nmpl)
     call remag_atomic_basis_prepare()
     call remag_population_prepare()

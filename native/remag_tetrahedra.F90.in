@@ -1,0 +1,111 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+! Tetrahedron occupations for the SCF Monkhorst-Pack grid, selected by
+! OccupationFunction Tetrahedra.Linear, Tetrahedra.Bloechl or
+! Tetrahedra.Optimized. fermid.F calls remag_tetra_fermid in place of its
+! smearing: the weights replace w_k f_nk and the entropy term is zero. The
+! weights themselves are computed in native/tetrahedra.cpp.
+module m_remag_tetrahedra
+  use iso_c_binding, only: c_int,c_double
+  implicit none
+  private
+  public :: remag_tetra_method,remag_tetra_fermid,remag_tetra_cycle_config
+  integer,save :: method=-1
+  logical,save :: announced=.false.
+  interface
+    integer(c_int) function remag_tetra_occupations(method,grid,displacement,cell,nk,kpoints,weights,trs, &
+        nspinor,maxspn,maxe,ne,energies,charge,occupations,fermi,tetrahedra,threads) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: method,nk,trs,nspinor,maxspn,maxe,ne,threads
+      integer(c_int),intent(in) :: grid(3)
+      real(c_double),intent(in) :: displacement(3),cell(3,3),kpoints(3,*),weights(*),energies(*)
+      real(c_double),value :: charge
+      real(c_double),intent(out) :: occupations(*),fermi
+      integer(c_int),intent(out) :: tetrahedra
+    end function
+    integer(c_int) function remag_cycle_tetrahedra(method,grid,displacement,cell,trs) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: method,trs
+      integer(c_int),intent(in) :: grid(3)
+      real(c_double),intent(in) :: displacement(3),cell(3,3)
+    end function
+  end interface
+contains
+  ! 0 when OccupationFunction is not a tetrahedron method; else 1 linear,
+  ! 2 linear with Bloechl's correction, 3 Kawamura's optimized weights.
+  integer function remag_tetra_method()
+    use fdf, only: fdf_string,leqi
+    character(len=64) :: name
+    if(method<0) then
+      name=fdf_string('OccupationFunction','FD')
+      method=0
+      if(leqi(name,'Tetrahedra.Linear')) method=1
+      if(leqi(name,'Tetrahedra.Bloechl')) method=2
+      if(leqi(name,'Tetrahedra.Optimized')) method=3
+    endif
+    remag_tetra_method=method
+  end function
+
+  ! The SCF Monkhorst-Pack grid, as remag_tetra_fermid requires it.
+  subroutine scf_grid(grid,trs)
+    use sys, only: die
+    use fdf, only: fdf_boolean
+    use kpoint_scf_m, only: kpoint_scf
+    use kpoint_t_m, only: K_METHOD_MONKHORST_PACK
+    integer(c_int),intent(out) :: grid(3),trs
+    integer :: i,j
+    if(fdf_boolean('SingleExcitation',.false.)) call die('Tetrahedra: SingleExcitation unsupported')
+    if(kpoint_scf%method/=K_METHOD_MONKHORST_PACK) call die('Tetrahedra need kgrid.MonkhorstPack')
+    do i=1,3
+      grid(i)=kpoint_scf%k_cell(i,i)
+      do j=1,3
+        if(i/=j.and.kpoint_scf%k_cell(i,j)/=0) call die('Tetrahedra need a diagonal kgrid.MonkhorstPack')
+      enddo
+    enddo
+    if(product(grid)<2) call die('Tetrahedra need the SCF k grid')
+    trs=0
+    if(kpoint_scf%trs) trs=1
+  end subroutine
+
+  ! Hand the method and grid to the device SCF cycle (native/tetrahedra_device.cu)
+  ! before it is prepared; FD (method 0) clears it.
+  subroutine remag_tetra_cycle_config()
+    use sys, only: die
+    use kpoint_scf_m, only: kpoint_scf
+    use siesta_geom, only: ucell
+    integer(c_int) :: grid(3),trs
+    grid=0;trs=0
+    if(remag_tetra_method()>0) call scf_grid(grid,trs)
+    if(remag_cycle_tetrahedra(remag_tetra_method(),grid,kpoint_scf%k_displ,ucell,trs)/=0) &
+      call die('Tetrahedra: device cycle configuration failed')
+  end subroutine
+
+  subroutine remag_tetra_fermid(nspinor,maxspn,nk,wk,maxe,ne,e,qtot,wke,ef,entropy)
+    use precision, only: dp
+    use parallel, only: IOnode
+    use sys, only: die
+    use fdf, only: fdf_boolean,fdf_get
+    use kpoint_scf_m, only: kpoint_scf
+    use kpoint_t_m, only: K_METHOD_MONKHORST_PACK
+    use siesta_geom, only: ucell
+    integer,intent(in) :: nspinor,maxspn,nk,maxe,ne
+    real(dp),intent(in) :: wk(nk),e(maxe,maxspn,nk),qtot
+    real(dp),intent(out) :: wke(maxe,maxspn,nk),ef,entropy
+    integer(c_int) :: grid(3),status,tetrahedra,trs
+    character(len=*),parameter :: names(3)=['linear              ','linear with Bloechl ','optimized (Kawamura)']
+    call scf_grid(grid,trs)
+    ! Only the SCF k points carry a grid; other callers of fermid (Gamma
+    ! routes, band or transport k sets) stop here.
+    if(nk/=kpoint_scf%N) call die('Tetrahedra need the SCF k grid')
+    if(any(abs(wk-kpoint_scf%w(1:nk))>1.e-12_dp)) call die('Tetrahedra need the SCF k-point weights')
+    status=remag_tetra_occupations(method,grid,kpoint_scf%k_displ,ucell,nk,kpoint_scf%k,wk,trs, &
+      nspinor,maxspn,maxe,ne,e,qtot,wke,ef,tetrahedra,max(1,fdf_get('REMAG.HostK.Threads',1)))
+    if(status/=0) then
+      if(IOnode) write(6,'(a,i0)') 'Tetrahedra: occupation error ',status
+      call die('Tetrahedra: occupations failed; see the message above')
+    endif
+    entropy=0._dp
+    if(IOnode.and..not.announced) write(6,'(/a,a,a,i0,a,i0,a,i0,a,i0,a)') 'fermid: tetrahedron occupations, ', &
+      trim(names(method)),', ',grid(1),'x',grid(2),'x',grid(3),' grid, ',tetrahedra,' tetrahedra'
+    announced=.true.
+  end subroutine
+end module

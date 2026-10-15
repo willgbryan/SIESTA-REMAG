@@ -1,0 +1,9 @@
+\section*{Scope}
+
+All of these numbers come from one small metallic cell with many k points, on one
+machine. Each k point carries a small matrix, so the work is many independent small
+eigenproblems plus a fixed amount of mesh work. Larger cells with fewer k points
+load the code differently and were not timed. Nor was a GPU build of unmodified
+SIESTA that offloads the eigensolver through ELPA~\citep{Marek2014}. The CPU comparison uses 28 CPUs'
+worth of time out of a 112-core host, without pinning, and is not normalized for
+cost or energy.

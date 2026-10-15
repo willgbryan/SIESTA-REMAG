@@ -1,0 +1,134 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+! Threaded CPU replacement for diag3k.F (spin-orbit coupling with k points),
+! selected by REMAG.HostK.Threads N > 0 on the host path (REMAG_GPU=0), one
+! process, without wavefunction output. The work is in native/host_kloop.cpp;
+! this wrapper keeps upstream's sequence: eigenvalues at every k point,
+! occupations from fermid (smearing or tetrahedra), the local-DOS window, and
+! the density and energy-density matrices. REMAG.HostK.VectorMemoryMB (default
+! 8192) bounds the eigenvectors kept between the two passes; beyond it each k
+! point is assembled and solved again, as upstream does.
+! REMAG.HostK.Solver picks the LAPACK eigensolver: divide (zhegvd, default),
+! mrrr (Cholesky reduction and zheevr, which in the second pass computes only
+! the occupied states) or qr (zhegv).
+module m_remag_hostk
+  use iso_c_binding, only: c_int, c_double
+  implicit none
+  private
+  public :: remag_hostk_use, remag_hostk_diag3k
+  integer, save :: threads = -1
+  integer(c_int), save :: solver = 1
+  real(c_double), save :: memory_mb = 8192._c_double
+  logical, save :: announced = .false., declined = .false.
+  interface
+    integer(c_int) function remag_gpu_enabled() bind(C)
+      import c_int
+    end function
+    integer(c_int) function remag_hostk_setup(nuo, no, maxnh, numh, listhptr, listh, indxuo, xij, xorb, nk, &
+        kpoint, nthreads, budget, solver) bind(C)
+      import c_int, c_double
+      integer(c_int), value :: nuo, no, maxnh, nk, nthreads, solver
+      integer(c_int), intent(in) :: numh(*), listhptr(*), listh(*), indxuo(*)
+      real(c_double), intent(in) :: xij(*), xorb(*), kpoint(*)
+      real(c_double), value :: budget
+    end function
+    integer(c_int) function remag_hostk_spectrum(h, s, neig, maxe, eo) bind(C)
+      import c_int, c_double
+      real(c_double), intent(in) :: h(*), s(*)
+      integer(c_int), value :: neig, maxe
+      real(c_double), intent(out) :: eo(*)
+    end function
+    integer(c_int) function remag_hostk_density(h, s, neig, maxe, eo, qo, occtol, maxnd, numd, listdptr, listd, &
+        dnew, enew) bind(C)
+      import c_int, c_double
+      real(c_double), intent(in) :: h(*), s(*), eo(*), qo(*)
+      integer(c_int), value :: neig, maxe, maxnd
+      real(c_double), value :: occtol
+      integer(c_int), intent(in) :: numd(*), listdptr(*), listd(*)
+      real(c_double), intent(out) :: dnew(*), enew(*)
+    end function
+  end interface
+contains
+  logical function remag_hostk_use(getPSI)
+    use fdf, only: fdf_get, leqi
+    use parallel, only: Nodes, IOnode
+    use sys, only: die
+    logical, intent(in) :: getPSI
+    character(len=32) :: name
+    if (threads < 0) then
+      threads = max(0, fdf_get('REMAG.HostK.Threads', 0))
+      memory_mb = fdf_get('REMAG.HostK.VectorMemoryMB', 8192._c_double)
+      name = fdf_get('REMAG.HostK.Solver', 'divide')
+      if (leqi(name, 'divide')) then
+        solver = 1
+      else if (leqi(name, 'mrrr')) then
+        solver = 2
+      else if (leqi(name, 'qr')) then
+        solver = 3
+      else
+        call die('REMAG.HostK.Solver must be divide, mrrr or qr')
+      end if
+    end if
+    remag_hostk_use = threads > 0 .and. .not. getPSI .and. Nodes == 1 .and. remag_gpu_enabled() == 0
+    ! A requested loop that cannot run is reported, so timings are not misread.
+    if (threads > 0 .and. .not. remag_hostk_use .and. .not. declined) then
+      if (IOnode) write(6,'(a)') 'diag3k: REMAG.HostK.Threads ignored (needs one process, REMAG_GPU=0 and '// &
+        'no wavefunction output); using upstream diag3k'
+      declined = .true.
+    end if
+  end function
+
+  subroutine remag_hostk_diag3k(nuo, no, maxnh, maxnd, maxo, numh, listhptr, listh, numd, listdptr, listd, &
+      H, S, getD, qtot, temp, e1, e2, xij, indxuo, nk, kpoint, wk, eo, qo, Dnew, Enew, ef, Entropy, &
+      nuotot, occtol, neigwanted)
+    use precision, only: dp
+    use sys, only: die
+    use parallel, only: IOnode
+    use m_fermid, only: fermid, stepf
+    use siesta_geom, only: xa
+    use atomlist, only: iaorb
+    integer, intent(in) :: nuo, no, maxnh, maxnd, maxo, nk, nuotot, neigwanted
+    integer, intent(in) :: numh(nuo), listhptr(*), listh(maxnh), numd(nuo), listdptr(*), listd(maxnd), indxuo(no)
+    real(dp), intent(in) :: H(maxnh,8), S(maxnh), qtot, temp, e1, e2, xij(3,maxnh), kpoint(3,nk), wk(nk), occtol
+    logical, intent(in) :: getD
+    real(dp), intent(out) :: eo(maxo*2,nk), qo(maxo*2,nk), Dnew(maxnd,8), Enew(maxnd,4), ef, Entropy
+    real(dp), allocatable :: xorb(:,:)
+    real(dp) :: t
+    integer :: io, ik, status
+    call timer('remag_hostk', 1)
+    if (nuo /= nuotot) call die('REMAG host k loop: one process only')
+    allocate(xorb(3,nuo))
+    do io = 1, nuo
+      xorb(:,io) = xa(:,iaorb(io))
+    end do
+    status = remag_hostk_setup(nuo, no, maxnh, numh, listhptr, listh, indxuo, xij, xorb, nk, kpoint, threads, &
+                               memory_mb, solver)
+    if (status == 0) status = remag_hostk_spectrum(H, S, 2*neigwanted, 2*maxo, eo)
+    if (status /= 0) then
+      if (IOnode) write(6,'(a,i0)') 'REMAG host k loop: error ', status
+      call die('REMAG host k loop failed; see the message above')
+    end if
+    if (IOnode .and. .not. announced) write(6,'(a,i0,a,a)') 'diag3k: REMAG host k loop on ', threads, &
+      ' threads, solver ', trim(merge('divide', merge('mrrr  ', 'qr    ', solver == 2), solver == 1))
+    announced = .true.
+    if (getD) then
+      call fermid(2, 1, nk, wk, maxo*2, neigwanted*2, eo, temp, qtot, qo, ef, Entropy)
+      if (e1 < e2) then
+        ! Local density of states between e1 and e2, as diag3k.
+        t = max(temp, 1.d-6)
+        do ik = 1, nk
+          do io = 1, neigwanted*2
+            qo(io,ik) = wk(ik)*(stepf((eo(io,ik)-e2)/t) - stepf((eo(io,ik)-e1)/t))
+          end do
+        end do
+      end if
+      status = remag_hostk_density(H, S, 2*neigwanted, 2*maxo, eo, qo, occtol, maxnd, numd, listdptr, listd, &
+                                   Dnew, Enew)
+      if (status /= 0) then
+        if (IOnode) write(6,'(a,i0)') 'REMAG host k loop: error ', status
+        call die('REMAG host k loop failed; see the message above')
+      end if
+    end if
+    deallocate(xorb)
+    call timer('remag_hostk', 2)
+  end subroutine
+end module

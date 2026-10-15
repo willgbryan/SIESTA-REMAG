@@ -36,7 +36,7 @@ struct Context {
 // outputs: H,D,E,Ebank,Qbank,FermiResult,CycleResult,history,diagnostics.
 extern "C" int remag_check_scf_cycle(const Problem* p,const void* const* input,void* const* output,Check* info) {
     try {
-        if(!p||!input||!output||!info||p->n<1||p->n>64||p->maximum<1||p->maximum>20||p->nk<1||p->nk>4||
+        if(!p||!input||!output||!info||p->n<1||p->n>64||p->maximum<1||p->maximum>20||p->nk<1||p->nk>8||
            p->kind<0||p->kind>3||(p->kind<2?(p->nh!=1&&p->nh!=2):(p->nh!=4&&p->nh!=8))) return -1;
         *info={};phase(0,0);Context c;const int n=p->n,nh=p->nh,eh=nh<4?nh:4,used=n*n,cap=used+2;
         const int dim=n*(p->kind>=2?2:1),jobs=p->nk*(p->kind<2?nh:1);

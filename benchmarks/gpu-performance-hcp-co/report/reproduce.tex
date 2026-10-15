@@ -1,0 +1,11 @@
+\section*{Data and scripts}
+
+Everything needed to check these numbers is in the SIESTA-REMAG source tree, in the
+folder \nolinkurl{benchmarks/gpu-performance-hcp-co}.
+\nolinkurl{data/records.jsonl} gives each run's wall time, iteration count and final
+results. \nolinkurl{scripts/bench.py} generated the inputs and ran every calculation, and
+\nolinkurl{scripts/analyze.py} drew every figure and computed every number quoted here.
+\nolinkurl{data/machine.txt} has the SHA-256 hashes of the three SIESTA executables and of
+REMAG's GPU library. The REMAG build is commit \texttt{2b8a2c0} of SIESTA-REMAG plus
+uncommitted changes, identified by those hashes. Full inputs, outputs and SIESTA timer
+trees for every run are kept in a separate archive of about \SI{1}{GB}.

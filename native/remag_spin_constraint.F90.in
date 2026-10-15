@@ -1,0 +1,295 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+! Site-resolved noncollinear spin constraints with Lagrange multipliers,
+! after Cuadrado, Pruneda, Garcia and Ordejon, J. Phys. Mater. 1, 015010 (2018).
+! Each row of %block REMAG.SpinConstraint is one site: theta phi (degrees) and
+! one or more atom indices. The site moment is the Mulliken spin moment of its
+! atoms. Every trial field is one converged SCF at fixed geometry; the outer
+! search lives in native/spin_constraint_optimizer.hpp. By default each SCF
+! carries the augmented-Lagrangian penalty rho/2 |M_perp|^2 and the field is
+! updated as b <- b + rho M_perp (method of multipliers); the paper's plain
+! Lagrangian search is Direction steepest or bfgs with Penalty 0. An optional coarse
+! tier runs early trials with SCF tolerances scaled by CoarseSCFScale until
+! the coarse constraint tolerances hold, then finishes with full settings.
+module m_remag_spin_constraint
+  use iso_c_binding, only: c_int,c_double
+  use m_remag_dm, only: remag_dm_check
+  implicit none
+  private
+  public :: remag_spin_constraint_init,remag_spin_constraint_sites
+  public :: remag_spin_constraint_begin_step,remag_spin_constraint_end_step
+  public :: remag_spin_constraint_host_hamiltonian,remag_reuse_fixed_geometry
+  integer,save :: site_count=0,current_step=0
+  logical,save :: cache_geometry=.false.
+  real(c_double),save :: coarse_scale=1._c_double,scf_tolerances(5)=0._c_double
+  real(c_double),allocatable,save :: angles(:,:),fixed_positions(:,:)
+  real(c_double),save :: fixed_cell(3,3)
+  interface
+    integer(c_int) function remag_spin_constraint_configure(sites,angles,rows,orbital_site,options,values) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: sites,rows
+      real(c_double),intent(in) :: angles(*),values(*)
+      integer(c_int),intent(in) :: orbital_site(*),options(*)
+    end function
+    integer(c_int) function remag_spin_constraint_begin(step) bind(C)
+      import c_int
+      integer(c_int),value :: step
+    end function
+    integer(c_int) function remag_spin_constraint_fields(count,fields) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: count
+      real(c_double),intent(out) :: fields(*)
+    end function
+    integer(c_int) function remag_spin_constraint_host_add(rows,capacity,spins,num,ptr,cols,mapping,overlap,density,h) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: rows,capacity,spins
+      integer(c_int),intent(in) :: num(*),ptr(*),cols(*),mapping(*)
+      real(c_double),intent(in) :: overlap(*),density(*)
+      real(c_double),intent(inout) :: h(*)
+    end function
+    integer(c_int) function remag_spin_constraint_host_moments(rows,capacity,spins,num,ptr,overlap,density) bind(C)
+      import c_int,c_double
+      integer(c_int),value :: rows,capacity,spins
+      integer(c_int),intent(in) :: num(*),ptr(*)
+      real(c_double),intent(in) :: overlap(*),density(*)
+    end function
+    integer(c_int) function remag_spin_constraint_observe(free_energy,count,moments,lagrangian,done) bind(C)
+      import c_int,c_double
+      real(c_double),value :: free_energy
+      integer(c_int),value :: count
+      real(c_double),intent(out) :: moments(*),lagrangian
+      integer(c_int),intent(out) :: done
+    end function
+    integer(c_int) function remag_spin_constraint_measure(values) bind(C)
+      import c_double,c_int
+      real(c_double),intent(out) :: values(*)
+    end function
+    integer(c_int) function remag_spin_constraint_coarse() bind(C)
+      import c_int
+    end function
+  end interface
+contains
+  integer function remag_spin_constraint_sites()
+    remag_spin_constraint_sites=site_count
+  end function
+  subroutine remag_spin_constraint_init()
+    use fdf
+    use precision, only: dp
+    use units, only: eV,deg
+    use sys, only: die
+    use siesta_options, only: idyn,nmove,td_elec_dyn,harrisfun,usesavedm, &
+      dDtol,dHtol,tolerance_EDM,tolerance_Eharr,tolerance_FreeE
+    use m_steps, only: inicoor,fincoor
+    use m_spin, only: spin
+    use parallel, only: Nodes
+    use siesta_geom, only: na_u
+    use atomlist, only: no_u,lasto
+    use m_remag_dm, only: remag_cycle_enabled
+    type(block_fdf) :: bfdf
+    type(parsed_line),pointer :: line=>null()
+    integer :: i,k,n,ia,rows
+    integer,allocatable :: atom_site(:),orbital_site(:)
+    integer(c_int) :: options(5)
+    real(c_double) :: values(10)
+    character(len=132) :: word
+    character(len=*),parameter :: criteria(3)=['angle ','torque','both  ']
+    character(len=*),parameter :: directions(3)=['steepest   ','bfgs       ','multipliers']
+    if(.not.fdf_isblock('REMAG.SpinConstraint'))return
+    if(fdf_isblock('REMAG.SpinRotations')) &
+      call die('REMAG spin constraints cannot be combined with REMAG.SpinRotations')
+    if(Nodes/=1.or.idyn/=0.or.nmove/=0.or.inicoor/=fincoor.or.td_elec_dyn.or.harrisfun) &
+      call die('REMAG spin constraints require serial fixed-geometry SCF calculations')
+    if(.not.spin%NCol.and..not.spin%SO) &
+      call die('REMAG spin constraints require noncollinear or spin-orbit spin')
+    if(.not.fdf_get('DM.AllowReuse',.true.).or.fdf_get('DM.AllowExtrapolation',.false.).or.usesavedm) &
+      call die('REMAG spin constraints reuse the last converged density: DM.AllowReuse true, no extrapolation or DM file')
+    if(.not.fdf_get('SCF.MustConverge',.true.)) &
+      call die('REMAG spin constraints require a converged SCF for every trial field')
+    allocate(atom_site(na_u));atom_site=-1
+    ! Rows: theta phi atom [atom ...]. Count first, then read.
+    if(.not.fdf_block('REMAG.SpinConstraint',bfdf))call die('REMAG.SpinConstraint is unreadable')
+    do while(fdf_bline(bfdf,line))
+      n=fdf_bnvalues(line)
+      if(fdf_bnnames(line)/=0.or.n<3)call die('REMAG.SpinConstraint rows require theta phi atom [atom ...]')
+      site_count=site_count+1
+    enddo
+    call fdf_bclose(bfdf)
+    if(site_count==0)call die('REMAG.SpinConstraint is empty')
+    allocate(angles(2,site_count))
+    if(.not.fdf_block('REMAG.SpinConstraint',bfdf))call die('REMAG.SpinConstraint disappeared')
+    i=0
+    do while(fdf_bline(bfdf,line))
+      i=i+1;n=fdf_bnvalues(line)
+      angles(1,i)=fdf_bvalues(line,1)*deg;angles(2,i)=fdf_bvalues(line,2)*deg
+      do k=3,n
+        ia=nint(fdf_bvalues(line,k))
+        if(abs(fdf_bvalues(line,k)-ia)>0._dp.or.ia<1.or.ia>na_u) &
+          call die('REMAG.SpinConstraint atom indices must be integers in 1..na_u')
+        if(atom_site(ia)>=0)call die('REMAG.SpinConstraint lists an atom in more than one site')
+        atom_site(ia)=i-1
+      enddo
+    enddo
+    call fdf_bclose(bfdf)
+    rows=no_u;allocate(orbital_site(rows))
+    do ia=1,na_u
+      orbital_site(lasto(ia-1)+1:lasto(ia))=atom_site(ia)
+    enddo
+    word=fdf_get('REMAG.SpinConstraint.Direction','multipliers')
+    if(leqi(word,'steepest'))then
+      options(1)=0
+    else if(leqi(word,'bfgs'))then
+      options(1)=1
+    else if(leqi(word,'multipliers'))then
+      options(1)=2
+    else
+      call die('REMAG.SpinConstraint.Direction must be multipliers, steepest or bfgs')
+    endif
+    word=fdf_get('REMAG.SpinConstraint.LineSearch','golden')
+    if(leqi(word,'golden'))then
+      options(2)=0
+    else if(leqi(word,'secant'))then
+      options(2)=1
+    else
+      call die('REMAG.SpinConstraint.LineSearch must be golden or secant')
+    endif
+    word=fdf_get('REMAG.SpinConstraint.Criterion','angle')
+    if(leqi(word,'angle'))then
+      options(3)=1
+    else if(leqi(word,'torque'))then
+      options(3)=2
+    else if(leqi(word,'both'))then
+      options(3)=3
+    else
+      call die('REMAG.SpinConstraint.Criterion must be angle, torque or both')
+    endif
+    options(4)=fdf_get('REMAG.SpinConstraint.MaxEvaluations',60)
+    cache_geometry=fdf_get('REMAG.SpinConstraint.ReuseGeometry',.false.)
+    if(cache_geometry.and.remag_cycle_enabled()/=1) &
+      call die('REMAG.SpinConstraint.ReuseGeometry requires the device SCF cycle')
+    options(5)=merge(1,0,cache_geometry)
+    values(1)=fdf_get('REMAG.SpinConstraint.InitialField',1.e-3_dp*eV,'Ry')
+    values(2)=fdf_get('REMAG.SpinConstraint.EnergyTolerance',1.e-5_dp*eV,'Ry')
+    values(3)=fdf_get('REMAG.SpinConstraint.SlopeRatio',0.1_dp)
+    values(4)=fdf_get('REMAG.SpinConstraint.AngleTolerance',0.1_dp)*deg
+    values(5)=fdf_get('REMAG.SpinConstraint.TorqueTolerance',1.e-3_dp)
+    values(6)=fdf_get('REMAG.SpinConstraint.MinimumMoment',1.e-2_dp)
+    values(7)=fdf_get('REMAG.SpinConstraint.MaximumField',5._dp*eV,'Ry')
+    ! Coarse tier: off unless CoarseSCFScale > 1 and both coarse tolerances are set.
+    coarse_scale=fdf_get('REMAG.SpinConstraint.CoarseSCFScale',1._dp)
+    values(8)=fdf_get('REMAG.SpinConstraint.CoarseAngleTolerance',0._dp)*deg
+    values(9)=fdf_get('REMAG.SpinConstraint.CoarseTorqueTolerance',0._dp)
+    if(.not.(coarse_scale>=1._dp))call die('REMAG.SpinConstraint.CoarseSCFScale must be at least 1')
+    if((coarse_scale>1._dp).neqv.(values(8)>0._dp.or.values(9)>0._dp)) &
+      call die('REMAG spin-constraint coarse tier needs CoarseSCFScale > 1 and coarse tolerances together')
+    if(coarse_scale>1._dp.and.options(2)/=1.and.options(1)/=2) &
+      call die('REMAG spin-constraint coarse tier requires multipliers or LineSearch secant: '// &
+        'golden section compares noisy energies')
+    if(coarse_scale>1._dp.and.(values(8)<values(4).or.values(9)<values(5))) &
+      call die('REMAG spin-constraint coarse tolerances must be looser than the final tolerances')
+    ! rho of the augmented Lagrangian, energy per muB^2. It stiffens the soft
+    ! rotation mode inside every SCF; zero gives the paper's plain Lagrangian.
+    values(10)=fdf_get('REMAG.SpinConstraint.Penalty',merge(0.02_dp,0._dp,options(1)==2),'Ry')
+    if(options(1)==2.and..not.(values(10)>0._dp)) &
+      call die('REMAG.SpinConstraint.Direction multipliers requires a positive REMAG.SpinConstraint.Penalty')
+    scf_tolerances=[dDtol,dHtol,tolerance_EDM,tolerance_Eharr,tolerance_FreeE]
+    call remag_dm_check(remag_spin_constraint_configure(site_count,angles,rows,orbital_site,options,values))
+    write(*,'(a,i0,a,3(1x,a),a,es10.3,a)') 'REMAG SPIN CONSTRAINT: ',site_count,' sites;', &
+      trim(directions(options(1)+1)),trim(merge('golden','secant',options(2)==0)), &
+      trim(criteria(options(3))),'; penalty',values(10),' Ry/muB^2'
+  end subroutine
+  subroutine remag_spin_constraint_begin_step(step)
+    use m_steps, only: final
+    use siesta_options, only: dDtol,dHtol,tolerance_EDM,tolerance_Eharr,tolerance_FreeE
+    integer,intent(in) :: step
+    real(c_double) :: scale
+    if(site_count==0)return
+    current_step=step;final=.false.
+    call remag_dm_check(remag_spin_constraint_begin(step))
+    scale=merge(coarse_scale,1._c_double,remag_spin_constraint_coarse()==1)
+    dDtol=scale*scf_tolerances(1);dHtol=scale*scf_tolerances(2);tolerance_EDM=scale*scf_tolerances(3)
+    tolerance_Eharr=scale*scf_tolerances(4);tolerance_FreeE=scale*scf_tolerances(5)
+    write(*,'(a,i0,a,es9.2)') 'REMAG SPIN CONSTRAINT BEGIN ',step,' SCF tolerance scale ',scale
+  end subroutine
+  ! After siesta_forces: record moments (host route), observe, report.
+  subroutine remag_spin_constraint_end_step(step,done)
+    use precision, only: dp
+    use units, only: eV,deg
+    use sys, only: die
+    use m_energies, only: FreeE
+    use m_spin, only: spin
+    use atomlist, only: no_u
+    use sparse_matrices, only: maxnh,numh,listhptr,S,Dscf
+    use siesta_geom, only: na_u,xa,ucell
+    use m_remag_dm, only: remag_cycle_enabled
+    integer,intent(in) :: step
+    logical,intent(out) :: done
+    real(c_double) :: moments(3,site_count),fields(3,site_count),lagrangian,measure(5),t(3),m,dev
+    integer(c_int) :: status,flag
+    integer :: i
+    done=.true.
+    if(site_count==0)return
+    if(step/=current_step)call die('REMAG spin constraint step out of order')
+    if(remag_cycle_enabled()/=1)call remag_dm_check(remag_spin_constraint_host_moments(no_u,maxnh,spin%DM, &
+      numh,listhptr,S,Dscf))
+    call remag_dm_check(remag_spin_constraint_fields(size(fields),fields))
+    status=remag_spin_constraint_observe(FreeE,size(moments),moments,lagrangian,flag)
+    call remag_dm_check(remag_spin_constraint_measure(measure))
+    write(*,'(a,i0,a,i0,2(a,f18.8),a,f10.5,a,es10.3,a,f10.5)') 'REMAG SPIN CONSTRAINT STEP ',step, &
+      ' line ',nint(measure(5)),' F(eV)=',FreeE/eV,' L(eV)=',lagrangian/eV, &
+      ' max_angle(deg)=',measure(1)/deg,' max_torque(muB)=',measure(2),' max_field(eV)=',measure(3)/eV
+    write(*,'(a)') 'REMAG SPIN CONSTRAINT SITES  site  theta  phi  Mx  My  Mz  |M|  deviation(deg)  bx  by  bz (eV/muB)'
+    do i=1,site_count
+      t=[sin(angles(1,i))*cos(angles(2,i)),sin(angles(1,i))*sin(angles(2,i)),cos(angles(1,i))]
+      m=sqrt(sum(moments(:,i)**2))
+      dev=0._dp
+      if(m>0._dp)dev=acos(max(-1._dp,min(1._dp,dot_product(moments(:,i),t)/m)))/deg
+      write(*,'(a,i6,2f8.2,4f11.5,f10.4,3es13.4)') 'REMAG SPIN CONSTRAINT SITE ',i,angles(:,i)/deg, &
+        moments(:,i),m,dev,fields(:,i)/eV
+    enddo
+    select case(status)
+    case(0)
+    case(3)
+      call die('REMAG spin constraint: torque-free state has a site moment below REMAG.SpinConstraint.MinimumMoment')
+    case(4)
+      call die('REMAG spin constraint: torque-free state has a site moment antiparallel to its target')
+    case(5)
+      call die('REMAG spin constraint: the constraining field exceeds REMAG.SpinConstraint.MaximumField')
+    case(6)
+      call die('REMAG spin constraint: not satisfied within REMAG.SpinConstraint.MaxEvaluations SCF runs')
+    case(7)
+      call die('REMAG spin constraint: no ascent along the search line (SCF noise, or a moment switched '// &
+        'branch); tighten SCF tolerances or reduce REMAG.SpinConstraint.InitialField')
+    case default
+      call die('REMAG spin constraint: optimizer failure')
+    end select
+    done=flag==1
+    if(flag==2)write(*,'(a,i0,a)') 'REMAG SPIN CONSTRAINT COARSE TIER COMPLETE after ',step, &
+      ' SCF runs; re-evaluating with full SCF settings'
+    if(done)write(*,'(a,i0,a)') 'REMAG SPIN CONSTRAINT CONVERGED after ',step,' SCF runs'
+    if(cache_geometry.and.step==1)then
+      allocate(fixed_positions(3,na_u))
+      fixed_positions=xa(:,1:na_u);fixed_cell=ucell
+    endif
+  end subroutine
+  ! Host Hamiltonian route: called once H is complete in setup_hamiltonian,
+  ! with the density that built it (the penalty field follows that density).
+  subroutine remag_spin_constraint_host_hamiltonian()
+    use sparse_matrices, only: maxnh,numh,listhptr,listh,S,H,Dscf
+    use atomlist, only: no_u,indxuo
+    use m_spin, only: spin
+    if(site_count==0)return
+    call remag_dm_check(remag_spin_constraint_host_add(no_u,maxnh,spin%H,numh,listhptr,listh,indxuo,S,Dscf,H))
+  end subroutine
+  ! Fixed crystal reuse for a later orientation or a later constraint trial.
+  logical function remag_reuse_fixed_geometry()
+    use m_remag_orientations, only: remag_reuse_orientation_geometry
+    use siesta_geom, only: na_u,xa,ucell
+    use sys, only: die
+    remag_reuse_fixed_geometry=remag_reuse_orientation_geometry()
+    if(remag_reuse_fixed_geometry.or..not.cache_geometry.or.current_step<=1)return
+    if(.not.allocated(fixed_positions))call die('REMAG: no completed constraint geometry to reuse')
+    if(size(fixed_positions,2)/=na_u)call die('REMAG: atom count changed between constraint trials')
+    if(any(fixed_positions/=xa(:,1:na_u)).or.any(fixed_cell/=ucell)) &
+      call die('REMAG: crystal geometry changed between constraint trials')
+    remag_reuse_fixed_geometry=.true.
+  end function
+end module

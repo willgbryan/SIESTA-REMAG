@@ -10,6 +10,7 @@
 #include "initial_state.hpp"
 #include "nonlocal_h0_state.hpp"
 #include "initial_mesh_state.hpp"
+#include "spin_constraint.hpp"
 #include <algorithm>
 #include <chrono>
 #include <climits>
@@ -19,6 +20,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 extern "C" int remag_final_density_enabled();
 extern "C" int remag_final_density_shadow_enabled();
@@ -44,6 +46,7 @@ struct Record {
     bool gated_hamiltonian=false;int hamiltonian_export_reasons=1;
     size_t spectrum_exports[2]{}; // eigenvalues, occupations at cycle publication
     int eigensystem_jobs=0,solves_per_iteration=0,solver_lanes=1;bool retains_all_vectors=false,warm_start=false;size_t vector_bank_bytes=0;
+    bool k_loop=false,batched_solver=false;int tetrahedra=0;
     size_t staged=0,exported=0,workspace=0;double seconds=0.;
     bool device_initialization=false;size_t resident_h0_bytes=0,initial_mesh_density_bytes=0;
     remag::InitialDensityResult initial{};
@@ -137,7 +140,8 @@ struct Counts {
                     r.resident_h0_bytes?"true":"false",r.resident_h0_bytes);
                 std::fprintf(f,"\"initial_mesh\":{\"device\":%s,\"density_bytes\":%zu,\"harris_device_bound\":%s},",
                     r.initial_mesh_density_bytes?"true":"false",r.initial_mesh_density_bytes,r.initial_mesh_density_bytes?"true":"false");
-                std::fprintf(f,"\"warm_start\":%s,",r.warm_start?"true":"false");
+                std::fprintf(f,"\"warm_start\":%s,\"k_loop\":%s,\"batched_solver\":%s,\"tetrahedra\":%d,",
+                    r.warm_start?"true":"false",r.k_loop?"true":"false",r.batched_solver?"true":"false",r.tetrahedra);
                 std::fprintf(f,"\"eigensystems\":{\"jobs\":%d,\"solves_per_iteration\":%d,\"retains_all_vectors\":%s,\"vector_bank_bytes\":%zu,\"solver_lanes\":%d},\"stage_profile\":",
                     r.eigensystem_jobs,r.solves_per_iteration,r.retains_all_vectors?"true":"false",r.vector_bank_bytes,r.solver_lanes);
                 if(!r.profiling)std::fputs("null",f);
@@ -161,7 +165,9 @@ struct State {
     remag::GridPotentialProblem grid_problem{};remag::ScfCycleBindings bindings{};
     remag::GridContractionShape grid_shape{};remag::GridContractionView final_grid_view{};
     int soc=0,final_h_required=0;
+    double* constraint_moments=nullptr;
     std::vector<void*> storage;std::unique_ptr<remag::ScfCyclePlan> plan;
+    std::unique_ptr<remag::TetraDevicePlan> tetra;
     std::vector<remag::ScfCycleStep> diagnostics;remag::ScfCycleResult result{};
     remag::InitialDensityResult* initial=nullptr;
     std::vector<double> final_h;
@@ -201,6 +207,7 @@ struct State {
     void release() {
         if(stream) check(cudaStreamSynchronize(stream));
         plan.reset(); // graph references the leases and every buffer below
+        tetra.reset();
         if(h0_borrowed){remag::release_nonlocal_h0_matrices(epoch);h0_borrowed=false;}
         if(grid_lease) {remag::release_grid_contraction();grid_lease=false;}
         if(dm_lease) {remag::release_density_matrix();dm_lease=false;}
@@ -217,6 +224,23 @@ void current(Stage stage) {
 int failure(const char* where,const std::exception& e) {
     state.stage=Stage::failed;std::fprintf(stderr,"REMAG device SCF %s: %s\n",where,e.what());return -220;
 }
+}
+// Tetrahedron occupations for the next prepared cycle: method 1-3 (0 = FD),
+// the Monkhorst-Pack grid and displacement, the cell (columns) and whether
+// the k list is reduced by time reversal. Set by remag_cycle.F90 before
+// remag_cycle_prepare, which builds the grid from the cycle's own k list.
+struct TetraConfig {int method=0,grid[3]={0,0,0},trs=0;double displacement[3]={0,0,0},cell[9]={};} tetra_config;
+extern "C" int remag_cycle_tetrahedra(int method,const int* grid,const double* displacement,const double* cell,int trs) {
+    if(method<0||method>3||(method&&(!grid||!displacement||!cell))) return -1;
+    tetra_config=TetraConfig{};tetra_config.method=method;tetra_config.trs=trs?1:0;
+    if(method) {std::copy(grid,grid+3,tetra_config.grid);std::copy(displacement,displacement+3,tetra_config.displacement);
+                std::copy(cell,cell+9,tetra_config.cell);}
+    return 0;
+}
+// The unrolled cycle builds one subgraph per k point; REMAG_SCF_K_LOOP=1
+// replaces that with a device loop and accepts dense sampled-k meshes.
+static int k_limit() {
+    const char* v=std::getenv("REMAG_SCF_K_LOOP");return v&&std::strcmp(v,"1")==0?(1<<20):128;
 }
 extern "C" int remag_cycle_enabled() {
     const char* v=std::getenv("REMAG_DEVICE_SCF");return v&&std::strcmp(v,"1")==0;
@@ -289,7 +313,7 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         current(Stage::grid);require(c&&v&&num&&ptr&&cols&&mapping&&xyz&&kpoints&&weights&&overlap&&kinetic&&nonlocal_h&&
             h&&hold&&density&&old_density&&energy_density,"Missing cycle inputs");
         const int kind=c[0],n=c[1],cap=c[2],nh=c[3],no=c[4],nk=c[5],eh=std::min(nh,4);
-        require(kind>=0&&kind<=3&&n>0&&n<=2048&&cap>0&&cap<=INT_MAX/8&&no>=n&&nk>0&&nk<=128&&
+        require(kind>=0&&kind<=3&&n>0&&n<=2048&&cap>0&&cap<=INT_MAX/8&&no>=n&&nk>0&&nk<=k_limit()&&
             (kind%2||nk==1)&&(kind<2?(nh==1||nh==2):(nh==4||nh==8))&&c[13]>0&&c[13]<=4096&&
             (c[9]==0||c[9]==1)&&(!c[9]||old_energy_density),"Invalid cycle dimensions/options");
         if(kind%2==0) for(int i=0;i<3;i++) require(kpoints[i]==0.,"Gamma cycle must use zero phases");
@@ -331,6 +355,15 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         remag::HamiltonianSeedsProblem hp{cap,nh,c[8],0};remag::ScfScalarsProblem sp{cap,nh,n,0};
         remag::ScfEnergySeeds constants{};constants.ena=v[12];constants.ions=v[13];constants.madelung=v[14];constants.temperature=v[3];
         auto& b=state.bindings;b.fermi=state.allocate<remag::FermiProblem>(1,&fp);b.weights=state.allocate<double>(nk,weights);
+        if(tetra_config.method) {
+            require(kind%2==1,"Tetrahedra need a sampled k grid");
+            remag::TetraGrid g;
+            const int status=remag::tetra_grid(tetra_config.method,tetra_config.grid,tetra_config.displacement,tetra_config.cell,
+                                               nk,kpoints,weights,tetra_config.trs,g);
+            require(status==0,("Tetrahedra: the cycle's k points do not form the declared grid ("+std::to_string(status)+")").c_str());
+            state.tetra=std::make_unique<remag::TetraDevicePlan>(g,tetra_config.method,c[7],spins,dim,dim,state.stream);
+            b.tetra=state.tetra.get();state.record.tetrahedra=g.tetrahedra;
+        }
         b.hamiltonian=state.allocate<remag::HamiltonianSeedsProblem>(1,&hp);
         b.kinetic=state.allocate<double>(cap,kinetic);
         if(remag::nonlocal_h0_enabled()){
@@ -350,6 +383,25 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         b.density=state.initial_density_borrowed?
             remag::borrow_initial_density(state.epoch,n,cap,nh,num,ptr,overlap,density):state.allocate<double>(size_t(cap)*nh,density);
         b.energy_density=state.allocate<double>(size_t(cap)*eh,!initialize&&c[9]?energy_density:nullptr);
+        state.constraint_moments=nullptr;b.constraint={};
+        if(const auto trial=remag::spin_constraint_trial(n);trial.sites) {
+            require(kind>=2&&trial.orbital_field->size()==3*size_t(n)&&trial.orbital_site->size()==size_t(n)&&
+                trial.site_fields->size()==3*size_t(trial.sites)&&trial.targets->size()==3*size_t(trial.sites),
+                "Spin constraints require a spinor device SCF");
+            // Staged once per SCF, before the measured cycle.
+            auto stage=[&](auto* target,const auto& source) {
+                const size_t bytes=source.size()*sizeof(source[0]);
+                check(cudaMalloc(reinterpret_cast<void**>(target),bytes));state.storage.push_back(*target);
+                check(cudaMemcpy(*target,source.data(),bytes,cudaMemcpyHostToDevice));state.record.staged+=bytes;
+                remag::transfer(remag::Transfer::spin_constraint_setup,true,bytes);
+            };
+            int* site=nullptr;double *fields=nullptr,*targets=nullptr,*field=nullptr;
+            stage(&site,*trial.orbital_site);stage(&fields,*trial.site_fields);stage(&targets,*trial.targets);
+            stage(&field,*trial.orbital_field);
+            check(cudaMalloc(reinterpret_cast<void**>(&state.constraint_moments),3*size_t(n)*sizeof(double)));
+            state.storage.push_back(state.constraint_moments);
+            b.constraint={trial.sites,trial.penalty,site,fields,targets,state.constraint_moments,field};
+        }
         state.host_h=h;state.host_hold=hold;state.host_d=density;state.host_dold=old_density;
         state.host_e=energy_density;state.host_eold=old_energy_density;
         state.capacity=cap;state.nh=nh;state.eh=eh;state.bank_size=dim*spins*nk;state.dimension=dim;state.complex_values=kind!=0;state.diagnostics.resize(c[13]);
@@ -372,7 +424,7 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         state.record.workspace=state.plan->workspace_bytes();state.record.nodes=state.plan->graph_nodes();
         state.record.eigensystem_jobs=state.plan->eigensystem_jobs();state.record.solves_per_iteration=state.plan->solves_per_iteration();
         state.record.solver_lanes=state.plan->solver_lanes();
-        state.record.warm_start=state.plan->warm_start();
+        state.record.warm_start=state.plan->warm_start();state.record.k_loop=state.plan->k_loop();state.record.batched_solver=state.plan->batched_solver();
         state.record.retains_all_vectors=state.plan->retains_all_vectors();state.record.vector_bank_bytes=state.plan->vector_bank_bytes();
         state.record.forbidden=state.plan->forbidden_nodes();state.record.staged+=state.plan->setup_upload_bytes();
         remag::transfer(remag::Transfer::solver_graph_setup,true,state.plan->setup_upload_bytes());
@@ -416,7 +468,9 @@ extern "C" int remag_cycle_execute(int geometry,int* iterations,int* converged) 
                 save("remag-failed-h.bin",state.plan->assembled_hamiltonian(r.block),bytes);
                 save("remag-failed-s.bin",state.plan->assembled_overlap(r.block),bytes);
                 save("remag-failed-solver.bin",state.plan->solver_diagnostic(r.block),sizeof(remag::BlockJacobiResult));
-                state.download(&local_failure,state.plan->solver_local_failure(r.block),sizeof(local_failure));
+                // The batched solver has no block-Jacobi local record, and solves in place:
+                // its retained H is the reduced matrix at the point of failure.
+                if(const auto* lf=state.plan->solver_local_failure(r.block)) state.download(&local_failure,lf,sizeof(local_failure));
                 if(local_failure.info) save("remag-failed-local.bin",state.plan->solver_failed_local_input(r.block),size_t(local_dimension)*local_dimension*(state.complex_values?16:8));
             }
             if(FILE* f=std::fopen("remag-device-scf-failure.json","w")) {
@@ -429,6 +483,16 @@ extern "C" int remag_cycle_execute(int geometry,int* iterations,int* converged) 
         }
         require(!r.status&&r.finished&&r.iterations>0&&size_t(r.iterations)<=state.diagnostics.size(),"Device cycle failed; scientific outputs are invalid");
         state.download(state.diagnostics.data(),state.plan->diagnostics(),size_t(r.iterations)*sizeof(remag::ScfCycleStep));
+        if(state.constraint_moments) {
+            // Outside the measured cycle: final-density site moments for the outer search.
+            const int n=state.grid_shape.nuo;std::vector<double> moments(3*size_t(n));
+            check(remag::spin_constraint_moments_device(n,state.nh,state.capacity,state.bindings.num,state.bindings.ptr,
+                state.bindings.overlap,state.bindings.density,state.constraint_moments,state.stream));
+            check(cudaStreamSynchronize(state.stream));
+            check(cudaMemcpy(moments.data(),state.constraint_moments,moments.size()*sizeof(double),cudaMemcpyDeviceToHost));
+            remag::transfer(remag::Transfer::spin_constraint_output,false,moments.size()*sizeof(double));
+            remag::spin_constraint_record_moments(state.epoch,moments.data(),n);
+        }
         *iterations=r.iterations;*converged=r.control.convergence.converged;state.stage=Stage::executed;return 0;
     } catch(const std::exception& e) {if(entered) remag_phase_enter(2,geometry,0);return failure("execute",e);}
 }

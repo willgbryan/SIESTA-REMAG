@@ -25,6 +25,8 @@ Cells with at least 30 atoms use `DM.Tolerance=1e-7` and `SCF.H.Tolerance=1e-6 e
 
 The recent matched GPU comparisons use the tighter retained DM 1e-9 / H 1e-8 eV input variants. The defaults above describe `remag prepare`; always use the exact measured input and manifest when reproducing a reported result.
 
+The [constrained-moment benchmark for hcp cobalt](spin-constraint-hcp-co/README.md) is self-contained: its generators, retained REMAG-SIESTA and Quantum ESPRESSO records, figure and acceptance checks live in that directory.
+
 Additional material fixtures currently live with their measured experiments:
 
 - Sourced 40-atom Fe4N has complete pristine CPU references. The GPU collinear cuSOLVER-local fallback passes; the tested noncollinear settings remain unqualified.

@@ -94,7 +94,92 @@ These paths are examples of completed run directories, not files shipped in
 the repository. Keep the raw densities and requested matrix outputs beside
 their result records. MAE checks compare the directional difference directly
 and verify final moment directions; an initial spin direction is not a
-constraint. See [the scientific gates](VALIDATION.md).
+constraint. See [the scientific gates](VALIDATION.md). Explicit per-site
+direction constraints are described in [constrained site moments](SPIN_CONSTRAINT.md).
+Their GPU kernels match the host bit for bit, and
+[the hcp cobalt benchmark](../benchmarks/spin-constraint-hcp-co/README.md)
+compares constrained energies with Quantum ESPRESSO. The consistent gradient
+corrections for noncollinear spin (`REMAG.XC.NoncollinearGGA local-frame` or
+`multicollinear`, see [noncollinear GGA](NONCOLLINEAR_GGA.md)) run on both
+paths. Tetrahedron occupations (`OccupationFunction Tetrahedra.Optimized`, see
+[tetrahedron occupations](TETRAHEDRA.md)) run on the host path and in the
+device SCF cycle; the older GPU occupation route on its own stops with a
+message when they are requested.
+
+## Dense k meshes
+
+The device SCF cycle builds one CUDA graph for a whole SCF iteration. By
+default that graph holds a separate solve and density step for every k point,
+which limits it to 128 k points. `REMAG_SCF_K_LOOP=1` replaces those copies
+with a loop on the GPU over groups of k points, so the graph no longer grows
+with the mesh. The number of k points solved at once is
+`REMAG_SCF_SOLVER_LANES`, which may then be 1, 2, 4, 8, 16, 32, 64 or 128, and no longer
+requires `REMAG_DEVICE_VECTOR_CACHE=1`. With the cache, every k point's
+eigenvectors stay on the GPU between the two passes of an iteration (n² complex
+numbers per k point for n spinor states); without it, each k point is solved
+again in the second pass, as SIESTA does. `scripts/check_scf_k_loop.py` runs
+the composed SCF check with five k points under each setting. The looped cycle
+passes the same CPU oracle and agrees with the unrolled cycle to rounding
+(at most 2×10⁻¹³, in the Fermi level; 10⁻¹⁴ or less in the matrices). The unrolled cycle differs from itself between processes
+by a similar amount, because the mesh density is summed with atomic additions.
+
+`REMAG_SCF_BATCHED_SOLVER=1` (with the loop) replaces REMAG's block-Jacobi
+eigensolver for those groups. Each group of k points is assembled by one
+kernel and solved by batched library calls: a Cholesky factorization of every
+overlap, two triangular solves that reduce each problem to standard form,
+cuSOLVER's `XsyevBatched`, and one triangular solve back. The density of the
+group is then built in one pass that adds the k points in order, as the
+per-k-point kernels do. Groups may then hold up to 1024 k points; 256 is the
+default. It has no warm start. In `check_scf_k_loop.py` it passes the CPU
+oracle and differs from the unrolled block-Jacobi cycle by at most 6×10⁻¹⁴.
+A separate probe of the batched solve on random Hermitian problems (dimension
+32 to 336) found residuals of at most 1.5×10⁻¹³.
+
+On hcp cobalt (two atoms, 84 spinor states, 20×20×11 = 4400 k points with
+spin-orbit coupling, PBE local frame, one constrained site moment at 45°,
+2000 K smearing, 25 SCF iterations), single runs on one H100 gave these wall
+times for the whole calculation:
+
+| Path | Wall time |
+| --- | ---: |
+| Host path, REMAG's CPU k loop on 16 threads | 322 s |
+| Device SCF loop, block Jacobi, 16 k points at a time | 31.6 s |
+| Device SCF loop, block Jacobi, 64 k points at a time | 22.9 s |
+| Device SCF loop, batched solver, 256 k points at a time | 14.7 s |
+
+All four converged to the same total energy, free energy, Fermi level and site
+moment at every printed digit. Of the last run's 14.7 s, 6.3 s is the SCF loop
+itself; most of the rest is SIESTA's CPU setup of the mesh and basis
+(`REMESH`, `PHION`). These compare REMAG's own paths with each other; they are
+not a comparison with upstream GPU SIESTA. The same calculation with
+`multicollinear` took 835 s on the CPU path and 31.2 s on the GPU (block
+Jacobi, 16 k points at a time), and with `Tetrahedra.Optimized` 404 s and 33.3 s, again
+with identical printed results.
+
+## Threaded CPU k loop
+
+On the host path, `REMAG.HostK.Threads N` (N > 0) replaces SIESTA's
+spin-orbit k-point loop (`diag3k`) with REMAG's own (`native/host_kloop.cpp`).
+It runs in one process, needs no GPU, and is not used when wavefunctions are
+written; when it cannot run, SIESTA's loop is used and the output says so. It
+splits the k points among N threads and sums their contributions in a fixed
+order, so a given thread count always gives the same result. Each thread forms
+the Bloch phases once per orbital rather than once per matrix element, and
+builds the density with one matrix product per k point. The eigenvectors of
+the first pass are kept for the density when they fit in
+`REMAG.HostK.VectorMemoryMB` (default 8192); otherwise each k point is solved
+again. `REMAG.HostK.Solver` selects LAPACK's divide-and-conquer solver
+(`divide`, the default), MRRR (`mrrr`, which in the second pass computes only
+the occupied states) or QR (`qr`). The tetrahedron weights use the same thread
+count. `scripts/check_host_kloop.py` compares the loop with a line-by-line
+NumPy port of `diag3k` for every solver, thread count and vector setting.
+
+On hcp cobalt (20×20×11 k points, off-site spin-orbit coupling, PBE local
+frame), four SCF iterations gave the same energies at every step, to the
+printed 10⁻⁶ eV, as SIESTA's loop. The time per diagonalization was 36.6 s for
+SIESTA's loop and 14.5, 5.9 and 3.5 s for 1, 4 and 16 threads. These were
+single runs on a 28-core node shared with other jobs, a CPU-to-CPU comparison
+rather than a GPU result.
 
 ## Existing evidence and recovery
 

@@ -1864,6 +1864,10 @@ def patch(source: Path):
     patch_initialization(source)
     patch_density_history(source)
     patch_orientations(source)
+    patch_spin_constraint(source)
+    patch_tetrahedra(source)
+    patch_noncollinear_gga(source)
+    patch_host_kloop(source)
     with (source / "CMakeLists.txt").open("a") as f:
         f.write('''
 # REMAG integration; reference source is built separately and remains unmodified.
@@ -1885,6 +1889,10 @@ target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_in
 target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_population.F90)
 target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_history.F90)
 target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_orientations.F90)
+target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_spin_constraint.F90)
+target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_tetrahedra.F90)
+target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_xc.F90)
+target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_hostk.F90)
 target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_force.F90)
 ''')
 
@@ -2082,12 +2090,12 @@ def patch_orientations(source):
     path.write_text(text)
     path=source/'Src/state_init.F';text=path.read_text()
     text=replace_once(text,'      use m_new_dm,          only: new_dm\n', '''      use m_new_dm,          only: new_dm
-      use m_remag_orientations, only:
-     &     remag_reuse_orientation_geometry
+      use m_remag_spin_constraint, only:
+     &     remag_reuse_fixed_geometry
 ''')
     start=text.index('!     Always (in case of auxiliary cell) check the new sparse pattern')
     end=text.index('#ifdef NCDF_4\n!     At this point the sparsity pattern',start)
-    text=text[:start]+'''      if(remag_reuse_orientation_geometry())then
+    text=text[:start]+'''      if(remag_reuse_fixed_geometry())then
 C       Fixed crystal: keep sparse/overlap/H0 storage and mesh identities.
 C       Electronic mixing and the initial density still start a fresh cycle.
         auxchanged=.false.
@@ -2102,8 +2110,8 @@ C       Electronic mixing and the initial density still start a fresh cycle.
 
     path=source/'Src/setup_H0.F';text=path.read_text()
     text=replace_once(text,'      use parallel,  only : Node\n','''      use parallel,  only : Node
-      use m_remag_orientations, only:
-     &     remag_reuse_orientation_geometry
+      use m_remag_spin_constraint, only:
+     &     remag_reuse_fixed_geometry
       use m_remag_dm, only: remag_geometry_changed
       use iso_c_binding, only: c_int
       use sys, only: die
@@ -2126,7 +2134,7 @@ C       Electronic mixing and the initial density still start a fresh cycle.
         end function
       end interface''')
     text=replace_once(text,"      call timer('Setup_H0',1)",'''      call timer('Setup_H0',1)
-      if(remag_reuse_orientation_geometry())then
+      if(remag_reuse_fixed_geometry())then
         if(.not.retained_ready)
      &    call die('REMAG: no retained H0 geometry')
         g2max=retained_constants(1);Eions=retained_constants(2)
@@ -2151,6 +2159,143 @@ C       Advance the electronic lifetime while retaining immutable geometry.
 '''+text[pos:]
     path.write_text(text)
 
+
+def patch_spin_constraint(source):
+    """Site spin constraints: one converged SCF per trial field at fixed geometry."""
+    template=Path(__file__).resolve().parents[1]/'native/remag_spin_constraint.F90.in'
+    if not template.is_file():template=Path('/opt/remag/native/remag_spin_constraint.F90.in')
+    (source/'Src/remag_spin_constraint.F90').write_text(template.read_text())
+    path=source/'Src/siesta.F';text=path.read_text()
+    text=replace_once(text,'      use m_remag_orientations\n','      use m_remag_orientations\n      use m_remag_spin_constraint\n')
+    text=replace_once(text,'      integer :: istep, remag_direction',
+        '      integer :: istep, remag_direction\n      logical :: remag_constraint_done')
+    text=replace_once(text,'      call remag_orientations_init()',
+        '      call remag_orientations_init()\n      call remag_spin_constraint_init()')
+    # Same per-step sequence as the orientation sweep, so every fixed-geometry
+    # lifetime (forces, populations, spectra) closes within each trial.
+    text=replace_once(text,'      if (remag_direction_count.gt.0) then\n','''      if (remag_spin_constraint_sites().gt.0) then
+        remag_constraint_done=.false.
+        remag_direction=0
+        do while (.not.remag_constraint_done)
+          remag_direction=remag_direction+1
+          call remag_spin_constraint_begin_step(remag_direction)
+          istep=inicoor+remag_direction-1
+          call timer('IterGeom',1)
+          call siesta_forces(istep)
+          call remag_spin_constraint_end_step(remag_direction,
+     &      remag_constraint_done)
+          relaxd=.false.
+          call siesta_move(istep,relaxd)
+          call timer('IterGeom',2)
+          call siesta_analysis(relaxd)
+        enddo
+      else if (remag_direction_count.gt.0) then
+''')
+    path.write_text(text)
+    path=source/'Src/setup_hamiltonian.F';text=path.read_text()
+    text=replace_once(text,'      use m_remag_scf\n','''      use m_remag_scf
+      use m_remag_spin_constraint, only:
+     &  remag_spin_constraint_sites,
+     &  remag_spin_constraint_host_hamiltonian
+''')
+    # Host route: H0, DFT+U, grid and offsite SOC are complete here. The
+    # resident host route keeps H on the device and is rejected.
+    anchor='! Energy term coming from the chemical potential added to the Wannier functions\n'
+    text=replace_once(text,anchor,'''      if(remag_spin_constraint_sites()>0)then
+        if(remag_state_active()==1)call die(
+     &    'REMAG spin constraints: resident host H unsupported')
+        call remag_spin_constraint_host_hamiltonian()
+      endif
+
+'''+anchor)
+    path.write_text(text)
+
+
+def patch_tetrahedra(source):
+    """Tetrahedron occupations: fermid.F hands the SCF k grid to native/tetrahedra.cpp."""
+    template=Path(__file__).resolve().parents[1]/'native/remag_tetrahedra.F90.in'
+    if not template.is_file():template=Path('/opt/remag/native/remag_tetrahedra.F90.in')
+    (source/'Src/remag_tetrahedra.F90').write_text(template.read_text())
+    path=source/'Src/fermid.F';text=path.read_text()
+    anchor="      use precision,  only : dp\n"
+    text=replace_once(text,anchor,anchor+"      use m_remag_tetrahedra, only: remag_tetra_method,\n"+
+                      "     &  remag_tetra_fermid\n")
+    # After REMAG's device route, which rejects anything but FD itself.
+    anchor=("C Zero occupancies, including those not explicitly\nC calculated here if ne < maxe\n"
+            "      wke(1:maxe,1:maxspn,1:nk) = 0.0d0\n")
+    text=replace_once(text,anchor,"""      if (remag_tetra_method() > 0) then
+        call remag_tetra_fermid(nspinor,maxspn,nk,wk,maxe,ne,e,
+     &    qtot,wke,ef,entropy)
+        return
+      endif
+
+"""+anchor)
+    # Fixed total spin has no tetrahedron counterpart here.
+    anchor="      parameter (tol=1.0D-10,nitmax=150)\n\n      conv = .false.\n"
+    text=replace_once(text,anchor,anchor+"      if (remag_tetra_method() > 0)\n"+
+                      "     &  call die('Tetrahedra: fixed spin unsupported')\n")
+    path.write_text(text)
+
+
+def patch_noncollinear_gga(source):
+    """REMAG.XC.NoncollinearGGA legacy|local-frame: see native/remag_xc.F90.in.
+
+    The host XC call in dhscf.F goes through remag_cellxc, which keeps
+    libgridxc's own noncollinear GGA (legacy, the default) or evaluates it in
+    the local spin frame as Quantum ESPRESSO does. read_xc_info reads the
+    option at start-up so that the device grid potential, which mirrors
+    legacy, refuses local-frame before any SCF.
+    """
+    template=Path(__file__).resolve().parents[1]/'native/remag_xc.F90.in'
+    if not template.is_file():template=Path('/opt/remag/native/remag_xc.F90.in')
+    (source/'Src/remag_xc.F90').write_text(template.read_text())
+    path=source/'Src/dhscf.F';text=path.read_text()
+    text=replace_once(text,"""         call cellXC( 0, cell, ntm, myBox(1,1), myBox(2,1),
+     &                myBox(1,2), myBox(2,2),
+     &                myBox(1,3), myBox(2,3), nspin,
+     &                DRho_gga, Ex, Ec, DEx, DEc, stressXC, Vscf_gga,
+     &                keep_input_distribution = .true. )
+""","""         call remag_cellxc( cell, ntm, myBox(1,1), myBox(2,1),
+     &                myBox(1,2), myBox(2,2),
+     &                myBox(1,3), myBox(2,3), nspin, ntpl,
+     &                DRho_gga, Ex, Ec, DEx, DEc, stressXC, Vscf_gga )
+""")
+    anchor="      use gridXC, only : cellXC=>gridxc_cellXC       ! Finds xc energy and potential\n"
+    text=replace_once(text,anchor,anchor+"      use m_remag_xc, only : remag_cellxc\n")
+    path.write_text(text)
+    path=source/'Src/read_xc_info.F';text=path.read_text()
+    text=replace_once(text,"      use gridXC,  only : setXC=>gridxc_setXC\n",
+        "      use gridXC,  only : setXC=>gridxc_setXC\n      use m_remag_xc, only : remag_xc_local_frame\n")
+    anchor="      call setXC (n=nXCfunc, func=XCfunc, auth=XCauth,\n     $            wx=XCweightX, wc=XCweightC)\n"
+    text=replace_once(text,anchor,anchor+"      if (remag_xc_local_frame()) continue\n")
+    path.write_text(text)
+
+
+def patch_host_kloop(source):
+    """REMAG.HostK.Threads N: diagon.F hands spin-orbit k points to native/host_kloop.cpp."""
+    template=Path(__file__).resolve().parents[1]/'native/remag_hostk.F90.in'
+    if not template.is_file():template=Path('/opt/remag/native/remag_hostk.F90.in')
+    (source/'Src/remag_hostk.F90').write_text(template.read_text())
+    path=source/'Src/diagon.F';text=path.read_text()
+    text=replace_once(text,"      use precision\n","      use precision\n      use m_remag_hostk, only: remag_hostk_use, remag_hostk_diag3k\n")
+    call="""          call diag3k( nuo, no, maxnh, maxnd, maxo, numh,
+     .        listhptr, listh, numd, listdptr, listd,
+     .        H, S, getD, getPSI, qtot, temp, e1, e2, xij,
+     .        indxuo, nk, kpoint, wk, eo, qo, Dnew,
+     .        Enew, ef, Entropy,
+     .        Haux, Saux, psi, Haux, Saux, aux,
+     .        nuotot, occtol, iscf, neigwanted )
+"""
+    text=replace_once(text,call,"""          if (remag_hostk_use(getPSI)) then
+          call remag_hostk_diag3k( nuo, no, maxnh, maxnd, maxo, numh,
+     .        listhptr, listh, numd, listdptr, listd,
+     .        H, S, getD, qtot, temp, e1, e2, xij,
+     .        indxuo, nk, kpoint, wk, eo, qo, Dnew,
+     .        Enew, ef, Entropy, nuotot, occtol, neigwanted )
+          else
+"""+call+"""          endif
+""")
+    path.write_text(text)
 
 
 if __name__ == "__main__":

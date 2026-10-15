@@ -73,6 +73,9 @@ extern "C" int remag_orientation_cache_mode(int enabled,int atomic) {
     if(selected||(enabled!=0&&enabled!=1)||(atomic!=0&&atomic!=1))return -220;
     retain_geometry=enabled;atomic_guess=atomic;return 0;
 }
+extern "C" int remag_spin_constraint_retain_geometry();
+// Fixed-geometry producers keep their state for a later orientation or a
+// later spin-constraint trial at the same crystal geometry.
 extern "C" int remag_orientation_retain_geometry() {
-    return retain_geometry&&selected>0;
+    return (retain_geometry&&selected>0)||remag_spin_constraint_retain_geometry();
 }

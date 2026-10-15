@@ -1,0 +1,303 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+! Noncollinear GGA in the local spin frame, as Quantum ESPRESSO builds it
+! (PW/src/gradcorr.f90, compute_rho). REMAG.XC.NoncollinearGGA local-frame
+! turns the 2x2 spin density at every mesh point into densities along and
+! against the local spin direction, n_up/dn = (n +- s|m|)/2. As in QE
+! (compute_ux.f90), when the magnetization is collinear up to sign, s is the
+! sign of m.u along that fixed axis u, so the two fields stay smooth where the
+! magnetization passes through zero; otherwise, as in a 120-degree
+! antiferromagnet, s = 1. Both choices are made at the first call and kept
+! for the run. libgridxc's collinear GGA is evaluated on those two fields and its two potentials are
+! mapped back point by point with the chain rule. The potential is then the
+! exact derivative of the energy that is evaluated. legacy (the default) keeps
+! libgridxc's own noncollinear branch (ggaxc.F90, old_scheme), whose
+! potential omits how the local direction depends on the density.
+!
+! multicollinear follows Pu et al., Phys. Rev. Research 5, 013036 (2023):
+! E = avg_e { E_col[n, s_e] + int dE_col/ds_e s_e }, with s_e = m.e averaged
+! over directions e on the sphere. It needs no local frame or axis, is smooth
+! where m = 0, reduces to the collinear functional for collinear m, equals
+! local-frame exactly for LDA, and allows a local exchange-correlation torque.
+! With Ebar(l) = avg_e E_col[n, l s_e], E = d/dl [l Ebar(l)] at l = 1, so
+! dE/dn = d/dl [l avg_e V_n,e(l)] and dE/dm = d/dl [l^2 avg_e e V_s,e(l)],
+! where V_n, V_s = (V_up +- V_dn)/2 come from libgridxc's collinear cellXC on
+! (n +- l s_e)/2. The l-derivatives use the one-sided second-order stencil at
+! l = 1, 1-h, 1-2h (never l > 1, which could make n_dn negative), so the
+! energy is exact and the potential is its derivative to O(h^2). Directions:
+! Gauss-Legendre in cos(theta) times uniform azimuths, on the half sphere,
+! since the integrand is even in e. REMAG.XC.Multicollinear.Polar (default 4)
+! sets the polar nodes per hemisphere, REMAG.XC.Multicollinear.Azimuth
+! (default 4*Polar) the azimuths.
+module m_remag_xc
+  use precision, only: dp, grid_p
+  use iso_c_binding, only: c_int, c_double
+  implicit none
+  private
+  public :: remag_xc_local_frame, remag_cellxc
+  integer, save :: mode = -1
+  logical, save :: decided = .false., signed = .false.
+  real(dp), save :: axis(3) = [0._dp, 0._dp, 1._dp]
+  real(dp), allocatable, save :: mc_dir(:,:), mc_weight(:)
+  real(dp), parameter :: mc_h = 1.e-4_dp
+  interface
+    integer function remag_flow_enabled() bind(C)
+    end function
+    integer function remag_cycle_enabled() bind(C)
+    end function
+    ! The GPU PBE plan's local-frame mode and its shared axis decision (native/pbe.cu).
+    subroutine remag_set_xc_frame(mode) bind(C)
+      import c_int
+      integer(c_int), value :: mode
+    end subroutine
+    subroutine remag_set_xc_multicollinear(polar, azimuth) bind(C)
+      import c_int
+      integer(c_int), value :: polar, azimuth
+    end subroutine
+    subroutine remag_query_xc_frame(decided, signed_axis, axis) bind(C)
+      import c_int, c_double
+      integer(c_int), intent(out) :: decided, signed_axis
+      real(c_double), intent(out) :: axis(3)
+    end subroutine
+    subroutine remag_publish_xc_frame(signed_axis, axis) bind(C)
+      import c_int, c_double
+      integer(c_int), value :: signed_axis
+      real(c_double), intent(in) :: axis(3)
+    end subroutine
+  end interface
+contains
+  logical function remag_xc_local_frame()
+    use fdf, only: fdf_get, leqi
+    use sys, only: die
+    use parallel, only: Node
+    character(len=32) :: name
+    if (mode < 0) then
+      name = fdf_get('REMAG.XC.NoncollinearGGA', 'legacy')
+      if (leqi(name, 'legacy')) then
+        mode = 0
+      else if (leqi(name, 'local-frame')) then
+        mode = 1
+      else if (leqi(name, 'multicollinear')) then
+        mode = 2
+        call mc_directions(fdf_get('REMAG.XC.Multicollinear.Polar', 4), &
+                           fdf_get('REMAG.XC.Multicollinear.Azimuth', -1))
+      else
+        call die('REMAG.XC.NoncollinearGGA must be legacy, local-frame or multicollinear')
+      end if
+      ! The device grid potential (resident grid or device SCF cycle) evaluates
+      ! the same three treatments (native/pbe.cu).
+      call remag_set_xc_frame(mode)
+      if (mode == 2) call remag_set_xc_multicollinear(fdf_get('REMAG.XC.Multicollinear.Polar', 4), &
+                                                     fdf_get('REMAG.XC.Multicollinear.Azimuth', -1))
+      if (Node == 0) write(6,'(a,a)') 'xc: noncollinear GGA: ', trim(name)
+      if (Node == 0 .and. mode == 2) write(6,'(a,i0,a)') 'xc: multicollinear average over ', &
+        size(mc_weight), ' directions (half sphere)'
+    end if
+    remag_xc_local_frame = mode > 0
+  end function
+
+  ! Half-sphere product quadrature: Gauss-Legendre nodes in cos(theta) > 0
+  ! (from 2*np_polar nodes on [-1,1]) times n_azimuth uniform azimuths;
+  ! weights sum to 1, the average over the whole sphere of an even integrand.
+  subroutine mc_directions(np_polar, n_azimuth)
+    use sys, only: die
+    integer, intent(in) :: np_polar, n_azimuth
+    integer :: na, nt, i, j, k, it
+    real(dp) :: x, p0, p1, p2, dp1, w, phi
+    real(dp), parameter :: pi = 3.14159265358979323846_dp
+    if (np_polar < 1) call die('REMAG.XC.Multicollinear.Polar must be positive')
+    na = n_azimuth
+    if (na < 0) na = 4*np_polar
+    if (na < 1) call die('REMAG.XC.Multicollinear.Azimuth must be positive')
+    nt = 2*np_polar
+    allocate(mc_dir(3,np_polar*na), mc_weight(np_polar*na))
+    k = 0
+    do i = 1, np_polar
+      x = cos(pi*(i-0.25_dp)/(nt+0.5_dp))     ! i-th largest root of P_nt
+      do it = 1, 100
+        p0 = 1._dp
+        p1 = x
+        do j = 2, nt
+          p2 = ((2*j-1)*x*p1-(j-1)*p0)/j
+          p0 = p1
+          p1 = p2
+        end do
+        dp1 = nt*(x*p1-p0)/(x*x-1._dp)
+        if (abs(p1/dp1) < 1.e-15_dp) exit
+        x = x - p1/dp1
+      end do
+      w = 2._dp/((1._dp-x*x)*dp1*dp1)         ! Gauss-Legendre weight on [-1,1]
+      do j = 1, na
+        phi = 2._dp*pi*(j-1)/na
+        k = k + 1
+        mc_dir(:,k) = [sqrt(1._dp-x*x)*cos(phi), sqrt(1._dp-x*x)*sin(phi), x]
+        mc_weight(k) = w/na
+      end do
+    end do
+  end subroutine
+
+  ! Same arguments as SIESTA's call of gridxc_cellXC in dhscf.F, with the
+  ! number of local mesh points np of the linear density and potential arrays.
+  subroutine remag_cellxc(cell, ntm, l1, u1, l2, u2, l3, u3, nspin, np, dens, Ex, Ec, Dx, Dc, stress, vxc)
+    use gridXC, only: cellXC => gridxc_cellXC
+    use parallel, only: Nodes, Node
+    use sys, only: die
+    real(dp), intent(in) :: cell(3,3)
+    integer, intent(in) :: ntm(3), l1, u1, l2, u2, l3, u3, nspin, np
+    real(grid_p), intent(in) :: dens(np,nspin)
+    real(dp), intent(out) :: Ex, Ec, Dx, Dc, stress(3,3)
+    real(grid_p), intent(out) :: vxc(np,nspin)
+    real(grid_p), allocatable :: d2(:,:), v2(:,:)
+    real(dp), allocatable :: e(:,:)
+    real(dp) :: u(3), m(3), a, s, n, sumv, difv, t(3,3), v(3)
+    real(c_double) :: axis_c(3)
+    integer(c_int) :: device_decided, device_signed
+    integer :: p, it
+    if (nspin /= 4 .or. .not. remag_xc_local_frame()) then
+      call cellXC(0, cell, ntm, l1, u1, l2, u2, l3, u3, nspin, dens, Ex, Ec, Dx, Dc, stress, vxc, &
+                  keep_input_distribution=.true.)
+      return
+    end if
+    if (Nodes /= 1) call die('REMAG.XC.NoncollinearGGA: one process only')
+    if (mode == 2) then
+      call multicollinear(cell, ntm, l1, u1, l2, u2, l3, u3, np, dens, Ex, Ec, Dx, Dc, stress, vxc)
+      return
+    end if
+    ! SIESTA's spinor density: D11, D22, Re D12, Im D12 with m = (2 Re, -2 Im, D11-D22).
+    if (.not. decided) then
+      ! The GPU may have decided first (device grid or SCF cycle); keep its choice.
+      call remag_query_xc_frame(device_decided, device_signed, axis_c)
+      if (device_decided == 1) then
+        signed = device_signed == 1
+        if (signed) axis = axis_c
+        decided = .true.
+      end if
+    end if
+    if (.not. decided) then
+      ! Collinear up to sign if the largest eigenvalue of sum m m^T carries
+      ! 99% of its trace; its eigenvector (power iteration) is then the axis.
+      t = 0._dp
+      u = 0._dp
+      do p = 1, np
+        m = [2._dp*dens(p,3), -2._dp*dens(p,4), real(dens(p,1)-dens(p,2), dp)]
+        t = t + spread(m, 2, 3)*spread(m, 1, 3)
+        u = u + m
+      end do
+      v = u
+      if (norm2(v) == 0._dp) v = [t(1,1), t(2,2), t(3,3)]
+      if (norm2(v) == 0._dp) v = [0._dp, 0._dp, 1._dp]
+      do it = 1, 200
+        v = matmul(t, v)
+        a = norm2(v)
+        if (a == 0._dp) exit
+        v = v/a
+      end do
+      a = t(1,1) + t(2,2) + t(3,3)
+      signed = a > 0._dp .and. dot_product(v, matmul(t, v)) > 0.99_dp*a
+      if (signed) axis = v
+      decided = .true.
+      axis_c = axis
+      call remag_publish_xc_frame(merge(1, 0, signed), axis_c)
+      if (Node == 0) then
+        if (signed) then
+          write(6,'(a,3f10.6)') 'xc: local-frame GGA, fixed axis ', axis
+        else
+          write(6,'(a)') 'xc: local-frame GGA, noncollinear moments: no fixed axis'
+        end if
+      end if
+    end if
+    u = axis
+    allocate(d2(np,2), v2(np,2), e(3,np))
+    do p = 1, np
+      m = [2._dp*dens(p,3), -2._dp*dens(p,4), real(dens(p,1)-dens(p,2), dp)]
+      n = dens(p,1) + dens(p,2)
+      a = norm2(m)
+      if (a > 1.e-14_dp) then
+        s = 1._dp
+        if (signed) s = sign(1._dp, dot_product(m, u))
+        e(:,p) = s*m/a
+      else if (signed) then
+        e(:,p) = u
+      else
+        e(:,p) = 0._dp                       ! no direction: no magnetic potential, as in QE
+      end if
+      a = dot_product(e(:,p), m)             ! s|m|
+      d2(p,1) = 0.5_dp*(n + a)
+      d2(p,2) = 0.5_dp*(n - a)
+    end do
+    call cellXC(0, cell, ntm, l1, u1, l2, u2, l3, u3, 2, d2, Ex, Ec, Dx, Dc, stress, v2, &
+                keep_input_distribution=.true.)
+    ! dE/dD11 = (v_up+v_dn)/2 + (v_up-v_dn)/2 e_z, and SIESTA halves the
+    ! off-diagonal derivatives: dE/dRe D12 / 2 = (v_up-v_dn)/2 e_x, etc.
+    do p = 1, np
+      sumv = 0.5_dp*(v2(p,1) + v2(p,2))
+      difv = 0.5_dp*(v2(p,1) - v2(p,2))
+      vxc(p,1) = sumv + difv*e(3,p)
+      vxc(p,2) = sumv - difv*e(3,p)
+      vxc(p,3) = difv*e(1,p)
+      vxc(p,4) = -difv*e(2,p)
+    end do
+    deallocate(d2, v2, e)
+  end subroutine
+
+  subroutine multicollinear(cell, ntm, l1, u1, l2, u2, l3, u3, np, dens, Ex, Ec, Dx, Dc, stress, vxc)
+    use gridXC, only: cellXC => gridxc_cellXC
+    real(dp), intent(in) :: cell(3,3)
+    integer, intent(in) :: ntm(3), l1, u1, l2, u2, l3, u3, np
+    real(grid_p), intent(in) :: dens(np,4)
+    real(dp), intent(out) :: Ex, Ec, Dx, Dc, stress(3,3)
+    real(grid_p), intent(out) :: vxc(np,4)
+    real(grid_p), allocatable :: d2(:,:), v(:,:,:)
+    real(dp), allocatable :: m(:,:), n(:), s(:), vn(:), vm(:,:)
+    real(dp) :: lam(3), ex1, ec1, dx1, dc1, st(3,3,3), dvol, e(3), w, emc, ecol_c, dcol_c, &
+                vn0, vs0, dvn, dvs
+    integer :: o, p, i
+    allocate(d2(np,2), v(np,2,3), m(3,np), n(np), s(np), vn(np), vm(3,np))
+    do p = 1, np
+      m(:,p) = [2._dp*dens(p,3), -2._dp*dens(p,4), real(dens(p,1)-dens(p,2), dp)]
+      n(p) = dens(p,1) + dens(p,2)
+    end do
+    dvol = abs(cell(1,1)*(cell(2,2)*cell(3,3)-cell(3,2)*cell(2,3)) &
+             - cell(1,2)*(cell(2,1)*cell(3,3)-cell(3,1)*cell(2,3)) &
+             + cell(1,3)*(cell(2,1)*cell(3,2)-cell(3,1)*cell(2,2)))/(real(ntm(1),dp)*ntm(2)*ntm(3))
+    lam = [1._dp, 1._dp-mc_h, 1._dp-2._dp*mc_h]
+    emc = 0._dp; ecol_c = 0._dp; dcol_c = 0._dp; stress = 0._dp
+    vn = 0._dp; vm = 0._dp
+    do o = 1, size(mc_weight)
+      e = mc_dir(:,o); w = mc_weight(o)
+      s = matmul(e, m)
+      do i = 1, 3
+        d2(:,1) = 0.5_dp*(n + lam(i)*s)
+        d2(:,2) = 0.5_dp*(n - lam(i)*s)
+        call cellXC(0, cell, ntm, l1, u1, l2, u2, l3, u3, 2, d2, ex1, ec1, dx1, dc1, st(:,:,i), v(:,:,i), &
+                    keep_input_distribution=.true.)
+        if (i == 1) then
+          ! E_e = E_col + int V_s s, from the l = 1 call alone.
+          emc = emc + w*(ex1 + ec1 + dvol*sum(0.5_dp*(v(:,1,1)-v(:,2,1))*s))
+          ecol_c = ecol_c + w*ec1
+          dcol_c = dcol_c + w*dc1
+        end if
+      end do
+      do p = 1, np
+        vn0 = 0.5_dp*(v(p,1,1) + v(p,2,1))
+        vs0 = 0.5_dp*(v(p,1,1) - v(p,2,1))
+        dvn = (3._dp*vn0 - 2._dp*(v(p,1,2)+v(p,2,2)) + 0.5_dp*(v(p,1,3)+v(p,2,3)))/(2._dp*mc_h)
+        dvs = (3._dp*vs0 - 2._dp*(v(p,1,2)-v(p,2,2)) + 0.5_dp*(v(p,1,3)-v(p,2,3)))/(2._dp*mc_h)
+        vn(p) = vn(p) + w*(vn0 + dvn)
+        vm(:,p) = vm(:,p) + w*e*(2._dp*vs0 + dvs)
+      end do
+      stress = stress + w*(st(:,:,1) + (3._dp*st(:,:,1) - 4._dp*st(:,:,2) + st(:,:,3))/(2._dp*mc_h))
+    end do
+    do p = 1, np
+      vxc(p,1) = vn(p) + vm(3,p)
+      vxc(p,2) = vn(p) - vm(3,p)
+      vxc(p,3) = vm(1,p)
+      vxc(p,4) = -vm(2,p)
+    end do
+    ! Only Ex+Ec and Dx+Dc are used by SIESTA; Dxc = Exc - int (n V_n + m.V_m).
+    Ec = ecol_c
+    Ex = emc - Ec
+    Dc = dcol_c
+    Dx = emc - dvol*(sum(n*vn) + sum(m*vm)) - Dc
+    deallocate(d2, v, m, n, s, vn, vm)
+  end subroutine
+end module

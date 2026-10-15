@@ -1,0 +1,12 @@
+{
+ "quantity": "E(theta=90 deg) - E(theta=0 deg): energy cost of turning the magnetization from the c axis into the basal plane of hcp Co",
+ "low_temperature": {
+  "per_atom_uev": 65.5,
+  "per_cell_uev": 131.0,
+  "uncertainty_per_cell_uev": null,
+  "easy_axis": "c",
+  "source": "M. B. Stearns, in Landolt-Boernstein New Series III/19a, 3d, 4d and 5d Elements, Alloys and Compounds (Springer, Berlin, 1986), as quoted by C. J. Aas, L. Szunyogh, R. F. L. Evans and R. W. Chantrell, arXiv:1304.1353 (2013), section 3",
+  "note": "Aas et al. quote 65.5 micro-eV per atom as the experimental value and give no uncertainty or temperature; the compilation reports low-temperature anisotropy constants."
+ },
+ "density_functional_context": "Density functionals without orbital corrections are known to misjudge this quantity for hcp Co. Aas et al. (section 3) find 6.7 micro-eV per atom with the easy axis in the basal plane in the local spin-density approximation, and 84.4 micro-eV per atom along c after adding an orbital-polarization correction. J. Trygg, B. Johansson, O. Eriksson and J. M. Wills, Phys. Rev. Lett. 75, 2871 (1995) reproduced the experimental easy axis and size of hcp Co with an orbital-polarization correction. Agreement with experiment is therefore a check on sign and order of magnitude, not on the implementation."
+}

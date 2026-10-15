@@ -1,0 +1,9 @@
+\noindent
+SIESTA-REMAG~\citep{REMAG} (REMAG below) is a modified SIESTA 5.4.2~\citep{Soler2002,Garcia2020} that runs the
+self-consistent field (SCF) cycle on one NVIDIA GPU. Its main target is
+noncollinear magnetism with spin--orbit coupling. We timed REMAG against
+unmodified SIESTA on the same inputs and machine, for a two-atom cobalt cell
+sampled with up to \num{4400} k points. With \num{4400} k points, REMAG on one
+H100 reaches SCF convergence in a median \SI{\tBatchedD}{s}, against
+\SI{\tMpiD}{s} for unmodified SIESTA on 28 CPUs with MPI. Both produce
+identical results to every printed digit.

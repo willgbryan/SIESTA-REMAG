@@ -165,9 +165,10 @@ int normalize_before_export() {
 template<int Mode> __global__ void build(int pairs,int nnz,int nh,int nev,int outspin,
         const int* rows,const int* cols,const int* indices,const double* xyz,
         const void* values,const double* occ,const double* energies,double cutoff,
-        double kx,double ky,double kz,double* d,double* e) {
+        double kx,double ky,double kz,double* d,double* e,const remag::DensityJobStage* stage=nullptr) {
     int lane=threadIdx.x%32, pair=(blockIdx.x*blockDim.x+threadIdx.x)/32;
     if(pair>=pairs) return;
+    if(stage) {kx=stage->k[0];ky=stage->k[1];kz=stage->k[2];outspin=stage->outspin;}
     int i=rows[pair],j=cols[pair],ind=indices[pair];
     double angle=kx*xyz[3*pair]+ky*xyz[3*pair+1]+kz*xyz[3*pair+2];
     double co=cos(angle),si=sin(angle),ds[8]={},es[4]={};
@@ -200,6 +201,7 @@ template<int Mode> __global__ void build(int pairs,int nnz,int nh,int nev,int ou
     for(int s=0;s<ne;s++) { double v=reduce(es[s]);if(lane==0) e[(size_t)(s+outspin)*nnz+ind]+=v; }
 }
 #include "density_unique_kernels.inc"
+#include "density_wave_kernels.inc"
 } // namespace
 
 namespace remag {
@@ -267,6 +269,59 @@ cudaError_t accumulate_density_device(const DensityMatrixView& v,int nev,int out
     if(p.kind==0) build<0><<<blocks,128,0,stream>>>(p.pairs,p.nnz,p.nh,nev,outspin,v.rows,v.cols,v.indices,v.xyz,values,q,energies,cutoff,0.,0.,0.,d,e);
     else if(p.kind==1) build<1><<<blocks,128,0,stream>>>(p.pairs,p.nnz,p.nh,nev,outspin,v.rows,v.cols,v.indices,v.xyz,values,q,energies,cutoff,kx,ky,kz,d,e);
     else build<2><<<blocks,128,0,stream>>>(p.pairs,p.nnz,p.nh,nev,0,v.rows,v.cols,v.indices,v.xyz,values,q,energies,cutoff,kx,ky,kz,d,e);
+    return cudaGetLastError();
+}
+cudaError_t accumulate_density_wave_device(const DensityMatrixView& v,int nev,int lanes,const void* values,size_t stride,
+        const double* q,const double* energies,double cutoff,const DensityJobStage* stages,double* d,double* e,cudaStream_t stream,
+        double* unique_scratch) {
+    const auto& p=v.shape;
+    if(!valid_shape(p)||!(p.kind%2)||nev<1||size_t(nev)>size_t(p.n)*(p.kind>=2?2:1)||lanes<1||lanes>65535||!v.rows||
+       !v.cols||!v.indices||!v.xyz||!values||!q||!energies||!d||!e||d==e||!stages||!std::isfinite(cutoff)||cutoff<0.)
+        return cudaErrorInvalidValue;
+    if(unique_scratch) {
+        if(v.unique_pairs<1||v.unique_pairs>p.pairs||!v.unique_rows||!v.unique_cols||!v.pair_unique)
+            return cudaErrorInvalidValue;
+        const size_t scratch=density_unique_scratch_count(v);
+        const dim3 blocks((v.unique_pairs+3)/4,lanes);const int scatter=(p.pairs+255)/256;
+        if(p.kind==1)contract_unique_wave<1><<<blocks,128,0,stream>>>(v.unique_pairs,nev,v.unique_rows,v.unique_cols,values,stride,
+            q,energies,cutoff,unique_scratch,scratch);
+        else contract_unique_wave<2><<<blocks,128,0,stream>>>(v.unique_pairs,nev,v.unique_rows,v.unique_cols,values,stride,
+            q,energies,cutoff,unique_scratch,scratch);
+        auto status=cudaGetLastError();if(status!=cudaSuccess)return status;
+        if(p.kind==1)scatter_unique_wave<1><<<scatter,256,0,stream>>>(p.pairs,v.unique_pairs,p.nnz,p.nh,lanes,v.indices,
+            v.pair_unique,v.xyz,unique_scratch,scratch,stages,d,e);
+        else scatter_unique_wave<2><<<scatter,256,0,stream>>>(p.pairs,v.unique_pairs,p.nnz,p.nh,lanes,v.indices,
+            v.pair_unique,v.xyz,unique_scratch,scratch,stages,d,e);
+        return cudaGetLastError();
+    }
+    const int blocks=(p.pairs-1)/4+1;
+    if(p.kind==1) build_wave<1><<<blocks,128,0,stream>>>(p.pairs,p.nnz,p.nh,nev,lanes,v.rows,v.cols,v.indices,v.xyz,values,
+        stride,q,energies,cutoff,stages,d,e);
+    else build_wave<2><<<blocks,128,0,stream>>>(p.pairs,p.nnz,p.nh,nev,lanes,v.rows,v.cols,v.indices,v.xyz,values,
+        stride,q,energies,cutoff,stages,d,e);
+    return cudaGetLastError();
+}
+cudaError_t accumulate_density_staged_device(const DensityMatrixView& v,int nev,const void* values,const double* q,
+        const double* energies,double cutoff,const DensityJobStage* stage,double* d,double* e,cudaStream_t stream,
+        double* unique_scratch) {
+    const auto& p=v.shape;
+    if(!valid_shape(p)||!(p.kind%2)||nev<1||size_t(nev)>size_t(p.n)*(p.kind>=2?2:1)||!v.rows||!v.cols||!v.indices||
+       !v.xyz||!values||!q||!energies||!d||!e||d==e||!stage||!std::isfinite(cutoff)||cutoff<0.) return cudaErrorInvalidValue;
+    if(unique_scratch) {
+        if(v.unique_pairs<1||v.unique_pairs>p.pairs||!v.unique_rows||!v.unique_cols||!v.pair_unique)
+            return cudaErrorInvalidValue;
+        const int blocks=(v.unique_pairs+3)/4,scatter=(p.pairs+255)/256;
+        if(p.kind==1)contract_unique<1><<<blocks,128,0,stream>>>(v.unique_pairs,nev,v.unique_rows,v.unique_cols,values,q,energies,cutoff,unique_scratch);
+        else contract_unique<2><<<blocks,128,0,stream>>>(v.unique_pairs,nev,v.unique_rows,v.unique_cols,values,q,energies,cutoff,unique_scratch);
+        auto status=cudaGetLastError();if(status!=cudaSuccess)return status;
+        if(p.kind==1)scatter_unique<1><<<scatter,256,0,stream>>>(p.pairs,v.unique_pairs,p.nnz,p.nh,0,v.indices,v.pair_unique,v.xyz,unique_scratch,0.,0.,0.,d,e,stage);
+        else scatter_unique<2><<<scatter,256,0,stream>>>(p.pairs,v.unique_pairs,p.nnz,p.nh,0,v.indices,v.pair_unique,v.xyz,unique_scratch,0.,0.,0.,d,e,stage);
+        counts.grouped_enqueues++;
+        return cudaGetLastError();
+    }
+    int blocks=(p.pairs-1)/4+1;
+    if(p.kind==1) build<1><<<blocks,128,0,stream>>>(p.pairs,p.nnz,p.nh,nev,0,v.rows,v.cols,v.indices,v.xyz,values,q,energies,cutoff,0.,0.,0.,d,e,stage);
+    else build<2><<<blocks,128,0,stream>>>(p.pairs,p.nnz,p.nh,nev,0,v.rows,v.cols,v.indices,v.xyz,values,q,energies,cutoff,0.,0.,0.,d,e,stage);
     return cudaGetLastError();
 }
 cudaError_t normalize_density_device(const DensityNormalizationConfig& p,const double* overlap,

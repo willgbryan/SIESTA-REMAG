@@ -1,0 +1,841 @@
+{
+ "code": "REMAG-SIESTA",
+ "note": "6x6x3 checks: GPU device SCF against host path, and the field-versus-energy-slope identity (torque tolerance 1e-6 muB) in PBE and in LDA",
+ "runs": [
+  {
+   "theta_deg": 0.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "hostk6/k6/theta000.00",
+   "input_sha256": "e5edbeee83e22c9335d4d1c920e951242dfca22953360ef84c5dcb05861542f8",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 18,
+   "wall_seconds": 27.683918154,
+   "k_points": 108,
+   "free_energy_ev": -8323.49270618,
+   "lagrangian_ev": -8323.49270618,
+   "max_angle_deg": 0.0,
+   "max_torque_muB": 1.542e-15,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    -0.0,
+    -0.0,
+    3.32497
+   ],
+   "moment_magnitude_muB": 3.32497,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "host",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 30.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "hostk6/k6/theta030.00",
+   "input_sha256": "dbbf1a167aec7ac7fbb088be07071507ad4336972fa3ae90dde717754bbbf8d6",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 19,
+   "wall_seconds": 28.910064263,
+   "k_points": 108,
+   "free_energy_ev": -8323.49268223,
+   "lagrangian_ev": -8323.49268222,
+   "max_angle_deg": 0.00414,
+   "max_torque_muB": 0.0002402,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    1.66231,
+    0.0,
+    2.87968
+   ],
+   "moment_magnitude_muB": 3.32503,
+   "deviation_deg": 0.0041,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "host",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 45.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "hostk6/k6/theta045.00",
+   "input_sha256": "15a9188728c9362427d2d3a41c67584f9b2adcd9ac1bce94c0d95ba4737a80b9",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 21,
+   "wall_seconds": 30.859656088,
+   "k_points": 108,
+   "free_energy_ev": -8323.49265609,
+   "lagrangian_ev": -8323.49265608,
+   "max_angle_deg": 0.00477,
+   "max_torque_muB": 0.0002768,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    2.35101,
+    0.0,
+    2.3514
+   ],
+   "moment_magnitude_muB": 3.3251,
+   "deviation_deg": 0.0048,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "host",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 60.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "hostk6/k6/theta060.00",
+   "input_sha256": "06faa2b9c444dc255be7a87bd7aedda65595bb7c2d3852186927f29d46ddf0fd",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 22,
+   "wall_seconds": 32.425044074,
+   "k_points": 108,
+   "free_energy_ev": -8323.49263062,
+   "lagrangian_ev": -8323.49263062,
+   "max_angle_deg": 0.00409,
+   "max_torque_muB": 0.0002376,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    2.87956,
+    0.0,
+    1.66279
+   ],
+   "moment_magnitude_muB": 3.32517,
+   "deviation_deg": 0.0041,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "host",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 90.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "hostk6/k6/theta090.00",
+   "input_sha256": "bea91309b5a1e148a390875a5c2c5d2b28715d29f31260e1df3d1f7a95923235",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 18,
+   "wall_seconds": 27.539953085,
+   "k_points": 108,
+   "free_energy_ev": -8323.49261174,
+   "lagrangian_ev": -8323.49261174,
+   "max_angle_deg": 1e-05,
+   "max_torque_muB": 3.505e-07,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    3.32524,
+    0.0,
+    -0.0
+   ],
+   "moment_magnitude_muB": 3.32524,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "host",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 0.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "dev/k6/theta000.00",
+   "input_sha256": "e5edbeee83e22c9335d4d1c920e951242dfca22953360ef84c5dcb05861542f8",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 18,
+   "wall_seconds": 4.392773691,
+   "k_points": 108,
+   "free_energy_ev": -8323.49270618,
+   "lagrangian_ev": -8323.49270618,
+   "max_angle_deg": 0.0,
+   "max_torque_muB": 2.777e-16,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    0.0,
+    0.0,
+    3.32497
+   ],
+   "moment_magnitude_muB": 3.32497,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 30.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "dev/k6/theta030.00",
+   "input_sha256": "dbbf1a167aec7ac7fbb088be07071507ad4336972fa3ae90dde717754bbbf8d6",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 19,
+   "wall_seconds": 4.292562107,
+   "k_points": 108,
+   "free_energy_ev": -8323.49268223,
+   "lagrangian_ev": -8323.49268222,
+   "max_angle_deg": 0.00414,
+   "max_torque_muB": 0.0002402,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    1.66231,
+    0.0,
+    2.87968
+   ],
+   "moment_magnitude_muB": 3.32503,
+   "deviation_deg": 0.0041,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 45.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "dev/k6/theta045.00",
+   "input_sha256": "15a9188728c9362427d2d3a41c67584f9b2adcd9ac1bce94c0d95ba4737a80b9",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 21,
+   "wall_seconds": 4.21510694,
+   "k_points": 108,
+   "free_energy_ev": -8323.49265609,
+   "lagrangian_ev": -8323.49265608,
+   "max_angle_deg": 0.00477,
+   "max_torque_muB": 0.0002768,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    2.35101,
+    0.0,
+    2.3514
+   ],
+   "moment_magnitude_muB": 3.3251,
+   "deviation_deg": 0.0048,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 60.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "dev/k6/theta060.00",
+   "input_sha256": "06faa2b9c444dc255be7a87bd7aedda65595bb7c2d3852186927f29d46ddf0fd",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 22,
+   "wall_seconds": 4.355717209,
+   "k_points": 108,
+   "free_energy_ev": -8323.49263062,
+   "lagrangian_ev": -8323.49263061,
+   "max_angle_deg": 0.00409,
+   "max_torque_muB": 0.0002376,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    2.87956,
+    0.0,
+    1.66279
+   ],
+   "moment_magnitude_muB": 3.32517,
+   "deviation_deg": 0.0041,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 90.0,
+   "phi_deg": 0.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "basis": "TZP",
+   "mesh_cutoff_ry": 600,
+   "temperature_k": 500.0,
+   "energy_shift_ry": 0.02,
+   "constrained": true,
+   "penalty": null,
+   "psml_sha256": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "dev/k6/theta090.00",
+   "input_sha256": "bea91309b5a1e148a390875a5c2c5d2b28715d29f31260e1df3d1f7a95923235",
+   "converged": true,
+   "constraint_steps": 1,
+   "scf_iterations": 18,
+   "wall_seconds": 4.257304861,
+   "k_points": 108,
+   "free_energy_ev": -8323.49261173,
+   "lagrangian_ev": -8323.49261173,
+   "max_angle_deg": 1e-05,
+   "max_torque_muB": 3.505e-07,
+   "max_field_ev": 0.0,
+   "moment_muB": [
+    3.32524,
+    0.0,
+    -0.0
+   ],
+   "moment_magnitude_muB": 3.32524,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 0.001
+  },
+  {
+   "theta_deg": 40.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/gga/theta040.00",
+   "input_sha256": "41c8ab8fa3d5c13debcb673920338e0acdc83198930a8bfa82a271f36f927b5d",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 27,
+   "wall_seconds": 5.663318261,
+   "k_points": 108,
+   "free_energy_ev": -8323.4926653,
+   "lagrangian_ev": -8323.4926653,
+   "max_angle_deg": 1e-05,
+   "max_torque_muB": 8.478e-07,
+   "max_field_ev": 7e-05,
+   "moment_muB": [
+    2.13732,
+    0.0,
+    2.54716
+   ],
+   "moment_magnitude_muB": 3.32508,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -5.6819e-05,
+    5.8385e-08,
+    4.7677e-05
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 45.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/gga/theta045.00",
+   "input_sha256": "167d3d51a8447f80c8a4011df7307f88dc64240be7eda032d9d3b7dd68fe533b",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 27,
+   "wall_seconds": 5.73160984,
+   "k_points": 108,
+   "free_energy_ev": -8323.49265608,
+   "lagrangian_ev": -8323.49265608,
+   "max_angle_deg": 1e-05,
+   "max_torque_muB": 4.46e-07,
+   "max_field_ev": 8e-05,
+   "moment_muB": [
+    2.3512,
+    0.0,
+    2.3512
+   ],
+   "moment_magnitude_muB": 3.3251,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -5.3251e-05,
+    4.4538e-08,
+    5.3251e-05
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 50.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/gga/theta050.00",
+   "input_sha256": "6d4ef76a23387264fd74fa0924c2241a933c6192a05988f455306ed89e365582",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 26,
+   "wall_seconds": 5.658101679,
+   "k_points": 108,
+   "free_energy_ev": -8323.49264697,
+   "lagrangian_ev": -8323.49264697,
+   "max_angle_deg": 2e-05,
+   "max_torque_muB": 8.819e-07,
+   "max_field_ev": 7e-05,
+   "moment_muB": [
+    2.54719,
+    0.0,
+    2.13735
+   ],
+   "moment_magnitude_muB": 3.32513,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -4.7531e-05,
+    3.7382e-08,
+    5.6646e-05
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 40.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/ggahost/theta040.00",
+   "input_sha256": "41c8ab8fa3d5c13debcb673920338e0acdc83198930a8bfa82a271f36f927b5d",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 27,
+   "wall_seconds": 67.052247078,
+   "k_points": 108,
+   "free_energy_ev": -8323.4926653,
+   "lagrangian_ev": -8323.4926653,
+   "max_angle_deg": 1e-05,
+   "max_torque_muB": 8.489e-07,
+   "max_field_ev": 7e-05,
+   "moment_muB": [
+    2.13732,
+    0.0,
+    2.54716
+   ],
+   "moment_magnitude_muB": 3.32508,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -5.6819e-05,
+    5.8367e-08,
+    4.7677e-05
+   ],
+   "path": "host",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 45.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/ggahost/theta045.00",
+   "input_sha256": "167d3d51a8447f80c8a4011df7307f88dc64240be7eda032d9d3b7dd68fe533b",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 27,
+   "wall_seconds": 67.413142845,
+   "k_points": 108,
+   "free_energy_ev": -8323.49265608,
+   "lagrangian_ev": -8323.49265608,
+   "max_angle_deg": 1e-05,
+   "max_torque_muB": 4.457e-07,
+   "max_field_ev": 8e-05,
+   "moment_muB": [
+    2.3512,
+    0.0,
+    2.3512
+   ],
+   "moment_magnitude_muB": 3.3251,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -5.3251e-05,
+    4.454e-08,
+    5.3251e-05
+   ],
+   "path": "host",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 50.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/ggahost/theta050.00",
+   "input_sha256": "6d4ef76a23387264fd74fa0924c2241a933c6192a05988f455306ed89e365582",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 26,
+   "wall_seconds": 65.516826112,
+   "k_points": 108,
+   "free_energy_ev": -8323.49264697,
+   "lagrangian_ev": -8323.49264697,
+   "max_angle_deg": 2e-05,
+   "max_torque_muB": 8.818e-07,
+   "max_field_ev": 7e-05,
+   "moment_muB": [
+    2.54719,
+    0.0,
+    2.13735
+   ],
+   "moment_magnitude_muB": 3.32513,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -4.7531e-05,
+    3.7384e-08,
+    5.6646e-05
+   ],
+   "path": "host",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 45.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/k6/theta045.00",
+   "input_sha256": "167d3d51a8447f80c8a4011df7307f88dc64240be7eda032d9d3b7dd68fe533b",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 27,
+   "wall_seconds": 5.729427185,
+   "k_points": 108,
+   "free_energy_ev": -8323.49265608,
+   "lagrangian_ev": -8323.49265608,
+   "max_angle_deg": 1e-05,
+   "max_torque_muB": 4.503e-07,
+   "max_field_ev": 8e-05,
+   "moment_muB": [
+    2.3512,
+    0.0,
+    2.3512
+   ],
+   "moment_magnitude_muB": 3.3251,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -5.325e-05,
+    4.4515e-08,
+    5.325e-05
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 60.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/k6/theta060.00",
+   "input_sha256": "d07ad5a03b7a5c9967d6d7365c4c90bb361fdf459c53a23c85a4e444e5aac117",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 28,
+   "wall_seconds": 5.642420683,
+   "k_points": 108,
+   "free_energy_ev": -8323.49263063,
+   "lagrangian_ev": -8323.49263063,
+   "max_angle_deg": 1e-05,
+   "max_torque_muB": 7.397e-07,
+   "max_field_ev": 6e-05,
+   "moment_muB": [
+    2.87968,
+    0.0,
+    1.66259
+   ],
+   "moment_magnitude_muB": 3.32517,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -3.2322e-05,
+    5.6011e-08,
+    5.5983e-05
+   ],
+   "path": "device",
+   "xc": "GGA-PBE",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 40.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/lda/theta040.00",
+   "input_sha256": "3c6745161e528b373584f9a0216f0156fdb75a67b53a95efa68318efacbd34cb",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 25,
+   "wall_seconds": 60.591451638,
+   "k_points": 108,
+   "free_energy_ev": -8304.17357906,
+   "lagrangian_ev": -8304.17357906,
+   "max_angle_deg": 0.0,
+   "max_torque_muB": 5.606e-09,
+   "max_field_ev": 7e-05,
+   "moment_muB": [
+    2.03652,
+    -0.0,
+    2.42703
+   ],
+   "moment_magnitude_muB": 3.16827,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -5.544e-05,
+    4.5635e-15,
+    4.652e-05
+   ],
+   "path": "host",
+   "xc": "LDA-PZ",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 45.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/lda/theta045.00",
+   "input_sha256": "8559fba382da89e10bb2c6bcf3edf9924e4b8bfd368d2cfd4ad3fc1d7f8d02a1",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 25,
+   "wall_seconds": 59.951995557,
+   "k_points": 108,
+   "free_energy_ev": -8304.17355881,
+   "lagrangian_ev": -8304.17355881,
+   "max_angle_deg": 0.0,
+   "max_torque_muB": 4.126e-09,
+   "max_field_ev": 7e-05,
+   "moment_muB": [
+    2.24029,
+    0.0,
+    2.24029
+   ],
+   "moment_magnitude_muB": 3.16825,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -5.2144e-05,
+    5.1905e-15,
+    5.2144e-05
+   ],
+   "path": "host",
+   "xc": "LDA-PZ",
+   "torque_tolerance_muB": 1e-06
+  },
+  {
+   "theta_deg": 50.0,
+   "kmesh": [
+    6,
+    6,
+    3
+   ],
+   "directory": "tight/lda/theta050.00",
+   "input_sha256": "08ad304adfc896e9f9e6f1a22ab28857b636f678fe87dc5c5469fcb8b6d1fb43",
+   "converged": true,
+   "constraint_steps": 2,
+   "scf_iterations": 25,
+   "wall_seconds": 60.501581775,
+   "k_points": 108,
+   "free_energy_ev": -8304.17353849,
+   "lagrangian_ev": -8304.17353849,
+   "max_angle_deg": 0.0,
+   "max_torque_muB": 5.606e-09,
+   "max_field_ev": 7e-05,
+   "moment_muB": [
+    2.42701,
+    0.0,
+    2.0365
+   ],
+   "moment_magnitude_muB": 3.16823,
+   "deviation_deg": 0.0,
+   "field_ev_per_muB": [
+    -4.6842e-05,
+    5.541e-15,
+    5.5824e-05
+   ],
+   "path": "host",
+   "xc": "LDA-PZ",
+   "torque_tolerance_muB": 1e-06
+  }
+ ]
+}

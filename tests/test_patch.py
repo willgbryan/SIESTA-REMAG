@@ -19,7 +19,8 @@ def test_patch_matches_pinned_source_and_rejects_second_application(tmp_path):
                      "diagon.F", "fermid.F", "poison.F", "m_charge_add.F90", "m_hartree_add.F90",
                      "setup_hamiltonian.F", "mixer.F", "dfscf.f", "meshsubs.F",
                      "setup_H0.F", "matel.F90", "matel_table.F90", "kinefsm.F", "nlefsm.f", "overfsm.f90", "final_H_f_stress.F",
-                     "siesta_analysis.F90", "state_analysis.F", "state_init.F", "mulliken.F", "partial_charges.F90", "m_new_dm.F90", "post_scf_work.F"):
+                     "siesta_analysis.F90", "state_analysis.F", "state_init.F", "mulliken.F", "partial_charges.F90", "m_new_dm.F90", "post_scf_work.F",
+                     "read_xc_info.F"):
         shutil.copyfile(source / "Src" / filename, tmp_path / "Src" / filename)
     shutil.copyfile(source / "CMakeLists.txt", tmp_path / "CMakeLists.txt")
     patch.patch(tmp_path)

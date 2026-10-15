@@ -2,6 +2,8 @@
 #include "scf_cycle.hpp"
 #include "block_jacobi.hpp"
 #include "sparse_state.hpp"
+#include <cublas_v2.h>
+#include <cusolverDn.h>
 #include <algorithm>
 #include <cmath>
 #include <climits>
@@ -61,6 +63,117 @@ __global__ void wave_status(ScfCycleResult* r,const BlockJacobiResult* solved,in
         return;
     }
 }
+// Device k loop (REMAG_SCF_K_LOOP=1). A cursor names the first job of the
+// current wave; lane L serves job cursor+L. Jobs past the end are clamped to
+// the last job for assembly and solving, and nothing they produce is kept.
+__global__ void loop_begin(int* cursor,int jobs,const ScfCycleResult* r,cudaGraphConditionalHandle loop) {
+    *cursor=0;cudaGraphSetConditional(loop,jobs>0&&!r->status);
+}
+__global__ void loop_advance(int* cursor,int step,int jobs,const ScfCycleResult* r,cudaGraphConditionalHandle loop) {
+    *cursor+=step;cudaGraphSetConditional(loop,*cursor<jobs&&!r->status);
+}
+__global__ void loop_proceed(const ScfCycleResult* r,cudaGraphConditionalHandle active) {
+    cudaGraphSetConditional(active,!r->status);
+}
+// Report the first failed solve of a wave in job order, as wave_status.
+__global__ void loop_status(ScfCycleResult* r,const BlockJacobiResult* solved,const int* cursor,int count,int jobs,int pass) {
+    if(r->status) return;
+    for(int lane=0;lane<count;lane++) {
+        const int job=*cursor+lane;
+        if(job<jobs&&solved[lane].status) {
+            r->status=1;r->producer_status=solved[lane].status;r->stage=1;r->block=job;r->pass=pass;return;
+        }
+    }
+}
+// First-pass spectrum (and, with the bank, vectors) of a successful real job.
+__global__ void loop_publish(const int* cursor,int lane,int jobs,int dim,size_t words,const double* w,double* eigenvalues,
+        const unsigned long long* z,unsigned long long* bank,const BlockJacobiResult* solved) {
+    const int job=*cursor+lane;
+    if(job>=jobs||solved->status) return;
+    for(size_t i=blockIdx.x*size_t(blockDim.x)+threadIdx.x;i<words||i<size_t(dim);i+=size_t(gridDim.x)*blockDim.x) {
+        if(i<size_t(dim)) eigenvalues[size_t(job)*dim+i]=w[i];
+        if(bank&&i<words) bank[size_t(job)*words+i]=z[i];
+    }
+}
+// Batched solver: first-pass spectrum and vectors of every real lane at once (lane = blockIdx.y).
+__global__ void loop_publish_wave(const int* cursor,int jobs,int dim,size_t words,const double* w,double* eigenvalues,
+        const unsigned long long* z,unsigned long long* bank,const BlockJacobiResult* solved) {
+    const int lane=blockIdx.y,job=*cursor+lane;
+    if(job>=jobs||solved[lane].status) return;
+    for(size_t i=blockIdx.x*size_t(blockDim.x)+threadIdx.x;i<words||i<size_t(dim);i+=size_t(gridDim.x)*blockDim.x) {
+        if(i<size_t(dim)) eigenvalues[size_t(job)*dim+i]=w[size_t(lane)*dim+i];
+        if(bank&&i<words) bank[size_t(job)*words+i]=z[size_t(lane)*words+i];
+    }
+}
+// Batched solver status in the block-Jacobi record: 1 Cholesky failure, 3 eigensolver failure.
+__global__ void batched_status(int lanes,const int* cholesky,const int* eigen,BlockJacobiResult* solved) {
+    const int lane=blockIdx.x*blockDim.x+threadIdx.x;
+    if(lane<lanes) {solved[lane]=BlockJacobiResult{};solved[lane].status=cholesky[lane]?1:(eigen[lane]?3:0);}
+}
+// Warm-start basis of the lane's job, moved through lane-private storage so the
+// seeded solver keeps fixed pointers. Clamped duplicates start unseeded.
+__global__ void loop_seed_gather(const int* cursor,int lane,int jobs,size_t words,const unsigned long long* seeds,
+        const int* valid,unsigned long long* seed,int* seed_valid) {
+    const int job=*cursor+lane;
+    if(job>=jobs) {if(!blockIdx.x&&!threadIdx.x) *seed_valid=0;return;}
+    for(size_t i=blockIdx.x*size_t(blockDim.x)+threadIdx.x;i<words;i+=size_t(gridDim.x)*blockDim.x) seed[i]=seeds[size_t(job)*words+i];
+    if(!blockIdx.x&&!threadIdx.x) *seed_valid=valid[job];
+}
+__global__ void loop_seed_scatter(const int* cursor,int lane,int jobs,size_t words,const unsigned long long* seed,
+        const int* seed_valid,unsigned long long* seeds,int* valid) {
+    const int job=*cursor+lane;
+    if(job>=jobs) return;
+    for(size_t i=blockIdx.x*size_t(blockDim.x)+threadIdx.x;i<words;i+=size_t(gridDim.x)*blockDim.x) seeds[size_t(job)*words+i]=seed[i];
+    if(!blockIdx.x&&!threadIdx.x) valid[job]=*seed_valid;
+}
+// Occupations, energies, k and spin of the lane's job for the staged density
+// build. A job past the end contributes nothing: its occupations are zero.
+__global__ void loop_stage(const int* cursor,int lane,int jobs,int spins,int dim,const double* kpoints,const double* occupation,
+        const double* eigenvalues,double* q,double* e,DensityJobStage* stage) {
+    const int job=*cursor+lane,used=min(job,jobs-1);const bool valid=job<jobs;
+    for(int i=blockIdx.x*blockDim.x+threadIdx.x;i<dim;i+=gridDim.x*blockDim.x) {
+        q[i]=valid?occupation[size_t(used)*dim+i]:0.;e[i]=eigenvalues[size_t(used)*dim+i];
+    }
+    if(!blockIdx.x&&!threadIdx.x) {
+        const int k=used/spins;
+        *stage={{kpoints[3*k],kpoints[3*k+1],kpoints[3*k+2]},used%spins,valid?1:0};
+    }
+}
+// Batched solver: stages, occupations and energies of every lane of a wave.
+__global__ void loop_stage_wave(const int* cursor,int jobs,int spins,int dim,const double* kpoints,const double* occupation,
+        const double* eigenvalues,double* q,double* e,DensityJobStage* stage) {
+    const int lane=blockIdx.y,job=*cursor+lane,used=min(job,jobs-1);const bool valid=job<jobs;
+    for(int i=blockIdx.x*blockDim.x+threadIdx.x;i<dim;i+=gridDim.x*blockDim.x) {
+        q[size_t(lane)*dim+i]=valid?occupation[size_t(used)*dim+i]:0.;e[size_t(lane)*dim+i]=eigenvalues[size_t(used)*dim+i];
+    }
+    if(!blockIdx.x&&!threadIdx.x) {
+        const int k=used/spins;
+        stage[lane]={{kpoints[3*k],kpoints[3*k+1],kpoints[3*k+2]},used%spins,valid?1:0};
+    }
+}
+__global__ void loop_transpose_wave(int n,const cuDoubleComplex* bank,const cuDoubleComplex* solved,const int* cursor,int jobs,
+        cuDoubleComplex* target) {
+    __shared__ cuDoubleComplex tile[32][33];
+    const int lane=blockIdx.z;const size_t matrix=size_t(n)*n;
+    const cuDoubleComplex* source=bank?bank+size_t(min(*cursor+lane,jobs-1))*matrix:solved+size_t(lane)*matrix;
+    cuDoubleComplex* out=target+size_t(lane)*matrix;
+    int row=blockIdx.x*32+threadIdx.x,state=blockIdx.y*32+threadIdx.y;
+    for(int j=0;j<32;j+=8) if(row<n&&state+j<n) tile[threadIdx.y+j][threadIdx.x]=source[size_t(state+j)*n+row];
+    __syncthreads();
+    row=blockIdx.x*32+threadIdx.y;state=blockIdx.y*32+threadIdx.x;
+    for(int j=0;j<32;j+=8) if(row+j<n&&state<n) out[size_t(row+j)*n+state]=tile[threadIdx.x][threadIdx.y+j];
+}
+// The density transpose of density_matrix.cu, reading the job's bank slot (or
+// the lane's solve) through the device cursor.
+template<class T> __global__ void loop_transpose(int n,int nev,const T* bank,const T* solved,const int* cursor,int lane,int jobs,T* target) {
+    __shared__ T tile[32][33];
+    const T* source=bank?bank+size_t(min(*cursor+lane,jobs-1))*n*nev:solved;
+    int row=blockIdx.x*32+threadIdx.x,state=blockIdx.y*32+threadIdx.y;
+    for(int j=0;j<32;j+=8) if(row<n&&state+j<nev) tile[threadIdx.y+j][threadIdx.x]=source[size_t(state+j)*n+row];
+    __syncthreads();
+    row=blockIdx.x*32+threadIdx.y;state=blockIdx.y*32+threadIdx.x;
+    for(int j=0;j<32;j+=8) if(row+j<n&&state<nev) target[size_t(row+j)*nev+state]=tile[threadIdx.x][threadIdx.y+j];
+}
 __global__ void initial_control(ScfCycleResult* r,ScfControlProblem* p,const InitialDensityResult* initial) {
     if(initial->status) {r->status=8;r->producer_status=initial->status;r->stage=0;}
     else if(initial->mix_first!=0&&initial->mix_first!=1) {r->status=8;r->producer_status=1;r->stage=0;}
@@ -94,7 +207,7 @@ void audit(cudaGraph_t graph,int& nodes,int& forbidden) {
 struct ScfCyclePlan::Impl {
     ScfCycleShape shape;ScfCycleBindings b;ScfControlProblem settings;cudaStream_t stream;
     int dim,spins,jobs,ng,capacity,nh,eh,lanes=1,nodes=0,forbidden=0;
-    bool full_vector_bank=false,warm_start=false;
+    bool full_vector_bank=false,warm_start=false,k_loop=false,batched=false;
     bool initialized_hamiltonian=false,launched=false;
     size_t bytes=0,vector_bytes,seed_bytes=0;std::vector<void*> allocations;
     cudaGraph_t graph=nullptr;cudaGraphExec_t exec=nullptr;
@@ -110,6 +223,19 @@ struct ScfCyclePlan::Impl {
     ScfStageProfile* profile=nullptr;
     unsigned char *dense_h=nullptr,*dense_s=nullptr,*vectors=nullptr,*transposed=nullptr,*seed_vectors=nullptr;
     int* seed_valid=nullptr;
+    // Device k loop: wave cursors, lane-private solver outputs and seeds, and
+    // the staged job of the density build.
+    int *cursor=nullptr,*lane_valid=nullptr;unsigned char *lane_vectors=nullptr,*lane_seeds=nullptr;
+    double *lane_values=nullptr,*stage_q=nullptr,*stage_e=nullptr;DensityJobStage* stage=nullptr;
+    // Batched solver (REMAG_SCF_BATCHED_SOLVER=1): one wave of generalized
+    // problems per batched Cholesky, triangular solves and XsyevBatched call;
+    // its eigenvectors stay in dense_h. lane_z names where a lane's vectors are.
+    unsigned char* lane_z=nullptr;
+    cusolverDnHandle_t bsolver=nullptr;cublasHandle_t bblas=nullptr;cusolverDnParams_t bparams=nullptr;
+    void *bwork=nullptr,*bblas_work=nullptr;size_t bwork_bytes=0;int *bcholesky=nullptr,*beigen=nullptr;
+    cuDoubleComplex **hpointers=nullptr,**spointers=nullptr;
+    // Wave density build: transposed vectors, occupations, energies and stages of every lane.
+    unsigned char* wave_vectors=nullptr;double *wave_q=nullptr,*wave_e=nullptr,*wave_unique=nullptr;DensityJobStage* wave_stage=nullptr;
     double* unique_density=nullptr;
     double *eigenvalues=nullptr,*occupation=nullptr,*second_values=nullptr,*partial=nullptr;
     double *hold=nullptr,*dold=nullptr,*eold=nullptr,*residual=nullptr,*rho=nullptr,*potential=nullptr;
@@ -121,7 +247,17 @@ struct ScfCyclePlan::Impl {
     Impl(const ScfCycleShape& s,const ScfCycleBindings& inputs,const ScfControlProblem& c,cudaStream_t execution)
         :shape(s),b(inputs),settings(c),stream(execution) {
         const auto& h=s.assembly.shape;const auto& d=s.density.shape;const auto& g=s.grid.shape;
-        if(h.n<1||h.n>2048||d.nnz<1||d.nnz>INT_MAX/8||h.nk<1||h.nk>128||
+        const char* looped=std::getenv("REMAG_SCF_K_LOOP");
+        if(looped&&std::strcmp(looped,"0")&&std::strcmp(looped,"1"))throw std::runtime_error("REMAG_SCF_K_LOOP must be 0 or 1");
+        k_loop=looped&&std::strcmp(looped,"1")==0;
+        const char* batching=std::getenv("REMAG_SCF_BATCHED_SOLVER");
+        if(batching&&std::strcmp(batching,"0")&&std::strcmp(batching,"1"))throw std::runtime_error("REMAG_SCF_BATCHED_SOLVER must be 0 or 1");
+        batched=batching&&std::strcmp(batching,"1")==0;
+        if(batched&&!k_loop)throw std::runtime_error("The batched solver needs REMAG_SCF_K_LOOP=1");
+        if(k_loop&&h.kind%2==0)throw std::runtime_error("The device k loop needs a sampled-k calculation");
+        const int max_k=k_loop?(1<<20):128;
+        if(!k_loop&&h.nk>128)throw std::runtime_error("Device SCF unrolls at most 128 k points; set REMAG_SCF_K_LOOP=1");
+        if(h.n<1||h.n>2048||d.nnz<1||d.nnz>INT_MAX/8||h.nk<1||h.nk>max_k||
            (h.kind<2?(h.nh!=1&&h.nh!=2):(h.nh!=4&&h.nh!=8))||!s.assembly.config)
             throw std::runtime_error("Invalid device SCF capacity");
         if(s.density.unique_pairs<0||s.density.unique_pairs>d.pairs||
@@ -133,19 +269,27 @@ struct ScfCyclePlan::Impl {
         full_vector_bank=h.kind%2==0||(cache&&std::strcmp(cache,"1")==0);
         const char* parallel=std::getenv("REMAG_SCF_SOLVER_LANES");
         if(parallel) {
-            if(std::strcmp(parallel,"1")&&std::strcmp(parallel,"2")&&std::strcmp(parallel,"4")&&std::strcmp(parallel,"8"))
-                throw std::runtime_error("REMAG_SCF_SOLVER_LANES must be 1, 2, 4 or 8");
+            const bool wide=k_loop&&(!std::strcmp(parallel,"16")||!std::strcmp(parallel,"32")||
+                                     !std::strcmp(parallel,"64")||!std::strcmp(parallel,"128")||
+                                     (batched&&(!std::strcmp(parallel,"256")||!std::strcmp(parallel,"512")||
+                                                !std::strcmp(parallel,"1024"))));
+            if(std::strcmp(parallel,"1")&&std::strcmp(parallel,"2")&&std::strcmp(parallel,"4")&&std::strcmp(parallel,"8")&&!wide)
+                throw std::runtime_error(k_loop?"REMAG_SCF_SOLVER_LANES must be 1, 2, 4, 8, 16, 32, 64 or 128":
+                                                "REMAG_SCF_SOLVER_LANES must be 1, 2, 4 or 8");
             lanes=std::min(std::atoi(parallel),jobs);
-        }
-        if(lanes>1&&!full_vector_bank)
+        } else if(batched) lanes=std::min(256,jobs);
+        // The k loop gives every lane private solver output, so lanes no
+        // longer need bank slots; the unrolled path writes straight into them.
+        if(lanes>1&&!full_vector_bank&&!k_loop)
             throw std::runtime_error("Parallel SCF solves require the complete device vector bank");
         const char* warm=std::getenv("REMAG_SCF_WARM_START");
         if(warm&&std::strcmp(warm,"0")&&std::strcmp(warm,"1"))throw std::runtime_error("REMAG_SCF_WARM_START must be 0 or 1");
         warm_start=warm&&std::strcmp(warm,"1")==0;
         if(warm_start&&!full_vector_bank)throw std::runtime_error("Eigensolver warm start requires the complete vector bank");
+        if(warm_start&&batched)throw std::runtime_error("The batched solver has no warm start");
         capacity=d.nnz;nh=d.nh;eh=d.eh;vector_bytes=size_t(dim)*dim*(h.kind?sizeof(cuDoubleComplex):sizeof(double));
         const auto& m=c.mixer;const auto& v=c.convergence;
-        if(!stream||dim<1||dim>4096||h.nk<1||h.nk>128||h.kind<0||h.kind>3||
+        if(!stream||dim<1||dim>4096||h.nk<1||h.nk>max_k||h.kind<0||h.kind>3||
            (h.kind%2==0&&h.nk!=1)||d.kind!=h.kind||d.n!=h.n||h.ldh!=capacity||h.nh!=nh||
            eh!=ng||g.nuo!=h.n||g.nnz!=capacity||g.np<1||g.nsp<1||
            s.mesh[0]<1||s.mesh[1]<1||s.mesh[2]<1||
@@ -162,7 +306,8 @@ struct ScfCyclePlan::Impl {
            !std::isfinite(m.condition)||m.condition<=0.||m.condition>=1.||
            !b.fermi||!b.weights||!b.hamiltonian||!b.kinetic||!b.nonlocal_h||!b.grid||!b.atomic_density||
            !b.core_density||!b.neutral_potential||!b.scalars||!b.constants||!b.num||!b.ptr||!b.overlap||
-           !b.h||!b.density||!b.energy_density||b.h==b.density||b.h==b.energy_density||b.density==b.energy_density)
+           !b.h||!b.density||!b.energy_density||b.h==b.density||b.h==b.energy_density||b.density==b.energy_density||
+           (b.constraint.sites&&(h.kind<2||!b.constraint.orbital_field)))
             throw std::runtime_error("Invalid device SCF cycle shape/bindings/settings");
         for(double t:v.tolerances) if(!std::isfinite(t)||t<0.) throw std::runtime_error("Invalid SCF tolerance");
         for(const auto& k:s.kpoints) for(double x:k) if(!std::isfinite(x)) throw std::runtime_error("Invalid SCF k point");
@@ -177,20 +322,30 @@ struct ScfCyclePlan::Impl {
             seeded=allocate<HamiltonianSeedsResult>(1);gridded=allocate<GridPotentialResult>(1);reduced=allocate<ScfScalarsResult>(1);
             energy_seeds=allocate<ScfEnergySeeds>(1);
             dense_h=allocate<unsigned char>(vector_bytes*lanes);dense_s=allocate<unsigned char>(vector_bytes*lanes);
-            vectors=allocate<unsigned char>(vector_bytes*(full_vector_bank?jobs:1));transposed=allocate<unsigned char>(vector_bytes);
+            if(!k_loop||full_vector_bank)vectors=allocate<unsigned char>(vector_bytes*(full_vector_bank?jobs:1));
+            transposed=allocate<unsigned char>(vector_bytes);
+            if(k_loop) {
+                cursor=allocate<int>(2);
+                if(!batched)lane_vectors=allocate<unsigned char>(vector_bytes*lanes);
+                lane_z=batched?dense_h:lane_vectors;
+                lane_values=allocate<double>(size_t(dim)*lanes);stage_q=allocate<double>(dim);stage_e=allocate<double>(dim);
+                stage=allocate<DensityJobStage>(1);
+            }
             eigenvalues=allocate<double>(size_t(dim)*jobs);occupation=allocate<double>(size_t(dim)*jobs);second_values=allocate<double>(dim);
             if(s.density.unique_pairs)unique_density=allocate<double>(density_unique_scratch_count(s.density));
             partial=allocate<double>((size_t(capacity)*std::min(nh,2)+255)/256);
             hold=allocate<double>(size_t(capacity)*nh);dold=allocate<double>(size_t(capacity)*nh);
             eold=allocate<double>(size_t(capacity)*eh);residual=allocate<double>(size_t(capacity)*nh);
             rho=allocate<double>(size_t(g.np)*g.nsp*ng);potential=allocate<double>(size_t(g.np)*g.nsp*ng);
-            for(int lane=0;lane<lanes;lane++)
+            if(batched) prepare_batched();
+            else for(int lane=0;lane<lanes;lane++)
                 solvers.push_back(std::make_unique<BlockJacobiPlan>(dim,h.kind!=0,32,2.e-13,stream));
             if(warm_start) {
                 seed_bytes=solvers[0]->seed_bytes();
                 // State is keyed by the physical job, not the reusable lane.
                 // Geometry reconstruction creates fresh zero publication flags.
                 seed_vectors=allocate<unsigned char>(seed_bytes*jobs);seed_valid=allocate<int>(jobs);
+                if(k_loop) {lane_seeds=allocate<unsigned char>(seed_bytes*lanes);lane_valid=allocate<int>(lanes);}
             }
             grid=std::make_unique<GridPotentialPlan>(s.mesh[0],s.mesh[1],s.mesh[2],ng,stream);
             seeds=std::make_unique<HamiltonianSeedsPlan>(capacity,nh,stream);
@@ -201,8 +356,9 @@ struct ScfCyclePlan::Impl {
             for(int lane=0;lane<lanes;lane++) {
                 auto h=dense_h+size_t(lane)*vector_bytes,s=dense_s+size_t(lane)*vector_bytes;
                 identity<<<(dim*dim+255)/256,256,0,stream>>>(dim,shape.assembly.shape.kind!=0,reinterpret_cast<double*>(h),reinterpret_cast<double*>(s));
-                check(cudaGetLastError());solvers[lane]->warmup(h,s,solved+lane);
+                check(cudaGetLastError());if(!batched) solvers[lane]->warmup(h,s,solved+lane);
             }
+            if(batched) {batched_solve();check(cudaStreamSynchronize(stream));}
             applied(grid->apply(b.grid,rho,b.atomic_density,b.core_density,b.neutral_potential,potential,gridded));
             check(cudaStreamSynchronize(stream));build();
             for(const auto& solver:solvers)bytes+=solver->workspace_bytes();
@@ -211,6 +367,8 @@ struct ScfCyclePlan::Impl {
     }
     void release() {
         if(stream) cudaStreamSynchronize(stream);
+        if(bparams) cusolverDnDestroyParams(bparams);if(bsolver) cusolverDnDestroy(bsolver);if(bblas) cublasDestroy(bblas);
+        bparams=nullptr;bsolver=nullptr;bblas=nullptr;
         if(exec) cudaGraphExecDestroy(exec);if(graph) cudaGraphDestroy(graph);exec=nullptr;graph=nullptr;
         control.reset();scalars.reset();seeds.reset();grid.reset();solvers.clear();
         for(void* p:allocations) cudaFree(p);allocations.clear();
@@ -276,6 +434,142 @@ struct ScfCyclePlan::Impl {
                 eigenvalues+size_t(job)*dim,shape.occupation_cutoff,k[0],k[1],k[2],b.density,b.energy_density,stream,unique_density));
         });});
     }
+    // Handles, pointer arrays and zeroed workspace for one wave; staged before capture.
+    void prepare_batched() {
+        if(shape.assembly.shape.kind%2==0) throw std::runtime_error("The batched solver needs complex k-point matrices");
+        auto solver_ok=[](cusolverStatus_t c){if(c!=CUSOLVER_STATUS_SUCCESS) throw std::runtime_error("cuSOLVER batched setup failed");};
+        auto blas_ok=[](cublasStatus_t c){if(c!=CUBLAS_STATUS_SUCCESS) throw std::runtime_error("cuBLAS batched setup failed");};
+        solver_ok(cusolverDnCreate(&bsolver));solver_ok(cusolverDnSetStream(bsolver,stream));
+        solver_ok(cusolverDnCreateParams(&bparams));
+        blas_ok(cublasCreate(&bblas));blas_ok(cublasSetStream(bblas,stream));
+        bblas_work=allocate<unsigned char>(4u<<20);blas_ok(cublasSetWorkspace(bblas,bblas_work,4u<<20));
+        bcholesky=allocate<int>(lanes);beigen=allocate<int>(lanes);
+        std::vector<cuDoubleComplex*> hp(lanes),sp(lanes);
+        for(int lane=0;lane<lanes;lane++) {
+            hp[lane]=reinterpret_cast<cuDoubleComplex*>(dense_h+size_t(lane)*vector_bytes);
+            sp[lane]=reinterpret_cast<cuDoubleComplex*>(dense_s+size_t(lane)*vector_bytes);
+        }
+        hpointers=allocate<cuDoubleComplex*>(lanes,hp.data());spointers=allocate<cuDoubleComplex*>(lanes,sp.data());
+        size_t device=0,host=0;
+        solver_ok(cusolverDnXsyevBatched_bufferSize(bsolver,bparams,CUSOLVER_EIG_MODE_VECTOR,CUBLAS_FILL_MODE_LOWER,dim,CUDA_C_64F,
+            dense_h,dim,CUDA_R_64F,lane_values,CUDA_C_64F,&device,&host,lanes));
+        if(host) throw std::runtime_error("The batched eigensolver asks for host workspace");
+        bwork_bytes=std::max<size_t>(device,8);bwork=allocate<unsigned char>(bwork_bytes);
+        wave_vectors=allocate<unsigned char>(vector_bytes*lanes);
+        wave_q=allocate<double>(size_t(dim)*lanes);wave_e=allocate<double>(size_t(dim)*lanes);
+        wave_stage=allocate<DensityJobStage>(lanes);
+        if(shape.density.unique_pairs) wave_unique=allocate<double>(density_unique_scratch_count(shape.density)*lanes);
+    }
+    // S = L L^H, C = L^-1 H L^-H, C y = e y, z = L^-H y for every lane; the
+    // workspace is zeroed before each call (NVIDIA's complex batch note for CUDA < 12.8).
+    void batched_solve() {
+        const cuDoubleComplex one=make_cuDoubleComplex(1.,0.);
+        auto solver_ok=[](cusolverStatus_t c){if(c!=CUSOLVER_STATUS_SUCCESS) throw std::runtime_error("cuSOLVER batched call failed");};
+        auto blas_ok=[](cublasStatus_t c){if(c!=CUBLAS_STATUS_SUCCESS) throw std::runtime_error("cuBLAS batched call failed");};
+        solver_ok(cusolverDnZpotrfBatched(bsolver,CUBLAS_FILL_MODE_LOWER,dim,spointers,dim,bcholesky,lanes));
+        blas_ok(cublasZtrsmBatched(bblas,CUBLAS_SIDE_LEFT,CUBLAS_FILL_MODE_LOWER,CUBLAS_OP_N,CUBLAS_DIAG_NON_UNIT,dim,dim,&one,
+            spointers,dim,hpointers,dim,lanes));
+        blas_ok(cublasZtrsmBatched(bblas,CUBLAS_SIDE_RIGHT,CUBLAS_FILL_MODE_LOWER,CUBLAS_OP_C,CUBLAS_DIAG_NON_UNIT,dim,dim,&one,
+            spointers,dim,hpointers,dim,lanes));
+        check(cudaMemsetAsync(bwork,0,bwork_bytes,stream));
+        solver_ok(cusolverDnXsyevBatched(bsolver,bparams,CUSOLVER_EIG_MODE_VECTOR,CUBLAS_FILL_MODE_LOWER,dim,CUDA_C_64F,dense_h,dim,
+            CUDA_R_64F,lane_values,CUDA_C_64F,bwork,bwork_bytes,nullptr,0,beigen,lanes));
+        blas_ok(cublasZtrsmBatched(bblas,CUBLAS_SIDE_LEFT,CUBLAS_FILL_MODE_LOWER,CUBLAS_OP_C,CUBLAS_DIAG_NON_UNIT,dim,dim,&one,
+            spointers,dim,hpointers,dim,lanes));
+        batched_status<<<(lanes+127)/128,128,0,stream>>>(lanes,bcholesky,beigen,solved);check(cudaGetLastError());
+    }
+    // Device WHILE loop over waves of `lanes` jobs; wave(body) appends one wave.
+    cudaGraphNode_t k_loop_node(cudaGraph_t dst,int slot,const std::function<void(cudaGraph_t,cudaGraphConditionalHandle)>& wave) {
+        cudaGraphConditionalHandle loop;check(cudaGraphConditionalHandleCreate(&loop,graph,0,cudaGraphCondAssignDefault));
+        auto begun=capture(dst,nullptr,[&]{loop_begin<<<1,1,0,stream>>>(cursor+slot,jobs,result,loop);check(cudaGetLastError());});
+        cudaGraphNodeParams p{};p.type=cudaGraphNodeTypeConditional;p.conditional.handle=loop;
+        p.conditional.type=cudaGraphCondTypeWhile;p.conditional.size=1;cudaGraphNode_t node;
+        check(cudaGraphAddNode(&node,dst,&begun,1,&p));nodes++;wave(p.conditional.phGraph_out[0],loop);return node;
+    }
+    // Assemble and solve the wave's jobs in parallel lanes into lane storage.
+    cudaGraphNode_t loop_solves(cudaGraph_t body,int slot,int pass) {
+        const int* c=cursor+slot;const size_t words=vector_bytes/8,seed_words=seed_bytes/8;
+        if(batched) {
+            auto solved_wave=capture(body,nullptr,[&]{
+                check(assemble_hamiltonian_wave_device(shape.assembly,b.h,c,lanes,jobs,dense_h,dense_s,stream));
+                batched_solve();
+                if(pass==1) {
+                    loop_publish_wave<<<dim3(16,lanes),256,0,stream>>>(c,jobs,dim,full_vector_bank?words:0,lane_values,eigenvalues,
+                        reinterpret_cast<const unsigned long long*>(dense_h),reinterpret_cast<unsigned long long*>(vectors),solved);
+                    check(cudaGetLastError());
+                }
+            });
+            return capture(body,solved_wave,[&]{loop_status<<<1,1,0,stream>>>(result,solved,c,lanes,jobs,pass);check(cudaGetLastError());});
+        }
+        const bool seeded=warm_start&&pass==1;
+        std::vector<cudaGraphNode_t> completed;
+        for(int lane=0;lane<lanes;lane++) {
+            auto h=dense_h+size_t(lane)*vector_bytes,sm=dense_s+size_t(lane)*vector_bytes;
+            auto z=lane_vectors+size_t(lane)*vector_bytes;auto w=lane_values+size_t(lane)*dim;
+            auto seed=seeded?lane_seeds+size_t(lane)*seed_bytes:nullptr;auto valid=seeded?lane_valid+lane:nullptr;
+            auto assembled=capture(body,nullptr,[&]{
+                if(seeded) {
+                    loop_seed_gather<<<64,256,0,stream>>>(c,lane,jobs,seed_words,reinterpret_cast<const unsigned long long*>(seed_vectors),
+                        seed_valid,reinterpret_cast<unsigned long long*>(seed),valid);check(cudaGetLastError());
+                }
+                check(assemble_hamiltonian_indexed_device(shape.assembly,b.h,c,lane,jobs,h,sm,stream));
+            });
+            auto done=seeded?solvers[lane]->append_seeded(graph,body,assembled,h,sm,z,w,solved+lane,seed,valid):
+                solvers[lane]->append(graph,body,assembled,h,sm,z,w,solved+lane);
+            if(pass==1) done=capture(body,done,[&]{
+                loop_publish<<<64,256,0,stream>>>(c,lane,jobs,dim,full_vector_bank?words:0,w,eigenvalues,
+                    reinterpret_cast<const unsigned long long*>(z),reinterpret_cast<unsigned long long*>(vectors),solved+lane);
+                check(cudaGetLastError());
+                if(seeded) {
+                    loop_seed_scatter<<<64,256,0,stream>>>(c,lane,jobs,seed_words,reinterpret_cast<const unsigned long long*>(seed),
+                        valid,reinterpret_cast<unsigned long long*>(seed_vectors),seed_valid);check(cudaGetLastError());
+                }
+            });
+            completed.push_back(done);
+        }
+        cudaGraphNode_t joined;check(cudaGraphAddEmptyNode(&joined,body,completed.data(),completed.size()));nodes++;
+        return capture(body,joined,[&]{loop_status<<<1,1,0,stream>>>(result,solved,c,lanes,jobs,pass);check(cudaGetLastError());});
+    }
+    // Accumulate the wave's jobs one after another, in job order, as the
+    // unrolled path does; skipped entirely after a failure.
+    cudaGraphNode_t loop_accumulate(cudaGraph_t body,cudaGraphNode_t dep,int slot) {
+        const int* c=cursor+slot;
+        cudaGraphConditionalHandle active;check(cudaGraphConditionalHandleCreate(&active,graph,0,cudaGraphCondAssignDefault));
+        auto entered=capture(body,dep,[&]{loop_proceed<<<1,1,0,stream>>>(result,active);check(cudaGetLastError());});
+        cudaGraphNodeParams p{};p.type=cudaGraphNodeTypeConditional;p.conditional.handle=active;
+        p.conditional.type=cudaGraphCondTypeIf;p.conditional.size=1;cudaGraphNode_t node;
+        check(cudaGraphAddNode(&node,body,&entered,1,&p));nodes++;
+        capture(p.conditional.phGraph_out[0],nullptr,[&]{
+            const bool complex_values=shape.assembly.shape.kind!=0;
+            if(batched) {
+                // One pass for the whole wave, in job order (density_wave_kernels.inc).
+                loop_stage_wave<<<dim3((dim+255)/256,lanes),256,0,stream>>>(c,jobs,spins,dim,shape.assembly.kpoints,occupation,
+                    eigenvalues,wave_q,wave_e,wave_stage);check(cudaGetLastError());
+                const dim3 block(32,8),tiles((dim-1)/32+1,(dim-1)/32+1,lanes);
+                loop_transpose_wave<<<tiles,block,0,stream>>>(dim,full_vector_bank?reinterpret_cast<const cuDoubleComplex*>(vectors):nullptr,
+                    reinterpret_cast<const cuDoubleComplex*>(lane_z),c,jobs,reinterpret_cast<cuDoubleComplex*>(wave_vectors));
+                check(cudaGetLastError());
+                check(accumulate_density_wave_device(shape.density,dim,lanes,wave_vectors,size_t(dim)*dim,wave_q,wave_e,
+                    shape.occupation_cutoff,wave_stage,b.density,b.energy_density,stream,wave_unique));
+                return;
+            }
+            const dim3 block(32,8),tiles((dim-1)/32+1,(dim-1)/32+1);
+            for(int lane=0;lane<lanes;lane++) {
+                loop_stage<<<(dim+255)/256,256,0,stream>>>(c,lane,jobs,spins,dim,shape.assembly.kpoints,occupation,eigenvalues,
+                    stage_q,stage_e,stage);check(cudaGetLastError());
+                auto solved_z=lane_z+size_t(lane)*vector_bytes;
+                if(complex_values) loop_transpose<<<tiles,block,0,stream>>>(dim,dim,
+                    full_vector_bank?reinterpret_cast<const cuDoubleComplex*>(vectors):nullptr,
+                    reinterpret_cast<const cuDoubleComplex*>(solved_z),c,lane,jobs,reinterpret_cast<cuDoubleComplex*>(transposed));
+                else loop_transpose<<<tiles,block,0,stream>>>(dim,dim,full_vector_bank?reinterpret_cast<const double*>(vectors):nullptr,
+                    reinterpret_cast<const double*>(solved_z),c,lane,jobs,reinterpret_cast<double*>(transposed));
+                check(cudaGetLastError());
+                check(accumulate_density_staged_device(shape.density,dim,transposed,stage_q,stage_e,shape.occupation_cutoff,stage,
+                    b.density,b.energy_density,stream,unique_density));
+            }
+        });
+        return node;
+    }
     void build() {
         check(cudaGraphCreate(&graph,0));cudaGraphConditionalHandle loop;
         check(cudaGraphConditionalHandleCreate(&loop,graph,0,cudaGraphCondAssignDefault));
@@ -288,16 +582,30 @@ struct ScfCyclePlan::Impl {
             check(cudaMemcpyAsync(dold,b.density,size_t(capacity)*nh*sizeof(double),cudaMemcpyDeviceToDevice,stream));
             check(cudaMemcpyAsync(eold,b.energy_density,size_t(capacity)*eh*sizeof(double),cudaMemcpyDeviceToDevice,stream));
         });
-        if(lanes==1) for(int job=0;job<jobs;job++) tail=solve(body,tail,job,1);
+        if(k_loop) tail=guarded(body,tail,1,-1,1,[&](cudaGraph_t stage){
+            k_loop_node(stage,0,[&](cudaGraph_t wave,cudaGraphConditionalHandle loop){
+                auto done=loop_solves(wave,0,1);
+                capture(wave,done,[&]{loop_advance<<<1,1,0,stream>>>(cursor,lanes,jobs,result,loop);check(cudaGetLastError());});
+            });
+        });
+        else if(lanes==1) for(int job=0;job<jobs;job++) tail=solve(body,tail,job,1);
         else for(int first=0;first<jobs;first+=lanes) tail=solve_wave(body,tail,first);
         tail=guarded(body,tail,2,-1,0,[&](cudaGraph_t stage){capture(stage,nullptr,[&]{
-            check(fermi_device(b.fermi,eigenvalues,b.weights,occupation,occupied,stream));
+            if(b.tetra) applied(b.tetra->apply(b.fermi,eigenvalues,occupation,occupied));
+            else check(fermi_device(b.fermi,eigenvalues,b.weights,occupation,occupied,stream));
             status<<<1,1,0,stream>>>(result,&occupied->status,2);check(cudaGetLastError());
         });});
         tail=guarded(body,tail,3,-1,0,[&](cudaGraph_t stage){capture(stage,nullptr,[&]{
             check(clear_density_device(shape.density.shape,b.density,b.energy_density,stream));
         });});
-        for(int job=0;job<jobs;job++) {
+        if(k_loop) tail=guarded(body,tail,3,-1,2,[&](cudaGraph_t stage){
+            k_loop_node(stage,1,[&](cudaGraph_t wave,cudaGraphConditionalHandle loop){
+                auto done=full_vector_bank?nullptr:loop_solves(wave,1,2);
+                done=loop_accumulate(wave,done,1);
+                capture(wave,done,[&]{loop_advance<<<1,1,0,stream>>>(cursor+1,lanes,jobs,result,loop);check(cudaGetLastError());});
+            });
+        });
+        else for(int job=0;job<jobs;job++) {
             if(!full_vector_bank) tail=solve(body,tail,job,2);
             tail=accumulate(body,tail,job);
         }
@@ -317,6 +625,11 @@ struct ScfCyclePlan::Impl {
         tail=guarded(body,tail,4,-1,0,[&](cudaGraph_t stage){capture(stage,nullptr,[&]{
             check(add_grid_potential_device(shape.grid,ng,nh,potential,0.,&b.grid->dvol,b.h,stream));
             applied(seeds->finish_grid(b.hamiltonian,b.offsite,b.h,seeded));
+            if(b.constraint.sites) {
+                if(b.constraint.penalty>0.) check(spin_constraint_penalty_field_device(shape.density.shape.n,nh,capacity,
+                    b.num,b.ptr,b.overlap,b.density,b.constraint,stream));
+                check(spin_constraint_field_device(shape.assembly,nh,b.constraint.orbital_field,b.h,stream));
+            }
             status<<<1,1,0,stream>>>(result,&seeded->status,4);check(cudaGetLastError());
         });});
         tail=guarded(body,tail,6,-1,0,[&](cudaGraph_t stage){capture(stage,nullptr,[&]{
@@ -353,6 +666,13 @@ cudaError_t ScfCyclePlan::initialize_hamiltonian(const InitialDensityResult* ini
     status<<<1,1,0,s.stream>>>(s.result,&s.gridded->status,5);
     error=add_grid_potential_device(s.shape.grid,s.ng,s.nh,s.potential,0.,&b.grid->dvol,b.h,s.stream);if(error!=cudaSuccess)return error;
     code=s.seeds->finish_grid(b.hamiltonian,b.offsite,b.h,s.seeded);if(code)return static_cast<cudaError_t>(code);
+    if(b.constraint.sites) {
+        if(b.constraint.penalty>0.) {
+            error=spin_constraint_penalty_field_device(s.shape.density.shape.n,s.nh,s.capacity,b.num,b.ptr,b.overlap,
+                b.density,b.constraint,s.stream);if(error!=cudaSuccess)return error;
+        }
+        error=spin_constraint_field_device(s.shape.assembly,s.nh,b.constraint.orbital_field,b.h,s.stream);if(error!=cudaSuccess)return error;
+    }
     status<<<1,1,0,s.stream>>>(s.result,&s.seeded->status,4);
     return cudaGetLastError();
 }
@@ -362,9 +682,11 @@ const ScfControlStep* ScfCyclePlan::history() const {return impl_->history;}
 const ScfCycleStep* ScfCyclePlan::diagnostics() const {return impl_->diagnostics;}
 const ScfStageProfile* ScfCyclePlan::stage_profile() const {return impl_->profile;}
 const BlockJacobiResult* ScfCyclePlan::solver_diagnostic(int job) const {return impl_->solved+job%impl_->lanes;}
-const BlockJacobiLocalFailure* ScfCyclePlan::solver_local_failure(int job) const {return impl_->solvers.at(job%impl_->lanes)->local_failure();}
-const void* ScfCyclePlan::solver_failed_local_input(int job) const {return impl_->solvers.at(job%impl_->lanes)->failed_local_input();}
-int ScfCyclePlan::solver_local_dimension() const {return impl_->solvers[0]->local_dimension();}
+const BlockJacobiLocalFailure* ScfCyclePlan::solver_local_failure(int job) const {
+    return impl_->solvers.empty()?nullptr:impl_->solvers.at(job%impl_->lanes)->local_failure();}
+const void* ScfCyclePlan::solver_failed_local_input(int job) const {
+    return impl_->solvers.empty()?nullptr:impl_->solvers.at(job%impl_->lanes)->failed_local_input();}
+int ScfCyclePlan::solver_local_dimension() const {return impl_->solvers.empty()?0:impl_->solvers[0]->local_dimension();}
 const void* ScfCyclePlan::assembled_hamiltonian(int job) const {return impl_->dense_h+size_t(job%impl_->lanes)*impl_->vector_bytes;}
 const void* ScfCyclePlan::assembled_overlap(int job) const {return impl_->dense_s+size_t(job%impl_->lanes)*impl_->vector_bytes;}
 const double* ScfCyclePlan::old_hamiltonian() const {return impl_->hold;}
@@ -384,6 +706,8 @@ size_t ScfCyclePlan::setup_upload_bytes() const {
     return bytes;
 }
 bool ScfCyclePlan::warm_start() const {return impl_->warm_start;}
+bool ScfCyclePlan::k_loop() const {return impl_->k_loop;}
+bool ScfCyclePlan::batched_solver() const {return impl_->batched;}
 int ScfCyclePlan::solver_lanes() const {return impl_->lanes;}
 int ScfCyclePlan::graph_nodes() const {return impl_->nodes;}
 size_t ScfCyclePlan::vector_bank_bytes() const {return impl_->vector_bytes*(impl_->full_vector_bank?impl_->jobs:1);}

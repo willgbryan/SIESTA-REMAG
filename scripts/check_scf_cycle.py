@@ -163,12 +163,16 @@ class Oracle:
         return dict(effective_mix_first=np.array(effective_mix_first),h=h,d=d,e=e,bank=bank,q=q,fermi=np.array([ef.value,entropy.value,p.charge]),
             values=np.array(values),decisions=np.array(decisions),trajectory=np.array(trace),diagnostics=np.array(diagnostics))
 
-def fixtures(oracle,directory,initialization=False):
+def fixtures(oracle,directory,initialization=False,kpoints=2):
     rng=np.random.default_rng(61006741);records=[]
     modes=[(0,1,0),(0,2,0),(1,1,0),(1,2,0),(2,4,0),(3,4,0),(2,8,1),(3,8,1),(2,8,2),(3,8,2)]
-    for kind,nh,soc,n in [(*v,6) for v in modes]+[(0,2,0,33),(3,8,2,33)]:
+    cases=[(*v,6) for v in modes]+[(0,2,0,33),(3,8,2,33)]
+    # More k points than solver lanes exercise the device k loop's waves,
+    # including a partial final wave; only sampled-k kinds take part.
+    if kpoints!=2:cases=[c for c in cases if c[0]%2]
+    for kind,nh,soc,n in cases:
         for mixfirst in (0,1):
-            cap=n*n+2;eh=min(nh,4);nk=2 if kind%2 else 1;nsm=2 if mixfirst else 1
+            cap=n*n+2;eh=min(nh,4);nk=kpoints if kind%2 else 1;nsm=2 if mixfirst else 1
             mesh=(4,4,4);size=int(np.prod(mesh));cell=farray(np.diag([6.,6.5,7.]));charge=4.31*n/6
             hp=gp.HartreeProblem((ct.c_int*3)(*mesh),(ct.c_double*9)(*np.zeros(9)),1.e30,float(np.linalg.det(cell)))
             pp=gp.PbeProblem((ct.c_int*3)(*mesh),eh,(ct.c_double*9)(*np.zeros(9)),hp.volume)
@@ -186,8 +190,10 @@ def fixtures(oracle,directory,initialization=False):
             off[:,2]=flat(c);off[:,3]=flat(c.conj().T)
             phi=np.array(rng.normal(size=(size//nsm**3,n,nsm**3))*(.025*np.sqrt(6/n)),dtype=np.float32)
             k=np.array([[.19,-.27,.07],[-.08,.14,.29]])[:nk] if kind%2 else np.zeros((1,3))
+            if kind%2 and nk!=2:k=rng.uniform(-.3,.3,size=(nk,3))
             pos=rng.normal(size=(n,3));xyz=np.array([pos[i//n]-pos[i%n] for i in range(n*n)])
             weights=np.array([.37,.63]) if nk==2 else np.array([.5 if kind==2 else 1.])
+            if kind%2 and nk!=2:weights=rng.uniform(.5,1.5,size=nk);weights/=weights.sum()
             h=np.zeros((cap,nh));d=np.zeros_like(h);e=np.zeros((cap,eh));constants=np.array([.4,0.,0.,0.,.21,0.,0.,0.,0.,0.,.03,.012])
             a=dict(zip(NAMES,(h,d,e,ov,kin,vkb,on,off,phi,k,weights,xyz,
                 np.full(size,.002),np.full(size,.0002),-.1+.003*np.cos(np.arange(size)),constants)),cell=cell)
@@ -210,7 +216,7 @@ def fixtures(oracle,directory,initialization=False):
             expected=oracle.cycle(p,a);label=f'n{n}_kind{kind}_spin{nh}_soc{soc}_mixfirst{mixfirst}'
             path=directory/(label+'.npz');np.savez_compressed(path,problem=raw(p),**a,**{'expected_'+k:v for k,v in expected.items()})
             records.append(dict(fixture=label,input_file=path.name,input_sha256=sha(path),expected_status=0,steps=len(expected['values'])))
-    if initialization:return records
+    if initialization or kpoints!=2:return records
     # Bad producers may leave partial H/D/E. Check the stage/status, absence of
     # downstream decisions, sticky terminal replay, and early-stage opacity.
     base=np.load(directory/records[-1]['input_file'])
@@ -245,7 +251,7 @@ def worker(config):
             process_succeeded=code==0,allow_unique_graph_scope=True,memory_only=True)
     output.write_text(json.dumps(report,indent=2)+'\n')
 
-def run(upstream,build,output,library,trace=False,trace_io=False,initialization=False,fixtures_source=None):
+def run(upstream,build,output,library,trace=False,trace_io=False,initialization=False,fixtures_source=None,kpoints=2):
     output.parent.mkdir(parents=True,exist_ok=True);directory=output.parent
     if fixtures_source:
         reference=fixtures_source/'reference.json';report=json.loads(reference.read_text())
@@ -265,7 +271,7 @@ def run(upstream,build,output,library,trace=False,trace_io=False,initialization=
             source_sha256={name:sha(upstream/'Src'/name) for name in ('fermid.F','setup_hamiltonian.F','dhscf.F','reord.f','poison.F',
                 'compute_energies.F90','dm_charge.F90','compute_max_diff.F90','scfconvergence_test.F','m_convergence.f90','mixer.F')},checks=[])
         with tempfile.TemporaryDirectory(prefix='remag-cycle-oracle-') as temporary:
-            oracle=Oracle(upstream,build,Path(temporary),directory);cases=fixtures(oracle,directory,initialization)
+            oracle=Oracle(upstream,build,Path(temporary),directory);cases=fixtures(oracle,directory,initialization,kpoints)
             report.update(wrappers_sha256=oracle.wrappers,oracle_io_hashes=oracle.hashes,oracle_calls=oracle.calls)
     (directory/'fixtures.json').write_text(json.dumps(cases,indent=2)+'\n')
     report.update(fixtures=cases,fixtures_sha256=sha(directory/'fixtures.json'))
@@ -349,7 +355,8 @@ def run(upstream,build,output,library,trace=False,trace_io=False,initialization=
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--worker',type=Path)
     parser.add_argument('--upstream',type=Path,default=Path('upstream/siesta'));parser.add_argument('--build',type=Path,default=Path('build/upstream'))
-    parser.add_argument('--output',type=Path);parser.add_argument('--library',type=Path);parser.add_argument('--trace',action='store_true');parser.add_argument('--trace-io',action='store_true');parser.add_argument('--initialization',action='store_true');parser.add_argument('--fixtures-from',type=Path);args=parser.parse_args()
+    parser.add_argument('--output',type=Path);parser.add_argument('--library',type=Path);parser.add_argument('--trace',action='store_true');parser.add_argument('--trace-io',action='store_true');parser.add_argument('--initialization',action='store_true');parser.add_argument('--fixtures-from',type=Path)
+    parser.add_argument('--k-points',type=int,default=2,help='k points of the sampled-k fixtures (at most 8); other values skip Gamma and fault cases');args=parser.parse_args()
     if args.worker:worker(args.worker)
-    elif args.output:run(args.upstream.resolve(),args.build.resolve(),args.output.resolve(),args.library,args.trace,args.trace_io,args.initialization,args.fixtures_from)
+    elif args.output:run(args.upstream.resolve(),args.build.resolve(),args.output.resolve(),args.library,args.trace,args.trace_io,args.initialization,args.fixtures_from,args.k_points)
     else:parser.error('--output or --worker is required')

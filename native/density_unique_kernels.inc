@@ -42,9 +42,10 @@ template<int Mode> __global__ void contract_unique(int pairs,int nev,
 }
 template<int Mode> __global__ void scatter_unique(int pairs,int unique,int nnz,int nh,int outspin,
         const int* indices,const int* mapping,const double* xyz,const double* scratch,
-        double kx,double ky,double kz,double* d,double* e) {
+        double kx,double ky,double kz,double* d,double* e,const remag::DensityJobStage* stage=nullptr) {
     const int pair=blockIdx.x*blockDim.x+threadIdx.x;
     if(pair>=pairs)return;
+    if(stage) {kx=stage->k[0];ky=stage->k[1];kz=stage->k[2];outspin=stage->outspin;}
     const int group=mapping[pair],ind=indices[pair];
     constexpr int components=Mode==0?1:(Mode==1?2:8);
     double co=1.,si=0.;

@@ -1,0 +1,63 @@
+\section*{Test calculation}
+
+Every timing uses bulk hcp cobalt with two atoms per cell
+($a=\SI{2.507}{\angstrom}$, $c=\SI{4.069}{\angstrom}$). Spin--orbit coupling
+uses SIESTA's off-site form~\citep{Cuadrado2012}, which keeps the coupling between orbitals on
+different atoms. The pseudopotential is the fully relativistic PseudoDojo
+nc-fr-04 PBE standard set~\citep{vanSetten2018}, read in PSML format~\citep{Garcia2018}, with 3s and 3p semicore states in the valence. The
+basis is triple-$\zeta$ with polarization (energy shift \SI{0.005}{Ry}). That
+gives 50 orbitals per cell, so each k point has a $100\times100$ complex
+Hamiltonian once both spin components are included. The real-space mesh
+cutoff is \SI{1200}{Ry}. Exchange and correlation use PBE~\citep{Perdew1996} with SIESTA's
+standard noncollinear treatment of the gradient terms. Occupations follow
+Fermi--Dirac smearing at \SI{2000}{K}. Both atomic moments start at
+$1.6\,\mu_\mathrm{B}$, tilted \ang{45} from the $c$ axis, and are free to
+relax. The high cutoff and temperature come from the magnetic-anisotropy
+study this input was built for. They make the mesh work and the smearing larger
+than in a typical production run.
+
+An SCF run counts as converged when no density-matrix element changes by more
+than $10^{-7}$ and no Hamiltonian element by more than \SI{e-4}{eV} between
+iterations. Mixing is Pulay's scheme~\citep{Pulay1980} with weight 0.05 and eight stored steps. A tighter
+Hamiltonian tolerance of \SI{e-5}{eV} cannot be met on every mesh. On the
+$6\times6\times3$ mesh, unmodified SIESTA stalls with the largest change fixed
+at \SI{1.4e-5}{eV} while the energy is constant to \SI{1}{\micro eV}. REMAG's GPU
+runs did not converge within 400 iterations there or on the $14\times14\times8$
+mesh. Convergence here
+is SCF convergence at a fixed k mesh, not convergence in the number of k points.
+
+The Brillouin zone is sampled with Monkhorst--Pack meshes~\citep{Monkhorst1976} of $6\times6\times3$,
+$10\times10\times6$, $14\times14\times8$ and $20\times20\times11$ points. With
+spin--orbit coupling SIESTA does not use time-reversal symmetry to reduce
+them, so these give \num{108}, \num{600}, \num{1568} and \num{4400} k points.
+Every k point is diagonalized in every SCF iteration.
+
+\section*{What was timed}
+
+We timed five configurations on the same input files.
+\begin{enumerate}
+\item Unmodified SIESTA 5.4.2 on one CPU. This is the numerical reference.
+\item Unmodified SIESTA 5.4.2 with MPI on 28 processes. With \texttt{Diag.ParallelOverK}, each process diagonalizes its own share of the k points. The real-space mesh work is also shared out.
+\item REMAG on 28 CPU threads. The k-point diagonalizations are shared among the threads. The mesh work stays on one thread.
+\item REMAG on the GPU with its block-Jacobi eigensolver. After a Cholesky reduction, this solver repeatedly diagonalizes pairs of $32\times32$ blocks until the off-diagonal part is negligible. The SCF cycle, the initial density on the mesh and the final forces all run on the GPU. Groups of 64 k points are solved together, each starting from the previous iteration's eigenvectors.
+\item REMAG on the GPU with a batched dense eigensolver. This is the same as the previous configuration, except for the solver. Each group of 256 k points is reduced with batched Cholesky and triangular solves and then diagonalized with cuSOLVER's \texttt{cusolverDnXsyevBatched}~\citep{cuSOLVER}.
+\end{enumerate}
+Everything runs in double precision. Unmodified SIESTA diagonalizes each k
+point twice per iteration with LAPACK's divide-and-conquer solver. The first
+solve gives eigenvalues to place the Fermi level, and the second gives
+eigenvectors. In the timer records this is \num{35200} solves for
+\num{4400} k points over four iterations. REMAG on the CPU keeps the
+eigenvectors from one solve in memory. The REMAG settings used here are all
+optional, and REMAG's defaults were not timed.
+
+Each timing is the wall-clock time of one fresh process, from launch to exit.
+It covers reading the input, setup of the basis and mesh, the SCF cycle, the
+final forces and stress, and the output files. Runs never overlapped, and
+repetitions of the five configurations were interleaved. The machine had one
+NVIDIA H100 80GB HBM3 (driver 595.91.07, CUDA 12.9). The container was given
+28 CPUs' worth of time on a host with two Intel Xeon Platinum 8480+ sockets,
+112 cores and 224 hardware threads, shared with other tenants. Processes and
+threads were not pinned to cores, and GPU runs used one CPU thread. GPU clocks
+were not locked. All CPU code was built with GCC 13.3 against OpenBLAS 0.3.26
+using one BLAS thread. The MPI build used Open MPI 4.1.6 and ScaLAPACK 2.2.1.
+SIESTA's OpenMP support was off in every build.

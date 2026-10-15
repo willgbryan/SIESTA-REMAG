@@ -1,0 +1,123 @@
+\begin{thebibliography}{15}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{SIESTA-REMAG contributors}(2026)]{REMAG}
+{SIESTA-REMAG contributors}.
+\newblock {SIESTA-REMAG}: {GPU} acceleration of {SIESTA} for magnetic
+  materials.
+\newblock \url{https://github.com/willgbryan/SIESTA-REMAG}, 2026.
+\newblock Commit 2b8a2c0 with local changes.
+
+\bibitem[Soler et~al.(2002)Soler, Artacho, Gale, Garc{\'i}a, Junquera,
+  Ordej{\'o}n, and S{\'a}nchez-Portal]{Soler2002}
+Jos{\'e}~M. Soler, Emilio Artacho, Julian~D. Gale, Alberto Garc{\'i}a, Javier
+  Junquera, Pablo Ordej{\'o}n, and Daniel S{\'a}nchez-Portal.
+\newblock The {SIESTA} method for ab initio order-{N} materials simulation.
+\newblock \emph{Journal of Physics: Condensed Matter}, 14\penalty0
+  (11):\penalty0 2745--2779, 2002.
+\newblock \doi{10.1088/0953-8984/14/11/302}.
+
+\bibitem[Garc{\'i}a et~al.(2020)Garc{\'i}a, Papior, Akhtar, Artacho,
+  et~al.]{Garcia2020}
+Alberto Garc{\'i}a, Nick Papior, Arsalan Akhtar, Emilio Artacho, et~al.
+\newblock {SIESTA}: Recent developments and applications.
+\newblock \emph{The Journal of Chemical Physics}, 152:\penalty0 204108, 2020.
+\newblock \doi{10.1063/5.0005077}.
+
+\bibitem[Cuadrado and Cerd{\'a}(2012)]{Cuadrado2012}
+R.~Cuadrado and J.~I. Cerd{\'a}.
+\newblock Fully relativistic pseudopotential formalism under an atomic orbital
+  basis: spin--orbit splittings and magnetic anisotropies.
+\newblock \emph{Journal of Physics: Condensed Matter}, 24\penalty0
+  (8):\penalty0 086005, 2012.
+\newblock \doi{10.1088/0953-8984/24/8/086005}.
+
+\bibitem[van Setten et~al.(2018)van Setten, Giantomassi, Bousquet, Verstraete,
+  Hamann, Gonze, and Rignanese]{vanSetten2018}
+M.~J. van Setten, M.~Giantomassi, E.~Bousquet, M.~J. Verstraete, D.~R. Hamann,
+  X.~Gonze, and G.-M. Rignanese.
+\newblock The {PseudoDojo}: Training and grading a 85 element optimized
+  norm-conserving pseudopotential table.
+\newblock \emph{Computer Physics Communications}, 226:\penalty0 39--54, 2018.
+\newblock \doi{10.1016/j.cpc.2018.01.012}.
+
+\bibitem[Garc{\'i}a et~al.(2018)Garc{\'i}a, Verstraete, Pouillon, and
+  Junquera]{Garcia2018}
+Alberto Garc{\'i}a, Matthieu~J. Verstraete, Yann Pouillon, and Javier Junquera.
+\newblock The psml format and library for norm-conserving pseudopotential data
+  curation and interoperability.
+\newblock \emph{Computer Physics Communications}, 227:\penalty0 51--71, 2018.
+\newblock \doi{10.1016/j.cpc.2018.02.011}.
+
+\bibitem[Perdew et~al.(1996)Perdew, Burke, and Ernzerhof]{Perdew1996}
+John~P. Perdew, Kieron Burke, and Matthias Ernzerhof.
+\newblock Generalized gradient approximation made simple.
+\newblock \emph{Physical Review Letters}, 77:\penalty0 3865--3868, 1996.
+\newblock \doi{10.1103/PhysRevLett.77.3865}.
+
+\bibitem[Pulay(1980)]{Pulay1980}
+P{\'e}ter Pulay.
+\newblock Convergence acceleration of iterative sequences. {T}he case of {SCF}
+  iteration.
+\newblock \emph{Chemical Physics Letters}, 73:\penalty0 393--398, 1980.
+\newblock \doi{10.1016/0009-2614(80)80396-4}.
+
+\bibitem[Monkhorst and Pack(1976)]{Monkhorst1976}
+Hendrik~J. Monkhorst and James~D. Pack.
+\newblock Special points for {Brillouin}-zone integrations.
+\newblock \emph{Physical Review B}, 13:\penalty0 5188--5192, 1976.
+\newblock \doi{10.1103/PhysRevB.13.5188}.
+
+\bibitem[{NVIDIA Corporation}(2025)]{cuSOLVER}
+{NVIDIA Corporation}.
+\newblock {cuSOLVER} library.
+\newblock \url{https://docs.nvidia.com/cuda/cusolver/}, 2025.
+\newblock CUDA Toolkit 12.9.
+
+\bibitem[Cuadrado et~al.(2018)Cuadrado, Pruneda, Garc{\'i}a, and
+  Ordej{\'o}n]{Cuadrado2018}
+Ram{\'o}n Cuadrado, Miguel Pruneda, Alberto Garc{\'i}a, and Pablo Ordej{\'o}n.
+\newblock Implementation of non-collinear spin-constrained {DFT} calculations
+  in {SIESTA} with a fully relativistic {Hamiltonian}.
+\newblock \emph{Journal of Physics: Materials}, 1\penalty0 (1):\penalty0
+  015010, 2018.
+\newblock \doi{10.1088/2515-7639/aae7db}.
+
+\bibitem[K{\"u}bler et~al.(1988)K{\"u}bler, H{\"o}ck, Sticht, and
+  Williams]{Kubler1988}
+J.~K{\"u}bler, K.-H. H{\"o}ck, J.~Sticht, and A.~R. Williams.
+\newblock Density functional theory of non-collinear magnetism.
+\newblock \emph{Journal of Physics F: Metal Physics}, 18\penalty0 (3):\penalty0
+  469--483, 1988.
+\newblock \doi{10.1088/0305-4608/18/3/018}.
+
+\bibitem[Pu et~al.(2023)Pu, Li, Zhang, Jiang, Gao, Xiao, Sun, Zhang, and
+  Shao]{Pu2023}
+Zhichen Pu, Hao Li, Ning Zhang, Hong Jiang, Yiqin Gao, Yunlong Xiao, Qiming
+  Sun, Yong Zhang, and Sihong Shao.
+\newblock Noncollinear density functional theory.
+\newblock \emph{Physical Review Research}, 5:\penalty0 013036, 2023.
+\newblock \doi{10.1103/PhysRevResearch.5.013036}.
+
+\bibitem[Kawamura et~al.(2014)Kawamura, Gohda, and Tsuneyuki]{Kawamura2014}
+Mitsuaki Kawamura, Yoshihiro Gohda, and Shinji Tsuneyuki.
+\newblock Improved tetrahedron method for the {Brillouin}-zone integration
+  applicable to response functions.
+\newblock \emph{Physical Review B}, 89:\penalty0 094515, 2014.
+\newblock \doi{10.1103/PhysRevB.89.094515}.
+
+\bibitem[Marek et~al.(2014)Marek, Blum, Johanni, Havu, Lang, Auckenthaler,
+  Heinecke, Bungartz, and Lederer]{Marek2014}
+A.~Marek, V.~Blum, R.~Johanni, V.~Havu, B.~Lang, T.~Auckenthaler, A.~Heinecke,
+  H.-J. Bungartz, and H.~Lederer.
+\newblock The {ELPA} library: scalable parallel eigenvalue solutions for
+  electronic structure theory and computational science.
+\newblock \emph{Journal of Physics: Condensed Matter}, 26\penalty0
+  (21):\penalty0 213201, 2014.
+\newblock \doi{10.1088/0953-8984/26/21/213201}.
+
+\end{thebibliography}

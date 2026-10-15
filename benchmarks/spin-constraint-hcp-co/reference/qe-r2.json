@@ -1,0 +1,1467 @@
+{
+ "code": "Quantum ESPRESSO pw.x",
+ "runs": [
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/lda-fd2000-k20/lambda25/theta000.00",
+   "input_sha256": "e5f33692cbe8f45173762b6f4dac119ba4b06da99e220fa61655cc611c1d1ac1",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 264,
+   "free_energy_ry": -610.68419821,
+   "smearing_ts_ry": -0.01803514,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2784,
+   "total_magnetization": [
+    0.0,
+    0.0,
+    3.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.547896,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.547896,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 62.01,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 45.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/lda-fd2000-k20/lambda25/theta045.00",
+   "input_sha256": "82f3c9674d9e4b6f037ee5156341c52d4adcf90964ab59e840c58696c1883a35",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 1161,
+   "free_energy_ry": -610.6841999,
+   "smearing_ts_ry": -0.01803468,
+   "constraint_energy_ry": 1e-08,
+   "fermi_energy_ev": 18.2785,
+   "total_magnetization": [
+    2.12,
+    0.0,
+    2.12
+   ],
+   "site_moments": [
+    {
+     "r": 1.54791,
+     "theta_deg": 45.001321,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.54791,
+     "theta_deg": 45.001321,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 259.18,
+   "max_angle_error_deg": 0.001320999999997241
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/lda-fd2000-k20/lambda25/theta090.00",
+   "input_sha256": "4be5bd0dd1d3b61de87436efdc35cfba0758d90fe0f337231565ea419f936648",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 666,
+   "free_energy_ry": -610.68420157,
+   "smearing_ts_ry": -0.01803426,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2786,
+   "total_magnetization": [
+    3.0,
+    -0.0,
+    0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.547925,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.547925,
+     "theta_deg": 90.0,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 150.34,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/lda-opt-k20/lambda25/theta000.00",
+   "input_sha256": "4a17df8d2c6a72cc166d01c8528ed5b42b2de0508ebe2627609e073f31b14b8c",
+   "converged": true,
+   "iterations": 15,
+   "k_points": 264,
+   "free_energy_ry": -610.67621443,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2593,
+   "total_magnetization": [
+    -0.0,
+    -0.0,
+    3.15
+   ],
+   "site_moments": [
+    {
+     "r": 1.625149,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.625149,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 114.88,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 45.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/lda-opt-k20/lambda25/theta045.00",
+   "input_sha256": "9ed3b406c6512e6fe44a29424a168f763d853ce378e7205cd92207c148a4f15f",
+   "converged": true,
+   "iterations": 15,
+   "k_points": 1161,
+   "free_energy_ry": -610.67621277,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 1e-08,
+   "fermi_energy_ev": 18.2592,
+   "total_magnetization": [
+    2.23,
+    -0.0,
+    2.23
+   ],
+   "site_moments": [
+    {
+     "r": 1.625081,
+     "theta_deg": 44.998725,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.625081,
+     "theta_deg": 44.998725,
+     "phi_deg": 0.0
+    }
+   ],
+   "wall_seconds": 266.59,
+   "max_angle_error_deg": 0.001274999999999693
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/lda-opt-k20/lambda25/theta090.00",
+   "input_sha256": "38203740aeff7836241204f6f386aff21b1b88b850989dbd35406dda5fb07108",
+   "converged": true,
+   "iterations": 14,
+   "k_points": 666,
+   "free_energy_ry": -610.67621102,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2591,
+   "total_magnetization": [
+    3.15,
+    0.0,
+    -0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.624968,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.624968,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    }
+   ],
+   "wall_seconds": 172.66,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    16,
+    16,
+    9
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/pbe-opt-k16/lambda25/theta000.00",
+   "input_sha256": "f1cde04ddfd278c963cdc54cb2dfce1d6f7a0ef90ded37f8b8fa62fc776899eb",
+   "converged": true,
+   "iterations": 13,
+   "k_points": 150,
+   "free_energy_ry": -612.06523982,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.7538,
+   "total_magnetization": [
+    0.0,
+    0.0,
+    3.28
+   ],
+   "site_moments": [
+    {
+     "r": 1.724222,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.724222,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 62.02,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    16,
+    16,
+    9
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/pbe-opt-k16/lambda25/theta090.00",
+   "input_sha256": "362884ebd46deabba1937ccdc4fcf635b677330a9133a3d106ed6411972cb333",
+   "converged": true,
+   "iterations": 13,
+   "k_points": 365,
+   "free_energy_ry": -612.06523292,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.7536,
+   "total_magnetization": [
+    3.28,
+    0.0,
+    -0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.72411,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.72411,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    }
+   ],
+   "wall_seconds": 94.0,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/pbe-opt-k20/lambda25/theta000.00",
+   "input_sha256": "054452887473d5e26956ee8918d97762873df300e5bbc52618cc014c3ead563d",
+   "converged": true,
+   "iterations": 14,
+   "k_points": 264,
+   "free_energy_ry": -612.06540656,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.7562,
+   "total_magnetization": [
+    -0.0,
+    0.0,
+    3.27
+   ],
+   "site_moments": [
+    {
+     "r": 1.718075,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.718075,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 98.49000000000001,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 45.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/pbe-opt-k20/lambda25/theta045.00",
+   "input_sha256": "9cc2b1fd43311716fdef62bf746683f9e0e0ebe6379b3e39641d7756f69dce30",
+   "converged": true,
+   "iterations": 14,
+   "k_points": 1161,
+   "free_energy_ry": -612.06540442,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 2e-08,
+   "fermi_energy_ev": 18.7562,
+   "total_magnetization": [
+    2.31,
+    -0.0,
+    2.31
+   ],
+   "site_moments": [
+    {
+     "r": 1.717931,
+     "theta_deg": 44.998546,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.717931,
+     "theta_deg": 44.998546,
+     "phi_deg": 0.0
+    }
+   ],
+   "wall_seconds": 247.09,
+   "max_angle_error_deg": 0.0014540000000025088
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/pbe-opt-k20/lambda25/theta090.00",
+   "input_sha256": "494069f8b18abbfcb9789d304620967da0c4bf065f9ab7f7d43272298938930d",
+   "converged": true,
+   "iterations": 14,
+   "k_points": 666,
+   "free_energy_ry": -612.06540298,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.756,
+   "total_magnetization": [
+    3.27,
+    0.0,
+    0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.717998,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.717998,
+     "theta_deg": 90.0,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 164.71,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    24,
+    24,
+    13
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/pbe-opt-k24/lambda25/theta000.00",
+   "input_sha256": "04dd7bf02d293674b775deebabec8ba6158e7ac9683d381a77f1e9acb7b89b47",
+   "converged": true,
+   "iterations": 13,
+   "k_points": 427,
+   "free_energy_ry": -612.06550404,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.753,
+   "total_magnetization": [
+    -0.0,
+    0.0,
+    3.28
+   ],
+   "site_moments": [
+    {
+     "r": 1.72206,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.72206,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 142.71,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    24,
+    24,
+    13
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet/pbe-opt-k24/lambda25/theta090.00",
+   "input_sha256": "efe4ea7a297c5ff6629ac546e83ec4a106b8143fd69a9c068eca429e438b85e2",
+   "converged": true,
+   "iterations": 13,
+   "k_points": 1099,
+   "free_energy_ry": -612.0654993,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.7529,
+   "total_magnetization": [
+    3.28,
+    0.0,
+    -0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.722151,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.722151,
+     "theta_deg": 90.0,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 248.1,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    16,
+    16,
+    9
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-fd2000-k16/lambda25/theta000.00",
+   "input_sha256": "151b622bff112fe1e070d965fbc7a56b1905ab44f99f0b351cc1b25af6275d3a",
+   "converged": true,
+   "iterations": 17,
+   "k_points": 150,
+   "free_energy_ry": -610.68418076,
+   "smearing_ts_ry": -0.01808188,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2784,
+   "total_magnetization": [
+    -0.0,
+    -0.0,
+    3.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.544996,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.544996,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 33.61,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    16,
+    16,
+    9
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-fd2000-k16/lambda25/theta090.00",
+   "input_sha256": "92c17cd7ad5e1901987a3fc85fdc112c8e53bcb683c458e7f2bb07618716030d",
+   "converged": true,
+   "iterations": 17,
+   "k_points": 365,
+   "free_energy_ry": -610.68418398,
+   "smearing_ts_ry": -0.01808147,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2786,
+   "total_magnetization": [
+    3.0,
+    -0.0,
+    0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.545053,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.545053,
+     "theta_deg": 90.0,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 77.85,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 30.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-fd2000-k20/lambda25/theta030.00",
+   "input_sha256": "1e18d63abaebb109f87b4b605b168e1423705f90d0675e20e77ed2ea9463f1c5",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 1161,
+   "free_energy_ry": -610.68419906,
+   "smearing_ts_ry": -0.01803491,
+   "constraint_energy_ry": 2e-08,
+   "fermi_energy_ev": 18.2785,
+   "total_magnetization": [
+    1.5,
+    -0.0,
+    2.6
+   ],
+   "site_moments": [
+    {
+     "r": 1.547903,
+     "theta_deg": 30.002258,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.547903,
+     "theta_deg": 30.002258,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 259.13,
+   "max_angle_error_deg": 0.0022580000000012035
+  },
+  {
+   "theta_deg": 60.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-fd2000-k20/lambda25/theta060.00",
+   "input_sha256": "7d2deba253f8e20a3af5b7f654bbd6dc1cdbd8af6e679ceff99577779e44e6ce",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 1161,
+   "free_energy_ry": -610.68420074,
+   "smearing_ts_ry": -0.01803446,
+   "constraint_energy_ry": 1e-08,
+   "fermi_energy_ev": 18.2785,
+   "total_magnetization": [
+    2.6,
+    0.0,
+    1.5
+   ],
+   "site_moments": [
+    {
+     "r": 1.547917,
+     "theta_deg": 60.000759,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.547917,
+     "theta_deg": 60.000759,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 256.4,
+   "max_angle_error_deg": 0.0007590000000021746
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    16,
+    16,
+    9
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-opt-k16/lambda25/theta000.00",
+   "input_sha256": "ba574ec15c282a8d6202432322fa21f4b5f132fa283e93eda5a481bb4ab8bbcd",
+   "converged": true,
+   "iterations": 15,
+   "k_points": 150,
+   "free_energy_ry": -610.67601823,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2556,
+   "total_magnetization": [
+    0.0,
+    -0.0,
+    3.13
+   ],
+   "site_moments": [
+    {
+     "r": 1.618076,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.618076,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 85.87,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    16,
+    16,
+    9
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-opt-k16/lambda25/theta090.00",
+   "input_sha256": "4c0cae1407feb2f394e26f2c399d7c22aefb1082c3e5956939a3c6d52356f4d3",
+   "converged": true,
+   "iterations": 14,
+   "k_points": 365,
+   "free_energy_ry": -610.67601509,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2553,
+   "total_magnetization": [
+    3.13,
+    -0.0,
+    0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.617504,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.617504,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    }
+   ],
+   "wall_seconds": 101.56,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    24,
+    24,
+    13
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-opt-k24/lambda25/theta000.00",
+   "input_sha256": "db6ed255274447099b316724e17127c1b84d5a9d170d6dafd56229c765a465a1",
+   "converged": true,
+   "iterations": 13,
+   "k_points": 427,
+   "free_energy_ry": -610.67629142,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2605,
+   "total_magnetization": [
+    -0.0,
+    0.0,
+    3.15
+   ],
+   "site_moments": [
+    {
+     "r": 1.624173,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.624173,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 152.48,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    24,
+    24,
+    13
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-opt-k24/lambda25/theta090.00",
+   "input_sha256": "694db40d11d9c75b088690822339d5a348a388b0d86499e4ee91c7641d34609a",
+   "converged": true,
+   "iterations": 14,
+   "k_points": 1099,
+   "free_energy_ry": -610.67629128,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2605,
+   "total_magnetization": [
+    3.15,
+    0.0,
+    0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.624185,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.624185,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    }
+   ],
+   "wall_seconds": 268.66,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    28,
+    28,
+    15
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-opt-k28/lambda25/theta000.00",
+   "input_sha256": "e5b73915989486b9166f9a8afd3439e2b1478b98dfeb70570ca1ae8b00b8072e",
+   "converged": true,
+   "iterations": 14,
+   "k_points": 640,
+   "free_energy_ry": -610.67633372,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2599,
+   "total_magnetization": [
+    -0.0,
+    0.0,
+    3.15
+   ],
+   "site_moments": [
+    {
+     "r": 1.626122,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.626122,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 222.61,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    28,
+    28,
+    15
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/lda-opt-k28/lambda25/theta090.00",
+   "input_sha256": "1d5542cd230df111628d095b0707144ab57bf92710abf87a3e38bb7b3d7d5079",
+   "converged": true,
+   "iterations": 13,
+   "k_points": 1688,
+   "free_energy_ry": -610.67633343,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2596,
+   "total_magnetization": [
+    3.15,
+    0.0,
+    -0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.625514,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.625514,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    }
+   ],
+   "wall_seconds": 376.78,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 30.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/pbe-fd2000-k20/lambda25/theta030.00",
+   "input_sha256": "d1bc97c3df29b915eeb8320485a45821b947de0164d02cd08973878155cd2094",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 1161,
+   "free_energy_ry": -612.07267107,
+   "smearing_ts_ry": -0.0153996,
+   "constraint_energy_ry": 2e-08,
+   "fermi_energy_ev": 18.774,
+   "total_magnetization": [
+    1.62,
+    0.0,
+    2.81
+   ],
+   "site_moments": [
+    {
+     "r": 1.701126,
+     "theta_deg": 30.002179,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.701126,
+     "theta_deg": 30.002179,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 234.11,
+   "max_angle_error_deg": 0.0021790000000017073
+  },
+  {
+   "theta_deg": 60.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/pbe-fd2000-k20/lambda25/theta060.00",
+   "input_sha256": "261ad0c8cfb30a1e249c88998aea3bbb1079d74feef1451e53204f656794b8ad",
+   "converged": true,
+   "iterations": 19,
+   "k_points": 1161,
+   "free_energy_ry": -612.07267266,
+   "smearing_ts_ry": -0.01540036,
+   "constraint_energy_ry": 1e-08,
+   "fermi_energy_ev": 18.7741,
+   "total_magnetization": [
+    2.81,
+    -0.0,
+    1.62
+   ],
+   "site_moments": [
+    {
+     "r": 1.701125,
+     "theta_deg": 60.000709,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.701125,
+     "theta_deg": 60.000709,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 267.76,
+   "max_angle_error_deg": 0.0007090000000005148
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    28,
+    28,
+    15
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/pbe-opt-k28/lambda25/theta000.00",
+   "input_sha256": "2f730132ddba44a7522d89b911c4a4cce7876ee219c3de558102bb751026449d",
+   "converged": true,
+   "iterations": 13,
+   "k_points": 640,
+   "free_energy_ry": -612.06557427,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.7552,
+   "total_magnetization": [
+    0.0,
+    -0.0,
+    3.27
+   ],
+   "site_moments": [
+    {
+     "r": 1.720489,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.720489,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 212.97,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    28,
+    28,
+    15
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/pbe-opt-k28/lambda25/theta090.00",
+   "input_sha256": "f41c25de82fbb726cf25ee51fec1b3b29934ee3b6c27010af6378e724d0ad356",
+   "converged": true,
+   "iterations": 12,
+   "k_points": 1688,
+   "free_energy_ry": -612.06557095,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.7549,
+   "total_magnetization": [
+    3.27,
+    0.0,
+    0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.720537,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.720537,
+     "theta_deg": 90.0,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 363.38,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    32,
+    32,
+    17
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/pbe-opt-k32/lambda25/theta000.00",
+   "input_sha256": "dfd8d396cd526b99e148e44dbda31816d48e2955aa16c077487e42345e4acf5a",
+   "converged": true,
+   "iterations": 13,
+   "k_points": 918,
+   "free_energy_ry": -612.06559608,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.754,
+   "total_magnetization": [
+    -0.0,
+    -0.0,
+    3.28
+   ],
+   "site_moments": [
+    {
+     "r": 1.723098,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.723098,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 274.15999999999997,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 90.0,
+   "kmesh": [
+    32,
+    32,
+    17
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 500.0,
+   "lambda_ry": 25.0,
+   "occupation": "tetrahedra_opt",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tet2/pbe-opt-k32/lambda25/theta090.00",
+   "input_sha256": "c9864e110674ceccb9cc497da0b3cc77677701b99a511f0be06222b09ae24f6e",
+   "converged": true,
+   "iterations": 14,
+   "k_points": 2457,
+   "free_energy_ry": -612.06559215,
+   "smearing_ts_ry": null,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.7537,
+   "total_magnetization": [
+    3.28,
+    0.0,
+    0.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.722623,
+     "theta_deg": 90.0,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.722623,
+     "theta_deg": 90.0,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 556.77,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 0.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tq/lda-fd2000-k20/lambda25/theta000.00",
+   "input_sha256": "e5f33692cbe8f45173762b6f4dac119ba4b06da99e220fa61655cc611c1d1ac1",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 264,
+   "free_energy_ry": -610.68419821,
+   "smearing_ts_ry": -0.01803514,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2784,
+   "total_magnetization": [
+    0.0,
+    0.0,
+    3.0
+   ],
+   "site_moments": [
+    {
+     "r": 1.547896,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    },
+    {
+     "r": 1.547896,
+     "theta_deg": 0.0,
+     "phi_deg": 360.0
+    }
+   ],
+   "wall_seconds": 125.34,
+   "max_angle_error_deg": 0.0
+  },
+  {
+   "theta_deg": 15.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tq/lda-fd2000-k20/lambda25/theta015.00",
+   "input_sha256": "fc265e949b25d253e3f113de9bb3d50cd0a83ff19f2dc16e7717c84b15c5199b",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 1161,
+   "free_energy_ry": -610.68419843,
+   "smearing_ts_ry": -0.01803508,
+   "constraint_energy_ry": 1e-08,
+   "fermi_energy_ev": 18.2784,
+   "total_magnetization": [
+    0.78,
+    0.0,
+    2.9
+   ],
+   "site_moments": [
+    {
+     "r": 1.547898,
+     "theta_deg": 15.003001,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.547898,
+     "theta_deg": 15.003001,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 541.47,
+   "max_angle_error_deg": 0.0030009999999993653
+  },
+  {
+   "theta_deg": 75.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": "pw",
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tq/lda-fd2000-k20/lambda25/theta075.00",
+   "input_sha256": "1696696f53af8a6523bad00f8cb29250eea0e24e447f87a5f797af026dee4079",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 1161,
+   "free_energy_ry": -610.68420135,
+   "smearing_ts_ry": -0.01803431,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.2786,
+   "total_magnetization": [
+    2.9,
+    0.0,
+    0.78
+   ],
+   "site_moments": [
+    {
+     "r": 1.547923,
+     "theta_deg": 75.000351,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.547923,
+     "theta_deg": 75.000351,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 539.95,
+   "max_angle_error_deg": 0.0003509999999948832
+  },
+  {
+   "theta_deg": 15.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tq/pbe-fd2000-k20/lambda25/theta015.00",
+   "input_sha256": "d7bc578481a78399cc65c24f3d7d7b341e7c41ea5d8d6dc9269e7bc6ce9b68e7",
+   "converged": true,
+   "iterations": 18,
+   "k_points": 1161,
+   "free_energy_ry": -612.07267049,
+   "smearing_ts_ry": -0.01539936,
+   "constraint_energy_ry": 1e-08,
+   "fermi_energy_ev": 18.774,
+   "total_magnetization": [
+    0.84,
+    -0.0,
+    3.13
+   ],
+   "site_moments": [
+    {
+     "r": 1.701124,
+     "theta_deg": 15.00238,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.701124,
+     "theta_deg": 15.00238,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 488.32,
+   "max_angle_error_deg": 0.002380000000000493
+  },
+  {
+   "theta_deg": 75.0,
+   "kmesh": [
+    20,
+    20,
+    11
+   ],
+   "ecutwfc_ry": 100.0,
+   "temperature_k": 2000.0,
+   "lambda_ry": 25.0,
+   "occupation": "smearing",
+   "dft": null,
+   "a": 2.507,
+   "c": 4.069,
+   "directory": "qe/tq/pbe-fd2000-k20/lambda25/theta075.00",
+   "input_sha256": "932165ab2c55e13ede60475bbd204291a060cb8b0a39be3ac14fcca59f194ed6",
+   "converged": true,
+   "iterations": 19,
+   "k_points": 1161,
+   "free_energy_ry": -612.07267324,
+   "smearing_ts_ry": -0.01540061,
+   "constraint_energy_ry": 0.0,
+   "fermi_energy_ev": 18.7742,
+   "total_magnetization": [
+    3.13,
+    0.0,
+    0.84
+   ],
+   "site_moments": [
+    {
+     "r": 1.701128,
+     "theta_deg": 75.000327,
+     "phi_deg": 0.0
+    },
+    {
+     "r": 1.701128,
+     "theta_deg": 75.000327,
+     "phi_deg": -0.0
+    }
+   ],
+   "wall_seconds": 528.43,
+   "max_angle_error_deg": 0.00032699999999863394
+  }
+ ]
+}

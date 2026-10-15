@@ -29,4 +29,12 @@ void release_hamiltonian_assembly();
 // no allocation, synchronization, copies to/from the host or I/O occur here.
 cudaError_t assemble_hamiltonian_device(const HamiltonianAssemblyView& view,const double* sparse_h,
     int spin,int k,void* dense_h,void* dense_s,cudaStream_t stream);
+// Sampled-k kinds only: the same assembly for job min(*cursor+lane, jobs-1),
+// spin = job % spin blocks and k = job / spin blocks, with the cursor read on
+// the device so one captured graph can serve every k point.
+cudaError_t assemble_hamiltonian_indexed_device(const HamiltonianAssemblyView& view,const double* sparse_h,
+    const int* cursor,int lane,int jobs,void* dense_h,void* dense_s,cudaStream_t stream);
+// The same for lanes 0..lanes-1 at once, into consecutive n-by-n matrices.
+cudaError_t assemble_hamiltonian_wave_device(const HamiltonianAssemblyView& view,const double* sparse_h,
+    const int* cursor,int lanes,int jobs,void* dense_h,void* dense_s,cudaStream_t stream);
 }

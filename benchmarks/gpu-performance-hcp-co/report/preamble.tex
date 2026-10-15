@@ -1,0 +1,16 @@
+\documentclass[10pt,a4paper]{article}
+% Compile with xelatex: STIX Two (system font) matches the figure typeface.
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{STIX Two Text}[BoldFont={STIXGeneral-Bold},BoldItalicFont={STIXGeneral-BoldItalic}]
+\setmathfont{STIX Two Math}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{graphicx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{caption}
+\usepackage[hidelinks]{hyperref}
+\captionsetup{font=small,labelfont=bf,labelsep=period}
+\sisetup{group-separator={,},group-minimum-digits=4,group-digits=integer}
+\setlength{\parskip}{0.35em}

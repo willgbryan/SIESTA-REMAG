@@ -94,11 +94,9 @@ __global__ void assemble_real(const Config* input,const Pair* pairs,const int* i
     }
     size_t out=pair.row+size_t(p.n)*pair.col;h[out]=hv;s[out]=sv;
 }
-__global__ void assemble_complex(const Config* input,const Pair* pairs,const int* indices,
+__device__ __forceinline__ void assemble_complex_pair(const Config& p,int i,const Pair* pairs,const int* indices,
         const double* hs,const double* ss,const double* xij,const double* kpoints,int spin,int k,
         cuDoubleComplex* h,cuDoubleComplex* s) {
-    const Config p=*input;int i=blockIdx.x*blockDim.x+threadIdx.x;
-    if(i>=p.pairs) return;
     Pair pair=pairs[i];double sr=0.,si=0.,hr[4]={0.,0.,0.,0.},hi[4]={0.,0.,0.,0.};
     for(int j=pair.begin;j<pair.end;j++) {
         int index=indices[j];double c=1.,t=0.;
@@ -129,6 +127,32 @@ __global__ void assemble_complex(const Config* input,const Pair* pairs,const int
         h[base+dim]=make_cuDoubleComplex(hr[2],hi[2]);h[base+1]=make_cuDoubleComplex(hr[3],hi[3]);
         s[base]=s[base+1+dim]=make_cuDoubleComplex(sr,si);
     }
+}
+__global__ void assemble_complex(const Config* input,const Pair* pairs,const int* indices,
+        const double* hs,const double* ss,const double* xij,const double* kpoints,int spin,int k,
+        cuDoubleComplex* h,cuDoubleComplex* s) {
+    const Config p=*input;int i=blockIdx.x*blockDim.x+threadIdx.x;
+    if(i>=p.pairs) return;
+    assemble_complex_pair(p,i,pairs,indices,hs,ss,xij,kpoints,spin,k,h,s);
+}
+// The job is read on the device: *cursor+lane, clamped to the last job so a
+// partial final wave assembles a valid duplicate whose outputs are discarded.
+__global__ void assemble_complex_indexed(const Config* input,const Pair* pairs,const int* indices,
+        const double* hs,const double* ss,const double* xij,const double* kpoints,const int* cursor,int lane,
+        int jobs,int spins,cuDoubleComplex* h,cuDoubleComplex* s) {
+    const Config p=*input;int i=blockIdx.x*blockDim.x+threadIdx.x;
+    if(i>=p.pairs) return;
+    const int job=min(*cursor+lane,jobs-1);
+    assemble_complex_pair(p,i,pairs,indices,hs,ss,xij,kpoints,job%spins,job/spins,h,s);
+}
+// A whole wave at once: lane = blockIdx.y, writing matrix lane of h and s.
+__global__ void assemble_complex_wave(const Config* input,const Pair* pairs,const int* indices,
+        const double* hs,const double* ss,const double* xij,const double* kpoints,const int* cursor,
+        int jobs,int spins,size_t stride,cuDoubleComplex* h,cuDoubleComplex* s) {
+    const Config p=*input;int i=blockIdx.x*blockDim.x+threadIdx.x;
+    if(i>=p.pairs) return;
+    const int lane=blockIdx.y,job=min(*cursor+lane,jobs-1);
+    assemble_complex_pair(p,i,pairs,indices,hs,ss,xij,kpoints,job%spins,job/spins,h+stride*lane,s+stride*lane);
 }
 }
 
@@ -170,6 +194,38 @@ cudaError_t assemble_hamiltonian_device(const HamiltonianAssemblyView& v,const d
         static_cast<cuDoubleComplex*>(dense_h),static_cast<cuDoubleComplex*>(dense_s));
     else assemble_real<<<blocks,128,0,stream>>>(v.config,v.pairs,v.indices,h,v.overlap,spin,
         static_cast<double*>(dense_h),static_cast<double*>(dense_s));
+    return cudaGetLastError();
+}
+cudaError_t assemble_hamiltonian_indexed_device(const HamiltonianAssemblyView& v,const double* h,
+        const int* cursor,int lane,int jobs,void* dense_h,void* dense_s,cudaStream_t stream) {
+    const auto& p=v.shape;
+    if(!(p.kind%2)||p.n<1||p.n>INT_MAX/2||p.pairs<1||p.pairs>INT_MAX-127||p.nnz<1||p.ldh<p.nnz||p.nk<1||
+       (p.kind<2?(p.nh!=1&&p.nh!=2):(p.nh!=4&&p.nh!=8))||!cursor||lane<0||jobs!=p.nk*spin_blocks(p)||
+       !v.config||!v.pairs||!v.indices||!v.overlap||!v.xij||!v.kpoints||!h||!dense_h||!dense_s||dense_h==dense_s||
+       dense_h==h||dense_s==h||dense_h==v.overlap||dense_s==v.overlap) return cudaErrorInvalidValue;
+    const size_t n=size_t(p.n)*(p.kind>=2?2:1),item=sizeof(cuDoubleComplex);
+    if(n>SIZE_MAX/n/item) return cudaErrorInvalidValue;
+    const size_t bytes=n*n*item;
+    auto status=cudaMemsetAsync(dense_h,0,bytes,stream);if(status!=cudaSuccess) return status;
+    status=cudaMemsetAsync(dense_s,0,bytes,stream);if(status!=cudaSuccess) return status;
+    assemble_complex_indexed<<<(p.pairs+127)/128,128,0,stream>>>(v.config,v.pairs,v.indices,h,v.overlap,v.xij,v.kpoints,
+        cursor,lane,jobs,spin_blocks(p),static_cast<cuDoubleComplex*>(dense_h),static_cast<cuDoubleComplex*>(dense_s));
+    return cudaGetLastError();
+}
+cudaError_t assemble_hamiltonian_wave_device(const HamiltonianAssemblyView& v,const double* h,
+        const int* cursor,int lanes,int jobs,void* dense_h,void* dense_s,cudaStream_t stream) {
+    const auto& p=v.shape;
+    if(!(p.kind%2)||p.n<1||p.n>INT_MAX/2||p.pairs<1||p.pairs>INT_MAX-127||p.nnz<1||p.ldh<p.nnz||p.nk<1||
+       (p.kind<2?(p.nh!=1&&p.nh!=2):(p.nh!=4&&p.nh!=8))||!cursor||lanes<1||lanes>65535||jobs!=p.nk*spin_blocks(p)||
+       !v.config||!v.pairs||!v.indices||!v.overlap||!v.xij||!v.kpoints||!h||!dense_h||!dense_s||dense_h==dense_s)
+        return cudaErrorInvalidValue;
+    const size_t n=size_t(p.n)*(p.kind>=2?2:1);
+    if(n>SIZE_MAX/n/sizeof(cuDoubleComplex)/size_t(lanes)) return cudaErrorInvalidValue;
+    const size_t bytes=n*n*sizeof(cuDoubleComplex)*lanes;
+    auto status=cudaMemsetAsync(dense_h,0,bytes,stream);if(status!=cudaSuccess) return status;
+    status=cudaMemsetAsync(dense_s,0,bytes,stream);if(status!=cudaSuccess) return status;
+    assemble_complex_wave<<<dim3((p.pairs+127)/128,lanes),128,0,stream>>>(v.config,v.pairs,v.indices,h,v.overlap,v.xij,
+        v.kpoints,cursor,jobs,spin_blocks(p),n*n,static_cast<cuDoubleComplex*>(dense_h),static_cast<cuDoubleComplex*>(dense_s));
     return cudaGetLastError();
 }
 }

@@ -9,6 +9,8 @@
 #include "scf_control.hpp"
 #include "block_jacobi.hpp"
 #include "initial_density.hpp"
+#include "spin_constraint.hpp"
+#include "tetrahedra_device.hpp"
 #include <array>
 #include <memory>
 #include <vector>
@@ -39,6 +41,12 @@ struct ScfCycleBindings {
     // Exclusive mutable ownership for the complete cycle. These arrays may
     // never be passed to a legacy per-step adapter while this plan exists.
     double *h,*density,*energy_density;
+    // Optional site spin constraint (spin_constraint.hpp), added to every H
+    // after the grid and offsite SOC; with a penalty its field follows the density.
+    SpinConstraintDevice constraint{};
+    // Optional tetrahedron occupations (OccupationFunction Tetrahedra.*) in
+    // place of FD, owned by the cycle state; entropy is then zero.
+    TetraDevicePlan* tetra=nullptr;
 };
 struct ScfCycleResult {
     // Sticky status identifies the failed producer: 1 solver, 2 FD,
@@ -119,6 +127,12 @@ public:
     int eigensystem_jobs() const;
     int solver_lanes() const;
     bool warm_start() const;
+    // REMAG_SCF_K_LOOP=1: k points run in a device loop over solver waves
+    // instead of one unrolled subgraph each, which lifts the 128-k limit.
+    bool k_loop() const;
+    // REMAG_SCF_BATCHED_SOLVER=1 (with the k loop): each wave of k points is solved by batched
+    // cuSOLVER/cuBLAS calls (Cholesky, triangular solves, XsyevBatched) instead of block Jacobi.
+    bool batched_solver() const;
     int solves_per_iteration() const;
     bool retains_all_vectors() const;
     int graph_nodes() const;
