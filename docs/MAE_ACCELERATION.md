@@ -26,6 +26,23 @@ runtime gain or physical convergence. The next implementation work is retained
 potential/SOC evaluation and bounded dense-k solves; the workstreams below
 remain active.
 
+The frozen-potential arithmetic now has local native checks against independent
+complex-matrix algebra and high-precision sums. It separates the exchange part
+of all eight sparse spinor components from the pinned upstream offsite SOC
+operator, rotates only exchange, and preserves the fixed lattice SOC. Paired,
+compensated reductions retain both raw band energy/free-energy differences and
+the fixed-electron-number grand-potential correction; a charge residual still
+fails the unchanged electron-count gate. These are internal building blocks,
+not an available or GPU-qualified force-theorem workflow.
+
+Integration must retain the reference before the SCF owner releases its H/S and
+SOC storage. The initial reference is the final generator Hamiltonian whose
+spectrum produced the accepted density, with identity-rotation spectrum checks
+against that same SCF step. H rebuilt from the output density is a distinct
+reference and must not be substituted silently. Remaining work includes bounded
+eigenvalue solves, occupations, moment-direction checks and selected full-SCF
+anchors; reference-potential and force-theorem bias remain to be measured.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |
