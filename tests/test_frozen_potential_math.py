@@ -33,6 +33,11 @@ extern "C" int rotate(int count,const double* q,const double* h,const double* so
     return 0;
 }
 extern "C" void soc_pack(const double* off,double* out) {offsite_soc(off,out);}
+extern "C" int spin_band(int orbitals,const double* c,const double* sc,double* out) {
+    SpinBandSum sum;
+    for(int i=0;i<orbitals;i++)sum.add(c+4*i,sc+4*i);
+    return sum.finish(out)?0:1;
+}
 extern "C" int invalid_merge(int self) {
     BandPairSum a(1.), b(2.);
     a.add(0.,0.,1.,1.,1.); b.add(0.,0.,1.,1.,1.);
@@ -68,6 +73,8 @@ extern "C" int bands(int count,int chunk,const double* rows,double origin,double
     loaded.rotate.restype = ctypes.c_int
     loaded.soc_pack.argtypes = [ptr, ptr]
     loaded.soc_pack.restype = None
+    loaded.spin_band.argtypes = [ctypes.c_int, ptr, ptr, ptr]
+    loaded.spin_band.restype = ctypes.c_int
     loaded.invalid_merge.argtypes = [ctypes.c_int]
     loaded.invalid_merge.restype = ctypes.c_int
     loaded.bands.argtypes = [ctypes.c_int, ctypes.c_int, ptr, *([ctypes.c_double]*5), ptr]
@@ -188,6 +195,34 @@ def bands(native, rows, *, origin=0., temperature=.01, mu_a=0., mu_b=0., electro
     out = np.empty(11)
     code = native.bands(len(rows), chunk, rows, origin, temperature, mu_a, mu_b, electrons, out)
     return code, out
+
+
+def test_nonorthogonal_band_spin_and_normalization(native):
+    linalg = pytest.importorskip('scipy.linalg')
+    rng = np.random.default_rng(917)
+    a = rng.normal(size=(4, 4))+1j*rng.normal(size=(4, 4))
+    s = a@a.conj().T+np.eye(4)
+    overlap = np.kron(s, np.eye(2))
+    a = rng.normal(size=(8, 8))+1j*rng.normal(size=(8, 8))
+    _, vectors = linalg.eigh(a+a.conj().T, overlap)
+    pauli = [np.array([[0, 1], [1, 0]]), np.array([[0, -1j], [1j, 0]]), np.diag([1, -1])]
+    for c in vectors.T:
+        sc = overlap@c
+        out = np.full(3, 12345.)
+        args = [np.ascontiguousarray(x).view(float) for x in (c, sc)]
+        assert native.spin_band(4, *args, out) == 0
+        expected = [(c.conj()@np.kron(s, sigma)@c).real for sigma in pauli]
+        np.testing.assert_allclose(out, expected, atol=5e-16)
+        # A Euclidean spin expectation would be wrong in this basis.
+        assert max(abs(out-np.array([(c.conj()@np.kron(np.eye(4),sigma)@c).real for sigma in pauli]))) > .01
+        out[:] = 12345.
+        assert native.spin_band(4, args[0]*2, args[1]*2, out) == 1
+        np.testing.assert_array_equal(out, 12345.)
+    # A pure +y spinor fixes the otherwise easy-to-miss sign convention.
+    c = np.array([1, 1j], dtype=complex)/np.sqrt(2)
+    out = np.empty(3)
+    assert native.spin_band(1, c.view(float), c.view(float), out) == 0
+    np.testing.assert_allclose(out, [0, 1, 0], atol=3e-16)
 
 
 def entropy(p):

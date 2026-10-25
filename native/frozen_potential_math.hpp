@@ -90,6 +90,27 @@ struct CompensatedSum {
     REMAG_MAE_HD double value() const { return sum+correction; }
 };
 
+// One band's nonorthogonal spin expectation. c and sc contain the real and
+// imaginary parts of (up,down) and S*(up,down) for one spatial orbital.
+// Do not normalize a bad eigenvector silently: the norm check is diagnostic.
+struct SpinBandSum {
+    CompensatedSum x,y,z,norm;
+    REMAG_MAE_HD void add(const double c[4],const double sc[4]) {
+        const double ud_re=c[0]*sc[2]+c[1]*sc[3];
+        const double ud_im=c[0]*sc[3]-c[1]*sc[2];
+        const double du_re=c[2]*sc[0]+c[3]*sc[1];
+        const double du_im=c[2]*sc[1]-c[3]*sc[0];
+        const double uu=c[0]*sc[0]+c[1]*sc[1],dd=c[2]*sc[2]+c[3]*sc[3];
+        x.add(ud_re+du_re);y.add(ud_im-du_im);z.add(uu-dd);norm.add(uu+dd);
+    }
+    REMAG_MAE_HD bool finish(double out[3]) const {
+        const double a=x.value(),b=y.value(),c=z.value(),q=norm.value();
+        if(!finite(a)||!finite(b)||!finite(c)||!finite(q)||fabs(q-1.)>1.e-9||
+           a*a+b*b+c*c>1.+1.e-8) return false;
+        out[0]=a;out[1]=b;out[2]=c;return true;
+    }
+};
+
 // The same FD entropy floor as pinned fermid.F / occupations.cu. Weights and
 // electron counts are explicit; full spinors have degeneracy one.
 REMAG_MAE_HD inline double fd_entropy(double p) {

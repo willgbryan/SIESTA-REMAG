@@ -35,13 +35,28 @@ the fixed-electron-number grand-potential correction; a charge residual still
 fails the unchanged electron-count gate. These are internal building blocks,
 not an available or GPU-qualified force-theorem workflow.
 
-Integration must retain the reference before the SCF owner releases its H/S and
-SOC storage. The initial reference is the final generator Hamiltonian whose
-spectrum produced the accepted density, with identity-rotation spectrum checks
-against that same SCF step. H rebuilt from the output density is a distinct
-reference and must not be substituted silently. Remaining work includes bounded
-eigenvalue solves, occupations, moment-direction checks and selected full-SCF
-anchors; reference-potential and force-theorem bias remain to be measured.
+An experimental evaluator now borrows the reference before the SCF owner
+releases its H/S and SOC storage. Its reference is the final generator
+Hamiltonian whose spectrum produced the accepted density; an identity rotation
+is recorded against that same SCF spectrum. H rebuilt from the output density
+is a distinct reference and must not be substituted silently. One dense solver
+workspace serves every k point. Optional eigenvector solves retain only band
+spin expectations, evaluated with the original nonorthogonal overlap, rather
+than the whole eigenvector bank. This code awaits CUDA build/runtime validation;
+the local suite verifies the shared arithmetic, not the GPU executor.
+
+For the next qualification stage only, build with
+`-DREMAG_BUILD_FROZEN_POTENTIAL=ON` and set `REMAG_FROZEN_ROTATIONS` to a file of
+relative `w x y z` quaternions, one per line. Identity is evaluated first.
+`REMAG_FROZEN_SPIN_EXPECTATIONS=0` selects eigenvalues-only for a matched control;
+the default includes spin expectations. The probe uses the existing FD solver,
+exports raw spectra/occupations and writes `remag-frozen-potential.json` without
+replacing any SCF result. Its explicit downloads, host paired reductions and raw
+output time are qualification overhead, not a production speedup measurement.
+Unsupported reference layouts fail explicitly. Full-SCF anchors, final moment
+directions, eigenvalues-only agreement, reference bias and force-theorem bias
+must pass review before this becomes a screening capability. The default build
+does not include the probe.
 
 ## Implementation sequence
 

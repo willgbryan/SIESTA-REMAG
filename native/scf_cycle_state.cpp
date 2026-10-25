@@ -10,6 +10,9 @@
 #include "initial_state.hpp"
 #include "nonlocal_h0_state.hpp"
 #include "initial_mesh_state.hpp"
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+#include "frozen_potential_probe.hpp"
+#endif
 #include <algorithm>
 #include <chrono>
 #include <climits>
@@ -159,6 +162,9 @@ struct State {
     bool hs_lease=false,dm_lease=false,grid_lease=false;
     int capacity=0,nh=0,eh=0,bank_size=0,dimension=0,complex_values=0;
     remag::GridPotentialProblem grid_problem{};remag::ScfCycleBindings bindings{};
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+    remag::HamiltonianAssemblyView frozen_assembly{};
+#endif
     remag::GridContractionShape grid_shape{};remag::GridContractionView final_grid_view{};
     int soc=0,final_h_required=0;
     std::vector<void*> storage;std::unique_ptr<remag::ScfCyclePlan> plan;
@@ -303,6 +309,9 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
             remag_hs_prepare(kind,n,cap,nh,no,nk,cap,num,ptr,cols,mapping,xyz,kpoints,h,overlap);
         require(hs_status==0,"H/S geometry preparation failed");
         remag::ScfCycleShape shape{};shape.assembly=remag::lease_hamiltonian_assembly();state.hs_lease=true;
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        state.frozen_assembly=shape.assembly;
+#endif
         require(remag_dm_begin(kind,n,cap,nh,eh,no,num,ptr,cols,mapping,xyz)==0,"Density geometry preparation failed");
         shape.density=remag::lease_density_matrix();state.dm_lease=true;
         shape.grid=remag::lease_grid_contraction();state.grid_lease=true;
@@ -443,6 +452,14 @@ extern "C" int remag_cycle_initial_result(double* values,int* mix,int* note) {
 extern "C" int remag_cycle_export(int bank_size,double* energies,double* occupations) {
     try {
         current(Stage::executed);require(bank_size==state.bank_size,"Cycle spectrum shape mismatch");
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        if(std::getenv("REMAG_FROZEN_ROTATIONS")) {
+            require(state.result.control.convergence.converged&&state.soc==2&&state.nh==8,
+                "Frozen-potential probe requires converged full offsite SOC");
+            remag::frozen_potential_probe(state.frozen_assembly,state.plan->old_hamiltonian(),
+                state.bindings.offsite,state.bindings.fermi,state.bindings.weights,state.plan->energies(),state.stream);
+        }
+#endif
         const auto& b=state.bindings;const size_t hbytes=size_t(state.capacity)*state.nh*sizeof(double),ebytes=size_t(state.capacity)*state.eh*sizeof(double);
         if(remag::final_grid_state_enabled()) {
             require(state.result.control.convergence.converged,"Final electronic state requires convergence");
