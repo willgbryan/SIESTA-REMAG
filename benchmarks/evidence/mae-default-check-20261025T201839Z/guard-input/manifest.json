@@ -1,0 +1,45 @@
+{
+  "name": "tzdp_np_s25_m400_k4_t300_z",
+  "atoms": 2,
+  "spin": "spin-orbit",
+  "kmesh": [
+    4,
+    4,
+    4
+  ],
+  "repeat": [
+    1,
+    1,
+    1
+  ],
+  "theta_deg": 0,
+  "pseudopotentials": {
+    "Fe_fept_SOC.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+    "Pt_fept_SOC.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+  },
+  "energy_density_outputs": {
+    "tsde": false,
+    "netcdf": false
+  },
+  "initial_population_output": true,
+  "input_sha256": "ffedf169cf2197b83859b776ad7e4cceeb1fd7a77200cb540123d875f261f960",
+  "purpose": "magnetic-property-convergence-discovery",
+  "orientation_constrained": false,
+  "io_policy": "end-of-cycle",
+  "split_scf_timings": false,
+  "orientation_family_sha256": "568d4c97bec299c7f015f80bba7c793aa8dfdd7ed0fb2e2c7c32bbb9653cf543",
+  "density_matrix_output": true,
+  "hamiltonian_output": true,
+  "property_point": "tzdp_np_s25_m400_k4_t300",
+  "basis": "TZDP",
+  "mesh_cutoff_ry": 400,
+  "electronic_temperature_k": 300,
+  "formula_units": 1,
+  "fixed_cell_volume_ang3": 28.246491,
+  "lattice_relaxed": false,
+  "orbital_moment_output": true,
+  "physical_accuracy_qualified": false,
+  "pao_split_norm": 0.25,
+  "polarization_scheme": "non-perturbative",
+  "pao_energy_shift_ry": 0.01
+}

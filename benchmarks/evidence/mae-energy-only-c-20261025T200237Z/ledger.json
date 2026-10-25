@@ -1,0 +1,662 @@
+[
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "cpu",
+    "valid": true,
+    "wall_seconds": 175.427367412,
+    "scf_iterations": 51,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T195129.461.log": "380e3e8a31b05fb3e67bba48e332aa372421cab85206c93eac266fbe27fce2bf"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-20261025T195106Z",
+    "source_attempt_id": "5ea98675255645c2b459e7c9b896b3cb",
+    "reused": true,
+    "current_allocation_wall_seconds": 0
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "baseline",
+    "valid": true,
+    "wall_seconds": 13.698541394,
+    "scf_iterations": 52,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T195742.421.log": "ee8e6909f0f75168dbe349bc22c9e6e2b73f24acea925ac0345b82a09fa67705"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-b-20261025T195659Z",
+    "source_attempt_id": "a3b6e4f0be8e4b878c64e31715a8a307",
+    "reused": true,
+    "current_allocation_wall_seconds": 0
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "energy_only",
+    "valid": true,
+    "wall_seconds": 13.292505946999999,
+    "scf_iterations": 51,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T200254.642.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 13.292505946999999
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "role": "cpu",
+    "valid": true,
+    "wall_seconds": 179.67379075000002,
+    "scf_iterations": 70,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T200313.734.log": "931ee5ab8879960a458a8594b2f0892d721e7cc885d54bcfefc3f63f8e5bed20"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 179.67379075000002
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "role": "baseline",
+    "valid": true,
+    "wall_seconds": 13.688700893999993,
+    "scf_iterations": 75,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T200614.979.log": "2b0b21ec9321328c70fe0473b7021676c3f1395a66050acfdd1033f258b1e500"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 13.688700893999993
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "role": "energy_only",
+    "valid": true,
+    "wall_seconds": 13.492947522999998,
+    "scf_iterations": 75,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T200630.755.log": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 13.492947522999998
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_001",
+    "role": "baseline",
+    "valid": true,
+    "wall_seconds": 92.77895955699998,
+    "scf_iterations": 33,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T200649.435.log": "896891ff3252634f88954bb72c752a88a14aded25b4afff615907dcf0f173fb2"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 92.77895955699998
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_001",
+    "role": "energy_only",
+    "valid": true,
+    "wall_seconds": 92.66220361300003,
+    "scf_iterations": 35,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T200826.815.log": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 92.66220361300003
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_110",
+    "role": "baseline",
+    "valid": true,
+    "wall_seconds": 99.80267829400003,
+    "scf_iterations": 40,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T201006.165.log": "1f42ead713c987b116f3cbdeb90b6f492c8d00bb5b936e686cad5da9db2cd31c"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 99.80267829400003
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_110",
+    "role": "energy_only",
+    "valid": true,
+    "wall_seconds": 99.86814143900006,
+    "scf_iterations": 39,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T201149.374.log": "0493f9d6226c34f541fb2fda75d0fbe2d369481f9c20c5d867468a06d4998a0b"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 0.0,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 99.86814143900006
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_111",
+    "role": "baseline",
+    "valid": true,
+    "wall_seconds": 102.43445667800006,
+    "scf_iterations": 43,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T201334.197.log": "4e6306d65c8ad28aea27b1b18c13af7462dd61a6c286a945d21205cf81c5426a"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 1.2074182697257333e-06,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 102.43445667800006
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_111",
+    "role": "energy_only",
+    "valid": true,
+    "wall_seconds": 91.77081710499999,
+    "scf_iterations": 34,
+    "result_valid": true,
+    "parse_errors": [],
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T201521.181.log": "de66586a3f2370d6a134316357931c88bf566847ab35cef4ef9d14669fd82b69"
+      }
+    },
+    "k_pass": true,
+    "direction_error_deg": 1.2074182697257333e-06,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "reused": false,
+    "current_allocation_wall_seconds": 91.77081710499999
+  }
+]

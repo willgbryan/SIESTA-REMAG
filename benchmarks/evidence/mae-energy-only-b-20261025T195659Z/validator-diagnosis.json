@@ -1,0 +1,184 @@
+{
+  "original_result_unchanged": true,
+  "reason": "Re-evaluate the three validator failures against saved native records; no numerical tolerance change",
+  "density_coverage_passed": true,
+  "orbital_preparation_passed": true,
+  "transfer_accounting": {
+    "scope": "successful explicit bridge copies only",
+    "execution_mode": "device_cycle",
+    "device_iterations": 61,
+    "phases": {
+      "initialization": {
+        "host_to_device_bytes": 57694428,
+        "device_to_host_bytes": 2264,
+        "copy_calls": 111
+      },
+      "post_scf": {
+        "host_to_device_bytes": 4,
+        "device_to_host_bytes": 15135836,
+        "copy_calls": 8
+      },
+      "analysis_export": {
+        "host_to_device_bytes": 0,
+        "device_to_host_bytes": 4032672,
+        "copy_calls": 8
+      }
+    },
+    "scf_boundaries": {},
+    "steady_state_explicit": {
+      "host_to_device_bytes": 0,
+      "device_to_host_bytes": 0,
+      "copy_calls": 0
+    },
+    "total_explicit": {
+      "host_to_device_bytes": 57694432,
+      "device_to_host_bytes": 19170772,
+      "copy_calls": 127
+    },
+    "scf_intervals": 1,
+    "geometry_epochs": 2,
+    "accounting_errors": [],
+    "strict_residency_verified": false,
+    "unmeasured": [
+      "library transfers",
+      "unified-memory migrations",
+      "file I/O"
+    ],
+    "steady_state_definition": "entire electronic cycle including the first accepted iteration"
+  },
+  "science": {
+    "cpu": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.262063389935065e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.728191692673136e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": 14.006671240000003,
+      "reference_iterations": 51,
+      "candidate_iterations": 61
+    },
+    "baseline": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.4788172342814505e-11,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.5925040720030665e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.000000082740371e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope"
+      ],
+      "reference_seconds": 13.698541394,
+      "candidate_seconds": 14.006671240000003,
+      "reference_iterations": 52,
+      "candidate_iterations": 61
+    }
+  }
+}

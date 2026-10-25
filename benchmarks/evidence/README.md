@@ -4,6 +4,37 @@ These existing records are copied verbatim from completed experiments. The
 [manifest](manifest.json) records their original local paths and SHA-256 hashes.
 No new calculations were performed to populate this directory.
 
+## Energy-only full SCF, 25 October 2026
+
+[Qualification](mae-energy-only-c-20261025T200237Z/qualification.json) covers
+FePt x/z against pristine CPU SIESTA and all five FePt/FeCo directions against
+the ordinary REMAG path. Electronic science, requested density/matrix exports,
+final directions and total/free directional energies pass. The largest
+ordinary-REMAG directional discrepancy is 0.006401 micro-eV/f.u.; the CPU
+FePt total-energy difference agrees within 0.584 micro-eV/f.u., limited by
+its six-decimal energy output. These are numerical comparisons at fixed inputs.
+
+The [per-calculation record](mae-energy-only-c-20261025T200237Z/energy-only-analysis.json)
+shows FeCo orbital storage falling from 6,468,547,416 to 137,894,360 bytes:
+6,330,653,056 derivative bytes are no longer allocated. This is one owner's
+allocation change, not a measured whole-device peak-memory reduction. Timings
+are individual observations with different output scope and varying SCF
+counts; no repeatable runtime gain or upstream-GPU speedup is established.
+
+The [final regression](mae-default-check-20261025T201839Z/summary.json) checks
+the default force/stress path, rechecks energy-only execution after the shared
+export-initialization fix, and confirms relaxation rejection before SCF.
+All 131 local tests and ten local science/export comparisons pass. Five serial
+apps, including two failed harness/validator attempts, total 31.85 minutes of
+app lifetime, conservatively bounding GPU use below the authorized hour.
+All allocations are released; billed GPU time is unknown. Original failed
+summaries and the separate validator diagnosis remain alongside the passes.
+
+FePt used 4³ k sampling/400 Ry/0.01 Ry confinement; FeCo used 16³/2000 Ry
+nominal/0.00125 Ry. Both used full SOC, TZDP, 300 K and default FP64. FeCo's
+4096-k execution used staged capacity changes and does not expand the
+production 128-k guard. Physical convergence and broader capacity remain open.
+
 ## MAE profiling, 25 October 2026
 
 The [FeCo profile](mae-profile-20261025-20261025T193930Z/profile-analysis.json)

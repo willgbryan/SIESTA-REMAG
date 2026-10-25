@@ -1,0 +1,43 @@
+[
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "reference",
+    "valid": true,
+    "reused": true,
+    "source_run": "mae-energy-only-20261025T195106Z",
+    "source_attempt_id": "5ea98675255645c2b459e7c9b896b3cb",
+    "wall_seconds": 175.427367412,
+    "current_allocation_wall_seconds": 0
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "candidate",
+    "valid": true,
+    "wall_seconds": 16.229601038,
+    "parse_errors": []
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "role": "reference",
+    "valid": true,
+    "reused": true,
+    "source_run": "mae-energy-only-c-20261025T200237Z",
+    "source_attempt_id": "47cbf904d51b4be8b5ff8549d53ef3e4",
+    "wall_seconds": 179.67379075000002,
+    "current_allocation_wall_seconds": 0
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "role": "candidate",
+    "valid": true,
+    "wall_seconds": 16.320088724,
+    "parse_errors": []
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "energy_only",
+    "valid": true,
+    "wall_seconds": 15.825118902,
+    "parse_errors": []
+  }
+]

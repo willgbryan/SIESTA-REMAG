@@ -1,0 +1,98 @@
+[
+  {
+    "family": "fept",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "base": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "cpu",
+    "quantity": "total_energy_ev",
+    "reference_ev": -0.0013570000000981963,
+    "candidate_ev": -0.0013575834950643184,
+    "passed": true,
+    "max_absolute_error": 5.83494966122089e-07,
+    "tolerance": 5e-06
+  },
+  {
+    "family": "fept",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "base": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "cpu",
+    "quantity": "free_energy_ev",
+    "reference_ev": -0.0005420000002231973,
+    "candidate_ev": -0.0005417854226834606,
+    "passed": true,
+    "max_absolute_error": 2.1457753973663785e-07,
+    "tolerance": 5e-06
+  },
+  {
+    "family": "fept",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "base": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "baseline",
+    "quantity": "total_energy_ev",
+    "reference_ev": -0.001357583214485203,
+    "candidate_ev": -0.0013575834950643184,
+    "passed": true,
+    "max_absolute_error": 2.8057911549694836e-10,
+    "tolerance": 1e-06
+  },
+  {
+    "family": "fept",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "base": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "baseline",
+    "quantity": "free_energy_ev",
+    "reference_ev": -0.0005417851552920183,
+    "candidate_ev": -0.0005417854226834606,
+    "passed": true,
+    "max_absolute_error": 2.673914423212409e-10,
+    "tolerance": 1e-06
+  },
+  {
+    "family": "feco",
+    "case": "grid2000_shift0p00125_k16_t300_110",
+    "base": "grid2000_shift0p00125_k16_t300_001",
+    "reference_role": "baseline",
+    "quantity": "total_energy_ev",
+    "reference_ev": 7.44470798963448e-06,
+    "candidate_ev": 7.444303264492191e-06,
+    "passed": true,
+    "max_absolute_error": 4.0472514228895307e-10,
+    "tolerance": 1e-06
+  },
+  {
+    "family": "feco",
+    "case": "grid2000_shift0p00125_k16_t300_110",
+    "base": "grid2000_shift0p00125_k16_t300_001",
+    "reference_role": "baseline",
+    "quantity": "free_energy_ev",
+    "reference_ev": 8.559578418498859e-06,
+    "candidate_ev": 8.559172783861868e-06,
+    "passed": true,
+    "max_absolute_error": 4.05634636990726e-10,
+    "tolerance": 1e-06
+  },
+  {
+    "family": "feco",
+    "case": "grid2000_shift0p00125_k16_t300_111",
+    "base": "grid2000_shift0p00125_k16_t300_001",
+    "reference_role": "baseline",
+    "quantity": "total_energy_ev",
+    "reference_ev": 2.0736459191539325e-05,
+    "candidate_ev": 2.0730058167828247e-05,
+    "passed": true,
+    "max_absolute_error": 6.401023711077869e-09,
+    "tolerance": 1e-06
+  },
+  {
+    "family": "feco",
+    "case": "grid2000_shift0p00125_k16_t300_111",
+    "base": "grid2000_shift0p00125_k16_t300_001",
+    "reference_role": "baseline",
+    "quantity": "free_energy_ev",
+    "reference_ev": 2.221829981863266e-05,
+    "candidate_ev": 2.2211916075320914e-05,
+    "passed": true,
+    "max_absolute_error": 6.383743311744183e-09,
+    "tolerance": 1e-06
+  }
+]

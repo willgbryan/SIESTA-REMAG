@@ -1,0 +1,15 @@
+{
+  "total": {
+    "passed": true,
+    "max_absolute_error": 5.830611371493433e-07,
+    "tolerance": 5e-06,
+    "reference_mae_ev": -0.0013570000000981963,
+    "candidate_mae_ev": -0.0013575830612353457,
+    "convention": "E(x)-E(z)"
+  },
+  "free": {
+    "passed": true,
+    "max_absolute_error": 2.1493406165973283e-07,
+    "tolerance": 5e-06
+  }
+}

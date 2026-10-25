@@ -1,0 +1,134 @@
+{
+  "name": "grid2000_shift0p00125_k16_t300_111",
+  "atoms": 2,
+  "formula": "FeCo",
+  "formula_units": 1,
+  "composition": {
+    "Fe": 1,
+    "Co": 1
+  },
+  "spin": "spin-orbit",
+  "kmesh": [
+    16,
+    16,
+    16
+  ],
+  "expected_kpoints": 4096,
+  "repeat": [
+    1,
+    1,
+    1
+  ],
+  "theta_deg": 54.735610317245346,
+  "phi_deg": 45.0,
+  "direction": "111",
+  "direction_vector": [
+    0.5773502691896257,
+    0.5773502691896257,
+    0.5773502691896257
+  ],
+  "orientation_constrained": false,
+  "input_sha256": "1679e257c69b8787e6c22e126676302c3e9de57aa995837f01fcbcc10f9a7604",
+  "orientation_family_sha256": "bb7735c4f684038801c66b46f98151ac1f4abb8e6373557d1d4b78b9d729f4ef",
+  "pseudopotentials": {
+    "Fe.psml": "959e0d8bd121540933877209affcb5787f15cafcb7ac05dcc984f85580acdd9f",
+    "Co.psml": "0b5b2fd03ad89e4afa8ec8d2ca2347b22e02e1a679a685cbf00adb83da99acbe"
+  },
+  "pseudopotential_content": {
+    "Fe": {
+      "atomic-label": "Fe",
+      "atomic-number": "26",
+      "z-pseudo": "16",
+      "flavor": "Hamann's oncvpsp",
+      "relativity": "dirac",
+      "spin-dft": "no",
+      "core-corrections": "yes",
+      "projector_sets": [
+        "scalar_relativistic",
+        "spin_orbit",
+        "lj"
+      ],
+      "shells": [
+        {
+          "n": "3",
+          "l": "s",
+          "occupation": "2"
+        },
+        {
+          "n": "3",
+          "l": "p",
+          "occupation": "6"
+        },
+        {
+          "n": "3",
+          "l": "d",
+          "occupation": "6"
+        },
+        {
+          "n": "4",
+          "l": "s",
+          "occupation": "2"
+        }
+      ]
+    },
+    "Co": {
+      "atomic-label": "Co",
+      "atomic-number": "27",
+      "z-pseudo": "17",
+      "flavor": "Hamann's oncvpsp",
+      "relativity": "dirac",
+      "spin-dft": "no",
+      "core-corrections": "yes",
+      "projector_sets": [
+        "scalar_relativistic",
+        "spin_orbit",
+        "lj"
+      ],
+      "shells": [
+        {
+          "n": "3",
+          "l": "s",
+          "occupation": "2"
+        },
+        {
+          "n": "3",
+          "l": "p",
+          "occupation": "6"
+        },
+        {
+          "n": "3",
+          "l": "d",
+          "occupation": "7"
+        },
+        {
+          "n": "4",
+          "l": "s",
+          "occupation": "2"
+        }
+      ]
+    }
+  },
+  "property_point": "grid2000_shift0p00125_k16_t300",
+  "variant": "grid2000_shift0p00125",
+  "basis": "TZDP",
+  "mesh_cutoff_ry": 2000,
+  "pao_energy_shift_ry": 0.00125,
+  "pao_split_norm": 0.25,
+  "electronic_temperature_k": 300,
+  "fixed_cell_volume_ang3": 23.300532400327995,
+  "lattice_relaxed": false,
+  "purpose": "Grid refinement at fixed 0.00125 Ry confinement, 16^3/300 K; no other physical or implementation change",
+  "physical_accuracy_qualified": false,
+  "orbital_moment_output": true,
+  "orbital_scope": "Upstream on-site same-zeta atomic approximation, rounded to 0.001; not full bulk orbital magnetization",
+  "density_matrix_output": true,
+  "hamiltonian_output": true,
+  "energy_density_outputs": {
+    "tsde": false,
+    "netcdf": false
+  },
+  "initial_population_output": true,
+  "io_policy": "end-of-cycle",
+  "split_scf_timings": false,
+  "soc_enabled": true
+}

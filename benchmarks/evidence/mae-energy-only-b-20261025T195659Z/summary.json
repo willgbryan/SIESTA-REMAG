@@ -1,0 +1,10 @@
+{
+  "status": "validation_failed",
+  "physical_accuracy_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "stopping_reason": "Execution/observable validation failed; preserve this attempt",
+  "exception": "Traceback (most recent call last):\n  File \"/root/property_app.py\", line 111, in benchmark\n    if not row['valid']:raise RuntimeError('Execution/observable validation failed; preserve this attempt')\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Execution/observable validation failed; preserve this attempt\n",
+  "elapsed_seconds": 68.9727873802185,
+  "completed_calculations": 2,
+  "allocation_released": false
+}

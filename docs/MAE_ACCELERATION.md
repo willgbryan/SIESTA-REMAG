@@ -19,6 +19,13 @@ The previous overlap-factor cache passed numerical checks but had no repeatable
 end-to-end gain (v137). It stays deferred unless a new workload changes that
 tradeoff. Mixed precision is also deferred.
 
+The first implementation milestone is [energy-only full SCF](RUNNING.md#energy-only-fixed-geometry-calculations).
+Its recorded FePt/FeCo checks pass, including default force-path regression;
+FeCo avoids 6.33 GB of orbital derivatives. It does not establish a repeatable
+runtime gain or physical convergence. The next implementation work is retained
+potential/SOC evaluation and bounded dense-k solves; the workstreams below
+remain active.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

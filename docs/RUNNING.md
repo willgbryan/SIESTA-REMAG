@@ -83,6 +83,12 @@ The directional command checks both total and free-energy differences and final
 moment directions. Ordinary comparisons still require forces/stress. A comparison
 with different requested observables does not produce an automatic speedup ratio.
 
+The [H100 qualification record](../benchmarks/evidence/mae-energy-only-c-20261025T200237Z/qualification.json)
+covers FePt x/z and three FeCo directions, plus the default force path. The
+larger FeCo case used staged capacity changes; the production 128-k guard
+remains unchanged. The demonstrated benefit is derivative-storage removal;
+repeatable runtime gains and physical MAE convergence are not established.
+
 ## CUDA build targets
 
 A fresh native CMake build defaults to `CMAKE_CUDA_ARCHITECTURES="80;90"`.

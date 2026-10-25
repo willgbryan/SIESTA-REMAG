@@ -395,6 +395,226 @@
       "path": "mae-profile-20261025-20261025T193930Z/inputs/grid2000_shift0p00125_k16_t300_111/input.fdf",
       "local_source": "results/mae-profile-20261025-20261025T193930Z/inputs/grid2000_shift0p00125_k16_t300_111/input.fdf",
       "sha256": "1679e257c69b8787e6c22e126676302c3e9de57aa995837f01fcbcc10f9a7604"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/qualification.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/qualification.json",
+      "sha256": "7db67f5844e3c9f3abd715520106eaff119445898728c3d2d0b769f6c421bb1f"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/energy-only-analysis.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/energy-only-analysis.json",
+      "sha256": "cbf5f56da8871d1618446f7ab8017f7a2be9cc0ffb02b37f2d5c59cb74e0b39b"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/summary.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/summary.json",
+      "sha256": "e021789aa5b3aad47eb291598c5fa58567d0bead82a8467d62158e7ba92257a7"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/ledger.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/ledger.json",
+      "sha256": "456dfd300be11ebd6cf272d06e17a1b507a580f02fdc1c4354b3d58882588625"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/current-comparisons.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/current-comparisons.json",
+      "sha256": "baa1846ed7f1c740542df5ba7b97a7d0d3c9115c95f8e080efd4e434ca2946fa"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/directional-comparisons.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/directional-comparisons.json",
+      "sha256": "ece23c7e89097fb8fca1680d52513529c6498a61f5b84a3c560d4d6722d9ad8c"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/metadata.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/metadata.json",
+      "sha256": "ffdac603b08698c61fb4fba83d41951c83345b7be8ce336544d66307201dd6bd"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/run-attempt.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/run-attempt.json",
+      "sha256": "ec6d970b9d19bc1348d8a6bec24d1b28732d53ebd0781278f4c06826ef19c6d3"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/allocation-release.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/allocation-release.json",
+      "sha256": "5d974d922c99c9a270df22c9a7ffb7ff0e136b02abb6f853c44c3ee6a42f0f92"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/fetch-attempt.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/fetch-attempt.json",
+      "sha256": "c86d88abc5e921440a7505191537e8569b83d567a0009928ec30dae989f95b94"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/local-output-verification.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/local-output-verification.json",
+      "sha256": "cae4ec2151b5fd6f42a2f0931df1bf703dc6bbaf9d052f52a6bab6ba20e7ea4a"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/tzdp_np_s25_m400_k4_t300_x/manifest.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/tzdp_np_s25_m400_k4_t300_x/manifest.json",
+      "sha256": "d2f0528df9522a1c43e380b42618b8f9bbfde11520ac64e16c21dee4db0031c3"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/tzdp_np_s25_m400_k4_t300_x/input.fdf",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/tzdp_np_s25_m400_k4_t300_x/input.fdf",
+      "sha256": "177d77e3c25033452a3e4965e97e05cc8716dd9f21f81e62ddb3f4579a0d4398"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/tzdp_np_s25_m400_k4_t300_z/manifest.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/tzdp_np_s25_m400_k4_t300_z/manifest.json",
+      "sha256": "661c21e8e3018f074e53869d2dc718903bec2f94a5e53aae0934793c25a98fcd"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/tzdp_np_s25_m400_k4_t300_z/input.fdf",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/tzdp_np_s25_m400_k4_t300_z/input.fdf",
+      "sha256": "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_001/manifest.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_001/manifest.json",
+      "sha256": "4438dc2370c82c17c3145aa6c3ece9fa474b9bf3f7c6401fc017c4431884a084"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_001/input.fdf",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_001/input.fdf",
+      "sha256": "1b6c0e794ac1a634194eac379564742be053a600ceed84452cec3cac89628573"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_110/manifest.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_110/manifest.json",
+      "sha256": "58ac92f0e0cb0610ef3cac537b20be64e9ac3163b2db9ca116bd9d1ccd0ebff1"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_110/input.fdf",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_110/input.fdf",
+      "sha256": "c85b7e6ef5eda8730e9e41b76f48d75f4f8e0d09fe71b3324420f7b098fa68ec"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_111/manifest.json",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_111/manifest.json",
+      "sha256": "378714d79bbddbe3db7ba0980e5a7d970c046d1799e271567d30ec085c28bf34"
+    },
+    {
+      "path": "mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_111/input.fdf",
+      "local_source": "results/mae-energy-only-c-20261025T200237Z/inputs/grid2000_shift0p00125_k16_t300_111/input.fdf",
+      "sha256": "1679e257c69b8787e6c22e126676302c3e9de57aa995837f01fcbcc10f9a7604"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/summary.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/summary.json",
+      "sha256": "60119199c94b4bd20251e5405341f8a380a074605b54cefb45f466d1abf55a1e"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/ledger.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/ledger.json",
+      "sha256": "a1beada46c17927ee5543fcfb28bd16326c960475bdd30a4da831eb97d84a7fe"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/current-comparisons.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/current-comparisons.json",
+      "sha256": "8acbff2765f3e0628ea51b74169c50db1d087853c58a3bf779e5ef926f0de0e0"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/directional-comparisons.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/directional-comparisons.json",
+      "sha256": "9622fc7b2d76d4a92d183404021ee72179d02fd9dd50e4e9bf372d99644688aa"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/guard-check.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/guard-check.json",
+      "sha256": "1c54a11e02b22107114c8ff6f8dd13d6bb93f7a043c869d7350b1698d808338e"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/metadata.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/metadata.json",
+      "sha256": "359134516aa178ad94be4779cd36e9033736be30a38d644f0a6b6b5b3d73ee49"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/run-attempt.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/run-attempt.json",
+      "sha256": "261c955b27865c3eba67a8e656cd63a692617c2b07b7dcfadc0b5b13ab6d53d6"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/allocation-release.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/allocation-release.json",
+      "sha256": "3d292deb459387b798ee223564f8afb14d4c07acd62b046a45224350aaac7d21"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/fetch-attempt.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/fetch-attempt.json",
+      "sha256": "6512610baef002414b502e64d8ecd2c5b1a2cb125ed222a970fff06b7ee4d45e"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/local-output-verification.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/local-output-verification.json",
+      "sha256": "bf62c3591577228a66ed1141c014af7df13aa2121a6802c7ad5f65c87c5490c4"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/guard-input/manifest.json",
+      "local_source": "results/mae-default-check-20261025T201839Z/guard-input/manifest.json",
+      "sha256": "aa769a73e9efed830427d49e05a11961a2ae27f2d35a42d023b177749da80514"
+    },
+    {
+      "path": "mae-default-check-20261025T201839Z/guard-input/input.fdf",
+      "local_source": "results/mae-default-check-20261025T201839Z/guard-input/input.fdf",
+      "sha256": "ffedf169cf2197b83859b776ad7e4cceeb1fd7a77200cb540123d875f261f960"
+    },
+    {
+      "path": "mae-energy-only-20261025T195106Z/summary.json",
+      "local_source": "results/mae-energy-only-20261025T195106Z/summary.json",
+      "sha256": "23f2b76e86f5b598e1318ba661487584d1747436608897429d0b53214c40b45a"
+    },
+    {
+      "path": "mae-energy-only-20261025T195106Z/ledger.json",
+      "local_source": "results/mae-energy-only-20261025T195106Z/ledger.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "mae-energy-only-20261025T195106Z/metadata.json",
+      "local_source": "results/mae-energy-only-20261025T195106Z/metadata.json",
+      "sha256": "bbb5c37bc23d220d6b3f216c1dda7307c2bd0f1fc1b678ba5955512304086f6e"
+    },
+    {
+      "path": "mae-energy-only-20261025T195106Z/run-attempt.json",
+      "local_source": "results/mae-energy-only-20261025T195106Z/run-attempt.json",
+      "sha256": "6be9238c4c15473d5f0c6d3cc15f938dde0d4ac04c4f2b9d19ac6e752f8d6aae"
+    },
+    {
+      "path": "mae-energy-only-20261025T195106Z/allocation-release.json",
+      "local_source": "results/mae-energy-only-20261025T195106Z/allocation-release.json",
+      "sha256": "5928bc74fe1a81597ede2bacf641e5fbb18cb851d486b9b780c696960c36990a"
+    },
+    {
+      "path": "mae-energy-only-b-20261025T195659Z/summary.json",
+      "local_source": "results/mae-energy-only-b-20261025T195659Z/summary.json",
+      "sha256": "dc426566af6fc7a4db115e16311df033e676f086ceefa196ff4f16b5f9dcd24e"
+    },
+    {
+      "path": "mae-energy-only-b-20261025T195659Z/ledger.json",
+      "local_source": "results/mae-energy-only-b-20261025T195659Z/ledger.json",
+      "sha256": "ca4ca042310ed207a6d587580890e70b538f055b8bae52e2131ec413a14b1876"
+    },
+    {
+      "path": "mae-energy-only-b-20261025T195659Z/metadata.json",
+      "local_source": "results/mae-energy-only-b-20261025T195659Z/metadata.json",
+      "sha256": "4b8ac30af9d17a93f6ace2804533e980adea62cf8111ec6d23b1e372662e8a65"
+    },
+    {
+      "path": "mae-energy-only-b-20261025T195659Z/run-attempt.json",
+      "local_source": "results/mae-energy-only-b-20261025T195659Z/run-attempt.json",
+      "sha256": "f2db5733cf9bfed587b6acbc4d999e14a8be658dafba674c1ba03071f57121c2"
+    },
+    {
+      "path": "mae-energy-only-b-20261025T195659Z/allocation-release.json",
+      "local_source": "results/mae-energy-only-b-20261025T195659Z/allocation-release.json",
+      "sha256": "d19d5bd8acf203a7edcf556f96027c1b558b85073b86ce0a81e5928e0f956c71"
+    },
+    {
+      "path": "mae-energy-only-b-20261025T195659Z/validator-diagnosis.json",
+      "local_source": "results/mae-energy-only-b-20261025T195659Z/validator-diagnosis.json",
+      "sha256": "36ae418307bc10dce2812cd0a86568d899ec20a53c62624b899d4df1453f0e8e"
     }
   ]
 }

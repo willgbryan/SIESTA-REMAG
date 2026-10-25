@@ -1,0 +1,24 @@
+{
+  "expected_rejection": true,
+  "passed": true,
+  "returncode": -6,
+  "parse_errors": [
+    "Device-cycle publication evidence is missing",
+    "Retained output density does not cover every geometry/kind",
+    "Energy-only publication requires exactly one electronic geometry",
+    "Terminal matrix export schema is missing",
+    "Terminal export/final-grid geometry coverage differs",
+    "Missing final spectrum schema",
+    "Final spectrum does not cover all electronic and force geometries",
+    "Missing production history schema",
+    "Missing population publication schema",
+    "Population ownership does not cover every electronic geometry",
+    "Missing initial density ownership schema",
+    "Initial density ownership does not cover every electronic geometry",
+    "History ownership does not cover every electronic/force geometry",
+    "Orbital basis owner does not cover every geometry",
+    "H0 shadow does not cover every electronic/force geometry",
+    "Initial GPU mesh did not cover completed SCF and forces",
+    "Device consumer transfer accounting is missing"
+  ]
+}

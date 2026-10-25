@@ -1,0 +1,7 @@
+{
+  "status": "validation_complete",
+  "physical_accuracy_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "stopping_reason": "Ordinary-mode FePt x/z, corrected energy-only z and relaxation rejection passed",
+  "elapsed_seconds": 74.17350721359253
+}

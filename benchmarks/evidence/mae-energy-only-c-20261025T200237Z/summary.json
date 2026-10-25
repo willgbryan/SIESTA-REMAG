@@ -1,0 +1,9 @@
+{
+  "status": "validation_complete",
+  "physical_accuracy_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "stopping_reason": "Prepared full-SCF electronic comparisons completed",
+  "elapsed_seconds": 855.2131881713867,
+  "completed_calculations": 12,
+  "allocation_released": false
+}
