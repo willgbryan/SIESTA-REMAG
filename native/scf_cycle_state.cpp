@@ -241,6 +241,10 @@ extern "C" int remag_cycle_initial_grid() {
 }
 extern "C" int remag_cycle_request() {
     try {
+#ifndef REMAG_BUILD_FROZEN_POTENTIAL
+        require(!std::getenv("REMAG_FROZEN_ROTATIONS"),
+            "Frozen-potential probe requires REMAG_BUILD_FROZEN_POTENTIAL=ON");
+#endif
         require(remag_cycle_enabled()&&remag_gpu_enabled()&&remag_grid_enabled()&&!remag::in_scf()&&
             (state.stage==Stage::idle||state.stage==Stage::exported)&&remag::geometry_epoch(),"Device-cycle request conflicts with active work");
         remag::reset_final_grid_state();

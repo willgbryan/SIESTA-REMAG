@@ -87,6 +87,9 @@ def compare(reference, candidate, tolerances=None, reference_dir=None, candidate
     same_hardware = reference["hardware"] == candidate["hardware"]
     traced = any(r.get("runtime_settings", {}).get("REMAG_TRACE_IO") == "1" for r in (reference, candidate))
     performance_reasons = []
+    if any(r.get('runtime_settings', {}).get('REMAG_FROZEN_ROTATIONS') is not None or
+           'frozen_potential_probe' in r.get('telemetry', {}) for r in (reference, candidate)):
+        performance_reasons.append('Frozen-potential qualification adds spectral solves and raw exports')
     if reference.get('calculation_scope', 'energy_forces_stress') != candidate.get('calculation_scope', 'energy_forces_stress'):
         performance_reasons.append('Requested force/stress work differs; timings have different observable scope')
     if not same_hardware:

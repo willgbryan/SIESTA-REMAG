@@ -249,6 +249,16 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
     matrixfile = destination / "remag-hs.json"
     if matrixfile.exists():
         telemetry["gpu_matrix_assembly"] = json.loads(matrixfile.read_text())
+    if env.get('REMAG_FROZEN_ROTATIONS') is not None:
+        try:
+            frozen = json.loads((destination/'remag-frozen-potential.json').read_text())
+            telemetry['frozen_potential_probe'] = frozen
+            points = frozen.get('points', [])
+            if frozen.get('schema') != 1 or frozen.get('status') != 'complete' or not points or any(
+                    not p.get('completed') or p.get('status') != 0 or not p.get('electron_count_passed') for p in points):
+                parse_errors.append('Requested frozen-potential probe did not complete successfully')
+        except (OSError, ValueError, TypeError, AttributeError) as error:
+            parse_errors.append(f'Requested frozen-potential evidence unavailable: {error}')
     hartreefile = destination / "remag-hartree.json"
     if hartreefile.exists():
         telemetry["gpu_hartree"] = json.loads(hartreefile.read_text())
@@ -666,7 +676,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
                             "runtime_instance_id": env.get("REMAG_HOST_ID", platform.node())},
                   upstream=provenance, parse_errors=parse_errors,
                   runtime_settings={key: env.get(key) for key in
-                                    ("REMAG_ENERGY_ONLY", "REMAG_INITIAL_MESH", "REMAG_INITIAL_MESH_POISON_HOST", "REMAG_INITIAL_MESH_SHADOW", "REMAG_NONLOCAL_H0_POISON_HOST", "REMAG_NONLOCAL_H0", "REMAG_NONLOCAL_H0_SHADOW", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "REMAG_GPU", "REMAG_GRID", "REMAG_DM",
+                                    ("REMAG_FROZEN_ROTATIONS", "REMAG_FROZEN_SPIN_EXPECTATIONS", "REMAG_ENERGY_ONLY", "REMAG_INITIAL_MESH", "REMAG_INITIAL_MESH_POISON_HOST", "REMAG_INITIAL_MESH_SHADOW", "REMAG_NONLOCAL_H0_POISON_HOST", "REMAG_NONLOCAL_H0", "REMAG_NONLOCAL_H0_SHADOW", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "REMAG_GPU", "REMAG_GRID", "REMAG_DM",
                                      "REMAG_GRID_POTENTIAL_SPINS", "REMAG_GRID_EPOCH", "REMAG_GRID_VERIFY_EPOCH", "REMAG_NORMALIZE", "REMAG_OCCUPATIONS", "REMAG_RESIDENT_SPECTRA", "REMAG_HS", "REMAG_HARTREE", "REMAG_RESIDENT_GRID", "REMAG_RESIDENT_SCF", "REMAG_DEVICE_SCF", "REMAG_DEVICE_VECTOR_CACHE", "REMAG_BLOCK_SOLVER", "REMAG_BLOCK_WIDTH", "REMAG_BLOCK_LOCAL_SOLVER", "REMAG_BLOCK_SHARED_JACOBI", "REMAG_BLOCK_FUSED_MATRIX", "REMAG_BLOCK_FP64_VECTORS", "REMAG_BLOCK_FP64_MATRIX", "REMAG_FORCE_SHADOW", "REMAG_FORCE_SHADOW_RESIDENT", "REMAG_GRID_FORCE", "REMAG_ATOMIC_GRID_FORCE", "REMAG_ATOMIC_FORCE_SHADOW", "REMAG_FINAL_GRID", "REMAG_FINAL_GRID_SHADOW", "REMAG_FINAL_DENSITY", "REMAG_FINAL_DENSITY_SHADOW", "REMAG_ORBITAL_BASIS_SHADOW", "REMAG_ORBITAL_BASIS", "REMAG_ATOMIC_BASIS_SHADOW", "REMAG_ATOMIC_BASIS", "REMAG_TWO_CENTER_SHADOW", "REMAG_PAIR_FORCE_SHADOW", "REMAG_NONLOCAL_FORCE_SHADOW", "REMAG_INTEGRAL_FORCE", "REMAG_POPULATION", "REMAG_TRACE_IO", "REMAG_TRACE_CUDA", "REMAG_SCF_STAGE_PROFILE", "REMAG_SCF_SOLVER_LANES", "REMAG_SCF_WARM_START", "REMAG_RADIAL_BATCH",
                                      "REMAG_GPU_INITIALIZATION", "REMAG_GPU_HISTORY", "REMAG_FINAL_SPECTRA", "REMAG_GATE_H_EXPORT", "REMAG_DEFER_SCF_LOG", "GFORTRAN_FORMATTED_BUFFER_SIZE",
                                      "GFORTRAN_UNBUFFERED_ALL", "GFORTRAN_UNBUFFERED_PRECONNECTED")},
