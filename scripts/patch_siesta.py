@@ -1864,6 +1864,7 @@ def patch(source: Path):
     patch_initialization(source)
     patch_density_history(source)
     patch_orientations(source)
+    patch_property_precision(source)
     with (source / "CMakeLists.txt").open("a") as f:
         f.write('''
 # REMAG integration; reference source is built separately and remains unmodified.
@@ -2153,7 +2154,30 @@ C       Advance the electronic lifetime while retaining immutable geometry.
 
 
 
+def patch_property_precision(source):
+    """Preserve FP64 energies in text used for magnetic energy differences."""
+    path = source / 'Src/write_subs.F'
+    text = path.read_text()
+    if 'REMAG: FP64 property energy output' in text:
+        raise ValueError('Property energy output already patched')
+    text = replace_once(text, "        write(6,'(/,a,/,(a,f17.6))')",
+                        "        write(6,'(/,a,/,(a,es26.17e3))')")
+    text = replace_once(text,
+        "        write(6,'(/,a)') 'siesta: Final energy (eV):'\n"
+        "        write(6,'(a,a15,f15.6)')",
+        "        write(6,'(a)') 'REMAG: FP64 property energy output'\n"
+        "        write(6,'(/,a)') 'siesta: Final energy (eV):'\n"
+        "        write(6,'(a,a15,es26.17e3)')")
+    path.write_text(text)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
-    patch(parser.parse_args().source)
+    parser.add_argument("--property-precision-only", action="store_true",
+                        help="Only increase final energy print precision in a disposable source copy")
+    args = parser.parse_args()
+    if args.property_precision_only:
+        patch_property_precision(args.source)
+    else:
+        patch(args.source)
