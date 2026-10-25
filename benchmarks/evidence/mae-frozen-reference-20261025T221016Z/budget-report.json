@@ -1,0 +1,19 @@
+{
+  "authorized_gpu_seconds": 900,
+  "deadline_epoch": 1792967116.13148,
+  "app_id": "ap-kGZs7NXNYvmJQzEj99Jqzo",
+  "app_lifetime_seconds": 856.5374419689178,
+  "app_lifetime_includes_cpu_image_build": true,
+  "function_work_seconds_before_packaging": 674.8290479183197,
+  "actual_billed_gpu_seconds": null,
+  "stopped_before_fixed_deadline": true,
+  "conservative_app_lifetime_within_allowance": true,
+  "overlapping_gpu_allocations": false,
+  "allocation_released": true,
+  "account_container_count_at_release": 0,
+  "authorization": {
+    "user_reply": "Approve up to 15 H100-minutes",
+    "recorded_at_utc": "2026-10-25T22:09:46.695324+00:00",
+    "scope": "Prepared five-calculation exact-Hamiltonian, FeCo reference-direction sensitivity and eigenvalues-only diagnostic; one H100 at a time; no deadline extension or automatic restart."
+  }
+}

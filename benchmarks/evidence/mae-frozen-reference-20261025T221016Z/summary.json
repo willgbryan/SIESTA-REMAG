@@ -1,0 +1,7 @@
+{
+  "status": "diagnostic_complete",
+  "physical_accuracy_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "stopping_reason": "Selected-k independent matrix checks and reference sensitivity measured; physical qualification remains open",
+  "elapsed_seconds": 674.8290479183197
+}

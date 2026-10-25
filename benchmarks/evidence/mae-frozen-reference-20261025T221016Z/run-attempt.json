@@ -1,0 +1,7 @@
+{
+  "invocation_sha256": "173963af442375240a48c02dad4998b40d7d5c52ebe6791575efeaeb4d531abd",
+  "attempt_id": "5b5324782a4f47d9bbf17d6730430ba7",
+  "state": "complete",
+  "interrupted_attempts": [],
+  "policy": "Fresh batch per interrupted attempt; no cross-attempt material or timing merge"
+}

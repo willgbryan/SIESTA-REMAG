@@ -1,0 +1,10 @@
+{
+  "candidate_commit": "934b0ae253773f2b07c6db8049d1ef2744438811",
+  "native_sources": {
+    "frozen_potential.cu": true,
+    "frozen_potential.hpp": true,
+    "frozen_potential_probe.cpp": true
+  },
+  "accepted_executable_sha256": "507748c71585b3f7cf986aed84b4a6223dc0f62e8a509afb2196ac41f34324f1",
+  "accepted_library_sha256": "9071e33b0beec27f3e6c92ba0af144429fb21f5af17624786539dfac25e5a0f5"
+}

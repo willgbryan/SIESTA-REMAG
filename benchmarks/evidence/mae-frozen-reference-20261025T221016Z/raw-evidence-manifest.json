@@ -1,0 +1,1788 @@
+{
+  "run": "mae-frozen-reference-20261025T221016Z",
+  "attempt_id": "5b5324782a4f47d9bbf17d6730430ba7",
+  "local_root": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-frozen-reference-20261025T221016Z",
+  "volume_root": "/mae-frozen-reference-20261025T221016Z",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 7239,
+      "sha256": "698ccb2a80d7f4cc24504b693872d2f9706b89a610929d038e4f0d3e4b2fd0a3"
+    },
+    {
+      "path": "allocation-release.json",
+      "bytes": 378,
+      "sha256": "d54c848b87e291b4fed119177f191ac49902d747df1e376d0410993e0c0e8510"
+    },
+    {
+      "path": "budget-report.json",
+      "bytes": 848,
+      "sha256": "4ce828ee09786b81ce032c5ec4826370f7d3ade1616a38bf9995b5be0ed96c75"
+    },
+    {
+      "path": "campaign-status.json",
+      "bytes": 1370,
+      "sha256": "0daeea88e2bed2ed2fffd7a707e5d7cb188ffa43e6af8ae0487a7a5dc13c8ad5"
+    },
+    {
+      "path": "current-comparisons.json",
+      "bytes": 27486,
+      "sha256": "8025d309d2d16fb347350e7e3ee99dbe44c8825a8a95a456939f7807d3cc9cf2"
+    },
+    {
+      "path": "eigenvalues-only-comparisons.json",
+      "bytes": 996,
+      "sha256": "6c59f0579cfe1efaba4be04919ae5c2a08696116d2c53a3b5031db1ccf49877f"
+    },
+    {
+      "path": "fetch-attempt.json",
+      "bytes": 686,
+      "sha256": "1bdcd5064d1a767ca6dd59c2a99dcd35fbf68282b6f8d60c129ce860d69b2908"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/Co.ion.nc",
+      "bytes": 98252,
+      "sha256": "e60f21b88a40ecef8ea5964695342237a7481a9aa4938f6c95c34d10afba66a7"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/DeltaRho.grid.nc",
+      "bytes": 8192368,
+      "sha256": "071e07aef213b64b32239570176160bd7ba9fbfc53eb83466a901ad59986df43"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/Fe.ion.nc",
+      "bytes": 98252,
+      "sha256": "c43caf45a6ae485e68c00ff6cc593c09ef9ab1af76103c71557f83fe2e1eb91d"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/Rho.grid.nc",
+      "bytes": 8192360,
+      "sha256": "9246ad07a89be384b3776d1f81f5a94491e914ce33f3778591f8313c6e65b3c3"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/fdf.20261025T221048.640.log",
+      "bytes": 31705,
+      "sha256": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/gpu.csv",
+      "bytes": 37726,
+      "sha256": "85b9c5269b7166a73fab2fbe3928d5ab379798a2df37086b5bd960146282ec3a"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/independent-matrices.json",
+      "bytes": 12024,
+      "sha256": "3271312c788c80eee3cbc931a21692433099a805de234bfe69f4d8eaf838aedc"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/independent-matrices.log",
+      "bytes": 12024,
+      "sha256": "3271312c788c80eee3cbc931a21692433099a805de234bfe69f4d8eaf838aedc"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/input.fdf",
+      "bytes": 1449,
+      "sha256": "1b6c0e794ac1a634194eac379564742be053a600ceed84452cec3cac89628573"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/manifest.json",
+      "bytes": 3146,
+      "sha256": "4438dc2370c82c17c3145aa6c3ece9fa474b9bf3f7c6401fc017c4431884a084"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-density-history.json",
+      "bytes": 566,
+      "sha256": "92a39482785aa9c5f2e6f1d36badae845fc92e6b33f8f8cc06b4e2dafa77061f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-device-scf.json",
+      "bytes": 1127,
+      "sha256": "4f6e80c34463d2eb7f476c1402f0900bb680c9e1c6a5320cc3a61465c9284d4c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-dm.json",
+      "bytes": 509,
+      "sha256": "ac3c0ce4198972b22267c41b114c1c527c6b02385b5a226842cff40366000a2f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-energy-only.json",
+      "bytes": 214,
+      "sha256": "40ae712a2ca46523b57f5b3a865d769cb3e858747c20b94f2d8d6f19bc1375ff"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-final-density.json",
+      "bytes": 707,
+      "sha256": "171d1c8a090f5cb49a292e08a802761951a64257e54a6113af896bc717d9aeff"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-final-spectrum.json",
+      "bytes": 290,
+      "sha256": "23781496233e355e4717fce6d7f78eac6c4473fe1e8bc7a128c3cf5c55af4556"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-000.csv",
+      "bytes": 61954216,
+      "sha256": "c90fdded4abac5bb77419e70a7e4ca14d6dd5122a18a45d2e15ceb648493cb9c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-001.csv",
+      "bytes": 60766691,
+      "sha256": "bebba078f8f9b1d76e665f8aecd336ce0ecb9ea36bd69620a37bb36e68c0ef3c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-002.csv",
+      "bytes": 59610417,
+      "sha256": "5b4c2f281b6d91aed590d6fc8c903d9ad8f64eab8d5941848b06983cfeab81dc"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-000-k000000.bin",
+      "bytes": 802816,
+      "sha256": "a2c990488c3dd67babe01ee53382d53754a5e1f635928164ae79be1127746838"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-000-k000000.json",
+      "bytes": 318,
+      "sha256": "75140dcb780bd53cea94dd93c2c397706c3d2dae4c6cf5fba82495b5468c9c49"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-000-k002048.bin",
+      "bytes": 802816,
+      "sha256": "7f23f4ec11df83972575fefdc869c6670b0db5910877b4cc1a971b1488082ebe"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-000-k002048.json",
+      "bytes": 321,
+      "sha256": "55d74f9b17c94999d9c1ebeb616af29821b4820e7e2df06e8b79abdfd3fbc870"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-000-k004095.bin",
+      "bytes": 802816,
+      "sha256": "0a3b9a8288b431ea4b676e61f8d68b7a0c4078df556a06c6f458d6933045f9d9"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-000-k004095.json",
+      "bytes": 321,
+      "sha256": "2d728cec97bbb465d53eff7b0f3cd69bf2e8aaf912e72838506f4f98b88624d0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-001-k000000.bin",
+      "bytes": 802816,
+      "sha256": "8ed1243f3b18bdb680417ed0d12684e21a0a80a3aa1c08ecf89d7be516e8d19f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-001-k000000.json",
+      "bytes": 373,
+      "sha256": "40435d6b477d2d7f6c3bbbc9afc4cd6f8377624350fbd935522f1ef11022cdfc"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-001-k002048.bin",
+      "bytes": 802816,
+      "sha256": "50e458e83334684729c0d074c0089072938950dc110c39a2863b04e1194bf19f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-001-k002048.json",
+      "bytes": 376,
+      "sha256": "5f5146c4853a0f3af2f77ee5ebf39419a33a09af20c356afb3a465b13aaf3258"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-001-k004095.bin",
+      "bytes": 802816,
+      "sha256": "c743b591f33d76288fc3375cc4366260339ec2dac87d461a4289749440476fd8"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-001-k004095.json",
+      "bytes": 376,
+      "sha256": "4c151e8fc22a50be88ebff903bb0998b46d0db70afceb75a05c8f4aa868bd601"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-002-k000000.bin",
+      "bytes": 802816,
+      "sha256": "d97eb9aefccf6d485df44212a221bd1b05a0fdadcebfcc36879ff11115a98cf3"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-002-k000000.json",
+      "bytes": 373,
+      "sha256": "09ea7d7a7fd4e74ec3657fa074d255eee003d8e2140b0e86df77de8e59fd94a8"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-002-k002048.bin",
+      "bytes": 802816,
+      "sha256": "9ca36cddf6ef076d02d76332cabf59652761747956534b1ecfb21c3a636bcea3"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-002-k002048.json",
+      "bytes": 376,
+      "sha256": "96d559b5aba802b1ce0f78fc41c746d2e45ec1ea00014a06a84d28f32e5aa6a2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-002-k004095.bin",
+      "bytes": 802816,
+      "sha256": "51563fd27de00698c07b8586756ead74c94b679a94d594a07684682a37850447"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-matrices-002-k004095.json",
+      "bytes": 376,
+      "sha256": "5a05c7797c8740597a23c46791c98335b6a2c48ede54f102532fc6beec9443d5"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-potential.json",
+      "bytes": 2417,
+      "sha256": "efabb54de425df9eef608cc6160ba39b60d7078078ae13f4b9ef36fb2999b844"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-grid.json",
+      "bytes": 682,
+      "sha256": "a75006b7449934602f7d6ca9f4674ac7c2d65691d5d4eec38db446381b5749ab"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-hs.json",
+      "bytes": 348,
+      "sha256": "d58364e72c6793b94bb01019bcc080a946a2d14fc2461cc2a47494769c568f9c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-initial-mesh-production.json",
+      "bytes": 616,
+      "sha256": "9f9e9abade6633d7222149d487d0161bfa81c890beb0089c067c6ffce18a9b66"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-initial-state.json",
+      "bytes": 516,
+      "sha256": "5726a690bca7105ff35b9d2d655db6cfc595bb87f49bd02cfe06308c3d982a1f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-nonlocal-geometry.json",
+      "bytes": 629,
+      "sha256": "592ea00759ee5736685fb66daa496b3448153343704ca790301eea8f0b9d0488"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-nonlocal-h0.json",
+      "bytes": 964,
+      "sha256": "aa2ea2e4334f0da7d4730fa38c44c86fe7ca09d4ade77bbf93e32d3f49e38943"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-orbital-basis.json",
+      "bytes": 582,
+      "sha256": "dde22e9cca9d304ed04f6158f5a0e826a051eb4bfa96ac283b9fd0a370f06166"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-pair-geometry.json",
+      "bytes": 323,
+      "sha256": "1128a1637f1d7324392b32ee63ce70a67f11d89c9d11b8ca715541108dbcf4bf"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-population.json",
+      "bytes": 371,
+      "sha256": "3053bd4d419acd57970b32f3f1852f266b94bbde60bd72533124511fa7d4ae24"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-residency.json",
+      "bytes": 3537,
+      "sha256": "2213bd60d7aae25802b4af0b3b199e36c1891ae9f492c4188213d542a77a8f90"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-two-center-tables.json",
+      "bytes": 614,
+      "sha256": "abb14b10b539a7e8831374149adc0d54ccfdfed37412396f041b9a7f886210b2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag.DM",
+      "bytes": 6439404,
+      "sha256": "23ba4fb8403c932c1b71981dab480764c2ba4980c4bd10cf844f4c3cb1000bf0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "3589faf794bbc239d212043a33ebbc9a12d1950f7c2a502030fcd55faf5fbdf7"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "e5f63ae89d17b4b3960763fe88da419c431f24662a1b15c97b8f831012891cd3"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "f384c0448317f90d2c7fc091ef896a72b5ad4656b09c7195c54aca7c99ef6d7d"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "d0284b419d978fb9e4fbe623b9c78f30ad194269c507b3b6458c5335e22e705b"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/result.json",
+      "bytes": 10527264,
+      "sha256": "86e4a3384d8a873c47d82f10b3957f90a94c3e6add29e35794adf577dc7421d1"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/stdout.log",
+      "bytes": 61236,
+      "sha256": "2a9afaa0deadced2a9bee9c9d5134797b9776ceefd4c70878446d48eb9e9a973"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_spin/time.json",
+      "bytes": 3436,
+      "sha256": "fc4d7e8707953393e54e770adf3c636d4545ff171bce4ad777c7f8df0ade9de9"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/Co.ion.nc",
+      "bytes": 98252,
+      "sha256": "e60f21b88a40ecef8ea5964695342237a7481a9aa4938f6c95c34d10afba66a7"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/DeltaRho.grid.nc",
+      "bytes": 8192368,
+      "sha256": "8491a529b66a018851dc55b6d2af27a9ff7d2576332efec7a0cc2446e111668d"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/Fe.ion.nc",
+      "bytes": 98252,
+      "sha256": "c43caf45a6ae485e68c00ff6cc593c09ef9ab1af76103c71557f83fe2e1eb91d"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/Rho.grid.nc",
+      "bytes": 8192360,
+      "sha256": "27dfee3bab881093a793093f9fef92f930acd08158c14aaeb547a9fff9ab637b"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/fdf.20261025T221328.885.log",
+      "bytes": 31705,
+      "sha256": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/gpu.csv",
+      "bytes": 33976,
+      "sha256": "2a360cc127fa2d3fd8b49ea44d0dcbd4c766d8493f44c557e29da61dceafef73"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/independent-matrices.json",
+      "bytes": 12053,
+      "sha256": "27933ef5851c5ae52e947ddecb4f638d478124dc5cedf4aea7d435131951ce45"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/independent-matrices.log",
+      "bytes": 12053,
+      "sha256": "27933ef5851c5ae52e947ddecb4f638d478124dc5cedf4aea7d435131951ce45"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/input.fdf",
+      "bytes": 1449,
+      "sha256": "1b6c0e794ac1a634194eac379564742be053a600ceed84452cec3cac89628573"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/manifest.json",
+      "bytes": 3146,
+      "sha256": "4438dc2370c82c17c3145aa6c3ece9fa474b9bf3f7c6401fc017c4431884a084"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-density-history.json",
+      "bytes": 566,
+      "sha256": "92a39482785aa9c5f2e6f1d36badae845fc92e6b33f8f8cc06b4e2dafa77061f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-device-scf.json",
+      "bytes": 1127,
+      "sha256": "89522aa4720eb5318a28e0d2fbaa47fcff8bcc900df3dc545f352a81ff4fd9b9"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-dm.json",
+      "bytes": 509,
+      "sha256": "ac3c0ce4198972b22267c41b114c1c527c6b02385b5a226842cff40366000a2f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-energy-only.json",
+      "bytes": 214,
+      "sha256": "8d8b010fa2e512ad014bd7f4a3021c45d1835221bf684692149bce2e961b12c7"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-final-density.json",
+      "bytes": 707,
+      "sha256": "171d1c8a090f5cb49a292e08a802761951a64257e54a6113af896bc717d9aeff"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-final-spectrum.json",
+      "bytes": 290,
+      "sha256": "23781496233e355e4717fce6d7f78eac6c4473fe1e8bc7a128c3cf5c55af4556"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-000.csv",
+      "bytes": 32919255,
+      "sha256": "63f47df9097ca890d224f018236f75373d97187f5c024d6294b51c7336218fe2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-001.csv",
+      "bytes": 32919287,
+      "sha256": "86d4d51ce89dd8cedc3c08e092155e5c54ba0e8b89dc0fed9c4a168c097bbc34"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-002.csv",
+      "bytes": 32918832,
+      "sha256": "49b68eb5f952e3202a771beb870d8c42c81aca46968300e8a44d19abf4b58682"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-000-k000000.bin",
+      "bytes": 802816,
+      "sha256": "ca06fc721d048df4d66b0103461822e616e557c284d73899ad42a237bf6fc12c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-000-k000000.json",
+      "bytes": 318,
+      "sha256": "75140dcb780bd53cea94dd93c2c397706c3d2dae4c6cf5fba82495b5468c9c49"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-000-k002048.bin",
+      "bytes": 802816,
+      "sha256": "c97b2ad909c3f2073baf0dadc5a55504ad3810e0ffecc6d05edab7abc2d4f6a5"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-000-k002048.json",
+      "bytes": 321,
+      "sha256": "55d74f9b17c94999d9c1ebeb616af29821b4820e7e2df06e8b79abdfd3fbc870"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-000-k004095.bin",
+      "bytes": 802816,
+      "sha256": "660795a144f354ed695889b7dea53e1922ce69e416c4750a0950b220c93545e3"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-000-k004095.json",
+      "bytes": 321,
+      "sha256": "2d728cec97bbb465d53eff7b0f3cd69bf2e8aaf912e72838506f4f98b88624d0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-001-k000000.bin",
+      "bytes": 802816,
+      "sha256": "340b6d7a9886538a1aa24a93432c278b8dc14a13198a45fc18ca4c44f30d2070"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-001-k000000.json",
+      "bytes": 373,
+      "sha256": "40435d6b477d2d7f6c3bbbc9afc4cd6f8377624350fbd935522f1ef11022cdfc"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-001-k002048.bin",
+      "bytes": 802816,
+      "sha256": "fb4f90ea8171d61237fdb70ccb5fd122702473462789dbc2981d9b171352a1ca"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-001-k002048.json",
+      "bytes": 376,
+      "sha256": "5f5146c4853a0f3af2f77ee5ebf39419a33a09af20c356afb3a465b13aaf3258"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-001-k004095.bin",
+      "bytes": 802816,
+      "sha256": "7bb2d06e76871ca2d0c615bd78ec92002412ff0695c037b8dab6413771ba07c6"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-001-k004095.json",
+      "bytes": 376,
+      "sha256": "4c151e8fc22a50be88ebff903bb0998b46d0db70afceb75a05c8f4aa868bd601"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-002-k000000.bin",
+      "bytes": 802816,
+      "sha256": "1c9e8acc01d4a2d4c4881497a85bacb985fd6cf3c5ff7f3269dfb50b00da0708"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-002-k000000.json",
+      "bytes": 373,
+      "sha256": "09ea7d7a7fd4e74ec3657fa074d255eee003d8e2140b0e86df77de8e59fd94a8"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-002-k002048.bin",
+      "bytes": 802816,
+      "sha256": "3192ec5414f66e000eb988a81124bacfcf45259b02d906ac55ad21d0555ae441"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-002-k002048.json",
+      "bytes": 376,
+      "sha256": "96d559b5aba802b1ce0f78fc41c746d2e45ec1ea00014a06a84d28f32e5aa6a2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-002-k004095.bin",
+      "bytes": 802816,
+      "sha256": "e1eb0820dd72148b98fc6c50c5581e6feb725599577b1ad97c00ecfbdccfd7a8"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-matrices-002-k004095.json",
+      "bytes": 376,
+      "sha256": "5a05c7797c8740597a23c46791c98335b6a2c48ede54f102532fc6beec9443d5"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-frozen-potential.json",
+      "bytes": 2254,
+      "sha256": "844518b4bad42ffd8e4977a7074a2d0d49ad2f50416202bc44a421f2d1d4586f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-grid.json",
+      "bytes": 682,
+      "sha256": "27c4c342c6c9eedfd0dac5d6d94f4405f879f9d44f2f24259a7d3f9d05fafcb3"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-hs.json",
+      "bytes": 348,
+      "sha256": "d58364e72c6793b94bb01019bcc080a946a2d14fc2461cc2a47494769c568f9c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-initial-mesh-production.json",
+      "bytes": 616,
+      "sha256": "9f9e9abade6633d7222149d487d0161bfa81c890beb0089c067c6ffce18a9b66"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-initial-state.json",
+      "bytes": 516,
+      "sha256": "5726a690bca7105ff35b9d2d655db6cfc595bb87f49bd02cfe06308c3d982a1f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-nonlocal-geometry.json",
+      "bytes": 629,
+      "sha256": "592ea00759ee5736685fb66daa496b3448153343704ca790301eea8f0b9d0488"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-nonlocal-h0.json",
+      "bytes": 954,
+      "sha256": "53215095c433c25b4256803ae30c67d80fcca157facff70b0b45ea694ab05a88"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-orbital-basis.json",
+      "bytes": 582,
+      "sha256": "dde22e9cca9d304ed04f6158f5a0e826a051eb4bfa96ac283b9fd0a370f06166"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-pair-geometry.json",
+      "bytes": 323,
+      "sha256": "1128a1637f1d7324392b32ee63ce70a67f11d89c9d11b8ca715541108dbcf4bf"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-population.json",
+      "bytes": 371,
+      "sha256": "3053bd4d419acd57970b32f3f1852f266b94bbde60bd72533124511fa7d4ae24"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-residency.json",
+      "bytes": 3537,
+      "sha256": "598f9c2df1a70f141275c3a90745311c75b39dbe9fac0d2830e1228babb40a0a"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag-two-center-tables.json",
+      "bytes": 614,
+      "sha256": "abb14b10b539a7e8831374149adc0d54ccfdfed37412396f041b9a7f886210b2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag.DM",
+      "bytes": 6439404,
+      "sha256": "7796ed1f7e44beb60b34e3a84083d41fb13f7d0bb7ee7447c95669e85ebd12d5"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "81b4d5f4bdccc64f0fccf0c29211f83a47f234bcd624eb36e8ecd8425706abf9"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "81b97a798096e2f9a0b004211b2b93f956a97987c3d5f5e528f6a75805195c62"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "01635e7ad4bc92c6f34ce81c1d3ff57dcbe97fe991fffc688100f53b8aa750bc"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "0f2c2722cacc8cc60d55cdc77f0b341bb765eb76f56cb391d3563b0a331d112e"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/result.json",
+      "bytes": 10509424,
+      "sha256": "fbe7e08198cb60d232fed55eab74088f263ad2ce516716fe22b49e7f01f1c601"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/stdout.log",
+      "bytes": 61408,
+      "sha256": "e79572f3f3c00d6c6bbf1710353c66370ff124d5e7a0e92b3f8127e4d21dc29f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001/frozen_values/time.json",
+      "bytes": 3436,
+      "sha256": "072ecfb1d8433536fed0e3d5bbcb81051ddedad903682b8a2c9c04fc3f7a2d9a"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001-frozen_spin-analysis.json",
+      "bytes": 7456,
+      "sha256": "b897e2045a2d869dd9a0ebede39a12199affb5cd27417443215b4494fea2ad84"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_001-frozen_values-analysis.json",
+      "bytes": 6508,
+      "sha256": "cb094af1b55a1a2307096baf40c955c7f29589956ae19823ed31e6970b1022fa"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/Co.ion.nc",
+      "bytes": 98252,
+      "sha256": "e60f21b88a40ecef8ea5964695342237a7481a9aa4938f6c95c34d10afba66a7"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/DeltaRho.grid.nc",
+      "bytes": 8192368,
+      "sha256": "b20d4870852eda0be38480603c18311075f188ab3b0c60cc3a55c23f8d011487"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/Fe.ion.nc",
+      "bytes": 98252,
+      "sha256": "c43caf45a6ae485e68c00ff6cc593c09ef9ab1af76103c71557f83fe2e1eb91d"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/Rho.grid.nc",
+      "bytes": 8192360,
+      "sha256": "f8b17fad4202f8bffc318596021a11770c998cb648dd69522cffb15e3c1a63c5"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/fdf.20261025T221602.808.log",
+      "bytes": 31709,
+      "sha256": "0493f9d6226c34f541fb2fda75d0fbe2d369481f9c20c5d867468a06d4998a0b"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/gpu.csv",
+      "bytes": 38670,
+      "sha256": "8843e477516cdf164700bacb8ef102a3430c243b17193b8fb48940ea18ef2ed2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/independent-matrices.json",
+      "bytes": 12031,
+      "sha256": "5fa5535c14b99ed896d94447ddf0b6ba943c49501e464375d3bd0b45df7cae6f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/independent-matrices.log",
+      "bytes": 12031,
+      "sha256": "5fa5535c14b99ed896d94447ddf0b6ba943c49501e464375d3bd0b45df7cae6f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/input.fdf",
+      "bytes": 1453,
+      "sha256": "c85b7e6ef5eda8730e9e41b76f48d75f4f8e0d09fe71b3324420f7b098fa68ec"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/manifest.json",
+      "bytes": 3178,
+      "sha256": "58ac92f0e0cb0610ef3cac537b20be64e9ac3163b2db9ca116bd9d1ccd0ebff1"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-density-history.json",
+      "bytes": 566,
+      "sha256": "92a39482785aa9c5f2e6f1d36badae845fc92e6b33f8f8cc06b4e2dafa77061f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-device-scf.json",
+      "bytes": 1127,
+      "sha256": "a63ad894adb6ce632a2dbd74fed8a918d7bf55cc3eb48cff2a787af6d1cc7d3c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-dm.json",
+      "bytes": 509,
+      "sha256": "ac3c0ce4198972b22267c41b114c1c527c6b02385b5a226842cff40366000a2f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-energy-only.json",
+      "bytes": 214,
+      "sha256": "9342b7c18896b0f29fb3ca46ba77ba7698bf6bffc1761103c208c9335c5c0f6f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-final-density.json",
+      "bytes": 707,
+      "sha256": "171d1c8a090f5cb49a292e08a802761951a64257e54a6113af896bc717d9aeff"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-final-spectrum.json",
+      "bytes": 290,
+      "sha256": "23781496233e355e4717fce6d7f78eac6c4473fe1e8bc7a128c3cf5c55af4556"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-000.csv",
+      "bytes": 60769926,
+      "sha256": "682db15a41c749131fdab672a8205181782a6b68f732e417b48352edd2b68a4f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-001.csv",
+      "bytes": 61921927,
+      "sha256": "009fe8b346b5cf2cfc2cc35ef0b4d7edd099cde28a917f0e0af1c26a324dedbf"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-002.csv",
+      "bytes": 59609695,
+      "sha256": "421087bb36ef2fb68a0ae73de73ec17aaceed422ccd414f61fde8f243ef087ec"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-000-k000000.bin",
+      "bytes": 802816,
+      "sha256": "a04fd1391ee12c4dd92d24a421cbd221389bd2830dccd5e9fb6870cc92999591"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-000-k000000.json",
+      "bytes": 318,
+      "sha256": "75140dcb780bd53cea94dd93c2c397706c3d2dae4c6cf5fba82495b5468c9c49"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-000-k002048.bin",
+      "bytes": 802816,
+      "sha256": "19981ff0bce27ab993338047a531b6ec5c7d5bdaf862d9cf233e74d5788af599"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-000-k002048.json",
+      "bytes": 321,
+      "sha256": "55d74f9b17c94999d9c1ebeb616af29821b4820e7e2df06e8b79abdfd3fbc870"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-000-k004095.bin",
+      "bytes": 802816,
+      "sha256": "6d20c03f8143841c3aa0e3604a468f4dcc429c115320315384d2841a8d2c1d1b"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-000-k004095.json",
+      "bytes": 321,
+      "sha256": "2d728cec97bbb465d53eff7b0f3cd69bf2e8aaf912e72838506f4f98b88624d0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-001-k000000.bin",
+      "bytes": 802816,
+      "sha256": "59530bac29fbd170d47b3a7082654a2fc68cb1d2860a415bcd9ca2c49fdbce06"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-001-k000000.json",
+      "bytes": 373,
+      "sha256": "0165df257ae79bbff6fd03a96c70bd404933d7b447f09a9e7cff02d2c700fbab"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-001-k002048.bin",
+      "bytes": 802816,
+      "sha256": "3d4f45b89445e84c0f53840756640fe09c73050c734c93deb1fe9fdedd0be871"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-001-k002048.json",
+      "bytes": 376,
+      "sha256": "9730bbe6a882d895d402a367514d190d9f0b8f0172b7d379516f3c75534b1ae7"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-001-k004095.bin",
+      "bytes": 802816,
+      "sha256": "8b2ab78e4fcbf52e1bb6f35726a8cb21df7d517218dde392e0773114be942a0c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-001-k004095.json",
+      "bytes": 376,
+      "sha256": "ec85d49238839e7d303cd2b413df9e37f679f6f190b7f3fa39fcbffb4b01f829"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-002-k000000.bin",
+      "bytes": 802816,
+      "sha256": "ea0c24ae681a36d21079e5582ec70d9e51c5bb9a340a5aee055a6dbc92e2ad9a"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-002-k000000.json",
+      "bytes": 371,
+      "sha256": "b2751b4bd6bbedd532074af7da8c2c157a7c07809c81055851a8495dda792b84"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-002-k002048.bin",
+      "bytes": 802816,
+      "sha256": "d83ac8b3e478b233360e1dd5f346594ee2c5b591d5360dc422663368adc3b6ec"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-002-k002048.json",
+      "bytes": 374,
+      "sha256": "ffee0daedfa338f1933e54f389a31f5caa67b6473e8c26cf9b853f480fc72647"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-002-k004095.bin",
+      "bytes": 802816,
+      "sha256": "5caf86cb6bd0267281d9d54fed69eb3383bd649e9008e5bd52555cc7b70bf37f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-matrices-002-k004095.json",
+      "bytes": 374,
+      "sha256": "e55bc8c1b9782e95173eec84c4cd825e904f25297f5552e5edb01f8131591657"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-frozen-potential.json",
+      "bytes": 2412,
+      "sha256": "7e3d4c345d096eb8115129495678f1e623922035c686da3cb8e0f4c5e5b1b2f0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-grid.json",
+      "bytes": 682,
+      "sha256": "5288da4dfd0373115e82a279677364726fc5aa3b33d3607aca508cb14757741a"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-hs.json",
+      "bytes": 348,
+      "sha256": "d58364e72c6793b94bb01019bcc080a946a2d14fc2461cc2a47494769c568f9c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-initial-mesh-production.json",
+      "bytes": 616,
+      "sha256": "9f9e9abade6633d7222149d487d0161bfa81c890beb0089c067c6ffce18a9b66"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-initial-state.json",
+      "bytes": 516,
+      "sha256": "5726a690bca7105ff35b9d2d655db6cfc595bb87f49bd02cfe06308c3d982a1f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-nonlocal-geometry.json",
+      "bytes": 629,
+      "sha256": "592ea00759ee5736685fb66daa496b3448153343704ca790301eea8f0b9d0488"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-nonlocal-h0.json",
+      "bytes": 954,
+      "sha256": "029cb6dac35cfd490740c10cda7b9e845bf85bda4abc5a702de92e9cb340d7d8"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-orbital-basis.json",
+      "bytes": 582,
+      "sha256": "dde22e9cca9d304ed04f6158f5a0e826a051eb4bfa96ac283b9fd0a370f06166"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-pair-geometry.json",
+      "bytes": 323,
+      "sha256": "1128a1637f1d7324392b32ee63ce70a67f11d89c9d11b8ca715541108dbcf4bf"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-population.json",
+      "bytes": 371,
+      "sha256": "3053bd4d419acd57970b32f3f1852f266b94bbde60bd72533124511fa7d4ae24"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-residency.json",
+      "bytes": 3537,
+      "sha256": "dbe8781f3f3bed819024609da22d0aa36db361c12e2abcb581f94593ab9cc0a3"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag-two-center-tables.json",
+      "bytes": 614,
+      "sha256": "abb14b10b539a7e8831374149adc0d54ccfdfed37412396f041b9a7f886210b2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag.DM",
+      "bytes": 6439404,
+      "sha256": "1572a30126cf75bbfab7ab2eeae5fa101c42e96984f440008537cf8a5716708c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "2560120dc6c383f8a029203da37dade751be8600c9c4400e2d246cb77685150e"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "5604be4dd2db186ffab87bd6e62a7e5388fd1c2dafccb4deae826475df6d9ea6"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "27cb181177f9349812a27731948688b199b59ce2f397a19b0f48163a09a0c130"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "1b3e2b6780872b0446167420256ac9d7534f307845986fcf8b2724e1624e58dc"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/result.json",
+      "bytes": 10534390,
+      "sha256": "3a5be32aecc26bac5fe9266c22701f1c07e64fa2e55d996f892e4e7bdcf4b9c0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/stdout.log",
+      "bytes": 61750,
+      "sha256": "2b77c9a73650c43f568ec130f199414f20efa807eaf2f9ff537865293d4e11f0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110/frozen_spin/time.json",
+      "bytes": 3436,
+      "sha256": "520cad04b7a24ef197dcc9ece0de3fe223b751cd4024782535e34f7a083649ad"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_110-frozen_spin-analysis.json",
+      "bytes": 7451,
+      "sha256": "bee860c0682e030e6d50b6e85eccd5bf4040f45188391fabaec950b285966876"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/Co.ion.nc",
+      "bytes": 98252,
+      "sha256": "e60f21b88a40ecef8ea5964695342237a7481a9aa4938f6c95c34d10afba66a7"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/DeltaRho.grid.nc",
+      "bytes": 8192368,
+      "sha256": "60fdf87debecf1f42d75873beeb2b9de88ac3530b8df2e945a3b99f9642605a8"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/Fe.ion.nc",
+      "bytes": 98252,
+      "sha256": "c43caf45a6ae485e68c00ff6cc593c09ef9ab1af76103c71557f83fe2e1eb91d"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/Rho.grid.nc",
+      "bytes": 8192360,
+      "sha256": "3dea1df1bbbb0b01c7ceccf469f517b747e6b530140ed2b1d4697c4dd86643e9"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/fdf.20261025T221850.646.log",
+      "bytes": 31709,
+      "sha256": "de66586a3f2370d6a134316357931c88bf566847ab35cef4ef9d14669fd82b69"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/gpu.csv",
+      "bytes": 38787,
+      "sha256": "22882b052931d45c5eab393e58a760341bf05487dfd57e1d4122ad2cf09fc63d"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/independent-matrices.json",
+      "bytes": 12034,
+      "sha256": "e82ae9958c595b3fb4ad8463b7d7b117769b0885b389f1f21dc82f06c0d77a3a"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/independent-matrices.log",
+      "bytes": 12034,
+      "sha256": "e82ae9958c595b3fb4ad8463b7d7b117769b0885b389f1f21dc82f06c0d77a3a"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/input.fdf",
+      "bytes": 1453,
+      "sha256": "1679e257c69b8787e6c22e126676302c3e9de57aa995837f01fcbcc10f9a7604"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/manifest.json",
+      "bytes": 3207,
+      "sha256": "378714d79bbddbe3db7ba0980e5a7d970c046d1799e271567d30ec085c28bf34"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-density-history.json",
+      "bytes": 566,
+      "sha256": "92a39482785aa9c5f2e6f1d36badae845fc92e6b33f8f8cc06b4e2dafa77061f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-device-scf.json",
+      "bytes": 1126,
+      "sha256": "a6e85eda5c1c0e986e147261266d11da7a5bfd8f9c6271ad5f562a0fa208b953"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-dm.json",
+      "bytes": 509,
+      "sha256": "ac3c0ce4198972b22267c41b114c1c527c6b02385b5a226842cff40366000a2f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-energy-only.json",
+      "bytes": 214,
+      "sha256": "062765406c336a9e064296f760ce30cc8ed5efc50da673b973dace2c1f004ecf"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-final-density.json",
+      "bytes": 707,
+      "sha256": "171d1c8a090f5cb49a292e08a802761951a64257e54a6113af896bc717d9aeff"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-final-spectrum.json",
+      "bytes": 290,
+      "sha256": "23781496233e355e4717fce6d7f78eac6c4473fe1e8bc7a128c3cf5c55af4556"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-000.csv",
+      "bytes": 59610004,
+      "sha256": "23a626eb679f391caaffbba6de9d613c7a2364c964add4196784fe1b6e6e1af9"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-001.csv",
+      "bytes": 61930626,
+      "sha256": "81b2a418677e6ce9fbedcd99491e7deed31b11fce1991c014a7bf8124458ca91"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-002.csv",
+      "bytes": 60766904,
+      "sha256": "686e192e0f896505a4ab55c6d9acb293d67af7aa455a3206a9972c908e8fafec"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-000-k000000.bin",
+      "bytes": 802816,
+      "sha256": "8b799ea045df23b4d29f9c4d71d628a5e6ebc631a21d2714994536849f21a0a4"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-000-k000000.json",
+      "bytes": 318,
+      "sha256": "75140dcb780bd53cea94dd93c2c397706c3d2dae4c6cf5fba82495b5468c9c49"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-000-k002048.bin",
+      "bytes": 802816,
+      "sha256": "e32cb7a883877066b49cfe7ed84a490e994af720d2106d43f97d8663082be130"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-000-k002048.json",
+      "bytes": 321,
+      "sha256": "55d74f9b17c94999d9c1ebeb616af29821b4820e7e2df06e8b79abdfd3fbc870"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-000-k004095.bin",
+      "bytes": 802816,
+      "sha256": "0eb0acc55b7a5a58b9d5252a15c10f7219d1fa68a946f45a0736f5951a05dfa0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-000-k004095.json",
+      "bytes": 321,
+      "sha256": "2d728cec97bbb465d53eff7b0f3cd69bf2e8aaf912e72838506f4f98b88624d0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-001-k000000.bin",
+      "bytes": 802816,
+      "sha256": "5f96cbfe72cef3700a9e84cfdb8a13a1c71c0c3b7f72084b50a8b64041c7b4ae"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-001-k000000.json",
+      "bytes": 373,
+      "sha256": "403020ceea09459456586fb22a4e71916e6f0200b51ed6b0c4e673967ede5981"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-001-k002048.bin",
+      "bytes": 802816,
+      "sha256": "c76e373c593f989b45a014afc629e1e226fc843e0beb1d187f9ac84d811190eb"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-001-k002048.json",
+      "bytes": 376,
+      "sha256": "3363b3db917f711f9ea8e9006c6b9d197dd51a5c2d134c8642c55017da2c5140"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-001-k004095.bin",
+      "bytes": 802816,
+      "sha256": "d34e7349df8c74d909a46348f7d182b8a0932192fc3e3c485ab2793c47952cc7"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-001-k004095.json",
+      "bytes": 376,
+      "sha256": "4af69b41eaa36979f7d393b88605df6860f2668cd2c0743d1ab568db7a4425ab"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-002-k000000.bin",
+      "bytes": 802816,
+      "sha256": "359a873b2f04676488a81340d791083e57e0e1fa0772b67190a617aa25fb4338"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-002-k000000.json",
+      "bytes": 371,
+      "sha256": "43c0f0cbce333e204623a7f0bca5394b368ff32716491c9bc08fe8a8e0cdd645"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-002-k002048.bin",
+      "bytes": 802816,
+      "sha256": "97dec31261a3d7cabf89ef89b0368983c7f6ffa7a1848aff8135616ef3247109"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-002-k002048.json",
+      "bytes": 374,
+      "sha256": "243741dbfaa63fcf93ebeb769d31e6a4d3c8b8677c5509821cd4049c6b153453"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-002-k004095.bin",
+      "bytes": 802816,
+      "sha256": "1f1a4970fb22a9440b416b170f4685d07948298f3aba38c4f4db25beab0e97c4"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-matrices-002-k004095.json",
+      "bytes": 374,
+      "sha256": "b77eaa2a796d5c08363bc5a3c4cfcc88b8cbbc6b5efbe9d22c29e92949d66c38"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-frozen-potential.json",
+      "bytes": 2426,
+      "sha256": "7c2ee6fb26bb020425daaef822ea658cff4686d9f653632746bfdfe924ba9e66"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-grid.json",
+      "bytes": 682,
+      "sha256": "787f5e0ef2dc4c120110413444449ad8e6a1f8e0069df9b8aee3d85b7f65d866"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-hs.json",
+      "bytes": 348,
+      "sha256": "d58364e72c6793b94bb01019bcc080a946a2d14fc2461cc2a47494769c568f9c"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-initial-mesh-production.json",
+      "bytes": 616,
+      "sha256": "9f9e9abade6633d7222149d487d0161bfa81c890beb0089c067c6ffce18a9b66"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-initial-state.json",
+      "bytes": 516,
+      "sha256": "5726a690bca7105ff35b9d2d655db6cfc595bb87f49bd02cfe06308c3d982a1f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-nonlocal-geometry.json",
+      "bytes": 629,
+      "sha256": "592ea00759ee5736685fb66daa496b3448153343704ca790301eea8f0b9d0488"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-nonlocal-h0.json",
+      "bytes": 944,
+      "sha256": "81d0ab2e0d97128988f4bde410aaa9521b7a9de09ef5fbec198c8763f6e35f19"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-orbital-basis.json",
+      "bytes": 582,
+      "sha256": "dde22e9cca9d304ed04f6158f5a0e826a051eb4bfa96ac283b9fd0a370f06166"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-pair-geometry.json",
+      "bytes": 323,
+      "sha256": "1128a1637f1d7324392b32ee63ce70a67f11d89c9d11b8ca715541108dbcf4bf"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-population.json",
+      "bytes": 371,
+      "sha256": "3053bd4d419acd57970b32f3f1852f266b94bbde60bd72533124511fa7d4ae24"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-residency.json",
+      "bytes": 3537,
+      "sha256": "d1927b6d26c9065d1ed85ddad1ec6a175c2c1a33be49d89ac1fa3bf677610287"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag-two-center-tables.json",
+      "bytes": 614,
+      "sha256": "abb14b10b539a7e8831374149adc0d54ccfdfed37412396f041b9a7f886210b2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag.DM",
+      "bytes": 6439404,
+      "sha256": "9c07c90df68c06c8cb6a2724db1c90fdb329aff9e4b57977f08ff9c69848c84b"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "bd73b8c559d52b9519a47bf5af971b334fabad0e0ecb968c8087b415f136f5d2"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "abd05d5de6273826cc1f4014ddd8980e57d7677ee2a1fb6bf02133023c381dc0"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "89a4852fe4d913fde9db74b2540d097a622f3bb3ae221c34fce14b8ffe0d846a"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "efbb088156a4fbcf4a0e09cdba773596d3fe0bf0d02009fb0bcfff2bfc9ddf89"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/result.json",
+      "bytes": 10534569,
+      "sha256": "9989a2faf495037756d48bbd051acef49cfb67e0f328d25f06fc953d124bd159"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/stdout.log",
+      "bytes": 61920,
+      "sha256": "af74def4d0d01701947ca363235ae3db6fdc17d9779a4fc6c52d7b2b99b1fe29"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111/frozen_spin/time.json",
+      "bytes": 3436,
+      "sha256": "49c8a214516adcaf1007865dd5f25e834da2d47386f8345866c9df570e30bf0b"
+    },
+    {
+      "path": "grid2000_shift0p00125_k16_t300_111-frozen_spin-analysis.json",
+      "bytes": 7468,
+      "sha256": "735b5b635174d13ed4ca72023771a03bc30a6ed0cb017a9884a5f61f886b608b"
+    },
+    {
+      "path": "implementation.tar.gz",
+      "bytes": 568609,
+      "sha256": "2605582ab006cea17888fea8235ad4b63510f9edc80266b9bc4111a1d362d0aa"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_001/input.fdf",
+      "bytes": 1449,
+      "sha256": "1b6c0e794ac1a634194eac379564742be053a600ceed84452cec3cac89628573"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_001/manifest.json",
+      "bytes": 3146,
+      "sha256": "4438dc2370c82c17c3145aa6c3ece9fa474b9bf3f7c6401fc017c4431884a084"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_110/input.fdf",
+      "bytes": 1453,
+      "sha256": "c85b7e6ef5eda8730e9e41b76f48d75f4f8e0d09fe71b3324420f7b098fa68ec"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_110/manifest.json",
+      "bytes": 3178,
+      "sha256": "58ac92f0e0cb0610ef3cac537b20be64e9ac3163b2db9ca116bd9d1ccd0ebff1"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_111/input.fdf",
+      "bytes": 1453,
+      "sha256": "1679e257c69b8787e6c22e126676302c3e9de57aa995837f01fcbcc10f9a7604"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_111/manifest.json",
+      "bytes": 3207,
+      "sha256": "378714d79bbddbe3db7ba0980e5a7d970c046d1799e271567d30ec085c28bf34"
+    },
+    {
+      "path": "inputs/tzdp_np_s25_m400_k4_t300_x/input.fdf",
+      "bytes": 1468,
+      "sha256": "177d77e3c25033452a3e4965e97e05cc8716dd9f21f81e62ddb3f4579a0d4398"
+    },
+    {
+      "path": "inputs/tzdp_np_s25_m400_k4_t300_x/manifest.json",
+      "bytes": 1290,
+      "sha256": "d2f0528df9522a1c43e380b42618b8f9bbfde11520ac64e16c21dee4db0031c3"
+    },
+    {
+      "path": "inputs/tzdp_np_s25_m400_k4_t300_z/input.fdf",
+      "bytes": 1466,
+      "sha256": "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2"
+    },
+    {
+      "path": "inputs/tzdp_np_s25_m400_k4_t300_z/manifest.json",
+      "bytes": 1289,
+      "sha256": "661c21e8e3018f074e53869d2dc718903bec2f94a5e53aae0934793c25a98fcd"
+    },
+    {
+      "path": "launcher-source/PREPARED.md",
+      "bytes": 1905,
+      "sha256": "554a67d7ab2c3b6a04358ed7a1594fe8fae1ce101d3acc006b6ccb891b357f37"
+    },
+    {
+      "path": "launcher-source/analyze.py",
+      "bytes": 5786,
+      "sha256": "7a5c118921cd652e051e5d4fdf2f0e170c41f17c6903b17b781eaa2953262782"
+    },
+    {
+      "path": "launcher-source/analyze_local.py",
+      "bytes": 3472,
+      "sha256": "6789ebd20b30800bd0bf04ce8ea829dd0c5d8e670e53a37a87be1f0df1a216f9"
+    },
+    {
+      "path": "launcher-source/check_frozen_matrices.py",
+      "bytes": 8334,
+      "sha256": "0a9ae9be614348eabc417338f128134c6b08ab10e590078efc3aa1d85faafa46"
+    },
+    {
+      "path": "launcher-source/experiment.json",
+      "bytes": 27153,
+      "sha256": "2bc93428b82cc847afa5facf937afda23ebd68c9c176a587cd0dbd26bcbf5358"
+    },
+    {
+      "path": "launcher-source/feco-0-rotations.txt",
+      "bytes": 126,
+      "sha256": "0cbc5a9df198ffb10108fbbb50e827c3ae8ac22182bcf6e5ffa2717d7339296b"
+    },
+    {
+      "path": "launcher-source/feco-1-rotations.txt",
+      "bytes": 124,
+      "sha256": "45a3740fd9139f89ed23452cbbedc8a7baef9b48f492b8171fddc90de91a00c3"
+    },
+    {
+      "path": "launcher-source/feco-2-rotations.txt",
+      "bytes": 124,
+      "sha256": "8e82850e9641f75aafd2ccd41e09972859f1f1a771f60922ec6b80fc23fc7e69"
+    },
+    {
+      "path": "launcher-source/fept-0-rotations.txt",
+      "bytes": 44,
+      "sha256": "0b8c755f2a0024108fb823c6e6d72477f1a5aaef1308dd6345938e2dc046690c"
+    },
+    {
+      "path": "launcher-source/property_app.py",
+      "bytes": 13786,
+      "sha256": "035ad35bdf4454c3d58f17ca5ff187d00c04b971bb3dfe205f474be2d215284a"
+    },
+    {
+      "path": "launcher-source/rebuild.py",
+      "bytes": 1415,
+      "sha256": "df42f83fbb4a423cd01fd10d5a3a7e11a600689b96d623c38a989707555799bc"
+    },
+    {
+      "path": "launcher.log",
+      "bytes": 4555,
+      "sha256": "c406b2b8bc52baac91c59bdeddc13423a70c1d45b68fce369577e8126c2dd987"
+    },
+    {
+      "path": "ledger.json",
+      "bytes": 5329,
+      "sha256": "503f50f9d1caf2278e51d93c751917a496694b598a6108092b2247053f7f5ddd"
+    },
+    {
+      "path": "local-independent-matrices.json",
+      "bytes": 55223,
+      "sha256": "a6e8e3c24ba76f941efe3e2b7c6d8605936608212a2461120d43ba303de1703b"
+    },
+    {
+      "path": "local-qualification.json",
+      "bytes": 76441,
+      "sha256": "5474f9abe92ec16ef22e65ea4714260900785e172a25ec2b4bd2b3f72c250d03"
+    },
+    {
+      "path": "metadata.json",
+      "bytes": 49620,
+      "sha256": "c669ac6053218f224744be689a22ae376e459f5bdd7f543b296c1404f58a1f60"
+    },
+    {
+      "path": "method-bias.json",
+      "bytes": 3678,
+      "sha256": "a0d818d6ecf25cd2e884873ed49ed25bd546ef00b63273cd2e300647a23ab9f4"
+    },
+    {
+      "path": "reference-sensitivity.json",
+      "bytes": 1577,
+      "sha256": "6afa3f4ca4a179ba0e98a31d721204661a00633626fdc1b7dcbd72612bef570f"
+    },
+    {
+      "path": "run-attempt.json",
+      "bytes": 293,
+      "sha256": "49d66549a59b8eea5f1011c1b5f32b04125ee2075695bbe38bc0d62b7f167d84"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 288,
+      "sha256": "941213723f9affccf5d998445255f5a1dd3e1c978602c54e2b67e6d1847fdb52"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "e7376bb42f1017c42d688927e8c73f90aa3179a1de1f7144ad1ba3d3a0c920dc"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "a67d3ea691faee7616a370614f48beacf45ec556bd95c4232770191d3630df47"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/fdf.20261025T221023.956.log",
+      "bytes": 31415,
+      "sha256": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/gpu.csv",
+      "bytes": 3890,
+      "sha256": "6aee1d22e09a97ed02bfb705ee479920f53012c3ce9954aba28ef4c57c993090"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/independent-matrices.json",
+      "bytes": 8059,
+      "sha256": "c634b816945c883f488ca8824056bb39c5db4ca8cdd500e25d77f48a89d12e55"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/independent-matrices.log",
+      "bytes": 8059,
+      "sha256": "c634b816945c883f488ca8824056bb39c5db4ca8cdd500e25d77f48a89d12e55"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/input.fdf",
+      "bytes": 1466,
+      "sha256": "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/manifest.json",
+      "bytes": 1289,
+      "sha256": "661c21e8e3018f074e53869d2dc718903bec2f94a5e53aae0934793c25a98fcd"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-density-history.json",
+      "bytes": 567,
+      "sha256": "418654862cfe71697737fc9907aa7db99c19d75d0979c84bfe7a7767b2aba960"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-device-scf.json",
+      "bytes": 1092,
+      "sha256": "a42628b7ce68659cbbe18254c4792f90fb57158bfdb9b9ae57f36bec28f30810"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-dm.json",
+      "bytes": 508,
+      "sha256": "cfbf97424b12d1417ab71c3f747b0f3a816e3cfa84875a377708e3f5b347659d"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-energy-only.json",
+      "bytes": 215,
+      "sha256": "88e24153f0bfc5f454fac2aa3efa260739726926c7878de96d8f27c68e5f3836"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-final-density.json",
+      "bytes": 703,
+      "sha256": "157207be5454d01b3160c8f1871fc3ed90db09dc06e4805b2aa0870b5a65a1fb"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-final-spectrum.json",
+      "bytes": 284,
+      "sha256": "a987e09c3084abc3aa1e54427795eca83b34e50c19a63ff80116ba07b20f91af"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-000.csv",
+      "bytes": 765103,
+      "sha256": "58f2745418be9cc68d1edd6eae6df0b500cc48d0d60a89f5eead2f8f1bde6d34"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-001.csv",
+      "bytes": 763959,
+      "sha256": "8683961267c74105ff3ad9fe7fe0071bfd98e8b625e3ab473f20db39a407972b"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000000.bin",
+      "bytes": 589824,
+      "sha256": "fb9acd8b6bcffb197c27287a43fd88f7e8d5132cc7dd73a1d8de2eee337ef2b7"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000000.json",
+      "bytes": 315,
+      "sha256": "eb7ee656a148cf8f92e1c00b0ac17aac8008d0bd77dbad28dfd286042d92a6e5"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000032.bin",
+      "bytes": 589824,
+      "sha256": "b1ea954dca00d3fb975ffbcb28ac492ed547fd3b6d1b12450488cf15c92fb6f3"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000032.json",
+      "bytes": 316,
+      "sha256": "1e142a153336684e052bee6a66bf14a40320b89893ad731c1a5ec62bbca4d313"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000063.bin",
+      "bytes": 589824,
+      "sha256": "76f25cf26a5b970194cea89776e566384b4cb4fb2422aecb8cafff481c0768db"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000063.json",
+      "bytes": 316,
+      "sha256": "ef54c43b6483e7b76533deb6ce647a7aadad9681e7286c0b185f57d2fb6bfd5f"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000000.bin",
+      "bytes": 589824,
+      "sha256": "4c8dab5e8d7d4b67b123876ccc9d03c7973d057ca0501ad22bb4a6e6fa34cb9d"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000000.json",
+      "bytes": 351,
+      "sha256": "81fbe5553b0718c5313724cb0e047d3cbe85e7c0de504b24fc16e0b6163195a9"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000032.bin",
+      "bytes": 589824,
+      "sha256": "d0dbda42089f0287f789b0d8b58212e1b6beb794609f9126fe5e6e60993942e5"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000032.json",
+      "bytes": 352,
+      "sha256": "b4c3d2bd4a4bbc95937632879c56be8c5d13abaa8dd53ee9ddf13e8581bd58fe"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000063.bin",
+      "bytes": 589824,
+      "sha256": "78e25d64a4d20f8a9aa5fa116a79b4996a9979de49fd0685a72a8d0bce9befa9"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000063.json",
+      "bytes": 352,
+      "sha256": "8ffc4dff001b621790c498bd15eab64e0e781224f131805883a2d58b8e42acab"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-potential.json",
+      "bytes": 1767,
+      "sha256": "352f5ae85fe5c3c05f1d2b9f4fc25ab3903bd2c9ae66649f9ca2f97dc847e3cc"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-grid.json",
+      "bytes": 678,
+      "sha256": "1ef1eaef11a30b0be4339d4a59c4f6c3bc33efbf4acc7fbc5a255393b64307b7"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-hs.json",
+      "bytes": 348,
+      "sha256": "98710c9182f28c28d7002642f3e0df66d7ace2f08b54e1e41d0d85bbf1f8975b"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-initial-mesh-production.json",
+      "bytes": 611,
+      "sha256": "359677ba8dacff4860c4599cc6c7ccc2015b5b0f8d05ed2f6df99ba563a53ad4"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-initial-state.json",
+      "bytes": 517,
+      "sha256": "6e99021a87f9fcff10924623697bfbc078b110f36ac8d737026524d0b0001c19"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-nonlocal-geometry.json",
+      "bytes": 628,
+      "sha256": "f9b12bfb58cbf3d92133409a95056fb87f6338c73de96e52c439eeec5d2724aa"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-nonlocal-h0.json",
+      "bytes": 966,
+      "sha256": "32c10d477f3e8b637946319f91e5721d5ea7d377f966961f27509bf44d667478"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-orbital-basis.json",
+      "bytes": 571,
+      "sha256": "07af0fb7395c3dd609de3c58e62ed0e8e7f0458876bd2c7141a2afa295fd0030"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-pair-geometry.json",
+      "bytes": 322,
+      "sha256": "d224c981bca3abab44eec643dfe70a0a5d2dbc738d4f7e7dab20b36582d4fd8a"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-population.json",
+      "bytes": 372,
+      "sha256": "31b6a1ddfd7ea716df9dd68066e89cb2a41acfd8c172ff8fe6151c2cc4f33a10"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-residency.json",
+      "bytes": 3528,
+      "sha256": "39fc81f7a2982e4ed1b017e53a286acf302524cf0161493ad22131c15865a886"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag.DM",
+      "bytes": 8026324,
+      "sha256": "85c127af6176d696c16cedd1f384752352467c74ab1b676f8d315dd68f286773"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "cc49ff4c56f8c3f9109784715e5d3ee8978c82746b0a92e0863cd1a28b18ccc6"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag.EIG",
+      "bytes": 117675,
+      "sha256": "4e517a83197c114a2c994e496f36d3209e6b7490b4e491c52bccf8132c8b8dea"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "d459a87a86faf8c3a31f2346681bc9546ea95b85feb8897408521dd3a3ff1dbb"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "f154b225971b4120e4d57d207f9bcac99d8fb662d9bcedb0926d915950a7f409"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/result.json",
+      "bytes": 198154,
+      "sha256": "add181a7594c52bdbfaf580b533784ec4081c52737c4cef60ac889133bf2d766"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/stdout.log",
+      "bytes": 59810,
+      "sha256": "facca78fd3c80b62497e90012f8cb9eef8f7b45033fee9ac215116b9be899b18"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z/frozen_spin/time.json",
+      "bytes": 3436,
+      "sha256": "84879f308f60ea0461ab6ed6a188ace3ec651c3bff7eb74a22ff6759086a1014"
+    },
+    {
+      "path": "tzdp_np_s25_m400_k4_t300_z-frozen_spin-analysis.json",
+      "bytes": 5343,
+      "sha256": "e9467ae237e53e731380e9a8923c5b32229b678028a52e497978f40af19d96b7"
+    }
+  ]
+}

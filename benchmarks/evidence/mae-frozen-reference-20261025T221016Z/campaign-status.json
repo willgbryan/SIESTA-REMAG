@@ -1,0 +1,28 @@
+{
+  "status": "diagnostic_complete",
+  "run_id": "mae-frozen-reference-20261025T221016Z",
+  "deadline_epoch": 1792967116.13148,
+  "allocation_released": true,
+  "authorization": {
+    "user_reply": "Approve up to 15 H100-minutes",
+    "recorded_at_utc": "2026-10-25T22:09:46.695324+00:00",
+    "scope": "Prepared five-calculation exact-Hamiltonian, FeCo reference-direction sensitivity and eigenvalues-only diagnostic; one H100 at a time; no deadline extension or automatic restart."
+  },
+  "authorized_gpu_seconds": 900,
+  "app_id": "ap-kGZs7NXNYvmJQzEj99Jqzo",
+  "function_call_id": "fc-01M5THTJGD5FGQS45WCTWA6DYX",
+  "launcher_session": 76211,
+  "launcher_log": "/tmp/remag-mae-frozen-reference-20261025.log",
+  "results": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-frozen-reference-20261025T221016Z",
+  "stopping_reason": "Selected-k independent matrix checks and reference sensitivity measured; physical qualification remains open",
+  "completed_attempt_id": "5b5324782a4f47d9bbf17d6730430ba7",
+  "local_checks_passed": true,
+  "method_replacement_qualified": false,
+  "physical_accuracy_qualified": false,
+  "completed_calculations": 5,
+  "planned_calculations": 5,
+  "remote_checks": 20,
+  "independent_matrix_captures": 42,
+  "finished_at_utc": "2026-10-25T22:27:32.123887+00:00",
+  "report": "results/mae-frozen-reference-20261025T221016Z/REPORT.md"
+}

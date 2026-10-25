@@ -48,7 +48,7 @@ cases. This establishes the recorded identity-spectrum, occupation, moment and
 full-SCF regression checks; it does not independently validate every rotated
 Hamiltonian or qualify the approximation as a replacement for full SCF.
 
-For the next qualification stage only, build with
+For experimental qualification only, build with
 `-DREMAG_BUILD_FROZEN_POTENTIAL=ON` and set `REMAG_FROZEN_ROTATIONS` to a file of
 relative `w x y z` quaternions, one per line. Identity is evaluated first.
 `REMAG_FROZEN_SPIN_EXPECTATIONS=0` selects eigenvalues-only for a matched control;
@@ -71,15 +71,28 @@ ordering. These are fixed-setting, 300 K electronic-smearing results, not
 physically converged MAE. The probe remains experimental and disabled by
 default; the README's usable capability remains energy-only full SCF.
 
-The next priority is an independent frozen-Hamiltonian construction check and
-reference-direction sensitivity, including whether a common scalar-relativistic
-reference improves the result. Resolve that discrepancy before optimizing
-throughput or adopting the approximation for screening. Retain the same energy,
-free-energy and direction gates. The FeCo eigenvalues-only control and repeated
-performance measurements remain open; neither can establish a useful speedup
-until the required accuracy is met.
+The [reference-direction diagnostic](../benchmarks/evidence/mae-frozen-reference-20261025T221016Z/REPORT.md)
+subsequently completed all five calculations and passed all 20 remote checks,
+42 independent selected-k matrix captures, and FeCo's eigenvalues-only control.
+The latter agrees with vector solves within 5.36e-8 eV per eigenvalue and
+3.79e-11 eV in directional band/free differences. This closes the missing
+implementation control without qualifying the approximation.
 
-The next diagnostic can set `REMAG_FROZEN_MATRIX_SAMPLES=1` to retain the exact
+FeCo's frozen [110]−[001] free-energy difference changes from +105.007912 to
+−106.512299 micro-eV/f.u. between [001] and [110] references, while fresh
+full SCF gives +8.561012. The reference spread is 211.520211 micro-eV/f.u.;
+the [111]−[001] spread is 131.031144. These are unchanged 300 K electronic
+smearing, 16³-mesh results, not physical convergence. Every reference predicts
+itself lowest among its sampled rotations. Passing matrix checks does not
+make this method suitable for screening.
+
+The next useful test is a common SOC-free, spin-polarized reference retaining
+scalar-relativistic terms, followed by the same fixed-lattice-SOC rotations and
+full-SCF anchors. This is an untested hypothesis for reducing the measured
+reference dependence. Resolve the E/F bias before throughput optimization or
+interpolation, retaining the same energy, free-energy and direction gates.
+
+The optional diagnostic `REMAG_FROZEN_MATRIX_SAMPLES=1` retains the exact
 generator H, overlap, fixed lattice SOC and rotated H at the first, middle and
 last mesh indices (duplicates removed). It uses one additional buffer capped
 at 64 MiB, retains both assembled triangles, counts its downloads and performs
@@ -88,17 +101,22 @@ with the development dependencies to compare these captures with independent
 NumPy SU(2) multiplication and SciPy generalized eigensolves. The check also
 quantifies whether rotating before taking the solver's lower Hermitian triangle
 changes the spectrum, and tests rotation invariance after removing SOC. This
-selected-k diagnostic has local positive/negative tests; its CUDA capture path
-has not yet run. It cannot replace the full-mesh, full-SCF or physical-accuracy
+selected-k diagnostic has local positive/negative tests and now passes its
+sampled CUDA runtime checks: matrix rotation error is at most 6.47e-15 Ry and
+spectral error at most 4.18e-10 eV. It cannot replace the full-mesh, full-SCF or physical-accuracy
 checks, and terminal HSX output is not a substitute for this generator capture.
 
-The prepared follow-up has five serial calculations: FePt z with frozen x,
+The completed follow-up has five serial calculations: FePt z with frozen x,
 FeCo [001] with frozen [110]/[111], its eigenvalues-only control, and FeCo
 [110] and [111] references each rotated to the other two directions. This
 isolates implementation error and reference sensitivity with unchanged inputs
 and historical pristine-SIESTA evidence; it adds no full CPU-SCF timing runs.
-The previous allocation is released. This batch is awaiting a new budget and
-must not launch against the expired allowance.
+The single H100 allocation is released, with zero account containers. Its
+conservative app lifetime was 856.537442 seconds, including image building,
+within the newly approved 900-second allowance. The diagnostic completed before
+its fixed deadline; there was no restart or follow-on allocation. Raw evidence
+and method failures are retained. Repeated comparable performance measurements
+remain open; no useful or upstream-GPU speedup is established.
 
 Local angular analysis now fits explicitly selected cubic sixth-order or axial
 quartic invariants, with separate energy estimators and units. It rejects
@@ -115,7 +133,7 @@ uses the recorded final moments and keeps total/free and SCF/frozen energies
 separate. Three directions determine a constant and two cubic coefficients
 exactly, leaving no independent test of omitted angular terms. Proposed [210]
 and [211] holdouts and the [100]/[001] cubic equivalence control remain unrun
-and are not added to the pending five-calculation diagnostic budget.
+and were not part of the completed five-calculation diagnostic budget.
 
 ## Implementation sequence
 

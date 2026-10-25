@@ -1,0 +1,92 @@
+{
+  "tzdp_np_s25_m400_k4_t300_z": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": -0.0013575835846495465,
+        "full_scf_free_difference_ev": -0.000541785467248701,
+        "frozen_band_difference_ev": -0.0013579444338205407,
+        "frozen_band_free_difference_ev": -0.0005795817729612583,
+        "total_bias_ev": -3.608491709941857e-07,
+        "free_bias_ev": -3.7796305712557254e-05,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  },
+  "grid2000_shift0p00125_k16_t300_001": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": 7.4461131589487195e-06,
+        "full_scf_free_difference_ev": 8.561011782148853e-06,
+        "frozen_band_difference_ev": 0.00010360535368403037,
+        "frozen_band_free_difference_ev": 0.0001050079122452727,
+        "total_bias_ev": 9.615924052508165e-05,
+        "free_bias_ev": 9.644690046312384e-05,
+        "within_5_microev_diagnostic_target": false
+      },
+      {
+        "index": 2,
+        "full_scf_total_difference_ev": 2.0732781194965355e-05,
+        "full_scf_free_difference_ev": 2.221464728791034e-05,
+        "frozen_band_difference_ev": 4.203727656911279e-05,
+        "frozen_band_free_difference_ev": 4.367733241045982e-05,
+        "total_bias_ev": 2.1304495374147435e-05,
+        "free_bias_ev": 2.1462685122549478e-05,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  },
+  "grid2000_shift0p00125_k16_t300_110": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": -7.4461131589487195e-06,
+        "full_scf_free_difference_ev": -8.561011782148853e-06,
+        "frozen_band_difference_ev": 0.00010732731486004831,
+        "frozen_band_free_difference_ev": 0.00010651229920512076,
+        "total_bias_ev": 0.00011477342801899703,
+        "free_bias_ev": 0.00011507331098726961,
+        "within_5_microev_diagnostic_target": false
+      },
+      {
+        "index": 2,
+        "full_scf_total_difference_ev": 1.3286668036016636e-05,
+        "full_scf_free_difference_ev": 1.3653635505761486e-05,
+        "frozen_band_difference_ev": 1.8719461464655118e-05,
+        "frozen_band_free_difference_ev": 1.9158487625859066e-05,
+        "total_bias_ev": 5.432793428638483e-06,
+        "free_bias_ev": 5.50485212009758e-06,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  },
+  "grid2000_shift0p00125_k16_t300_111": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": -2.0732781194965355e-05,
+        "full_scf_free_difference_ev": -2.221464728791034e-05,
+        "frozen_band_difference_ev": 4.700953578068273e-05,
+        "frozen_band_free_difference_ev": 4.564705713778794e-05,
+        "total_bias_ev": 6.774231697564808e-05,
+        "free_bias_ev": 6.786170442569828e-05,
+        "within_5_microev_diagnostic_target": false
+      },
+      {
+        "index": 2,
+        "full_scf_total_difference_ev": -1.3286668036016636e-05,
+        "full_scf_free_difference_ev": -1.3653635505761486e-05,
+        "frozen_band_difference_ev": 1.9959858713145963e-05,
+        "frozen_band_free_difference_ev": 1.9635559499694548e-05,
+        "total_bias_ev": 3.32465267491626e-05,
+        "free_bias_ev": 3.328919500545604e-05,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  }
+}
