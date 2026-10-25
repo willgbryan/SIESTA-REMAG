@@ -4,6 +4,19 @@ These existing records are copied verbatim from completed experiments. The
 [manifest](manifest.json) records their original local paths and SHA-256 hashes.
 No new calculations were performed to populate this directory.
 
+## MAE profiling, 25 October 2026
+
+The [FeCo profile](mae-profile-20261025-20261025T193930Z/profile-analysis.json)
+retains three full-SCF direction runs at 16³ k sampling, 300 K smearing,
+TZDP/0.00125 Ry confinement and nominal 2000 Ry (actual 80³ grid).
+Assembly/eigensolving takes about 70–72% of the profiled electronic cycle;
+geometry/H0 setup takes about 25–26 seconds per direction. Final force work
+takes about 1.3–1.4 seconds but retains 6,330,653,056 bytes of orbital
+derivatives. This motivates removing derivative storage and avoiding repeated
+SCF/setup work. Profiling perturbs timing; these are individual observations,
+not paired speedups or physically converged anisotropy. Raw result hashes,
+source identities and allocation release are retained with the record.
+
 ## H100 native-architecture qualification, 12 October 2026
 
 [Hopper qualification](hopper-qualification-v187-20261012T214738Z/qualification.json) records 72 passing

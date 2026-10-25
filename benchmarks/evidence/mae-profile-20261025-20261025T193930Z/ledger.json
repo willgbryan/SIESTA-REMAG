@@ -1,0 +1,455 @@
+[
+  {
+    "case": "grid2000_shift0p00125_k16_t300_001",
+    "point": "grid2000_shift0p00125_k16_t300",
+    "direction": "001",
+    "soc_enabled": true,
+    "actual_grid": [
+      80,
+      80,
+      80
+    ],
+    "actual_grid_cutoff_ry": 2168.227,
+    "variant": "grid2000_shift0p00125",
+    "k": 16,
+    "temperature_k": 300,
+    "valid": true,
+    "errors": [],
+    "execution_valid": true,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T193942.247.log": "896891ff3252634f88954bb72c752a88a14aded25b4afff615907dcf0f173fb2"
+      }
+    },
+    "wall_seconds": 104.411512297,
+    "returncode": 0,
+    "timed_out": false,
+    "scf_iterations": 33,
+    "energy_ev": -7573.847759884539,
+    "free_energy_ev": -7573.850477404338,
+    "spin_vector_muB": [
+      0.0,
+      -0.0,
+      4.59251
+    ],
+    "spin_magnitude_muB": 4.59251,
+    "site_spin_vectors_muB": [
+      [
+        0.0,
+        0.0,
+        2.888406
+      ],
+      [
+        -0.0,
+        -0.0,
+        1.704107
+      ]
+    ],
+    "axis_deviation_deg": 0.0,
+    "onsite_orbital_vector_muB": [
+      0.0,
+      0.0,
+      0.252
+    ],
+    "site_onsite_orbital_vectors_muB": {
+      "1": [
+        0.0,
+        0.0,
+        0.12
+      ],
+      "2": [
+        -0.0,
+        0.0,
+        0.131
+      ]
+    },
+    "orbital_scope": "Upstream on-site same-zeta atomic approximation, rounded to 0.001; not full bulk orbital magnetization",
+    "total_saturation_magnetization_A_per_m": null,
+    "spin_magnetization_A_per_m": 1827897.4614371466,
+    "forces_ev_ang": [
+      [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0,
+        -0.0
+      ]
+    ],
+    "stress_ev_ang3": [
+      [
+        0.008506,
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        0.008506,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        0.008408
+      ]
+    ],
+    "soc_energy_ev": null,
+    "soc_energy_representation": "included_in_nonlocal",
+    "observed_kpoints": 4096,
+    "expected_kpoints": 4096,
+    "gpu_eigensystem_jobs": [
+      4096
+    ],
+    "gpu_cycle_seconds": 45.533185572,
+    "sampled_gpu_peak_mib": 13485.0,
+    "numerical_equivalence_to_cpu": null,
+    "performance_qualified": false,
+    "source_run": "mae-profile-20261025-20261025T193930Z",
+    "source_attempt_id": "0d61e8bb08cd4064a39fb84e3c1ea00b",
+    "reused_calculation": false,
+    "current_allocation_wall_seconds": 104.411512297,
+    "trial_timeout_seconds": 604.7228679392363,
+    "orbital_derivative_bytes": [
+      6330653056
+    ]
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_110",
+    "point": "grid2000_shift0p00125_k16_t300",
+    "direction": "110",
+    "soc_enabled": true,
+    "actual_grid": [
+      80,
+      80,
+      80
+    ],
+    "actual_grid_cutoff_ry": 2168.227,
+    "variant": "grid2000_shift0p00125",
+    "k": 16,
+    "temperature_k": 300,
+    "valid": true,
+    "errors": [],
+    "execution_valid": true,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T194137.335.log": "1f42ead713c987b116f3cbdeb90b6f492c8d00bb5b936e686cad5da9db2cd31c"
+      }
+    },
+    "wall_seconds": 114.06723142199999,
+    "returncode": 0,
+    "timed_out": false,
+    "scf_iterations": 41,
+    "energy_ev": -7573.847752441588,
+    "free_energy_ev": -7573.850468846494,
+    "spin_vector_muB": [
+      3.24739,
+      3.24739,
+      0.0
+    ],
+    "spin_magnitude_muB": 4.592502980314766,
+    "site_spin_vectors_muB": [
+      [
+        2.042416,
+        2.042416,
+        0.0
+      ],
+      [
+        1.204975,
+        1.204975,
+        -0.0
+      ]
+    ],
+    "axis_deviation_deg": 0.0,
+    "onsite_orbital_vector_muB": [
+      0.178,
+      0.178,
+      -0.0
+    ],
+    "site_onsite_orbital_vectors_muB": {
+      "1": [
+        0.085,
+        0.085,
+        -0.0
+      ],
+      "2": [
+        0.093,
+        0.093,
+        -0.0
+      ]
+    },
+    "orbital_scope": "Upstream on-site same-zeta atomic approximation, rounded to 0.001; not full bulk orbital magnetization",
+    "total_saturation_magnetization_A_per_m": null,
+    "spin_magnetization_A_per_m": 1827894.667482464,
+    "forces_ev_ang": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        -0.0
+      ]
+    ],
+    "stress_ev_ang3": [
+      [
+        0.008612,
+        -3.4e-05,
+        -0.0
+      ],
+      [
+        -3.4e-05,
+        0.008612,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        0.008664
+      ]
+    ],
+    "soc_energy_ev": null,
+    "soc_energy_representation": "included_in_nonlocal",
+    "observed_kpoints": 4096,
+    "expected_kpoints": 4096,
+    "gpu_eigensystem_jobs": [
+      4096
+    ],
+    "gpu_cycle_seconds": 54.001023255,
+    "sampled_gpu_peak_mib": 13485.0,
+    "numerical_equivalence_to_cpu": null,
+    "performance_qualified": false,
+    "source_run": "mae-profile-20261025-20261025T193930Z",
+    "source_attempt_id": "0d61e8bb08cd4064a39fb84e3c1ea00b",
+    "reused_calculation": false,
+    "current_allocation_wall_seconds": 114.06723142199999,
+    "trial_timeout_seconds": 489.0611264012362,
+    "orbital_derivative_bytes": [
+      6330653056
+    ]
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_111",
+    "point": "grid2000_shift0p00125_k16_t300",
+    "direction": "111",
+    "soc_enabled": true,
+    "actual_grid": [
+      80,
+      80,
+      80
+    ],
+    "actual_grid_cutoff_ry": 2168.227,
+    "variant": "grid2000_shift0p00125",
+    "k": 16,
+    "temperature_k": 300,
+    "valid": true,
+    "errors": [],
+    "execution_valid": true,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T194342.555.log": "4e6306d65c8ad28aea27b1b18c13af7462dd61a6c286a945d21205cf81c5426a"
+      }
+    },
+    "wall_seconds": 107.77540606299999,
+    "returncode": 0,
+    "timed_out": false,
+    "scf_iterations": 32,
+    "energy_ev": -7573.847739151511,
+    "free_energy_ev": -7573.850455189446,
+    "spin_vector_muB": [
+      2.65148,
+      2.65148,
+      2.65148
+    ],
+    "spin_magnitude_muB": 4.592498075252727,
+    "site_spin_vectors_muB": [
+      [
+        1.667628,
+        1.667628,
+        1.667628
+      ],
+      [
+        0.983855,
+        0.983855,
+        0.983855
+      ]
+    ],
+    "axis_deviation_deg": 1.2074182697257333e-06,
+    "onsite_orbital_vector_muB": [
+      0.145,
+      0.145,
+      0.145
+    ],
+    "site_onsite_orbital_vectors_muB": {
+      "1": [
+        0.069,
+        0.069,
+        0.069
+      ],
+      "2": [
+        0.076,
+        0.076,
+        0.076
+      ]
+    },
+    "orbital_scope": "Upstream on-site same-zeta atomic approximation, rounded to 0.001; not full bulk orbital magnetization",
+    "total_saturation_magnetization_A_per_m": null,
+    "spin_magnetization_A_per_m": 1827892.7151839498,
+    "forces_ev_ang": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "stress_ev_ang3": [
+      [
+        0.008578,
+        -2.3e-05,
+        -1.9e-05
+      ],
+      [
+        -2.3e-05,
+        0.008578,
+        -1.9e-05
+      ],
+      [
+        -2.8e-05,
+        -2.8e-05,
+        0.008578
+      ]
+    ],
+    "soc_energy_ev": null,
+    "soc_energy_representation": "included_in_nonlocal",
+    "observed_kpoints": 4096,
+    "expected_kpoints": 4096,
+    "gpu_eigensystem_jobs": [
+      4096
+    ],
+    "gpu_cycle_seconds": 44.724588316,
+    "sampled_gpu_peak_mib": 13481.0,
+    "numerical_equivalence_to_cpu": null,
+    "performance_qualified": false,
+    "source_run": "mae-profile-20261025-20261025T193930Z",
+    "source_attempt_id": "0d61e8bb08cd4064a39fb84e3c1ea00b",
+    "reused_calculation": false,
+    "current_allocation_wall_seconds": 107.77540606299999,
+    "trial_timeout_seconds": 363.88507185923623,
+    "orbital_derivative_bytes": [
+      6330653056
+    ]
+  }
+]

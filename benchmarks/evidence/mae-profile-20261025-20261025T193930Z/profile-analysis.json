@@ -1,0 +1,174 @@
+{
+  "run_id": "mae-profile-20261025-20261025T193930Z",
+  "scope": "Three diagnostic full-SCF FeCo direction runs; stage profiling enabled; individual observations, no paired speedup",
+  "physical_convergence": false,
+  "upstream_gpu_speedup": null,
+  "rows": [
+    {
+      "case": "grid2000_shift0p00125_k16_t300_001",
+      "result_path": "results/mae-profile-20261025-20261025T193930Z/grid2000_shift0p00125_k16_t300_001/candidate/result.json",
+      "result_sha256": "3e22f1be147317d72482054d4a4cea94b0c6fd499a14210fd781e29323fd059f",
+      "valid": true,
+      "wall_seconds": 104.411512297,
+      "scf_iterations": 33,
+      "cycle_seconds": 45.533185572,
+      "stage_profile": {
+        "clock": "PTX globaltimer",
+        "scope": "Serial guarded stages including graph scheduling and profiling overhead; diagnostic timings",
+        "stages": {
+          "assembly_and_eigensolver": {
+            "seconds": 32.404858112,
+            "calls": 16896
+          },
+          "occupations": {
+            "seconds": 0.9901784320000001,
+            "calls": 33
+          },
+          "density_and_normalization": {
+            "seconds": 3.797302976,
+            "calls": 135234
+          },
+          "hamiltonian": {
+            "seconds": 3.508201376,
+            "calls": 66
+          },
+          "density_grid_hartree_xc": {
+            "seconds": 4.603992992,
+            "calls": 33
+          },
+          "scalar_reductions": {
+            "seconds": 0.007031616,
+            "calls": 33
+          },
+          "convergence_and_mixing": {
+            "seconds": 0.020962656,
+            "calls": 33
+          }
+        }
+      },
+      "setup_h0_seconds": 24.852,
+      "final_hf_seconds": 1.401,
+      "orbital_derivative_bytes": 6330653056,
+      "orbital_owner_device_allocation_bytes": 6468547416,
+      "cycle_workspace_bytes": 2322090000,
+      "total_energy_ev": -7573.847759884539,
+      "free_energy_ev": -7573.850477404338,
+      "spin_vector_muB": [
+        0.0,
+        -0.0,
+        4.59251
+      ]
+    },
+    {
+      "case": "grid2000_shift0p00125_k16_t300_110",
+      "result_path": "results/mae-profile-20261025-20261025T193930Z/grid2000_shift0p00125_k16_t300_110/candidate/result.json",
+      "result_sha256": "8dbb27f42ebd77e5a9bd1863eef5a8d4f441c937e135345c8d5ef36da909de60",
+      "valid": true,
+      "wall_seconds": 114.06723142199999,
+      "scf_iterations": 41,
+      "cycle_seconds": 54.001023255,
+      "stage_profile": {
+        "clock": "PTX globaltimer",
+        "scope": "Serial guarded stages including graph scheduling and profiling overhead; diagnostic timings",
+        "stages": {
+          "assembly_and_eigensolver": {
+            "seconds": 37.673009888,
+            "calls": 20992
+          },
+          "occupations": {
+            "seconds": 1.2220642240000001,
+            "calls": 41
+          },
+          "density_and_normalization": {
+            "seconds": 4.72250016,
+            "calls": 168018
+          },
+          "hamiltonian": {
+            "seconds": 4.3585907200000005,
+            "calls": 82
+          },
+          "density_grid_hartree_xc": {
+            "seconds": 5.739539104,
+            "calls": 41
+          },
+          "scalar_reductions": {
+            "seconds": 0.008770016,
+            "calls": 41
+          },
+          "convergence_and_mixing": {
+            "seconds": 0.027014080000000003,
+            "calls": 41
+          }
+        }
+      },
+      "setup_h0_seconds": 25.895,
+      "final_hf_seconds": 1.31,
+      "orbital_derivative_bytes": 6330653056,
+      "orbital_owner_device_allocation_bytes": 6468547416,
+      "cycle_workspace_bytes": 2322090000,
+      "total_energy_ev": -7573.847752441588,
+      "free_energy_ev": -7573.850468846494,
+      "spin_vector_muB": [
+        3.24739,
+        3.24739,
+        0.0
+      ]
+    },
+    {
+      "case": "grid2000_shift0p00125_k16_t300_111",
+      "result_path": "results/mae-profile-20261025-20261025T193930Z/grid2000_shift0p00125_k16_t300_111/candidate/result.json",
+      "result_sha256": "ec62dd45b40455940eb48981f6004f504833c86d5418f62ba1f45c727d9573bf",
+      "valid": true,
+      "wall_seconds": 107.77540606299999,
+      "scf_iterations": 32,
+      "cycle_seconds": 44.724588316,
+      "stage_profile": {
+        "clock": "PTX globaltimer",
+        "scope": "Serial guarded stages including graph scheduling and profiling overhead; diagnostic timings",
+        "stages": {
+          "assembly_and_eigensolver": {
+            "seconds": 31.979273056,
+            "calls": 16384
+          },
+          "occupations": {
+            "seconds": 0.957290144,
+            "calls": 32
+          },
+          "density_and_normalization": {
+            "seconds": 3.6852093440000004,
+            "calls": 131136
+          },
+          "hamiltonian": {
+            "seconds": 3.4019761600000002,
+            "calls": 64
+          },
+          "density_grid_hartree_xc": {
+            "seconds": 4.478942336,
+            "calls": 32
+          },
+          "scalar_reductions": {
+            "seconds": 0.006838016000000001,
+            "calls": 32
+          },
+          "convergence_and_mixing": {
+            "seconds": 0.020236512,
+            "calls": 32
+          }
+        }
+      },
+      "setup_h0_seconds": 26.481,
+      "final_hf_seconds": 1.33,
+      "orbital_derivative_bytes": 6330653056,
+      "orbital_owner_device_allocation_bytes": 6468547416,
+      "cycle_workspace_bytes": 2322090000,
+      "total_energy_ev": -7573.847739151511,
+      "free_energy_ev": -7573.850455189446,
+      "spin_vector_muB": [
+        2.65148,
+        2.65148,
+        2.65148
+      ]
+    }
+  ],
+  "decision": "Prioritize avoiding repeated SCF and geometry setup; energy-only derivative removal is primarily a memory optimization. Do not revive overlap-factor caching without new evidence: v137 had no repeatable benefit."
+}
