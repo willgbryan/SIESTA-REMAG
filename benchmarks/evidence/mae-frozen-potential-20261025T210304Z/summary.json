@@ -1,0 +1,8 @@
+{
+  "status": "validation_failed",
+  "physical_accuracy_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "stopping_reason": "Fresh full-SCF reference failed",
+  "exception": "Traceback (most recent call last):\n  File \"/root/property_app.py\", line 109, in benchmark\n    anchors.append(run(p['reference'],'frozen_spin',material))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/property_app.py\", line 80, in run\n    if not valid:raise RuntimeError('Fresh full-SCF reference failed')\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Fresh full-SCF reference failed\n",
+  "elapsed_seconds": 17.989774703979492
+}

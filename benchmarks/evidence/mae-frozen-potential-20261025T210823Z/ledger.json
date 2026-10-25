@@ -1,0 +1,296 @@
+[
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "frozen_spin",
+    "valid": true,
+    "wall_seconds": 14.910337402000001,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T210843.112.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+      }
+    },
+    "mesh_passed": true,
+    "direction_error_degrees": 0.0,
+    "parse_errors": []
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "role": "full_scf",
+    "valid": true,
+    "wall_seconds": 15.313345847,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T210922.336.log": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+      }
+    },
+    "mesh_passed": true,
+    "direction_error_degrees": 0.0,
+    "parse_errors": []
+  },
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "frozen_values",
+    "valid": true,
+    "wall_seconds": 14.707234192000001,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T211001.205.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+      }
+    },
+    "mesh_passed": true,
+    "direction_error_degrees": 0.0,
+    "parse_errors": []
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_001",
+    "role": "frozen_spin",
+    "valid": true,
+    "wall_seconds": 137.15547859100002,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T211033.164.log": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+      }
+    },
+    "mesh_passed": true,
+    "direction_error_degrees": 0.0,
+    "parse_errors": []
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_110",
+    "role": "full_scf",
+    "valid": true,
+    "wall_seconds": 105.17647108400001,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T211324.297.log": "0493f9d6226c34f541fb2fda75d0fbe2d369481f9c20c5d867468a06d4998a0b"
+      }
+    },
+    "mesh_passed": true,
+    "direction_error_degrees": 0.0,
+    "parse_errors": []
+  },
+  {
+    "case": "grid2000_shift0p00125_k16_t300_111",
+    "role": "full_scf",
+    "valid": true,
+    "wall_seconds": 106.03518439199996,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T211528.919.log": "de66586a3f2370d6a134316357931c88bf566847ab35cef4ef9d14669fd82b69"
+      }
+    },
+    "mesh_passed": true,
+    "direction_error_degrees": 1.2074182697257333e-06,
+    "parse_errors": []
+  }
+]

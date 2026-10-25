@@ -1,0 +1,7 @@
+{
+  "status": "image_build_failed",
+  "gpu_function_started": false,
+  "reason": "Embedded CMake cache selected an unsupported old CUDA architecture; staged builds corrected to sm_90",
+  "app_id": "ap-FjPlT0aQEobB8nZNLSYHLL",
+  "image_id": "im-k5pP9SEor9QKuIBsPRIgpO"
+}

@@ -1,0 +1,53 @@
+[
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "frozen_spin",
+    "valid": false,
+    "wall_seconds": 16.520224691,
+    "convergence": {
+      "passed": true,
+      "errors": [],
+      "observed": {
+        "DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.DM.Tolerance": [
+          [
+            "0.1000000000E-08"
+          ]
+        ],
+        "SCF.H.Tolerance": [
+          [
+            "0.7349864435E-09",
+            "Ry"
+          ]
+        ],
+        "SCF.DM.Converge": [
+          [
+            "T"
+          ]
+        ],
+        "SCF.H.Converge": [
+          [
+            "T"
+          ]
+        ]
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T210557.469.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+      }
+    },
+    "mesh_passed": true,
+    "direction_error_degrees": 0.0,
+    "parse_errors": [
+      "Transfer counters disagree: device_to_host_bytes phase total 19710444 vs bridge total 19169092"
+    ]
+  }
+]

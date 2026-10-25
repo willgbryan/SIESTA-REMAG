@@ -1,0 +1,55 @@
+[
+  {
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "frozen_spin",
+    "valid": false,
+    "wall_seconds": 14.304654422999999,
+    "convergence": {
+      "passed": false,
+      "errors": [
+        "Effective convergence threshold differs: DM.Tolerance",
+        "Effective convergence threshold differs: SCF.DM.Tolerance",
+        "Effective convergence threshold differs: SCF.H.Tolerance",
+        "Required convergence check is disabled or missing: SCF.DM.Converge",
+        "Required convergence check is disabled or missing: SCF.H.Converge"
+      ],
+      "observed": {
+        "DM.Tolerance": [],
+        "SCF.DM.Tolerance": [],
+        "SCF.H.Tolerance": [],
+        "SCF.DM.Converge": [],
+        "SCF.H.Converge": []
+      },
+      "expected_tolerances": {
+        "DM.Tolerance": 1e-09,
+        "SCF.DM.Tolerance": 1e-09,
+        "SCF.H.Tolerance": 1e-08
+      },
+      "evidence_sha256": {
+        "fdf.20261025T210311.364.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "mesh_passed": false,
+    "direction_error_degrees": 0.0,
+    "parse_errors": [
+      "Requested frozen-potential probe did not complete successfully",
+      "Device-cycle publication evidence is missing",
+      "Retained output density does not cover every geometry/kind",
+      "Energy-only publication requires exactly one electronic geometry",
+      "Terminal matrix export schema is missing",
+      "Terminal export/final-grid geometry coverage differs",
+      "Missing final spectrum schema",
+      "Final spectrum does not cover all electronic and force geometries",
+      "Missing production history schema",
+      "Missing population publication schema",
+      "Population ownership does not cover every electronic geometry",
+      "Missing initial density ownership schema",
+      "Initial density ownership does not cover every electronic geometry",
+      "History ownership does not cover every electronic/force geometry",
+      "Orbital basis owner does not cover every geometry",
+      "H0 shadow does not cover every electronic/force geometry",
+      "Initial GPU mesh did not cover completed SCF and forces",
+      "Device consumer transfer accounting is missing"
+    ]
+  }
+]

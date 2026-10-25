@@ -1,0 +1,9 @@
+{
+  "cause": "Spin consumer used both independently assembled overlap triangles; cuSOLVER uses the lower Hermitian triangle. Use cuBLAS Zhemm with the same lower triangle. No normalization or tolerance relaxation.",
+  "overlap_hermitian_max_abs_error": 3.990813679521938e-09,
+  "condition_number": 60720.7214117388,
+  "full_overlap_max_norm_error": 2.042101896471138e-07,
+  "lower_hermitian_max_norm_error": 7.686073999479959e-13,
+  "unchanged_norm_tolerance": 1e-09,
+  "lower_hermitian_passed": true
+}

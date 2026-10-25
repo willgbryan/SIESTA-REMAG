@@ -1,0 +1,47 @@
+{
+  "authorized_h100_seconds": 1200,
+  "shared_deadline_epoch": 1792963160.615041,
+  "allocations": [
+    {
+      "app_id": "ap-FjPlT0aQEobB8nZNLSYHLL",
+      "created_at": 1792961783.54934,
+      "stopped_at": 1792961841.933769,
+      "app_lifetime_seconds": 58.38442897796631,
+      "allocation_released": true
+    },
+    {
+      "app_id": "ap-8CdQGWeBKnBvJrLWpMbge1",
+      "created_at": 1792961900.916702,
+      "stopped_at": 1792961990.851613,
+      "app_lifetime_seconds": 89.93491101264954,
+      "allocation_released": true
+    },
+    {
+      "app_id": "ap-TvDGzOkOhkUfp92PZXp858",
+      "created_at": 1792962122.263424,
+      "stopped_at": 1792962214.044602,
+      "app_lifetime_seconds": 91.78117799758911,
+      "allocation_released": true
+    },
+    {
+      "app_id": "ap-uOHZ5VuVleJ6kdrszkfjdd",
+      "created_at": 1792962280.975883,
+      "stopped_at": 1792962382.254782,
+      "app_lifetime_seconds": 101.27889895439148,
+      "allocation_released": true
+    },
+    {
+      "app_id": "ap-lnjxk3Ski7Ku89mAp6QBy3",
+      "created_at": 1792962493.254079,
+      "stopped_at": 1792963138.966321,
+      "app_lifetime_seconds": 645.7122418880463,
+      "allocation_released": true
+    }
+  ],
+  "conservative_app_lifetime_upper_bound_seconds": 987.0916588306427,
+  "actual_billed_gpu_seconds": null,
+  "within_authorized_budget": true,
+  "stopped_before_shared_deadline": true,
+  "account_containers": [],
+  "scope": "Sum of app lifetimes conservatively includes CPU image-build time; actual billed GPU time is unavailable."
+}

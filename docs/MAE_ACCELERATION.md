@@ -41,9 +41,12 @@ Hamiltonian whose spectrum produced the accepted density; an identity rotation
 is recorded against that same SCF spectrum. H rebuilt from the output density
 is a distinct reference and must not be substituted silently. One dense solver
 workspace serves every k point. Optional eigenvector solves retain only band
-spin expectations, evaluated with the original nonorthogonal overlap, rather
-than the whole eigenvector bank. This code awaits CUDA build/runtime validation;
-the local suite verifies the shared arithmetic, not the GPU executor.
+spin expectations, evaluated with the original nonorthogonal overlap's lower
+Hermitian triangle, as used by the eigensolver, rather than the whole eigenvector
+bank. CUDA runtime checks now pass for the sampled FePt 64-k and FeCo 4096-k
+cases. This establishes the recorded identity-spectrum, occupation, moment and
+full-SCF regression checks; it does not independently validate every rotated
+Hamiltonian or qualify the approximation as a replacement for full SCF.
 
 For the next qualification stage only, build with
 `-DREMAG_BUILD_FROZEN_POTENTIAL=ON` and set `REMAG_FROZEN_ROTATIONS` to a file of
@@ -57,6 +60,24 @@ Unsupported reference layouts fail explicitly. Full-SCF anchors, final moment
 directions, eigenvalues-only agreement, reference bias and force-theorem bias
 must pass review before this becomes a screening capability. The default build
 does not include the probe.
+
+The [25 October qualification batch](../benchmarks/evidence/mae-frozen-potential-20261025T210823Z/REPORT.md)
+completed six of seven calculations within its 20-minute allowance. All 18
+executed checks passed; FePt's eigenvalues-only control passed, while FeCo's
+control was unvisited when the budget reserve was reached. The current method
+misses the 5 micro-eV diagnostic target: FePt's free-energy bias is 37.8 micro-eV,
+and FeCo's directional biases reach 96.4 micro-eV and reverse the [110]/[111]
+ordering. These are fixed-setting, 300 K electronic-smearing results, not
+physically converged MAE. The probe remains experimental and disabled by
+default; the README's usable capability remains energy-only full SCF.
+
+The next priority is an independent frozen-Hamiltonian construction check and
+reference-direction sensitivity, including whether a common scalar-relativistic
+reference improves the result. Resolve that discrepancy before optimizing
+throughput or adopting the approximation for screening. Retain the same energy,
+free-energy and direction gates. The FeCo eigenvalues-only control and repeated
+performance measurements remain open; neither can establish a useful speedup
+until the required accuracy is met.
 
 ## Implementation sequence
 

@@ -1,0 +1,15 @@
+{
+  "app_id": "ap-lnjxk3Ski7Ku89mAp6QBy3",
+  "lifecycle": {
+    "lifecycle": {
+      "app_state": "APP_STATE_STOPPED",
+      "created_at": 1792962493.254079,
+      "created_by": "will-bryan421",
+      "stopped_at": 1792963138.966321
+    }
+  },
+  "containers": [],
+  "app_containers": [],
+  "allocation_released": true,
+  "inspected_at_utc": "2026-10-25T21:19:25.394059+00:00"
+}

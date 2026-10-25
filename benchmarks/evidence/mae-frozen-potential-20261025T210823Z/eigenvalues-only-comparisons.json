@@ -1,0 +1,27 @@
+{
+  "fept": {
+    "passed": true,
+    "checks": [
+      {
+        "index": 0,
+        "errors": {
+          "band_difference_ry": 0.0,
+          "band_free_difference_ry": 0.0,
+          "canonical_free_difference_ry": 0.0,
+          "spectrum_ev": 1.0673201289021596e-08
+        },
+        "passed": true
+      },
+      {
+        "index": 1,
+        "errors": {
+          "band_difference_ry": 8.507911784572287e-10,
+          "band_free_difference_ry": 8.530000171723304e-10,
+          "canonical_free_difference_ry": 5.118305576545486e-12,
+          "spectrum_ev": 1.067987181324693e-08
+        },
+        "passed": true
+      }
+    ]
+  }
+}

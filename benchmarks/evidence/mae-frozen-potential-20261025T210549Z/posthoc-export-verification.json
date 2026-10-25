@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "checks": {
+    "hsx_header": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "hsx_offsets": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "hsx_labels": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "hsx_counts": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "hsx_columns": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "hsx_precision": {
+      "passed": true
+    },
+    "hsx_basis": {
+      "passed": true
+    },
+    "hsx_kpoints": {
+      "passed": true
+    },
+    "hsx_charge": {
+      "passed": true
+    },
+    "hsx_temperature_ry": {
+      "passed": true
+    },
+    "hsx_h": {
+      "passed": true,
+      "max_absolute_error": 8.826610033152438e-10,
+      "tolerance": 1e-06
+    },
+    "hsx_overlap": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 1e-06
+    },
+    "hsx_fermi_ry": {
+      "passed": true,
+      "max_absolute_error": 2.9597202466646877e-10,
+      "tolerance": 1e-06
+    },
+    "hsx_positions": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.001
+    },
+    "hsx_cell": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 1e-08
+    },
+    "drho_cell": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "drho": {
+      "passed": true,
+      "max_absolute_error": 2.9802322387695312e-08,
+      "tolerance": 1e-05
+    },
+    "dm_header": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "dm_counts": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "dm_columns": {
+      "passed": true,
+      "max_absolute_error": 0.0,
+      "tolerance": 0.0
+    },
+    "dm_values": {
+      "passed": true,
+      "max_absolute_error": 1.546822225861888e-09,
+      "tolerance": 1e-07
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "status": "approved",
+  "run_id": null,
+  "deadline_epoch": null,
+  "allocation_released": true,
+  "approved_gpu_seconds": 1200,
+  "prior_allocation_release": "build/mae-frozen-potential-20261025/prior-allocation-release.json",
+  "launcher_session": 67427,
+  "launcher_log": "/tmp/remag-mae-frozen-potential-20261025.log",
+  "build_app_id": "ap-FjPlT0aQEobB8nZNLSYHLL"
+}

@@ -1,0 +1,41 @@
+{
+  "status": "analysis_pending",
+  "run_id": "mae-frozen-potential-20261025T210549Z",
+  "deadline_epoch": 1792963160.615041,
+  "allocation_released": false,
+  "approved_gpu_seconds": 1200,
+  "prior_allocation_release": "build/mae-frozen-potential-20261025/prior-allocation-release.json",
+  "launcher_session": 44797,
+  "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-diagnostic.log",
+  "build_app_id": "ap-8CdQGWeBKnBvJrLWpMbge1",
+  "failed_builds": [
+    {
+      "app_id": "ap-FjPlT0aQEobB8nZNLSYHLL",
+      "image_id": "im-k5pP9SEor9QKuIBsPRIgpO",
+      "gpu_function_started": false,
+      "reason": "Embedded CMake cache selected a CUDA architecture too old for FP64 atomic/WMMA code; staged build now explicitly targets H100 sm_90",
+      "evidence": "build/mae-frozen-potential-20261025/failed-build-1"
+    }
+  ],
+  "attempt_history": [
+    {
+      "run_id": "mae-frozen-potential-20261025T205920Z",
+      "app_id": "ap-8CdQGWeBKnBvJrLWpMbge1",
+      "function_call_id": "fc-01M5TDRPQN4TQWSDTBPCHMTT32",
+      "results": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-frozen-potential-20261025T205920Z",
+      "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-build2.log",
+      "launcher_session": 88519
+    },
+    {
+      "run_id": "mae-frozen-potential-20261025T210304Z",
+      "app_id": "ap-TvDGzOkOhkUfp92PZXp858",
+      "function_call_id": "fc-01M5TDZHE3NR8DEEFEXN4Q5F7A",
+      "results": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-frozen-potential-20261025T210304Z",
+      "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-diagnostic.log",
+      "launcher_session": 44797
+    }
+  ],
+  "app_id": "ap-uOHZ5VuVleJ6kdrszkfjdd",
+  "function_call_id": "fc-01M5TE4JJE51WE2CTZF6P5QGPP",
+  "results": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-frozen-potential-20261025T210549Z"
+}

@@ -1,0 +1,604 @@
+[
+  {
+    "schema_version": 1,
+    "benchmark": {
+      "name": "tzdp_np_s25_m400_k4_t300_z",
+      "atoms": 2,
+      "spin": "spin-orbit",
+      "kmesh": [
+        4,
+        4,
+        4
+      ],
+      "repeat": [
+        1,
+        1,
+        1
+      ],
+      "theta_deg": 0,
+      "pseudopotentials": {
+        "Fe_fept_SOC.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "Pt_fept_SOC.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+      },
+      "energy_density_outputs": {
+        "tsde": false,
+        "netcdf": false
+      },
+      "initial_population_output": true,
+      "input_sha256": "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2",
+      "purpose": "magnetic-property-convergence-discovery",
+      "orientation_constrained": false,
+      "io_policy": "end-of-cycle",
+      "split_scf_timings": false,
+      "orientation_family_sha256": "568d4c97bec299c7f015f80bba7c793aa8dfdd7ed0fb2e2c7c32bbb9653cf543",
+      "density_matrix_output": true,
+      "hamiltonian_output": true,
+      "property_point": "tzdp_np_s25_m400_k4_t300",
+      "basis": "TZDP",
+      "mesh_cutoff_ry": 400,
+      "electronic_temperature_k": 300,
+      "formula_units": 1,
+      "fixed_cell_volume_ang3": 28.246491,
+      "lattice_relaxed": false,
+      "orbital_moment_output": true,
+      "physical_accuracy_qualified": false,
+      "pao_split_norm": 0.25,
+      "polarization_scheme": "non-perturbative",
+      "pao_energy_shift_ry": 0.01
+    },
+    "created_at": "2026-10-25T21:06:13.928326+00:00",
+    "executable": {
+      "path": "/opt/remag-candidate/Src/siesta",
+      "sha256": "507748c71585b3f7cf986aed84b4a6223dc0f62e8a509afb2196ac41f34324f1"
+    },
+    "hardware": {
+      "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.35",
+      "machine": "x86_64",
+      "cpu_count": 24,
+      "blas_threads": 1,
+      "hostname": "modal",
+      "runtime_instance_id": "c7668fbc839440a49767bd0e78b795a0"
+    },
+    "upstream": {
+      "url": "https://gitlab.com/siesta-project/siesta.git",
+      "tag": "5.4.2",
+      "commit": "e486d12067b96ff688179f0496d0ec21b6fae0ab",
+      "submodules": [
+        "External/libfdf",
+        "External/xmlf90",
+        "External/libpsml",
+        "External/libgridxc"
+      ]
+    },
+    "parse_errors": [
+      "Transfer counters disagree: device_to_host_bytes phase total 19710444 vs bridge total 19169092"
+    ],
+    "runtime_settings": {
+      "REMAG_FROZEN_ROTATIONS": "/opt/frozen-stage/fept-rotations.txt",
+      "REMAG_FROZEN_SPIN_EXPECTATIONS": "1",
+      "REMAG_ENERGY_ONLY": "1",
+      "REMAG_INITIAL_MESH": "1",
+      "REMAG_INITIAL_MESH_POISON_HOST": null,
+      "REMAG_INITIAL_MESH_SHADOW": null,
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "1",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GPU": null,
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "1",
+      "REMAG_DEVICE_VECTOR_CACHE": "1",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "1",
+      "REMAG_ATOMIC_GRID_FORCE": "1",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "1",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "1",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "1",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "1",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "1",
+      "REMAG_POPULATION": "1",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "REMAG_SCF_SOLVER_LANES": "8",
+      "REMAG_SCF_WARM_START": "1",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GPU_INITIALIZATION": "1",
+      "REMAG_GPU_HISTORY": "1",
+      "REMAG_FINAL_SPECTRA": "1",
+      "REMAG_GATE_H_EXPORT": "1",
+      "REMAG_DEFER_SCF_LOG": "1",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "0"
+    },
+    "calculation_scope": "energy_only",
+    "returncode": 0,
+    "timed_out": false,
+    "wall_seconds": 16.520224691,
+    "valid": false,
+    "profile": {
+      "components": {
+        "miscellaneous": {
+          "wall_seconds": 13.165999999999997,
+          "calls": 16,
+          "percent_runtime": 79.69625260104762
+        },
+        "initialization": {
+          "wall_seconds": 0.279,
+          "calls": 5,
+          "percent_runtime": 1.6888390153191775
+        },
+        "Hamiltonian construction": {
+          "wall_seconds": 1.2309999999999999,
+          "calls": 20,
+          "percent_runtime": 7.451472501282821
+        },
+        "density update": {
+          "wall_seconds": 0.016,
+          "calls": 1,
+          "percent_runtime": 0.09685098295737218
+        },
+        "device electronic cycle": {
+          "wall_seconds": 1.408,
+          "calls": 1,
+          "percent_runtime": 8.52288650024875
+        }
+      },
+      "routines": [
+        {
+          "path": "/global_section",
+          "name": "global_section",
+          "calls": 1,
+          "inclusive_seconds": 16.1,
+          "exclusive_seconds": 0.0,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta",
+          "name": "siesta",
+          "calls": 1,
+          "inclusive_seconds": 16.1,
+          "exclusive_seconds": 0.0030000000000001137,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/Setup",
+          "name": "Setup",
+          "calls": 1,
+          "inclusive_seconds": 0.229,
+          "exclusive_seconds": 0.229,
+          "component": "initialization"
+        },
+        {
+          "path": "/global_section/siesta/Setup/bands",
+          "name": "bands",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "initialization"
+        },
+        {
+          "path": "/global_section/siesta/Setup/KSV_init",
+          "name": "KSV_init",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "initialization"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom",
+          "name": "IterGeom",
+          "calls": 1,
+          "inclusive_seconds": 15.776,
+          "exclusive_seconds": 0.8439999999999994,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init",
+          "name": "geom_init",
+          "calls": 1,
+          "inclusive_seconds": 13.476,
+          "exclusive_seconds": 0.0009999999999994458,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/state_init",
+          "name": "state_init",
+          "calls": 1,
+          "inclusive_seconds": 12.223,
+          "exclusive_seconds": 11.825000000000001,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/state_init/hsparse",
+          "name": "hsparse",
+          "calls": 1,
+          "inclusive_seconds": 0.045,
+          "exclusive_seconds": 0.045,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/state_init/remag_two_center_setup",
+          "name": "remag_two_center_setup",
+          "calls": 1,
+          "inclusive_seconds": 0.321,
+          "exclusive_seconds": 0.321,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/state_init/overlap",
+          "name": "overlap",
+          "calls": 1,
+          "inclusive_seconds": 0.032,
+          "exclusive_seconds": 0.032,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0",
+          "name": "Setup_H0",
+          "calls": 1,
+          "inclusive_seconds": 1.235,
+          "exclusive_seconds": 0.001000000000000112,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/naefs",
+          "name": "naefs",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/dnaefs",
+          "name": "dnaefs",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/two-body",
+          "name": "two-body",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/two-body/MolMec",
+          "name": "MolMec",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/kinefsm",
+          "name": "kinefsm",
+          "calls": 1,
+          "inclusive_seconds": 0.071,
+          "exclusive_seconds": 0.071,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/nlefsm",
+          "name": "nlefsm",
+          "calls": 1,
+          "inclusive_seconds": 0.385,
+          "exclusive_seconds": 0.385,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init",
+          "name": "DHSCF_Init",
+          "calls": 1,
+          "inclusive_seconds": 0.778,
+          "exclusive_seconds": 0.0010000000000000009,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF1",
+          "name": "DHSCF1",
+          "calls": 1,
+          "inclusive_seconds": 0.05,
+          "exclusive_seconds": 0.0,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF1/InitMesh",
+          "name": "InitMesh",
+          "calls": 1,
+          "inclusive_seconds": 0.05,
+          "exclusive_seconds": 0.05,
+          "component": "initialization"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF1/InitMesh/INITMESH",
+          "name": "INITMESH",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "initialization"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF2",
+          "name": "DHSCF2",
+          "calls": 1,
+          "inclusive_seconds": 0.727,
+          "exclusive_seconds": 0.07599999999999996,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF2/REMESH",
+          "name": "REMESH",
+          "calls": 1,
+          "inclusive_seconds": 0.199,
+          "exclusive_seconds": 0.199,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF2/REORD",
+          "name": "REORD",
+          "calls": 2,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF2/PHION",
+          "name": "PHION",
+          "calls": 1,
+          "inclusive_seconds": 0.424,
+          "exclusive_seconds": 0.424,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF2/remag_basis_setup",
+          "name": "remag_basis_setup",
+          "calls": 1,
+          "inclusive_seconds": 0.003,
+          "exclusive_seconds": 0.003,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/Setup_H0/DHSCF_Init/DHSCF2/remag_initial_mesh",
+          "name": "remag_initial_mesh",
+          "calls": 1,
+          "inclusive_seconds": 0.025,
+          "exclusive_seconds": 0.025,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/setup_H",
+          "name": "setup_H",
+          "calls": 1,
+          "inclusive_seconds": 0.017,
+          "exclusive_seconds": 0.0,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/setup_H/DHSCF",
+          "name": "DHSCF",
+          "calls": 1,
+          "inclusive_seconds": 0.017,
+          "exclusive_seconds": 0.0,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/setup_H/DHSCF/DHSCF3",
+          "name": "DHSCF3",
+          "calls": 1,
+          "inclusive_seconds": 0.017,
+          "exclusive_seconds": 0.0010000000000000009,
+          "component": "Hamiltonian construction"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/geom_init/setup_H/DHSCF/DHSCF3/rhoofd",
+          "name": "rhoofd",
+          "calls": 1,
+          "inclusive_seconds": 0.016,
+          "exclusive_seconds": 0.016,
+          "component": "density update"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/remag_device_cycle",
+          "name": "remag_device_cycle",
+          "calls": 1,
+          "inclusive_seconds": 1.408,
+          "exclusive_seconds": 1.408,
+          "component": "device electronic cycle"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/PostSCF",
+          "name": "PostSCF",
+          "calls": 1,
+          "inclusive_seconds": 0.047,
+          "exclusive_seconds": 0.010000000000000002,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/PostSCF/FINAL_HF",
+          "name": "FINAL_HF",
+          "calls": 1,
+          "inclusive_seconds": 0.037,
+          "exclusive_seconds": 0.003999999999999997,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/PostSCF/FINAL_HF/writeHSX",
+          "name": "writeHSX",
+          "calls": 1,
+          "inclusive_seconds": 0.033,
+          "exclusive_seconds": 0.033,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/state_analysis",
+          "name": "state_analysis",
+          "calls": 1,
+          "inclusive_seconds": 0.001,
+          "exclusive_seconds": 0.001,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/IterGeom/siesta_move",
+          "name": "siesta_move",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/Analysis",
+          "name": "Analysis",
+          "calls": 1,
+          "inclusive_seconds": 0.092,
+          "exclusive_seconds": 0.007999999999999993,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/Analysis/optical",
+          "name": "optical",
+          "calls": 1,
+          "inclusive_seconds": 0.0,
+          "exclusive_seconds": 0.0,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/Analysis/DHSCF",
+          "name": "DHSCF",
+          "calls": 1,
+          "inclusive_seconds": 0.084,
+          "exclusive_seconds": 0.0,
+          "component": "miscellaneous"
+        },
+        {
+          "path": "/global_section/siesta/Analysis/DHSCF/DHSCF3",
+          "name": "DHSCF3",
+          "calls": 1,
+          "inclusive_seconds": 0.084,
+          "exclusive_seconds": 0.084,
+          "component": "miscellaneous"
+        }
+      ],
+      "scf_iterations": [],
+      "scf_seconds": null,
+      "scf_timer_calls": 0,
+      "average_iteration_seconds": null,
+      "timing_anomalies": [],
+      "device_cycle_seconds": 1.407750272,
+      "device_iterations": 58,
+      "average_device_iteration_seconds": 0.024271556413793104,
+      "device_cycle_timing_scope": "whole GPU execution region; individual iteration times unavailable"
+    },
+    "observables": {
+      "total_energy_ev": -2224.67275954776,
+      "free_energy_ev": -2224.676900134814,
+      "fermi_energy_ev": -3.772687,
+      "soc_energy_ev": null,
+      "soc_energy_representation": "included_in_nonlocal",
+      "forces_ev_ang": null,
+      "stress_ev_ang3": null,
+      "total_moment_muB": [
+        0.0,
+        -0.0,
+        3.37862
+      ],
+      "scf_iterations": 58,
+      "converged": true,
+      "completed": true,
+      "atom_moments_muB": [
+        [
+          0.0,
+          -0.0,
+          3.200654
+        ],
+        [
+          -0.0,
+          0.0,
+          0.177969
+        ]
+      ],
+      "atom_net_charges_e": [
+        0.364901,
+        -0.364901
+      ],
+      "spin_components": 8,
+      "spin_degenerate": false,
+      "geometry": {
+        "cell_bohr": [
+          [
+            5.15895232,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            5.15895232,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            7.162062012
+          ]
+        ],
+        "atomic_numbers": [
+          26,
+          78
+        ],
+        "positions_bohr": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            2.57947616,
+            2.57947616,
+            3.581031006
+          ]
+        ]
+      }
+    },
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "role": "frozen_spin",
+    "raw_result": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-frozen-potential-20261025T210549Z/tzdp_np_s25_m400_k4_t300_z/frozen_spin/result.json",
+    "raw_result_sha256": "733441ddd6f3638b93118d7421520e00fde7d81636b10a15243913648fd4936d",
+    "omitted_from_compact_copy": [
+      "observables.eigenvalues",
+      "telemetry"
+    ]
+  }
+]
