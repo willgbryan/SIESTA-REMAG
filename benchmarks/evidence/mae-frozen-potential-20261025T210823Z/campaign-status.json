@@ -5,9 +5,8 @@
   "allocation_released": true,
   "approved_gpu_seconds": 1200,
   "prior_allocation_release": "build/mae-frozen-potential-20261025/prior-allocation-release.json",
-  "launcher_session": 44797,
-  "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-diagnostic.log",
-  "build_app_id": "ap-8CdQGWeBKnBvJrLWpMbge1",
+  "launcher_session": 52625,
+  "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-qualified.log",
   "failed_builds": [
     {
       "app_id": "ap-FjPlT0aQEobB8nZNLSYHLL",
@@ -39,8 +38,8 @@
       "app_id": "ap-uOHZ5VuVleJ6kdrszkfjdd",
       "function_call_id": "fc-01M5TE4JJE51WE2CTZF6P5QGPP",
       "results": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-frozen-potential-20261025T210549Z",
-      "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-diagnostic.log",
-      "launcher_session": 44797
+      "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-corrected.log",
+      "launcher_session": 31730
     }
   ],
   "app_id": "ap-lnjxk3Ski7Ku89mAp6QBy3",
@@ -55,5 +54,21 @@
   "method_replacement_qualified": false,
   "unvisited": [
     "FeCo k16^3 eigenvalues-only control"
-  ]
+  ],
+  "bookkeeping_correction": {
+    "reason": "Completion writer retained stale launcher fields from an earlier status snapshot; remote run/app/function identities and results were correct.",
+    "superseded_current_launcher_fields": {
+      "launcher_session": 44797,
+      "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-diagnostic.log",
+      "build_app_id": "ap-8CdQGWeBKnBvJrLWpMbge1"
+    },
+    "superseded_210549_launcher_fields": {
+      "launcher_session": 44797,
+      "launcher_log": "/tmp/remag-mae-frozen-potential-20261025-diagnostic.log"
+    },
+    "verified_log_sha256": {
+      "/tmp/remag-mae-frozen-potential-20261025-qualified.log": "7487b8873a1ef391b2bc348ffe5ed147ae5cd8cc03c64e426a6e93a8653da8ef",
+      "/tmp/remag-mae-frozen-potential-20261025-corrected.log": "0fd0eb167d7fbde6da04a11bfe9520f892810c1b8ba388a9f7c05babe52e1788"
+    }
+  }
 }
