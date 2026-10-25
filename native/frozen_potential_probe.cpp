@@ -58,7 +58,8 @@ struct Probe {
     std::vector<Point> points;
     FermiProblem fermi{};
     size_t workspace=0,downloaded=0;
-    bool moments=true;
+    size_t matrix_workspace=0;
+    bool moments=true,matrices=false;
     double identity_error=0.;
 
     Probe(const char* path) {
@@ -79,6 +80,10 @@ struct Probe {
             require(!std::strcmp(option,"0")||!std::strcmp(option,"1"),"Invalid frozen spin-expectation option");
             moments=!std::strcmp(option,"1");
         }
+        if(const char* option=std::getenv("REMAG_FROZEN_MATRIX_SAMPLES")) {
+            require(!std::strcmp(option,"0")||!std::strcmp(option,"1"),"Invalid frozen matrix-sample option");
+            matrices=!std::strcmp(option,"1");
+        }
     }
     template<class T> void download(T* out,const T* input,size_t n,cudaStream_t stream) {
         check(cudaMemcpyAsync(out,input,n*sizeof(T),cudaMemcpyDeviceToHost,stream));
@@ -96,6 +101,8 @@ struct Probe {
             fermi.maxe,fermi.nk,moments?"true":"false",workspace,downloaded);
         if(points.empty()||!points[0].completed) std::fputs("null",f);
         else std::fprintf(f,"%.17g",identity_error);
+        std::fprintf(f,",\"matrix_samples\":%s,\"matrix_capture_workspace_bytes\":%zu",
+            matrices?"true":"false",matrix_workspace);
         std::fputs(",\"physical_accuracy_qualified\":false,\"points\":[",f);
         for(size_t i=0;i<points.size();i++) {
             const auto& p=points[i];const auto& q=rotations[i];const auto& d=p.difference;
@@ -127,6 +134,37 @@ struct Probe {
             std::fprintf(f,"%.17g,%.17g\n",scf[i],weights[i/fermi.maxe]);
         }
         out.close();
+    }
+    void capture(FrozenPotentialPlan& plan,size_t direction,cudaStream_t stream) {
+        if(!matrices) return;
+        const size_t elements=4*size_t(plan.bands())*plan.bands();
+        require(elements<=64ULL*1024*1024/sizeof(cuDoubleComplex),"Frozen matrix capture exceeds 64 MiB");
+        const unsigned int endian=1;
+        require(*reinterpret_cast<const unsigned char*>(&endian)==1,"Matrix capture requires little endian");
+        matrix_workspace=elements*sizeof(cuDoubleComplex);
+        Buffer<cuDoubleComplex> device(elements);
+        std::vector<cuDoubleComplex> host(elements);
+        std::vector<int> samples{0,plan.kpoints()/2,plan.kpoints()-1};
+        samples.erase(std::unique(samples.begin(),samples.end()),samples.end());
+        const auto& q=rotations[direction];
+        for(int k:samples) {
+            plan.capture_matrices(k,q.data(),device.p);
+            download(host.data(),device.p,elements,stream);check(cudaStreamSynchronize(stream));
+            char binary[128],metadata[128];
+            std::snprintf(binary,sizeof(binary),"remag-frozen-matrices-%03zu-k%06d.bin",direction,k);
+            std::snprintf(metadata,sizeof(metadata),"remag-frozen-matrices-%03zu-k%06d.json",direction,k);
+            File data(binary);
+            require(std::fwrite(host.data(),sizeof(cuDoubleComplex),elements,data.value)==elements,
+                "Failed writing frozen matrix capture");
+            data.close();
+            File output(metadata);
+            std::fprintf(output.value,"{\"schema\":1,\"reference\":\"Final SCF generator Hamiltonian\","
+                "\"dtype\":\"<c16\",\"order\":\"F\",\"matrices\":[\"generator\",\"overlap\",\"soc\",\"rotated\"],"
+                "\"bands\":%d,\"k\":%d,\"kpoints\":%d,\"direction\":%zu,\"quaternion\":[%.17g,%.17g,%.17g,%.17g],"
+                "\"matrix_file\":\"%s\",\"raw_spectrum\":\"remag-frozen-%03zu.csv\",\"energy_unit\":\"Ry\"}\n",
+                plan.bands(),k,plan.kpoints(),direction,q[0],q[1],q[2],q[3],binary,direction);
+            output.close();
+        }
     }
 };
 }
@@ -204,6 +242,7 @@ void frozen_potential_probe(const HamiltonianAssemblyView& view,const double* ge
             require(p.difference.finite_result&&std::all_of(p.spin,p.spin+3,[](double x){return std::isfinite(x);}),
                 "Frozen directional reduction failed");
             probe.raw(direction,e,q,spin,scf,w);
+            probe.capture(plan,direction,stream);
             p.seconds=std::chrono::duration<double>(std::chrono::steady_clock::now()-start).count();p.completed=true;
             probe.report("running");
             require(p.difference.electron_count_passed,"Frozen compensated electron-count check failed");

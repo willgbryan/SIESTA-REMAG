@@ -45,7 +45,7 @@ def selected(entry):
         return None
     if args.outputs_only and not ((args.density and path.suffix in (".RHO",".DRHO")) or (args.matrices and path.suffix in (".HSX",".DM",".TSDE",".nc",".XV"))):
         return None
-    if path.suffix not in (".json", ".log", ".csv", ".fdf", ".EIG", ".npz", ".ptx", ".F", ".f90") and path.name != "implementation.tar.gz" and not (args.density and path.suffix in (".RHO", ".DRHO")) and not (args.matrices and path.suffix in (".HSX", ".DM", ".TSDE", ".nc", ".XV")) and not (path.name.startswith(("remag-failed-","remag-final-grid-shadow-","remag-final-density-shadow-","remag-nonlocal-h0-")) and path.suffix == ".bin"):
+    if path.suffix not in (".json", ".log", ".csv", ".fdf", ".EIG", ".npz", ".ptx", ".F", ".f90") and path.name != "implementation.tar.gz" and not (args.density and path.suffix in (".RHO", ".DRHO")) and not (args.matrices and path.suffix in (".HSX", ".DM", ".TSDE", ".nc", ".XV")) and not (path.name.startswith(("remag-failed-","remag-frozen-matrices-","remag-final-grid-shadow-","remag-final-density-shadow-","remag-nonlocal-h0-")) and path.suffix == ".bin"):
         return None
     if ".." in relative.parts:
         raise ValueError("Unsafe artifact path")

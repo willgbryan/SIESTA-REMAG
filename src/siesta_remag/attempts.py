@@ -62,6 +62,6 @@ def package_evidence(root):
     with tarfile.open(fileobj=buffer,mode='w:gz') as archive:
         for path in sorted(root.rglob('*')):
             if path.is_file() and (path.suffix in ('.json','.log','.csv','.fdf','.EIG','.npz','.ptx','.F','.f90') or path.name=='implementation.tar.gz' or
-                (path.name.startswith(('remag-failed-','remag-final-grid-shadow-','remag-final-density-shadow-','remag-nonlocal-h0-')) and path.suffix=='.bin')):
+                (path.name.startswith(('remag-failed-','remag-frozen-matrices-','remag-final-grid-shadow-','remag-final-density-shadow-','remag-nonlocal-h0-')) and path.suffix=='.bin')):
                 archive.add(path,arcname=str(path.relative_to(root)))
     return buffer.getvalue()

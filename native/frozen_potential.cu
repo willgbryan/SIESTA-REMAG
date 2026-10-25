@@ -61,6 +61,21 @@ __global__ void inspect_spectrum(int n,int k,const int* info,const double* value
     }
 }
 
+__global__ void pack_soc(const HamiltonianAssemblyConfig* config,const HamiltonianPair* pairs,
+        const int* indices,const cuDoubleComplex* offsite,double* output) {
+    const auto p=*config;
+    for(int pair=blockIdx.x*blockDim.x+threadIdx.x;pair<p.pairs;pair+=gridDim.x*blockDim.x)
+        for(int j=pairs[pair].begin;j<pairs[pair].end;j++) {
+            const size_t index=indices[j],stride=p.ldh;
+            double off[8],soc[8];
+            for(int c=0;c<4;c++) {
+                const auto z=offsite[index+stride*c];off[2*c]=z.x;off[2*c+1]=z.y;
+            }
+            mae::offsite_soc(off,soc);
+            for(int c=0;c<8;c++) output[index+stride*c]=soc[c];
+        }
+}
+
 // cuSOLVER's generalized type-1 eigenvectors are S-orthonormal. Form S*C with
 // the ORIGINAL (pre-factorization) overlap's lower Hermitian triangle, exactly
 // as the eigensolver does, then evaluate Pauli expectations. Sparse assembly
@@ -167,6 +182,20 @@ struct FrozenPotentialPlan::Impl {
         allocations.clear();
     }
     ~Impl() {release();}
+    void capture_matrices(int k,const double quaternion[4],cuDoubleComplex* output) {
+        mae::SpinRotation rotation;
+        if(k<0||k>=view.shape.nk||!quaternion||!output||!mae::spin_rotation(quaternion,rotation))
+            throw std::runtime_error("Invalid frozen matrix capture arguments");
+        const auto& p=view.shape;
+        const size_t matrix=size_t(n)*n;
+        check(assemble_hamiltonian_device(view,reference,0,k,output,output+matrix,stream));
+        rotate<<<std::min(1024,(p.pairs+127)/128),128,0,stream>>>(view.config,view.pairs,
+            view.indices,rotation,reference,soc,rotated,result);check(cudaGetLastError());
+        check(assemble_hamiltonian_device(view,rotated,0,k,output+3*matrix,s,stream));
+        pack_soc<<<std::min(1024,(p.pairs+127)/128),128,0,stream>>>(view.config,view.pairs,
+            view.indices,soc,rotated);check(cudaGetLastError());
+        check(assemble_hamiltonian_device(view,rotated,0,k,output+2*matrix,s,stream));
+    }
     void solve(const double quaternion[4]) {
         mae::SpinRotation rotation;
         if(!quaternion||!mae::spin_rotation(quaternion,rotation))
@@ -200,6 +229,9 @@ FrozenPotentialPlan::FrozenPotentialPlan(const HamiltonianAssemblyView& v,const 
     impl_(std::make_unique<Impl>(v,h,soc,moments,maximum,stream)) {}
 FrozenPotentialPlan::~FrozenPotentialPlan()=default;
 void FrozenPotentialPlan::solve(const double q[4]) {impl_->solve(q);}
+void FrozenPotentialPlan::capture_matrices(int k,const double q[4],cuDoubleComplex* out) {
+    impl_->capture_matrices(k,q,out);
+}
 const FrozenSpectrumStatus* FrozenPotentialPlan::status() const {return impl_->result;}
 const double* FrozenPotentialPlan::energies() const {return impl_->values;}
 const double* FrozenPotentialPlan::spin_expectations() const {return impl_->spin;}

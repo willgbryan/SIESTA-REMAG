@@ -79,6 +79,19 @@ free-energy and direction gates. The FeCo eigenvalues-only control and repeated
 performance measurements remain open; neither can establish a useful speedup
 until the required accuracy is met.
 
+The next diagnostic can set `REMAG_FROZEN_MATRIX_SAMPLES=1` to retain the exact
+generator H, overlap, fixed lattice SOC and rotated H at the first, middle and
+last mesh indices (duplicates removed). It uses one additional buffer capped
+at 64 MiB, retains both assembled triangles, counts its downloads and performs
+no additional eigensolves. Run `python scripts/check_frozen_matrices.py <run>`
+with the development dependencies to compare these captures with independent
+NumPy SU(2) multiplication and SciPy generalized eigensolves. The check also
+quantifies whether rotating before taking the solver's lower Hermitian triangle
+changes the spectrum, and tests rotation invariance after removing SOC. This
+selected-k diagnostic has local positive/negative tests; its CUDA capture path
+has not yet run. It cannot replace the full-mesh, full-SCF or physical-accuracy
+checks, and terminal HSX output is not a substitute for this generator capture.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

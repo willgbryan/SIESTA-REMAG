@@ -40,6 +40,13 @@ public:
     // Invalid arguments throw before launch; asynchronous numerical failures
     // remain in status(). Never read a partial spectrum as a completed result.
     void solve(const double quaternion[4]);
+    // Diagnostic only, after a successful solve: assemble one selected k into
+    // caller-owned device storage [generator H, S, lattice SOC, rotated H],
+    // four column-major complex matrices of bands()^2 elements. Keeps BOTH
+    // independently assembled triangles for an offline rotation/solver check.
+    // Reuses scratch; leaves spectra, spin and job count unchanged. Output
+    // must not alias any borrowed input or plan storage and outlive the stream.
+    void capture_matrices(int k, const double quaternion[4], cuDoubleComplex* output);
     const FrozenSpectrumStatus* status() const;
     const double* energies() const; // [k][band], full spinors, Ry
     // [k][band][xyz], dimensionless Pauli expectations with C^H S C=1.
