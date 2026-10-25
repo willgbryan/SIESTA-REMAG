@@ -62,7 +62,9 @@ __global__ void inspect_spectrum(int n,int k,const int* info,const double* value
 }
 
 // cuSOLVER's generalized type-1 eigenvectors are S-orthonormal. Form S*C with
-// the ORIGINAL (pre-factorization) overlap, then evaluate Pauli expectations.
+// the ORIGINAL (pre-factorization) overlap's lower Hermitian triangle, exactly
+// as the eigensolver does, then evaluate Pauli expectations. Sparse assembly
+// can leave tiny differences between independently accumulated triangles.
 // One thread owns a band. No cross-band or cross-k atomic reductions.
 __global__ void spin_per_band(int n,int k,const cuDoubleComplex* c,const cuDoubleComplex* sc,
         double* output,FrozenSpectrumStatus* result) {
@@ -183,7 +185,7 @@ struct FrozenPotentialPlan::Impl {
             ++jobs;
             inspect_spectrum<<<1,1,0,stream>>>(n,k,info,values+size_t(n)*k,result);check(cudaGetLastError());
             if(moments) {
-                check(cublasZgemm(blas,CUBLAS_OP_N,CUBLAS_OP_N,n,n,n,&one,original_s,n,h,n,&zero,sc,n));
+                check(cublasZhemm(blas,CUBLAS_SIDE_LEFT,CUBLAS_FILL_MODE_LOWER,n,n,&one,original_s,n,h,n,&zero,sc,n));
                 spin_per_band<<<std::min(1024,(n+127)/128),128,0,stream>>>(n,k,h,sc,spin+3*size_t(n)*k,result);
                 check(cudaGetLastError());
                 retain_failed_spin<<<std::min(1024,(n+127)/128),128,0,stream>>>(n,k,result,h,original_s,failed_c,failed_s);
