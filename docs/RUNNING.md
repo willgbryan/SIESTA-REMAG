@@ -51,6 +51,38 @@ their presence does not imply every combination or material is qualified.
 FP64 vector/matrix tile experiments remain optional and are intentionally
 omitted here because their gains are workload-dependent.
 
+## Energy-only fixed-geometry calculations
+
+Set `REMAG_ENERGY_ONLY=1` in an existing integrated device-SCF candidate
+environment to omit final force/stress evaluation and derivative storage.
+The default is `0`. This remains a full SCF calculation, including final
+energy, entropy, magnetic populations and requested electronic exports;
+it is not a force-theorem approximation. Skipped forces/stress are absent,
+never reported as computed zeros.
+
+For a custom Modal experiment, pass the option in `run_case(..., extra_env=...)`
+and launch its module through `scripts/run_modal.py`. Setting it only in the
+local launcher's shell does not configure a remote candidate. Keep the existing
+device-SCF and native final-state-owner options enabled. Leave upstream's
+`compute-forces` at its default: REMAG controls the electronic finalization.
+
+The initial scope is one fixed geometry per process. Relaxation, MD, orientation
+loops, NetCDF, post-SCF Hamiltonian recomputation, molecular-mechanics and
+metadynamics corrections are rejected. Independent directional processes
+remain supported. General larger-k capacity is not established by this mode.
+
+Use an explicit comparison scope for completed energy-only candidates:
+
+```sh
+remag compare runs/reference/result.json runs/energy-only/result.json --electronic-only
+remag mae runs/reference-x/result.json runs/reference-z/result.json \
+  runs/energy-only-x/result.json runs/energy-only-z/result.json --electronic-only
+```
+
+The directional command checks both total and free-energy differences and final
+moment directions. Ordinary comparisons still require forces/stress. A comparison
+with different requested observables does not produce an automatic speedup ratio.
+
 ## CUDA build targets
 
 A fresh native CMake build defaults to `CMAKE_CUDA_ARCHITECTURES="80;90"`.

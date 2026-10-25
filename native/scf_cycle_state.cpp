@@ -536,11 +536,34 @@ extern "C" int remag_cycle_export(int bank_size,double* energies,double* occupat
         counts.cycles.push_back(state.record);state.stage=Stage::exported;return 0;
     } catch(const std::exception& e) {return failure("export",e);}
 }
+extern "C" int remag_energy_only_enabled() {
+    try {return remag::energy_only_enabled()?1:0;}catch(...){return -1;}
+}
+extern "C" int remag_cycle_energy_publish(int* iterations) {
+    try {
+        current(Stage::exported);
+        require(iterations&&remag::energy_only_enabled()&&state.result.control.convergence.converged&&
+            state.result.iterations>0&&size_t(state.result.iterations)<=state.diagnostics.size()&&
+            state.final_grid_pending&&!state.final_grid_used&&!state.final_h_required&&state.final_h.empty(),
+            "Energy-only finalization requires the accepted final device cycle");
+        remag::complete_energy_only_state(state.epoch);
+        state.final_grid_used=true;*iterations=state.result.iterations;
+        FILE* receipt=std::fopen("remag-energy-only.json","w");require(receipt,"Cannot record energy-only publication");
+        const int written=std::fprintf(receipt,
+            "{\"schema\":1,\"mode\":\"energy_only\",\"epoch\":%llu,\"status\":0,\"capacity\":%d,\"spins\":%d,"
+            "\"iterations\":%d,\"forces_calculated\":false,\"stress_calculated\":false,"
+            "\"hamiltonian_required\":false,\"hamiltonian_cycle_export_bytes\":0}\n",
+            static_cast<unsigned long long>(state.epoch),state.capacity,state.nh,*iterations);
+        const int closed=std::fclose(receipt);require(written>0&&closed==0,"Incomplete energy-only publication record");
+        std::printf("REMAG: energy-only finalization; forces and stress not calculated\n");
+        return 0;
+    } catch(const std::exception& e) {return failure("energy-only finalization",e);}
+}
 extern "C" int remag_cycle_analysis_spectrum(int bank_size,double* energies) {
     try {
         current(Stage::exported);
         require(state.record.deferred_spectrum&&remag_cycle_spectrum_deferred()&&state.final_spectrum&&
-            energies==state.host_spectrum&&bank_size==state.bank_size&&remag::final_grid_forces_complete(state.epoch),
+            energies==state.host_spectrum&&bank_size==state.bank_size&&remag::final_electronic_state_complete(state.epoch),
             "Invalid final-analysis spectrum consumer");
         auto& r=counts.spectra.at(state.spectrum_record);
         require(!r.consumed&&!r.discarded&&r.epoch==state.epoch&&r.bank_size==bank_size,"Stale or repeated spectrum consumer");
@@ -616,7 +639,7 @@ extern "C" int remag_final_density(int kind,int capacity,int spins,int grid_spin
     try {
         current(Stage::exported);
         require(remag_final_density_active()&&remag_final_grid_enabled()&&state.final_grid_used&&
-            remag::final_grid_forces_complete(state.epoch)&&(kind==1||kind==2)&&(state.final_rho_requested&kind)&&
+            remag::final_electronic_state_complete(state.epoch)&&(kind==1||kind==2)&&(state.final_rho_requested&kind)&&
             (kind==1?state.final_rho:state.final_drho)&&counts.densities.size()>=2&&capacity==state.capacity&&spins==state.nh&&grid_spins==state.eh&&
             mesh&&std::equal(mesh,mesh+3,state.grid_problem.pbe.mesh)&&nsm==state.grid_problem.nsm&&density&&rho&&
             state.final_grid_pending&&density==state.host_d,

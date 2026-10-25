@@ -144,9 +144,9 @@ void coefficients(int count,double* output){
 }
 void finish(int save){
     enabled();auto& s=state;
-    require(s.stage==Stage::bound&&(save==0||save==1)&&(!save||s.depth>0)&&final_grid_forces_complete(s.epoch),
-        "History retention precedes accepted forces or duplicates a geometry");
-    auto& r=evidence.rows[s.record];r.forces_accepted=true;
+    require(s.stage==Stage::bound&&(save==0||save==1)&&(!save||s.depth>0)&&final_electronic_state_complete(s.epoch),
+        "History retention precedes accepted electronic state or duplicates a geometry");
+    auto& r=evidence.rows[s.record];r.forces_accepted=final_grid_forces_complete(s.epoch);
     if(save){
         auto view=borrow_final_history_state(s.epoch);
         require(view.shape.nuo==s.rows&&view.shape.nnz==s.capacity&&view.h_spins==s.spins&&view.convergence,

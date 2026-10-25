@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 
 
-def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_records=None,poisoned=False,compact_queries=False):
+def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_records=None,poisoned=False,compact_queries=False,energy_only=False):
     errors=[];checks=[];rows=report.get('cycles',[]);owners=geometry.get('cycles',[])
     if report.get('schema')!=1 or not rows or [r.get('epoch') for r in rows]!=epochs or [r.get('epoch') for r in owners]!=epochs:
         return dict(passed=False,errors=['H0 shadow does not cover every electronic/force geometry'],checks=[])
@@ -41,7 +41,8 @@ def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_recor
                       export_bytes=4 if production else values+4,raw_bytes=0 if production else 3*values,derivative_upload_bytes=0,integral_download_bytes=0)
         if any(r.get(k)!=v for k,v in expected.items()):issues.append('H0 graph/storage/transfer inventory differs')
         if r.get('production',False) is not production:issues.append('H0 requested mode differs from native owner')
-        if any(r.get(k) is not True for k in ('passed','bound','force_borrowed','complete')):
+        if (any(r.get(k) is not True for k in ('passed','bound')) or
+                any(r.get(k) is not (not energy_only) for k in ('force_borrowed','complete'))):
             issues.append('H0 comparison or retained integral lifetime incomplete')
         if r.get('poison_requested',False) is not poisoned or r.get('host_poisoned',False) is not poisoned:
             issues.append('H0 host poisoning control is incomplete or unexpected')
@@ -92,4 +93,4 @@ def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_recor
         for key in actual:actual[key]+=counter.get(key,0)
     if actual!=totals:errors.append('H0 transfers do not match raw phase accounting')
     return dict(passed=not errors,errors=errors,checks=checks,traffic=totals,
-                production_h0=production,integrals_retained_through_forces=True,strict_residency_verified=False)
+                production_h0=production,integrals_retained_through_forces=not energy_only,strict_residency_verified=False)

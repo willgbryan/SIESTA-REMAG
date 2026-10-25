@@ -58,6 +58,11 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
     trace_io = env.get("REMAG_TRACE_IO") == "1"
     trace_cuda = env.get("REMAG_TRACE_CUDA") == "1"
     device_cycle = env.get("REMAG_DEVICE_SCF") == "1"
+    energy_only = env.get('REMAG_ENERGY_ONLY', '0') == '1'
+    if env.get('REMAG_ENERGY_ONLY', '0') not in ('0', '1') or (energy_only and not device_cycle):
+        raise ValueError('Energy-only execution requires device SCF and a zero/one mode')
+    if energy_only and 'relaxation_force_tolerance_ev_ang' in manifest:
+        raise ValueError('Energy-only execution cannot perform structural relaxation')
     vector_cache = env.get('REMAG_DEVICE_VECTOR_CACHE') == '1'
     if env.get('REMAG_DEVICE_VECTOR_CACHE', '0') not in ('0', '1') or (vector_cache and not device_cycle):
         raise ValueError('Vector cache requires device SCF and a zero/one mode')
@@ -273,7 +278,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
             profile["average_device_iteration_seconds"]=(profile["device_cycle_seconds"]/profile["device_iterations"]
                 if profile["device_iterations"] else None)
             profile["device_cycle_timing_scope"]="whole GPU execution region; individual iteration times unavailable"
-    if final_grid or final_shadow:
+    if (final_grid or final_shadow) and not energy_only:
         path=destination/'remag-final-grid.json'
         records=json.loads(path.read_text()).get('cycles',[]) if path.is_file() else []
         for record in records:parse_errors.extend(final_grid_errors(record,destination,final_shadow))
@@ -285,7 +290,8 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         path=destination/'remag-final-density.json'
         records=json.loads(path.read_text()).get('cycles',[]) if path.is_file() else []
         for record in records:parse_errors.extend(final_density_errors(record,destination,density_shadow))
-        final_rows=telemetry.get('final_grid',[])
+        final_rows=(telemetry.get('gpu_device_cycle',{}).get('cycles',[]) if energy_only
+                    else telemetry.get('final_grid',[]))
         expected=[(r['epoch'],kind) for r in final_rows for kind in (1,2)]
         if not records or [(r['epoch'],r['kind']) for r in records]!=expected:
             parse_errors.append('Retained output density does not cover every geometry/kind')
@@ -310,7 +316,27 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
             elif exports:parse_errors.append('Unrequested '+suffix+' export')
         telemetry['final_density']=records
         telemetry['gpu_final_density']=dict(host_to_device_bytes=0,device_to_host_bytes=sum(r['device_to_host_bytes'] for r in records))
-    if integral_force:
+    if energy_only:
+        from .energy_only import record_errors as energy_only_errors
+        path=destination/'remag-energy-only.json'
+        record=json.loads(path.read_text()) if path.is_file() else {}
+        parse_errors.extend(energy_only_errors(record,telemetry.get('gpu_device_cycle',{}).get('cycles',[]),
+            output,(destination/'stdout.log').read_text(errors='replace')))
+        telemetry['energy_only']=[record] if record else []
+        if any(destination.glob('remag-integral-force-*.json')) or any(destination.glob('remag-integral-grid-*.json')):
+            parse_errors.append('Energy-only run executed force consumers')
+        owners={}
+        for key, name in (('tables','remag-two-center-tables.json'),('pairs','remag-pair-geometry.json'),('nonlocal','remag-nonlocal-geometry.json')):
+            path=destination/name;owners[key]=json.loads(path.read_text()) if path.is_file() else {}
+        telemetry['integral_geometry']=owners
+        radial=owners['tables'].get('radial_setup',{})
+        telemetry['gpu_energy_only']=dict(
+            host_to_device_bytes=4+sum(t['setup_bytes'] for t in owners['tables'].get('tables',[]))+
+                sum(p['setup_bytes'] for p in owners['pairs'].get('cycles',[]))+
+                sum(n['geometry_bytes'] for n in owners['nonlocal'].get('cycles',[]))+
+                radial.get('host_to_device_bytes',0),
+            device_to_host_bytes=4+radial.get('device_to_host_bytes',0))
+    if integral_force and not energy_only:
         records=[json.loads(p.read_text()) for p in sorted(destination.glob('remag-integral-force-*.json'))]
         grids=[json.loads(p.read_text()) for p in sorted(destination.glob('remag-integral-grid-*.json'))]
         owners={}
@@ -329,6 +355,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
             telemetry['gpu_integral_force'][key]+=radial.get(key,0)
         if env.get('REMAG_RADIAL_BATCH')=='1' and radial.get('calls',0)<2:
             parse_errors.append('GPU radial table setup did not execute')
+    if integral_force:
         from .terminal_exports import record_errors as terminal_export_errors, requested_energy_exports, requested_density_exports, requested_hamiltonian_exports
         cycle_data=telemetry.get('gpu_device_cycle',{})
         if cycle_data.get('schema')!=3:parse_errors.append('Terminal matrix export schema is missing')
@@ -336,9 +363,9 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         h_reasons=requested_hamiltonian_exports((destination/'input.fdf').read_text(),env.get('REMAG_GATE_H_EXPORT')=='1')
         density_reasons=requested_density_exports((destination/'input.fdf').read_text(),env.get('REMAG_GPU_HISTORY')=='1',
             env.get('REMAG_FINAL_GRID_SHADOW')=='1' or env.get('REMAG_FINAL_DENSITY_SHADOW')=='1')
-        parse_errors.extend(terminal_export_errors(cycle_data.get('cycles',[]),telemetry.get('final_grid',[]),True,export_reasons,
+        parse_errors.extend(terminal_export_errors(cycle_data.get('cycles',[]),telemetry.get('energy_only' if energy_only else 'final_grid',[]),True,export_reasons,
                                                   env.get('REMAG_GPU_INITIALIZATION') == '1',density_reasons,env.get('REMAG_FINAL_SPECTRA') == '1',h_reasons))
-    elif grid_force:
+    elif grid_force and not energy_only:
         records=[]
         for path in sorted(destination.glob("remag-grid-force-*.json")):
             record=json.loads(path.read_text());records.append(record)
@@ -361,7 +388,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         records=data.get('cycles',[])
         if data.get('schema')!=1:parse_errors.append('Missing final spectrum schema')
         parse_errors.extend(spectrum_errors(records,telemetry.get('gpu_device_cycle',{}).get('cycles',[]),
-                                            telemetry.get('integral_force',[])))
+                                            telemetry.get('energy_only' if energy_only else 'integral_force',[])))
         telemetry['final_spectrum']=records
         telemetry['gpu_final_spectrum']=dict(host_to_device_bytes=0,
             device_to_host_bytes=sum(r['eigenvalue_export_bytes']+r['occupation_export_bytes'] for r in records))
@@ -391,7 +418,8 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
     if histories is not None:
         from .density_history import record_errors as history_errors, policy as history_policy
         parse_errors.extend(history_errors(histories,telemetry.get('gpu_device_cycle',{}).get('cycles',[]),
-            telemetry.get('initial_state',[]),telemetry.get('integral_force',[]),history_policy((destination/'input.fdf').read_text())))
+            telemetry.get('initial_state',[]),telemetry.get('energy_only' if energy_only else 'integral_force',[]),
+            history_policy((destination/'input.fdf').read_text()),energy_only=energy_only))
         telemetry['density_history']=histories
         telemetry['gpu_density_history']=dict(host_to_device_bytes=sum(r['setup_bytes'] for r in histories),
             device_to_host_bytes=sum(r['initial_status_bytes']+r['post_status_bytes']+r['coefficient_export_bytes'] for r in histories))
@@ -420,14 +448,15 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
     if basis_shadow or basis_device:
         path=destination/'remag-orbital-basis.json'
         records=json.loads(path.read_text()).get('cycles',[]) if path.is_file() else []
-        forces=telemetry.get('grid_force',[])
+        forces=telemetry.get('energy_only' if energy_only else 'grid_force',[])
         if not records or [r['epoch'] for r in records]!=[r['epoch'] for r in forces]:
             parse_errors.append('Orbital basis owner does not cover every geometry')
-        for record,force in zip(records,forces):parse_errors.extend(orbital_basis_errors(record,force,basis_shadow))
+        for record,force in zip(records,forces):
+            parse_errors.extend(orbital_basis_errors(record,force,basis_shadow,energy_only=energy_only))
         telemetry['orbital_basis']=records
         telemetry['gpu_orbital_basis']=dict(host_to_device_bytes=sum(r['compact_setup_bytes']+r['shadow_setup_bytes'] for r in records),
                                            device_to_host_bytes=sum(r['shadow_export_bytes'] for r in records))
-    if atomic_basis_shadow or atomic_basis_device:
+    if (atomic_basis_shadow or atomic_basis_device) and not energy_only:
         path=destination/'remag-atomic-basis.json'
         report=json.loads(path.read_text()) if path.is_file() else {}
         records=report.get('cycles',[]);forces=telemetry.get('grid_force',[])
@@ -492,7 +521,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         p=destination/'remag-nonlocal-h0.json';report=json.loads(p.read_text()) if p.is_file() else {}
         raw=destination/'remag-residency.json';trace=json.loads(raw.read_text()) if raw.is_file() else {}
         epochs=[c.get('epoch') for c in telemetry.get('gpu_device_cycle',{}).get('cycles',[])]
-        h0_audit=audit_nonlocal_h0(report,destination,epochs,telemetry.get('integral_geometry',{}).get('nonlocal',{}),trace,production=h0_production,cycle_records=telemetry.get('gpu_device_cycle',{}).get('cycles',[]),poisoned=h0_poisoned,compact_queries=h0_production)
+        h0_audit=audit_nonlocal_h0(report,destination,epochs,telemetry.get('integral_geometry',{}).get('nonlocal',{}),trace,production=h0_production,cycle_records=telemetry.get('gpu_device_cycle',{}).get('cycles',[]),poisoned=h0_poisoned,compact_queries=h0_production,energy_only=energy_only)
         parse_errors.extend(h0_audit['errors']);telemetry['nonlocal_h0']=report;telemetry['nonlocal_h0_audit']=h0_audit
         telemetry['gpu_nonlocal_h0']=h0_audit.get('traffic',{})
     if env.get('REMAG_INITIAL_MESH')=='1':
@@ -500,7 +529,8 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         mesh=json.loads(path.read_text()) if path.is_file() else {}
         rows=mesh.get('cycles',[]);cycles=telemetry.get('gpu_device_cycle',{}).get('cycles',[])
         if not rows or [r.get('epoch') for r in rows]!=[c.get('epoch') for c in cycles] or any(
-                not all(r.get(k) is True for k in ('launched','phi_bound','density_borrowed','density_released','forces_complete','passed','converged'))
+                not all(r.get(k) is True for k in ('launched','phi_bound','density_borrowed','density_released','passed','converged'))
+                or r.get('forces_complete') is not (not energy_only)
                 or r.get('cycle_status')!=0 or r.get('cycle_producer_status')!=0 for r in rows):
             parse_errors.append('Initial GPU mesh did not cover completed SCF and forces')
         telemetry['initial_mesh']=mesh
@@ -636,10 +666,11 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
                             "runtime_instance_id": env.get("REMAG_HOST_ID", platform.node())},
                   upstream=provenance, parse_errors=parse_errors,
                   runtime_settings={key: env.get(key) for key in
-                                    ("REMAG_INITIAL_MESH", "REMAG_INITIAL_MESH_POISON_HOST", "REMAG_INITIAL_MESH_SHADOW", "REMAG_NONLOCAL_H0_POISON_HOST", "REMAG_NONLOCAL_H0", "REMAG_NONLOCAL_H0_SHADOW", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "REMAG_GPU", "REMAG_GRID", "REMAG_DM",
+                                    ("REMAG_ENERGY_ONLY", "REMAG_INITIAL_MESH", "REMAG_INITIAL_MESH_POISON_HOST", "REMAG_INITIAL_MESH_SHADOW", "REMAG_NONLOCAL_H0_POISON_HOST", "REMAG_NONLOCAL_H0", "REMAG_NONLOCAL_H0_SHADOW", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "REMAG_GPU", "REMAG_GRID", "REMAG_DM",
                                      "REMAG_GRID_POTENTIAL_SPINS", "REMAG_GRID_EPOCH", "REMAG_GRID_VERIFY_EPOCH", "REMAG_NORMALIZE", "REMAG_OCCUPATIONS", "REMAG_RESIDENT_SPECTRA", "REMAG_HS", "REMAG_HARTREE", "REMAG_RESIDENT_GRID", "REMAG_RESIDENT_SCF", "REMAG_DEVICE_SCF", "REMAG_DEVICE_VECTOR_CACHE", "REMAG_BLOCK_SOLVER", "REMAG_BLOCK_WIDTH", "REMAG_BLOCK_LOCAL_SOLVER", "REMAG_BLOCK_SHARED_JACOBI", "REMAG_BLOCK_FUSED_MATRIX", "REMAG_BLOCK_FP64_VECTORS", "REMAG_BLOCK_FP64_MATRIX", "REMAG_FORCE_SHADOW", "REMAG_FORCE_SHADOW_RESIDENT", "REMAG_GRID_FORCE", "REMAG_ATOMIC_GRID_FORCE", "REMAG_ATOMIC_FORCE_SHADOW", "REMAG_FINAL_GRID", "REMAG_FINAL_GRID_SHADOW", "REMAG_FINAL_DENSITY", "REMAG_FINAL_DENSITY_SHADOW", "REMAG_ORBITAL_BASIS_SHADOW", "REMAG_ORBITAL_BASIS", "REMAG_ATOMIC_BASIS_SHADOW", "REMAG_ATOMIC_BASIS", "REMAG_TWO_CENTER_SHADOW", "REMAG_PAIR_FORCE_SHADOW", "REMAG_NONLOCAL_FORCE_SHADOW", "REMAG_INTEGRAL_FORCE", "REMAG_POPULATION", "REMAG_TRACE_IO", "REMAG_TRACE_CUDA", "REMAG_SCF_STAGE_PROFILE", "REMAG_SCF_SOLVER_LANES", "REMAG_SCF_WARM_START", "REMAG_RADIAL_BATCH",
                                      "REMAG_GPU_INITIALIZATION", "REMAG_GPU_HISTORY", "REMAG_FINAL_SPECTRA", "REMAG_GATE_H_EXPORT", "REMAG_DEFER_SCF_LOG", "GFORTRAN_FORMATTED_BUFFER_SIZE",
                                      "GFORTRAN_UNBUFFERED_ALL", "GFORTRAN_UNBUFFERED_PRECONNECTED")},
+                  calculation_scope="energy_only" if energy_only else "energy_forces_stress",
                   returncode=returncode, timed_out=timed_out, wall_seconds=wall,
                   valid=returncode == 0 and not timed_out and not parse_errors and output["converged"] and output["completed"],
                   observables=output, profile=profile, telemetry=telemetry)

@@ -23,9 +23,11 @@ def main():
     p.add_argument("reference", type=Path)
     p.add_argument("candidate", type=Path)
     p.add_argument("--output", type=Path)
+    p.add_argument("--electronic-only", action="store_true", help="Compare declared energy-only candidates, including free energy; omit forces/stress")
     p = commands.add_parser("mae")
     for name in ("reference_x", "reference_z", "candidate_x", "candidate_z"):
         p.add_argument(name, type=Path)
+    p.add_argument("--electronic-only", action="store_true", help="Check total and free directional energies for declared energy-only candidates")
     args = parser.parse_args()
     if args.command == "prepare":
         print(prepare(args.case, args.upstream, args.output, io_policy=args.io_policy))
@@ -36,12 +38,14 @@ def main():
         raise SystemExit(0 if result["valid"] else 1)
     if args.command == "compare":
         result = compare(json.loads(args.reference.read_text()), json.loads(args.candidate.read_text()),
-                         reference_dir=args.reference.parent, candidate_dir=args.candidate.parent)
+                         reference_dir=args.reference.parent, candidate_dir=args.candidate.parent,
+                         electronic_only=args.electronic_only)
         if args.output:
             args.output.write_text(json.dumps(result, indent=2) + "\n")
     else:
         paths = [getattr(args, name) for name in ("reference_x", "reference_z", "candidate_x", "candidate_z")]
-        result = compare_mae(*(json.loads(path.read_text()) for path in paths), directories=[p.parent for p in paths])
+        result = compare_mae(*(json.loads(path.read_text()) for path in paths), directories=[p.parent for p in paths],
+                             electronic_only=args.electronic_only)
     print(json.dumps(result, indent=2))
     raise SystemExit(0 if result["passed"] else 1)
 

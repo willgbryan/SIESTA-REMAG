@@ -110,6 +110,18 @@ def test_mae_gate_checks_energy_difference_and_final_direction(tmp_path):
     rx,rz,cx,cz=run(90,-1000.),run(0,-1000.001),run(90,-1000.),run(0,-1000.001)
     dirs=[tmp_path]*4
     assert compare_mae(rx,rz,cx,cz,directories=dirs)["passed"]
+    electronic = copy.deepcopy([rx, rz, cx, cz])
+    for r in electronic:
+        r['observables']['free_energy_ev'] = r['observables']['total_energy_ev']-.01
+    for r in electronic[2:]:
+        r['calculation_scope'] = 'energy_only'
+        r['observables'].update(forces_ev_ang=None, stress_ev_ang3=None)
+    assert not compare_mae(*electronic, directories=dirs)['passed']
+    assert compare_mae(*electronic, directories=dirs, electronic_only=True)['passed']
+    # The ordinary per-atom gate permits this; the directional free-energy gate must not.
+    electronic[2]['observables']['free_energy_ev'] += 1.e-5
+    result = compare_mae(*electronic, directories=dirs, electronic_only=True)
+    assert not result['passed'] and not result['free_energy_difference']['passed']
     cx["runtime_settings"] = {"REMAG_TRACE_IO": "1"}
     traced = compare(rx,cx,reference_dir=tmp_path,candidate_dir=tmp_path)
     assert traced["passed"] and not traced["performance_comparable"]
@@ -151,3 +163,27 @@ def test_stale_outputs_cannot_enter_new_run(tmp_path):
     executable.touch()
     with pytest.raises(ValueError,match="unexpected files"):
         run_case(case,executable,tmp_path/"run")
+
+def test_energy_only_comparison_is_explicit_and_preserves_electronic_gates(tmp_path, monkeypatch):
+    monkeypatch.setattr('siesta_remag.compare.read_grid', lambda _: (np.eye(3), np.ones((1, 1, 1, 4))))
+    reference = dict(valid=True, wall_seconds=2., hardware={'host': 'same'},
+        benchmark=dict(atoms=2, spin='spin-orbit', input_sha256='same', pseudopotentials={}),
+        observables=dict(total_energy_ev=-100., free_energy_ev=-100.01, fermi_energy_ev=-2.,
+            scf_iterations=10, forces_ev_ang=[[0., 0., 0.]], stress_ev_ang3=np.zeros((3, 3)).tolist(),
+            total_moment_muB=[0., 0., 2.], atom_moments_muB=[[0., 0., 2.]], atom_net_charges_e=[0.],
+            eigenvalues={'values_ev': [[-2., 1.]]}, soc_energy_representation='included_in_nonlocal'))
+    candidate = copy.deepcopy(reference)
+    candidate.update(calculation_scope='energy_only', wall_seconds=1.)
+    candidate['observables'].update(forces_ev_ang=None, stress_ev_ang3=None)
+    paths = dict(reference_dir=tmp_path, candidate_dir=tmp_path)
+    assert not compare(reference, candidate, **paths)['passed']
+    result = compare(reference, candidate, electronic_only=True, **paths)
+    assert result['passed'] and result['end_to_end_speedup'] is None
+    assert not result['performance_comparable']
+    for field, value in [('free_energy_ev', None), ('free_energy_ev', float('nan')),
+                         ('free_energy_ev', -100.), ('total_moment_muB', [0., 0., 1.])]:
+        bad = copy.deepcopy(candidate)
+        bad['observables'][field] = value
+        assert not compare(reference, bad, electronic_only=True, **paths)['passed']
+    candidate.pop('calculation_scope')
+    assert not compare(reference, candidate, electronic_only=True, **paths)['passed']

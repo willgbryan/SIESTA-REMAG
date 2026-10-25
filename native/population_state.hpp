@@ -8,8 +8,8 @@ bool population_enabled();
 // retained from device buffers before the cycle releases those buffers.
 void prepare_population_state(uint64_t epoch,int atoms,int rows,int capacity,int spins,int species,const int* lasto,const int* atom_species,const double* valence);
 void bind_population_topology(uint64_t epoch,const int* num,const int* ptr,const double* overlap,cudaStream_t);
-// Runs after all force consumers, on their stream. Failure joins the existing
-// shared status; no population readback or host polling occurs here.
+// Runs on the final publication stream, after any requested force consumers.
+// Failure joins its shared status; no population readback or host polling occurs here.
 void evaluate_final_population(const FinalGridStateView&,const FinalForceAccumulatorView&);
 void complete_population_publication(uint64_t epoch);
 void reset_population_state();

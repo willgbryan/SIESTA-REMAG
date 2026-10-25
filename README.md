@@ -18,6 +18,8 @@ numerical reference. Execution supports one NVIDIA A100 or H100 GPU.
   density construction, real-space grid operations and mixing.
 - GPU evaluation of supported forces, stress and population observables,
   checked against upstream alongside energies, densities and magnetic moments.
+- Opt-in [energy-only full SCF](docs/RUNNING.md#energy-only-fixed-geometry-calculations)
+  for fixed geometries, preserving electronic outputs while skipping force derivatives.
 - Directional magnetic-energy comparisons and FePt regression coverage through
   128 atoms / 2,304 spinor states, with additional Fe, Fe3C, Fe2B and Fe5PB2 cases.
 
@@ -135,6 +137,9 @@ See [architecture and residency](docs/GPU_RESIDENCY.md),
 [selected benchmark evidence](benchmarks/evidence/README.md). Dated engineering
 records describe their measured implementation stages. Links into `results/`
 refer to the separate local raw-evidence archive, which is not bundled.
+
+The [MAE acceleration plan](docs/MAE_ACCELERATION.md) tracks subsequent method
+development and its numerical qualification requirements.
 
 ## License
 
