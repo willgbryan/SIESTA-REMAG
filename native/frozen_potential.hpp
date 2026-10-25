@@ -9,7 +9,8 @@ namespace remag {
 struct FrozenSpectrumStatus {
     // 0 success, 1 invalid sparse values/rotation, 2 eigensolver failure,
     // 3 nonfinite spectrum or invalid eigenvector normalization.
-    int status=0, k=-1, solver_info=0, reserved=0;
+    int status=0, k=-1, solver_info=0, band=-1;
+    double norm=0., spin_squared=0.;
 };
 
 // Internal, experimental full-offsite-SOC evaluator; not an SCF driver.
@@ -44,6 +45,10 @@ public:
     // [k][band][xyz], dimensionless Pauli expectations with C^H S C=1.
     // nullptr in eigenvalues-only mode. Occupations/weights are NOT applied.
     const double* spin_expectations() const;
+    // First failed spin check only; column-major dense C and original S.
+    // Valid after completion when status()==3 and status()->band>=0.
+    const cuDoubleComplex* failed_vectors() const;
+    const cuDoubleComplex* failed_overlap() const;
     int bands() const;
     int kpoints() const;
     int eigensystem_jobs() const; // cuSOLVER calls enqueued in the latest solve

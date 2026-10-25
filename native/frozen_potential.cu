@@ -55,9 +55,9 @@ __global__ void rotate(const HamiltonianAssemblyConfig* config, const Hamiltonia
 __global__ void inspect_spectrum(int n,int k,const int* info,const double* values,
                                  FrozenSpectrumStatus* result) {
     if(result->status) return;
-    if(*info) {*result={2,k,*info,0};return;}
+    if(*info) {*result={2,k,*info,-1};return;}
     for(int i=0;i<n;i++) if(!isfinite(values[i])||(i&&values[i]<values[i-1])) {
-        *result={3,k,0,0};return;
+        *result={3,k,0,-1};return;
     }
 }
 
@@ -78,10 +78,22 @@ __global__ void spin_per_band(int n,int k,const cuDoubleComplex* c,const cuDoubl
         }
         double spin[3];
         if(!sum.finish(spin)) {
-            if(atomicCAS(&result->status,0,3)==0) result->k=k;
+            if(atomicCAS(&result->status,0,3)==0) {
+                result->k=k;result->band=band;result->norm=sum.norm.value();
+                const double x=sum.x.value(),y=sum.y.value(),z=sum.z.value();
+                result->spin_squared=x*x+y*y+z*z;
+            }
             continue;
         }
         for(int component=0;component<3;component++) output[3*size_t(band)+component]=spin[component];
+    }
+}
+__global__ void retain_failed_spin(int n,int k,const FrozenSpectrumStatus* result,
+        const cuDoubleComplex* c,const cuDoubleComplex* s,
+        cuDoubleComplex* failed_c,cuDoubleComplex* failed_s) {
+    if(result->status!=3||result->band<0||result->k!=k) return;
+    for(size_t i=blockIdx.x*blockDim.x+threadIdx.x;i<size_t(n)*n;i+=gridDim.x*blockDim.x) {
+        failed_c[i]=c[i];failed_s[i]=s[i];
     }
 }
 }
@@ -99,6 +111,7 @@ struct FrozenPotentialPlan::Impl {
     bool moments=false;
     double *rotated=nullptr,*values=nullptr,*spin=nullptr;
     cuDoubleComplex *h=nullptr,*s=nullptr,*original_s=nullptr,*sc=nullptr,*work=nullptr;
+    cuDoubleComplex *failed_c=nullptr,*failed_s=nullptr;
     int* info=nullptr;
     FrozenSpectrumStatus* result=nullptr;
 
@@ -131,6 +144,7 @@ struct FrozenPotentialPlan::Impl {
             if(moments) {
                 check(cublasCreate(&blas));check(cublasSetStream(blas,stream));
                 original_s=allocate<cuDoubleComplex>(matrix);sc=allocate<cuDoubleComplex>(matrix);
+                failed_c=allocate<cuDoubleComplex>(matrix);failed_s=allocate<cuDoubleComplex>(matrix);
                 if(bank>SIZE_MAX/3) throw std::runtime_error("Frozen spin bank dimensions overflow");
                 spin=allocate<double>(bank*3);
             }
@@ -172,6 +186,8 @@ struct FrozenPotentialPlan::Impl {
                 check(cublasZgemm(blas,CUBLAS_OP_N,CUBLAS_OP_N,n,n,n,&one,original_s,n,h,n,&zero,sc,n));
                 spin_per_band<<<std::min(1024,(n+127)/128),128,0,stream>>>(n,k,h,sc,spin+3*size_t(n)*k,result);
                 check(cudaGetLastError());
+                retain_failed_spin<<<std::min(1024,(n+127)/128),128,0,stream>>>(n,k,result,h,original_s,failed_c,failed_s);
+                check(cudaGetLastError());
             }
         }
     }
@@ -185,6 +201,8 @@ void FrozenPotentialPlan::solve(const double q[4]) {impl_->solve(q);}
 const FrozenSpectrumStatus* FrozenPotentialPlan::status() const {return impl_->result;}
 const double* FrozenPotentialPlan::energies() const {return impl_->values;}
 const double* FrozenPotentialPlan::spin_expectations() const {return impl_->spin;}
+const cuDoubleComplex* FrozenPotentialPlan::failed_vectors() const {return impl_->failed_c;}
+const cuDoubleComplex* FrozenPotentialPlan::failed_overlap() const {return impl_->failed_s;}
 int FrozenPotentialPlan::bands() const {return impl_->n;}
 int FrozenPotentialPlan::kpoints() const {return impl_->view.shape.nk;}
 int FrozenPotentialPlan::eigensystem_jobs() const {return impl_->jobs;}

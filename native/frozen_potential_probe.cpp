@@ -164,6 +164,23 @@ void frozen_potential_probe(const HamiltonianAssemblyView& view,const double* ge
             FrozenSpectrumStatus result;
             probe.download(&result,plan.status(),1,stream);check(cudaStreamSynchronize(stream));
             p.status=result.status;p.k=result.k;p.solver_info=result.solver_info;
+            if(result.status==3&&result.band>=0) {
+                std::vector<cuDoubleComplex> c(size_t(plan.bands())*plan.bands()),s(c.size());
+                probe.download(c.data(),plan.failed_vectors(),c.size(),stream);
+                probe.download(s.data(),plan.failed_overlap(),s.size(),stream);
+                check(cudaStreamSynchronize(stream));
+                for(const auto& item: {std::make_pair("remag-failed-frozen-c.bin",&c),
+                                      std::make_pair("remag-failed-frozen-s.bin",&s)}) {
+                    File output(item.first);
+                    require(std::fwrite(item.second->data(),sizeof(cuDoubleComplex),c.size(),output.value)==c.size(),
+                        "Failed writing frozen spin diagnostic");
+                    output.close();
+                }
+                File output("remag-frozen-failure.json");
+                std::fprintf(output.value,"{\"k\":%d,\"band\":%d,\"norm\":",result.k,result.band);
+                number(output.value,result.norm);std::fputs(",\"spin_squared\":",output.value);
+                number(output.value,result.spin_squared);std::fputs("}\n",output.value);output.close();
+            }
             require(!p.status,"Frozen eigensystem or spin normalization failed");
             check(fermi_device(problem,plan.energies(),weights,occupation.p,fd.p,stream));
             probe.download(&p.fermi,fd.p,1,stream);
