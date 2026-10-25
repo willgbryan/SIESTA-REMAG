@@ -92,6 +92,14 @@ selected-k diagnostic has local positive/negative tests; its CUDA capture path
 has not yet run. It cannot replace the full-mesh, full-SCF or physical-accuracy
 checks, and terminal HSX output is not a substitute for this generator capture.
 
+The prepared follow-up has five serial calculations: FePt z with frozen x,
+FeCo [001] with frozen [110]/[111], its eigenvalues-only control, and FeCo
+[110] and [111] references each rotated to the other two directions. This
+isolates implementation error and reference sensitivity with unchanged inputs
+and historical pristine-SIESTA evidence; it adds no full CPU-SCF timing runs.
+The previous allocation is released. This batch is awaiting a new budget and
+must not launch against the expired allowance.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |
