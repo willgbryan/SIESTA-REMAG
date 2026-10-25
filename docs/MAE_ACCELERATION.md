@@ -100,6 +100,23 @@ and historical pristine-SIESTA evidence; it adds no full CPU-SCF timing runs.
 The previous allocation is released. This batch is awaiting a new budget and
 must not launch against the expired allowance.
 
+Local angular analysis now fits explicitly selected cubic sixth-order or axial
+quartic invariants, with separate energy estimators and units. It rejects
+underdetermined samples, reports residuals and coefficient error amplification,
+and distinguishes symmetry-equivalent controls from additional angular data.
+The accompanying torque is the derivative of the fitted polynomial, checked
+against finite rotations; it is not yet an electronic torque implementation.
+The axial model assumes no azimuthal dependence and is not a general tetragonal
+model. The 45-degree shortcut in the [original torque paper](https://doi.org/10.1103/PhysRevB.54.61)
+depends on that angular form and must not be applied to cubic FeCo.
+
+The [local FeCo interpolation](../benchmarks/evidence/mae-frozen-potential-20261025T210823Z/angular-analysis.json)
+uses the recorded final moments and keeps total/free and SCF/frozen energies
+separate. Three directions determine a constant and two cubic coefficients
+exactly, leaving no independent test of omitted angular terms. Proposed [210]
+and [211] holdouts and the [100]/[001] cubic equivalence control remain unrun
+and are not added to the pending five-calculation diagnostic budget.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

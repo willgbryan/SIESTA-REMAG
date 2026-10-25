@@ -1,0 +1,309 @@
+{
+  "scope": "Provisional cubic polynomial interpolation of existing 300 K FeCo data; no independent angular validation or physical convergence",
+  "formula": "E = constant + K1*(mx^2*my^2+my^2*mz^2+mz^2*mx^2) + K2*mx^2*my^2*mz^2",
+  "temperature_K": 300,
+  "temperature_meaning": "electronic smearing, not lattice/spin temperature",
+  "formula_units_per_cell": 1,
+  "axes": [
+    "001",
+    "110",
+    "111"
+  ],
+  "frame": "Cartesian crystal axes of cubic B2 cell",
+  "sources": [
+    {
+      "path": "results/mae-frozen-potential-20261025T210823Z/grid2000_shift0p00125_k16_t300_001/frozen_spin/result.json",
+      "sha256": "330264fef144eadd43af40f7e267b6001a9e4701ec3b2f3dd0074ff485fb0739"
+    },
+    {
+      "path": "results/mae-frozen-potential-20261025T210823Z/grid2000_shift0p00125_k16_t300_110/full_scf/result.json",
+      "sha256": "60b5cb09bbeb5517b49879aa56d822e667fde591ce797d50b65796130da098c1"
+    },
+    {
+      "path": "results/mae-frozen-potential-20261025T210823Z/grid2000_shift0p00125_k16_t300_111/full_scf/result.json",
+      "sha256": "e90ca5b3996356d3f935d35115e3f83c8428331b3880c509143fecb18332452b"
+    },
+    {
+      "path": "results/mae-frozen-potential-20261025T210823Z/grid2000_shift0p00125_k16_t300_001/frozen_spin/remag-frozen-potential.json",
+      "sha256": "8ae0898bdaa215da8243fa1c4d4c5bf5229976ebc1d0a0b63c951fc776374f09"
+    }
+  ],
+  "analysis_source": {
+    "path": "src/siesta_remag/angular_energy.py",
+    "sha256": "d26dca906a0bcded1685608f3335d3ffa57b2b972a17888b3bcab8575def8175"
+  },
+  "fits": {
+    "total": {
+      "input_energies_ev": [
+        -7573.847759889302,
+        -7573.847752443966,
+        -7573.847739151115
+      ],
+      "final_spin_vectors_muB": [
+        [
+          0.0,
+          -0.0,
+          4.59251
+        ],
+        [
+          3.24739,
+          3.24739,
+          0.0
+        ],
+        [
+          2.65148,
+          2.65148,
+          2.65148
+        ]
+      ],
+      "model": "cubic6",
+      "energy_kind": "total",
+      "energy_unit": "eV/f.u.",
+      "energy_origin": -7573.847759889302,
+      "offset_relative_to_origin": 5.86841640131703e-21,
+      "coefficients": {
+        "K1": 2.978134580189362e-05,
+        "K2": 0.0002918989430327194
+      },
+      "coefficient_error_amplification": {
+        "K1": 8.000000000000005,
+        "K2": 72.00000000000001
+      },
+      "observations": 3,
+      "distinct_invariant_points": 3,
+      "overdetermined_angular_fit": false,
+      "symmetry_equivalent_samples": 0,
+      "residual_degrees_of_freedom": 0,
+      "condition_number": 81.30830794591587,
+      "relative_energies": [
+        0.0,
+        7.445336450473405e-06,
+        2.0738187231472693e-05
+      ],
+      "fitted_relative_energies": [
+        5.86841640131703e-21,
+        7.445336450473408e-06,
+        2.0738187231472687e-05
+      ],
+      "residuals": [
+        -5.86841640131703e-21,
+        -2.541098841762901e-21,
+        6.776263578034403e-21
+      ],
+      "max_absolute_residual": 6.776263578034403e-21,
+      "coefficient_uncertainties": null,
+      "physical_accuracy_qualified": false,
+      "unmeasured_model_predictions_ev_fu_relative_to_ideal_001": {
+        "210": 4.765015328302978e-06,
+        "211": 1.2850872432560813e-05
+      }
+    },
+    "free": {
+      "input_energies_ev": [
+        -7573.850477409105,
+        -7573.850468848873,
+        -7573.850455189064
+      ],
+      "final_spin_vectors_muB": [
+        [
+          0.0,
+          -0.0,
+          4.59251
+        ],
+        [
+          3.24739,
+          3.24739,
+          0.0
+        ],
+        [
+          2.65148,
+          2.65148,
+          2.65148
+        ]
+      ],
+      "model": "cubic6",
+      "energy_kind": "free",
+      "energy_unit": "eV/f.u.",
+      "energy_origin": -7573.850477409105,
+      "offset_relative_to_origin": 1.9561388004390098e-21,
+      "coefficients": {
+        "K1": 3.424092938075774e-05,
+        "K2": 0.0002917727560998167
+      },
+      "coefficient_error_amplification": {
+        "K1": 8.000000000000005,
+        "K2": 72.00000000000001
+      },
+      "observations": 3,
+      "distinct_invariant_points": 3,
+      "overdetermined_angular_fit": false,
+      "symmetry_equivalent_samples": 0,
+      "residual_degrees_of_freedom": 0,
+      "condition_number": 81.30830794591587,
+      "relative_energies": [
+        0.0,
+        8.560232345189434e-06,
+        2.2220041500986554e-05
+      ],
+      "fitted_relative_energies": [
+        1.9561388004390098e-21,
+        8.560232345189434e-06,
+        2.222004150098655e-05
+      ],
+      "residuals": [
+        -1.9561388004390098e-21,
+        0.0,
+        3.3881317890172014e-21
+      ],
+      "max_absolute_residual": 3.3881317890172014e-21,
+      "coefficient_uncertainties": null,
+      "physical_accuracy_qualified": false,
+      "unmeasured_model_predictions_ev_fu_relative_to_ideal_001": {
+        "210": 5.4785487009212375e-06,
+        "211": 1.3963431532223087e-05
+      }
+    },
+    "frozen_band": {
+      "input_energies_ev": [
+        0.0,
+        0.00010360442970830628,
+        4.20374277494689e-05
+      ],
+      "final_spin_vectors_muB": [
+        [
+          4.143358770241021e-16,
+          -1.404243927718786e-15,
+          4.5925129712142185
+        ],
+        [
+          3.247446292676918,
+          3.2474462926760803,
+          3.532756842227742e-05
+        ],
+        [
+          2.6514902557156197,
+          2.6514902557149385,
+          2.651525551981035
+        ]
+      ],
+      "model": "cubic6",
+      "energy_kind": "frozen_band",
+      "energy_unit": "eV/f.u.",
+      "energy_origin": 0.0,
+      "offset_relative_to_origin": 3.9122776008780194e-20,
+      "coefficients": {
+        "K1": 0.00041441771893771707,
+        "K2": -0.0025947489215231104
+      },
+      "coefficient_error_amplification": {
+        "K1": 8.000000003313609,
+        "K2": 72.00000004116352
+      },
+      "observations": 3,
+      "distinct_invariant_points": 3,
+      "overdetermined_angular_fit": false,
+      "symmetry_equivalent_samples": 0,
+      "residual_degrees_of_freedom": 0,
+      "condition_number": 81.30830799598886,
+      "relative_energies": [
+        0.0,
+        0.00010360442970830628,
+        4.20374277494689e-05
+      ],
+      "fitted_relative_energies": [
+        3.9122776008780236e-20,
+        0.00010360442970830631,
+        4.2037427749468974e-05
+      ],
+      "residuals": [
+        -3.9122776008780236e-20,
+        -2.710505431213761e-20,
+        -7.453889935837843e-20
+      ],
+      "max_absolute_residual": 7.453889935837843e-20,
+      "coefficient_uncertainties": null,
+      "physical_accuracy_qualified": false,
+      "unmeasured_model_predictions_ev_fu_relative_to_ideal_001": {
+        "210": 6.630683503003473e-05,
+        "211": 5.555352378029762e-05
+      }
+    },
+    "frozen_band_free": {
+      "input_energies_ev": [
+        0.0,
+        0.00010500698624999269,
+        4.36774840240473e-05
+      ],
+      "final_spin_vectors_muB": [
+        [
+          4.143358770241021e-16,
+          -1.404243927718786e-15,
+          4.5925129712142185
+        ],
+        [
+          3.247446292676918,
+          3.2474462926760803,
+          3.532756842227742e-05
+        ],
+        [
+          2.6514902557156197,
+          2.6514902557149385,
+          2.651525551981035
+        ]
+      ],
+      "model": "cubic6",
+      "energy_kind": "frozen_band_free",
+      "energy_unit": "eV/f.u.",
+      "energy_origin": 0.0,
+      "offset_relative_to_origin": 5.477188641229227e-20,
+      "coefficients": {
+        "K1": 0.00042002794510416605,
+        "K2": -0.0026009594376050263
+      },
+      "coefficient_error_amplification": {
+        "K1": 8.000000003313609,
+        "K2": 72.00000004116352
+      },
+      "observations": 3,
+      "distinct_invariant_points": 3,
+      "overdetermined_angular_fit": false,
+      "symmetry_equivalent_samples": 0,
+      "residual_degrees_of_freedom": 0,
+      "condition_number": 81.30830799598886,
+      "relative_energies": [
+        0.0,
+        0.00010500698624999269,
+        4.36774840240473e-05
+      ],
+      "fitted_relative_energies": [
+        5.477188641229232e-20,
+        0.0001050069862499927,
+        4.367748402404737e-05
+      ],
+      "residuals": [
+        -5.477188641229232e-20,
+        -1.3552527156068805e-20,
+        -7.453889935837843e-20
+      ],
+      "max_absolute_residual": 7.453889935837843e-20,
+      "coefficient_uncertainties": null,
+      "physical_accuracy_qualified": false,
+      "unmeasured_model_predictions_ev_fu_relative_to_ideal_001": {
+        "210": 6.720447121666656e-05,
+        "211": 5.684107076483735e-05
+      }
+    }
+  },
+  "uncertainty_note": "Fit residuals with three angular points do not estimate error. K2 has an L1 per-point energy-error amplification of 72 for these ideal axes; a regression tolerance is not a proven physical uncertainty.",
+  "proposed_independent_angles": [
+    "210",
+    "211"
+  ],
+  "proposed_cubic_equivalence_control": "100 versus 001",
+  "extra_calculations_executed": false,
+  "physical_accuracy_qualified": false,
+  "literature": {
+    "axial_quartic_torque_shortcut": "https://doi.org/10.1103/PhysRevB.54.61",
+    "independent_cubic_anisotropy_implementation": "https://github.com/mumax/3/blob/master/cuda/cubicanisotropy2.cu"
+  }
+}

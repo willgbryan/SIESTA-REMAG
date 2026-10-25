@@ -66,6 +66,29 @@ are spin moments, not total saturation magnetization including orbital terms.
 
 ## What passed, and what remains untested
 
+An additional local analysis interpolates the existing FeCo points with
+`E = constant + K1*(mx²my² + my²mz² + mz²mx²) + K2*mx²my²mz²`, using normalized
+final spin directions in the cubic crystal frame. The coefficients below are
+**provisional interpolation parameters**, in µeV/f.u. at 300 K electronic
+smearing; they are not experimentally corroborated or converged constants.
+
+| Estimator | K1 | K2 |
+| --- | ---: | ---: |
+| Full-SCF total energy | 29.781346 | 291.898943 |
+| Full-SCF free energy | 34.240929 | 291.772756 |
+| Frozen band energy | 414.417719 | −2594.748922 |
+| Frozen band free energy | 420.027945 | −2600.959438 |
+
+Three directions determine the constant and two coefficients exactly: the
+zero fit residual does not test omitted angular terms. For the ideal
+[001]/[110]/[111] directions, `K2 = 9*E001 − 36*E110 + 27*E111`; bounded
+per-point energy errors can therefore be amplified by up to 72 in K2. No
+error bar is assigned because a physical per-point error bound is unknown.
+Generic [210]/[211] holdouts and a [100]/[001] cubic-equivalence control remain
+unrun. This analysis used existing outputs only and did not change the pending
+GPU batch. Inputs, source hashes, residuals, estimator labels and explicitly
+unmeasured model predictions are retained in [angular-analysis.json](angular-analysis.json).
+
 Identity spectra agree with the accepted SCF generator within 2.65e-12 eV for
 FePt and 1.24e-10 eV for FeCo. Independent long-double sums reproduce the raw
 directional reductions. Electron count retains its 1e-10 gate. FePt's
