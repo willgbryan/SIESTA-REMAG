@@ -68,10 +68,11 @@ contains
     if(remag_energy_only_enabled()<0)call die('REMAG_ENERGY_ONLY must be 0 or 1')
     if(remag_energy_only_enabled()==1)then
       if(idyn/=0.or.nmove/=0.or.inicoor/=fincoor.or.td_elec_dyn.or.harrisfun.or.write_cdf.or. &
-          recompute_H_after_scf.or.fdf_isblock('REMAG.SpinRotations').or. &
-          fdf_get('REMAG.ReuseOrientationGeometry',.false.).or. &
+          recompute_H_after_scf.or. &
+          (fdf_isblock('REMAG.SpinRotations').neqv. &
+           fdf_get('REMAG.ReuseOrientationGeometry',.false.)).or. &
           .not.fdf_get('compute-forces',.true.)) &
-        call die('REMAG energy-only: requires one fixed-geometry SCF; no NetCDF, H recomputation or orientation loop')
+        call die('REMAG energy-only: requires fixed geometry and cached orientations; no NetCDF or H recomputation')
       if(remag_integral_force_enabled()/=1)call die('REMAG energy-only: requires native final-state owners')
       if(fdf_isblock('MM.Potentials').or.fdf_isblock('MetaForce')) &
         call die('REMAG energy-only: molecular mechanics and metadynamics are unsupported')

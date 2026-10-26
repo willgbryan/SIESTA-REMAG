@@ -19,7 +19,8 @@ numerical reference. Execution supports one NVIDIA A100 or H100 GPU.
 - GPU evaluation of supported forces, stress and population observables,
   checked against upstream alongside energies, densities and magnetic moments.
 - Opt-in [energy-only full SCF](docs/RUNNING.md#energy-only-fixed-geometry-calculations)
-  for fixed geometries, preserving electronic outputs while skipping force derivatives.
+  for fixed geometries and cached directional sweeps, preserving electronic
+  outputs while skipping force derivatives.
 - Directional magnetic-energy comparisons and FePt regression coverage through
   128 atoms / 2,304 spinor states, with additional Fe, Fe3C, Fe2B and Fe5PB2 cases.
 

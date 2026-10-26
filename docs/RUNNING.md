@@ -66,10 +66,36 @@ local launcher's shell does not configure a remote candidate. Keep the existing
 device-SCF and native final-state-owner options enabled. Leave upstream's
 `compute-forces` at its default: REMAG controls the electronic finalization.
 
-The initial scope is one fixed geometry per process. Relaxation, MD, orientation
-loops, NetCDF, post-SCF Hamiltonian recomputation, molecular-mechanics and
-metadynamics corrections are rejected. Independent directional processes
-remain supported. General larger-k capacity is not established by this mode.
+The scope is fixed geometry, with either a single SCF or an independent-atomic
+orientation sweep that reuses geometry. Relaxation, MD, uncached orientation
+loops, NetCDF state output, post-SCF Hamiltonian recomputation,
+molecular-mechanics and metadynamics corrections are rejected. Independent
+directional processes remain supported. General larger-k capacity is not
+established by this mode.
+
+For a z-initialized magnetic reference, this input requests a cached z/x sweep:
+
+```text
+DM.AllowReuse false
+REMAG.ReuseOrientationGeometry true
+%block REMAG.SpinRotations
+  1 0 0 0
+  0.7071067811865475 0 0.7071067811865475 0
+%endblock REMAG.SpinRotations
+```
+
+Rows are absolute quaternion rotations (`w x y z`) of the initial spin
+configuration. Each direction performs a fresh atomic-initialized SCF;
+retained density and saved-DM initialization are unsupported. Keep
+`SCF.MustConverge true`, and do not enable DM extrapolation. Both the rotation
+block and geometry-reuse option are required for energy-only sweeps. Requested
+files use labels such as `remag.o001` and `remag.o002` for `SystemLabel remag`.
+
+Custom experiment drivers must collect and compare each direction using
+`siesta_remag.orientation.parse_sweep` and `write_direction_views`, plus the
+ordinary electronic/export and direct E/F checks. The single-case `run_case`
+validator intentionally rejects multi-direction output. Record whole-process
+timing for the sweep; do not assign it to individual directions.
 
 Use an explicit comparison scope for completed energy-only candidates:
 
@@ -86,8 +112,11 @@ with different requested observables does not produce an automatic speedup ratio
 The [H100 qualification record](../benchmarks/evidence/mae-energy-only-c-20261025T200237Z/qualification.json)
 covers FePt x/z and three FeCo directions, plus the default force path. The
 larger FeCo case used staged capacity changes; the production 128-k guard
-remains unchanged. The demonstrated benefit is derivative-storage removal;
-repeatable runtime gains and physical MAE convergence are not established.
+remains unchanged. A subsequent [matched geometry-reuse batch](../benchmarks/evidence/mae-energy-sweep-20261026T233100Z/REPORT.md)
+measured a 1.75648× median incremental REMAG gain for FePt z/x over three
+repetitions and 1.46719× for one FeCo three-direction sample, with the same
+electronic outputs and passing numerical checks. These fixed-setting results
+do not establish physical MAE convergence or upstream-GPU speedup.
 
 ## CUDA build targets
 
