@@ -232,6 +232,15 @@ pass; these do not validate CUDA execution. The orientation input guard remains
 closed while per-direction publication and collection are completed. README's
 single-geometry energy-only scope remains unchanged.
 
+Energy-only publication now retains all accepted epochs in a cumulative sweep
+receipt while preserving the historical single-cycle format. Atomic replacement
+keeps the last good receipt if writing fails. The reader validates every requested
+direction and rejects missing, reordered, failed or force-producing points; the
+single-case runner still rejects a sweep. Twenty-seven focused publication and
+electronic-output tests pass, including the host-compiled native writer and its
+failure cases. Direction-to-output collection and combined CUDA qualification
+remain outstanding, so the input guard is still closed.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

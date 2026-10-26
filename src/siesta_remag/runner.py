@@ -331,12 +331,12 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         telemetry['final_density']=records
         telemetry['gpu_final_density']=dict(host_to_device_bytes=0,device_to_host_bytes=sum(r['device_to_host_bytes'] for r in records))
     if energy_only:
-        from .energy_only import record_errors as energy_only_errors
+        from .energy_only import publication_records, record_errors as energy_only_errors
         path=destination/'remag-energy-only.json'
         record=json.loads(path.read_text()) if path.is_file() else {}
         parse_errors.extend(energy_only_errors(record,telemetry.get('gpu_device_cycle',{}).get('cycles',[]),
             output,(destination/'stdout.log').read_text(errors='replace')))
-        telemetry['energy_only']=[record] if record else []
+        telemetry['energy_only']=publication_records(record)
         if any(destination.glob('remag-integral-force-*.json')) or any(destination.glob('remag-integral-grid-*.json')):
             parse_errors.append('Energy-only run executed force consumers')
         owners={}

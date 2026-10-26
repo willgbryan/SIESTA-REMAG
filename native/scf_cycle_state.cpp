@@ -13,6 +13,7 @@
 #include "pair_geometry_state.hpp"
 #include "nonlocal_force_state.hpp"
 #include "spin_rotation.hpp"
+#include "energy_only_publication.hpp"
 #ifdef REMAG_BUILD_FROZEN_POTENTIAL
 #include "frozen_potential_probe.hpp"
 #endif
@@ -74,6 +75,7 @@ struct FinalSpectrumRecord {
 };
 struct Counts {
     std::vector<Record> cycles;
+    std::vector<remag::EnergyOnlyPublication> energy_publications;
     std::vector<FinalSpectrumRecord> spectra;
     void publish_spectra() const {
         if(spectra.empty()) return;
@@ -624,13 +626,8 @@ extern "C" int remag_cycle_energy_publish(int* iterations) {
             if(remag::initial_mesh_enabled())remag::complete_initial_mesh_energy_only(state.epoch);
         }
         state.final_grid_used=true;*iterations=state.result.iterations;
-        FILE* receipt=std::fopen("remag-energy-only.json","w");require(receipt,"Cannot record energy-only publication");
-        const int written=std::fprintf(receipt,
-            "{\"schema\":1,\"mode\":\"energy_only\",\"epoch\":%llu,\"status\":0,\"capacity\":%d,\"spins\":%d,"
-            "\"iterations\":%d,\"forces_calculated\":false,\"stress_calculated\":false,"
-            "\"hamiltonian_required\":false,\"hamiltonian_cycle_export_bytes\":0}\n",
-            static_cast<unsigned long long>(state.epoch),state.capacity,state.nh,*iterations);
-        const int closed=std::fclose(receipt);require(written>0&&closed==0,"Incomplete energy-only publication record");
+        counts.energy_publications.push_back({state.epoch,state.capacity,state.nh,*iterations});
+        remag::publish_energy_only(counts.energy_publications);
         std::printf("REMAG: energy-only finalization; forces and stress not calculated\n");
         return 0;
     } catch(const std::exception& e) {return failure("energy-only finalization",e);}
