@@ -147,6 +147,11 @@ def test_mae_gate_checks_energy_difference_and_final_direction(tmp_path):
     frozen = compare(rx,cx,reference_dir=tmp_path,candidate_dir=tmp_path)
     assert frozen['passed'] and not frozen['performance_comparable'] and frozen['end_to_end_speedup'] is None
     assert frozen['performance_reasons'] == ['Frozen-potential qualification adds spectral solves and raw exports']
+    cx['runtime_settings']['REMAG_FROZEN_SOC_FREE'] = '1'
+    wrong_reference = compare(rx,cx,reference_dir=tmp_path,candidate_dir=tmp_path)
+    assert not wrong_reference['passed'] and wrong_reference['end_to_end_speedup'] is None
+    assert 'Non-equivalent SCF SOC treatment' in wrong_reference['reasons']
+    del cx['runtime_settings']['REMAG_FROZEN_SOC_FREE']
     del cx['runtime_settings']['REMAG_FROZEN_ROTATIONS']
     cx["observables"]["total_energy_ev"] += 1.e-5
     assert compare(rx,cx,reference_dir=tmp_path,candidate_dir=tmp_path)["passed"]

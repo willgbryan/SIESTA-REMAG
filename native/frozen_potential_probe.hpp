@@ -10,5 +10,5 @@ namespace remag {
 // production throughput measurement. Outputs never replace SCF observables.
 void frozen_potential_probe(const HamiltonianAssemblyView&,const double* generator,
     const cuDoubleComplex* offsite,const FermiProblem*,const double* weights,
-    const double* generator_spectrum,cudaStream_t);
+    const double* generator_spectrum,cudaStream_t,bool reference_has_soc=true);
 }

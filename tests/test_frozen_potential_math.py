@@ -32,6 +32,10 @@ extern "C" int rotate(int count,const double* q,const double* h,const double* so
     for(int i=0;i<count;i++)if(!rotate_exchange(r,h+8*i,soc+8*i,out+8*i))return 2;
     return 0;
 }
+extern "C" int rotate_modes(const double* q,const double* h,const double* soc,int reference,int target,double* out) {
+    SpinRotation r;
+    return spin_rotation(q,r)&&rotate_frozen(r,h,soc,reference,target,out)?0:1;
+}
 extern "C" void soc_pack(const double* off,double* out) {offsite_soc(off,out);}
 extern "C" int spin_band(int orbitals,const double* c,const double* sc,double* out) {
     SpinBandSum sum;
@@ -71,6 +75,8 @@ extern "C" int bands(int count,int chunk,const double* rows,double origin,double
     ptr = np.ctypeslib.ndpointer(dtype=np.float64, flags='C_CONTIGUOUS')
     loaded.rotate.argtypes = [ctypes.c_int, ptr, ptr, ptr, ptr]
     loaded.rotate.restype = ctypes.c_int
+    loaded.rotate_modes.argtypes = [ptr, ptr, ptr, ctypes.c_int, ctypes.c_int, ptr]
+    loaded.rotate_modes.restype = ctypes.c_int
     loaded.soc_pack.argtypes = [ptr, ptr]
     loaded.soc_pack.restype = None
     loaded.spin_band.argtypes = [ctypes.c_int, ptr, ptr, ptr]
@@ -291,3 +297,19 @@ def test_reduction_rejects_mixed_origins_and_duplicate_self_merge(native):
                                   [0, 0, .5, 1.1, 1], [0, 0, 0, 0, 0]])
 def test_invalid_band_data_fails_closed(native, row):
     assert bands(native, [row])[0] == 1
+
+
+@pytest.mark.parametrize('reference,target', [(0, 0), (0, 1), (1, 0), (1, 1)])
+def test_soc_reference_and_target_are_independent(native, reference, target):
+    q = np.array([.7, .1, -.4, .3])
+    rng = np.random.default_rng(604)
+    h, soc = rng.normal(size=(2, 8))
+    out = np.zeros(8)
+    assert native.rotate_modes(q, h, soc, reference, target, out) == 0
+    u = unitary(q)
+    expected = u@(unpack(h)-reference*unpack(soc))@u.conj().T+target*unpack(soc)
+    np.testing.assert_allclose(unpack(out), expected, atol=2e-15, rtol=2e-15)
+    if reference == target == 1:
+        legacy = np.zeros(8)
+        assert native.rotate(1, q, h, soc, legacy) == 0
+        np.testing.assert_array_equal(out, legacy)

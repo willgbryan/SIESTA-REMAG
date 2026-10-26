@@ -48,6 +48,9 @@ def check_capture(path):
             or meta.get('reference') != 'Final SCF generator Hamiltonian'
             or meta.get('matrices') != ['generator', 'overlap', 'soc', 'rotated']):
         raise ValueError('Unsupported matrix capture format or reference')
+    reference_scale, target_scale = meta.get('reference_soc_scale', 1), meta.get('target_soc_scale', 1)
+    if type(reference_scale) is not int or reference_scale not in (0, 1) or type(target_scale) is not int or target_scale != 1:
+        raise ValueError('Unsupported reference/target SOC scales')
     n, k, nk = (meta.get(key) for key in ('bands', 'k', 'kpoints'))
     if (any(type(v) is not int for v in (n, k, nk)) or n < 2 or n % 2
             or not 0 <= k < nk or 4*n*n*16 > 64*1024*1024):
@@ -77,16 +80,16 @@ def check_capture(path):
     u = spin_unitary(meta['quaternion'], n//2)
     # Rotate the full complex matrices first, independently of sparse Pauli
     # packing. Also quantify the noncommuting lower-triangle interpretation.
-    independent = u @ (h-soc) @ u.conj().T + soc
+    independent = u @ (h-reference_scale*soc) @ u.conj().T + target_scale*soc
     sh = lower_hermitian(s)
-    canonical = u @ lower_hermitian(h-soc) @ u.conj().T + lower_hermitian(soc)
+    canonical = u @ lower_hermitian(h-reference_scale*soc) @ u.conj().T + target_scale*lower_hermitian(soc)
     raw_e = eigvalsh(lower_hermitian(independent), sh, driver='gvd')
     actual_e = eigvalsh(lower_hermitian(actual), sh, driver='gvd')
     canonical_e = eigvalsh(canonical, sh, driver='gvd')
     generator_e = eigvalsh(lower_hermitian(h), sh, driver='gvd')
     # Removing SOC must leave a globally spin-rotation-invariant generalized
     # spectrum. This control alone cannot qualify the force theorem.
-    exchange = lower_hermitian(h-soc)
+    exchange = lower_hermitian(h-reference_scale*soc)
     without_soc = eigvalsh(exchange, sh, driver='gvd')
     rotated_without_soc = eigvalsh(u @ exchange @ u.conj().T, sh, driver='gvd')
     maximum = lambda a: float(np.max(abs(a)))
@@ -133,6 +136,8 @@ def main():
                 meta = json.loads(path.read_text())
                 if meta['quaternion'] != points[meta['direction']]['quaternion']:
                     raise ValueError('Capture rotation differs from the probe')
+                if any(meta.get(key, 1) != probe.get(key, 1) for key in ('reference_soc_scale', 'target_soc_scale')):
+                    raise ValueError('Capture SOC treatment differs from the probe')
                 found.append((meta['direction'], meta['k']))
             complete = (probe.get('status') == 'complete' and probe.get('matrix_samples') is True
                         and bool(points) and all(p['completed'] and p['status'] == 0 for p in points)

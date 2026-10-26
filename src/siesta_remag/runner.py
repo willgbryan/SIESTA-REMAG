@@ -34,6 +34,7 @@ from .vector_cache import record_errors as vector_cache_errors
 from .population import record_errors as population_errors
 from .initial_state import record_errors as initial_state_errors
 from .nonlocal_h0 import audit as audit_nonlocal_h0
+from .frozen_reference import requested as frozen_reference_requested, evidence_errors as frozen_reference_errors
 
 def run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None):
     if threads < 1 or timeout <= 0:
@@ -63,6 +64,9 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         raise ValueError('Energy-only execution requires device SCF and a zero/one mode')
     if energy_only and 'relaxation_force_tolerance_ev_ang' in manifest:
         raise ValueError('Energy-only execution cannot perform structural relaxation')
+    soc_free_reference = frozen_reference_requested(env)
+    if soc_free_reference and manifest.get("spin") != "spin-orbit":
+        raise ValueError("SOC-free frozen reference requires the full offsite spin-orbit input layout")
     vector_cache = env.get('REMAG_DEVICE_VECTOR_CACHE') == '1'
     if env.get('REMAG_DEVICE_VECTOR_CACHE', '0') not in ('0', '1') or (vector_cache and not device_cycle):
         raise ValueError('Vector cache requires device SCF and a zero/one mode')
@@ -662,6 +666,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         except (OSError, ValueError) as error:
             telemetry["cuda_trace"] = dict(coverage_complete=False, strict_residency_verified=False,
                                             errors=[f"Requested CUDA trace unavailable: {error}"])
+    parse_errors.extend(frozen_reference_errors(telemetry, soc_free_reference))
     provenance = None
     for parent in Path(__file__).resolve().parents:
         lock = parent / "upstream.lock.json"
@@ -676,7 +681,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
                             "runtime_instance_id": env.get("REMAG_HOST_ID", platform.node())},
                   upstream=provenance, parse_errors=parse_errors,
                   runtime_settings={key: env.get(key) for key in
-                                    ("REMAG_FROZEN_ROTATIONS", "REMAG_FROZEN_SPIN_EXPECTATIONS", "REMAG_ENERGY_ONLY", "REMAG_INITIAL_MESH", "REMAG_INITIAL_MESH_POISON_HOST", "REMAG_INITIAL_MESH_SHADOW", "REMAG_NONLOCAL_H0_POISON_HOST", "REMAG_NONLOCAL_H0", "REMAG_NONLOCAL_H0_SHADOW", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "REMAG_GPU", "REMAG_GRID", "REMAG_DM",
+                                    ("REMAG_FROZEN_ROTATIONS", "REMAG_FROZEN_SPIN_EXPECTATIONS", "REMAG_FROZEN_SOC_FREE", "REMAG_FROZEN_MATRIX_SAMPLES", "REMAG_ENERGY_ONLY", "REMAG_INITIAL_MESH", "REMAG_INITIAL_MESH_POISON_HOST", "REMAG_INITIAL_MESH_SHADOW", "REMAG_NONLOCAL_H0_POISON_HOST", "REMAG_NONLOCAL_H0", "REMAG_NONLOCAL_H0_SHADOW", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "REMAG_GPU", "REMAG_GRID", "REMAG_DM",
                                      "REMAG_GRID_POTENTIAL_SPINS", "REMAG_GRID_EPOCH", "REMAG_GRID_VERIFY_EPOCH", "REMAG_NORMALIZE", "REMAG_OCCUPATIONS", "REMAG_RESIDENT_SPECTRA", "REMAG_HS", "REMAG_HARTREE", "REMAG_RESIDENT_GRID", "REMAG_RESIDENT_SCF", "REMAG_DEVICE_SCF", "REMAG_DEVICE_VECTOR_CACHE", "REMAG_BLOCK_SOLVER", "REMAG_BLOCK_WIDTH", "REMAG_BLOCK_LOCAL_SOLVER", "REMAG_BLOCK_SHARED_JACOBI", "REMAG_BLOCK_FUSED_MATRIX", "REMAG_BLOCK_FP64_VECTORS", "REMAG_BLOCK_FP64_MATRIX", "REMAG_FORCE_SHADOW", "REMAG_FORCE_SHADOW_RESIDENT", "REMAG_GRID_FORCE", "REMAG_ATOMIC_GRID_FORCE", "REMAG_ATOMIC_FORCE_SHADOW", "REMAG_FINAL_GRID", "REMAG_FINAL_GRID_SHADOW", "REMAG_FINAL_DENSITY", "REMAG_FINAL_DENSITY_SHADOW", "REMAG_ORBITAL_BASIS_SHADOW", "REMAG_ORBITAL_BASIS", "REMAG_ATOMIC_BASIS_SHADOW", "REMAG_ATOMIC_BASIS", "REMAG_TWO_CENTER_SHADOW", "REMAG_PAIR_FORCE_SHADOW", "REMAG_NONLOCAL_FORCE_SHADOW", "REMAG_INTEGRAL_FORCE", "REMAG_POPULATION", "REMAG_TRACE_IO", "REMAG_TRACE_CUDA", "REMAG_SCF_STAGE_PROFILE", "REMAG_SCF_SOLVER_LANES", "REMAG_SCF_WARM_START", "REMAG_RADIAL_BATCH",
                                      "REMAG_GPU_INITIALIZATION", "REMAG_GPU_HISTORY", "REMAG_FINAL_SPECTRA", "REMAG_GATE_H_EXPORT", "REMAG_DEFER_SCF_LOG", "GFORTRAN_FORMATTED_BUFFER_SIZE",
                                      "GFORTRAN_UNBUFFERED_ALL", "GFORTRAN_UNBUFFERED_PRECONNECTED")},

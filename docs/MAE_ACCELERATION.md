@@ -135,6 +135,35 @@ exactly, leaving no independent test of omitted angular terms. Proposed [210]
 and [211] holdouts and the [100]/[001] cubic equivalence control remain unrun
 and were not part of the completed five-calculation diagnostic budget.
 
+## SOC-free common reference (local implementation, runtime pending)
+
+The experimental build now accepts `REMAG_FROZEN_SOC_FREE=1` with the frozen
+rotation probe, GPU initialization and fixed-geometry energy-only execution.
+It retains the existing scalar nonlocal Hamiltonian and full lattice SOC
+operator, but binds a zero SOC operator throughout the reference SCF, including
+initialization and energy contractions. Frozen targets rotate this converged
+exchange field and restore lattice SOC exactly once. The ordinary full-SOC path
+is unchanged by default. Final Hamiltonian recomputation is rejected in this
+mode; requested electronic exports describe the SOC-free SCF reference.
+
+An additional, explicitly counted SOC-free identity solve checks the reference
+spectrum before SOC-restored targets are evaluated. Reports and selected-k
+captures distinguish reference and target SOC scales; ordinary regression
+comparison rejects different SCF SOC treatments. The independent matrix oracle
+uses the declared scales and retains the existing tolerances. Local arithmetic,
+negative controls and metadata gates pass; CUDA compilation and runtime/physical
+qualification remain pending. This is not yet a production screening option or
+a demonstrated improvement in MAE accuracy.
+
+Changing the input to ordinary noncollinear SIESTA or scaling its semilocal SO
+potential can regenerate different projectors (see pinned `atom.F:read_vps`
+and `Docs/tex/sections/Options/Pseudopotentials.tex`). Those are not exact oracles
+for removing only the assembled SOC operator with the original scalar operator
+held fixed. The next diagnostic therefore combines full-mesh identity, selected
+exact-Hamiltonian checks, unchanged full-SCF/pristine anchors and sensitivity to
+two independently converged SOC-free reference directions. Method error remains
+separate from implementation agreement and k/smearing convergence.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

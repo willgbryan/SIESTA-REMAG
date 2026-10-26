@@ -141,3 +141,25 @@ def test_rejects_bad_capture(capture, invalid):
     path.write_text(json.dumps(meta))
     with pytest.raises(ValueError):
         oracle.check_capture(path)
+
+
+@pytest.mark.parametrize('reference_scale', [0, 1])
+def test_soc_free_generator_capture_and_mislabelling(capture, reference_scale):
+    path, meta, (h, s, soc, rotated), write = capture
+    h = h-(1-reference_scale)*soc
+    meta.update(reference_soc_scale=reference_scale, target_soc_scale=1)
+    path.write_text(json.dumps(meta))
+    write(h=h)
+    assert oracle.check_capture(path)['passed']
+    meta['reference_soc_scale'] = 1-reference_scale
+    path.write_text(json.dumps(meta))
+    assert not oracle.check_capture(path)['passed']
+
+
+@pytest.mark.parametrize('scale', [-1, .5, True, '0', None])
+def test_rejects_invalid_reference_soc_scale(capture, scale):
+    path, meta, _, _ = capture
+    meta['reference_soc_scale'] = scale
+    path.write_text(json.dumps(meta))
+    with pytest.raises(ValueError, match='SOC scales'):
+        oracle.check_capture(path)

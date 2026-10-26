@@ -59,7 +59,8 @@ struct Probe {
     FermiProblem fermi{};
     size_t workspace=0,downloaded=0;
     size_t matrix_workspace=0;
-    bool moments=true,matrices=false;
+    bool moments=true,matrices=false,reference_has_soc=true,identity_completed=false;
+    Point reference_control{};
     double identity_error=0.;
 
     Probe(const char* path) {
@@ -99,10 +100,19 @@ struct Probe {
             "\"bands\":%d,\"kpoints\":%d,\"solver_lanes\":1,\"spin_expectations\":%s,\"explicit_plan_workspace_bytes\":%zu,"
             "\"qualification_download_bytes\":%zu,\"generator_spectrum_max_abs_error_ry\":",
             fermi.maxe,fermi.nk,moments?"true":"false",workspace,downloaded);
-        if(points.empty()||!points[0].completed) std::fputs("null",f);
+        if(!identity_completed) std::fputs("null",f);
         else std::fprintf(f,"%.17g",identity_error);
         std::fprintf(f,",\"matrix_samples\":%s,\"matrix_capture_workspace_bytes\":%zu",
             matrices?"true":"false",matrix_workspace);
+        std::fprintf(f,",\"reference_soc_scale\":%d,\"target_soc_scale\":1,\"reference_control\":",reference_has_soc?1:0);
+        if(reference_has_soc) std::fputs("null",f);
+        else {
+            const auto& c=reference_control;
+            std::fprintf(f,"{\"soc_scale\":0,\"completed\":%s,\"status\":%d,\"failed_k\":%d,\"solver_info\":%d,\"eigensystem_jobs\":%d,\"seconds\":",
+                c.completed?"true":"false",c.status,c.k,c.solver_info,c.jobs);
+            if(c.completed) number(f,c.seconds);else std::fputs("null",f);
+            std::fputs(",\"raw_spectrum\":\"remag-frozen-reference.csv\"}",f);
+        }
         std::fputs(",\"physical_accuracy_qualified\":false,\"points\":[",f);
         for(size_t i=0;i<points.size();i++) {
             const auto& p=points[i];const auto& q=rotations[i];const auto& d=p.difference;
@@ -161,8 +171,8 @@ struct Probe {
             std::fprintf(output.value,"{\"schema\":1,\"reference\":\"Final SCF generator Hamiltonian\","
                 "\"dtype\":\"<c16\",\"order\":\"F\",\"matrices\":[\"generator\",\"overlap\",\"soc\",\"rotated\"],"
                 "\"bands\":%d,\"k\":%d,\"kpoints\":%d,\"direction\":%zu,\"quaternion\":[%.17g,%.17g,%.17g,%.17g],"
-                "\"matrix_file\":\"%s\",\"raw_spectrum\":\"remag-frozen-%03zu.csv\",\"energy_unit\":\"Ry\"}\n",
-                plan.bands(),k,plan.kpoints(),direction,q[0],q[1],q[2],q[3],binary,direction);
+                "\"reference_soc_scale\":%d,\"target_soc_scale\":1,\"matrix_file\":\"%s\",\"raw_spectrum\":\"remag-frozen-%03zu.csv\",\"energy_unit\":\"Ry\"}\n",
+                plan.bands(),k,plan.kpoints(),direction,q[0],q[1],q[2],q[3],reference_has_soc?1:0,binary,direction);
             output.close();
         }
     }
@@ -171,10 +181,10 @@ struct Probe {
 
 void frozen_potential_probe(const HamiltonianAssemblyView& view,const double* generator,
         const cuDoubleComplex* offsite,const FermiProblem* problem,const double* weights,
-        const double* generator_spectrum,cudaStream_t stream) {
+        const double* generator_spectrum,cudaStream_t stream,bool reference_has_soc) {
     const char* path=std::getenv("REMAG_FROZEN_ROTATIONS");if(!path) return;
     require(*path,"REMAG_FROZEN_ROTATIONS cannot be empty");
-    Probe probe(path);
+    Probe probe(path);probe.reference_has_soc=reference_has_soc;
     try {
         require(problem&&weights&&generator_spectrum,"Missing frozen-potential reference data");
         probe.download(&probe.fermi,problem,1,stream);check(cudaStreamSynchronize(stream));
@@ -186,7 +196,7 @@ void frozen_potential_probe(const HamiltonianAssemblyView& view,const double* ge
         // This qualification probe's raw export is deliberately bounded. It
         // is not a capacity guard on the lower-level spectral executor.
         require(count<=4*1024*1024,"Frozen qualification raw-output limit exceeded");
-        FrozenPotentialPlan plan(view,generator,offsite,probe.moments,256ULL*1024*1024,stream);
+        FrozenPotentialPlan plan(view,generator,offsite,probe.moments,256ULL*1024*1024,stream,reference_has_soc);
         probe.workspace=plan.workspace_bytes();
         Buffer<double> occupation(count);Buffer<FermiResult> fd(1);
         std::vector<double> w(f.nk),scf(count),e(count),q(count),spin(probe.moments?3*count:0),ref_e,ref_q;
@@ -194,6 +204,27 @@ void frozen_potential_probe(const HamiltonianAssemblyView& view,const double* ge
         check(cudaStreamSynchronize(stream));
         for(double value:scf) require(std::isfinite(value),"Nonfinite SCF reference spectrum");
         probe.report("running");
+        if(!reference_has_soc) {
+            // Point zero below restores SOC, so it is NOT the SCF identity
+            // control. Preserve and count this extra SOC-free solve explicitly.
+            auto& c=probe.reference_control;const auto start=std::chrono::steady_clock::now();
+            plan.solve(probe.rotations[0].data(),false);c.jobs=plan.eigensystem_jobs();
+            FrozenSpectrumStatus status;
+            probe.download(&status,plan.status(),1,stream);
+            probe.download(e.data(),plan.energies(),count,stream);check(cudaStreamSynchronize(stream));
+            c.status=status.status;c.k=status.k;c.solver_info=status.solver_info;
+            require(!c.status,"SOC-free reference eigensystem failed");
+            File raw("remag-frozen-reference.csv");
+            std::fputs("k,band,energy_ry,generator_scf_energy_ry\n",raw.value);
+            for(size_t i=0;i<count;i++) {
+                require(std::isfinite(e[i]),"Nonfinite SOC-free identity spectrum");
+                probe.identity_error=std::max(probe.identity_error,std::abs(e[i]-scf[i]));
+                std::fprintf(raw.value,"%zu,%zu,%.17g,%.17g\n",i/f.maxe,i%f.maxe,e[i],scf[i]);
+            }
+            raw.close();c.seconds=std::chrono::duration<double>(std::chrono::steady_clock::now()-start).count();
+            c.completed=true;probe.identity_completed=true;probe.report("running");
+            require(probe.identity_error*13.605693122994<=1.e-7,"SOC-free SCF identity spectrum differs");
+        }
         for(size_t direction=0;direction<probe.rotations.size();direction++) {
             probe.points.emplace_back();auto& p=probe.points.back();
             const auto start=std::chrono::steady_clock::now();
@@ -229,7 +260,10 @@ void frozen_potential_probe(const HamiltonianAssemblyView& view,const double* ge
             require(!p.status,"Frozen occupations failed");
             if(!direction) {
                 ref_e=e;ref_q=q;
-                for(size_t i=0;i<count;i++) probe.identity_error=std::max(probe.identity_error,std::abs(e[i]-scf[i]));
+                if(reference_has_soc) {
+                    for(size_t i=0;i<count;i++) probe.identity_error=std::max(probe.identity_error,std::abs(e[i]-scf[i]));
+                    probe.identity_completed=true;
+                }
                 require(std::isfinite(probe.identity_error),"Invalid reference spectrum discrepancy");
             }
             mae::BandPairSum sum(probe.points[0].fermi.fermi);mae::CompensatedSum moment[3];

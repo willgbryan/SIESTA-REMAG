@@ -76,6 +76,26 @@ REMAG_MAE_HD inline bool rotate_exchange(const SpinRotation& r, const double h[8
     return true;
 }
 
+// A SOC-free generator must receive the lattice operator exactly once AFTER
+// exchange rotation. An SOC-containing generator first excludes it from the
+// rotating field. The no-SOC target is used only for reference verification.
+REMAG_MAE_HD inline bool rotate_frozen(const SpinRotation& r, const double h[8],
+        const double soc[8], bool reference_has_soc, bool target_has_soc, double out[8]) {
+    for (int i=0;i<8;i++) if (!finite(h[i]) || !finite(soc[i])) return false;
+    const double zero[8]{};
+    double result[8];
+    if (!rotate_exchange(r,h,reference_has_soc?soc:zero,result)) return false;
+    if (reference_has_soc != target_has_soc) {
+        const double scale=target_has_soc?1.:-1.;
+        for (int i=0;i<8;i++) {
+            result[i]+=scale*soc[i];
+            if (!finite(result[i])) return false;
+        }
+    }
+    for (int i=0;i<8;i++) out[i]=result[i];
+    return true;
+}
+
 struct CompensatedSum {
     double sum=0., correction=0.;
     REMAG_MAE_HD void add(double x) {

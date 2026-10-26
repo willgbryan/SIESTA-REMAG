@@ -30,7 +30,8 @@ __global__ void initialize(FrozenSpectrumStatus* result) {*result=FrozenSpectrum
 // topology indices (each appears in exactly one grouped assembly pair).
 __global__ void rotate(const HamiltonianAssemblyConfig* config, const HamiltonianPair* pairs,
         const int* indices, mae::SpinRotation rotation, const double* reference,
-        const cuDoubleComplex* offsite, double* output, FrozenSpectrumStatus* result) {
+        const cuDoubleComplex* offsite, double* output, FrozenSpectrumStatus* result,
+        bool reference_has_soc, bool target_has_soc) {
     const auto p=*config;
     for(int pair=blockIdx.x*blockDim.x+threadIdx.x;pair<p.pairs;pair+=gridDim.x*blockDim.x) {
         for(int j=pairs[pair].begin;j<pairs[pair].end;j++) {
@@ -41,7 +42,7 @@ __global__ void rotate(const HamiltonianAssemblyConfig* config, const Hamiltonia
                 const auto z=offsite[index+stride*c];off[2*c]=z.x;off[2*c+1]=z.y;
             }
             mae::offsite_soc(off,soc);
-            if(!mae::rotate_exchange(rotation,h,soc,rotated)) {
+            if(!mae::rotate_frozen(rotation,h,soc,reference_has_soc,target_has_soc,rotated)) {
                 atomicExch(&result->status,1);
                 // Keep the subsequent library solve well-defined; failed data
                 // remain explicitly unusable through the sticky status.
@@ -125,7 +126,7 @@ struct FrozenPotentialPlan::Impl {
     std::vector<void*> allocations;
     size_t bytes=0,limit=0;
     int n=0,lwork=0,jobs=0;
-    bool moments=false;
+    bool moments=false,reference_has_soc=true;
     double *rotated=nullptr,*values=nullptr,*spin=nullptr;
     cuDoubleComplex *h=nullptr,*s=nullptr,*original_s=nullptr,*sc=nullptr,*work=nullptr;
     cuDoubleComplex *failed_c=nullptr,*failed_s=nullptr;
@@ -141,8 +142,8 @@ struct FrozenPotentialPlan::Impl {
         bytes+=count*sizeof(T);return p;
     }
     Impl(const HamiltonianAssemblyView& v,const double* ref,const cuDoubleComplex* off,
-         bool with_moments,size_t maximum,cudaStream_t queue):
-        view(v),reference(ref),soc(off),stream(queue),limit(maximum),moments(with_moments) {
+         bool with_moments,size_t maximum,cudaStream_t queue,bool has_soc):
+        view(v),reference(ref),soc(off),stream(queue),limit(maximum),moments(with_moments),reference_has_soc(has_soc) {
         const auto& p=v.shape;
         if((p.kind!=2&&p.kind!=3)||p.nh!=8||p.n<1||p.n>INT_MAX/2||p.nnz<1||
            p.ldh<p.nnz||p.nk<1||(p.kind==2&&p.nk!=1)||p.pairs<1||p.pairs>INT_MAX-127||
@@ -190,20 +191,20 @@ struct FrozenPotentialPlan::Impl {
         const size_t matrix=size_t(n)*n;
         check(assemble_hamiltonian_device(view,reference,0,k,output,output+matrix,stream));
         rotate<<<std::min(1024,(p.pairs+127)/128),128,0,stream>>>(view.config,view.pairs,
-            view.indices,rotation,reference,soc,rotated,result);check(cudaGetLastError());
+            view.indices,rotation,reference,soc,rotated,result,reference_has_soc,true);check(cudaGetLastError());
         check(assemble_hamiltonian_device(view,rotated,0,k,output+3*matrix,s,stream));
         pack_soc<<<std::min(1024,(p.pairs+127)/128),128,0,stream>>>(view.config,view.pairs,
             view.indices,soc,rotated);check(cudaGetLastError());
         check(assemble_hamiltonian_device(view,rotated,0,k,output+2*matrix,s,stream));
     }
-    void solve(const double quaternion[4]) {
+    void solve(const double quaternion[4],bool target_has_soc) {
         mae::SpinRotation rotation;
         if(!quaternion||!mae::spin_rotation(quaternion,rotation))
             throw std::runtime_error("Invalid frozen-potential spin rotation");
         const auto& p=view.shape;jobs=0;
         initialize<<<1,1,0,stream>>>(result);check(cudaGetLastError());
         rotate<<<std::min(1024,(p.pairs+127)/128),128,0,stream>>>(view.config,view.pairs,
-            view.indices,rotation,reference,soc,rotated,result);check(cudaGetLastError());
+            view.indices,rotation,reference,soc,rotated,result,reference_has_soc,target_has_soc);check(cudaGetLastError());
         const auto mode=moments?CUSOLVER_EIG_MODE_VECTOR:CUSOLVER_EIG_MODE_NOVECTOR;
         const cuDoubleComplex one=make_cuDoubleComplex(1.,0.),zero=make_cuDoubleComplex(0.,0.);
         for(int k=0;k<p.nk;k++) {
@@ -225,10 +226,10 @@ struct FrozenPotentialPlan::Impl {
 };
 
 FrozenPotentialPlan::FrozenPotentialPlan(const HamiltonianAssemblyView& v,const double* h,
-        const cuDoubleComplex* soc,bool moments,size_t maximum,cudaStream_t stream):
-    impl_(std::make_unique<Impl>(v,h,soc,moments,maximum,stream)) {}
+        const cuDoubleComplex* soc,bool moments,size_t maximum,cudaStream_t stream,bool has_soc):
+    impl_(std::make_unique<Impl>(v,h,soc,moments,maximum,stream,has_soc)) {}
 FrozenPotentialPlan::~FrozenPotentialPlan()=default;
-void FrozenPotentialPlan::solve(const double q[4]) {impl_->solve(q);}
+void FrozenPotentialPlan::solve(const double q[4],bool target_has_soc) {impl_->solve(q,target_has_soc);}
 void FrozenPotentialPlan::capture_matrices(int k,const double q[4],cuDoubleComplex* out) {
     impl_->capture_matrices(k,q,out);
 }

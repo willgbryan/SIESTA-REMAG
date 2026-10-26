@@ -17,6 +17,8 @@ struct FrozenSpectrumStatus {
 // The caller must supply a converged generator H and its ORIGINAL lattice SOC
 // operator, sharing the assembly view's (ldh,component) sparse layout. H, SOC,
 // geometry and stream are borrowed, immutable, and must outlive this plan.
+// reference_has_soc=false declares a genuinely SOC-free SCF generator; frozen
+// targets then add the supplied full lattice SOC once, after exchange rotation.
 // Construction is ordered on stream after the reference producer. No state is
 // retained across a geometry change, and this class never changes the reference.
 //
@@ -28,18 +30,19 @@ class FrozenPotentialPlan {
 public:
     FrozenPotentialPlan(const HamiltonianAssemblyView&, const double* generator_h,
         const cuDoubleComplex* offsite_soc, bool spin_expectations,
-        size_t workspace_limit_bytes, cudaStream_t);
+        size_t workspace_limit_bytes, cudaStream_t, bool reference_has_soc=true);
     ~FrozenPotentialPlan();
     FrozenPotentialPlan(const FrozenPotentialPlan&)=delete;
     FrozenPotentialPlan& operator=(const FrozenPotentialPlan&)=delete;
 
     // Active quaternion (w,x,y,z), rotating exchange relative to lattice SOC.
+    // target_has_soc=false is the explicit SOC-free reference control.
     // Asynchronously enqueues rotation, assembly and solves. Results are valid
     // only after stream completion AND status()==0. A subsequent call replaces
     // every output. No host numerical readback occurs inside the k loop.
     // Invalid arguments throw before launch; asynchronous numerical failures
     // remain in status(). Never read a partial spectrum as a completed result.
-    void solve(const double quaternion[4]);
+    void solve(const double quaternion[4], bool target_has_soc=true);
     // Diagnostic only, after a successful solve: assemble one selected k into
     // caller-owned device storage [generator H, S, lattice SOC, rotated H],
     // four column-major complex matrices of bands()^2 elements. Keeps BOTH

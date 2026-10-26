@@ -1,6 +1,7 @@
 """Strict scientific regression and paired directional-energy comparisons."""
 import numpy as np
 from .output import read_grid
+from .frozen_reference import scf_soc_mode
 
 # Absolute tolerances in the named units; provisional regression gates, not physical accuracy claims.
 TOLERANCES = {"energy_per_atom_ev": 1.e-5, "fermi_energy_ev": 1.e-5, "soc_energy_ev": 1.e-5,
@@ -28,6 +29,8 @@ def compare(reference, candidate, tolerances=None, reference_dir=None, candidate
     for key in ("input_sha256", "pseudopotentials", "atoms", "spin"):
         if reference["benchmark"].get(key) != candidate["benchmark"].get(key):
             reasons.append(f"Non-equivalent benchmark: {key}")
+    if scf_soc_mode(reference) != scf_soc_mode(candidate):
+        reasons.append("Non-equivalent SCF SOC treatment")
     a, b = reference["observables"], candidate["observables"]
     n = reference["benchmark"]["atoms"]
     energies = [r.get("total_energy_ev") for r in (a, b)]

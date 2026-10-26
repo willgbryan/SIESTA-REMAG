@@ -48,6 +48,7 @@ struct Record {
     size_t spectrum_exports[2]{}; // eigenvalues, occupations at cycle publication
     int eigensystem_jobs=0,solves_per_iteration=0,solver_lanes=1;bool retains_all_vectors=false,warm_start=false;size_t vector_bank_bytes=0;
     size_t staged=0,exported=0,workspace=0;double seconds=0.;
+    bool soc_free_reference=false;size_t zero_soc_bytes=0;
     bool device_initialization=false;size_t resident_h0_bytes=0,initial_mesh_density_bytes=0;
     remag::InitialDensityResult initial{};
     bool profiling=false;remag::ScfStageProfile profile{};
@@ -140,6 +141,7 @@ struct Counts {
                     r.resident_h0_bytes?"true":"false",r.resident_h0_bytes);
                 std::fprintf(f,"\"initial_mesh\":{\"device\":%s,\"density_bytes\":%zu,\"harris_device_bound\":%s},",
                     r.initial_mesh_density_bytes?"true":"false",r.initial_mesh_density_bytes,r.initial_mesh_density_bytes?"true":"false");
+                std::fprintf(f,"\"soc_free_reference\":%s,\"zero_soc_workspace_bytes\":%zu,",r.soc_free_reference?"true":"false",r.zero_soc_bytes);
                 std::fprintf(f,"\"warm_start\":%s,",r.warm_start?"true":"false");
                 std::fprintf(f,"\"eigensystems\":{\"jobs\":%d,\"solves_per_iteration\":%d,\"retains_all_vectors\":%s,\"vector_bank_bytes\":%zu,\"solver_lanes\":%d},\"stage_profile\":",
                     r.eigensystem_jobs,r.solves_per_iteration,r.retains_all_vectors?"true":"false",r.vector_bank_bytes,r.solver_lanes);
@@ -164,6 +166,7 @@ struct State {
     remag::GridPotentialProblem grid_problem{};remag::ScfCycleBindings bindings{};
 #ifdef REMAG_BUILD_FROZEN_POTENTIAL
     remag::HamiltonianAssemblyView frozen_assembly{};
+    const cuDoubleComplex* frozen_soc=nullptr;
 #endif
     remag::GridContractionShape grid_shape{};remag::GridContractionView final_grid_view{};
     int soc=0,final_h_required=0;
@@ -242,7 +245,7 @@ extern "C" int remag_cycle_initial_grid() {
 extern "C" int remag_cycle_request() {
     try {
 #ifndef REMAG_BUILD_FROZEN_POTENTIAL
-        require(!std::getenv("REMAG_FROZEN_ROTATIONS"),
+        require(!std::getenv("REMAG_FROZEN_ROTATIONS")&&!std::getenv("REMAG_FROZEN_SOC_FREE"),
             "Frozen-potential probe requires REMAG_BUILD_FROZEN_POTENTIAL=ON");
 #endif
         require(remag_cycle_enabled()&&remag_gpu_enabled()&&remag_grid_enabled()&&!remag::in_scf()&&
@@ -256,6 +259,18 @@ extern "C" int remag_cycle_request() {
         state.release();state.epoch=remag::geometry_epoch();state.record={};state.result={};state.diagnostics.clear();
         state.record.epoch=state.epoch;state.initial=nullptr;
         state.record.device_initialization=remag_initialization_enabled();
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        state.frozen_soc=nullptr;
+        if(const char* option=std::getenv("REMAG_FROZEN_SOC_FREE")) {
+            require(!std::strcmp(option,"0")||!std::strcmp(option,"1"),"Invalid frozen SOC-free option");
+            state.record.soc_free_reference=!std::strcmp(option,"1");
+        }
+        if(state.record.soc_free_reference) {
+            const char* rotations=std::getenv("REMAG_FROZEN_ROTATIONS");
+            require(rotations&&*rotations&&state.record.device_initialization&&remag::energy_only_enabled(),
+                "SOC-free reference requires frozen rotations, GPU initialization and energy-only execution");
+        }
+#endif
         state.record.deferred_spectrum=remag_cycle_spectrum_deferred();
         require(!state.record.deferred_spectrum||(remag::final_grid_state_enabled()&&remag::integral_force_enabled()),
             "Deferred spectrum requires final device state and force ownership");
@@ -336,6 +351,8 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
             (state.record.gated_hamiltonian?(remag::integral_force_enabled()&&!(c[18]&1)):c[18]==1),
             "Invalid Hamiltonian export reasons");
         state.record.hamiltonian_export_reasons=c[18];
+        require(!state.record.soc_free_reference||(c[8]==2&&nh==8&&!c[14]),
+            "SOC-free reference requires full offsite spinor layout and no final Hamiltonian recomputation");
         std::copy(state.grid_problem.pbe.mesh,state.grid_problem.pbe.mesh+3,shape.mesh);
         shape.normalization={cap,nh,eh,std::min(nh,2),v[4],v[5]};shape.occupation_cutoff=v[6];
         for(int i=0;i<nk;i++) shape.kpoints.push_back({kpoints[3*i],kpoints[3*i+1],kpoints[3*i+2]});
@@ -355,6 +372,17 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         }else b.nonlocal_h=state.allocate<double>(cap,nonlocal_h);
         if(c[8]==1) {require(onsite,"Missing onsite SOC");b.onsite=state.allocate<double>(size_t(cap)*6,onsite);}
         if(c[8]==2&&!remag::nonlocal_h0_enabled()) {require(offsite,"Missing offsite SOC");b.offsite=state.allocate<cuDoubleComplex>(size_t(cap)*4,offsite);}
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        // Keep the immutable lattice operator for the terminal probe. All SCF
+        // Hamiltonian seeds AND SOC energy contractions use the zero binding,
+        // including the first GPU-initialized Hamiltonian. Scalar H0 is intact.
+        state.frozen_soc=b.offsite;
+        if(state.record.soc_free_reference) {
+            require(state.frozen_soc,"Missing frozen lattice SOC operator");
+            b.offsite=state.allocate<cuDoubleComplex>(size_t(cap)*4);
+            state.record.zero_soc_bytes=size_t(cap)*4*sizeof(cuDoubleComplex);
+        }
+#endif
         b.scalars=state.allocate<remag::ScfScalarsProblem>(1,&sp);b.constants=state.allocate<remag::ScfEnergySeeds>(1,&constants);
         b.num=state.allocate<int>(n,num);b.ptr=state.allocate<int>(n,ptr);b.overlap=shape.assembly.overlap;
         remag::bind_population_topology(state.epoch,b.num,b.ptr,b.overlap,state.stream);
@@ -461,7 +489,8 @@ extern "C" int remag_cycle_export(int bank_size,double* energies,double* occupat
             require(state.result.control.convergence.converged&&state.soc==2&&state.nh==8,
                 "Frozen-potential probe requires converged full offsite SOC");
             remag::frozen_potential_probe(state.frozen_assembly,state.plan->old_hamiltonian(),
-                state.bindings.offsite,state.bindings.fermi,state.bindings.weights,state.plan->energies(),state.stream);
+                state.frozen_soc,state.bindings.fermi,state.bindings.weights,state.plan->energies(),state.stream,
+                !state.record.soc_free_reference);
         }
 #endif
         const auto& b=state.bindings;const size_t hbytes=size_t(state.capacity)*state.nh*sizeof(double),ebytes=size_t(state.capacity)*state.eh*sizeof(double);
