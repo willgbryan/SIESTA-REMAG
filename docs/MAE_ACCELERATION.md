@@ -22,9 +22,10 @@ tradeoff. Mixed precision is also deferred.
 The first implementation milestone is [energy-only full SCF](RUNNING.md#energy-only-fixed-geometry-calculations).
 Its recorded FePt/FeCo checks pass, including default force-path regression;
 FeCo avoids 6.33 GB of orbital derivatives. It does not establish a repeatable
-runtime gain or physical convergence. The next implementation work is retained
-potential/SOC evaluation and bounded dense-k solves; the workstreams below
-remain active.
+runtime gain or physical convergence. Current implementation work combines
+energy-only finalization with independent-atomic orientation reuse. The frozen
+potential diagnostic results below explain why full SCF remains the accuracy
+path; the other workstreams remain open.
 
 The frozen-potential arithmetic now has local native checks against independent
 complex-matrix algebra and high-precision sums. It separates the exchange part
@@ -253,6 +254,22 @@ electronic output views without altering the original files. Missing/duplicate
 markers, partial execution and earlier failures remain visible. Eighteen focused
 tests pass; replay also accepts the saved successful v136 z/x/z stdout. This
 qualifies collection only, not the new combined energy-only CUDA path.
+
+The next [staged validation](../build/mae-energy-sweep-20261026/PREPARED.md)
+contains fourteen serial processes: a FePt z/x/z return-to-start check, three
+matched FePt cold-versus-cached timing repetitions, and one FeCo three-direction
+comparison. Whole-process timing uses the same observers and electronic outputs
+for both contenders; individual sweep-direction times remain unknown. Saved
+pristine FePt and REMAG FeCo controls supply numerical regression evidence.
+The unchanged direct directional E/F gate is 5 µeV/f.u. This is incremental
+REMAG qualification, not upstream-GPU performance or physical convergence.
+
+Fifty focused tests and the prepared input/rotation checks pass. The native
+overlay applies to the exact prior staged sources, and disposable Fortran edits
+preserve the production guard. The prior allocation is STOPPED with zero
+containers. A new 20-minute H100 budget has been requested; the prepared app
+refuses launch without fresh authorization and a fixed deadline. No additional
+GPU time has been used for this preparation.
 
 ## Implementation sequence
 
