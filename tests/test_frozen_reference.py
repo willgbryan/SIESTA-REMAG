@@ -10,8 +10,10 @@ def env():
 
 
 def telemetry():
-    return dict(gpu_device_cycle=dict(cycles=[dict(soc_free_reference=True, zero_soc_workspace_bytes=1024)]),
+    return dict(gpu_device_cycle=dict(cycles=[dict(soc_free_reference=True, soc_free_decomposition='spin_trace',
+                    scalar_offsite_workspace_bytes=1024, spin_dependent_soc_workspace_bytes=1024)]),
                 frozen_potential_probe=dict(reference_soc_scale=0, target_soc_scale=1, kpoints=64,
+                    lattice_operator='spin_traceless_offsite',
                     generator_spectrum_max_abs_error_ry=1e-12, reference_control=dict(completed=True, status=0,
                         soc_scale=0, eigensystem_jobs=64, raw_spectrum='remag-frozen-reference.csv')))
 
@@ -22,6 +24,15 @@ def test_historical_default_and_explicit_experimental_mode():
     assert scf_soc_mode(dict(runtime_settings=env())) == 'soc_free_reference'
     assert evidence_errors({}, False) == []
     assert evidence_errors(telemetry(), True) == []
+
+
+def test_zeroing_unsplit_offsite_is_not_a_valid_soc_free_reference():
+    t = telemetry()
+    t['gpu_device_cycle']['cycles'] = [dict(soc_free_reference=True, zero_soc_workspace_bytes=1024)]
+    t['frozen_potential_probe'].pop('lattice_operator')
+    errors = evidence_errors(t, True)
+    assert any('scalar-preserving' in e for e in errors)
+    assert any('spin-traceless' in e for e in errors)
 
 
 @pytest.mark.parametrize('key', ['REMAG_FROZEN_ROTATIONS', 'REMAG_DEVICE_SCF', 'REMAG_GPU_INITIALIZATION', 'REMAG_ENERGY_ONLY'])

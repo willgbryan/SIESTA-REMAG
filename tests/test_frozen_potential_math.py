@@ -37,6 +37,7 @@ extern "C" int rotate_modes(const double* q,const double* h,const double* soc,in
     return spin_rotation(q,r)&&rotate_frozen(r,h,soc,reference,target,out)?0:1;
 }
 extern "C" void soc_pack(const double* off,double* out) {offsite_soc(off,out);}
+extern "C" int split_offsite(const double* off,double* scalar,double* soc) {return split_offsite_spin(off,scalar,soc)?0:1;}
 extern "C" int spin_band(int orbitals,const double* c,const double* sc,double* out) {
     SpinBandSum sum;
     for(int i=0;i<orbitals;i++)sum.add(c+4*i,sc+4*i);
@@ -79,6 +80,8 @@ extern "C" int bands(int count,int chunk,const double* rows,double origin,double
     loaded.rotate_modes.restype = ctypes.c_int
     loaded.soc_pack.argtypes = [ptr, ptr]
     loaded.soc_pack.restype = None
+    loaded.split_offsite.argtypes = [ptr, ptr, ptr]
+    loaded.split_offsite.restype = ctypes.c_int
     loaded.spin_band.argtypes = [ctypes.c_int, ptr, ptr, ptr]
     loaded.spin_band.restype = ctypes.c_int
     loaded.invalid_merge.argtypes = [ctypes.c_int]
@@ -103,6 +106,48 @@ def unitary(q):
     q = np.array(q)/max(abs(np.array(q)))
     w, x, y, z = q/np.linalg.norm(q)
     return np.array([[w-1j*z, -y-1j*x], [y-1j*x, w+1j*z]])
+
+
+def test_soc_free_reference_keeps_unsplit_ionic_operator(native):
+    # split=0 stores the full lj nonlocal potential, including scalar ionic
+    # terms, in the offsite buffer. Complex orbital entries need not be Hermitian.
+    original = np.array([[17.+2j, .3-.4j], [-.8+.1j, 15.+3j]])
+    def offsite(block):
+        return np.array([[block[i,j].real, block[i,j].imag] for i,j in [(0,0),(1,1),(0,1),(1,0)]]).flatten()
+    scalar, soc = np.empty(8), np.empty(8)
+    assert native.split_offsite(offsite(original), scalar, soc) == 0
+    expected_scalar = np.trace(original)/2*np.eye(2)
+    np.testing.assert_array_equal(scalar, offsite(expected_scalar))
+    np.testing.assert_allclose(soc, offsite(original-expected_scalar), atol=1e-15)
+    np.testing.assert_allclose(scalar+soc, offsite(original), atol=1e-15)
+    q = np.array([.3, -.2, .7, .9]);u = unitary(q)
+    # Frozen full-SOC rotation cancels scalar terms even with the old unsplit
+    # buffer. SOC-free restoration must add only the traceless remainder.
+    reference = np.array([[4.+1j, .2j], [.5, 2.+1j]])+expected_scalar
+    h, spin_soc = pack(reference), pack(original-expected_scalar)
+    out = np.empty(8)
+    assert native.rotate_modes(q, h, spin_soc, 0, 1, out) == 0
+    np.testing.assert_allclose(unpack(out), u@reference@u.conj().T+original-expected_scalar, atol=8e-15)
+    assert abs(np.trace(unpack(out))-np.trace(reference)) < 1e-14
+    # Passing the original buffer would add the large ionic term twice.
+    assert native.rotate_modes(q, h, pack(original), 0, 1, out) == 0
+    assert abs(np.trace(unpack(out))-np.trace(reference)) > 30
+    full = pack(reference+original-expected_scalar)
+    np.testing.assert_allclose(rotate(native, full, pack(original), q)[1],
+                               rotate(native, full, spin_soc, q)[1], atol=2e-15)
+
+
+def test_offsite_scalar_limit_and_invalid_input(native):
+    original = np.array([3., 2., 3., 2., 0., 0., 0., 0.])
+    scalar, soc = np.empty(8), np.empty(8)
+    assert native.split_offsite(original, scalar, soc) == 0
+    np.testing.assert_array_equal(scalar, original)
+    np.testing.assert_array_equal(soc, np.zeros(8))
+    original[4] = np.nan
+    scalar.fill(12.);soc.fill(13.)
+    assert native.split_offsite(original, scalar, soc) != 0
+    np.testing.assert_array_equal(scalar, np.full(8, 12.))
+    np.testing.assert_array_equal(soc, np.full(8, 13.))
 
 
 def rotate(native, h, soc, q):

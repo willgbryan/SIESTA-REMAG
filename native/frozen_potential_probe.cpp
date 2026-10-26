@@ -104,6 +104,7 @@ struct Probe {
         else std::fprintf(f,"%.17g",identity_error);
         std::fprintf(f,",\"matrix_samples\":%s,\"matrix_capture_workspace_bytes\":%zu",
             matrices?"true":"false",matrix_workspace);
+        std::fprintf(f,",\"lattice_operator\":\"%s\"",reference_has_soc?"full_offsite":"spin_traceless_offsite");
         std::fprintf(f,",\"reference_soc_scale\":%d,\"target_soc_scale\":1,\"reference_control\":",reference_has_soc?1:0);
         if(reference_has_soc) std::fputs("null",f);
         else {
@@ -171,8 +172,9 @@ struct Probe {
             std::fprintf(output.value,"{\"schema\":1,\"reference\":\"Final SCF generator Hamiltonian\","
                 "\"dtype\":\"<c16\",\"order\":\"F\",\"matrices\":[\"generator\",\"overlap\",\"soc\",\"rotated\"],"
                 "\"bands\":%d,\"k\":%d,\"kpoints\":%d,\"direction\":%zu,\"quaternion\":[%.17g,%.17g,%.17g,%.17g],"
-                "\"reference_soc_scale\":%d,\"target_soc_scale\":1,\"matrix_file\":\"%s\",\"raw_spectrum\":\"remag-frozen-%03zu.csv\",\"energy_unit\":\"Ry\"}\n",
-                plan.bands(),k,plan.kpoints(),direction,q[0],q[1],q[2],q[3],reference_has_soc?1:0,binary,direction);
+                "\"reference_soc_scale\":%d,\"target_soc_scale\":1,\"lattice_operator\":\"%s\",\"matrix_file\":\"%s\",\"raw_spectrum\":\"remag-frozen-%03zu.csv\",\"energy_unit\":\"Ry\"}\n",
+                plan.bands(),k,plan.kpoints(),direction,q[0],q[1],q[2],q[3],reference_has_soc?1:0,
+                reference_has_soc?"full_offsite":"spin_traceless_offsite",binary,direction);
             output.close();
         }
     }

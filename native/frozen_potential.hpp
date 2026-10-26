@@ -6,6 +6,14 @@
 #include <memory>
 
 namespace remag {
+// Separate a retained upstream offsite operator into half its spin trace and
+// its spin-traceless remainder. Both outputs own 4*ldh complex entries and
+// must be zero-initialized; only active topology entries are read/written.
+// Source and outputs must be distinct. Enqueues on stream, without readback.
+cudaError_t prepare_soc_free_offsite(const HamiltonianAssemblyView&,
+    const cuDoubleComplex* original, cuDoubleComplex* scalar,
+    cuDoubleComplex* spin_dependent, cudaStream_t);
+
 struct FrozenSpectrumStatus {
     // 0 success, 1 invalid sparse values/rotation, 2 eigensolver failure,
     // 3 nonfinite spectrum or invalid eigenvector normalization.
@@ -18,7 +26,10 @@ struct FrozenSpectrumStatus {
 // operator, sharing the assembly view's (ldh,component) sparse layout. H, SOC,
 // geometry and stream are borrowed, immutable, and must outlive this plan.
 // reference_has_soc=false declares a genuinely SOC-free SCF generator; frozen
-// targets then add the supplied full lattice SOC once, after exchange rotation.
+// targets then add ONLY the supplied spin-traceless lattice operator once,
+// after exchange rotation. Its scalar spin trace must already be in the SCF
+// generator. Full-SOC references may retain the original unsplit operator,
+// whose spin-independent part cancels from the rotation.
 // Construction is ordered on stream after the reference producer. No state is
 // retained across a geometry change, and this class never changes the reference.
 //

@@ -48,7 +48,7 @@ struct Record {
     size_t spectrum_exports[2]{}; // eigenvalues, occupations at cycle publication
     int eigensystem_jobs=0,solves_per_iteration=0,solver_lanes=1;bool retains_all_vectors=false,warm_start=false;size_t vector_bank_bytes=0;
     size_t staged=0,exported=0,workspace=0;double seconds=0.;
-    bool soc_free_reference=false;size_t zero_soc_bytes=0;
+    bool soc_free_reference=false;size_t scalar_offsite_bytes=0,spin_dependent_soc_bytes=0;
     bool device_initialization=false;size_t resident_h0_bytes=0,initial_mesh_density_bytes=0;
     remag::InitialDensityResult initial{};
     bool profiling=false;remag::ScfStageProfile profile{};
@@ -141,7 +141,8 @@ struct Counts {
                     r.resident_h0_bytes?"true":"false",r.resident_h0_bytes);
                 std::fprintf(f,"\"initial_mesh\":{\"device\":%s,\"density_bytes\":%zu,\"harris_device_bound\":%s},",
                     r.initial_mesh_density_bytes?"true":"false",r.initial_mesh_density_bytes,r.initial_mesh_density_bytes?"true":"false");
-                std::fprintf(f,"\"soc_free_reference\":%s,\"zero_soc_workspace_bytes\":%zu,",r.soc_free_reference?"true":"false",r.zero_soc_bytes);
+                std::fprintf(f,"\"soc_free_reference\":%s,\"soc_free_decomposition\":\"%s\",\"scalar_offsite_workspace_bytes\":%zu,\"spin_dependent_soc_workspace_bytes\":%zu,",
+                    r.soc_free_reference?"true":"false",r.soc_free_reference?"spin_trace":"not_applied",r.scalar_offsite_bytes,r.spin_dependent_soc_bytes);
                 std::fprintf(f,"\"warm_start\":%s,",r.warm_start?"true":"false");
                 std::fprintf(f,"\"eigensystems\":{\"jobs\":%d,\"solves_per_iteration\":%d,\"retains_all_vectors\":%s,\"vector_bank_bytes\":%zu,\"solver_lanes\":%d},\"stage_profile\":",
                     r.eigensystem_jobs,r.solves_per_iteration,r.retains_all_vectors?"true":"false",r.vector_bank_bytes,r.solver_lanes);
@@ -373,14 +374,17 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         if(c[8]==1) {require(onsite,"Missing onsite SOC");b.onsite=state.allocate<double>(size_t(cap)*6,onsite);}
         if(c[8]==2&&!remag::nonlocal_h0_enabled()) {require(offsite,"Missing offsite SOC");b.offsite=state.allocate<cuDoubleComplex>(size_t(cap)*4,offsite);}
 #ifdef REMAG_BUILD_FROZEN_POTENTIAL
-        // Keep the immutable lattice operator for the terminal probe. All SCF
-        // Hamiltonian seeds AND SOC energy contractions use the zero binding,
-        // including the first GPU-initialized Hamiltonian. Scalar H0 is intact.
+        // With upstream split=0 the offsite buffer includes scalar nonlocal
+        // terms. Keep its spin trace in ALL SCF seeds/energy contractions and
+        // restore only the spin-dependent remainder in the terminal probe.
         state.frozen_soc=b.offsite;
         if(state.record.soc_free_reference) {
             require(state.frozen_soc,"Missing frozen lattice SOC operator");
-            b.offsite=state.allocate<cuDoubleComplex>(size_t(cap)*4);
-            state.record.zero_soc_bytes=size_t(cap)*4*sizeof(cuDoubleComplex);
+            auto* scalar=state.allocate<cuDoubleComplex>(size_t(cap)*4);
+            auto* soc=state.allocate<cuDoubleComplex>(size_t(cap)*4);
+            check(remag::prepare_soc_free_offsite(shape.assembly,state.frozen_soc,scalar,soc,state.stream));
+            b.offsite=scalar;state.frozen_soc=soc;
+            state.record.scalar_offsite_bytes=state.record.spin_dependent_soc_bytes=size_t(cap)*4*sizeof(cuDoubleComplex);
         }
 #endif
         b.scalars=state.allocate<remag::ScfScalarsProblem>(1,&sp);b.constants=state.allocate<remag::ScfEnergySeeds>(1,&constants);

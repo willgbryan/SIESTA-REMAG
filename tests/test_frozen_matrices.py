@@ -59,6 +59,23 @@ def test_exact_rotation_and_generalized_spectrum(capture):
     assert report['physical_accuracy_qualified'] is False
 
 
+def test_soc_restoration_rejects_scalar_contamination(capture):
+    path, meta, (h, s, soc, _), write = capture
+    meta.update(reference_soc_scale=0, target_soc_scale=1, lattice_operator='spin_traceless_offsite')
+    path.write_text(json.dumps(meta))
+    reference = h-soc
+    u = oracle.spin_unitary(meta['quaternion'], 4)
+    write(h=reference, rotated=u@reference@u.conj().T+soc)
+    assert oracle.check_capture(path)['passed']
+    # A self-consistent algebra/spectrum check alone accepts the wrong operator.
+    contaminated = soc+17*np.eye(8)
+    write(h=reference, soc=contaminated, rotated=u@reference@u.conj().T+contaminated)
+    report = oracle.check_capture(path)
+    assert report['checks']['matrix_rotation'] and report['checks']['rotated_spectrum']
+    assert not report['checks']['spin_traceless_soc'] and not report['passed']
+    assert report['offsite_spin_trace_max_abs_ry'] == 17
+
+
 def test_detects_accidental_rotation_of_lattice_soc(capture):
     path, meta, (h, s, soc, _), write = capture
     u = oracle.spin_unitary(meta['quaternion'], 4)

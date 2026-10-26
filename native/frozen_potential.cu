@@ -26,6 +26,27 @@ void check(cublasStatus_t e) {
 }
 __global__ void initialize(FrozenSpectrumStatus* result) {*result=FrozenSpectrumStatus{};}
 
+__global__ void split_offsite(const HamiltonianAssemblyConfig* config,
+        const HamiltonianPair* pairs,const int* indices,const cuDoubleComplex* original,
+        cuDoubleComplex* scalar,cuDoubleComplex* spin_dependent) {
+    const auto p=*config;
+    for(int pair=blockIdx.x*blockDim.x+threadIdx.x;pair<p.pairs;pair+=gridDim.x*blockDim.x)
+        for(int j=pairs[pair].begin;j<pairs[pair].end;j++) {
+            const size_t index=indices[j],stride=p.ldh;
+            double off[8],trace[8],soc[8];
+            for(int c=0;c<4;c++) {
+                const auto z=original[index+stride*c];off[2*c]=z.x;off[2*c+1]=z.y;
+            }
+            if(!mae::split_offsite_spin(off,trace,soc))
+                // Existing seed finite-value checks reject invalid references.
+                for(int c=0;c<8;c++) trace[c]=soc[c]=NAN;
+            for(int c=0;c<4;c++) {
+                scalar[index+stride*c]=make_cuDoubleComplex(trace[2*c],trace[2*c+1]);
+                spin_dependent[index+stride*c]=make_cuDoubleComplex(soc[2*c],soc[2*c+1]);
+            }
+        }
+}
+
 // Padded sparse entries are not necessarily initialized. Visit only active
 // topology indices (each appears in exactly one grouped assembly pair).
 __global__ void rotate(const HamiltonianAssemblyConfig* config, const HamiltonianPair* pairs,
@@ -114,6 +135,18 @@ __global__ void retain_failed_spin(int n,int k,const FrozenSpectrumStatus* resul
         failed_c[i]=c[i];failed_s[i]=s[i];
     }
 }
+}
+
+cudaError_t prepare_soc_free_offsite(const HamiltonianAssemblyView& view,
+        const cuDoubleComplex* original,cuDoubleComplex* scalar,
+        cuDoubleComplex* spin_dependent,cudaStream_t stream) {
+    if(!original||!scalar||!spin_dependent||original==scalar||original==spin_dependent||
+       scalar==spin_dependent||!view.config||!view.pairs||!view.indices||view.shape.nh!=8||
+       view.shape.pairs<1||view.shape.nnz<1||view.shape.ldh<view.shape.nnz)
+        return cudaErrorInvalidValue;
+    const int blocks=std::min(1024,1+(view.shape.pairs-1)/128);
+    split_offsite<<<blocks,128,0,stream>>>(view.config,view.pairs,view.indices,original,scalar,spin_dependent);
+    return cudaGetLastError();
 }
 
 struct FrozenPotentialPlan::Impl {

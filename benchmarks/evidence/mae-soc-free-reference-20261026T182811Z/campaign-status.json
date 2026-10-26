@@ -1,0 +1,37 @@
+{
+  "status": "validation_failed",
+  "run_id": "mae-soc-free-reference-20261026T182811Z",
+  "deadline_epoch": 1793040452.233408,
+  "authorized_gpu_seconds": 1200,
+  "requested_gpu_seconds": 1200,
+  "allocation_released": true,
+  "authorization": {
+    "user_reply": "Approve up to 20 H100-minutes",
+    "recorded_at_utc": "2026-10-26T18:27:32.233412+00:00",
+    "budget_seconds": 1200,
+    "gpu": "H100!:1",
+    "maximum_concurrent_gpus": 1
+  },
+  "scope": "Nine serial calculations on one exact H100; no restart, deadline extension, numerical tolerance change or source promotion",
+  "local_validation": {
+    "commit": "fe4bb48a37eb642015434bea8353f0bdf3c34d4a",
+    "focused_tests_passed": 103,
+    "saved_reference_calculations_replayed": 5,
+    "intended_target_axes_checked": true,
+    "cuda_runtime_validated": false
+  },
+  "launcher_log": "/tmp/remag-mae-soc-free-reference-20261026.log",
+  "launcher_session": 77059,
+  "app_id": "ap-R8ElUpDqYH8382WYhRlEDe",
+  "function_call_id": "fc-01M5WQGN01MNKTAN7G3MR40SM4",
+  "results": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-soc-free-reference-20261026T182811Z",
+  "stopping_reason": "SOC-free FePt reference lost its magnetic moment because zeroing unsplit offsite H0 removed scalar nonlocal terms",
+  "recorded_calculations": 3,
+  "passed_calculations": 2,
+  "unvisited_calculations": 6,
+  "scientific_pass": false,
+  "corrected_gpu_runtime_validated": false,
+  "local_correction_tests_passed": 107,
+  "budget_report": "results/mae-soc-free-reference-20261026T182811Z/budget-report.json",
+  "allowance_closed": true
+}

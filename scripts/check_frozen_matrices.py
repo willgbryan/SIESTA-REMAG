@@ -102,8 +102,17 @@ def check_capture(path):
         spin_independent_overlap=maximum(sh-u@sh@u.conj().T) <= MATRIX_ATOL_RY,
         no_soc_rotation_invariance=maximum(without_soc-rotated_without_soc)*RY_EV <= SPECTRUM_ATOL_EV,
     )
+    # Historical captures predate this declaration; retain their algebraic
+    # checks without treating them as evidence of correct SOC removal.
+    operator = meta.get('lattice_operator')
+    spin_trace = .5*(soc[::2, ::2]+soc[1::2, 1::2])
+    if operator is not None:
+        checks['lattice_operator_definition'] = operator == ('full_offsite' if reference_scale else 'spin_traceless_offsite')
+        if not reference_scale:
+            checks['spin_traceless_soc'] = maximum(spin_trace) <= MATRIX_ATOL_RY
     return dict(capture=str(path), k=k, bands=n, direction=meta['direction'], checks=checks,
                 passed=all(checks.values()), physical_accuracy_qualified=False,
+                lattice_operator=operator, offsite_spin_trace_max_abs_ry=maximum(spin_trace),
                 matrix_rotation_max_abs_error_ry=maximum(actual-independent),
                 generator_spectrum_max_abs_error_ev=maximum(generator_e-generator_observed)*RY_EV,
                 rotated_spectrum_max_abs_error_ev=maximum(raw_e-observed)*RY_EV,
@@ -138,6 +147,8 @@ def main():
                     raise ValueError('Capture rotation differs from the probe')
                 if any(meta.get(key, 1) != probe.get(key, 1) for key in ('reference_soc_scale', 'target_soc_scale')):
                     raise ValueError('Capture SOC treatment differs from the probe')
+                if meta.get('lattice_operator') != probe.get('lattice_operator'):
+                    raise ValueError('Capture lattice operator differs from the probe')
                 found.append((meta['direction'], meta['k']))
             complete = (probe.get('status') == 'complete' and probe.get('matrix_samples') is True
                         and bool(points) and all(p['completed'] and p['status'] == 0 for p in points)

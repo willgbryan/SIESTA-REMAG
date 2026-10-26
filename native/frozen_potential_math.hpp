@@ -45,6 +45,23 @@ REMAG_MAE_HD inline void offsite_soc(const double off[8], double soc[8]) {
     for (int i=0;i<8;i++) soc[i]=values[i];
 }
 
+// The upstream offsite buffer is the full lj nonlocal operator when split=0,
+// not pure SOC. Preserve its spin trace (including complex orbital entries)
+// in the SCF reference and restore only the spin-traceless remainder later.
+// Input/output layout: complex uu,dd,ud,du, each stored as re,im pairs.
+REMAG_MAE_HD inline bool split_offsite_spin(const double off[8], double scalar[8], double soc[8]) {
+    for (int i=0;i<8;i++) if (!finite(off[i])) return false;
+    const double real=.5*off[0]+.5*off[2], imag=.5*off[1]+.5*off[3];
+    const double trace[8]={real,imag,real,imag,0.,0.,0.,0.};
+    double remainder[8];
+    for (int i=0;i<8;i++) {
+        remainder[i]=off[i]-trace[i];
+        if (!finite(remainder[i])) return false;
+    }
+    for (int i=0;i<8;i++) {scalar[i]=trace[i];soc[i]=remainder[i];}
+    return true;
+}
+
 // Each real-space orbital-pair entry need not itself be Hermitian. Preserve
 // the complete complex spin block, including imaginary diagonal components.
 // SIESTA assembly interprets it as [[h0+i*h4,h2-i*h3],[h6+i*h7,h1+i*h5]].

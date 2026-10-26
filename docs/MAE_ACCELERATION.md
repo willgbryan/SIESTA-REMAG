@@ -135,65 +135,65 @@ exactly, leaving no independent test of omitted angular terms. Proposed [210]
 and [211] holdouts and the [100]/[001] cubic equivalence control remain unrun
 and were not part of the completed five-calculation diagnostic budget.
 
-## SOC-free common reference (local implementation, runtime pending)
+## SOC-free common reference (failed diagnostic; local correction)
 
-The experimental build now accepts `REMAG_FROZEN_SOC_FREE=1` with the frozen
-rotation probe, GPU initialization and fixed-geometry energy-only execution.
-It retains the existing scalar nonlocal Hamiltonian and full lattice SOC
-operator, but binds a zero SOC operator throughout the reference SCF, including
-initialization and energy contractions. Frozen targets rotate this converged
-exchange field and restore lattice SOC exactly once. The ordinary full-SOC path
-is unchanged by default. Final Hamiltonian recomputation is rejected in this
-mode; requested electronic exports describe the SOC-free SCF reference.
+The [26 October diagnostic](../benchmarks/evidence/mae-soc-free-reference-20261026T182811Z/REPORT.md)
+stopped at calculation three of nine. Fresh full-SOC FePt z/x anchors pass their
+historical pristine-SIESTA and REMAG regressions. The SOC-free reference
+converged to zero spin and failed the signed-moment gate; all six FeCo
+calculations remained unvisited. This is an implementation failure, not evidence
+that a common SOC-free reference gives a valid MAE. The single H100 app is
+STOPPED with zero account containers, after 131.598391 seconds of conservative
+app lifetime within the approved 1200 seconds. There was no retry.
 
-An additional, explicitly counted SOC-free identity solve checks the reference
-spectrum before SOC-restored targets are evaluated. Reports and selected-k
-captures distinguish reference and target SOC scales; ordinary regression
-comparison rejects different SCF SOC treatments. The independent matrix oracle
-uses the declared scales and retains the existing tolerances. Local arithmetic,
-negative controls and metadata gates pass; CUDA compilation and runtime/physical
-qualification remain pending. This is not yet a production screening option or
-a demonstrated improvement in MAE accuracy.
+The cause is now identified: pinned `nlefsm.F:calc_Vj_offsiteSO` keeps the entire
+lj nonlocal potential in `V_so` when `split_sr_so` is false, including its scalar
+ionic part. The attempted zero binding therefore removed more than SOC.
+Selected saved matrices contain a scalar component as large as 17.276615 Ry.
+Their rotation and spectrum algebra still pass, illustrating why internal
+matrix consistency cannot qualify the chosen physical operator.
 
-Changing the input to ordinary noncollinear SIESTA or scaling its semilocal SO
-potential can regenerate different projectors (see pinned `atom.F:read_vps`
-and `Docs/tex/sections/Options/Pseudopotentials.tex`). Those are not exact oracles
-for removing only the assembled SOC operator with the original scalar operator
-held fixed. The next diagnostic therefore combines full-mesh identity, selected
-exact-Hamiltonian checks, unchanged full-SCF/pristine anchors and sensitivity to
-two independently converged SOC-free reference directions. Method error remains
-separate from implementation agreement and k/smearing convergence.
+The experimental `REMAG_FROZEN_SOC_FREE=1` path is corrected locally to decompose
+the retained offsite operator into half its spin trace and a spin-traceless
+remainder. Reference SCF initialization, Hamiltonian seeds and energy
+contractions keep the scalar part. Frozen targets rotate the reference exchange
+field and add only the spin-dependent lattice remainder once. The original
+scalar nonlocal buffer and projectors remain unchanged; this decomposition also
+retains scalar terms stored in the offsite buffer. Ordinary full-SOC execution
+keeps its existing arithmetic. This is a fixed-projector spin decomposition,
+not a claim of equivalence to separately regenerated scalar-relativistic
+pseudopotentials or upstream's optional Hemstreet projector split.
 
-The prepared follow-up in `build/mae-soc-free-reference-20261026` contains
-nine serial calculations: fresh full-SOC FePt z/x and FeCo [001]/[110]/[111]
-anchors, an SOC-free FePt z probe, SOC-free FeCo [001] and [110] probes, and an
-eigenvalues-only repeat of the SOC-free FeCo [001] probe. The ordinary FePt z
-anchor also checks the unchanged frozen path. It retains 4³/400 Ry/0.01 Ry
-confinement for FePt and 16³/2000 Ry/0.00125 Ry for FeCo, with 300 K smearing
-and the existing TZDP, pseudopotentials and convergence settings. Matrix and
-spectrum gates remain 1e-10 Ry and 1e-7 eV; method bias and reference spread
-retain the 5 micro-eV/f.u. diagnostic target. Historical pristine FePt checks
-are reused; no new full CPU timing run is included.
+The mode still requires the experimental build, frozen rotations, GPU
+initialization and fixed-geometry energy-only execution. Final Hamiltonian
+recomputation is rejected. Electronic exports describe the actual reference.
+Its extra SOC-free identity solve is explicitly counted. Runtime records now
+require scalar-preserving decomposition evidence, and selected-matrix checks
+verify that the restored operator is spin-traceless. Old zero-binding evidence
+cannot qualify the corrected mode. Matrix/spectrum tolerances remain 1e-10 Ry
+and 1e-7 eV; method E/F bias and reference spread retain the 5 µeV/f.u. target.
 
-The recipe pins the accepted prior image, executable/library and native hashes,
-and overlays only six declared native files. Production keeps its 128-k guard;
-the inherited staged 32768 ceiling remains unqualified. Local tests (73),
-host-only C++ syntax checks, source-input checks and replay of the existing
-FePt evidence pass. CUDA compilation and execution are pending. The requested
-new allowance is 20 H100-minutes, one GPU at a time, with 90 seconds reserved
-for evidence; authorization remains zero and the app refuses an unfunded
-launch. The prior app is STOPPED with zero account containers. See the local
-`PREPARED.md` for the exact sequence and evidence-recovery commands.
+The correction passes 107 focused local tests and host-only C++ syntax checks
+with and without the experimental macro. Host-compiled decomposition replay
+on six saved dense captures preserves/reconstructs the operator within
+roundoff. Corrected CUDA compilation, magnetic SCF, method bias and reference
+invariance remain unvalidated. The failed attempt, exact executed sources,
+raw outputs and postprocessing correction are retained separately; the staged
+recipe is closed and must not be relaunched as if it passed. No production
+screening option or MAE accuracy/speedup improvement is established.
 
-Frozen-point direction checks now use the requested axes from the ordered
-target input manifests, independently of the probe's reported quaternions.
-They reject missing/reordered points, nonidentity reference rotations and
-rotations that reach the wrong axis. Spinful probes must also finish within
-one degree of that signed target; eigenvalues-only probes explicitly lack this
-moment check. This closes a mislabeled-direction gap that internally consistent
-matrix algebra alone cannot detect. All five saved reference-diagnostic
-calculations pass the strengthened checks; 103 focused local tests pass. The
-pending nine-calculation batch includes these gates without added GPU work.
+Frozen-point direction checks use requested axes from ordered target input
+manifests, independently of reported quaternions. They reject missing/reordered
+points, nonidentity reference rotations and rotations to the wrong axis.
+Spinful probes must finish within one degree of the signed target; zero moments
+are invalid. Eigenvalues-only probes explicitly lack a moment check.
+
+The next runtime validation must first establish a magnetic, scalar-preserving
+FePt reference, then compare common-reference FePt/FeCo estimates with fresh
+full-SOC anchors and independently converged FeCo reference directions. Retain
+the same basis/grid/k/smearing settings and eigenvalues-only control. Production
+admission remains 128 k points; the staged 32768 ceiling is not general capacity
+qualification. No additional allocation is authorized by this document.
 
 ## Implementation sequence
 

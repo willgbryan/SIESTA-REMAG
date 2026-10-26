@@ -1,0 +1,17 @@
+{
+  "tzdp_np_s25_m400_k4_t300_z-frozen_spin": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": -0.0013575832790593267,
+        "full_scf_free_difference_ev": -0.0005417853008111706,
+        "frozen_band_difference_ev": -0.0013579442588126588,
+        "frozen_band_free_difference_ev": -0.0005795816172012788,
+        "total_bias_ev": -3.609797533320972e-07,
+        "free_bias_ev": -3.779631639010822e-05,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  }
+}

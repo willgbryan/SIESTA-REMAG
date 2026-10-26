@@ -1,0 +1,286 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "completed_native_probe",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "actual_mesh",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "spin_mode",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "generator_spectrum",
+      "passed": true,
+      "value": 2.007283228522283e-13
+    },
+    {
+      "name": "reference_soc_scale",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "target_soc_scale",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "intended_target_directions",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "point_0_native",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "point_0_shape",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "paired_layout",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "finite_occupied_states",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "normalized_weights",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "common_weights",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "raw_band_difference_ry",
+      "passed": true,
+      "value": 0.0
+    },
+    {
+      "name": "raw_band_free_difference_ry",
+      "passed": true,
+      "value": 0.0
+    },
+    {
+      "name": "raw_canonical_free_difference_ry",
+      "passed": true,
+      "value": 0.0
+    },
+    {
+      "name": "independent_electron_count",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "raw_spin",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "final_direction_degrees",
+      "passed": true,
+      "value": 0.0
+    },
+    {
+      "name": "identity_band_difference",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "identity_scf_spin",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "point_1_native",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "point_1_shape",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "paired_layout",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "finite_occupied_states",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "normalized_weights",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "common_weights",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "raw_band_difference_ry",
+      "passed": true,
+      "value": 4.468098796766434e-20
+    },
+    {
+      "name": "raw_band_free_difference_ry",
+      "passed": true,
+      "value": 3.095971596663472e-20
+    },
+    {
+      "name": "raw_canonical_free_difference_ry",
+      "passed": true,
+      "value": 3.048127470033405e-19
+    },
+    {
+      "name": "independent_electron_count",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "raw_spin",
+      "passed": true,
+      "value": null
+    },
+    {
+      "name": "final_direction_degrees",
+      "passed": true,
+      "value": 0.0008403470687170588
+    }
+  ],
+  "errors": [],
+  "report": {
+    "schema": 1,
+    "status": "complete",
+    "scope": "Experimental common-generator frozen exchange with fixed full offsite SOC; band differences, not full-SCF total energies",
+    "reference": "Final SCF generator Hamiltonian",
+    "energy_unit": "Ry",
+    "temperature_ry": 0.0019000869380734083,
+    "electrons": 18.000000000000004,
+    "bands": 96,
+    "kpoints": 64,
+    "solver_lanes": 1,
+    "spin_expectations": true,
+    "explicit_plan_workspace_bytes": 17020708,
+    "qualification_download_bytes": 4080296,
+    "generator_spectrum_max_abs_error_ry": 2.007283228522283e-13,
+    "matrix_samples": true,
+    "matrix_capture_workspace_bytes": 589824,
+    "reference_soc_scale": 1,
+    "target_soc_scale": 1,
+    "reference_control": null,
+    "physical_accuracy_qualified": false,
+    "points": [
+      {
+        "index": 0,
+        "quaternion": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "status": 0,
+        "failed_k": -1,
+        "solver_info": 0,
+        "eigensystem_jobs": 64,
+        "completed": true,
+        "seconds": 0.213302409,
+        "fermi_ry": -0.27728736872429116,
+        "charge": 18.000000000002814,
+        "band_difference_ry": 0,
+        "band_free_difference_ry": 0,
+        "canonical_free_difference_ry": 0,
+        "charge_error_reference": 2.8066438062523957e-12,
+        "charge_error_current": 2.8066438062523957e-12,
+        "electron_count_passed": true,
+        "spin_muB": [
+          -1.6764315399325834e-17,
+          1.3281535465275188e-15,
+          3.37862244306302
+        ],
+        "raw_spectrum": "remag-frozen-000.csv"
+      },
+      {
+        "index": 1,
+        "quaternion": [
+          0.7071067811865475,
+          0,
+          0.7071067811865475,
+          0
+        ],
+        "status": 0,
+        "failed_k": -1,
+        "solver_info": 0,
+        "eigensystem_jobs": 64,
+        "completed": true,
+        "seconds": 0.157785049,
+        "fermi_ry": -0.27719937911623366,
+        "charge": 17.999999999940364,
+        "band_difference_ry": -9.980706212737485e-05,
+        "band_free_difference_ry": -4.259846315523388e-05,
+        "canonical_free_difference_ry": -4.259848046589575e-05,
+        "charge_error_reference": 2.8066438062523957e-12,
+        "charge_error_current": -5.963940452602401e-11,
+        "electron_count_passed": true,
+        "spin_muB": [
+          3.381366105175414,
+          1.0006120486338766e-15,
+          4.959389311063325e-05
+        ],
+        "raw_spectrum": "remag-frozen-001.csv"
+      }
+    ]
+  },
+  "directions": {
+    "passed": true,
+    "points": [
+      {
+        "index": 0,
+        "expected_direction": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "passed": true,
+        "rotation_matches_target": true,
+        "moment_direction_checked": true,
+        "moment_error_degrees": 2.2525054457351236e-14,
+        "rotation_target_vector_error": 0.0
+      },
+      {
+        "index": 1,
+        "expected_direction": [
+          1.0,
+          0.0,
+          6.123233995736766e-17
+        ],
+        "passed": true,
+        "rotation_matches_target": true,
+        "moment_direction_checked": true,
+        "moment_error_degrees": 0.0008403469710947469,
+        "rotation_target_vector_error": 2.7416125025310067e-16
+      }
+    ],
+    "moment_tolerance_degrees": 1.0,
+    "physical_accuracy_qualified": false
+  }
+}

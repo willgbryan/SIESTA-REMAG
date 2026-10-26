@@ -1,0 +1,7 @@
+{
+  "reason": "Failed SOC-free reference has zero SCF spin. Preserve failed validation without nonfinite angles, and exclude failed probes from MAE bias estimates. Remote sources/results remain unchanged in implementation.tar.gz.",
+  "changes": [
+    "Guard zero moment denominator and report null direction angle",
+    "Retain invalid probe details but exclude them from method-bias comparisons"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "authorized_seconds": 1200,
+  "deadline_epoch": 1793040452.233408,
+  "app_id": "ap-R8ElUpDqYH8382WYhRlEDe",
+  "function_call_id": "fc-01M5WQGN01MNKTAN7G3MR40SM4",
+  "launcher_session": 77059,
+  "app_created_epoch": 1793039256.57397,
+  "app_stopped_epoch": 1793039388.172361,
+  "conservative_app_lifetime_seconds": 131.5983908176422,
+  "function_work_before_packaging_seconds": 71.55634617805481,
+  "actual_billed_gpu_seconds": null,
+  "within_authorized_budget": true,
+  "allocation_released": true,
+  "follow_on_allocations": 0
+}

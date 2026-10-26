@@ -30,8 +30,12 @@ def evidence_errors(telemetry, enabled):
         errors.append('Frozen reference/target SOC treatment differs from the request')
     if not enabled:
         return errors
-    if not rows or any(not r.get('zero_soc_workspace_bytes', 0) > 0 for r in rows):
-        errors.append('SOC-free SCF binding evidence is missing')
+    if not rows or any(r.get('soc_free_decomposition') != 'spin_trace'
+                       or not r.get('scalar_offsite_workspace_bytes', 0) > 0
+                       or not r.get('spin_dependent_soc_workspace_bytes', 0) > 0 for r in rows):
+        errors.append('SOC-free SCF scalar-preserving decomposition evidence is missing')
+    if report.get('lattice_operator') != 'spin_traceless_offsite':
+        errors.append('SOC-restored targets require the spin-traceless offsite operator')
     control = report.get('reference_control') or {}
     if (not report or control.get('completed') is not True or control.get('status') != 0
             or control.get('soc_scale') != 0 or not report.get('kpoints', 0) > 0

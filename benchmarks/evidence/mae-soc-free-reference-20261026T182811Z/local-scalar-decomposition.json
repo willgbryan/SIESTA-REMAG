@@ -1,0 +1,67 @@
+{
+  "scope": "Host-compiled shared spin decomposition replay on six saved dense offsite captures; no corrected CUDA or SCF execution",
+  "passed": true,
+  "rows": [
+    {
+      "calculation": "tzdp_np_s25_m400_k4_t300_z/frozen_spin",
+      "k": 0,
+      "blocks": 2304,
+      "scalar_max_error_ry": 0.0,
+      "reconstruction_max_error_ry": 6.938893903907228e-18,
+      "spin_trace_max_error_ry": 1.7763568394002505e-15,
+      "default_rotation_change_max_ry": 4.274358644806853e-15,
+      "passed": true
+    },
+    {
+      "calculation": "tzdp_np_s25_m400_k4_t300_z/frozen_spin",
+      "k": 32,
+      "blocks": 2304,
+      "scalar_max_error_ry": 0.0,
+      "reconstruction_max_error_ry": 6.938893903907228e-18,
+      "spin_trace_max_error_ry": 1.7763568394002505e-15,
+      "default_rotation_change_max_ry": 4.274358644806853e-15,
+      "passed": true
+    },
+    {
+      "calculation": "tzdp_np_s25_m400_k4_t300_z/frozen_spin",
+      "k": 63,
+      "blocks": 2304,
+      "scalar_max_error_ry": 0.0,
+      "reconstruction_max_error_ry": 1.3877787807814457e-17,
+      "spin_trace_max_error_ry": 1.7763568394002505e-15,
+      "default_rotation_change_max_ry": 5.3013149425851225e-15,
+      "passed": true
+    },
+    {
+      "calculation": "tzdp_np_s25_m400_k4_t300_z/soc_free_spin",
+      "k": 0,
+      "blocks": 2304,
+      "scalar_max_error_ry": 0.0,
+      "reconstruction_max_error_ry": 6.938893903907228e-18,
+      "spin_trace_max_error_ry": 1.7763568394002505e-15,
+      "default_rotation_change_max_ry": 7.105427357601002e-15,
+      "passed": true
+    },
+    {
+      "calculation": "tzdp_np_s25_m400_k4_t300_z/soc_free_spin",
+      "k": 32,
+      "blocks": 2304,
+      "scalar_max_error_ry": 0.0,
+      "reconstruction_max_error_ry": 6.938893903907228e-18,
+      "spin_trace_max_error_ry": 1.7763568394002505e-15,
+      "default_rotation_change_max_ry": 7.105427357601002e-15,
+      "passed": true
+    },
+    {
+      "calculation": "tzdp_np_s25_m400_k4_t300_z/soc_free_spin",
+      "k": 63,
+      "blocks": 2304,
+      "scalar_max_error_ry": 0.0,
+      "reconstruction_max_error_ry": 1.3877787807814457e-17,
+      "spin_trace_max_error_ry": 1.7763568394002505e-15,
+      "default_rotation_change_max_ry": 7.105427357601002e-15,
+      "passed": true
+    }
+  ],
+  "corrected_gpu_runtime_validated": false
+}

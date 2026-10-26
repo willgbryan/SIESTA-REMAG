@@ -1,0 +1,28 @@
+{
+  "cause": "The zeroed offsite buffer contains the scalar nonlocal potential as well as spin-dependent SOC when split=0; source nlefsm.F calc_Vj_offsiteSO retains all NL in V_so. The new mode removed the ionic potential, not only SOC.",
+  "nonlocal_split": 0,
+  "samples": [
+    {
+      "k": 0,
+      "scalar_part_max_abs_ry": 17.276614717800797,
+      "offsite_max_abs_ry": 17.276614717800797
+    },
+    {
+      "k": 32,
+      "scalar_part_max_abs_ry": 17.276614717800797,
+      "offsite_max_abs_ry": 17.276614717800797
+    },
+    {
+      "k": 63,
+      "scalar_part_max_abs_ry": 17.276614717800772,
+      "offsite_max_abs_ry": 17.276614717800772
+    }
+  ],
+  "observed_reference_spin_muB": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "valid_mae_estimate": false,
+  "correction": "Keep half the spin trace in the SCF binding, and add only the spin-traceless remainder in SOC-restored targets. Runtime validation of the correction is pending."
+}

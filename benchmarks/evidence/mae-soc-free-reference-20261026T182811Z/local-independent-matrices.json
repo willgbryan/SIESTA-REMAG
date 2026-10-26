@@ -1,0 +1,402 @@
+{
+  "scope": "Selected-k frozen-generator implementation check, not full-SCF or physical qualification",
+  "matrix_atol_ry": 1e-10,
+  "spectrum_atol_ev": 1e-07,
+  "passed": true,
+  "coverage": [
+    {
+      "calculation": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/frozen_spin",
+      "passed": true
+    },
+    {
+      "calculation": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/soc_free_spin",
+      "passed": true
+    }
+  ],
+  "captures": [
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000000.json",
+      "k": 0,
+      "bands": 96,
+      "direction": 0,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800797,
+      "matrix_rotation_max_abs_error_ry": 1.7763568394002505e-15,
+      "generator_spectrum_max_abs_error_ev": 9.575585862596054e-11,
+      "rotated_spectrum_max_abs_error_ev": 1.0039622330445232e-10,
+      "exported_matrix_spectrum_max_abs_error_ev": 9.541749870148719e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 1.0039622330445232e-10,
+      "no_soc_rotation_max_abs_error_ev": 0.0,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 1.3351390437677058e-08,
+        "soc": 7.105427554370236e-15,
+        "rotated": 1.3351390437677058e-08
+      },
+      "overlap_hermiticity_max_abs_error": 3.990813679521938e-09,
+      "overlap_condition_number": 60720.7214117388
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000032.json",
+      "k": 32,
+      "bands": 96,
+      "direction": 0,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800797,
+      "matrix_rotation_max_abs_error_ry": 1.7763568394002505e-15,
+      "generator_spectrum_max_abs_error_ev": 1.2838342277160586e-10,
+      "rotated_spectrum_max_abs_error_ev": 1.2884262552624827e-10,
+      "exported_matrix_spectrum_max_abs_error_ev": 1.2920515401675544e-10,
+      "canonical_rotation_spectrum_max_abs_error_ev": 1.2884262552624827e-10,
+      "no_soc_rotation_max_abs_error_ev": 0.0,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 1.335139054869931e-08,
+        "soc": 8.881784354287094e-15,
+        "rotated": 1.335139054869931e-08
+      },
+      "overlap_hermiticity_max_abs_error": 3.990813568499622e-09,
+      "overlap_condition_number": 60720.72141180482
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-000-k000063.json",
+      "k": 63,
+      "bands": 96,
+      "direction": 0,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800772,
+      "matrix_rotation_max_abs_error_ry": 1.4432899320127035e-15,
+      "generator_spectrum_max_abs_error_ev": 2.9799841919689386e-11,
+      "rotated_spectrum_max_abs_error_ev": 2.5957039920313385e-11,
+      "exported_matrix_spectrum_max_abs_error_ev": 2.9775673353655574e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 2.5957039920313385e-11,
+      "no_soc_rotation_max_abs_error_ev": 0.0,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 2.5220354762937613e-09,
+        "soc": 3.552713682391447e-15,
+        "rotated": 2.5220354762937613e-09
+      },
+      "overlap_hermiticity_max_abs_error": 1.915822639420678e-10,
+      "overlap_condition_number": 54882.27993740059
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000000.json",
+      "k": 0,
+      "bands": 96,
+      "direction": 1,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800797,
+      "matrix_rotation_max_abs_error_ry": 5.384581678983766e-15,
+      "generator_spectrum_max_abs_error_ev": 9.575585862596054e-11,
+      "rotated_spectrum_max_abs_error_ev": 1.0216052862492055e-10,
+      "exported_matrix_spectrum_max_abs_error_ev": 9.889777221035602e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 1.0213636005888674e-10,
+      "no_soc_rotation_max_abs_error_ev": 9.063212262679254e-12,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 1.3351390437677058e-08,
+        "soc": 7.105427554370236e-15,
+        "rotated": 1.3351390382165856e-08
+      },
+      "overlap_hermiticity_max_abs_error": 3.990813679521938e-09,
+      "overlap_condition_number": 60720.7214117388
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000032.json",
+      "k": 32,
+      "bands": 96,
+      "direction": 1,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800797,
+      "matrix_rotation_max_abs_error_ry": 5.7731597291409164e-15,
+      "generator_spectrum_max_abs_error_ev": 1.2838342277160586e-10,
+      "rotated_spectrum_max_abs_error_ev": 1.3331381024250337e-10,
+      "exported_matrix_spectrum_max_abs_error_ev": 1.25676543375819e-10,
+      "canonical_rotation_spectrum_max_abs_error_ev": 1.3328964167646955e-10,
+      "no_soc_rotation_max_abs_error_ev": 1.1093371809519406e-11,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 1.335139054869931e-08,
+        "soc": 8.881784354287094e-15,
+        "rotated": 1.3351390271143563e-08
+      },
+      "overlap_hermiticity_max_abs_error": 3.990813568499622e-09,
+      "overlap_condition_number": 60720.72141180482
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/frozen_spin/remag-frozen-matrices-001-k000063.json",
+      "k": 63,
+      "bands": 96,
+      "direction": 1,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800772,
+      "matrix_rotation_max_abs_error_ry": 5.440092820663267e-15,
+      "generator_spectrum_max_abs_error_ev": 2.9799841919689386e-11,
+      "rotated_spectrum_max_abs_error_ev": 3.228920422117196e-11,
+      "exported_matrix_spectrum_max_abs_error_ev": 2.917145920281029e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 3.228920422117196e-11,
+      "no_soc_rotation_max_abs_error_ev": 9.54658358335548e-12,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 2.5220354762937613e-09,
+        "soc": 3.552713682391447e-15,
+        "rotated": 2.522035247310256e-09
+      },
+      "overlap_hermiticity_max_abs_error": 1.915822639420678e-10,
+      "overlap_condition_number": 54882.27993740059
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/soc_free_spin/remag-frozen-matrices-000-k000000.json",
+      "k": 0,
+      "bands": 96,
+      "direction": 0,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800797,
+      "matrix_rotation_max_abs_error_ry": 2.220446208234421e-15,
+      "generator_spectrum_max_abs_error_ev": 7.808863685524445e-11,
+      "rotated_spectrum_max_abs_error_ev": 5.98655380657507e-11,
+      "exported_matrix_spectrum_max_abs_error_ev": 4.529189274736246e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 5.98655380657507e-11,
+      "no_soc_rotation_max_abs_error_ev": 0.0,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 1.3351389993587759e-08,
+        "soc": 7.105427554370236e-15,
+        "rotated": 1.3351390770743876e-08
+      },
+      "overlap_hermiticity_max_abs_error": 3.990813679521938e-09,
+      "overlap_condition_number": 60720.7214117388
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/soc_free_spin/remag-frozen-matrices-000-k000032.json",
+      "k": 32,
+      "bands": 96,
+      "direction": 0,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800797,
+      "matrix_rotation_max_abs_error_ry": 2.220446226690887e-15,
+      "generator_spectrum_max_abs_error_ev": 1.1837763643360796e-10,
+      "rotated_spectrum_max_abs_error_ev": 5.2953328180080655e-11,
+      "exported_matrix_spectrum_max_abs_error_ev": 6.936378451703855e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 5.2953328180080655e-11,
+      "no_soc_rotation_max_abs_error_ev": 0.0,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 1.3351389660520916e-08,
+        "soc": 8.881784354287094e-15,
+        "rotated": 1.3351389771543247e-08
+      },
+      "overlap_hermiticity_max_abs_error": 3.990813568499622e-09,
+      "overlap_condition_number": 60720.72141180482
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/soc_free_spin/remag-frozen-matrices-000-k000063.json",
+      "k": 63,
+      "bands": 96,
+      "direction": 0,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800772,
+      "matrix_rotation_max_abs_error_ry": 7.105427357601002e-15,
+      "generator_spectrum_max_abs_error_ev": 3.3497632522862523e-11,
+      "rotated_spectrum_max_abs_error_ev": 4.633114108681635e-11,
+      "exported_matrix_spectrum_max_abs_error_ev": 2.9558156259351276e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 4.633114108681635e-11,
+      "no_soc_rotation_max_abs_error_ev": 0.0,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 2.522033026864053e-09,
+        "soc": 3.552713682391447e-15,
+        "rotated": 2.522032957475196e-09
+      },
+      "overlap_hermiticity_max_abs_error": 1.915822639420678e-10,
+      "overlap_condition_number": 54882.27993740059
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/soc_free_spin/remag-frozen-matrices-001-k000000.json",
+      "k": 0,
+      "bands": 96,
+      "direction": 1,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800797,
+      "matrix_rotation_max_abs_error_ry": 5.7731597309970896e-15,
+      "generator_spectrum_max_abs_error_ev": 7.808863685524445e-11,
+      "rotated_spectrum_max_abs_error_ev": 5.7980389915113416e-11,
+      "exported_matrix_spectrum_max_abs_error_ev": 4.560608410580201e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 7.973209934554362e-11,
+      "no_soc_rotation_max_abs_error_ev": 8.023963923225366e-12,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 1.3351389993587759e-08,
+        "soc": 7.105427554370236e-15,
+        "rotated": 1.3351390604210449e-08
+      },
+      "overlap_hermiticity_max_abs_error": 3.990813679521938e-09,
+      "overlap_condition_number": 60720.7214117388
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/soc_free_spin/remag-frozen-matrices-001-k000032.json",
+      "k": 32,
+      "bands": 96,
+      "direction": 1,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800797,
+      "matrix_rotation_max_abs_error_ry": 5.329070524421838e-15,
+      "generator_spectrum_max_abs_error_ev": 1.1837763643360796e-10,
+      "rotated_spectrum_max_abs_error_ev": 5.2107428368897256e-11,
+      "exported_matrix_spectrum_max_abs_error_ev": 7.318241795038076e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 9.292813640000462e-11,
+      "no_soc_rotation_max_abs_error_ev": 9.280729356983557e-12,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 1.3351389660520916e-08,
+        "soc": 8.881784354287094e-15,
+        "rotated": 1.3351389382965163e-08
+      },
+      "overlap_hermiticity_max_abs_error": 3.990813568499622e-09,
+      "overlap_condition_number": 60720.72141180482
+    },
+    {
+      "capture": "results/mae-soc-free-reference-20261026T182811Z/tzdp_np_s25_m400_k4_t300_z/soc_free_spin/remag-frozen-matrices-001-k000063.json",
+      "k": 63,
+      "bands": 96,
+      "direction": 1,
+      "checks": {
+        "matrix_rotation": true,
+        "generator_spectrum": true,
+        "rotated_spectrum": true,
+        "exported_matrix_spectrum": true,
+        "canonical_rotation_spectrum": true,
+        "spin_independent_overlap": true,
+        "no_soc_rotation_invariance": true
+      },
+      "passed": true,
+      "physical_accuracy_qualified": false,
+      "lattice_operator": null,
+      "offsite_spin_trace_max_abs_ry": 17.276614717800772,
+      "matrix_rotation_max_abs_error_ry": 9.769962616701378e-15,
+      "generator_spectrum_max_abs_error_ev": 3.3497632522862523e-11,
+      "rotated_spectrum_max_abs_error_ev": 5.1527382784085785e-11,
+      "exported_matrix_spectrum_max_abs_error_ev": 3.1515810108089994e-11,
+      "canonical_rotation_spectrum_max_abs_error_ev": 5.1527382784085785e-11,
+      "no_soc_rotation_max_abs_error_ev": 1.5975422148349298e-11,
+      "hermiticity_max_abs_error_ry": {
+        "generator": 2.522033026864053e-09,
+        "soc": 3.552713682391447e-15,
+        "rotated": 2.5220328603306813e-09
+      },
+      "overlap_hermiticity_max_abs_error": 1.915822639420678e-10,
+      "overlap_condition_number": 54882.27993740059
+    }
+  ]
+}

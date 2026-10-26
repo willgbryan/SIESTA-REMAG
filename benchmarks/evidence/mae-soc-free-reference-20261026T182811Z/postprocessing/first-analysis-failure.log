@@ -1,0 +1,35 @@
+tzdp_np_s25_m400_k4_t300_z frozen_spin passed= True
+tzdp_np_s25_m400_k4_t300_x energy_only passed= True
+/Users/willgbryan/Desktop/SIESTA-REMAG/build/mae-soc-free-reference-20261026/analyze.py:72: RuntimeWarning: invalid value encountered in scalar divide
+  cosine=float(np.dot(vector,expected)/(np.linalg.norm(vector)*np.linalg.norm(expected)))
+tzdp_np_s25_m400_k4_t300_z soc_free_spin passed= False
+Traceback (most recent call last):
+  File "/Users/willgbryan/Desktop/SIESTA-REMAG/build/mae-soc-free-reference-20261026/analyze_local.py", line 81, in <module>
+    save('local-qualification.json',report)
+  File "/Users/willgbryan/Desktop/SIESTA-REMAG/build/mae-soc-free-reference-20261026/analyze_local.py", line 14, in <lambda>
+    save=lambda name,value:(run/name).write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 398, in _iterencode_dict
+    yield _floatstr(value)
+          ^^^^^^^^^^^^^^^^
+  File "/Users/willgbryan/miniconda3/lib/python3.12/json/encoder.py", line 240, in floatstr
+    raise ValueError(
+ValueError: Out of range float values are not JSON compliant: nan

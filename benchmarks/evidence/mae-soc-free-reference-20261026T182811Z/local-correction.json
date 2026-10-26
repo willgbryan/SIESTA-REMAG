@@ -1,0 +1,18 @@
+{
+  "scope": "Local scalar-preserving SOC-free implementation; CUDA/runtime qualification pending",
+  "tests_passed": 107,
+  "host_cpp_syntax_with_and_without_experimental_macro": true,
+  "corrected_gpu_runtime_validated": false,
+  "source_sha256": {
+    "native/frozen_potential.cu": "6e1d66a8acd14ac647efd72fa32f3951937559054da74dbb10c0f2e0f6861fc6",
+    "native/frozen_potential.hpp": "d459293f1a40032a10f0f4e9cec2298c5088cb981ac58e485a1ffbe5402c820c",
+    "native/frozen_potential_math.hpp": "d7c288a6d47be5bcbf6e45ea8b7a4af5b137a01015ef415964ffee2a1a365bfe",
+    "native/frozen_potential_probe.cpp": "f5bf6a363123cf869b5706d2f896fcb4f04bf50e1594fd5eadd69583aec47424",
+    "native/scf_cycle_state.cpp": "dad4058151695d086e8c2b39cc98e5271ad13d8819d37c90559e527c1b4d9b97",
+    "scripts/check_frozen_matrices.py": "a934525fddc0521a850231f089c13b1bf9ce34a1c52d10c6617380fb7c5fa17d",
+    "src/siesta_remag/frozen_reference.py": "dd565631b080d97ea88e8468b9ac9894f1c7a98b7d6ffbcc25937faefc998e35",
+    "tests/test_frozen_reference.py": "0c0fe9af6b3052004037a41ee6b590c15be50f0b5d01665df9ce9197715806a4",
+    "tests/test_frozen_potential_math.py": "ff8a7372485cf9364c44c51cb6de0c50062bec4935fddead8d47fc1567311412",
+    "tests/test_frozen_matrices.py": "6df1b643739700b14e4bcd561a8387d3191256da96d144d02c8bad16a3ae9873"
+  }
+}
