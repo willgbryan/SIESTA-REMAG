@@ -18,6 +18,21 @@ OWNERS = ('pair_geometry_state', 'nonlocal_force_state', 'nonlocal_h0_state', 'i
 RECEIPTS = ('remag-pair-geometry.json', 'remag-nonlocal-geometry.json',
             'remag-nonlocal-h0.json', 'remag-initial-mesh-production.json', 'remag-orbital-basis.json')
 
+def test_nonlocal_owner_header_declares_its_integer_dependency(tmp_path):
+    compiler = shutil.which('c++')
+    if not compiler:
+        pytest.skip('C++ compiler needed for header check')
+    # Do not let a CUDA stub or an earlier include supply uint64_t indirectly.
+    (tmp_path/'cuda_runtime_api.h').write_text(
+        '#pragma once\nusing cudaError_t=int;using cudaStream_t=void*;\n')
+    source = tmp_path/'check.cpp'
+    source.write_text('#include "nonlocal_force_state.hpp"\n')
+    result = subprocess.run([compiler, '-std=c++17', '-fsyntax-only',
+                             '-I'+str(tmp_path), '-I'+str(ROOT/'native'), str(source)],
+                            capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+
+
 CUDA = r'''
 #pragma once
 #include <cstddef>

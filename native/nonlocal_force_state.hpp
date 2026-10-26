@@ -2,6 +2,7 @@
 #pragma once
 #include <cuda_runtime_api.h>
 #include <cstddef>
+#include <cstdint>
 #include "nonlocal_compact.hpp"
 namespace remag {
 struct FinalGridStateView;
