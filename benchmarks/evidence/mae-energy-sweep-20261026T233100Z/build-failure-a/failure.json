@@ -1,0 +1,22 @@
+{
+  "app_id": "ap-SO6xzMinFphziE9Qc4nedS",
+  "status": "image_build_failed",
+  "gpu_calculations_started": false,
+  "reason": "Missing cstdint include in nonlocal_force_state.hpp",
+  "release": {
+    "app_id": "ap-SO6xzMinFphziE9Qc4nedS",
+    "lifecycle": {
+      "lifecycle": {
+        "app_state": "APP_STATE_STOPPED",
+        "created_at": 1793057327.109701,
+        "created_by": "will-bryan421",
+        "stopped_at": 1793057346.777983
+      }
+    },
+    "containers": [],
+    "app_containers": [],
+    "allocation_released": true,
+    "inspected_at_utc": "2026-10-26T23:29:16.857396+00:00"
+  },
+  "source_archive": "build/mae-energy-sweep-20261026-build-failure-a"
+}

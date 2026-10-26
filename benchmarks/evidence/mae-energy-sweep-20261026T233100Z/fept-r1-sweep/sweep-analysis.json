@@ -1,0 +1,422 @@
+{
+  "passed": true,
+  "errors": [],
+  "convergence": {
+    "passed": true,
+    "errors": [],
+    "observed": {
+      "DM.Tolerance": [
+        [
+          "0.1000000000E-08"
+        ]
+      ],
+      "SCF.DM.Tolerance": [
+        [
+          "0.1000000000E-08"
+        ]
+      ],
+      "SCF.H.Tolerance": [
+        [
+          "0.7349864435E-09",
+          "Ry"
+        ]
+      ],
+      "SCF.DM.Converge": [
+        [
+          "T"
+        ]
+      ],
+      "SCF.H.Converge": [
+        [
+          "T"
+        ]
+      ]
+    },
+    "expected_tolerances": {
+      "DM.Tolerance": 1e-09,
+      "SCF.DM.Tolerance": 1e-09,
+      "SCF.H.Tolerance": 1e-08
+    },
+    "evidence_sha256": {
+      "fdf.20261026T233219.244.log": "1efbf2bfad97da097f5f83a6d8a3511dc789ac9e4ff1ac76cf100a8761951fd8"
+    }
+  },
+  "owners": {
+    "remag-pair-geometry.json": [
+      {
+        "epoch": 1,
+        "atoms": 2,
+        "rows": 48,
+        "columns": 19440,
+        "capacity": 117980,
+        "queries": 38596,
+        "volume": 190.616769566719,
+        "setup_bytes": 2324912,
+        "device_allocation_bytes": 2324912,
+        "consumer_mask": 0,
+        "complete": false,
+        "energy_only_complete": true
+      },
+      {
+        "epoch": 2,
+        "atoms": 2,
+        "rows": 48,
+        "columns": 19440,
+        "capacity": 117980,
+        "queries": 38596,
+        "volume": 190.616769566719,
+        "setup_bytes": 0,
+        "device_allocation_bytes": 0,
+        "consumer_mask": 0,
+        "complete": false,
+        "energy_only_complete": true
+      }
+    ],
+    "remag-nonlocal-geometry.json": [
+      {
+        "epoch": 1,
+        "consumer": 3,
+        "atoms": 2,
+        "rows": 48,
+        "columns": 19440,
+        "capacity": 117980,
+        "components": 0,
+        "queries": 1058340,
+        "centers": 67,
+        "neighbors": 34140,
+        "blocks": 268,
+        "volume": 190.616769566719,
+        "geometry_bytes": 1991352,
+        "setup_bytes": 0,
+        "device_allocation_bytes": 35858232,
+        "export_bytes": 0,
+        "electronic_upload_bytes": 0,
+        "graph_nodes": 2,
+        "status": -1,
+        "complete": false,
+        "passed": false,
+        "energy_only_complete": true,
+        "compact_queries": true,
+        "projector_entries": 2077,
+        "query_metadata_bytes": 964500,
+        "query_output_bytes": 33866880,
+        "initial": [],
+        "reference": [],
+        "actual": []
+      },
+      {
+        "epoch": 2,
+        "consumer": 3,
+        "atoms": 2,
+        "rows": 48,
+        "columns": 19440,
+        "capacity": 117980,
+        "components": 0,
+        "queries": 1058340,
+        "centers": 67,
+        "neighbors": 34140,
+        "blocks": 268,
+        "volume": 190.616769566719,
+        "geometry_bytes": 0,
+        "setup_bytes": 0,
+        "device_allocation_bytes": 0,
+        "export_bytes": 0,
+        "electronic_upload_bytes": 0,
+        "graph_nodes": 2,
+        "status": -1,
+        "complete": false,
+        "passed": false,
+        "energy_only_complete": true,
+        "compact_queries": true,
+        "projector_entries": 2077,
+        "query_metadata_bytes": 964500,
+        "query_output_bytes": 33866880,
+        "initial": [],
+        "reference": [],
+        "actual": []
+      }
+    ],
+    "remag-nonlocal-h0.json": [
+      {
+        "preparation_epoch": 0,
+        "epoch": 1,
+        "rows": 48,
+        "columns": 19440,
+        "capacity": 117980,
+        "consumer": 3,
+        "split": 0,
+        "queries": 1058340,
+        "local_neighbors": 1012,
+        "graph_nodes": 5,
+        "status": 0,
+        "setup_bytes": 4248,
+        "device_allocation_bytes": 42365688,
+        "export_bytes": 4,
+        "raw_bytes": 0,
+        "raw_file": "",
+        "compared": false,
+        "passed": true,
+        "bound": true,
+        "force_borrowed": false,
+        "complete": false,
+        "scalar_max_error": null,
+        "soc_max_error": null,
+        "derivative_upload_bytes": 0,
+        "integral_download_bytes": 0,
+        "compact_queries": true,
+        "query_expansion_nodes": 2,
+        "production": true,
+        "scf_borrowed": true,
+        "scf_released": true,
+        "energy_only_complete": true,
+        "poison_requested": false,
+        "host_poisoned": false,
+        "setup_timing_seconds": {
+          "geometry_preparation_and_staging": 0.054293162,
+          "owner_preparation": 0.002486427,
+          "graph_launch_and_wait": 0.326553546,
+          "validation_and_export": 3.5879e-05
+        }
+      },
+      {
+        "preparation_epoch": 1,
+        "epoch": 2,
+        "rows": 48,
+        "columns": 19440,
+        "capacity": 117980,
+        "consumer": 3,
+        "split": 0,
+        "queries": 1058340,
+        "local_neighbors": 1012,
+        "graph_nodes": 5,
+        "status": 0,
+        "setup_bytes": 0,
+        "device_allocation_bytes": 0,
+        "export_bytes": 0,
+        "raw_bytes": 0,
+        "raw_file": "",
+        "compared": false,
+        "passed": true,
+        "bound": true,
+        "force_borrowed": false,
+        "complete": false,
+        "scalar_max_error": null,
+        "soc_max_error": null,
+        "derivative_upload_bytes": 0,
+        "integral_download_bytes": 0,
+        "compact_queries": true,
+        "query_expansion_nodes": 2,
+        "production": true,
+        "scf_borrowed": true,
+        "scf_released": true,
+        "energy_only_complete": true,
+        "poison_requested": false,
+        "host_poisoned": false,
+        "setup_timing_seconds": {
+          "geometry_preparation_and_staging": null,
+          "owner_preparation": null,
+          "graph_launch_and_wait": null,
+          "validation_and_export": null
+        }
+      }
+    ],
+    "remag-initial-mesh-production.json": [
+      {
+        "epoch": 1,
+        "shape": [
+          36,
+          36,
+          48,
+          2,
+          19440,
+          48,
+          7776,
+          945599
+        ],
+        "setup_bytes": 109360,
+        "device_allocation_bytes": 31363944,
+        "hartree_workspace_bytes": 2010096,
+        "array_upload_bytes": 0,
+        "export_bytes": 0,
+        "poison_requested": false,
+        "host_poisoned": false,
+        "reused_geometry": false,
+        "launched": true,
+        "phi_bound": true,
+        "density_borrowed": true,
+        "density_released": true,
+        "forces_complete": false,
+        "passed": true,
+        "cycle_status": 0,
+        "cycle_producer_status": 0,
+        "converged": true,
+        "energy_only_complete": true
+      },
+      {
+        "epoch": 2,
+        "shape": [
+          36,
+          36,
+          48,
+          2,
+          19440,
+          48,
+          7776,
+          945599
+        ],
+        "setup_bytes": 0,
+        "device_allocation_bytes": 0,
+        "hartree_workspace_bytes": 0,
+        "array_upload_bytes": 0,
+        "export_bytes": 0,
+        "poison_requested": false,
+        "host_poisoned": false,
+        "reused_geometry": true,
+        "launched": true,
+        "phi_bound": true,
+        "density_borrowed": true,
+        "density_released": true,
+        "forces_complete": false,
+        "passed": true,
+        "cycle_status": 0,
+        "cycle_producer_status": 0,
+        "converged": true,
+        "energy_only_complete": true
+      }
+    ],
+    "remag-orbital-basis.json": [
+      {
+        "epoch": 1,
+        "shape": [
+          2,
+          48,
+          8000,
+          945599,
+          8,
+          19440,
+          810,
+          65568,
+          7776
+        ],
+        "compact_setup_bytes": 9446368,
+        "device_allocation_bytes": 9446368,
+        "derivative_bytes": 423628352,
+        "shadow_setup_bytes": 0,
+        "shadow_export_bytes": 0,
+        "status": -1,
+        "consumed": false,
+        "passed": false,
+        "generated": false,
+        "comparison_performed": false,
+        "host_derivatives_authoritative": false,
+        "energy_only_complete": true,
+        "reused_geometry": false,
+        "compared": null,
+        "mismatches": null,
+        "nonfinite": null,
+        "max_absolute_error": null,
+        "max_scaled_error": null,
+        "atol": null,
+        "rtol": null,
+        "displacements_exact": null
+      },
+      {
+        "epoch": 2,
+        "shape": [
+          2,
+          48,
+          8000,
+          945599,
+          8,
+          19440,
+          810,
+          65568,
+          7776
+        ],
+        "compact_setup_bytes": 0,
+        "device_allocation_bytes": 0,
+        "derivative_bytes": 423628352,
+        "shadow_setup_bytes": 0,
+        "shadow_export_bytes": 0,
+        "status": -1,
+        "consumed": false,
+        "passed": false,
+        "generated": false,
+        "comparison_performed": false,
+        "host_derivatives_authoritative": false,
+        "energy_only_complete": true,
+        "reused_geometry": true,
+        "compared": null,
+        "mismatches": null,
+        "nonfinite": null,
+        "max_absolute_error": null,
+        "max_scaled_error": null,
+        "atol": null,
+        "rtol": null,
+        "displacements_exact": null
+      }
+    ]
+  },
+  "directions": [
+    {
+      "index": 1,
+      "label": "remag.o001",
+      "quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "requested_direction": [
+        0,
+        0,
+        1
+      ],
+      "errors": [],
+      "direction_check": {
+        "index": 0,
+        "expected_direction": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "passed": true,
+        "rotation_matches_target": true,
+        "moment_direction_checked": true,
+        "moment_error_degrees": 0.0,
+        "rotation_target_vector_error": 0.0
+      },
+      "valid": true
+    },
+    {
+      "index": 2,
+      "label": "remag.o002",
+      "quaternion": [
+        0.7071067811865475,
+        0.0,
+        0.7071067811865475,
+        0.0
+      ],
+      "requested_direction": [
+        1,
+        0,
+        0
+      ],
+      "errors": [],
+      "direction_check": {
+        "index": 1,
+        "expected_direction": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "passed": true,
+        "rotation_matches_target": true,
+        "moment_direction_checked": true,
+        "moment_error_degrees": 0.0,
+        "rotation_target_vector_error": 3.1401849173675503e-16
+      },
+      "valid": true
+    }
+  ]
+}

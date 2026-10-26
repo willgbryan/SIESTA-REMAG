@@ -1,0 +1,39 @@
+{
+  "run": "mae-energy-sweep-20261026T233100Z",
+  "timings": [
+    {
+      "material": "fept",
+      "repetitions": 3,
+      "median_paired_ratio": 1.756480229171334,
+      "ratio_range": [
+        1.6971453410044892,
+        1.758516859377039
+      ],
+      "median_cold_seconds": 29.938198809,
+      "median_sweep_seconds": 17.130329360999994,
+      "max_directional_error_microev": 0.0003255991032347083,
+      "upstream_gpu_speedup": null,
+      "timing_repeated_within_allocation": true
+    },
+    {
+      "material": "feco",
+      "repetitions": 1,
+      "median_paired_ratio": 1.4671904446806092,
+      "ratio_range": [
+        1.4671904446806092,
+        1.4671904446806092
+      ],
+      "median_cold_seconds": 334.28499539399996,
+      "median_sweep_seconds": 227.84022115599998,
+      "max_directional_error_microev": 0.0016871126717887819,
+      "upstream_gpu_speedup": null,
+      "timing_repeated_within_allocation": false
+    }
+  ],
+  "return_to_start_errors": {
+    "total_energy_ev": 1.0686562745831907e-10,
+    "free_energy_ev": 6.684786058031023e-11,
+    "spin_norm_muB": 0.0
+  },
+  "physical_accuracy_qualified": false
+}

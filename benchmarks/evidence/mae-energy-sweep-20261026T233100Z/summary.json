@@ -1,0 +1,7 @@
+{
+  "status": "validation_complete",
+  "physical_accuracy_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "stopping_reason": "Prepared correctness and matched timing batch completed",
+  "elapsed_seconds": 831.0155301094055
+}

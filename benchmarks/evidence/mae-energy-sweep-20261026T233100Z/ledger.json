@@ -1,0 +1,898 @@
+[
+  {
+    "label": "fept-return",
+    "material": "fept",
+    "role": "sweep",
+    "axis_indices": [
+      0,
+      1,
+      0
+    ],
+    "repetition": null,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 19.547418939000003,
+    "directional": [
+      {
+        "index": 2,
+        "quantity": "total_energy_ev",
+        "reference_ev": -0.0013575834950643184,
+        "candidate_ev": -0.001357583621484082,
+        "passed": true,
+        "max_absolute_error": 1.2641976354643703e-10,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 2,
+        "quantity": "free_energy_ev",
+        "reference_ev": -0.0005417854226834606,
+        "candidate_ev": -0.0005417855127234361,
+        "passed": true,
+        "max_absolute_error": 9.00399754755199e-11,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 3,
+        "quantity": "total_energy_ev",
+        "reference_ev": 0.0,
+        "candidate_ev": 1.0686562745831907e-10,
+        "passed": true,
+        "max_absolute_error": 1.0686562745831907e-10,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 3,
+        "quantity": "free_energy_ev",
+        "reference_ev": 0.0,
+        "candidate_ev": 6.684786058031023e-11,
+        "passed": true,
+        "max_absolute_error": 6.684786058031023e-11,
+        "tolerance": 5e-06
+      }
+    ]
+  },
+  {
+    "label": "fept-r1-cold-0",
+    "material": "fept",
+    "role": "cold",
+    "axis_indices": [
+      0
+    ],
+    "repetition": 1,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 14.809710681000006,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233137.861.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "fept-r1-cold-1",
+    "material": "fept",
+    "role": "cold",
+    "axis_indices": [
+      1
+    ],
+    "repetition": 1,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 15.110417502000004,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233158.254.log": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "fept-r1-sweep",
+    "material": "fept",
+    "role": "sweep",
+    "axis_indices": [
+      0,
+      1
+    ],
+    "repetition": 1,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 17.034138890999998,
+    "directional": [
+      {
+        "index": 2,
+        "quantity": "total_energy_ev",
+        "reference_ev": -0.0013575834950643184,
+        "candidate_ev": -0.0013575832394963072,
+        "passed": true,
+        "max_absolute_error": 2.5556801119819283e-10,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 2,
+        "quantity": "free_energy_ev",
+        "reference_ev": -0.0005417854226834606,
+        "candidate_ev": -0.0005417851557467657,
+        "passed": true,
+        "max_absolute_error": 2.6693669497035444e-10,
+        "tolerance": 5e-06
+      }
+    ]
+  },
+  {
+    "label": "fept-r2-sweep",
+    "material": "fept",
+    "role": "sweep",
+    "axis_indices": [
+      0,
+      1
+    ],
+    "repetition": 2,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 17.130329360999994,
+    "directional": [
+      {
+        "index": 2,
+        "quantity": "total_energy_ev",
+        "reference_ev": -0.0013575834950643184,
+        "candidate_ev": -0.0013575833163486095,
+        "passed": true,
+        "max_absolute_error": 1.787157088983804e-10,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 2,
+        "quantity": "free_energy_ev",
+        "reference_ev": -0.0005417854226834606,
+        "candidate_ev": -0.0005417852617028984,
+        "passed": true,
+        "max_absolute_error": 1.609805622138083e-10,
+        "tolerance": 5e-06
+      }
+    ]
+  },
+  {
+    "label": "fept-r2-cold-0",
+    "material": "fept",
+    "role": "cold",
+    "axis_indices": [
+      0
+    ],
+    "repetition": 2,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 14.605765214999991,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233310.216.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "fept-r2-cold-1",
+    "material": "fept",
+    "role": "cold",
+    "axis_indices": [
+      1
+    ],
+    "repetition": 2,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 15.518207773,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233330.247.log": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "fept-r3-cold-0",
+    "material": "fept",
+    "role": "cold",
+    "axis_indices": [
+      0
+    ],
+    "repetition": 3,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 14.611700184,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233350.994.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "fept-r3-cold-1",
+    "material": "fept",
+    "role": "cold",
+    "axis_indices": [
+      1
+    ],
+    "repetition": 3,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 15.326498625,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233411.778.log": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "fept-r3-sweep",
+    "material": "fept",
+    "role": "sweep",
+    "axis_indices": [
+      0,
+      1
+    ],
+    "repetition": 3,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 17.640327015999986,
+    "directional": [
+      {
+        "index": 2,
+        "quantity": "total_energy_ev",
+        "reference_ev": -0.0013575834950643184,
+        "candidate_ev": -0.0013575834832408873,
+        "passed": true,
+        "max_absolute_error": 1.1823431123048067e-11,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 2,
+        "quantity": "free_energy_ev",
+        "reference_ev": -0.0005417854226834606,
+        "candidate_ev": -0.0005417853899416514,
+        "passed": true,
+        "max_absolute_error": 3.2741809263825417e-11,
+        "tolerance": 5e-06
+      }
+    ]
+  },
+  {
+    "label": "feco-r1-cold-0",
+    "material": "feco",
+    "role": "cold",
+    "axis_indices": [
+      0
+    ],
+    "repetition": 1,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 97.44332425800002,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233456.780.log": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "feco-r1-cold-1",
+    "material": "feco",
+    "role": "cold",
+    "axis_indices": [
+      1
+    ],
+    "repetition": 1,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 115.69063759,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              0.7071067811865475,
+              0.7071067811865475,
+              0.0
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233639.976.log": "0493f9d6226c34f541fb2fda75d0fbe2d369481f9c20c5d867468a06d4998a0b"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "feco-r1-cold-2",
+    "material": "feco",
+    "role": "cold",
+    "axis_indices": [
+      2
+    ],
+    "repetition": 1,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 121.15103354599995,
+    "control": {
+      "passed": true,
+      "direction": {
+        "passed": true,
+        "points": [
+          {
+            "index": 0,
+            "expected_direction": [
+              0.5773502691896258,
+              0.5773502691896258,
+              0.5773502691896258
+            ],
+            "passed": true,
+            "rotation_matches_target": true,
+            "moment_direction_checked": true,
+            "moment_error_degrees": 0.0,
+            "rotation_target_vector_error": 0.0
+          }
+        ],
+        "moment_tolerance_degrees": 1.0,
+        "physical_accuracy_qualified": false
+      },
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T233842.823.log": "de66586a3f2370d6a134316357931c88bf566847ab35cef4ef9d14669fd82b69"
+        }
+      },
+      "mesh_passed": true
+    },
+    "directional": []
+  },
+  {
+    "label": "feco-r1-sweep",
+    "material": "feco",
+    "role": "sweep",
+    "axis_indices": [
+      0,
+      1,
+      2
+    ],
+    "repetition": 1,
+    "status": "executed",
+    "passed": true,
+    "wall_seconds": 227.84022115599998,
+    "directional": [
+      {
+        "index": 2,
+        "quantity": "total_energy_ev",
+        "reference_ev": 7.444303264492191e-06,
+        "candidate_ev": 7.447333700838499e-06,
+        "passed": true,
+        "max_absolute_error": 3.030436346307397e-09,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 2,
+        "quantity": "free_energy_ev",
+        "reference_ev": 8.559172783861868e-06,
+        "candidate_ev": 8.562208677176386e-06,
+        "passed": true,
+        "max_absolute_error": 3.0358933145180345e-09,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 3,
+        "quantity": "total_energy_ev",
+        "reference_ev": 2.0730058167828247e-05,
+        "candidate_ev": 2.0733038581965957e-05,
+        "passed": true,
+        "max_absolute_error": 2.980414137709886e-09,
+        "tolerance": 5e-06
+      },
+      {
+        "index": 3,
+        "quantity": "free_energy_ev",
+        "reference_ev": 2.2211916075320914e-05,
+        "candidate_ev": 2.2214885575522203e-05,
+        "passed": true,
+        "max_absolute_error": 2.9695002012886107e-09,
+        "tolerance": 5e-06
+      }
+    ]
+  }
+]

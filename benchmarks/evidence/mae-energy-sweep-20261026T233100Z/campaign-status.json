@@ -1,0 +1,50 @@
+{
+  "status": "validation_complete",
+  "authorized_gpu_seconds": 1200,
+  "deadline_epoch": 1793058523.401449,
+  "run_id": "mae-energy-sweep-20261026T233100Z",
+  "allocation_released": true,
+  "previous_release": "results/mae-soc-free-scalar-20261026T210526Z/allocation-release.json",
+  "authorization": {
+    "approved_at_utc": "2026-10-26T23:28:43.401449+00:00",
+    "user_response": "Approve up to 20 H100-minutes",
+    "maximum_gpu_instances": 1,
+    "budget_seconds": 1200,
+    "reserve_seconds": 120,
+    "deadline_includes_image_preparation": true
+  },
+  "launcher_log": "/tmp/remag-mae-energy-sweep-20261026-b.log",
+  "launcher_session": 47633,
+  "build_failures": [
+    {
+      "app_id": "ap-SO6xzMinFphziE9Qc4nedS",
+      "status": "image_build_failed",
+      "gpu_calculations_started": false,
+      "reason": "Missing cstdint include in nonlocal_force_state.hpp",
+      "release": {
+        "app_id": "ap-SO6xzMinFphziE9Qc4nedS",
+        "lifecycle": {
+          "lifecycle": {
+            "app_state": "APP_STATE_STOPPED",
+            "created_at": 1793057327.109701,
+            "created_by": "will-bryan421",
+            "stopped_at": 1793057346.777983
+          }
+        },
+        "containers": [],
+        "app_containers": [],
+        "allocation_released": true,
+        "inspected_at_utc": "2026-10-26T23:29:16.857396+00:00"
+      },
+      "source_archive": "build/mae-energy-sweep-20261026-build-failure-a"
+    }
+  ],
+  "app_id": "ap-FXn1BFmFiJTIgqAvbYU4Rv",
+  "function_call_id": "fc-01M5X8V4BAQWY4QSX5KBDCFNXA",
+  "results": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-energy-sweep-20261026T233100Z",
+  "budget_closed": true,
+  "local_checks_passed": true,
+  "stopping_reason": "Prepared correctness and matched timing batch completed",
+  "evidence_directory": "benchmarks/evidence/mae-energy-sweep-20261026T233100Z",
+  "completed_at_utc": "2026-10-26T23:53:19.225840+00:00"
+}

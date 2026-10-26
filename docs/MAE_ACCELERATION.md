@@ -21,9 +21,11 @@ tradeoff. Mixed precision is also deferred.
 
 The first implementation milestone is [energy-only full SCF](RUNNING.md#energy-only-fixed-geometry-calculations).
 Its recorded FePt/FeCo checks pass, including default force-path regression;
-FeCo avoids 6.33 GB of orbital derivatives. It does not establish a repeatable
-runtime gain or physical convergence. Current implementation work combines
-energy-only finalization with independent-atomic orientation reuse. The frozen
+FeCo avoids 6.33 GB of orbital derivatives. The combined independent-atomic
+orientation reuse now has a [matched H100 result](../benchmarks/evidence/mae-energy-sweep-20261026T233100Z/REPORT.md):
+1.75648× median incremental REMAG gain for FePt over three repetitions, and
+1.46719× for a single FeCo sample. Physical convergence and upstream-GPU gains
+are not established by this batch. The frozen
 potential diagnostic results below explain why full SCF remains the accuracy
 path; the other workstreams remain open.
 
@@ -255,7 +257,7 @@ markers, partial execution and earlier failures remain visible. Eighteen focused
 tests pass; replay also accepts the saved successful v136 z/x/z stdout. This
 qualifies collection only, not the new combined energy-only CUDA path.
 
-The next [staged validation](../build/mae-energy-sweep-20261026/PREPARED.md)
+The [staged validation](../build/mae-energy-sweep-20261026/PREPARED.md)
 contains fourteen serial processes: a FePt z/x/z return-to-start check, three
 matched FePt cold-versus-cached timing repetitions, and one FeCo three-direction
 comparison. Whole-process timing uses the same observers and electronic outputs
@@ -267,9 +269,8 @@ REMAG qualification, not upstream-GPU performance or physical convergence.
 Fifty focused tests and the prepared input/rotation checks pass. The native
 overlay applies to the exact prior staged sources, and disposable Fortran edits
 preserve the production guard. The prior allocation is STOPPED with zero
-containers. A new 20-minute H100 budget has been requested; the prepared app
-refuses launch without fresh authorization and a fixed deadline. No additional
-GPU time has been used for this preparation.
+containers. This preparation used no additional GPU time; the subsequent
+20-minute authorization and completed result are recorded below.
 
 A subsequent transition review found that the final electronic snapshot reset
 still required completed force masks. That would reject the second direction
@@ -277,8 +278,36 @@ after a valid energy-only publication. Reset now accepts a fully published
 electronic result with no force consumers, while rejecting active leases,
 partial publication and incomplete force-mode results. A host-compiled check
 reproduced the original failure and now passes; 54 focused tests pass. The
-prepared native overlay includes this correction. CUDA qualification and the
-new budget approval are still pending.
+prepared native overlay includes this correction.
+
+### Completed energy-only reuse qualification
+
+The user-authorized batch `mae-energy-sweep-20261026T233100Z` completed all
+14 processes/21 SCF directions. All 36 historical comparisons, four fresh
+matched comparisons and local output reanalysis pass. FePt's maximum matched
+directional E/F error is 0.000326 µeV/f.u.; FeCo's is 0.001687 µeV/f.u., against
+the unchanged 5 µeV/f.u. target. The z/x/z return check also passes. Later
+directions reuse accepted geometry without fabricating force completion.
+
+FePt cold/cached median process times are 29.938199/17.130329 seconds, with
+paired gains of 1.69715–1.75852× (median 1.75648×). FeCo's single comparison is
+334.284995/227.840221 seconds, or 1.46719×. Independent atomic guesses and
+electronic outputs are matched. Iteration counts vary and remain recorded;
+the result measures workflow time, not pure geometry-setup savings. Existing
+SCF timing accounts for about 151 of 228 seconds in cached FeCo, whereas
+FePt remains dominated by work outside SCF.
+
+The initial CPU image build failed on a missing `<cstdint>` dependency, fixed
+in `cd201c34` with 12 passing host checks; its log and recipe are preserved.
+The corrected launch retained the original fixed deadline. Both apps are
+STOPPED with zero account containers. Combined app lifetimes including CPU
+builds total 928.618437 seconds, below the approved 1200 seconds; exact billed
+GPU time is unknown. The batch stopped after completing the prepared work,
+and the allowance is closed. See the [report and scope](../benchmarks/evidence/mae-energy-sweep-20261026T233100Z/REPORT.md)
+for finite-smearing directional energies, moments and raw-evidence links.
+The production 128-k guard is unchanged; the staged 32768 ceiling does not
+qualify general dense-k capacity. The other MAE workstreams and physical
+convergence remain open.
 
 ## Implementation sequence
 

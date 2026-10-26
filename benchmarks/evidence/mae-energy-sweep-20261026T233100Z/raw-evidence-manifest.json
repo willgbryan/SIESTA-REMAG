@@ -1,0 +1,3689 @@
+{
+  "run": "mae-energy-sweep-20261026T233100Z",
+  "attempt_id": "166fb639d1e8420296ff10da0f37cd0c",
+  "raw_local_root": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/mae-energy-sweep-20261026T233100Z",
+  "remote_volume": "siesta-remag-results",
+  "remote_path": "mae-energy-sweep-20261026T233100Z",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 6660,
+      "sha256": "a078d92c09031b86154d680233bc5d1906eefcd96b21e875989d03a8e993d455"
+    },
+    {
+      "path": "allocation-release.json",
+      "bytes": 378,
+      "sha256": "1a702c6409db3029dec6549aab06e0aa5ae23b19ed0123be15eefa947393c668"
+    },
+    {
+      "path": "budget-report.json",
+      "bytes": 525,
+      "sha256": "e4dab6788072ddae891f3274eecf1cf7c931785806aa9872d564cf88039b80a3"
+    },
+    {
+      "path": "calculations.csv",
+      "bytes": 3818,
+      "sha256": "85fb117c09d2fcfd9e393a87e484631c08b45aa5b9632f63bb3563f2e30d2015"
+    },
+    {
+      "path": "campaign-status.json",
+      "bytes": 1909,
+      "sha256": "b927777af190c92f3c381ceede935f1d0c5c4cee20c723b6f957d506f5bd0bd3"
+    },
+    {
+      "path": "current-comparisons.json",
+      "bytes": 162894,
+      "sha256": "46a04a0622267fb0652aab177a5cf46f538ac8d9e4cad909149abfb9c139dd33"
+    },
+    {
+      "path": "feco-r1-cold-0/Co.ion.nc",
+      "bytes": 98252,
+      "sha256": "e60f21b88a40ecef8ea5964695342237a7481a9aa4938f6c95c34d10afba66a7"
+    },
+    {
+      "path": "feco-r1-cold-0/DeltaRho.grid.nc",
+      "bytes": 8192368,
+      "sha256": "62b48a5f3687816d2d94662906d2c86c8efade8523551c0fdb64e68685fc6405"
+    },
+    {
+      "path": "feco-r1-cold-0/Fe.ion.nc",
+      "bytes": 98252,
+      "sha256": "c43caf45a6ae485e68c00ff6cc593c09ef9ab1af76103c71557f83fe2e1eb91d"
+    },
+    {
+      "path": "feco-r1-cold-0/Rho.grid.nc",
+      "bytes": 8192360,
+      "sha256": "9fe61844f5e7ce35be59ec7d7200533fb48828d75fe546594371983257703a6f"
+    },
+    {
+      "path": "feco-r1-cold-0/fdf.20261026T233456.780.log",
+      "bytes": 31705,
+      "sha256": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+    },
+    {
+      "path": "feco-r1-cold-0/gpu.csv",
+      "bytes": 27587,
+      "sha256": "294d184f9cb6a98b36c5fb848cfaab9dee5231bdcc5dd060d2118253aa17247b"
+    },
+    {
+      "path": "feco-r1-cold-0/input.fdf",
+      "bytes": 1449,
+      "sha256": "1b6c0e794ac1a634194eac379564742be053a600ceed84452cec3cac89628573"
+    },
+    {
+      "path": "feco-r1-cold-0/manifest.json",
+      "bytes": 3146,
+      "sha256": "4438dc2370c82c17c3145aa6c3ece9fa474b9bf3f7c6401fc017c4431884a084"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-density-history.json",
+      "bytes": 566,
+      "sha256": "92a39482785aa9c5f2e6f1d36badae845fc92e6b33f8f8cc06b4e2dafa77061f"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-device-scf.json",
+      "bytes": 1267,
+      "sha256": "3aa12015452d95c59a4a91521d17a8ef2b8a3923bafd6e10f220b0d9d125165d"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-dm.json",
+      "bytes": 509,
+      "sha256": "ac3c0ce4198972b22267c41b114c1c527c6b02385b5a226842cff40366000a2f"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-energy-only.json",
+      "bytes": 214,
+      "sha256": "52d529ac9bd9adb34fee1dcba36d01d6e6028e220cb3880350e93ae771e44aa9"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-final-density.json",
+      "bytes": 707,
+      "sha256": "171d1c8a090f5cb49a292e08a802761951a64257e54a6113af896bc717d9aeff"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-final-spectrum.json",
+      "bytes": 290,
+      "sha256": "23781496233e355e4717fce6d7f78eac6c4473fe1e8bc7a128c3cf5c55af4556"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-grid.json",
+      "bytes": 682,
+      "sha256": "3299dc3ebb6214446f5647d26890bb68158585d7544d3bc089cbc619614e7210"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-hs.json",
+      "bytes": 348,
+      "sha256": "d58364e72c6793b94bb01019bcc080a946a2d14fc2461cc2a47494769c568f9c"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-initial-mesh-production.json",
+      "bytes": 645,
+      "sha256": "650cc215c1d7ce855aae45ab380aaf2962cf208103df2c6b7daa3d12899bef03"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-initial-state.json",
+      "bytes": 516,
+      "sha256": "5726a690bca7105ff35b9d2d655db6cfc595bb87f49bd02cfe06308c3d982a1f"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-nonlocal-geometry.json",
+      "bytes": 658,
+      "sha256": "3d9820eb35bf66fdd56e9e82c8d37367276f6c16ed764e8afd6a010ba7e37378"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-nonlocal-h0.json",
+      "bytes": 981,
+      "sha256": "5ab2627d928c7fb5548765c857a23256de0a7ab3eea1668110541e623991343c"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-orbital-basis.json",
+      "bytes": 635,
+      "sha256": "9381914f845bd728830b82fa78e89d4e0409322bb8fd33deaeb8775d9a988c34"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-pair-geometry.json",
+      "bytes": 352,
+      "sha256": "1b6aab2fec5a3764dc925caf81e3236a7d87c87c95f99b463404197521abbe92"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-population.json",
+      "bytes": 371,
+      "sha256": "3053bd4d419acd57970b32f3f1852f266b94bbde60bd72533124511fa7d4ae24"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-residency.json",
+      "bytes": 3443,
+      "sha256": "2e3015fa39573d3f13b73bf2abfdc37131c5ac6e59a4ef305ba4853808cf3a66"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "feco-r1-cold-0/remag-two-center-tables.json",
+      "bytes": 614,
+      "sha256": "abb14b10b539a7e8831374149adc0d54ccfdfed37412396f041b9a7f886210b2"
+    },
+    {
+      "path": "feco-r1-cold-0/remag.DM",
+      "bytes": 6439404,
+      "sha256": "161fdf8f351f07b61bf7b11b7893e7a6921854898074c49a7a55ace5b6b69cc5"
+    },
+    {
+      "path": "feco-r1-cold-0/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "46a4be75f83e638537eb8ca5a092624a89efa1b31920ce2a8bd900f9b6e9da32"
+    },
+    {
+      "path": "feco-r1-cold-0/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "7b3a6e4ec7e957b767fcc01d08167d25a70840716209fddb43bf7bc279c0409d"
+    },
+    {
+      "path": "feco-r1-cold-0/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "f7da8eb785d08bd266adff69ef372208c3977d3e40e3d267e299ad0cd1b5fa82"
+    },
+    {
+      "path": "feco-r1-cold-0/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "72a2d02884594f4d7413b9faea9eb454944a6ec46e978de9a4a9dabdff230b58"
+    },
+    {
+      "path": "feco-r1-cold-0/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-cold-0/result.json",
+      "bytes": 10474869,
+      "sha256": "74bcf74bc32c0e7e8ece20fadac5cdd49fe8399f9136e8190f5d30dea40a4762"
+    },
+    {
+      "path": "feco-r1-cold-0/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "feco-r1-cold-0/stdout.log",
+      "bytes": 60350,
+      "sha256": "f58baa9f83ae321f4a38b8b826660e86179dd2910abc16cf6e2a655061eb40e5"
+    },
+    {
+      "path": "feco-r1-cold-0/time.json",
+      "bytes": 3436,
+      "sha256": "4029afcc8af012d22dfd088df80f9f79f0110555a102ac9784298657b8b142c8"
+    },
+    {
+      "path": "feco-r1-cold-1/Co.ion.nc",
+      "bytes": 98252,
+      "sha256": "e60f21b88a40ecef8ea5964695342237a7481a9aa4938f6c95c34d10afba66a7"
+    },
+    {
+      "path": "feco-r1-cold-1/DeltaRho.grid.nc",
+      "bytes": 8192368,
+      "sha256": "0d2c50daf4d27303972df76e91cea258832ce01ab3ea1db13db156ad19ac2086"
+    },
+    {
+      "path": "feco-r1-cold-1/Fe.ion.nc",
+      "bytes": 98252,
+      "sha256": "c43caf45a6ae485e68c00ff6cc593c09ef9ab1af76103c71557f83fe2e1eb91d"
+    },
+    {
+      "path": "feco-r1-cold-1/Rho.grid.nc",
+      "bytes": 8192360,
+      "sha256": "1d7cf224e86de8305e8ce9dcfc158807fe285b521074a1107ec2292f7b798da8"
+    },
+    {
+      "path": "feco-r1-cold-1/fdf.20261026T233639.976.log",
+      "bytes": 31709,
+      "sha256": "0493f9d6226c34f541fb2fda75d0fbe2d369481f9c20c5d867468a06d4998a0b"
+    },
+    {
+      "path": "feco-r1-cold-1/gpu.csv",
+      "bytes": 32826,
+      "sha256": "3ae07cfcff5145cc537dfda40cb72a92523034189c114abb89dd786e7d1e2459"
+    },
+    {
+      "path": "feco-r1-cold-1/input.fdf",
+      "bytes": 1453,
+      "sha256": "c85b7e6ef5eda8730e9e41b76f48d75f4f8e0d09fe71b3324420f7b098fa68ec"
+    },
+    {
+      "path": "feco-r1-cold-1/manifest.json",
+      "bytes": 3178,
+      "sha256": "58ac92f0e0cb0610ef3cac537b20be64e9ac3163b2db9ca116bd9d1ccd0ebff1"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-density-history.json",
+      "bytes": 566,
+      "sha256": "92a39482785aa9c5f2e6f1d36badae845fc92e6b33f8f8cc06b4e2dafa77061f"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-device-scf.json",
+      "bytes": 1261,
+      "sha256": "99869b2b8573ff7b82248fc246b66c7e72121c1bce467d93cac2bb3c33fcc357"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-dm.json",
+      "bytes": 509,
+      "sha256": "ac3c0ce4198972b22267c41b114c1c527c6b02385b5a226842cff40366000a2f"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-energy-only.json",
+      "bytes": 214,
+      "sha256": "f8e475fd9aeb952751e5e7498d6ae94fdae4a6c30443208b601ad4867535c08d"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-final-density.json",
+      "bytes": 707,
+      "sha256": "171d1c8a090f5cb49a292e08a802761951a64257e54a6113af896bc717d9aeff"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-final-spectrum.json",
+      "bytes": 290,
+      "sha256": "23781496233e355e4717fce6d7f78eac6c4473fe1e8bc7a128c3cf5c55af4556"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-grid.json",
+      "bytes": 682,
+      "sha256": "d1ff874414484ffa39f9a747eb6efadb0c2e3941fb9b65c366830655f23ec32c"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-hs.json",
+      "bytes": 348,
+      "sha256": "d58364e72c6793b94bb01019bcc080a946a2d14fc2461cc2a47494769c568f9c"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-initial-mesh-production.json",
+      "bytes": 645,
+      "sha256": "650cc215c1d7ce855aae45ab380aaf2962cf208103df2c6b7daa3d12899bef03"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-initial-state.json",
+      "bytes": 516,
+      "sha256": "5726a690bca7105ff35b9d2d655db6cfc595bb87f49bd02cfe06308c3d982a1f"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-nonlocal-geometry.json",
+      "bytes": 658,
+      "sha256": "3d9820eb35bf66fdd56e9e82c8d37367276f6c16ed764e8afd6a010ba7e37378"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-nonlocal-h0.json",
+      "bytes": 983,
+      "sha256": "0120d0ea941937fc27d5e2068de40c7c38f72075583bea6b18e8c4634ce35f97"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-orbital-basis.json",
+      "bytes": 635,
+      "sha256": "9381914f845bd728830b82fa78e89d4e0409322bb8fd33deaeb8775d9a988c34"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-pair-geometry.json",
+      "bytes": 352,
+      "sha256": "1b6aab2fec5a3764dc925caf81e3236a7d87c87c95f99b463404197521abbe92"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-population.json",
+      "bytes": 371,
+      "sha256": "3053bd4d419acd57970b32f3f1852f266b94bbde60bd72533124511fa7d4ae24"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-residency.json",
+      "bytes": 3443,
+      "sha256": "81abe3e51960be051f2ef98d6bf1ceaf790aa2418d0310276545825d1509dd12"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "feco-r1-cold-1/remag-two-center-tables.json",
+      "bytes": 614,
+      "sha256": "abb14b10b539a7e8831374149adc0d54ccfdfed37412396f041b9a7f886210b2"
+    },
+    {
+      "path": "feco-r1-cold-1/remag.DM",
+      "bytes": 6439404,
+      "sha256": "4e9840958026fb3aa293906b9985f3ca7a24135ff0e103bcde99beffa9aedea4"
+    },
+    {
+      "path": "feco-r1-cold-1/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "4d7fee771d9e6566b9672f3439e03a44fa89ffb6519a358ee64f1fa972a8b4fd"
+    },
+    {
+      "path": "feco-r1-cold-1/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "3f2a31d3c094221efb6f02df173acb997f36ae6a1529b1724ab4820cec0f9b9e"
+    },
+    {
+      "path": "feco-r1-cold-1/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "23704ee43a384ce3d4c5d07e1018b4699e2e97e5ac8802fb4d1b8645088ba4f3"
+    },
+    {
+      "path": "feco-r1-cold-1/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "9a3800c7289f3a3a0557d87edba1abc75a54b38ce097dec1c5f37c0483a0a3b4"
+    },
+    {
+      "path": "feco-r1-cold-1/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-cold-1/result.json",
+      "bytes": 10500725,
+      "sha256": "724a28d6f430456b374cd114ac32dfefc545fd937bab092034ab915b1aa1b6f8"
+    },
+    {
+      "path": "feco-r1-cold-1/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "feco-r1-cold-1/stdout.log",
+      "bytes": 62224,
+      "sha256": "76bfff28f40eb9f89c3518d977acfec811e5d0c80318fec7a8d3d8ebed14c425"
+    },
+    {
+      "path": "feco-r1-cold-1/time.json",
+      "bytes": 3436,
+      "sha256": "f479a1198e66f524988468f754760ad4906a5f774d24a7452d4461d1ccd3ceb6"
+    },
+    {
+      "path": "feco-r1-cold-2/Co.ion.nc",
+      "bytes": 98252,
+      "sha256": "e60f21b88a40ecef8ea5964695342237a7481a9aa4938f6c95c34d10afba66a7"
+    },
+    {
+      "path": "feco-r1-cold-2/DeltaRho.grid.nc",
+      "bytes": 8192368,
+      "sha256": "c2dc30c36cd21208a27e6ce11a23f1afd3841003a010d17cb7ee3fde931b55b5"
+    },
+    {
+      "path": "feco-r1-cold-2/Fe.ion.nc",
+      "bytes": 98252,
+      "sha256": "c43caf45a6ae485e68c00ff6cc593c09ef9ab1af76103c71557f83fe2e1eb91d"
+    },
+    {
+      "path": "feco-r1-cold-2/Rho.grid.nc",
+      "bytes": 8192360,
+      "sha256": "c485fd9ca3aa0cbefe69b60c857502db5110421bf3705197b3cf7c2e260e8599"
+    },
+    {
+      "path": "feco-r1-cold-2/fdf.20261026T233842.823.log",
+      "bytes": 31709,
+      "sha256": "de66586a3f2370d6a134316357931c88bf566847ab35cef4ef9d14669fd82b69"
+    },
+    {
+      "path": "feco-r1-cold-2/gpu.csv",
+      "bytes": 34535,
+      "sha256": "d34b539b08407d13f4bf9d7755ef83ce90de9a004b3d852787ba4319a09571bd"
+    },
+    {
+      "path": "feco-r1-cold-2/input.fdf",
+      "bytes": 1453,
+      "sha256": "1679e257c69b8787e6c22e126676302c3e9de57aa995837f01fcbcc10f9a7604"
+    },
+    {
+      "path": "feco-r1-cold-2/manifest.json",
+      "bytes": 3207,
+      "sha256": "378714d79bbddbe3db7ba0980e5a7d970c046d1799e271567d30ec085c28bf34"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-density-history.json",
+      "bytes": 566,
+      "sha256": "92a39482785aa9c5f2e6f1d36badae845fc92e6b33f8f8cc06b4e2dafa77061f"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-device-scf.json",
+      "bytes": 1266,
+      "sha256": "cc683c432293e5cc1b6cc2dbe97b68b71557beaa267a0f6ae081918c4543cac1"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-dm.json",
+      "bytes": 509,
+      "sha256": "ac3c0ce4198972b22267c41b114c1c527c6b02385b5a226842cff40366000a2f"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-energy-only.json",
+      "bytes": 214,
+      "sha256": "457f23b2f5d6f7693f4e789a510617c545a5f96fc7344a5fb347a6128041c8f0"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-final-density.json",
+      "bytes": 707,
+      "sha256": "171d1c8a090f5cb49a292e08a802761951a64257e54a6113af896bc717d9aeff"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-final-spectrum.json",
+      "bytes": 290,
+      "sha256": "23781496233e355e4717fce6d7f78eac6c4473fe1e8bc7a128c3cf5c55af4556"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-grid.json",
+      "bytes": 682,
+      "sha256": "a9723d528e5f959aa7b170d336340b67d08ef3ae6412f2c5899f7da2c13a9680"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-hs.json",
+      "bytes": 348,
+      "sha256": "d58364e72c6793b94bb01019bcc080a946a2d14fc2461cc2a47494769c568f9c"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-initial-mesh-production.json",
+      "bytes": 645,
+      "sha256": "650cc215c1d7ce855aae45ab380aaf2962cf208103df2c6b7daa3d12899bef03"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-initial-state.json",
+      "bytes": 516,
+      "sha256": "5726a690bca7105ff35b9d2d655db6cfc595bb87f49bd02cfe06308c3d982a1f"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-nonlocal-geometry.json",
+      "bytes": 658,
+      "sha256": "3d9820eb35bf66fdd56e9e82c8d37367276f6c16ed764e8afd6a010ba7e37378"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-nonlocal-h0.json",
+      "bytes": 993,
+      "sha256": "8a235d6c2b0c8d2c4b7a47ce901c3602e08544acba874ffd05aadfb9355fab96"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-orbital-basis.json",
+      "bytes": 635,
+      "sha256": "9381914f845bd728830b82fa78e89d4e0409322bb8fd33deaeb8775d9a988c34"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-pair-geometry.json",
+      "bytes": 352,
+      "sha256": "1b6aab2fec5a3764dc925caf81e3236a7d87c87c95f99b463404197521abbe92"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-population.json",
+      "bytes": 371,
+      "sha256": "3053bd4d419acd57970b32f3f1852f266b94bbde60bd72533124511fa7d4ae24"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-residency.json",
+      "bytes": 3443,
+      "sha256": "3dba813dd2e1bb2690c9caf63cb99e35075396e67b87f6452d7f98192e706d63"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "feco-r1-cold-2/remag-two-center-tables.json",
+      "bytes": 614,
+      "sha256": "abb14b10b539a7e8831374149adc0d54ccfdfed37412396f041b9a7f886210b2"
+    },
+    {
+      "path": "feco-r1-cold-2/remag.DM",
+      "bytes": 6439404,
+      "sha256": "354837d45ce8ed09c4ad2dfa16aed83cc2809137e33c2c69cbef640a0cd122c6"
+    },
+    {
+      "path": "feco-r1-cold-2/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "25e3678f63e6eef5befbfbfac5b483e401f14a960678930b596546bdbe9bba69"
+    },
+    {
+      "path": "feco-r1-cold-2/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "1b4ddac10eef0938964d444b0a32aa13078d8560672f551ce065d9daa0cff5a3"
+    },
+    {
+      "path": "feco-r1-cold-2/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "8d3fde64f2ef000db186927f051732f049267f582dbdab0a359efb95842c7c73"
+    },
+    {
+      "path": "feco-r1-cold-2/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "009f89bdfe4f7f715d60d1f470396201d7222c94db4c3271ea36e16eceba1d4e"
+    },
+    {
+      "path": "feco-r1-cold-2/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-cold-2/result.json",
+      "bytes": 10509385,
+      "sha256": "ca40e3d0127f6f7ed646d9c79394c4ce93bbb61a6f64e2f429bb8044b9afb360"
+    },
+    {
+      "path": "feco-r1-cold-2/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "feco-r1-cold-2/stdout.log",
+      "bytes": 64264,
+      "sha256": "88d788c39f0e79a5afe25351e035b70ea3f8531cdf552b0b90dfb5c026e6a5d1"
+    },
+    {
+      "path": "feco-r1-cold-2/time.json",
+      "bytes": 3436,
+      "sha256": "34dadf81bcd5692634dd283217c2ce576e48988bc25878822b9e8f588b1af815"
+    },
+    {
+      "path": "feco-r1-sweep/Co.ion.nc",
+      "bytes": 98252,
+      "sha256": "e60f21b88a40ecef8ea5964695342237a7481a9aa4938f6c95c34d10afba66a7"
+    },
+    {
+      "path": "feco-r1-sweep/DeltaRho.grid.nc",
+      "bytes": 8192368,
+      "sha256": "493454a2a4df5fec6c50a2f81ff3092c21d867dc8daaeb5740a718df659966b7"
+    },
+    {
+      "path": "feco-r1-sweep/Fe.ion.nc",
+      "bytes": 98252,
+      "sha256": "c43caf45a6ae485e68c00ff6cc593c09ef9ab1af76103c71557f83fe2e1eb91d"
+    },
+    {
+      "path": "feco-r1-sweep/Rho.grid.nc",
+      "bytes": 8192360,
+      "sha256": "df26ae84a627db089a924d8feff489c334bdb75ffca38d60fca4c553e6b28ad3"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/001/remag.DM",
+      "bytes": 6439404,
+      "sha256": "b03a805a478d6f0f79075785a6a5721fc6cc8d0152e75586f3c700ade343bf8d"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/001/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "43b93466bdc95ecc2b9037b7c8bb6553f90e0af825577be85fe1542352b40af6"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/001/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "7f830effed09ea0cd02f6d39541e02d0525d99defc2d181499b29a1b828d0f0f"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/001/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "5245cb10823dbf2574a4d2f345b856089d3e033e34b7b823385f3d7d3efc036a"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/001/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "0693b76dfec685efb65e56f7796f6971e8fbd13b2b1cabd723499be66ca93296"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/001/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/001/result.json",
+      "bytes": 10301683,
+      "sha256": "65bd6a205afede78bc8200f6d77dac9379a618613e809f33e9c69f2d1852fc11"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/001/stdout.log",
+      "bytes": 57704,
+      "sha256": "feb34cbdec2ef039d25b60357545937befb1d19fc5265af3067a390faa7c314c"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/002/remag.DM",
+      "bytes": 6439404,
+      "sha256": "2770228043d60b5d9fbb72416627c9721bffb7e3e03b8e49e6dad4e4709087fb"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/002/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "850ad365a64aeb88e3729ec66b0fb8f755d075ab59879d5334c03390f74a414d"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/002/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "e7d7f11c789e5444205172e22be93a7c851b5995954153da173c13cb3446f28b"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/002/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "834cf1158ea1c1eec9c9acc34414771f8db4173e3c5dc441b71c442f1b9e7b6c"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/002/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "765ae0c7361fef37e5062b79692af9a12687eb7467a80c869fb3e1f2b6df26c2"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/002/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/002/result.json",
+      "bytes": 10301129,
+      "sha256": "5d8b73d6c3d82ee9dd62e49ae87f1cda3ca86c49fe3a5c93bafc846b81f398a2"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/002/stdout.log",
+      "bytes": 57602,
+      "sha256": "d70f76bdc83f8b56dbf7cf7b98a804c5438b65a5492776dc0b2d7bc7d6c6a7f8"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/003/remag.DM",
+      "bytes": 6439404,
+      "sha256": "a3dacadb7cdf990f3cc39ae37b34f960460bb338338cd2119ea5d9819c8fcfab"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/003/remag.DRHO",
+      "bytes": 8396904,
+      "sha256": "d3f17dc115c7f6d9b700f0da6e892f949eaeea03c380b9f0f18a85dc5e4e3a34"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/003/remag.EIG",
+      "bytes": 8798251,
+      "sha256": "f3ff96fbd3222bcce533e052019f9c9a936a232612c26e2dda0927fc86a0925a"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/003/remag.HSX",
+      "bytes": 7202076,
+      "sha256": "2d1f5a59a888e1884c833c1e7f26f2f1f32012494d5706a8d62c36875151251f"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/003/remag.RHO",
+      "bytes": 8396904,
+      "sha256": "d0bfe0b51684c5da9ec1194fbe30c05cc6402a3a360c546cbbe50ff8355bbceb"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/003/remag.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/003/result.json",
+      "bytes": 10300509,
+      "sha256": "a8b4a048ed691b4010aa008fca2dd9d3f3025f10010f33ce8694100808629b6f"
+    },
+    {
+      "path": "feco-r1-sweep/direction-outputs/003/stdout.log",
+      "bytes": 57861,
+      "sha256": "adb5ae7a2f0801bda964a566ad8304afb14b02131f1564c773430f55c33ba197"
+    },
+    {
+      "path": "feco-r1-sweep/execution.json",
+      "bytes": 311069,
+      "sha256": "e97f52a2babad4868c16667710161b87cc75b11425a8641a3bd2a7fb695ec582"
+    },
+    {
+      "path": "feco-r1-sweep/fdf.20261026T234051.615.log",
+      "bytes": 35556,
+      "sha256": "da5f54ca5e93dc2f313ef3ad5da65ac6fbc5605017784ce83fedc161b7c2a10f"
+    },
+    {
+      "path": "feco-r1-sweep/gpu.csv",
+      "bytes": 65411,
+      "sha256": "a1f52abade5006eec45f4ab9cb5fbaa3e86fa403a6c2c077ab4ac826ed3d83aa"
+    },
+    {
+      "path": "feco-r1-sweep/input.fdf",
+      "bytes": 1663,
+      "sha256": "0127d7f82b79f6619906ac569d566b05036ab3cb234b412489ff0ccc306c3a45"
+    },
+    {
+      "path": "feco-r1-sweep/manifest.json",
+      "bytes": 3384,
+      "sha256": "a92d54c17581b28577277ffba0676009ccf7092372c037d16d3f54f0943ba7be"
+    },
+    {
+      "path": "feco-r1-sweep/remag-density-history.json",
+      "bytes": 1409,
+      "sha256": "30bcad4b1bebe74c94b6b7712e1f0d3405199deb6ad1850f5bc3d31117231f0c"
+    },
+    {
+      "path": "feco-r1-sweep/remag-device-scf.json",
+      "bytes": 3532,
+      "sha256": "2c453f137652db7ea27bbe437a96f5f70a7d022a251ec6d55e600aac40d24c39"
+    },
+    {
+      "path": "feco-r1-sweep/remag-dm.json",
+      "bytes": 511,
+      "sha256": "1440cbd898b8a82644ee08603588c0e1c5e8a282bbf5d67a351ac2bedb8cfcb6"
+    },
+    {
+      "path": "feco-r1-sweep/remag-energy-only.json",
+      "bytes": 687,
+      "sha256": "ea95cd0b3a3b8ff062191868671bd502ba3e6143548b20f00145f46dbcc6a669"
+    },
+    {
+      "path": "feco-r1-sweep/remag-final-density.json",
+      "bytes": 1835,
+      "sha256": "6ccb92f58df4b1a1e4a1f4a651bf7aef045e24a02d1564c82f45cea40d9f458d"
+    },
+    {
+      "path": "feco-r1-sweep/remag-final-spectrum.json",
+      "bytes": 606,
+      "sha256": "1f71a30ddbd51f602bfe50fda830af6b5b78eae425262fb9e86cacb184c0a94e"
+    },
+    {
+      "path": "feco-r1-sweep/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "feco-r1-sweep/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "feco-r1-sweep/remag-grid.json",
+      "bytes": 685,
+      "sha256": "2ca9894d138e799fc7a397c97398fa914fba491092617245e3e3c11b13a7e8ee"
+    },
+    {
+      "path": "feco-r1-sweep/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "feco-r1-sweep/remag-hs.json",
+      "bytes": 349,
+      "sha256": "bf2a9c41c99ad84308fabd7930ac321623d486defb8f9a49bac5ee5a05c6dba1"
+    },
+    {
+      "path": "feco-r1-sweep/remag-initial-mesh-production.json",
+      "bytes": 1536,
+      "sha256": "73d85ac0301a5287be6531a6feff4f49cee15258ec67e7f0a3cd901e3221b2b6"
+    },
+    {
+      "path": "feco-r1-sweep/remag-initial-state.json",
+      "bytes": 1206,
+      "sha256": "853887290e5fa4e2bf382f1a28a9855986b9235e2ebb90215767f5bcf487b559"
+    },
+    {
+      "path": "feco-r1-sweep/remag-nonlocal-geometry.json",
+      "bytes": 1711,
+      "sha256": "a2488bfd4ab1d166451d9a5a76be5fd85866ee30728619627d2388142b3e31dc"
+    },
+    {
+      "path": "feco-r1-sweep/remag-nonlocal-h0.json",
+      "bytes": 2522,
+      "sha256": "00f3e946d8e7973bd7c84b0da9fe0f49de6aa13530d7c5d10f78e80ab00d3038"
+    },
+    {
+      "path": "feco-r1-sweep/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "feco-r1-sweep/remag-orbital-basis.json",
+      "bytes": 1694,
+      "sha256": "d54fd697c32f6b9f2071b7c582f533638701401e4d89b903f3eb68be62de464f"
+    },
+    {
+      "path": "feco-r1-sweep/remag-pair-geometry.json",
+      "bytes": 783,
+      "sha256": "64e680cb4419815b0d1e2ce52d43929a385a58ecadfb8ade3cc496bd4535e420"
+    },
+    {
+      "path": "feco-r1-sweep/remag-population.json",
+      "bytes": 855,
+      "sha256": "2c6502c625ed277b00ee655d15da1ec5d3c20c36460e42c2bebdce6049ddd934"
+    },
+    {
+      "path": "feco-r1-sweep/remag-residency.json",
+      "bytes": 7962,
+      "sha256": "b0e0e26188e538d9be9d4e7aa3bf710639cf41ad9f4986c8292ab9c49e9d9859"
+    },
+    {
+      "path": "feco-r1-sweep/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "feco-r1-sweep/remag-two-center-tables.json",
+      "bytes": 614,
+      "sha256": "abb14b10b539a7e8831374149adc0d54ccfdfed37412396f041b9a7f886210b2"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o001.DM",
+      "bytes": 6439404,
+      "sha256": "b03a805a478d6f0f79075785a6a5721fc6cc8d0152e75586f3c700ade343bf8d"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o001.DRHO",
+      "bytes": 8396904,
+      "sha256": "43b93466bdc95ecc2b9037b7c8bb6553f90e0af825577be85fe1542352b40af6"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o001.EIG",
+      "bytes": 8798251,
+      "sha256": "7f830effed09ea0cd02f6d39541e02d0525d99defc2d181499b29a1b828d0f0f"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o001.HSX",
+      "bytes": 7202076,
+      "sha256": "5245cb10823dbf2574a4d2f345b856089d3e033e34b7b823385f3d7d3efc036a"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o001.RHO",
+      "bytes": 8396904,
+      "sha256": "0693b76dfec685efb65e56f7796f6971e8fbd13b2b1cabd723499be66ca93296"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o001.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o002.DM",
+      "bytes": 6439404,
+      "sha256": "2770228043d60b5d9fbb72416627c9721bffb7e3e03b8e49e6dad4e4709087fb"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o002.DRHO",
+      "bytes": 8396904,
+      "sha256": "850ad365a64aeb88e3729ec66b0fb8f755d075ab59879d5334c03390f74a414d"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o002.EIG",
+      "bytes": 8798251,
+      "sha256": "e7d7f11c789e5444205172e22be93a7c851b5995954153da173c13cb3446f28b"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o002.HSX",
+      "bytes": 7202076,
+      "sha256": "834cf1158ea1c1eec9c9acc34414771f8db4173e3c5dc441b71c442f1b9e7b6c"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o002.RHO",
+      "bytes": 8396904,
+      "sha256": "765ae0c7361fef37e5062b79692af9a12687eb7467a80c869fb3e1f2b6df26c2"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o002.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o003.DM",
+      "bytes": 6439404,
+      "sha256": "a3dacadb7cdf990f3cc39ae37b34f960460bb338338cd2119ea5d9819c8fcfab"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o003.DRHO",
+      "bytes": 8396904,
+      "sha256": "d3f17dc115c7f6d9b700f0da6e892f949eaeea03c380b9f0f18a85dc5e4e3a34"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o003.EIG",
+      "bytes": 8798251,
+      "sha256": "f3ff96fbd3222bcce533e052019f9c9a936a232612c26e2dda0927fc86a0925a"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o003.HSX",
+      "bytes": 7202076,
+      "sha256": "2d1f5a59a888e1884c833c1e7f26f2f1f32012494d5706a8d62c36875151251f"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o003.RHO",
+      "bytes": 8396904,
+      "sha256": "d0bfe0b51684c5da9ec1194fbe30c05cc6402a3a360c546cbbe50ff8355bbceb"
+    },
+    {
+      "path": "feco-r1-sweep/remag.o003.XV",
+      "bytes": 600,
+      "sha256": "b1c94f8549d7167c1836ee431c7d0de3481d1a2c5f3d9b26ebc5482213034b72"
+    },
+    {
+      "path": "feco-r1-sweep/result.json",
+      "bytes": 354638,
+      "sha256": "2cbd860ff6a1a42e3751c6aaa58ffd0f9de1b7596602e7a47ffaf886db712793"
+    },
+    {
+      "path": "feco-r1-sweep/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "feco-r1-sweep/stdout.log",
+      "bytes": 119343,
+      "sha256": "f14ec8d05a0003030e35bb9c3bbbbe45567bc14edf74b3b25b36010c1de71574"
+    },
+    {
+      "path": "feco-r1-sweep/sweep-analysis.json",
+      "bytes": 15149,
+      "sha256": "989c298aea6d128650a2369e2d67ace6632e79027fed00e19d69d55f6ae9425f"
+    },
+    {
+      "path": "feco-r1-sweep/time.json",
+      "bytes": 3436,
+      "sha256": "905350f4bbdabb5b2bc3657943b198508cd7cd726291fc81860e9a7ff6a6395e"
+    },
+    {
+      "path": "fept-r1-cold-0/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "a6b833b40ea852a265417ff30c24efae31704fdbf9fb5a9dae472766c81b862b"
+    },
+    {
+      "path": "fept-r1-cold-0/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r1-cold-0/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r1-cold-0/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "07b4ee85de9cdc429e963e81d6039fe670fe50d2af56e47bd73492ee158e9bc2"
+    },
+    {
+      "path": "fept-r1-cold-0/fdf.20261026T233137.861.log",
+      "bytes": 31415,
+      "sha256": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+    },
+    {
+      "path": "fept-r1-cold-0/gpu.csv",
+      "bytes": 4045,
+      "sha256": "c89a9effd8f0e235e9f78f6b87374e53894930d04d81349732c2995f68341e8c"
+    },
+    {
+      "path": "fept-r1-cold-0/input.fdf",
+      "bytes": 1466,
+      "sha256": "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2"
+    },
+    {
+      "path": "fept-r1-cold-0/manifest.json",
+      "bytes": 1289,
+      "sha256": "661c21e8e3018f074e53869d2dc718903bec2f94a5e53aae0934793c25a98fcd"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-density-history.json",
+      "bytes": 567,
+      "sha256": "418654862cfe71697737fc9907aa7db99c19d75d0979c84bfe7a7767b2aba960"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-device-scf.json",
+      "bytes": 1232,
+      "sha256": "d1edaf7dd806208b7705c2db463154eaebc2d178beb9775fcad7a0fbc7e1ed7c"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-dm.json",
+      "bytes": 508,
+      "sha256": "cfbf97424b12d1417ab71c3f747b0f3a816e3cfa84875a377708e3f5b347659d"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-energy-only.json",
+      "bytes": 215,
+      "sha256": "ef07566535d6b9b7aede97e3a88949bbf596b36df5d5bf33da71fb4f2543877e"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-final-density.json",
+      "bytes": 703,
+      "sha256": "157207be5454d01b3160c8f1871fc3ed90db09dc06e4805b2aa0870b5a65a1fb"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-final-spectrum.json",
+      "bytes": 284,
+      "sha256": "a987e09c3084abc3aa1e54427795eca83b34e50c19a63ff80116ba07b20f91af"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-grid.json",
+      "bytes": 678,
+      "sha256": "63dc5fd013ebbe74bd4001f20de021b62bbae49bf2609b37bc2771622cb22bf2"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-hs.json",
+      "bytes": 348,
+      "sha256": "98710c9182f28c28d7002642f3e0df66d7ace2f08b54e1e41d0d85bbf1f8975b"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-initial-mesh-production.json",
+      "bytes": 640,
+      "sha256": "6ab16bc3548c4007fe273906b324fe581a15a1e9e41e581a7756d1a260e3f317"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-initial-state.json",
+      "bytes": 517,
+      "sha256": "6e99021a87f9fcff10924623697bfbc078b110f36ac8d737026524d0b0001c19"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-nonlocal-geometry.json",
+      "bytes": 657,
+      "sha256": "c893ddde37cbee3f7614f60399e559eb016a6bfa2d8b07f8bcaffbdde2e7287a"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-nonlocal-h0.json",
+      "bytes": 995,
+      "sha256": "9a89bdcc3d9b406e1866b89de740889c68d1e2e89abdefd772b229baac957fcc"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-orbital-basis.json",
+      "bytes": 624,
+      "sha256": "098685a5fc9c185d840cc39a8a67b110d51b24f4f488f8014221de408c071781"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-pair-geometry.json",
+      "bytes": 351,
+      "sha256": "8a1cd55e1b3ad0a874cdd24cc0caef393eadca12cfb97adbb2be09359c34eba7"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-population.json",
+      "bytes": 372,
+      "sha256": "31b6a1ddfd7ea716df9dd68066e89cb2a41acfd8c172ff8fe6151c2cc4f33a10"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-residency.json",
+      "bytes": 3436,
+      "sha256": "57d9514dc751aaf95006873e4a377ede61c2ac776f638af70b7c70da546f5d5e"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r1-cold-0/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r1-cold-0/remag.DM",
+      "bytes": 8026324,
+      "sha256": "68f7953499ed23c242942424a278da6090cb591868461eae17e31e410b6ad7f6"
+    },
+    {
+      "path": "fept-r1-cold-0/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "40a2ffdcfa57c941524cbeb692c33c77f0ac9468ed6db4aac60eb2a812963a67"
+    },
+    {
+      "path": "fept-r1-cold-0/remag.EIG",
+      "bytes": 117675,
+      "sha256": "812ffcf7af8415351bdbaff1b4588e8957d3a0ae5e591c0f23440e56e520b9fa"
+    },
+    {
+      "path": "fept-r1-cold-0/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "808f21450744d0e7972cccd51d73b6ccad1842b426136b791df2c079c86b1c18"
+    },
+    {
+      "path": "fept-r1-cold-0/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "18be60e35be583d0dc4a49b73d91ed019d82f46fe564ea31e2a9f60519a28880"
+    },
+    {
+      "path": "fept-r1-cold-0/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r1-cold-0/result.json",
+      "bytes": 197571,
+      "sha256": "201430720cd8add9e3dd3c94069b2cc1a1845e4e55b1ec9365c9c1a04240b649"
+    },
+    {
+      "path": "fept-r1-cold-0/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r1-cold-0/stdout.log",
+      "bytes": 59612,
+      "sha256": "ef889fc9e7f927ebfc6e8d47fe9f690bac1e923d702e53450f933c0590f5e07c"
+    },
+    {
+      "path": "fept-r1-cold-0/time.json",
+      "bytes": 3436,
+      "sha256": "4dad932408d570d6c2e60863104102176f5f8ebdb297160b2b21886c737e17ed"
+    },
+    {
+      "path": "fept-r1-cold-1/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "f611e1802a1a1dd85e4f588415d8afca692becebeef2423053cab9653b3c7eb6"
+    },
+    {
+      "path": "fept-r1-cold-1/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r1-cold-1/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r1-cold-1/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "92556a7efa0fb845eb28a8269653f76e3064d37b88cce0e52a4234292427caaa"
+    },
+    {
+      "path": "fept-r1-cold-1/fdf.20261026T233158.254.log",
+      "bytes": 31417,
+      "sha256": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+    },
+    {
+      "path": "fept-r1-cold-1/gpu.csv",
+      "bytes": 4161,
+      "sha256": "d7ef08223341e95efbc3d215c9593a8be161c5d50a312fabb49dbf5ce2c4f55b"
+    },
+    {
+      "path": "fept-r1-cold-1/input.fdf",
+      "bytes": 1468,
+      "sha256": "177d77e3c25033452a3e4965e97e05cc8716dd9f21f81e62ddb3f4579a0d4398"
+    },
+    {
+      "path": "fept-r1-cold-1/manifest.json",
+      "bytes": 1290,
+      "sha256": "d2f0528df9522a1c43e380b42618b8f9bbfde11520ac64e16c21dee4db0031c3"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-density-history.json",
+      "bytes": 567,
+      "sha256": "418654862cfe71697737fc9907aa7db99c19d75d0979c84bfe7a7767b2aba960"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-device-scf.json",
+      "bytes": 1248,
+      "sha256": "f08919ed2ec19220777113b3ebc6379e7b05f19275aa14e8dca8500bee4e7db6"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-dm.json",
+      "bytes": 508,
+      "sha256": "cfbf97424b12d1417ab71c3f747b0f3a816e3cfa84875a377708e3f5b347659d"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-energy-only.json",
+      "bytes": 215,
+      "sha256": "099b2c035d61f9f7ae6fe6d215068d4b8bfb1a277390a3de77415fa4bcc87ac7"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-final-density.json",
+      "bytes": 703,
+      "sha256": "157207be5454d01b3160c8f1871fc3ed90db09dc06e4805b2aa0870b5a65a1fb"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-final-spectrum.json",
+      "bytes": 284,
+      "sha256": "a987e09c3084abc3aa1e54427795eca83b34e50c19a63ff80116ba07b20f91af"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-grid.json",
+      "bytes": 678,
+      "sha256": "5530f111a1fe5b36b23cf08c813f9d4689dfe0ef803abaf86e401a4677fef5bd"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-hs.json",
+      "bytes": 348,
+      "sha256": "98710c9182f28c28d7002642f3e0df66d7ace2f08b54e1e41d0d85bbf1f8975b"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-initial-mesh-production.json",
+      "bytes": 640,
+      "sha256": "6ab16bc3548c4007fe273906b324fe581a15a1e9e41e581a7756d1a260e3f317"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-initial-state.json",
+      "bytes": 517,
+      "sha256": "6e99021a87f9fcff10924623697bfbc078b110f36ac8d737026524d0b0001c19"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-nonlocal-geometry.json",
+      "bytes": 657,
+      "sha256": "c893ddde37cbee3f7614f60399e559eb016a6bfa2d8b07f8bcaffbdde2e7287a"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-nonlocal-h0.json",
+      "bytes": 985,
+      "sha256": "8fe795f226e79c3f71f0b2453175be3c066dbac09348d105b77fca305646b80b"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-orbital-basis.json",
+      "bytes": 624,
+      "sha256": "098685a5fc9c185d840cc39a8a67b110d51b24f4f488f8014221de408c071781"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-pair-geometry.json",
+      "bytes": 351,
+      "sha256": "8a1cd55e1b3ad0a874cdd24cc0caef393eadca12cfb97adbb2be09359c34eba7"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-population.json",
+      "bytes": 372,
+      "sha256": "31b6a1ddfd7ea716df9dd68066e89cb2a41acfd8c172ff8fe6151c2cc4f33a10"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-residency.json",
+      "bytes": 3436,
+      "sha256": "17e93ab39ee2cf157ef6632f72919063e2ae53038d35024393f1aebb67815a4e"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r1-cold-1/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r1-cold-1/remag.DM",
+      "bytes": 8026324,
+      "sha256": "0bb90eab7b8a4cb5756b882b1eab65626fe1c45d588e6345aecd736a800363d6"
+    },
+    {
+      "path": "fept-r1-cold-1/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "ea864c032f0c11f022d26a923bb3d435ffeb2d0b523df8563a46c262f20f502e"
+    },
+    {
+      "path": "fept-r1-cold-1/remag.EIG",
+      "bytes": 117675,
+      "sha256": "5d70be06124f6db4642813bf15e5c0721dee4ca4e3c1a85a5c9d6f2019de6355"
+    },
+    {
+      "path": "fept-r1-cold-1/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "f328a77307942c75cc5d31b3bcdff86812b3fbe2e498d5e8212b4b1e3e240fc2"
+    },
+    {
+      "path": "fept-r1-cold-1/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "a4158ca4a5053bedf3892c9a01d48f8f380cf2966e1cf3bdd32b2169c067a99f"
+    },
+    {
+      "path": "fept-r1-cold-1/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r1-cold-1/result.json",
+      "bytes": 198005,
+      "sha256": "aba184322149f795bb63a7d6c94c01579985cddbb45ff293461e11be1a30ee9d"
+    },
+    {
+      "path": "fept-r1-cold-1/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r1-cold-1/stdout.log",
+      "bytes": 62504,
+      "sha256": "d0b55586dfe0ca21081e873d24f05e8f288347f0de10e1d0851627aa80482cf9"
+    },
+    {
+      "path": "fept-r1-cold-1/time.json",
+      "bytes": 3436,
+      "sha256": "078d348bbb984a9a688e54055c8f791b159ef1aaabc673edc05c5121c8fa86a6"
+    },
+    {
+      "path": "fept-r1-sweep/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "22efa2d1cf806fc689aa32886462feeabed1962f90a22c3a67d69fab3641ab28"
+    },
+    {
+      "path": "fept-r1-sweep/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r1-sweep/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r1-sweep/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "7c92793322b38517fef8bbb5c337122344e2a79a0aa5ae397a76ab443ba98793"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/001/remag.DM",
+      "bytes": 8026324,
+      "sha256": "aba0e543d1f980a72bab41ce0468668ef5865f654dff4054018364141e0ffc2b"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/001/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "d909c1bbddeaff9a59c7dbb86dd69a709546fa14e06a4ca3dc060df4c02df328"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/001/remag.EIG",
+      "bytes": 117675,
+      "sha256": "2c1e83ff8f7d481c9780bd35d020382fe3efb5b0b47d14cf73936573db1e29fb"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/001/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "6d3208db8f9c3ad0afccdc2a8852ef1495be85386c1005dfc5ca269b06b7874c"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/001/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "787c612e9e57716151804e5fa9215cc02d6c46d05e72f4bc6dcff9e9617db100"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/001/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/001/result.json",
+      "bytes": 146353,
+      "sha256": "8d00fab0adc418ea2f6615e3cf65d70d3602efedf62f27e5f76f3c90d869e805"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/001/stdout.log",
+      "bytes": 57009,
+      "sha256": "bfceb1714bbd51e41d15a035c5213ca056e0937ddc85891f5cdf1d7dbb335115"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/002/remag.DM",
+      "bytes": 8026324,
+      "sha256": "1ebbeb97be0df88a352db2a8d2e7e38c03c64999dd80df24bb5c646273b7396d"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/002/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "5765661b58d97a3e94c637fb7363db15e3055048a20c2fd40010f0850665e73d"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/002/remag.EIG",
+      "bytes": 117675,
+      "sha256": "592ef8a99dd13a42e1ad36f29e84ed2c8fe7c4308770d1100f5b412e96761a2a"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/002/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "2791c5fc0ed0e4a6abe130b9149236522aa5d49c471116257f579319603084f1"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/002/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "cd7da9c45ec6625a6d612c88f20a999dfaa2e62591c11cff5384246377ed3d74"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/002/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/002/result.json",
+      "bytes": 146330,
+      "sha256": "7beaaf56be32782cd5c064ea72fc8948d8e6d360e1dcdd36ca90c9ed1e675045"
+    },
+    {
+      "path": "fept-r1-sweep/direction-outputs/002/stdout.log",
+      "bytes": 57844,
+      "sha256": "0da76f7ad45f7298e118dee9d678c3e82a5ffd32fb33a7b145397abc1c86a456"
+    },
+    {
+      "path": "fept-r1-sweep/execution.json",
+      "bytes": 24005,
+      "sha256": "2a97f7268dae3ce3503fee3f9c3232a0dfdeae4b7b60a94e702395a01e636be4"
+    },
+    {
+      "path": "fept-r1-sweep/fdf.20261026T233219.244.log",
+      "bytes": 33265,
+      "sha256": "1efbf2bfad97da097f5f83a6d8a3511dc789ac9e4ff1ac76cf100a8761951fd8"
+    },
+    {
+      "path": "fept-r1-sweep/gpu.csv",
+      "bytes": 4681,
+      "sha256": "9b93f42085749d58e0ce2012c7aae6937878b600c010145171dccfb902095a42"
+    },
+    {
+      "path": "fept-r1-sweep/input.fdf",
+      "bytes": 1632,
+      "sha256": "f6eab9c0f02a1ce65c507c83810b5ddcf7fd4667ea834d7208703daccce3cc6a"
+    },
+    {
+      "path": "fept-r1-sweep/manifest.json",
+      "bytes": 1403,
+      "sha256": "f04601489e63cf8bda7cbce88b5c98031c43740ace2ddc37831e8763a1a6206a"
+    },
+    {
+      "path": "fept-r1-sweep/remag-density-history.json",
+      "bytes": 989,
+      "sha256": "8a629d8f80bc6a0eba25ddb566a7145bdf254b51b1209e35bfb9f537a9e0214b"
+    },
+    {
+      "path": "fept-r1-sweep/remag-device-scf.json",
+      "bytes": 2373,
+      "sha256": "41f549c0d72cd704afdcdc9087e97bf1df9cfe8c1cba78b20e96127e71ea3ab4"
+    },
+    {
+      "path": "fept-r1-sweep/remag-dm.json",
+      "bytes": 509,
+      "sha256": "64ab3916dbc4059d57ac46ca5d2d16641ced992ce78fb1b6f76519cfcca60e62"
+    },
+    {
+      "path": "fept-r1-sweep/remag-energy-only.json",
+      "bytes": 475,
+      "sha256": "4c1a9202b0122f377e656aa6d57382bc4981baa87ed3b95e1e02f4dd9f7e40b7"
+    },
+    {
+      "path": "fept-r1-sweep/remag-final-density.json",
+      "bytes": 1263,
+      "sha256": "295ed4599b00d99c6d442ba616cd349cab1c25307283e772306a6be1710bb9df"
+    },
+    {
+      "path": "fept-r1-sweep/remag-final-spectrum.json",
+      "bytes": 436,
+      "sha256": "46cf53b0a31531692667bc280e74cdb97c5c32a8fb135b6f3fd895d265f9af7e"
+    },
+    {
+      "path": "fept-r1-sweep/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r1-sweep/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r1-sweep/remag-grid.json",
+      "bytes": 679,
+      "sha256": "7fe67ecbffbf2367494567acbf2533f8d9a80d3a97ad49282ad298efc188fc6a"
+    },
+    {
+      "path": "fept-r1-sweep/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r1-sweep/remag-hs.json",
+      "bytes": 348,
+      "sha256": "eed2607341c8a2637493826d8f67e5033464a3b3f0bfe2b0714508d05adaf032"
+    },
+    {
+      "path": "fept-r1-sweep/remag-initial-mesh-production.json",
+      "bytes": 1082,
+      "sha256": "39d3027f1d5cf447826f510b097858e9ca559032c3bcc82be2990610b652d223"
+    },
+    {
+      "path": "fept-r1-sweep/remag-initial-state.json",
+      "bytes": 863,
+      "sha256": "02716f399fa44f6b865efc68dc5e72678eef8d2b37f7d8a37086e9f6a9b487ff"
+    },
+    {
+      "path": "fept-r1-sweep/remag-nonlocal-geometry.json",
+      "bytes": 1182,
+      "sha256": "21976894ec6bfc843b44c38cbb7cfc720846723e6545666b9c8bd786149db334"
+    },
+    {
+      "path": "fept-r1-sweep/remag-nonlocal-h0.json",
+      "bytes": 1755,
+      "sha256": "a37502b0c1e2f9f9ee7de017a74abd21541f69ac9e7ed767afea3b7ba1649cab"
+    },
+    {
+      "path": "fept-r1-sweep/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r1-sweep/remag-orbital-basis.json",
+      "bytes": 1146,
+      "sha256": "2c2458ab727286948784a841d434e6dd610453dd008bf13adb3736c35245ca6e"
+    },
+    {
+      "path": "fept-r1-sweep/remag-pair-geometry.json",
+      "bytes": 565,
+      "sha256": "99be98754cdaf206b53b53a3e1fcf0e72dda0dce8df197d42c91c645e6c46051"
+    },
+    {
+      "path": "fept-r1-sweep/remag-population.json",
+      "bytes": 615,
+      "sha256": "5c0153b5fe264eda703cef9627a6a54a4471677c810497b955c98caee4967c1d"
+    },
+    {
+      "path": "fept-r1-sweep/remag-residency.json",
+      "bytes": 5644,
+      "sha256": "cd622a93c8cdc03179411abb47c0f2f0a9fb1216a4f09ffe8e47e862d64062ef"
+    },
+    {
+      "path": "fept-r1-sweep/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r1-sweep/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o001.DM",
+      "bytes": 8026324,
+      "sha256": "aba0e543d1f980a72bab41ce0468668ef5865f654dff4054018364141e0ffc2b"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o001.DRHO",
+      "bytes": 1050728,
+      "sha256": "d909c1bbddeaff9a59c7dbb86dd69a709546fa14e06a4ca3dc060df4c02df328"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o001.EIG",
+      "bytes": 117675,
+      "sha256": "2c1e83ff8f7d481c9780bd35d020382fe3efb5b0b47d14cf73936573db1e29fb"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o001.HSX",
+      "bytes": 8976348,
+      "sha256": "6d3208db8f9c3ad0afccdc2a8852ef1495be85386c1005dfc5ca269b06b7874c"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o001.RHO",
+      "bytes": 1050728,
+      "sha256": "787c612e9e57716151804e5fa9215cc02d6c46d05e72f4bc6dcff9e9617db100"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o001.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o002.DM",
+      "bytes": 8026324,
+      "sha256": "1ebbeb97be0df88a352db2a8d2e7e38c03c64999dd80df24bb5c646273b7396d"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o002.DRHO",
+      "bytes": 1050728,
+      "sha256": "5765661b58d97a3e94c637fb7363db15e3055048a20c2fd40010f0850665e73d"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o002.EIG",
+      "bytes": 117675,
+      "sha256": "592ef8a99dd13a42e1ad36f29e84ed2c8fe7c4308770d1100f5b412e96761a2a"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o002.HSX",
+      "bytes": 8976348,
+      "sha256": "2791c5fc0ed0e4a6abe130b9149236522aa5d49c471116257f579319603084f1"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o002.RHO",
+      "bytes": 1050728,
+      "sha256": "cd7da9c45ec6625a6d612c88f20a999dfaa2e62591c11cff5384246377ed3d74"
+    },
+    {
+      "path": "fept-r1-sweep/remag.o002.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r1-sweep/result.json",
+      "bytes": 37337,
+      "sha256": "95723bc3878e0b0e94bb76be3bc65e80aed9e43dd95fe70739745e07bf4e420a"
+    },
+    {
+      "path": "fept-r1-sweep/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r1-sweep/stdout.log",
+      "bytes": 91982,
+      "sha256": "0564abdffcf113a0948058e205e9e32d9382fbcc596cb6489d43c373d515f860"
+    },
+    {
+      "path": "fept-r1-sweep/sweep-analysis.json",
+      "bytes": 10344,
+      "sha256": "5fd723a317fb35eb7fe34b865dd2628afc4f72e7be65cfb69dad0371e8c1cfa8"
+    },
+    {
+      "path": "fept-r1-sweep/time.json",
+      "bytes": 3436,
+      "sha256": "de8ca46889977be1f37a2eddd20cfecf594536ab26170839b07481d56741aae0"
+    },
+    {
+      "path": "fept-r2-cold-0/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "0d9d45cd72f85a9bb52ac38c8520fb8420a475b2ed0fe30366e49c8ea8249f7a"
+    },
+    {
+      "path": "fept-r2-cold-0/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r2-cold-0/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r2-cold-0/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "af08b2043ebd537de98c37c76fc631045d29632be2526616c5e0c00baf812bf4"
+    },
+    {
+      "path": "fept-r2-cold-0/fdf.20261026T233310.216.log",
+      "bytes": 31415,
+      "sha256": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+    },
+    {
+      "path": "fept-r2-cold-0/gpu.csv",
+      "bytes": 3992,
+      "sha256": "ba2a7fb13eed496cdb692fbf8218235eb7be8989676c9db489661a84a72617f0"
+    },
+    {
+      "path": "fept-r2-cold-0/input.fdf",
+      "bytes": 1466,
+      "sha256": "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2"
+    },
+    {
+      "path": "fept-r2-cold-0/manifest.json",
+      "bytes": 1289,
+      "sha256": "661c21e8e3018f074e53869d2dc718903bec2f94a5e53aae0934793c25a98fcd"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-density-history.json",
+      "bytes": 567,
+      "sha256": "418654862cfe71697737fc9907aa7db99c19d75d0979c84bfe7a7767b2aba960"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-device-scf.json",
+      "bytes": 1239,
+      "sha256": "4eb40a01f904c619e05e3a07d874e40b9fad50e035274b6d41d38378cac53a97"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-dm.json",
+      "bytes": 508,
+      "sha256": "cfbf97424b12d1417ab71c3f747b0f3a816e3cfa84875a377708e3f5b347659d"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-energy-only.json",
+      "bytes": 215,
+      "sha256": "7234730e88fe347207842d661fa519c6aa9953172dc28901d200b23fd4758428"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-final-density.json",
+      "bytes": 703,
+      "sha256": "157207be5454d01b3160c8f1871fc3ed90db09dc06e4805b2aa0870b5a65a1fb"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-final-spectrum.json",
+      "bytes": 284,
+      "sha256": "a987e09c3084abc3aa1e54427795eca83b34e50c19a63ff80116ba07b20f91af"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-grid.json",
+      "bytes": 678,
+      "sha256": "fed5f8719cc5569fa2761ac22e6b42aac0ffe18d89339a3b0fb573a272525849"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-hs.json",
+      "bytes": 348,
+      "sha256": "98710c9182f28c28d7002642f3e0df66d7ace2f08b54e1e41d0d85bbf1f8975b"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-initial-mesh-production.json",
+      "bytes": 640,
+      "sha256": "6ab16bc3548c4007fe273906b324fe581a15a1e9e41e581a7756d1a260e3f317"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-initial-state.json",
+      "bytes": 517,
+      "sha256": "6e99021a87f9fcff10924623697bfbc078b110f36ac8d737026524d0b0001c19"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-nonlocal-geometry.json",
+      "bytes": 657,
+      "sha256": "c893ddde37cbee3f7614f60399e559eb016a6bfa2d8b07f8bcaffbdde2e7287a"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-nonlocal-h0.json",
+      "bytes": 977,
+      "sha256": "4249d3a9250deaef65d5738c385cf99416e03e65b20bb4b2a3b5d6546528bf63"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-orbital-basis.json",
+      "bytes": 624,
+      "sha256": "098685a5fc9c185d840cc39a8a67b110d51b24f4f488f8014221de408c071781"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-pair-geometry.json",
+      "bytes": 351,
+      "sha256": "8a1cd55e1b3ad0a874cdd24cc0caef393eadca12cfb97adbb2be09359c34eba7"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-population.json",
+      "bytes": 372,
+      "sha256": "31b6a1ddfd7ea716df9dd68066e89cb2a41acfd8c172ff8fe6151c2cc4f33a10"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-residency.json",
+      "bytes": 3436,
+      "sha256": "03b5c8465f990ea7166140d3dc75c4cb32a0be35ae3f7f0301aec8694a0008b3"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r2-cold-0/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r2-cold-0/remag.DM",
+      "bytes": 8026324,
+      "sha256": "e1591e7c4629ceb5adaa870857b3b161746d45b6dc9f5ae8e36ec07b7863c3e4"
+    },
+    {
+      "path": "fept-r2-cold-0/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "ed81c48697f41b532c3fedcbf5b457062d0670947e2d46bcf58e225ba2238117"
+    },
+    {
+      "path": "fept-r2-cold-0/remag.EIG",
+      "bytes": 117675,
+      "sha256": "707e917d7bedb28286465a61725645425b85a1333c9d02017b5d57f0af8704af"
+    },
+    {
+      "path": "fept-r2-cold-0/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "728547d6a092f573c3292ca5dc16e0b6152c36713ff625e954d7b051fa8c414b"
+    },
+    {
+      "path": "fept-r2-cold-0/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "c628019bdadbd76de915f669de0c919b5bd4d5c293ce4755245c4b810a909949"
+    },
+    {
+      "path": "fept-r2-cold-0/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r2-cold-0/result.json",
+      "bytes": 197338,
+      "sha256": "ce698646b736ad4f03b82981ad52657765b37dde283ddc88e9c2c2a91e5d6e29"
+    },
+    {
+      "path": "fept-r2-cold-0/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r2-cold-0/stdout.log",
+      "bytes": 60802,
+      "sha256": "724f5401dbc562bd87161f006719511464ff1b9d5d692371a0a335bad9d7716d"
+    },
+    {
+      "path": "fept-r2-cold-0/time.json",
+      "bytes": 3436,
+      "sha256": "64d09c9f24772342d3ea08371425f66d1fb11e3fa6c41f35df595af110e6d98a"
+    },
+    {
+      "path": "fept-r2-cold-1/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "b2f286d92288e5467aacefb506767e62963c6c4b2d8e506f7d98c3c8b11bf5f5"
+    },
+    {
+      "path": "fept-r2-cold-1/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r2-cold-1/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r2-cold-1/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "158f5cda679e3980a74d9c704777351206631fbbc068c0cdeafac92125dbd05c"
+    },
+    {
+      "path": "fept-r2-cold-1/fdf.20261026T233330.247.log",
+      "bytes": 31417,
+      "sha256": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+    },
+    {
+      "path": "fept-r2-cold-1/gpu.csv",
+      "bytes": 4218,
+      "sha256": "392499b63aa5ec85129218916136dc189f239b51a7ada0ff3bb29a9764804e8d"
+    },
+    {
+      "path": "fept-r2-cold-1/input.fdf",
+      "bytes": 1468,
+      "sha256": "177d77e3c25033452a3e4965e97e05cc8716dd9f21f81e62ddb3f4579a0d4398"
+    },
+    {
+      "path": "fept-r2-cold-1/manifest.json",
+      "bytes": 1290,
+      "sha256": "d2f0528df9522a1c43e380b42618b8f9bbfde11520ac64e16c21dee4db0031c3"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-density-history.json",
+      "bytes": 567,
+      "sha256": "418654862cfe71697737fc9907aa7db99c19d75d0979c84bfe7a7767b2aba960"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-device-scf.json",
+      "bytes": 1255,
+      "sha256": "a50b7324548c0b35b42eb3b761942f424db08f38b76282c635bf831f362aaef0"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-dm.json",
+      "bytes": 508,
+      "sha256": "cfbf97424b12d1417ab71c3f747b0f3a816e3cfa84875a377708e3f5b347659d"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-energy-only.json",
+      "bytes": 215,
+      "sha256": "281396f251d8fdf0bf80eadd648bfcf9f278acb9fba15e4e362f41d68bbc41b6"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-final-density.json",
+      "bytes": 703,
+      "sha256": "157207be5454d01b3160c8f1871fc3ed90db09dc06e4805b2aa0870b5a65a1fb"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-final-spectrum.json",
+      "bytes": 284,
+      "sha256": "a987e09c3084abc3aa1e54427795eca83b34e50c19a63ff80116ba07b20f91af"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-grid.json",
+      "bytes": 678,
+      "sha256": "6c39339b63a0a36a3812a7a909fc2b73e8ad736f621e58659cee366a53446d86"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-hs.json",
+      "bytes": 348,
+      "sha256": "98710c9182f28c28d7002642f3e0df66d7ace2f08b54e1e41d0d85bbf1f8975b"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-initial-mesh-production.json",
+      "bytes": 640,
+      "sha256": "6ab16bc3548c4007fe273906b324fe581a15a1e9e41e581a7756d1a260e3f317"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-initial-state.json",
+      "bytes": 517,
+      "sha256": "6e99021a87f9fcff10924623697bfbc078b110f36ac8d737026524d0b0001c19"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-nonlocal-geometry.json",
+      "bytes": 657,
+      "sha256": "c893ddde37cbee3f7614f60399e559eb016a6bfa2d8b07f8bcaffbdde2e7287a"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-nonlocal-h0.json",
+      "bytes": 973,
+      "sha256": "b494c1b6ec3f1dc6651b6a52c94cd584914478517f6d9f4d0fc4f3e117e5b90d"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-orbital-basis.json",
+      "bytes": 624,
+      "sha256": "098685a5fc9c185d840cc39a8a67b110d51b24f4f488f8014221de408c071781"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-pair-geometry.json",
+      "bytes": 351,
+      "sha256": "8a1cd55e1b3ad0a874cdd24cc0caef393eadca12cfb97adbb2be09359c34eba7"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-population.json",
+      "bytes": 372,
+      "sha256": "31b6a1ddfd7ea716df9dd68066e89cb2a41acfd8c172ff8fe6151c2cc4f33a10"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-residency.json",
+      "bytes": 3436,
+      "sha256": "472aac68971914191fc65bdd470173906434e539c61deec7ec1c01c762bc44e2"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r2-cold-1/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r2-cold-1/remag.DM",
+      "bytes": 8026324,
+      "sha256": "99d6f829ed9f28a291dbaf66e505fcd2777f7c4fbaa5a225c7ae81e5393c36a4"
+    },
+    {
+      "path": "fept-r2-cold-1/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "9581a3f402d77c0c4435a00ea088c365894d6ee67b7328966617b7631b4e2764"
+    },
+    {
+      "path": "fept-r2-cold-1/remag.EIG",
+      "bytes": 117675,
+      "sha256": "12efed74e969a6660a8ac4ca871c0cb5ab94605826dd6955eb10d0b17513a27e"
+    },
+    {
+      "path": "fept-r2-cold-1/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "55cd26c4bb9d8d76d6d30d6c9acb6e80b4d4132505d14c20ae213d8102d4ec63"
+    },
+    {
+      "path": "fept-r2-cold-1/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "3d5814b1f098c0a8cd8ff033d9ea571c4d06389d2401dc1db7b0e178164991e5"
+    },
+    {
+      "path": "fept-r2-cold-1/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r2-cold-1/result.json",
+      "bytes": 198649,
+      "sha256": "73f9d489b68eb5cdebf9720dbe44618679e18debac2569ad963b2896a916cfef"
+    },
+    {
+      "path": "fept-r2-cold-1/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r2-cold-1/stdout.log",
+      "bytes": 63524,
+      "sha256": "4f17d63ad05edf937cac20a143c00622c43c9b5b3b2689993bbb188995be2f0a"
+    },
+    {
+      "path": "fept-r2-cold-1/time.json",
+      "bytes": 3436,
+      "sha256": "fd4bffd4c7a90c94ed6eed2dfbdd5ddec84519e8697e4c0c14e3f29e8e3a11dd"
+    },
+    {
+      "path": "fept-r2-sweep/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "2645c20f17bc6599761d20aab78a6d9e984e42c3c69b5b167484c29ddd7333cd"
+    },
+    {
+      "path": "fept-r2-sweep/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r2-sweep/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r2-sweep/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "4511cef84371da3a831435434a1436bc2af21a249a5c95c67ae7c31b25bba8da"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/001/remag.DM",
+      "bytes": 8026324,
+      "sha256": "abcd46836ba3b217a9b946b822d77f1ba6273a9a81bbcc6087f4be32db90f730"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/001/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "7fbebef25d763b0b3f32ab4303633b91dd24ee2d7242938b60ae072165f8f5ed"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/001/remag.EIG",
+      "bytes": 117675,
+      "sha256": "77b5b739af8f5766d8ab5787343c7c23994096d4612fa7570d366ba6b3469f75"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/001/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "c87780f53a3936a2f0a7c7be195714414dfa20a12d4d570165a486f48554d7b2"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/001/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "4999c193c472ea0719a65dae81d533f326b142ec5df7828936cde68fd54ec14c"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/001/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/001/result.json",
+      "bytes": 146376,
+      "sha256": "f6bcd999eee2897e6c09955846759537ef683ef32916b4a4e9808575fc684c5f"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/001/stdout.log",
+      "bytes": 57179,
+      "sha256": "56c87dbc154bfd343a6cdd727e7afdd204d415715224959f16d9aaf7ea96a68b"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/002/remag.DM",
+      "bytes": 8026324,
+      "sha256": "d78b42d63d22ec50ce673e6b96687bac60f297ce0cdf939187f630c2b1aeb203"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/002/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "5ae600cdff95cab061f70b4189036cae0233ff425f046a0962a88a612a8a513a"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/002/remag.EIG",
+      "bytes": 117675,
+      "sha256": "ad3a25f3078db9bd5df1bd96d410f5b28b26f9a9480be18fd8e29babd2af88d9"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/002/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "e432cec1d92680bde9be59256df526c9f5b9e5042b6934f54e569dedcb147350"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/002/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "21625da36a6f7892120f2833657d3df6ebaed61a961afe0d02bc95996d410e67"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/002/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/002/result.json",
+      "bytes": 146324,
+      "sha256": "7fdb9e3309a3e44eb98f2e6282eedad6c8d3d84a2dab284f5cca30856fea6806"
+    },
+    {
+      "path": "fept-r2-sweep/direction-outputs/002/stdout.log",
+      "bytes": 57334,
+      "sha256": "d024cde4fed0afb38f517fba277f325ca76a8b7a75d3ad2a80973acc0945f788"
+    },
+    {
+      "path": "fept-r2-sweep/execution.json",
+      "bytes": 24040,
+      "sha256": "794366ad06d22e6060c8dec21722b26fd2b4c4f75518653fa83a593bfc8b25de"
+    },
+    {
+      "path": "fept-r2-sweep/fdf.20261026T233244.794.log",
+      "bytes": 33265,
+      "sha256": "1efbf2bfad97da097f5f83a6d8a3511dc789ac9e4ff1ac76cf100a8761951fd8"
+    },
+    {
+      "path": "fept-r2-sweep/gpu.csv",
+      "bytes": 4733,
+      "sha256": "4ccef92543d0287a8b02ac86f959661551367c1d803422c4c2d64bddf4b6aa57"
+    },
+    {
+      "path": "fept-r2-sweep/input.fdf",
+      "bytes": 1632,
+      "sha256": "f6eab9c0f02a1ce65c507c83810b5ddcf7fd4667ea834d7208703daccce3cc6a"
+    },
+    {
+      "path": "fept-r2-sweep/manifest.json",
+      "bytes": 1403,
+      "sha256": "f04601489e63cf8bda7cbce88b5c98031c43740ace2ddc37831e8763a1a6206a"
+    },
+    {
+      "path": "fept-r2-sweep/remag-density-history.json",
+      "bytes": 989,
+      "sha256": "8a629d8f80bc6a0eba25ddb566a7145bdf254b51b1209e35bfb9f537a9e0214b"
+    },
+    {
+      "path": "fept-r2-sweep/remag-device-scf.json",
+      "bytes": 2366,
+      "sha256": "98c5379867f4570f6621a206abc553427d0c460b702294cee73e1a7972ed2719"
+    },
+    {
+      "path": "fept-r2-sweep/remag-dm.json",
+      "bytes": 509,
+      "sha256": "64ab3916dbc4059d57ac46ca5d2d16641ced992ce78fb1b6f76519cfcca60e62"
+    },
+    {
+      "path": "fept-r2-sweep/remag-energy-only.json",
+      "bytes": 475,
+      "sha256": "8387a2d0bedd4fefb455ffd168155bc92781a6d766f4cf119a2e6c5c2650bb6f"
+    },
+    {
+      "path": "fept-r2-sweep/remag-final-density.json",
+      "bytes": 1263,
+      "sha256": "295ed4599b00d99c6d442ba616cd349cab1c25307283e772306a6be1710bb9df"
+    },
+    {
+      "path": "fept-r2-sweep/remag-final-spectrum.json",
+      "bytes": 436,
+      "sha256": "46cf53b0a31531692667bc280e74cdb97c5c32a8fb135b6f3fd895d265f9af7e"
+    },
+    {
+      "path": "fept-r2-sweep/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r2-sweep/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r2-sweep/remag-grid.json",
+      "bytes": 679,
+      "sha256": "c16aa76b2b8fab416cf3889b800b6ae096f8b3bc0a9937529408cd5a3f67fafc"
+    },
+    {
+      "path": "fept-r2-sweep/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r2-sweep/remag-hs.json",
+      "bytes": 348,
+      "sha256": "eed2607341c8a2637493826d8f67e5033464a3b3f0bfe2b0714508d05adaf032"
+    },
+    {
+      "path": "fept-r2-sweep/remag-initial-mesh-production.json",
+      "bytes": 1082,
+      "sha256": "39d3027f1d5cf447826f510b097858e9ca559032c3bcc82be2990610b652d223"
+    },
+    {
+      "path": "fept-r2-sweep/remag-initial-state.json",
+      "bytes": 863,
+      "sha256": "02716f399fa44f6b865efc68dc5e72678eef8d2b37f7d8a37086e9f6a9b487ff"
+    },
+    {
+      "path": "fept-r2-sweep/remag-nonlocal-geometry.json",
+      "bytes": 1182,
+      "sha256": "21976894ec6bfc843b44c38cbb7cfc720846723e6545666b9c8bd786149db334"
+    },
+    {
+      "path": "fept-r2-sweep/remag-nonlocal-h0.json",
+      "bytes": 1758,
+      "sha256": "95ff8f398c17cec22990eb24255fe7a92036dbbc44b8fbad37c501b8dc7becf0"
+    },
+    {
+      "path": "fept-r2-sweep/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r2-sweep/remag-orbital-basis.json",
+      "bytes": 1146,
+      "sha256": "2c2458ab727286948784a841d434e6dd610453dd008bf13adb3736c35245ca6e"
+    },
+    {
+      "path": "fept-r2-sweep/remag-pair-geometry.json",
+      "bytes": 565,
+      "sha256": "99be98754cdaf206b53b53a3e1fcf0e72dda0dce8df197d42c91c645e6c46051"
+    },
+    {
+      "path": "fept-r2-sweep/remag-population.json",
+      "bytes": 615,
+      "sha256": "5c0153b5fe264eda703cef9627a6a54a4471677c810497b955c98caee4967c1d"
+    },
+    {
+      "path": "fept-r2-sweep/remag-residency.json",
+      "bytes": 5644,
+      "sha256": "703726ff6710641c4e19fc546ed8b67f2a73e8dd6f4b0fa291750b61992535d3"
+    },
+    {
+      "path": "fept-r2-sweep/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r2-sweep/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o001.DM",
+      "bytes": 8026324,
+      "sha256": "abcd46836ba3b217a9b946b822d77f1ba6273a9a81bbcc6087f4be32db90f730"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o001.DRHO",
+      "bytes": 1050728,
+      "sha256": "7fbebef25d763b0b3f32ab4303633b91dd24ee2d7242938b60ae072165f8f5ed"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o001.EIG",
+      "bytes": 117675,
+      "sha256": "77b5b739af8f5766d8ab5787343c7c23994096d4612fa7570d366ba6b3469f75"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o001.HSX",
+      "bytes": 8976348,
+      "sha256": "c87780f53a3936a2f0a7c7be195714414dfa20a12d4d570165a486f48554d7b2"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o001.RHO",
+      "bytes": 1050728,
+      "sha256": "4999c193c472ea0719a65dae81d533f326b142ec5df7828936cde68fd54ec14c"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o001.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o002.DM",
+      "bytes": 8026324,
+      "sha256": "d78b42d63d22ec50ce673e6b96687bac60f297ce0cdf939187f630c2b1aeb203"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o002.DRHO",
+      "bytes": 1050728,
+      "sha256": "5ae600cdff95cab061f70b4189036cae0233ff425f046a0962a88a612a8a513a"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o002.EIG",
+      "bytes": 117675,
+      "sha256": "ad3a25f3078db9bd5df1bd96d410f5b28b26f9a9480be18fd8e29babd2af88d9"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o002.HSX",
+      "bytes": 8976348,
+      "sha256": "e432cec1d92680bde9be59256df526c9f5b9e5042b6934f54e569dedcb147350"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o002.RHO",
+      "bytes": 1050728,
+      "sha256": "21625da36a6f7892120f2833657d3df6ebaed61a961afe0d02bc95996d410e67"
+    },
+    {
+      "path": "fept-r2-sweep/remag.o002.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r2-sweep/result.json",
+      "bytes": 37384,
+      "sha256": "25dfd9f3951f71f7c9d8de8063135d8458d665f4381cf51d9045d43974920db5"
+    },
+    {
+      "path": "fept-r2-sweep/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r2-sweep/stdout.log",
+      "bytes": 91642,
+      "sha256": "4326ce36865f93a2113bad0ae54258551efabffb8b28d28d44a0b17160adb0d4"
+    },
+    {
+      "path": "fept-r2-sweep/sweep-analysis.json",
+      "bytes": 10344,
+      "sha256": "b2d40653d974d13b7e612a26d6a220403cd72c8c1cfa34c5ada8f55cf486edaa"
+    },
+    {
+      "path": "fept-r2-sweep/time.json",
+      "bytes": 3436,
+      "sha256": "56557c472548c407c222f3461eb39c43b8395c18fb8a4616960a7ed2a9bd7e83"
+    },
+    {
+      "path": "fept-r3-cold-0/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "3ba1b27064958d5bc09c715d3d54d3240b1484dec2c1ca5c3ee303f967a8adee"
+    },
+    {
+      "path": "fept-r3-cold-0/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r3-cold-0/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r3-cold-0/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "e78c5f44991c0308e74fbda2774b2f83b6efeed3ba4c4aa99fe6fa3ef458903a"
+    },
+    {
+      "path": "fept-r3-cold-0/fdf.20261026T233350.994.log",
+      "bytes": 31415,
+      "sha256": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+    },
+    {
+      "path": "fept-r3-cold-0/gpu.csv",
+      "bytes": 3989,
+      "sha256": "5cef20c143fb74aec31ac347c8ff0f6d92eb90f4d87ee34c3f79cda899843bfa"
+    },
+    {
+      "path": "fept-r3-cold-0/input.fdf",
+      "bytes": 1466,
+      "sha256": "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2"
+    },
+    {
+      "path": "fept-r3-cold-0/manifest.json",
+      "bytes": 1289,
+      "sha256": "661c21e8e3018f074e53869d2dc718903bec2f94a5e53aae0934793c25a98fcd"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-density-history.json",
+      "bytes": 567,
+      "sha256": "418654862cfe71697737fc9907aa7db99c19d75d0979c84bfe7a7767b2aba960"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-device-scf.json",
+      "bytes": 1232,
+      "sha256": "1e345eb5af639b1db336bc7cff791102686993f90d136434cd354cacefdc0373"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-dm.json",
+      "bytes": 508,
+      "sha256": "cfbf97424b12d1417ab71c3f747b0f3a816e3cfa84875a377708e3f5b347659d"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-energy-only.json",
+      "bytes": 215,
+      "sha256": "030b8323edb909cb070c88662a550d4c050082157bb621ae36242dcd8407130e"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-final-density.json",
+      "bytes": 703,
+      "sha256": "157207be5454d01b3160c8f1871fc3ed90db09dc06e4805b2aa0870b5a65a1fb"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-final-spectrum.json",
+      "bytes": 284,
+      "sha256": "a987e09c3084abc3aa1e54427795eca83b34e50c19a63ff80116ba07b20f91af"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-grid.json",
+      "bytes": 678,
+      "sha256": "12365d9a569c62558374ff80047e4687d6853db3db7e4f975b70d3862c86b916"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-hs.json",
+      "bytes": 348,
+      "sha256": "98710c9182f28c28d7002642f3e0df66d7ace2f08b54e1e41d0d85bbf1f8975b"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-initial-mesh-production.json",
+      "bytes": 640,
+      "sha256": "6ab16bc3548c4007fe273906b324fe581a15a1e9e41e581a7756d1a260e3f317"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-initial-state.json",
+      "bytes": 517,
+      "sha256": "6e99021a87f9fcff10924623697bfbc078b110f36ac8d737026524d0b0001c19"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-nonlocal-geometry.json",
+      "bytes": 657,
+      "sha256": "c893ddde37cbee3f7614f60399e559eb016a6bfa2d8b07f8bcaffbdde2e7287a"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-nonlocal-h0.json",
+      "bytes": 995,
+      "sha256": "934dbd8a80345446abb4475c48795da52a03a0b5e665a3c4abf4a0c18acc0624"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-orbital-basis.json",
+      "bytes": 624,
+      "sha256": "098685a5fc9c185d840cc39a8a67b110d51b24f4f488f8014221de408c071781"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-pair-geometry.json",
+      "bytes": 351,
+      "sha256": "8a1cd55e1b3ad0a874cdd24cc0caef393eadca12cfb97adbb2be09359c34eba7"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-population.json",
+      "bytes": 372,
+      "sha256": "31b6a1ddfd7ea716df9dd68066e89cb2a41acfd8c172ff8fe6151c2cc4f33a10"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-residency.json",
+      "bytes": 3436,
+      "sha256": "ec509021bdc149ff08bcbc85fccc07327a13c0b9ab83bc82e55e1a3c2a0f9032"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r3-cold-0/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r3-cold-0/remag.DM",
+      "bytes": 8026324,
+      "sha256": "df8f4f4ffa2379a9892fa9ac0546ed6f2f81cd500ef54daf8c06247c0ae9bc8a"
+    },
+    {
+      "path": "fept-r3-cold-0/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "979cabf6ef761875094041f93b62d846583a8ef8df4bed22dcd7723cbd2b3ec8"
+    },
+    {
+      "path": "fept-r3-cold-0/remag.EIG",
+      "bytes": 117675,
+      "sha256": "69de945ef54ab0a2807911f3a29fd3192a0c43f40414a72ea338390e451d4554"
+    },
+    {
+      "path": "fept-r3-cold-0/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "76eb3083083ca077c7f5886f60ef895582ce0f45ee291f0748e1b961e3818ea9"
+    },
+    {
+      "path": "fept-r3-cold-0/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "de26d08296c1760be2cab091f1e87465c690d91bdc2162986514f2a79a7966ed"
+    },
+    {
+      "path": "fept-r3-cold-0/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r3-cold-0/result.json",
+      "bytes": 197148,
+      "sha256": "75d3b0e004e62cabeae4cdf029e26246ba413be7d378800282f276cdac818ba3"
+    },
+    {
+      "path": "fept-r3-cold-0/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r3-cold-0/stdout.log",
+      "bytes": 59442,
+      "sha256": "897ed96ca4a0a9dab065150fb187ed031795dfbb73c4220cc70a7889cdad30a8"
+    },
+    {
+      "path": "fept-r3-cold-0/time.json",
+      "bytes": 3436,
+      "sha256": "6afa84cfe631aef54f8ce18fc41eaa57ec44464edbbc51ccb15ee789ac20f3b7"
+    },
+    {
+      "path": "fept-r3-cold-1/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "72966f0a9cfd24705f07571d37186d391d46a22a4a45c5824523c042a609dd8a"
+    },
+    {
+      "path": "fept-r3-cold-1/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r3-cold-1/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r3-cold-1/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "c1f55b0a64eae34ad1ce93b26d2a516409fe0ce2750e1338bba3baa6b86d4826"
+    },
+    {
+      "path": "fept-r3-cold-1/fdf.20261026T233411.778.log",
+      "bytes": 31417,
+      "sha256": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+    },
+    {
+      "path": "fept-r3-cold-1/gpu.csv",
+      "bytes": 4162,
+      "sha256": "56be6e610e602df7920bcfb436644cd1b2b5544b8457f78b8604eb94310bda5f"
+    },
+    {
+      "path": "fept-r3-cold-1/input.fdf",
+      "bytes": 1468,
+      "sha256": "177d77e3c25033452a3e4965e97e05cc8716dd9f21f81e62ddb3f4579a0d4398"
+    },
+    {
+      "path": "fept-r3-cold-1/manifest.json",
+      "bytes": 1290,
+      "sha256": "d2f0528df9522a1c43e380b42618b8f9bbfde11520ac64e16c21dee4db0031c3"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-density-history.json",
+      "bytes": 567,
+      "sha256": "418654862cfe71697737fc9907aa7db99c19d75d0979c84bfe7a7767b2aba960"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-device-scf.json",
+      "bytes": 1255,
+      "sha256": "ecf70b923c8c2eedf374793bb36aa7fea2913f7bd6b2cd5e3f6cd162f2aa298a"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-dm.json",
+      "bytes": 508,
+      "sha256": "cfbf97424b12d1417ab71c3f747b0f3a816e3cfa84875a377708e3f5b347659d"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-energy-only.json",
+      "bytes": 215,
+      "sha256": "590632605d376f6d8959947e8ef119751a43776221ca9c7304c5d05a1ddda9bd"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-final-density.json",
+      "bytes": 703,
+      "sha256": "157207be5454d01b3160c8f1871fc3ed90db09dc06e4805b2aa0870b5a65a1fb"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-final-spectrum.json",
+      "bytes": 284,
+      "sha256": "a987e09c3084abc3aa1e54427795eca83b34e50c19a63ff80116ba07b20f91af"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-grid.json",
+      "bytes": 678,
+      "sha256": "e849fe9b00c2ccd7fa22b6b6f38d2a4c6142148c01fe0406c88346117c0afe8f"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-hs.json",
+      "bytes": 348,
+      "sha256": "98710c9182f28c28d7002642f3e0df66d7ace2f08b54e1e41d0d85bbf1f8975b"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-initial-mesh-production.json",
+      "bytes": 640,
+      "sha256": "6ab16bc3548c4007fe273906b324fe581a15a1e9e41e581a7756d1a260e3f317"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-initial-state.json",
+      "bytes": 517,
+      "sha256": "6e99021a87f9fcff10924623697bfbc078b110f36ac8d737026524d0b0001c19"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-nonlocal-geometry.json",
+      "bytes": 657,
+      "sha256": "c893ddde37cbee3f7614f60399e559eb016a6bfa2d8b07f8bcaffbdde2e7287a"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-nonlocal-h0.json",
+      "bytes": 987,
+      "sha256": "91ec7b0d98dd90dd3e9d643bac78aee4c58fd5480532595ac53203d78a6eabe1"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-orbital-basis.json",
+      "bytes": 624,
+      "sha256": "098685a5fc9c185d840cc39a8a67b110d51b24f4f488f8014221de408c071781"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-pair-geometry.json",
+      "bytes": 351,
+      "sha256": "8a1cd55e1b3ad0a874cdd24cc0caef393eadca12cfb97adbb2be09359c34eba7"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-population.json",
+      "bytes": 372,
+      "sha256": "31b6a1ddfd7ea716df9dd68066e89cb2a41acfd8c172ff8fe6151c2cc4f33a10"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-residency.json",
+      "bytes": 3436,
+      "sha256": "2c4ebd08011547edd0000fe704987116f180da063a2d6e75198fb063279e9a67"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r3-cold-1/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r3-cold-1/remag.DM",
+      "bytes": 8026324,
+      "sha256": "11c38a193db08eac74825f41c34de2861f87d2b5cec921fe7413325ed0450a35"
+    },
+    {
+      "path": "fept-r3-cold-1/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "f1a392fcbf58e2aa72855ca94ae3cfb5e5b9fa20af8293ed967066c9f3b2554f"
+    },
+    {
+      "path": "fept-r3-cold-1/remag.EIG",
+      "bytes": 117675,
+      "sha256": "00db133985fb447ceff6a64e9a5e660d29214c2fd0a1696418cd92b976f3bea5"
+    },
+    {
+      "path": "fept-r3-cold-1/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "8cc279ea6a758320a8e5f3c8e71be837b551454afe3874a73a4f56373bcda94e"
+    },
+    {
+      "path": "fept-r3-cold-1/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "e8d344301acc62fbff622998610ca293322861764f5aad934b64484a9d6a88e2"
+    },
+    {
+      "path": "fept-r3-cold-1/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r3-cold-1/result.json",
+      "bytes": 198188,
+      "sha256": "08c4aacfb0b8be1fa2acd472e3ebf77bb25b6af5fce40f6495b22dfbf0802c53"
+    },
+    {
+      "path": "fept-r3-cold-1/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r3-cold-1/stdout.log",
+      "bytes": 62334,
+      "sha256": "bf330e1a99384cd2b60d982bd7f0116fc7b93faaa8b796d7e812314cc984e722"
+    },
+    {
+      "path": "fept-r3-cold-1/time.json",
+      "bytes": 3436,
+      "sha256": "a9a0cefc8f5e517bddbd416e9d78b8b5d40aeba857ae2050f09bdff4a0854486"
+    },
+    {
+      "path": "fept-r3-sweep/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "362e4946c5731b03ff42906030d222526fcaa3d5d50547abf24787c177da03bd"
+    },
+    {
+      "path": "fept-r3-sweep/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-r3-sweep/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-r3-sweep/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "fcef303211b78aea90e94b688d3c77c37c16eef1d6c198d58a328edfefd47ebc"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/001/remag.DM",
+      "bytes": 8026324,
+      "sha256": "22396ef22abac472d24da8be0103548a061fbf7d9bbf86847e47ddef40ae6b76"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/001/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "ebea5faf2b979352bf68e395f7cf2d934cf72cf7713778c8c8868179cf9451f3"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/001/remag.EIG",
+      "bytes": 117675,
+      "sha256": "373e084547777aba6762fd81a34d6fe498e9ffba0c2d008a5fe44cce31ba3e01"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/001/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "41baf37ebf379effe3ada33c4539a98b3a55e8541c78d543cdf17021197889ff"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/001/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "52d490b6ec1b1c763bffc5ba9586b414b8a07a4c3cdc5414f91373f7eb7cb425"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/001/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/001/result.json",
+      "bytes": 146371,
+      "sha256": "1c2850bcbd18bd6f459c0fa71b23f886a293739785fadfb39e6287cacf38e072"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/001/stdout.log",
+      "bytes": 58879,
+      "sha256": "093436e932eadc1f578a7ec8b08bfafd5fb5f3b6e5cb0d80d11a623c5cd747e3"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/002/remag.DM",
+      "bytes": 8026324,
+      "sha256": "8d438960b23406b5f5be9876c3ca2cd0a95a932e767706734c2cd08edb893d3c"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/002/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "c43961fda2043f9e6ea35f970b578db40030c9c2f3e957115072cbe595643acb"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/002/remag.EIG",
+      "bytes": 117675,
+      "sha256": "413f04b888b114a80a07585762e43d8167968fa58cd3e2cf37f61cde361409ee"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/002/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "92a3d4e370e24460c6f8d96bf0a4645d9dcde6a1efde2f6e9b87be642049ce61"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/002/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "0ed78fab7541b48ec4fa1c21b3500778c0462550bb800fcf7887360d46e08706"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/002/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/002/result.json",
+      "bytes": 146301,
+      "sha256": "f0857e2baec5c4add578096cf0bd6b28ea63f746e5973e07e62b159db2a79811"
+    },
+    {
+      "path": "fept-r3-sweep/direction-outputs/002/stdout.log",
+      "bytes": 57674,
+      "sha256": "4e81db342d1ba53dfa1c9e2d641ee66fa8b475c1f094ac1cc520b81b1b165a1d"
+    },
+    {
+      "path": "fept-r3-sweep/execution.json",
+      "bytes": 24700,
+      "sha256": "716266ccabb3e6df51d1913c4d16ff2cb0d21dd2fcf4bf3093667b3f2b6ec503"
+    },
+    {
+      "path": "fept-r3-sweep/fdf.20261026T233432.138.log",
+      "bytes": 33265,
+      "sha256": "1efbf2bfad97da097f5f83a6d8a3511dc789ac9e4ff1ac76cf100a8761951fd8"
+    },
+    {
+      "path": "fept-r3-sweep/gpu.csv",
+      "bytes": 4851,
+      "sha256": "4befe25442181c6a19643298267945b9290ae11a0164d054391ca4b5e4c8a10f"
+    },
+    {
+      "path": "fept-r3-sweep/input.fdf",
+      "bytes": 1632,
+      "sha256": "f6eab9c0f02a1ce65c507c83810b5ddcf7fd4667ea834d7208703daccce3cc6a"
+    },
+    {
+      "path": "fept-r3-sweep/manifest.json",
+      "bytes": 1403,
+      "sha256": "f04601489e63cf8bda7cbce88b5c98031c43740ace2ddc37831e8763a1a6206a"
+    },
+    {
+      "path": "fept-r3-sweep/remag-density-history.json",
+      "bytes": 989,
+      "sha256": "8a629d8f80bc6a0eba25ddb566a7145bdf254b51b1209e35bfb9f537a9e0214b"
+    },
+    {
+      "path": "fept-r3-sweep/remag-device-scf.json",
+      "bytes": 2373,
+      "sha256": "a88db43282ec02e9ea9fae79504190c14ec55ad42667e3fb790b2b0459f07873"
+    },
+    {
+      "path": "fept-r3-sweep/remag-dm.json",
+      "bytes": 509,
+      "sha256": "64ab3916dbc4059d57ac46ca5d2d16641ced992ce78fb1b6f76519cfcca60e62"
+    },
+    {
+      "path": "fept-r3-sweep/remag-energy-only.json",
+      "bytes": 475,
+      "sha256": "dcf62cace66b74ec6119e679c273775c86f2bf5050901b8627908c9ccd751f3a"
+    },
+    {
+      "path": "fept-r3-sweep/remag-final-density.json",
+      "bytes": 1263,
+      "sha256": "295ed4599b00d99c6d442ba616cd349cab1c25307283e772306a6be1710bb9df"
+    },
+    {
+      "path": "fept-r3-sweep/remag-final-spectrum.json",
+      "bytes": 436,
+      "sha256": "46cf53b0a31531692667bc280e74cdb97c5c32a8fb135b6f3fd895d265f9af7e"
+    },
+    {
+      "path": "fept-r3-sweep/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-r3-sweep/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-r3-sweep/remag-grid.json",
+      "bytes": 679,
+      "sha256": "8a983ccc71575c4f0b502d30ed670219e9a24adfb34e62a7a30ddf112d92a7f9"
+    },
+    {
+      "path": "fept-r3-sweep/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-r3-sweep/remag-hs.json",
+      "bytes": 348,
+      "sha256": "eed2607341c8a2637493826d8f67e5033464a3b3f0bfe2b0714508d05adaf032"
+    },
+    {
+      "path": "fept-r3-sweep/remag-initial-mesh-production.json",
+      "bytes": 1082,
+      "sha256": "39d3027f1d5cf447826f510b097858e9ca559032c3bcc82be2990610b652d223"
+    },
+    {
+      "path": "fept-r3-sweep/remag-initial-state.json",
+      "bytes": 863,
+      "sha256": "02716f399fa44f6b865efc68dc5e72678eef8d2b37f7d8a37086e9f6a9b487ff"
+    },
+    {
+      "path": "fept-r3-sweep/remag-nonlocal-geometry.json",
+      "bytes": 1182,
+      "sha256": "21976894ec6bfc843b44c38cbb7cfc720846723e6545666b9c8bd786149db334"
+    },
+    {
+      "path": "fept-r3-sweep/remag-nonlocal-h0.json",
+      "bytes": 1767,
+      "sha256": "72ab4fd9bcb941b9de2927f641a87e58130a0237aae2655722ce717485cfdf37"
+    },
+    {
+      "path": "fept-r3-sweep/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-r3-sweep/remag-orbital-basis.json",
+      "bytes": 1146,
+      "sha256": "2c2458ab727286948784a841d434e6dd610453dd008bf13adb3736c35245ca6e"
+    },
+    {
+      "path": "fept-r3-sweep/remag-pair-geometry.json",
+      "bytes": 565,
+      "sha256": "99be98754cdaf206b53b53a3e1fcf0e72dda0dce8df197d42c91c645e6c46051"
+    },
+    {
+      "path": "fept-r3-sweep/remag-population.json",
+      "bytes": 615,
+      "sha256": "5c0153b5fe264eda703cef9627a6a54a4471677c810497b955c98caee4967c1d"
+    },
+    {
+      "path": "fept-r3-sweep/remag-residency.json",
+      "bytes": 5644,
+      "sha256": "9440edcf9e17d99e80eea9fb2a564aaaf5731c43c6f6563f64248e4e1b59b1d6"
+    },
+    {
+      "path": "fept-r3-sweep/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-r3-sweep/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o001.DM",
+      "bytes": 8026324,
+      "sha256": "22396ef22abac472d24da8be0103548a061fbf7d9bbf86847e47ddef40ae6b76"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o001.DRHO",
+      "bytes": 1050728,
+      "sha256": "ebea5faf2b979352bf68e395f7cf2d934cf72cf7713778c8c8868179cf9451f3"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o001.EIG",
+      "bytes": 117675,
+      "sha256": "373e084547777aba6762fd81a34d6fe498e9ffba0c2d008a5fe44cce31ba3e01"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o001.HSX",
+      "bytes": 8976348,
+      "sha256": "41baf37ebf379effe3ada33c4539a98b3a55e8541c78d543cdf17021197889ff"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o001.RHO",
+      "bytes": 1050728,
+      "sha256": "52d490b6ec1b1c763bffc5ba9586b414b8a07a4c3cdc5414f91373f7eb7cb425"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o001.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o002.DM",
+      "bytes": 8026324,
+      "sha256": "8d438960b23406b5f5be9876c3ca2cd0a95a932e767706734c2cd08edb893d3c"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o002.DRHO",
+      "bytes": 1050728,
+      "sha256": "c43961fda2043f9e6ea35f970b578db40030c9c2f3e957115072cbe595643acb"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o002.EIG",
+      "bytes": 117675,
+      "sha256": "413f04b888b114a80a07585762e43d8167968fa58cd3e2cf37f61cde361409ee"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o002.HSX",
+      "bytes": 8976348,
+      "sha256": "92a3d4e370e24460c6f8d96bf0a4645d9dcde6a1efde2f6e9b87be642049ce61"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o002.RHO",
+      "bytes": 1050728,
+      "sha256": "0ed78fab7541b48ec4fa1c21b3500778c0462550bb800fcf7887360d46e08706"
+    },
+    {
+      "path": "fept-r3-sweep/remag.o002.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-r3-sweep/result.json",
+      "bytes": 38103,
+      "sha256": "b4794ba0f6150bccc86a3ae0ec7ab229f215d54d75e00da1c64c2cddbc62480e"
+    },
+    {
+      "path": "fept-r3-sweep/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-r3-sweep/stdout.log",
+      "bytes": 93682,
+      "sha256": "b0218759d8b20549455681877354c83f5d02d525daf72cafb32d6adba20dc971"
+    },
+    {
+      "path": "fept-r3-sweep/sweep-analysis.json",
+      "bytes": 10343,
+      "sha256": "796509c73e14cfa55145c3da252913e11660a419f52043e8917536e00d3e0f31"
+    },
+    {
+      "path": "fept-r3-sweep/time.json",
+      "bytes": 3436,
+      "sha256": "4205aec80d14bb820c1cdc47ab950a93197e3a52402167217330b3f121bc2e12"
+    },
+    {
+      "path": "fept-return/DeltaRho.grid.nc",
+      "bytes": 995696,
+      "sha256": "8006cbbbb80802e55050168e9c96d51ed3be266bdf6853f5157d676c701fcd95"
+    },
+    {
+      "path": "fept-return/Fe_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "e74465cdb31b0aa28901acf40b76414049b0078e975390bb4a87a7b906493a57"
+    },
+    {
+      "path": "fept-return/Pt_fept_SOC.ion.nc",
+      "bytes": 78060,
+      "sha256": "d8ade131624e1fb59e98809d319830d6b1f29f8ced5e119297ff8ea95f6686d8"
+    },
+    {
+      "path": "fept-return/Rho.grid.nc",
+      "bytes": 995688,
+      "sha256": "0f1d54353d8e409a2645e3bbd1642096d445259406d01c5c78685bc68a93bad1"
+    },
+    {
+      "path": "fept-return/direction-outputs/001/remag.DM",
+      "bytes": 8026324,
+      "sha256": "4e2c01b9e2d64e94a2fca908e587369be4c829add4a21859a040dbb02b671f18"
+    },
+    {
+      "path": "fept-return/direction-outputs/001/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "b07d4e3929bd520a6df56517d063153d7f20866715e53659cb22753618417a97"
+    },
+    {
+      "path": "fept-return/direction-outputs/001/remag.EIG",
+      "bytes": 117675,
+      "sha256": "276e7300b3df855d83376b28a72a030cc53b4a400b19e398fb558bba2ca33ffa"
+    },
+    {
+      "path": "fept-return/direction-outputs/001/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "1fb745618f4443c6b6411de4c8f56f6fe5922dab0ea18c33afec6d0c542c20cd"
+    },
+    {
+      "path": "fept-return/direction-outputs/001/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "67bcdd8817d443666ed5efb1c75f66feb66f7236ae93a0cdcbb8dcff0673af22"
+    },
+    {
+      "path": "fept-return/direction-outputs/001/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-return/direction-outputs/001/result.json",
+      "bytes": 146386,
+      "sha256": "9be786263102054d7fdd073cbec410c1722178eaedf2a7e34183e185316312d7"
+    },
+    {
+      "path": "fept-return/direction-outputs/001/stdout.log",
+      "bytes": 56675,
+      "sha256": "aff0eb3ee2d50f6c8158d98d2c3d52f418efe05c0ac8cb330d740ab8b41916b6"
+    },
+    {
+      "path": "fept-return/direction-outputs/002/remag.DM",
+      "bytes": 8026324,
+      "sha256": "f835d8ecd315c956932e2542bed6e553e36b32b459b084819c7aea57665297b3"
+    },
+    {
+      "path": "fept-return/direction-outputs/002/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "e8cdddf31ec3ada7fd624f8f01fbe6c7c47efd09c704fe2038eeb8e384a69fcd"
+    },
+    {
+      "path": "fept-return/direction-outputs/002/remag.EIG",
+      "bytes": 117675,
+      "sha256": "669f47d2eb97f890dcc30fa3965ffd8ff91e0bf92a9c16a4fe90523ed7df684e"
+    },
+    {
+      "path": "fept-return/direction-outputs/002/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "520c4ab64114dc63030b8accd12155448f5535078f8a0c0a0eeaa24eabce025e"
+    },
+    {
+      "path": "fept-return/direction-outputs/002/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "df55ba4073a09df71436d7577fe51f5d997b1ebaa7764717cf40d0d68bc2065c"
+    },
+    {
+      "path": "fept-return/direction-outputs/002/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-return/direction-outputs/002/result.json",
+      "bytes": 146335,
+      "sha256": "b903e5f92098330a7b9e703793784be1b710a46d892311088de73ae4d6ed7ecd"
+    },
+    {
+      "path": "fept-return/direction-outputs/002/stdout.log",
+      "bytes": 58272,
+      "sha256": "caf6858d6df824c1f211962f43baf7f233cbb1ec77c074d39d37ac62b79a07ee"
+    },
+    {
+      "path": "fept-return/direction-outputs/003/remag.DM",
+      "bytes": 8026324,
+      "sha256": "d1292beffc8555e0be20eb60ba866ee81b5b7f8f0759d6e3e8858f0c649fd760"
+    },
+    {
+      "path": "fept-return/direction-outputs/003/remag.DRHO",
+      "bytes": 1050728,
+      "sha256": "c5968b12647dcc0ef889f1498f1191df1c201c23f6c334c8315b5072dabb6efb"
+    },
+    {
+      "path": "fept-return/direction-outputs/003/remag.EIG",
+      "bytes": 117675,
+      "sha256": "32563d00adfebb7e78a875c2bfb68f63661cf7190dba8a7b9d33c3b27a6b4532"
+    },
+    {
+      "path": "fept-return/direction-outputs/003/remag.HSX",
+      "bytes": 8976348,
+      "sha256": "a05362c4b45e20d05b3fb7d575427421581be73fd3f3d0a16bb3bbd4ff6cccb6"
+    },
+    {
+      "path": "fept-return/direction-outputs/003/remag.RHO",
+      "bytes": 1050728,
+      "sha256": "92a28942e30770849e77dc7f5ec8f07a3d0a41eaf4cbf69952d9e942b38938d0"
+    },
+    {
+      "path": "fept-return/direction-outputs/003/remag.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-return/direction-outputs/003/result.json",
+      "bytes": 146373,
+      "sha256": "143cc0c7590d287486cd881b8dc9fe912a9063930a3664affbbcc2175628a03c"
+    },
+    {
+      "path": "fept-return/direction-outputs/003/stdout.log",
+      "bytes": 55980,
+      "sha256": "9da4df4f83013c71a878a3a11e801a3d3b5ecef28260308d1dff7fb4c091f07a"
+    },
+    {
+      "path": "fept-return/execution.json",
+      "bytes": 26904,
+      "sha256": "e9fb6fbe6aaf2f10e3cc9a970160f8822d6a6f0e418ebe8e9754958f23d2898c"
+    },
+    {
+      "path": "fept-return/fdf.20261026T233110.212.log",
+      "bytes": 35118,
+      "sha256": "202dc5e556ac2d9b8fe476c8592c19fdaa3c4dd97a7013a6c78419d96a11ca6c"
+    },
+    {
+      "path": "fept-return/gpu.csv",
+      "bytes": 5422,
+      "sha256": "fba71564354443dfc2012117c93840af00fa99196f065481ed33f3f83a9704a8"
+    },
+    {
+      "path": "fept-return/input.fdf",
+      "bytes": 1640,
+      "sha256": "8a9fae689c5def51f9185620066d898e2258b579b3f13cebe620824098047095"
+    },
+    {
+      "path": "fept-return/manifest.json",
+      "bytes": 1442,
+      "sha256": "b07a3e756ff20ec3f5983e860e9054f28e683a6a8acb9761751724ecb4bf7335"
+    },
+    {
+      "path": "fept-return/remag-density-history.json",
+      "bytes": 1412,
+      "sha256": "e058430c977ce18a757f7488e9f5300b0799d77f6fc0477f469bb9772f6ac4fb"
+    },
+    {
+      "path": "fept-return/remag-device-scf.json",
+      "bytes": 3484,
+      "sha256": "d19141a1136b2871b0bbd6008101c18cae8f3b3bb1193a828a45798efd5589fa"
+    },
+    {
+      "path": "fept-return/remag-dm.json",
+      "bytes": 509,
+      "sha256": "01624abbbb4fbd5f78cb091776c988d7ddcf1b7af0d4d64c324eb04c46d02ee4"
+    },
+    {
+      "path": "fept-return/remag-energy-only.json",
+      "bytes": 690,
+      "sha256": "282a8772abcce139c782957910db25ef4aabb8582d441528ca2d1ad2f5b2cde3"
+    },
+    {
+      "path": "fept-return/remag-final-density.json",
+      "bytes": 1823,
+      "sha256": "cd82f0b096e25db4662be9ff3f517b646ce2462a34627102e050064cbfc3ee98"
+    },
+    {
+      "path": "fept-return/remag-final-spectrum.json",
+      "bytes": 588,
+      "sha256": "035a73913b2434ff761d6edc6debde709561ca2949e719165a5fc546bfbb1062"
+    },
+    {
+      "path": "fept-return/remag-gpu.json",
+      "bytes": 441,
+      "sha256": "1f515ec143d941e59ff934d666ecd797c1aa36dfc93cec299eb42d32672a25a4"
+    },
+    {
+      "path": "fept-return/remag-grid-flow.json",
+      "bytes": 268,
+      "sha256": "2035c734a18e09b6e21291ead4a3821045af8179368b2d8467a1fc90aae8f735"
+    },
+    {
+      "path": "fept-return/remag-grid.json",
+      "bytes": 680,
+      "sha256": "41a24f6baa8224c9e8f0259adc1ec167a8796813d216366c191e5da2fd9ff3f1"
+    },
+    {
+      "path": "fept-return/remag-hartree.json",
+      "bytes": 278,
+      "sha256": "60796d28fa6f8aa533ad7699459e6727d2707af9da96e58ae4ef8ff3045818bd"
+    },
+    {
+      "path": "fept-return/remag-hs.json",
+      "bytes": 349,
+      "sha256": "7916defe7e9262c916ab0f941f5aabf9d3ddb50182a18ffe1606f11865a79444"
+    },
+    {
+      "path": "fept-return/remag-initial-mesh-production.json",
+      "bytes": 1525,
+      "sha256": "1709a64c278e74a04c63a89577b0c7f4915b966ec6efdd5c94e9756fa880eb02"
+    },
+    {
+      "path": "fept-return/remag-initial-state.json",
+      "bytes": 1209,
+      "sha256": "c257d4eec729bb11bf53f83ab5465a2734733d360e4c1f9800438773fc5f729b"
+    },
+    {
+      "path": "fept-return/remag-nonlocal-geometry.json",
+      "bytes": 1708,
+      "sha256": "aafdc00aa4801bee198587e7a7824197f08025d1ca6a5b744280829e94d8fffd"
+    },
+    {
+      "path": "fept-return/remag-nonlocal-h0.json",
+      "bytes": 2540,
+      "sha256": "4b92e05f73478f0de0ba95a3dae138aac036b393d6177d2597053ba7a126b43d"
+    },
+    {
+      "path": "fept-return/remag-occupations.json",
+      "bytes": 467,
+      "sha256": "695bf61bb126f6721e4d15445ec7c01a0a9db9f38274ea11035df45452f4f872"
+    },
+    {
+      "path": "fept-return/remag-orbital-basis.json",
+      "bytes": 1669,
+      "sha256": "911b55792a9121db3b5cb860bb4d010cc0c304bdcb338f5d23def6c078223d24"
+    },
+    {
+      "path": "fept-return/remag-pair-geometry.json",
+      "bytes": 780,
+      "sha256": "24b235d982d56efdd7a81b1bf5308848106138dc91f5ddc8e2218187047d87d0"
+    },
+    {
+      "path": "fept-return/remag-population.json",
+      "bytes": 858,
+      "sha256": "623f295915b96b027ca76f4c4c9ed11f0c4355c06f39fb2f9432c90c700f6111"
+    },
+    {
+      "path": "fept-return/remag-residency.json",
+      "bytes": 7945,
+      "sha256": "6a73ddc3a6ae1a7953e100e5421318bc329b9526d7399320255281dba043f701"
+    },
+    {
+      "path": "fept-return/remag-sparse-state.json",
+      "bytes": 482,
+      "sha256": "5e450ae14a841ef77fb5f96ad3651f3f24bba1f964fb8fa22aa79e78aa57a147"
+    },
+    {
+      "path": "fept-return/remag-two-center-tables.json",
+      "bytes": 613,
+      "sha256": "475019bfce8b02385b8d4cab2706e4eed900bf1c530090fcaa3fd6aee590de25"
+    },
+    {
+      "path": "fept-return/remag.o001.DM",
+      "bytes": 8026324,
+      "sha256": "4e2c01b9e2d64e94a2fca908e587369be4c829add4a21859a040dbb02b671f18"
+    },
+    {
+      "path": "fept-return/remag.o001.DRHO",
+      "bytes": 1050728,
+      "sha256": "b07d4e3929bd520a6df56517d063153d7f20866715e53659cb22753618417a97"
+    },
+    {
+      "path": "fept-return/remag.o001.EIG",
+      "bytes": 117675,
+      "sha256": "276e7300b3df855d83376b28a72a030cc53b4a400b19e398fb558bba2ca33ffa"
+    },
+    {
+      "path": "fept-return/remag.o001.HSX",
+      "bytes": 8976348,
+      "sha256": "1fb745618f4443c6b6411de4c8f56f6fe5922dab0ea18c33afec6d0c542c20cd"
+    },
+    {
+      "path": "fept-return/remag.o001.RHO",
+      "bytes": 1050728,
+      "sha256": "67bcdd8817d443666ed5efb1c75f66feb66f7236ae93a0cdcbb8dcff0673af22"
+    },
+    {
+      "path": "fept-return/remag.o001.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-return/remag.o002.DM",
+      "bytes": 8026324,
+      "sha256": "f835d8ecd315c956932e2542bed6e553e36b32b459b084819c7aea57665297b3"
+    },
+    {
+      "path": "fept-return/remag.o002.DRHO",
+      "bytes": 1050728,
+      "sha256": "e8cdddf31ec3ada7fd624f8f01fbe6c7c47efd09c704fe2038eeb8e384a69fcd"
+    },
+    {
+      "path": "fept-return/remag.o002.EIG",
+      "bytes": 117675,
+      "sha256": "669f47d2eb97f890dcc30fa3965ffd8ff91e0bf92a9c16a4fe90523ed7df684e"
+    },
+    {
+      "path": "fept-return/remag.o002.HSX",
+      "bytes": 8976348,
+      "sha256": "520c4ab64114dc63030b8accd12155448f5535078f8a0c0a0eeaa24eabce025e"
+    },
+    {
+      "path": "fept-return/remag.o002.RHO",
+      "bytes": 1050728,
+      "sha256": "df55ba4073a09df71436d7577fe51f5d997b1ebaa7764717cf40d0d68bc2065c"
+    },
+    {
+      "path": "fept-return/remag.o002.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-return/remag.o003.DM",
+      "bytes": 8026324,
+      "sha256": "d1292beffc8555e0be20eb60ba866ee81b5b7f8f0759d6e3e8858f0c649fd760"
+    },
+    {
+      "path": "fept-return/remag.o003.DRHO",
+      "bytes": 1050728,
+      "sha256": "c5968b12647dcc0ef889f1498f1191df1c201c23f6c334c8315b5072dabb6efb"
+    },
+    {
+      "path": "fept-return/remag.o003.EIG",
+      "bytes": 117675,
+      "sha256": "32563d00adfebb7e78a875c2bfb68f63661cf7190dba8a7b9d33c3b27a6b4532"
+    },
+    {
+      "path": "fept-return/remag.o003.HSX",
+      "bytes": 8976348,
+      "sha256": "a05362c4b45e20d05b3fb7d575427421581be73fd3f3d0a16bb3bbd4ff6cccb6"
+    },
+    {
+      "path": "fept-return/remag.o003.RHO",
+      "bytes": 1050728,
+      "sha256": "92a28942e30770849e77dc7f5ec8f07a3d0a41eaf4cbf69952d9e942b38938d0"
+    },
+    {
+      "path": "fept-return/remag.o003.XV",
+      "bytes": 600,
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+    },
+    {
+      "path": "fept-return/result.json",
+      "bytes": 45476,
+      "sha256": "bfea178de775871eb291886c4910fb3617709a95ee8338c95efbb1acc86ca586"
+    },
+    {
+      "path": "fept-return/stderr.log",
+      "bytes": 14,
+      "sha256": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f"
+    },
+    {
+      "path": "fept-return/stdout.log",
+      "bytes": 122088,
+      "sha256": "6273f986686457084d04a29450d7a7e532008b44aac47f95a09008aa9e1dd8c3"
+    },
+    {
+      "path": "fept-return/sweep-analysis.json",
+      "bytes": 14920,
+      "sha256": "b1638c131cc8ae124563639377e773e8697fb9f4d026d31202169ca0a72f6c90"
+    },
+    {
+      "path": "fept-return/time.json",
+      "bytes": 3436,
+      "sha256": "774de35e1319fe738dea3981aee00bb3ff36d3a802d3b3aa6402f97acb9c219d"
+    },
+    {
+      "path": "fetch-attempt.json",
+      "bytes": 687,
+      "sha256": "968bb2e434b10c7396f0e1b2c584d26c47e1117084f8a601dcca60d6bf564cb2"
+    },
+    {
+      "path": "implementation.tar.gz",
+      "bytes": 583760,
+      "sha256": "61b8c6adfc75b8353d46950ce90127b13181cf2e5516ac071b5ddd3cd416bb90"
+    },
+    {
+      "path": "input-family-verification.json",
+      "bytes": 863,
+      "sha256": "21165d0dbf78c1ab730306bb43aab02d4f5e030b7c006929f10f6028b2b585a5"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_001/input.fdf",
+      "bytes": 1449,
+      "sha256": "1b6c0e794ac1a634194eac379564742be053a600ceed84452cec3cac89628573"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_001/manifest.json",
+      "bytes": 3146,
+      "sha256": "4438dc2370c82c17c3145aa6c3ece9fa474b9bf3f7c6401fc017c4431884a084"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_110/input.fdf",
+      "bytes": 1453,
+      "sha256": "c85b7e6ef5eda8730e9e41b76f48d75f4f8e0d09fe71b3324420f7b098fa68ec"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_110/manifest.json",
+      "bytes": 3178,
+      "sha256": "58ac92f0e0cb0610ef3cac537b20be64e9ac3163b2db9ca116bd9d1ccd0ebff1"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_111/input.fdf",
+      "bytes": 1453,
+      "sha256": "1679e257c69b8787e6c22e126676302c3e9de57aa995837f01fcbcc10f9a7604"
+    },
+    {
+      "path": "inputs/grid2000_shift0p00125_k16_t300_111/manifest.json",
+      "bytes": 3207,
+      "sha256": "378714d79bbddbe3db7ba0980e5a7d970c046d1799e271567d30ec085c28bf34"
+    },
+    {
+      "path": "inputs/tzdp_np_s25_m400_k4_t300_x/input.fdf",
+      "bytes": 1468,
+      "sha256": "177d77e3c25033452a3e4965e97e05cc8716dd9f21f81e62ddb3f4579a0d4398"
+    },
+    {
+      "path": "inputs/tzdp_np_s25_m400_k4_t300_x/manifest.json",
+      "bytes": 1290,
+      "sha256": "d2f0528df9522a1c43e380b42618b8f9bbfde11520ac64e16c21dee4db0031c3"
+    },
+    {
+      "path": "inputs/tzdp_np_s25_m400_k4_t300_z/input.fdf",
+      "bytes": 1466,
+      "sha256": "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2"
+    },
+    {
+      "path": "inputs/tzdp_np_s25_m400_k4_t300_z/manifest.json",
+      "bytes": 1289,
+      "sha256": "661c21e8e3018f074e53869d2dc718903bec2f94a5e53aae0934793c25a98fcd"
+    },
+    {
+      "path": "launcher.log",
+      "bytes": 8651,
+      "sha256": "0657dd59b47c5de0e2c2ff87266b1d0d31845013af4bdfa45d1b2a5700485e9f"
+    },
+    {
+      "path": "ledger.json",
+      "bytes": 21173,
+      "sha256": "02af21682dcb329ab7af2460b8576e03143d848d163bb36006148462ebbc7492"
+    },
+    {
+      "path": "linked-libraries.log",
+      "bytes": 4713,
+      "sha256": "26965e04543c028bb0dbc6b33176a1a2f5881a53308fae9fb43d0c54aa993e7b"
+    },
+    {
+      "path": "local-qualification.json",
+      "bytes": 350085,
+      "sha256": "539c7d052d87654ed914b8c57c0af11065066619a1a4c95537ad04bbdbe1c8d9"
+    },
+    {
+      "path": "metadata.json",
+      "bytes": 72925,
+      "sha256": "be239eef6de2414b65ac2a2dc10eab86b01062de00f5ce1e74ddc378dfb66851"
+    },
+    {
+      "path": "paired-timings.json",
+      "bytes": 49653,
+      "sha256": "d4752136d979b3070cb23c7871447c9e07d7fe6b0e16521b89f77bd624290cc7"
+    },
+    {
+      "path": "run-attempt.json",
+      "bytes": 293,
+      "sha256": "3c039043b7a3798bee39bdc5df5699e0e1aef4044a33e077c2fe2970631d29e1"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 235,
+      "sha256": "a05b68830a4a2889272ab9e123f8c3df03ddd122728337746bb64016591986b6"
+    },
+    {
+      "path": "timing-summary.json",
+      "bytes": 1141,
+      "sha256": "309801f5f335934ddfd5328400eac32931e81da28ba36bb81b461e0336e7e76c"
+    }
+  ]
+}

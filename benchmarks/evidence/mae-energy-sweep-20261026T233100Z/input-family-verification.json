@@ -1,0 +1,19 @@
+{
+  "fept": {
+    "inputs": [
+      "052566731b97e26999af054f38b1c11fa2aa3a74f52bb547fab4697bfe92abb2",
+      "177d77e3c25033452a3e4965e97e05cc8716dd9f21f81e62ddb3f4579a0d4398"
+    ],
+    "family_sha256": "dba262d01a685c847e91d43183fe3d2201b8e0cce7fb1b1734324f424950e2f5",
+    "method": "Only SystemName and DM.InitSpin angles differ; magnitudes and all other input/pseudopotentials match"
+  },
+  "feco": {
+    "inputs": [
+      "1b6c0e794ac1a634194eac379564742be053a600ceed84452cec3cac89628573",
+      "c85b7e6ef5eda8730e9e41b76f48d75f4f8e0d09fe71b3324420f7b098fa68ec",
+      "1679e257c69b8787e6c22e126676302c3e9de57aa995837f01fcbcc10f9a7604"
+    ],
+    "family_sha256": "123203e5f9880cc10dadf05a777f7e8b14a43afebd04080a48cea217e0756170",
+    "method": "Only SystemName and DM.InitSpin angles differ; magnitudes and all other input/pseudopotentials match"
+  }
+}

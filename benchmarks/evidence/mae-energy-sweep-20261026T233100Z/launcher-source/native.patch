@@ -1,0 +1,422 @@
+diff --git a/native/energy_only_publication.hpp b/native/energy_only_publication.hpp
+new file mode 100644
+index 00000000..2e5163d5
+--- /dev/null
++++ b/native/energy_only_publication.hpp
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++#pragma once
++#include <cstdint>
++#include <cstdio>
++#include <stdexcept>
++#include <vector>
++
++namespace remag {
++struct EnergyOnlyPublication {
++    uint64_t epoch;
++    int capacity,spins,iterations;
++};
++
++// Preserve the historical single-cycle format. A sweep carries every accepted
++// epoch, so its last direction cannot overwrite evidence of earlier directions.
++inline void publish_energy_only(const std::vector<EnergyOnlyPublication>& rows) {
++    uint64_t previous=0;
++    if(rows.empty())throw std::runtime_error("Missing energy-only publication");
++    for(const auto& r:rows) {
++        if(r.epoch<=previous||r.capacity<=0||r.iterations<=0||
++            (r.spins!=1&&r.spins!=2&&r.spins!=4&&r.spins!=8))
++            throw std::runtime_error("Invalid or repeated energy-only publication epoch");
++        previous=r.epoch;
++    }
++    const char* temporary="remag-energy-only.json.tmp";
++    FILE* f=std::fopen(temporary,"w");
++    if(!f)throw std::runtime_error("Cannot record energy-only publication");
++    const bool sweep=rows.size()>1;
++    if(sweep)std::fputs("{\"schema\":2,\"mode\":\"energy_only\",\"cycles\":[",f);
++    for(size_t i=0;i<rows.size();i++) {
++        const auto& r=rows[i];
++        std::fprintf(f,
++            "%s{\"schema\":1,\"mode\":\"energy_only\",\"epoch\":%llu,\"status\":0,\"capacity\":%d,\"spins\":%d,"
++            "\"iterations\":%d,\"forces_calculated\":false,\"stress_calculated\":false,"
++            "\"hamiltonian_required\":false,\"hamiltonian_cycle_export_bytes\":0}",
++            i?",":"",static_cast<unsigned long long>(r.epoch),r.capacity,r.spins,r.iterations);
++    }
++    std::fputs(sweep?"]}\n":"\n",f);
++    const bool failed=std::ferror(f)!=0;
++    const int closed=std::fclose(f);
++    if(failed||closed!=0||std::rename(temporary,"remag-energy-only.json")!=0)
++        throw std::runtime_error("Incomplete energy-only publication record");
++}
++}
+diff --git a/native/final_grid_state.cpp b/native/final_grid_state.cpp
+index 2c8c6dc4..fa8451f0 100644
+--- a/native/final_grid_state.cpp
++++ b/native/final_grid_state.cpp
+@@ -68,5 +68,18 @@ bool pair_force_active() {return pair_force_shadow_enabled()||integral_force_ena
+ void reset_final_grid_state() {
+-    require(!in_scf()&&(!snapshot||(snapshot->consumed==snapshot->required&&!snapshot->pair_active&&!snapshot->history_active&&
+-        (!snapshot->pair_required||snapshot->pair_consumed==snapshot->pair_required)&&
+-        (!snapshot->integral||snapshot->published))),"Final force consumer incomplete before new geometry");reset_population_state();snapshot.reset();
++    require(!in_scf(),"Final electronic state cannot reset during SCF");
++    if(snapshot) {
++        const auto& s=*snapshot;
++        // H0 has advanced the geometry epoch before the next SCF request.
++        // Retire the prior publication without requiring unrequested forces
++        // or treating skipped force consumers as completed ones.
++        const bool accepted=s.energy_only?
++            (s.integral&&s.publication_attempted&&s.collected&&s.published&&
++             !s.borrowed&&!s.consumed&&!s.pair_consumed&&
++             s.atomic_records.empty()&&s.integral_records.empty()):
++            (s.consumed==s.required&&(!s.pair_required||s.pair_consumed==s.pair_required)&&
++             (!s.integral||s.published));
++        require(accepted&&!s.active&&!s.pair_active&&!s.history_active,
++            "Final electronic publication or consumer incomplete before new geometry");
++    }
++    reset_population_state();snapshot.reset();
+ }
+diff --git a/native/initial_mesh_production.cpp b/native/initial_mesh_production.cpp
+index 4a307c8b..6d329019 100644
+--- a/native/initial_mesh_production.cpp
++++ b/native/initial_mesh_production.cpp
+@@ -39,3 +39,3 @@ struct Record {
+     int cycle_status=-1,producer_status=-1,converged=0;
+-    bool poison_requested=false,host_poisoned=false,reused=false;
++    bool poison_requested=false,host_poisoned=false,reused=false,energy_only_complete=false;
+ };
+@@ -50,6 +50,6 @@ struct Records {
+             for(size_t j=0;j<r.shape.size();j++)std::fprintf(f,"%s%d",j?",":"",r.shape[j]);
+-            std::fprintf(f,"],\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"hartree_workspace_bytes\":%zu,\"array_upload_bytes\":0,\"export_bytes\":0,\"poison_requested\":%s,\"host_poisoned\":%s,\"reused_geometry\":%s,\"launched\":%s,\"phi_bound\":%s,\"density_borrowed\":%s,\"density_released\":%s,\"forces_complete\":%s,\"passed\":%s,\"cycle_status\":%d,\"cycle_producer_status\":%d,\"converged\":%s}",
++            std::fprintf(f,"],\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"hartree_workspace_bytes\":%zu,\"array_upload_bytes\":0,\"export_bytes\":0,\"poison_requested\":%s,\"host_poisoned\":%s,\"reused_geometry\":%s,\"launched\":%s,\"phi_bound\":%s,\"density_borrowed\":%s,\"density_released\":%s,\"forces_complete\":%s,\"passed\":%s,\"cycle_status\":%d,\"cycle_producer_status\":%d,\"converged\":%s,\"energy_only_complete\":%s}",
+                 r.staged,r.allocated,r.workspace,r.poison_requested?"true":"false",r.host_poisoned?"true":"false",r.reused?"true":"false",r.launched?"true":"false",r.phi_bound?"true":"false",
+                 r.density_borrowed?"true":"false",r.density_released?"true":"false",r.forces_complete?"true":"false",r.passed?"true":"false",
+-                r.cycle_status,r.producer_status,r.converged?"true":"false");
++                r.cycle_status,r.producer_status,r.converged?"true":"false",r.energy_only_complete?"true":"false");
+         }
+@@ -103,2 +103,10 @@ void complete_initial_mesh_forces(uint64_t epoch){
+ }
++void complete_initial_mesh_energy_only(uint64_t epoch){
++    auto& r=current(epoch);
++    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
++        r.passed&&r.phi_bound&&r.density_borrowed&&r.density_released&&r.converged&&
++        r.cycle_status==0&&r.producer_status==0&&!r.forces_complete&&!r.energy_only_complete,
++        "Initial mesh retirement requires accepted energy-only state and released density");
++    r.energy_only_complete=true;
++}
+ void release_initial_mesh_density(uint64_t epoch,int status,int producer,int converged){
+@@ -128,3 +136,3 @@ extern "C" int remag_initial_mesh_prepare(const int* c,const double* reciprocal,
+         if(owner){const auto& previous=records().rows.at(owner->row);
+-            require(owner->epoch<epoch&&previous.passed&&previous.density_released&&previous.forces_complete,
++            require(owner->epoch<epoch&&previous.passed&&previous.density_released&&(previous.forces_complete||previous.energy_only_complete),
+                 "Cannot discard an unconsumed initial mesh geometry");}
+@@ -175,3 +183,3 @@ extern "C" int remag_reuse_initial_mesh() {
+         const auto& old=records().rows.at(owner->row);
+-        require(old.passed&&old.density_released&&old.forces_complete&&
++        require(old.passed&&old.density_released&&(old.forces_complete!=old.energy_only_complete)&&
+             remag::geometry_epoch()==old.epoch+1,"Initial mesh reuse precedes completed consumers");
+diff --git a/native/initial_mesh_state.hpp b/native/initial_mesh_state.hpp
+index cdca9ba0..35906488 100644
+--- a/native/initial_mesh_state.hpp
++++ b/native/initial_mesh_state.hpp
+@@ -14,2 +14,3 @@ const double* borrow_initial_mesh_density(uint64_t epoch,const GridPotentialProb
+ void complete_initial_mesh_forces(uint64_t epoch);
++void complete_initial_mesh_energy_only(uint64_t epoch);
+ void release_initial_mesh_density(uint64_t epoch,int cycle_status,int producer_status,int converged);
+diff --git a/native/initial_state.cpp b/native/initial_state.cpp
+index 77e4d0da..71474dc7 100644
+--- a/native/initial_state.cpp
++++ b/native/initial_state.cpp
+@@ -75,4 +75,4 @@ void begin(int atoms,int rows,int capacity,int spins,int species,int requests,co
+     require(initial_state_enabled()&&remag_cycle_enabled()&&integral_force_enabled()&&!in_scf()&&
+-        (!state||(state->stage==Stage::released&&final_grid_forces_complete(state->epoch))),
+-        "Previous initial density/force ownership is incomplete");
++        (!state||(state->stage==Stage::released&&final_electronic_state_complete(state->epoch))),
++        "Previous initial density/final-state ownership is incomplete");
+     require(atoms>0&&atoms<=1000000&&rows>0&&rows<=1000000&&capacity>0&&species>0&&species<=1000000&&
+diff --git a/native/nonlocal_force_state.cpp b/native/nonlocal_force_state.cpp
+index 3a853ce3..5686a3b1 100644
+--- a/native/nonlocal_force_state.cpp
++++ b/native/nonlocal_force_state.cpp
+@@ -22,3 +22,3 @@ struct Record {
+     unsigned long long epoch=0;int consumer=0,atoms=0,rows=0,columns=0,capacity=0,components=0,queries=0,centers=0,neighbors=0,blocks=0,status=-1;
+-    size_t geometry_bytes=0,staged=0,allocated=0,exported=0;bool complete=false,passed=false,integral=false;
++    size_t geometry_bytes=0,staged=0,allocated=0,exported=0;bool complete=false,passed=false,integral=false,energy_only_complete=false;
+     double volume=0.;std::vector<double> initial,reference,actual;
+@@ -36,2 +36,3 @@ struct Records {std::vector<Record> rows;~Records(){
+             i?",":"",r.epoch,r.consumer,r.atoms,r.rows,r.columns,r.capacity,r.components,r.queries,r.centers,r.neighbors,r.blocks,r.volume,r.geometry_bytes,r.staged,r.allocated,r.exported,r.status,r.complete?"true":"false",r.passed?"true":"false");
++        std::fprintf(f,",\"energy_only_complete\":%s",r.energy_only_complete?"true":"false");
+         std::fprintf(f,",\"compact_queries\":%s,\"projector_entries\":%d,\"query_metadata_bytes\":%zu,\"query_output_bytes\":%zu",
+@@ -91,3 +92,3 @@ extern "C" int remag_nonlocal_begin(int mode,int consumer,int atoms,int rows,int
+             auto& r=current();auto& g=*geometry;
+-            require(g.ready&&g.bound&&!g.mode&&r.epoch==remag::geometry_epoch()&&consumer==g.consumer&&split==g.split&&atoms==r.atoms&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&volume==r.volume&&
++            require(g.ready&&g.bound&&!g.mode&&!r.energy_only_complete&&r.epoch==remag::geometry_epoch()&&consumer==g.consumer&&split==g.split&&atoms==r.atoms&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&volume==r.volume&&
+                 std::equal(g.num.begin(),g.num.end(),num)&&std::equal(g.ptr.begin(),g.ptr.end(),ptr)&&std::equal(g.list.begin(),g.list.end(),list),"Nonlocal geometry changed after staging");
+@@ -242,3 +243,3 @@ void validate_nonlocal_h0_topology(int rows,int columns,int capacity,const int*
+     auto& r=current();auto& g=*geometry;
+-    require(nonlocal_h0_enabled()&&g.ready&&g.bound&&!g.mode&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&
++    require(nonlocal_h0_enabled()&&g.ready&&g.bound&&!g.mode&&!r.energy_only_complete&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&
+         num&&ptr&&list&&std::equal(g.num.begin(),g.num.end(),num)&&std::equal(g.ptr.begin(),g.ptr.end(),ptr)&&
+@@ -248,3 +249,3 @@ PreparedNonlocalForceView borrow_integral_nonlocal(int consumer,int atoms,const
+     auto& r=current();auto& g=*geometry;
+-    require(integral_force_enabled()&&!remag_nonlocal_force_shadow_enabled()&&g.ready&&g.bound&&!g.mode&&!g.referenced&&!g.staged&&
++    require(integral_force_enabled()&&!remag_nonlocal_force_shadow_enabled()&&g.ready&&g.bound&&!g.mode&&!g.referenced&&!g.staged&&!r.energy_only_complete&&
+         consumer==g.consumer&&atoms==r.atoms&&stream&&fields.epoch==r.epoch&&fields.shape.nuo==r.rows&&fields.shape.no==r.columns&&
+@@ -267,2 +268,10 @@ void finish_integral_nonlocal(int status){
+ }
++void complete_nonlocal_geometry_energy_only(uint64_t epoch){
++    auto& r=current();auto& g=*geometry;
++    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
++        r.epoch==epoch&&r.integral&&g.ready&&g.bound&&g.mode==0&&!g.referenced&&!g.staged&&!g.applied&&
++        !r.complete&&!r.passed&&r.status==-1&&!r.energy_only_complete,
++        "Nonlocal geometry retirement requires accepted energy-only state and no force leases");
++    r.energy_only_complete=true;
++}
+ bool nonlocal_force_shadow_pending(int consumer){if(!remag_nonlocal_force_shadow_enabled()||(consumer!=2&&consumer!=3))return false;
+@@ -290,5 +299,8 @@ extern "C" int remag_reuse_nonlocal_geometry() {
+         auto& g=*geometry;const auto& old=records().rows[g.record];
+-        require(old.integral&&g.ready&&g.bound&&g.mode==2&&g.staged&&g.applied&&old.complete&&old.passed&&old.status==0&&
+-            remag::geometry_epoch()==old.epoch+1,"Nonlocal geometry reuse precedes complete forces");
+-        Record next=old;next.epoch=remag::geometry_epoch();next.complete=false;next.passed=false;next.status=-1;
++        const bool forces=g.mode==2&&g.staged&&g.applied&&old.complete&&old.passed&&old.status==0&&!old.energy_only_complete;
++        const bool electronic=old.energy_only_complete&&g.mode==0&&!g.referenced&&!g.staged&&!g.applied&&
++            !old.complete&&!old.passed&&old.status==-1;
++        require(old.integral&&g.ready&&g.bound&&(forces||electronic)&&
++            remag::geometry_epoch()==old.epoch+1,"Nonlocal geometry reuse precedes accepted final state");
++        Record next=old;next.epoch=remag::geometry_epoch();next.complete=false;next.passed=false;next.status=-1;next.energy_only_complete=false;
+         next.geometry_bytes=0;next.staged=0;next.allocated=0;next.exported=0;
+diff --git a/native/nonlocal_force_state.hpp b/native/nonlocal_force_state.hpp
+index f0a57790..664a0320 100644
+--- a/native/nonlocal_force_state.hpp
++++ b/native/nonlocal_force_state.hpp
+@@ -4,2 +4,3 @@
+ #include <cstddef>
++#include <cstdint>
+ #include "nonlocal_compact.hpp"
+@@ -18,2 +19,3 @@ void apply_integral_nonlocal(const double* integrals,double* weights,const Final
+ void finish_integral_nonlocal(int status);
++void complete_nonlocal_geometry_energy_only(uint64_t epoch);
+ }
+diff --git a/native/nonlocal_h0_state.cpp b/native/nonlocal_h0_state.cpp
+index 9a575472..1fe97832 100644
+--- a/native/nonlocal_h0_state.cpp
++++ b/native/nonlocal_h0_state.cpp
+@@ -3,2 +3,3 @@
+ #include "nonlocal_h0_state.hpp"
++#include "final_grid_state.hpp"
+ #include "two_center_state.hpp"
+@@ -24,3 +25,3 @@ struct Record {
+     size_t staged=0,allocated=0,exported=0,raw_bytes=0;
+-    bool compared=false,passed=false,bound=false,force_borrowed=false,complete=false;
++    bool compared=false,passed=false,bound=false,force_borrowed=false,complete=false,energy_only_complete=false;
+     bool production=false,scf_borrowed=false,scf_released=false,poison_requested=false,host_poisoned=false;
+@@ -47,4 +48,4 @@ struct Evidence {
+             std::fprintf(f,",\"compact_queries\":%s,\"query_expansion_nodes\":%d",r.compact_queries?"true":"false",r.query_expansion_nodes);
+-            std::fprintf(f,",\"production\":%s,\"scf_borrowed\":%s,\"scf_released\":%s",
+-                r.production?"true":"false",r.scf_borrowed?"true":"false",r.scf_released?"true":"false");
++            std::fprintf(f,",\"production\":%s,\"scf_borrowed\":%s,\"scf_released\":%s,\"energy_only_complete\":%s",
++                r.production?"true":"false",r.scf_borrowed?"true":"false",r.scf_released?"true":"false",r.energy_only_complete?"true":"false");
+             std::fprintf(f,",\"poison_requested\":%s,\"host_poisoned\":%s,\"setup_timing_seconds\":{",
+@@ -215,3 +216,3 @@ void bind_nonlocal_h0_shadow(uint64_t epoch){
+ NonlocalH0Matrices borrow_nonlocal_h0_matrices(uint64_t epoch,int rows,int columns,int capacity,int soc){
+-    auto& r=current();require(r.production&&r.bound&&r.passed&&!r.scf_borrowed&&!r.complete&&
++    auto& r=current();require(r.production&&r.bound&&r.passed&&!r.scf_borrowed&&!r.complete&&!r.energy_only_complete&&
+         epoch==r.epoch&&epoch==geometry_epoch()&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&
+@@ -226,3 +227,3 @@ void release_nonlocal_h0_matrices(uint64_t epoch){
+ const double* borrow_nonlocal_h0_integrals(uint64_t epoch,int consumer,int queries){
+-    auto& r=current();require(r.bound&&r.passed&&(!r.production||(r.scf_borrowed&&r.scf_released))&&!r.force_borrowed&&!r.complete&&epoch==r.epoch&&epoch==geometry_epoch()&&consumer==r.consumer&&queries==r.queries&&state->integrals,
++    auto& r=current();require(r.bound&&r.passed&&(!r.production||(r.scf_borrowed&&r.scf_released))&&!r.force_borrowed&&!r.complete&&!r.energy_only_complete&&epoch==r.epoch&&epoch==geometry_epoch()&&consumer==r.consumer&&queries==r.queries&&state->integrals,
+         "Invalid retained H0 integral lease");r.force_borrowed=true;return state->integrals;
+@@ -234,2 +235,10 @@ void finish_nonlocal_h0_shadow(uint64_t epoch){
+ }
++void complete_nonlocal_h0_energy_only(uint64_t epoch){
++    auto& r=current();
++    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
++        r.epoch==epoch&&r.production&&r.bound&&r.passed&&r.status==0&&r.scf_borrowed&&r.scf_released&&
++        !r.force_borrowed&&!r.complete&&!r.energy_only_complete,
++        "H0 retirement requires accepted energy-only state and released SCF lease");
++    r.energy_only_complete=true;
++}
+ }
+@@ -243,7 +252,9 @@ extern "C" int remag_reuse_nonlocal_h0() {
+         auto& old=remag::current();auto& s=*remag::state;
+-        remag::require(remag_orientation_retain_geometry()&&old.production&&old.bound&&old.passed&&old.complete&&
+-            old.scf_borrowed&&old.scf_released&&old.force_borrowed&&old.status==0&&
+-            remag::geometry_epoch()==old.epoch+1,"H0 reuse precedes complete electronic/force leases");
++        const bool forces=old.complete&&old.force_borrowed&&!old.energy_only_complete;
++        const bool electronic=old.energy_only_complete&&!old.complete&&!old.force_borrowed;
++        remag::require(remag_orientation_retain_geometry()&&old.production&&old.bound&&old.passed&&(forces||electronic)&&
++            old.scf_borrowed&&old.scf_released&&old.status==0&&
++            remag::geometry_epoch()==old.epoch+1,"H0 reuse precedes accepted final state");
+         auto next=old;next.preparation_epoch=old.epoch;next.epoch=remag::geometry_epoch();
+-        next.scf_borrowed=false;next.scf_released=false;next.force_borrowed=false;next.complete=false;
++        next.scf_borrowed=false;next.scf_released=false;next.force_borrowed=false;next.complete=false;next.energy_only_complete=false;
+         next.staged=0;next.allocated=0;next.exported=0;
+diff --git a/native/nonlocal_h0_state.hpp b/native/nonlocal_h0_state.hpp
+index c9c196b8..d887a9de 100644
+--- a/native/nonlocal_h0_state.hpp
++++ b/native/nonlocal_h0_state.hpp
+@@ -23,2 +23,3 @@ const double* borrow_nonlocal_h0_integrals(uint64_t epoch,int consumer,int queri
+ void finish_nonlocal_h0_shadow(uint64_t epoch);
++void complete_nonlocal_h0_energy_only(uint64_t epoch);
+ }
+diff --git a/native/orbital_basis_state.cpp b/native/orbital_basis_state.cpp
+index 21b0d548..cb13a8fa 100644
+--- a/native/orbital_basis_state.cpp
++++ b/native/orbital_basis_state.cpp
+@@ -3,2 +3,4 @@
+ #include "execution.hpp"
++#include "final_grid_state.hpp"
++#include "spin_rotation.hpp"
+ #include <algorithm>
+@@ -19,2 +21,3 @@ struct Record {
+     remag::OrbitalComparison comparison{};int status=-1;bool consumed=false,passed=false,shadow=false,generated=false;
++    bool energy_only_complete=false,reused_geometry=false;
+ };
+@@ -33,2 +36,4 @@ struct Records {
+                 r.generated?"true":"false",r.shadow&&r.consumed?"true":"false",r.shadow?"true":"false");
++            std::fprintf(f,"\"energy_only_complete\":%s,\"reused_geometry\":%s,",
++                r.energy_only_complete?"true":"false",r.reused_geometry?"true":"false");
+             if(r.shadow&&r.consumed)
+@@ -99,3 +104,3 @@ extern "C" int remag_orbital_basis_prepared(int no,int np,int entries,int nsp){
+         valid_owner(remag::geometry_epoch());const auto& g=owner->view.geometry;
+-        require(!owner->borrowed&&!owner->complete&&g.orbitals==no&&g.entries==entries&&g.subpoints==nsp&&
++        require(!owner->borrowed&&!owner->complete&&!records().rows[owner->record].energy_only_complete&&g.orbitals==no&&g.entries==entries&&g.subpoints==nsp&&
+             records().rows[owner->record].shape[8]==np,"Prepared orbital mesh shape changed");
+@@ -111,3 +116,3 @@ remag::OrbitalBasisDeviceView remag::begin_orbital_basis(uint64_t epoch,int no,i
+     valid_owner(epoch);
+-    require(!owner->borrowed&&!owner->complete&&stream,"Invalid orbital basis borrow");
++    require(!owner->borrowed&&!owner->complete&&!records().rows[owner->record].energy_only_complete&&stream,"Invalid orbital basis borrow");
+     auto& s=*owner;const auto& g=s.view.geometry;
+@@ -144 +149,27 @@ void remag::finish_orbital_basis(uint64_t epoch,int force_status){
+ }
++
++void remag::complete_orbital_basis_energy_only(uint64_t epoch){
++    valid_owner(epoch);auto& r=records().rows.at(owner->record);
++    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
++        !owner->shadow&&!owner->borrowed&&!owner->complete&&!owner->generated&&!r.energy_only_complete&&
++        !r.consumed&&!r.generated&&!r.passed&&r.status==-1,
++        "Orbital geometry retirement requires accepted energy-only state and no derivative consumers");
++    r.energy_only_complete=true;
++}
++extern "C" int remag_reuse_orbital_geometry(){
++    // Ordinary force sweeps retain their existing derivative lifecycle.
++    if(!remag::energy_only_enabled())return 0;
++    try {
++        valid_mode();require(remag_orientation_retain_geometry()&&!remag::in_scf()&&owner&&remag::orbital_basis_enabled(),
++            "Orbital geometry reuse requires retained energy-only geometry");
++        const auto& old=records().rows.at(owner->record);
++        require(old.energy_only_complete&&old.epoch==owner->epoch&&remag::geometry_epoch()==old.epoch+1&&
++            !owner->shadow&&!owner->borrowed&&!owner->complete&&!owner->generated&&
++            !old.consumed&&!old.generated&&!old.passed&&old.status==-1,
++            "Orbital geometry reuse precedes accepted energy-only state");
++        Record next=old;next.epoch=remag::geometry_epoch();next.energy_only_complete=false;next.reused_geometry=true;
++        next.staged=0;next.allocated=0;
++        owner->epoch=next.epoch;owner->staged=0;owner->allocated=0;owner->record=records().rows.size();
++        records().rows.push_back(next);return 0;
++    }catch(const std::exception& e){std::fprintf(stderr,"REMAG orbital geometry reuse: %s\n",e.what());return -260;}
++}
+diff --git a/native/orbital_basis_state.hpp b/native/orbital_basis_state.hpp
+index 77ab5383..e2be6364 100644
+--- a/native/orbital_basis_state.hpp
++++ b/native/orbital_basis_state.hpp
+@@ -24,3 +24,5 @@ void generate_orbital_basis(uint64_t epoch,int* status,cudaStream_t);
+ void finish_orbital_basis(uint64_t epoch,int force_status);
++void complete_orbital_basis_energy_only(uint64_t epoch);
+ }
++extern "C" int remag_reuse_orbital_geometry();
+ 
+diff --git a/native/pair_geometry_state.cpp b/native/pair_geometry_state.cpp
+index 47f0dcf9..3bebe4fe 100644
+--- a/native/pair_geometry_state.cpp
++++ b/native/pair_geometry_state.cpp
+@@ -17,3 +17,3 @@ struct Record {
+     uint64_t epoch=0;int atoms=0,rows=0,columns=0,capacity=0,queries=0,consumed=0;
+-    double volume=0.;size_t staged=0,allocated=0;bool complete=false;
++    double volume=0.;size_t staged=0,allocated=0;bool complete=false,energy_only_complete=false;
+ };
+@@ -27,4 +27,4 @@ struct Records {
+         for(size_t i=0;i<rows.size();i++){const auto& r=rows[i];
+-            std::fprintf(f,"%s{\"epoch\":%llu,\"atoms\":%d,\"rows\":%d,\"columns\":%d,\"capacity\":%d,\"queries\":%d,\"volume\":%.17g,\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"consumer_mask\":%d,\"complete\":%s}",
+-                i?",":"",static_cast<unsigned long long>(r.epoch),r.atoms,r.rows,r.columns,r.capacity,r.queries,r.volume,r.staged,r.allocated,r.consumed,r.complete?"true":"false");}
++            std::fprintf(f,"%s{\"epoch\":%llu,\"atoms\":%d,\"rows\":%d,\"columns\":%d,\"capacity\":%d,\"queries\":%d,\"volume\":%.17g,\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"consumer_mask\":%d,\"complete\":%s,\"energy_only_complete\":%s}",
++                i?",":"",static_cast<unsigned long long>(r.epoch),r.atoms,r.rows,r.columns,r.capacity,r.queries,r.volume,r.staged,r.allocated,r.consumed,r.complete?"true":"false",r.energy_only_complete?"true":"false");}
+         std::fputs("]}\n",f);std::fclose(f);
+@@ -98,3 +98,3 @@ void validate_pair_geometry(int consumer,int atoms,int rows,int columns,int capa
+     auto& r=current();auto& g=*geometry;
+-    require(g.ready&&g.bound&&!g.active&&((consumer==1&&r.consumed==0)||(consumer==4&&r.consumed==1))&&
++    require(g.ready&&g.bound&&!g.active&&!r.energy_only_complete&&((consumer==1&&r.consumed==0)||(consumer==4&&r.consumed==1))&&
+         atoms==r.atoms&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&volume==r.volume&&num&&ptr&&list&&
+@@ -104,3 +104,3 @@ void validate_pair_geometry(int consumer,int atoms,int rows,int columns,int capa
+ void begin_pair_geometry(int consumer){
+-    auto& r=current();auto& g=*geometry;require(g.ready&&g.bound&&!g.active&&((consumer==1&&r.consumed==0)||(consumer==4&&r.consumed==1)),"Pair geometry consumer order");
++    auto& r=current();auto& g=*geometry;require(g.ready&&g.bound&&!g.active&&!r.energy_only_complete&&((consumer==1&&r.consumed==0)||(consumer==4&&r.consumed==1)),"Pair geometry consumer order");
+     g.active=consumer;g.seen=0;g.staged=false;
+@@ -136,2 +136,9 @@ void finish_integral_pair_geometry(uint64_t epoch,int status){
+ }
++void complete_pair_geometry_energy_only(uint64_t epoch){
++    auto& r=current();auto& g=*geometry;
++    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
++        g.integral&&g.ready&&g.bound&&r.epoch==epoch&&!g.active&&!g.staged&&r.consumed==0&&
++        !r.complete&&!r.energy_only_complete,"Pair geometry retirement requires accepted energy-only state and no force leases");
++    r.energy_only_complete=true;
++}
+ }
+@@ -142,5 +149,7 @@ extern "C" int remag_reuse_pair_geometry() {
+         auto& g=*geometry;const auto& old=records().rows[g.record];
+-        require(g.integral&&g.ready&&g.bound&&!g.active&&old.complete&&old.consumed==5&&
+-            remag::geometry_epoch()==old.epoch+1,"Pair geometry reuse precedes complete forces");
+-        Record next=old;next.epoch=remag::geometry_epoch();next.consumed=0;next.complete=false;
++        const bool forces=old.complete&&old.consumed==5&&!old.energy_only_complete;
++        const bool electronic=old.energy_only_complete&&!old.complete&&old.consumed==0&&!g.staged;
++        require(g.integral&&g.ready&&g.bound&&!g.active&&(forces||electronic)&&
++            remag::geometry_epoch()==old.epoch+1,"Pair geometry reuse precedes accepted final state");
++        Record next=old;next.epoch=remag::geometry_epoch();next.consumed=0;next.complete=false;next.energy_only_complete=false;
+         next.staged=0;next.allocated=0;g.preparation_epoch=old.epoch;
+diff --git a/native/pair_geometry_state.hpp b/native/pair_geometry_state.hpp
+index 6422f777..2a8add2f 100644
+--- a/native/pair_geometry_state.hpp
++++ b/native/pair_geometry_state.hpp
+@@ -23,2 +23,5 @@ PairGeometryView borrow_integral_pair_geometry(int consumer,int atoms,const Fina
+ void finish_integral_pair_geometry(uint64_t epoch,int status);
++// Retire the electronic epoch without claiming either force consumer ran.
++// Call after accepted energy-only publication, before advancing the epoch.
++void complete_pair_geometry_energy_only(uint64_t epoch);
+ }
+diff --git a/native/scf_cycle_state.cpp b/native/scf_cycle_state.cpp
+index 60399c62..6e33f44c 100644
+--- a/native/scf_cycle_state.cpp
++++ b/native/scf_cycle_state.cpp
+@@ -12,2 +12,7 @@
+ #include "initial_mesh_state.hpp"
++#include "orbital_basis_state.hpp"
++#include "pair_geometry_state.hpp"
++#include "nonlocal_force_state.hpp"
++#include "spin_rotation.hpp"
++#include "energy_only_publication.hpp"
+ #ifdef REMAG_BUILD_FROZEN_POTENTIAL
+@@ -73,2 +78,3 @@ struct Counts {
+     std::vector<Record> cycles;
++    std::vector<remag::EnergyOnlyPublication> energy_publications;
+     std::vector<FinalSpectrumRecord> spectra;
+@@ -613,10 +619,15 @@ extern "C" int remag_cycle_energy_publish(int* iterations) {
+         remag::complete_energy_only_state(state.epoch);
++        if(remag_orientation_retain_geometry()) {
++            // Record acceptance while the final snapshot still belongs to the
++            // current epoch. Reuse advances the epoch only during next H0 setup.
++            // These retirements do not claim any force/stress consumer ran.
++            remag::complete_pair_geometry_energy_only(state.epoch);
++            remag::complete_nonlocal_geometry_energy_only(state.epoch);
++            remag::complete_nonlocal_h0_energy_only(state.epoch);
++            if(remag::initial_mesh_enabled())remag::complete_initial_mesh_energy_only(state.epoch);
++            remag::complete_orbital_basis_energy_only(state.epoch);
++        }
+         state.final_grid_used=true;*iterations=state.result.iterations;
+-        FILE* receipt=std::fopen("remag-energy-only.json","w");require(receipt,"Cannot record energy-only publication");
+-        const int written=std::fprintf(receipt,
+-            "{\"schema\":1,\"mode\":\"energy_only\",\"epoch\":%llu,\"status\":0,\"capacity\":%d,\"spins\":%d,"
+-            "\"iterations\":%d,\"forces_calculated\":false,\"stress_calculated\":false,"
+-            "\"hamiltonian_required\":false,\"hamiltonian_cycle_export_bytes\":0}\n",
+-            static_cast<unsigned long long>(state.epoch),state.capacity,state.nh,*iterations);
+-        const int closed=std::fclose(receipt);require(written>0&&closed==0,"Incomplete energy-only publication record");
++        counts.energy_publications.push_back({state.epoch,state.capacity,state.nh,*iterations});
++        remag::publish_energy_only(counts.energy_publications);
+         std::printf("REMAG: energy-only finalization; forces and stress not calculated\n");

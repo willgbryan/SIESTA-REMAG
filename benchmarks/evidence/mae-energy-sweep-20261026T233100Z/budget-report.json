@@ -1,0 +1,12 @@
+{
+  "authorized_seconds": 1200,
+  "deadline_epoch": 1793058523.401449,
+  "first_image_build_app_seconds": 19.66828203201294,
+  "successful_app_seconds": 908.9501550197601,
+  "conservative_total_app_seconds": 928.6184370517731,
+  "actual_billed_gpu_seconds": null,
+  "stopped_before_deadline": true,
+  "budget_compliant": true,
+  "allocation_released": true,
+  "note": "App lifetimes include CPU image builds and provide a conservative elapsed-allocation bound; exact billed GPU seconds unavailable. No deadline extension."
+}

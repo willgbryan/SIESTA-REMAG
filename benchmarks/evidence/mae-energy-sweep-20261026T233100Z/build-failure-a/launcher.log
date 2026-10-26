@@ -1,0 +1,84 @@
+Note that running a local entrypoint in detached mode only keeps the last triggered Modal function alive after the parent process has been killed or disconnected.
+✓ Initialized. View run at 
+https://modal.com/apps/will-bryan421/main/ap-SO6xzMinFphziE9Qc4nedS
+Building image im-htkWxKp0yxarxBM5GlyMhi
+
+Using legacy Image Builder version. We suggest upgrading at https://modal.com/settings/image-config.
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.19s
+
+Built image im-htkWxKp0yxarxBM5GlyMhi in 3.16s
+
+
+Building image im-chZVRHeTyJW3vrZAzXo2dQ
+
+Using legacy Image Builder version. We suggest upgrading at https://modal.com/settings/image-config.
+
+=> Step 0: FROM base
+
+=> Step 1: RUN python /opt/energy-sweep-stage/rebuild.py
+patching file energy_only_publication.hpp
+patching file final_grid_state.cpp
+patching file initial_mesh_production.cpp
+patching file initial_mesh_state.hpp
+patching file initial_state.cpp
+patching file nonlocal_force_state.cpp
+patching file nonlocal_force_state.hpp
+patching file nonlocal_h0_state.cpp
+patching file nonlocal_h0_state.hpp
+patching file orbital_basis_state.cpp
+Hunk #1 succeeded at 4 (offset 1 line).
+Hunk #2 succeeded at 23 (offset 2 lines).
+Hunk #3 succeeded at 38 (offset 2 lines).
+Hunk #4 succeeded at 112 (offset 8 lines).
+Hunk #5 succeeded at 124 (offset 8 lines).
+Hunk #6 succeeded at 157 (offset 8 lines).
+patching file orbital_basis_state.hpp
+patching file pair_geometry_state.cpp
+patching file pair_geometry_state.hpp
+patching file scf_cycle_state.cpp
+-- Configuring done (0.2s)
+-- Generating done (1.0s)
+-- Build files have been written to: /opt/hopper-build
+[  0%] Building CUDA object CMakeFiles/remag_gpu.dir/grid.cu.o
+[  0%] Building CXX object CMakeFiles/remag_gpu.dir/grid_force_shadow.cpp.o
+[  2%] Building CXX object CMakeFiles/remag_gpu.dir/final_grid_state.cpp.o
+[  2%] Building CXX object CMakeFiles/remag_gpu.dir/scf_cycle_state.cpp.o
+[  5%] Building CXX object CMakeFiles/remag_gpu.dir/nonlocal_h0_state.cpp.o
+[  8%] Building CXX object CMakeFiles/remag_gpu.dir/nonlocal_force_state.cpp.o
+[ 11%] Building CXX object CMakeFiles/remag_gpu.dir/pair_force_state.cpp.o
+[ 11%] Building CXX object CMakeFiles/remag_gpu.dir/pair_geometry_state.cpp.o
+In file included from /opt/hopper-native/nonlocal_force_state.cpp:3:
+/opt/hopper-native/nonlocal_force_state.hpp:19:6: error: variable or field ‘complete_nonlocal_geometry_energy_only’ declared void
+   19 | void complete_nonlocal_geometry_energy_only(uint64_t epoch);
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/opt/hopper-native/nonlocal_force_state.hpp:19:45: error: ‘uint64_t’ was not declared in this scope
+   19 | void complete_nonlocal_geometry_energy_only(uint64_t epoch);
+      |                                             ^~~~~~~~
+In file included from /opt/hopper-native/nonlocal_force_state.cpp:3:
+/opt/hopper-native/nonlocal_force_state.hpp:6:1: note: ‘uint64_t’ is defined in header ‘<cstdint>’; did you forget to ‘#include <cstdint>’?
+    5 | #include "nonlocal_compact.hpp"
+  +++ |+#include <cstdint>
+    6 | namespace remag {
+gmake[3]: *** [CMakeFiles/remag_gpu.dir/build.make:534: CMakeFiles/remag_gpu.dir/nonlocal_force_state.cpp.o] Error 1
+gmake[3]: *** Waiting for unfinished jobs....
+gmake[2]: *** [CMakeFiles/Makefile2:213: CMakeFiles/remag_gpu.dir/all] Error 2
+gmake[1]: *** [CMakeFiles/Makefile2:220: CMakeFiles/remag_gpu.dir/rule] Error 2
+gmake: *** [Makefile:124: remag_gpu] Error 2
+Traceback (most recent call last):
+  File "/opt/energy-sweep-stage/rebuild.py", line 56, in <module>
+    subprocess.run(['cmake', '--build', '/opt/hopper-build', '--target', 'remag_gpu', '--parallel', '8'], check=True)
+  File "/usr/local/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['cmake', '--build', '/opt/hopper-build', '--target', 'remag_gpu', '--parallel', '8']' returned non-zero exit status 2.
+Terminating task due to error: failed to run builder command "python /opt/energy-sweep-stage/rebuild.py": container exit status: 1
+Runner failed with exit code: -1
+╭─ Error ──────────────────────────────────────────────────────────────────────╮
+│ Image build for im-chZVRHeTyJW3vrZAzXo2dQ failed.                            │
+│ View the build logs:                                                         │
+│   modal image logs im-chZVRHeTyJW3vrZAzXo2dQ                                 │
+╰──────────────────────────────────────────────────────────────────────────────╯

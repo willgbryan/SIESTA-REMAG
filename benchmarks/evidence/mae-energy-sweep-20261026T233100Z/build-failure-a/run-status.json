@@ -1,0 +1,18 @@
+{
+  "status": "approved",
+  "authorized_gpu_seconds": 1200,
+  "deadline_epoch": 1793058523.401449,
+  "run_id": null,
+  "allocation_released": true,
+  "previous_release": "results/mae-soc-free-scalar-20261026T210526Z/allocation-release.json",
+  "authorization": {
+    "approved_at_utc": "2026-10-26T23:28:43.401449+00:00",
+    "user_response": "Approve up to 20 H100-minutes",
+    "maximum_gpu_instances": 1,
+    "budget_seconds": 1200,
+    "reserve_seconds": 120,
+    "deadline_includes_image_preparation": true
+  },
+  "launcher_log": "/tmp/remag-mae-energy-sweep-20261026.log",
+  "launcher_session": 57060
+}

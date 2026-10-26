@@ -1,0 +1,6209 @@
+[
+  {
+    "label": "fept-return",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.661160346586257e-11,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.228706191293895e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.292505946999999,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 51
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 7.749672657070272e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 8.228162595713684e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 3.951843519089948e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-return",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.2637709662376437e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.713048605888616e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 51
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 6.188223822256589e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 2.5160207250962685e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 2.8218881675812213e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-return",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.659827830735594e-11,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.2732925824820995e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.492947522999998,
+      "candidate_seconds": null,
+      "reference_iterations": 75,
+      "candidate_iterations": 71
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 1.0652210780115468e-09,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 4.593192493018705e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 2.2408564170905976e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-return",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.543359631905332e-08,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.0113263821695e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 179.67379075000002,
+      "candidate_seconds": null,
+      "reference_iterations": 70,
+      "candidate_iterations": 71
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 1.0321374588340149e-09,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 7.396960821637322e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.5856053692253624e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-return",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.000444171950221e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.571099220309407e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000116860974e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.292505946999999,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 58
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 7.007645245332705e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 2.4305091272935897e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.283460560053129e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-return",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.2643052943749353e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.709706212859601e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000116860974e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 58
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 4.779920808120619e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 7.373046617686896e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.1033153279882413e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r1-cold-0",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.662048690486699e-11,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 9.913492249324918e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.292505946999999,
+      "candidate_seconds": 14.809710681000006,
+      "reference_iterations": 51,
+      "candidate_iterations": 53
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 1.185203563763837e-09,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 8.953626728924746e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 4.220081298300649e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r1-cold-0",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.2626386453339364e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.726190804329235e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": 14.809710681000006,
+      "reference_iterations": 51,
+      "candidate_iterations": 53
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 8.738905155070142e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 7.978417926324255e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 3.2398499438812678e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r1-cold-1",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0163603292312473e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.2323653209023178e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.492947522999998,
+      "candidate_seconds": 15.110417502000004,
+      "reference_iterations": 75,
+      "candidate_iterations": 70
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 6.5814662053576e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.82269643822508e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 9.106125853364233e-10,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r1-cold-1",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.551863407366909e-08,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.000276021542959e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 179.67379075000002,
+      "candidate_seconds": 15.110417502000004,
+      "reference_iterations": 70,
+      "candidate_iterations": 70
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 6.779596571637736e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.5423196053632182e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.3515670249653056e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r1-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.0463630789890885e-12,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.0468072509393096e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000116860974e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.292505946999999,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 53
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 7.030234727700702e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.5719969770344733e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.5476691594962233e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r1-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.263325313833775e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.71932411933085e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000116860974e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 7.450580596923828e-09,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 7.450580596923828e-09,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 53
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 3.9041569976916435e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.2120748849042684e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 7.450580596923828e-09,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 6.171689825862359e-10,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r1-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.298303686780855e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0300027497578412e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.000000082740371e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.492947522999998,
+      "candidate_seconds": null,
+      "reference_iterations": 75,
+      "candidate_iterations": 69
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 1.0474467126986298e-09,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 3.7664971141992964e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.6639688515951434e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r1-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.528716767206788e-08,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.0228997022495605e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 179.67379075000002,
+      "candidate_seconds": null,
+      "reference_iterations": 70,
+      "candidate_iterations": 69
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 6.150103482038816e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 3.486120281337435e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.8309584959297354e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r2-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.707523425575346e-11,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.638422979041934e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.292505946999999,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 54
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 4.9137902427554e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 4.604383541106927e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 9.067765982528897e-10,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r2-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.2639756025455426e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.711638889100868e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 54
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 3.578924587244181e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.2327661114142074e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 7.537655222211725e-10,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r2-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.5643308870494366e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.268745108973235e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.492947522999998,
+      "candidate_seconds": null,
+      "reference_iterations": 75,
+      "candidate_iterations": 66
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 1.0564872310325768e-09,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 4.115343621435841e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.693950979486658e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r2-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.526056495204102e-08,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.0252871258417144e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 179.67379075000002,
+      "candidate_seconds": null,
+      "reference_iterations": 70,
+      "candidate_iterations": 66
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 6.240507000043749e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 3.834966788573979e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.871156146693309e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r2-cold-0",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 7.275957614183426e-12,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.1596057447604835e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.292505946999999,
+      "candidate_seconds": 14.605765214999991,
+      "reference_iterations": 51,
+      "candidate_iterations": 60
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 6.531465923664825e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 2.5454971464000664e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 2.813265398415865e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r2-cold-0",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.263377609779127e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.717436917824671e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": 14.605765214999991,
+      "reference_iterations": 51,
+      "candidate_iterations": 60
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 3.3771594201703614e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.4386547508848935e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.6833100469071383e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r2-cold-1",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.432898327242583e-11,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.4788172342814505e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.492947522999998,
+      "candidate_seconds": 15.518207773,
+      "reference_iterations": 75,
+      "candidate_iterations": 76
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 5.893113219634927e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 7.562866999322182e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 8.844032173271899e-10,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r2-cold-1",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.539266905747354e-08,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.0160784919862635e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 179.67379075000002,
+      "candidate_seconds": 15.518207773,
+      "reference_iterations": 70,
+      "candidate_iterations": 76
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 6.327277313200597e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 4.7590986707035654e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 7.133642634937765e-10,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r3-cold-0",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 9.299583325628191e-11,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0868461686186492e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.292505946999999,
+      "candidate_seconds": 14.611700184,
+      "reference_iterations": 51,
+      "candidate_iterations": 52
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 7.852806842290061e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.4989309793378425e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.3899052464516615e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r3-cold-0",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.2623748918704223e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.727145773766097e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": 14.611700184,
+      "reference_iterations": 51,
+      "candidate_iterations": 52
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 9.45126202994695e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 3.1921354448627426e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.3138694021641584e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r3-cold-1",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.4792614062316716e-11,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.296918293926865e-11,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.492947522999998,
+      "candidate_seconds": 15.326498625,
+      "reference_iterations": 75,
+      "candidate_iterations": 69
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 7.039002956898965e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.6136991742854434e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.203507252840394e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r3-cold-1",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.537220542668365e-08,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.015896593045909e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 179.67379075000002,
+      "candidate_seconds": 15.326498625,
+      "reference_iterations": 70,
+      "candidate_iterations": 69
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 7.3806020496614e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.894076007147305e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.2319407161065499e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r3-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.5211298887152225e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.2391865311656147e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.292505946999999,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 64
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 7.001035549902834e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 8.157513553541662e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 2.194960990742345e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r3-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_z",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.2648259800917003e-07,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.703885446768254e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 7.450580596923828e-09,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 175.427367412,
+      "candidate_seconds": null,
+      "reference_iterations": 51,
+      "candidate_iterations": 64
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 2.1068663480505734e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 8.774531101707339e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 7.450580596923828e-09,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.0650056392336182e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r3-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.5802470443304628e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.4028955774847418e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 13.492947522999998,
+      "candidate_seconds": null,
+      "reference_iterations": 75,
+      "candidate_iterations": 68
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 7.787837041917101e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 3.7202363412092154e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.0945794270966758e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "fept-r3-sweep",
+    "case": "tzdp_np_s25_m400_k4_t300_x",
+    "reference_role": "historical_pristine_cpu",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.525897333631292e-08,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 4.0266286305268295e-08,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 9.999999974752427e-07,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Requested force/stress work differs; timings have different observable scope",
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 179.67379075000002,
+      "candidate_seconds": null,
+      "reference_iterations": 70,
+      "candidate_iterations": 68
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 4.81027523369093e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 3.439859508347354e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.3215489466644748e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "feco-r1-cold-0",
+    "case": "grid2000_shift0p00125_k16_t300_001",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.402842700481415e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.416485121008009e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000258969521e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.1920928955078125e-07,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 92.66220361300003,
+      "candidate_seconds": 97.44332425800002,
+      "reference_iterations": 35,
+      "candidate_iterations": 31
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 3.7752379000721703e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.5827783528266082e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.7724289813614291e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "feco-r1-cold-1",
+    "case": "grid2000_shift0p00125_k16_t300_110",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.6561687011271715e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.651621227618307e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000258969521e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.1920928955078125e-07,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 99.86814143900006,
+      "candidate_seconds": 115.69063759,
+      "reference_iterations": 39,
+      "candidate_iterations": 42
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 3.985649033033667e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.305728858369548e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 9.009800683301705e-10,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "feco-r1-cold-2",
+    "case": "grid2000_shift0p00125_k16_t300_111",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 6.366462912410498e-12,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 5.4569682106375694e-12,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000258969521e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.1920928955078125e-07,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 91.77081710499999,
+      "candidate_seconds": 121.15103354599995,
+      "reference_iterations": 34,
+      "candidate_iterations": 54
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 1.1045786507679622e-09,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 8.411682461684222e-11,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.6709900130251754e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "feco-r1-sweep",
+    "case": "grid2000_shift0p00125_k16_t300_001",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.7853380995802581e-09,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 1.786247594282031e-09,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000258969521e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.1920928955078125e-07,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 92.66220361300003,
+      "candidate_seconds": null,
+      "reference_iterations": 35,
+      "candidate_iterations": 31
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 4.698810229797346e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.0259482152719102e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.260581139472805e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "feco-r1-sweep",
+    "case": "grid2000_shift0p00125_k16_t300_110",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.701199264265597e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.6830093702301383e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000258969521e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.1920928955078125e-07,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 99.86814143900006,
+      "candidate_seconds": null,
+      "reference_iterations": 39,
+      "candidate_iterations": 41
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 4.4448533742524887e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 1.2045431319052113e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 6.420212139701675e-10,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  },
+  {
+    "label": "feco-r1-sweep",
+    "case": "grid2000_shift0p00125_k16_t300_111",
+    "reference_role": "historical_energy_only",
+    "passed": true,
+    "science": {
+      "passed": true,
+      "reasons": [],
+      "checks": {
+        "energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 2.951310307253152e-10,
+          "tolerance": 1e-05
+        },
+        "free_energy_per_atom_ev": {
+          "passed": true,
+          "max_absolute_error": 3.014974936377257e-10,
+          "tolerance": 1e-05
+        },
+        "fermi_energy_ev": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-05
+        },
+        "total_moment_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_moments_muB": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "atom_net_charges_e": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0001
+        },
+        "eigenvalues_ev": {
+          "passed": true,
+          "max_absolute_error": 1.0000000258969521e-06,
+          "tolerance": 0.0001
+        },
+        "density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.1920928955078125e-07,
+          "tolerance": 1e-05
+        },
+        "deformation_density_components_e_bohr3": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "tsde_not_requested": {
+          "passed": true
+        },
+        "netcdf_not_requested": {
+          "passed": true
+        }
+      },
+      "end_to_end_speedup": null,
+      "performance_comparable": false,
+      "performance_reasons": [
+        "Hardware or runtime allocation differs"
+      ],
+      "reference_seconds": 91.77081710499999,
+      "candidate_seconds": null,
+      "reference_iterations": 34,
+      "candidate_iterations": 43
+    },
+    "exports": {
+      "passed": true,
+      "checks": {
+        "hsx_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_offsets": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_labels": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "hsx_precision": {
+          "passed": true
+        },
+        "hsx_basis": {
+          "passed": true
+        },
+        "hsx_kpoints": {
+          "passed": true
+        },
+        "hsx_charge": {
+          "passed": true
+        },
+        "hsx_temperature_ry": {
+          "passed": true
+        },
+        "hsx_h": {
+          "passed": true,
+          "max_absolute_error": 8.608056489833871e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_overlap": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-06
+        },
+        "hsx_fermi_ry": {
+          "passed": true,
+          "max_absolute_error": 2.323354841848868e-10,
+          "tolerance": 1e-06
+        },
+        "hsx_positions": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.001
+        },
+        "hsx_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 1e-08
+        },
+        "drho_cell": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "drho": {
+          "passed": true,
+          "max_absolute_error": 1.4901161193847656e-08,
+          "tolerance": 1e-05
+        },
+        "dm_header": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_counts": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_columns": {
+          "passed": true,
+          "max_absolute_error": 0.0,
+          "tolerance": 0.0
+        },
+        "dm_values": {
+          "passed": true,
+          "max_absolute_error": 1.6697675464527606e-09,
+          "tolerance": 1e-07
+        }
+      }
+    }
+  }
+]
