@@ -164,6 +164,27 @@ exact-Hamiltonian checks, unchanged full-SCF/pristine anchors and sensitivity to
 two independently converged SOC-free reference directions. Method error remains
 separate from implementation agreement and k/smearing convergence.
 
+The prepared follow-up in `build/mae-soc-free-reference-20261026` contains
+nine serial calculations: fresh full-SOC FePt z/x and FeCo [001]/[110]/[111]
+anchors, an SOC-free FePt z probe, SOC-free FeCo [001] and [110] probes, and an
+eigenvalues-only repeat of the SOC-free FeCo [001] probe. The ordinary FePt z
+anchor also checks the unchanged frozen path. It retains 4³/400 Ry/0.01 Ry
+confinement for FePt and 16³/2000 Ry/0.00125 Ry for FeCo, with 300 K smearing
+and the existing TZDP, pseudopotentials and convergence settings. Matrix and
+spectrum gates remain 1e-10 Ry and 1e-7 eV; method bias and reference spread
+retain the 5 micro-eV/f.u. diagnostic target. Historical pristine FePt checks
+are reused; no new full CPU timing run is included.
+
+The recipe pins the accepted prior image, executable/library and native hashes,
+and overlays only six declared native files. Production keeps its 128-k guard;
+the inherited staged 32768 ceiling remains unqualified. Local tests (73),
+host-only C++ syntax checks, source-input checks and replay of the existing
+FePt evidence pass. CUDA compilation and execution are pending. The requested
+new allowance is 20 H100-minutes, one GPU at a time, with 90 seconds reserved
+for evidence; authorization remains zero and the app refuses an unfunded
+launch. The prior app is STOPPED with zero account containers. See the local
+`PREPARED.md` for the exact sequence and evidence-recovery commands.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |
