@@ -378,12 +378,13 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         // terms. Keep its spin trace in ALL SCF seeds/energy contractions and
         // restore only the spin-dependent remainder in the terminal probe.
         state.frozen_soc=b.offsite;
+        const auto* original_offsite=b.offsite;
+        cuDoubleComplex *scalar_offsite=nullptr,*spin_dependent_soc=nullptr;
         if(state.record.soc_free_reference) {
             require(state.frozen_soc,"Missing frozen lattice SOC operator");
-            auto* scalar=state.allocate<cuDoubleComplex>(size_t(cap)*4);
-            auto* soc=state.allocate<cuDoubleComplex>(size_t(cap)*4);
-            check(remag::prepare_soc_free_offsite(shape.assembly,state.frozen_soc,scalar,soc,state.stream));
-            b.offsite=scalar;state.frozen_soc=soc;
+            scalar_offsite=state.allocate<cuDoubleComplex>(size_t(cap)*4);
+            spin_dependent_soc=state.allocate<cuDoubleComplex>(size_t(cap)*4);
+            b.offsite=scalar_offsite;state.frozen_soc=spin_dependent_soc;
             state.record.scalar_offsite_bytes=state.record.spin_dependent_soc_bytes=size_t(cap)*4*sizeof(cuDoubleComplex);
         }
 #endif
@@ -402,7 +403,16 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         state.record.compact_exports=remag::integral_force_enabled();state.record.old_energy_host=old_energy_density!=nullptr;
         // Legacy staging uses the default stream. All preparation completes
         // before the new nondefault-stream owner can execute.
-        check(cudaDeviceSynchronize());state.plan=std::make_unique<remag::ScfCyclePlan>(shape,b,control,state.stream);
+        check(cudaDeviceSynchronize());
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        // The split reads both uploaded assembly indices and the retained (or
+        // uploaded) nonlocal operator. Queue it only after their setup barrier,
+        // on the same stream as the SCF consumers of the split buffers.
+        if(state.record.soc_free_reference)
+            check(remag::prepare_soc_free_offsite(shape.assembly,original_offsite,
+                scalar_offsite,spin_dependent_soc,state.stream));
+#endif
+        state.plan=std::make_unique<remag::ScfCyclePlan>(shape,b,control,state.stream);
         if(initialize) {
             const remag::InitialDensityProblem initial{cap,nh,std::min(nh,2),c[10],v[4]};
             auto problem=state.allocate<remag::InitialDensityProblem>(1,&initial);
