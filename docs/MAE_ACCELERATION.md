@@ -241,6 +241,12 @@ electronic-output tests pass, including the host-compiled native writer and its
 failure cases. Direction-to-output collection and combined CUDA qualification
 remain outstanding, so the input guard is still closed.
 
+The compact orbital-basis owner is now included in the energy-only handoff.
+Its immutable geometry advances with the retained mesh; derivative allocation,
+generation and force-completion fields stay false. Ordinary force sweeps retain
+their previous orbital lifecycle. Host tests exercise both paths and reject
+premature/stale/duplicate reuse and force access after electronic retirement.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

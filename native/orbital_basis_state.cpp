@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "orbital_basis_state.hpp"
 #include "execution.hpp"
+#include "final_grid_state.hpp"
+#include "spin_rotation.hpp"
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -17,6 +19,7 @@ struct Record {
     uint64_t epoch=0;std::array<int,9> shape{};
     size_t staged=0,allocated=0,shadow_staged=0,shadow_exported=0,derivative_bytes=0;
     remag::OrbitalComparison comparison{};int status=-1;bool consumed=false,passed=false,shadow=false,generated=false;
+    bool energy_only_complete=false,reused_geometry=false;
 };
 struct Records {
     std::vector<Record> rows;
@@ -31,6 +34,8 @@ struct Records {
             std::fprintf(f,"],\"compact_setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"derivative_bytes\":%zu,\"shadow_setup_bytes\":%zu,\"shadow_export_bytes\":%zu,\"status\":%d,\"consumed\":%s,\"passed\":%s,\"generated\":%s,\"comparison_performed\":%s,\"host_derivatives_authoritative\":%s,",
                 r.staged,r.allocated,r.derivative_bytes,r.shadow_staged,r.shadow_exported,r.status,r.consumed?"true":"false",r.passed?"true":"false",
                 r.generated?"true":"false",r.shadow&&r.consumed?"true":"false",r.shadow?"true":"false");
+            std::fprintf(f,"\"energy_only_complete\":%s,\"reused_geometry\":%s,",
+                r.energy_only_complete?"true":"false",r.reused_geometry?"true":"false");
             if(r.shadow&&r.consumed)
                 std::fprintf(f,"\"compared\":%llu,\"mismatches\":%llu,\"nonfinite\":%llu,\"max_absolute_error\":[%.17g,%.17g,%.17g],\"max_scaled_error\":[%.17g,%.17g,%.17g],\"atol\":1e-10,\"rtol\":1e-10,\"displacements_exact\":true}",
                     c.compared,c.mismatches,c.nonfinite,c.absolute[0],c.absolute[1],c.absolute[2],c.scaled[0],c.scaled[1],c.scaled[2]);
@@ -97,7 +102,7 @@ extern "C" int remag_orbital_basis_prepared(int no,int np,int entries,int nsp){
     try {
         if(!owner||owner->epoch!=remag::geometry_epoch())return 0;
         valid_owner(remag::geometry_epoch());const auto& g=owner->view.geometry;
-        require(!owner->borrowed&&!owner->complete&&g.orbitals==no&&g.entries==entries&&g.subpoints==nsp&&
+        require(!owner->borrowed&&!owner->complete&&!records().rows[owner->record].energy_only_complete&&g.orbitals==no&&g.entries==entries&&g.subpoints==nsp&&
             records().rows[owner->record].shape[8]==np,"Prepared orbital mesh shape changed");
         return 1;
     }catch(const std::exception& e){std::fprintf(stderr,"REMAG prepared orbital basis: %s\n",e.what());return -261;}
@@ -109,7 +114,7 @@ remag::OrbitalBasisDeviceView remag::borrow_orbital_mesh_basis(uint64_t epoch,in
 }
 remag::OrbitalBasisDeviceView remag::begin_orbital_basis(uint64_t epoch,int no,int np,int entries,int nsp,cudaStream_t stream){
     valid_owner(epoch);
-    require(!owner->borrowed&&!owner->complete&&stream,"Invalid orbital basis borrow");
+    require(!owner->borrowed&&!owner->complete&&!records().rows[owner->record].energy_only_complete&&stream,"Invalid orbital basis borrow");
     auto& s=*owner;const auto& g=s.view.geometry;
     require(g.orbitals==no&&g.entries==entries&&g.subpoints==nsp&&records().rows[s.record].shape[8]==np,"Orbital basis geometry changed before force use");
     const size_t n=size_t(entries)*nsp;
@@ -141,4 +146,30 @@ void remag::finish_orbital_basis(uint64_t epoch,int force_status){
             c.scaled[0]<=1.&&c.scaled[1]<=1.&&c.scaled[2]==0.;
     }
     require(r.passed,"Device orbital derivatives or full shadow failed");s.complete=true;
+}
+
+void remag::complete_orbital_basis_energy_only(uint64_t epoch){
+    valid_owner(epoch);auto& r=records().rows.at(owner->record);
+    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
+        !owner->shadow&&!owner->borrowed&&!owner->complete&&!owner->generated&&!r.energy_only_complete&&
+        !r.consumed&&!r.generated&&!r.passed&&r.status==-1,
+        "Orbital geometry retirement requires accepted energy-only state and no derivative consumers");
+    r.energy_only_complete=true;
+}
+extern "C" int remag_reuse_orbital_geometry(){
+    // Ordinary force sweeps retain their existing derivative lifecycle.
+    if(!remag::energy_only_enabled())return 0;
+    try {
+        valid_mode();require(remag_orientation_retain_geometry()&&!remag::in_scf()&&owner&&remag::orbital_basis_enabled(),
+            "Orbital geometry reuse requires retained energy-only geometry");
+        const auto& old=records().rows.at(owner->record);
+        require(old.energy_only_complete&&old.epoch==owner->epoch&&remag::geometry_epoch()==old.epoch+1&&
+            !owner->shadow&&!owner->borrowed&&!owner->complete&&!owner->generated&&
+            !old.consumed&&!old.generated&&!old.passed&&old.status==-1,
+            "Orbital geometry reuse precedes accepted energy-only state");
+        Record next=old;next.epoch=remag::geometry_epoch();next.energy_only_complete=false;next.reused_geometry=true;
+        next.staged=0;next.allocated=0;
+        owner->epoch=next.epoch;owner->staged=0;owner->allocated=0;owner->record=records().rows.size();
+        records().rows.push_back(next);return 0;
+    }catch(const std::exception& e){std::fprintf(stderr,"REMAG orbital geometry reuse: %s\n",e.what());return -260;}
 }

@@ -76,6 +76,11 @@ def test_energy_only_keeps_prepared_orbitals_but_rejects_derivative_allocation()
         changed = dict(record, **{key: value})
         assert orbital_errors(changed, dict(epoch=1), False, energy_only=True)
     assert orbital_errors(record, dict(epoch=1), False)
+    reused = dict(record, epoch=2, compact_setup_bytes=0, device_allocation_bytes=0, reused_geometry=True)
+    assert not orbital_errors(reused, dict(epoch=2), False, energy_only=True, reused_geometry=True)
+    assert orbital_errors(reused, dict(epoch=2), False, energy_only=True)
+    assert orbital_errors(record, dict(epoch=1), False, energy_only=True, reused_geometry=True)
+    assert orbital_errors(dict(reused, generated=True), dict(epoch=2), False, energy_only=True, reused_geometry=True)
 
 
 def sweep():

@@ -14,13 +14,14 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OWNERS = ('pair_geometry_state', 'nonlocal_force_state', 'nonlocal_h0_state', 'initial_mesh_production')
+OWNERS = ('pair_geometry_state', 'nonlocal_force_state', 'nonlocal_h0_state', 'initial_mesh_production', 'orbital_basis_state')
 RECEIPTS = ('remag-pair-geometry.json', 'remag-nonlocal-geometry.json',
-            'remag-nonlocal-h0.json', 'remag-initial-mesh-production.json')
+            'remag-nonlocal-h0.json', 'remag-initial-mesh-production.json', 'remag-orbital-basis.json')
 
 CUDA = r'''
 #pragma once
 #include <cstddef>
+#include <cstdlib>
 #include <stdexcept>
 using cudaError_t=int;using cudaStream_t=void*;using cudaGraph_t=void*;
 using cudaGraphExec_t=void*;using cudaGraphNode_t=void*;using cudaGraphNodeType=int;
@@ -32,9 +33,9 @@ inline cudaError_t cudaStreamSynchronize(cudaStream_t){return 0;}
 inline cudaError_t cudaStreamDestroy(cudaStream_t){return 0;}
 inline cudaError_t cudaFree(void*){throw std::runtime_error("Unexpected device storage");}
 inline const char* cudaGetErrorString(cudaError_t){return "Host lifetime test";}
-cudaError_t cudaMalloc(void**,size_t);
+inline cudaError_t cudaMalloc(void**,size_t){std::abort();}
 cudaError_t cudaMemcpy(void*,const void*,size_t,int);
-cudaError_t cudaMemcpyAsync(void*,const void*,size_t,int,cudaStream_t);
+inline cudaError_t cudaMemcpyAsync(void*,const void*,size_t,int,cudaStream_t){std::abort();}
 cudaError_t cudaMemsetAsync(void*,int,size_t,cudaStream_t);
 cudaError_t cudaStreamBeginCapture(cudaStream_t,int);
 inline cudaError_t cudaStreamEndCapture(cudaStream_t,cudaGraph_t*){throw std::runtime_error("Unexpected capture");}
@@ -62,6 +63,7 @@ bool in_scf(){return test_scf;}
 bool energy_only_enabled(){return test_energy;}
 bool integral_force_enabled(){return true;}
 bool pair_force_active(){return true;}
+void transfer(Transfer,bool,size_t,size_t){std::abort();}
 bool final_electronic_state_complete(uint64_t epoch){return test_accepted&&epoch==test_epoch&&!test_scf;}
 void validate_grid_sparse_topology(int,int,int,const int*,const int*,const int*) {
     std::abort(); // A rejection must occur in the owner, before this consumer.
@@ -134,11 +136,30 @@ void force_access(){remag::GridPotentialProblem p{},device{};
     remag::borrow_initial_mesh_density(test_epoch,p,&device,reinterpret_cast<void*>(1));}
 void partial_rejected(){row().density_released=false;rejects([]{complete(test_epoch);});row().density_released=true;}
 void no_forces(){assert(!row().forces_complete);}
+#elif OWNER == 4
+void setup(){
+    setenv("REMAG_GRID_FORCE","1",1);setenv("REMAG_ORBITAL_BASIS","1",1);
+    Record r;r.epoch=test_epoch;r.staged=123;r.allocated=456;records().rows.push_back(r);
+    owner=std::make_unique<Owner>();owner->epoch=test_epoch;
+}
+auto& row(){return records().rows.at(owner->record);}
+void complete(uint64_t epoch){remag::complete_orbital_basis_energy_only(epoch);}
+int reuse(){return remag_reuse_orbital_geometry();}
+void force_complete(){owner->complete=true;owner->generated=true;owner->borrowed=true;
+    row().consumed=true;row().generated=true;row().passed=true;row().status=0;}
+void force_access(){remag::begin_orbital_basis(test_epoch,0,0,0,0,reinterpret_cast<void*>(1));}
+void partial_rejected(){owner->borrowed=true;rejects([]{complete(test_epoch);});owner->borrowed=false;}
+void no_forces(){assert(!row().consumed&&!row().generated&&!row().passed&&row().status==-1&&!owner->complete);}
 #endif
 
 int main(int argc,char** argv){
     assert(argc==2);setup();const bool force=std::string(argv[1])=="force";
-    if(force){test_energy=false;force_complete();}
+    if(force){test_energy=false;force_complete();
+#if OWNER == 4
+        // The new orbital reuse hook leaves the existing force path alone.
+        bridge(reuse());assert(records().rows.size()==1&&owner->complete);return 0;
+#endif
+    }
     else {
         rejects([]{complete(test_epoch);}); // SCF may be done, publication is not.
         rejects([]{bridge(reuse());});
@@ -190,8 +211,11 @@ def test_publication_then_reuse_preserves_distinct_force_state(executable, mode,
     result = subprocess.run([str(program), mode], cwd=tmp_path, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
     rows = json.loads((tmp_path/receipt).read_text())['cycles']
+    if receipt == 'remag-orbital-basis.json' and mode == 'force':
+        assert len(rows) == 1 and rows[0]['consumed'] is True and rows[0]['reused_geometry'] is False
+        return
     assert len(rows) == 2 and [r['epoch'] for r in rows] == [7, 8]
     assert rows[0]['energy_only_complete'] is (mode == 'energy')
-    assert rows[0].get('complete', rows[0].get('forces_complete')) is (mode == 'force')
+    assert rows[0].get('complete', rows[0].get('forces_complete', rows[0].get('consumed'))) is (mode == 'force')
     assert rows[1]['energy_only_complete'] is False
-    assert rows[1].get('complete', rows[1].get('forces_complete')) is False
+    assert rows[1].get('complete', rows[1].get('forces_complete', rows[1].get('consumed'))) is False

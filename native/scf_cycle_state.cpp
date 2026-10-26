@@ -10,6 +10,7 @@
 #include "initial_state.hpp"
 #include "nonlocal_h0_state.hpp"
 #include "initial_mesh_state.hpp"
+#include "orbital_basis_state.hpp"
 #include "pair_geometry_state.hpp"
 #include "nonlocal_force_state.hpp"
 #include "spin_rotation.hpp"
@@ -624,6 +625,7 @@ extern "C" int remag_cycle_energy_publish(int* iterations) {
             remag::complete_nonlocal_geometry_energy_only(state.epoch);
             remag::complete_nonlocal_h0_energy_only(state.epoch);
             if(remag::initial_mesh_enabled())remag::complete_initial_mesh_energy_only(state.epoch);
+            remag::complete_orbital_basis_energy_only(state.epoch);
         }
         state.final_grid_used=true;*iterations=state.result.iterations;
         counts.energy_publications.push_back({state.epoch,state.capacity,state.nh,*iterations});

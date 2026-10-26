@@ -2117,6 +2117,9 @@ C       Electronic mixing and the initial density still start a fresh cycle.
         integer(c_int) function remag_reuse_initial_mesh() bind(C)
           import c_int
         end function
+        integer(c_int) function remag_reuse_orbital_geometry() bind(C)
+          import c_int
+        end function
         integer(c_int) function remag_reuse_pair_geometry() bind(C)
           import c_int
         end function
@@ -2140,6 +2143,7 @@ C       Advance the electronic lifetime while retaining immutable geometry.
         call remag_dm_check(remag_reuse_pair_geometry())
         call remag_dm_check(remag_reuse_nonlocal_geometry())
         call remag_dm_check(remag_reuse_nonlocal_h0())
+        call remag_dm_check(remag_reuse_orbital_geometry())
         call remag_dm_check(remag_reuse_initial_mesh())
         write(*,'(a)') 'REMAG: reuse GPU pair/projector/SOC H0 geometry'
         call timer('Setup_H0',2)

@@ -22,7 +22,9 @@ void generate_orbital_basis(uint64_t epoch,int* status,cudaStream_t);
 // Consume the existing force status after its stream completes. Production
 // adds no export; shadow exports a compact record and rejects partial coverage.
 void finish_orbital_basis(uint64_t epoch,int force_status);
+void complete_orbital_basis_energy_only(uint64_t epoch);
 }
+extern "C" int remag_reuse_orbital_geometry();
 
 extern "C" int remag_orbital_basis_stage(const int*,double,const int*,const int*,const double*,const double*,const double*,
     const int*,const int*,const int*,const int*,const int*,const double*,const double*,const double*);

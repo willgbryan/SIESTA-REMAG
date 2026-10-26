@@ -2,19 +2,23 @@
 import math
 
 
-def record_errors(record,force,shadow=True,*,energy_only=False):
+def record_errors(record,force,shadow=True,*,energy_only=False,reused_geometry=False):
     errors=[];shape=record.get('shape',[])
     if len(shape)!=9 or any(type(v) is not int or v<0 for v in shape) or any(shape[i]==0 for i in (0,1,3,4,5,6,7,8)):
         return ['Invalid orbital basis shape']
     ns,nb,samples,entries,nsp,no,na,offsets,np=shape
     staged=8*ns+32*nb+16*samples+8*entries+8*no+28*na+24*offsets+24*nsp
     derivatives=56*entries*nsp;extra=72 if shadow else 0
+    if reused_geometry and not energy_only:
+        return ['Orbital geometry reuse is only implemented for energy-only sweeps']
     if energy_only:
-        expected=dict(compact_setup_bytes=staged, derivative_bytes=derivatives,
-                      device_allocation_bytes=staged+(16 if samples==0 else 0),
+        expected=dict(compact_setup_bytes=0 if reused_geometry else staged, derivative_bytes=derivatives,
+                      device_allocation_bytes=0 if reused_geometry else staged+(16 if samples==0 else 0),
                       shadow_setup_bytes=0, shadow_export_bytes=0, status=-1,
                       consumed=False, passed=False, generated=False,
                       comparison_performed=False, host_derivatives_authoritative=False)
+        if record.get('reused_geometry', False) is not reused_geometry:
+            errors.append('Orbital geometry reuse differs from requested sweep')
         if shadow or record.get('epoch')!=force.get('epoch') or any(
                 type(record.get(k)) is not type(v) or record[k]!=v for k,v in expected.items()):
             errors.append('Energy-only orbital owner allocated or consumed derivatives, or changed geometry')
