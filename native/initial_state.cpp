@@ -73,8 +73,8 @@ void current(Stage stage){require(initial_state_enabled()&&!in_scf()&&state&&sta
 void begin(int atoms,int rows,int capacity,int spins,int species,int requests,const int* num,const int* ptr,
         const double* overlap,const double* density,const int* lasto,const int* ids,const double* valence){
     require(initial_state_enabled()&&remag_cycle_enabled()&&integral_force_enabled()&&!in_scf()&&
-        (!state||(state->stage==Stage::released&&final_grid_forces_complete(state->epoch))),
-        "Previous initial density/force ownership is incomplete");
+        (!state||(state->stage==Stage::released&&final_electronic_state_complete(state->epoch))),
+        "Previous initial density/final-state ownership is incomplete");
     require(atoms>0&&atoms<=1000000&&rows>0&&rows<=1000000&&capacity>0&&species>0&&species<=1000000&&
         (spins==1||spins==2||spins==4||spins==8)&&capacity<=INT_MAX/spins&&requests>=0&&requests<=3&&
         num&&ptr&&overlap&&density&&lasto&&ids&&valence,"Invalid initial density configuration");

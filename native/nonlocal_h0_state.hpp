@@ -21,6 +21,7 @@ void evaluate_nonlocal_h0_shadow(NonlocalH0View view,const NonlocalNeighbor* hos
 void bind_nonlocal_h0_shadow(uint64_t epoch);
 const double* borrow_nonlocal_h0_integrals(uint64_t epoch,int consumer,int queries);
 void finish_nonlocal_h0_shadow(uint64_t epoch);
+void complete_nonlocal_h0_energy_only(uint64_t epoch);
 }
 extern "C" int remag_nonlocal_h0_shadow_enabled();
 extern "C" int remag_nonlocal_h0_enabled();

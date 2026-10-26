@@ -10,6 +10,9 @@
 #include "initial_state.hpp"
 #include "nonlocal_h0_state.hpp"
 #include "initial_mesh_state.hpp"
+#include "pair_geometry_state.hpp"
+#include "nonlocal_force_state.hpp"
+#include "spin_rotation.hpp"
 #ifdef REMAG_BUILD_FROZEN_POTENTIAL
 #include "frozen_potential_probe.hpp"
 #endif
@@ -611,6 +614,15 @@ extern "C" int remag_cycle_energy_publish(int* iterations) {
             state.final_grid_pending&&!state.final_grid_used&&!state.final_h_required&&state.final_h.empty(),
             "Energy-only finalization requires the accepted final device cycle");
         remag::complete_energy_only_state(state.epoch);
+        if(remag_orientation_retain_geometry()) {
+            // Record acceptance while the final snapshot still belongs to the
+            // current epoch. Reuse advances the epoch only during next H0 setup.
+            // These retirements do not claim any force/stress consumer ran.
+            remag::complete_pair_geometry_energy_only(state.epoch);
+            remag::complete_nonlocal_geometry_energy_only(state.epoch);
+            remag::complete_nonlocal_h0_energy_only(state.epoch);
+            if(remag::initial_mesh_enabled())remag::complete_initial_mesh_energy_only(state.epoch);
+        }
         state.final_grid_used=true;*iterations=state.result.iterations;
         FILE* receipt=std::fopen("remag-energy-only.json","w");require(receipt,"Cannot record energy-only publication");
         const int written=std::fprintf(receipt,

@@ -21,6 +21,9 @@ PairGeometryView stage_pair_geometry(int consumer,size_t queries,const int* pair
 void complete_pair_geometry(int consumer);
 PairGeometryView borrow_integral_pair_geometry(int consumer,int atoms,const FinalGridStateView&);
 void finish_integral_pair_geometry(uint64_t epoch,int status);
+// Retire the electronic epoch without claiming either force consumer ran.
+// Call after accepted energy-only publication, before advancing the epoch.
+void complete_pair_geometry_energy_only(uint64_t epoch);
 }
 extern "C" int remag_pair_force_active();
 extern "C" int remag_pair_geometry_prepare(int,int,int,int,double,const int*,const int*,const int*);

@@ -16,6 +16,7 @@ struct PreparedNonlocalForceView {NonlocalCompactView view;const int* pairs;};
 PreparedNonlocalForceView borrow_integral_nonlocal(int consumer,int atoms,const FinalGridStateView&,cudaStream_t);
 void apply_integral_nonlocal(const double* integrals,double* weights,const FinalForceAccumulatorView&);
 void finish_integral_nonlocal(int status);
+void complete_nonlocal_geometry_energy_only(uint64_t epoch);
 }
 extern "C" int remag_nonlocal_force_shadow_enabled();
 extern "C" int remag_nonlocal_force_active();

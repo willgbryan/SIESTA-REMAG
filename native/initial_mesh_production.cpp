@@ -37,7 +37,7 @@ struct Record {
     size_t staged=0,allocated=0,workspace=0;
     bool launched=false,phi_bound=false,density_borrowed=false,density_released=false,forces_complete=false,passed=false;
     int cycle_status=-1,producer_status=-1,converged=0;
-    bool poison_requested=false,host_poisoned=false,reused=false;
+    bool poison_requested=false,host_poisoned=false,reused=false,energy_only_complete=false;
 };
 struct Records {
     std::vector<Record> rows;
@@ -48,10 +48,10 @@ struct Records {
         for(size_t i=0;i<rows.size();i++){
             const auto& r=rows[i];std::fprintf(f,"%s{\"epoch\":%llu,\"shape\":[",i?",":"",static_cast<unsigned long long>(r.epoch));
             for(size_t j=0;j<r.shape.size();j++)std::fprintf(f,"%s%d",j?",":"",r.shape[j]);
-            std::fprintf(f,"],\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"hartree_workspace_bytes\":%zu,\"array_upload_bytes\":0,\"export_bytes\":0,\"poison_requested\":%s,\"host_poisoned\":%s,\"reused_geometry\":%s,\"launched\":%s,\"phi_bound\":%s,\"density_borrowed\":%s,\"density_released\":%s,\"forces_complete\":%s,\"passed\":%s,\"cycle_status\":%d,\"cycle_producer_status\":%d,\"converged\":%s}",
+            std::fprintf(f,"],\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"hartree_workspace_bytes\":%zu,\"array_upload_bytes\":0,\"export_bytes\":0,\"poison_requested\":%s,\"host_poisoned\":%s,\"reused_geometry\":%s,\"launched\":%s,\"phi_bound\":%s,\"density_borrowed\":%s,\"density_released\":%s,\"forces_complete\":%s,\"passed\":%s,\"cycle_status\":%d,\"cycle_producer_status\":%d,\"converged\":%s,\"energy_only_complete\":%s}",
                 r.staged,r.allocated,r.workspace,r.poison_requested?"true":"false",r.host_poisoned?"true":"false",r.reused?"true":"false",r.launched?"true":"false",r.phi_bound?"true":"false",
                 r.density_borrowed?"true":"false",r.density_released?"true":"false",r.forces_complete?"true":"false",r.passed?"true":"false",
-                r.cycle_status,r.producer_status,r.converged?"true":"false");
+                r.cycle_status,r.producer_status,r.converged?"true":"false",r.energy_only_complete?"true":"false");
         }
         std::fputs("]}\n",f);std::fclose(f);
     }
@@ -101,6 +101,14 @@ void complete_initial_mesh_forces(uint64_t epoch){
     auto& r=current(epoch);require(r.passed&&r.density_released&&!r.forces_complete&&final_grid_forces_complete(epoch),
         "Initial mesh final forces were not completed");r.forces_complete=true;
 }
+void complete_initial_mesh_energy_only(uint64_t epoch){
+    auto& r=current(epoch);
+    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
+        r.passed&&r.phi_bound&&r.density_borrowed&&r.density_released&&r.converged&&
+        r.cycle_status==0&&r.producer_status==0&&!r.forces_complete&&!r.energy_only_complete,
+        "Initial mesh retirement requires accepted energy-only state and released density");
+    r.energy_only_complete=true;
+}
 void release_initial_mesh_density(uint64_t epoch,int status,int producer,int converged){
     auto& r=current(epoch);
     require(r.phi_bound&&r.density_borrowed&&!r.density_released&&!status&&!producer&&converged,
@@ -126,7 +134,7 @@ extern "C" int remag_initial_mesh_prepare(const int* c,const double* reciprocal,
         for(int i=0;i<9;i++)require(std::isfinite(reciprocal[i]),"Invalid reciprocal cell");
         const auto epoch=remag::geometry_epoch();require(epoch>0,"Absent initial mesh geometry epoch");
         if(owner){const auto& previous=records().rows.at(owner->row);
-            require(owner->epoch<epoch&&previous.passed&&previous.density_released&&previous.forces_complete,
+            require(owner->epoch<epoch&&previous.passed&&previous.density_released&&(previous.forces_complete||previous.energy_only_complete),
                 "Cannot discard an unconsumed initial mesh geometry");}
         const auto basis=remag::borrow_orbital_mesh_basis(epoch,c[4],c[6],c[7],nsp);
         owner.reset();auto s=std::make_unique<Owner>();s->epoch=epoch;s->row=records().rows.size();
@@ -173,7 +181,7 @@ extern "C" int remag_reuse_initial_mesh() {
         require(remag_orientation_retain_geometry()&&!remag::in_scf()&&owner,
             "Initial mesh reuse requires a retained magnetic geometry");
         const auto& old=records().rows.at(owner->row);
-        require(old.passed&&old.density_released&&old.forces_complete&&
+        require(old.passed&&old.density_released&&(old.forces_complete!=old.energy_only_complete)&&
             remag::geometry_epoch()==old.epoch+1,"Initial mesh reuse precedes completed consumers");
         Record next;next.epoch=remag::geometry_epoch();next.shape=old.shape;
         next.launched=true;next.reused=true;next.poison_requested=old.poison_requested;next.host_poisoned=old.host_poisoned;

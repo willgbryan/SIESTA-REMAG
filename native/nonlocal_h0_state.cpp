@@ -1,6 +1,7 @@
 #include "spin_rotation.hpp"
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "nonlocal_h0_state.hpp"
+#include "final_grid_state.hpp"
 #include "two_center_state.hpp"
 #include "execution.hpp"
 #include <algorithm>
@@ -22,7 +23,7 @@ struct Record {
     uint64_t preparation_epoch=0,epoch=0;
     int rows=0,columns=0,capacity=0,consumer=0,split=0,queries=0,local_neighbors=0,nodes=0,status=-1;
     size_t staged=0,allocated=0,exported=0,raw_bytes=0;
-    bool compared=false,passed=false,bound=false,force_borrowed=false,complete=false;
+    bool compared=false,passed=false,bound=false,force_borrowed=false,complete=false,energy_only_complete=false;
     bool production=false,scf_borrowed=false,scf_released=false,poison_requested=false,host_poisoned=false;
     int query_expansion_nodes=0;bool compact_queries=false;
     double scalar_error=0.,soc_error=0.;std::string file;
@@ -45,8 +46,8 @@ struct Evidence {
                 r.staged,r.allocated,r.exported,r.raw_bytes,r.file.c_str(),r.compared?"true":"false",r.passed?"true":"false",
                 r.bound?"true":"false",r.force_borrowed?"true":"false",r.complete?"true":"false",scalar,soc);
             std::fprintf(f,",\"compact_queries\":%s,\"query_expansion_nodes\":%d",r.compact_queries?"true":"false",r.query_expansion_nodes);
-            std::fprintf(f,",\"production\":%s,\"scf_borrowed\":%s,\"scf_released\":%s",
-                r.production?"true":"false",r.scf_borrowed?"true":"false",r.scf_released?"true":"false");
+            std::fprintf(f,",\"production\":%s,\"scf_borrowed\":%s,\"scf_released\":%s,\"energy_only_complete\":%s",
+                r.production?"true":"false",r.scf_borrowed?"true":"false",r.scf_released?"true":"false",r.energy_only_complete?"true":"false");
             std::fprintf(f,",\"poison_requested\":%s,\"host_poisoned\":%s,\"setup_timing_seconds\":{",
                 r.poison_requested?"true":"false",r.host_poisoned?"true":"false");
             const char* timing_names[]={"geometry_preparation_and_staging","owner_preparation","graph_launch_and_wait","validation_and_export"};
@@ -213,7 +214,7 @@ void bind_nonlocal_h0_shadow(uint64_t epoch){
     r.epoch=epoch;r.bound=true;
 }
 NonlocalH0Matrices borrow_nonlocal_h0_matrices(uint64_t epoch,int rows,int columns,int capacity,int soc){
-    auto& r=current();require(r.production&&r.bound&&r.passed&&!r.scf_borrowed&&!r.complete&&
+    auto& r=current();require(r.production&&r.bound&&r.passed&&!r.scf_borrowed&&!r.complete&&!r.energy_only_complete&&
         epoch==r.epoch&&epoch==geometry_epoch()&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&
         (soc==0||soc==2)&&(soc==2)==(r.consumer==3)&&state->h&&((soc==2)==bool(state->z)),
         "Invalid retained H0 SCF lease");
@@ -224,13 +225,21 @@ void release_nonlocal_h0_matrices(uint64_t epoch){
         epoch==r.epoch&&epoch==geometry_epoch(),"Invalid retained H0 SCF release");r.scf_released=true;
 }
 const double* borrow_nonlocal_h0_integrals(uint64_t epoch,int consumer,int queries){
-    auto& r=current();require(r.bound&&r.passed&&(!r.production||(r.scf_borrowed&&r.scf_released))&&!r.force_borrowed&&!r.complete&&epoch==r.epoch&&epoch==geometry_epoch()&&consumer==r.consumer&&queries==r.queries&&state->integrals,
+    auto& r=current();require(r.bound&&r.passed&&(!r.production||(r.scf_borrowed&&r.scf_released))&&!r.force_borrowed&&!r.complete&&!r.energy_only_complete&&epoch==r.epoch&&epoch==geometry_epoch()&&consumer==r.consumer&&queries==r.queries&&state->integrals,
         "Invalid retained H0 integral lease");r.force_borrowed=true;return state->integrals;
 }
 void finish_nonlocal_h0_shadow(uint64_t epoch){
     if(!nonlocal_h0_active())return;
     auto& r=current();require(r.bound&&(!r.production||(r.scf_borrowed&&r.scf_released))&&r.force_borrowed&&!r.complete&&r.epoch==epoch&&epoch==geometry_epoch(),"H0 integral release before final force completion");
     r.complete=true;if(!remag_orientation_retain_geometry())state.reset();
+}
+void complete_nonlocal_h0_energy_only(uint64_t epoch){
+    auto& r=current();
+    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
+        r.epoch==epoch&&r.production&&r.bound&&r.passed&&r.status==0&&r.scf_borrowed&&r.scf_released&&
+        !r.force_borrowed&&!r.complete&&!r.energy_only_complete,
+        "H0 retirement requires accepted energy-only state and released SCF lease");
+    r.energy_only_complete=true;
 }
 }
 extern "C" int remag_nonlocal_h0_shadow_enabled(){return remag::nonlocal_h0_shadow_enabled();}
@@ -241,11 +250,13 @@ extern "C" int remag_nonlocal_h0_poison_enabled(){return remag::nonlocal_h0_pois
 extern "C" int remag_reuse_nonlocal_h0() {
     try {
         auto& old=remag::current();auto& s=*remag::state;
-        remag::require(remag_orientation_retain_geometry()&&old.production&&old.bound&&old.passed&&old.complete&&
-            old.scf_borrowed&&old.scf_released&&old.force_borrowed&&old.status==0&&
-            remag::geometry_epoch()==old.epoch+1,"H0 reuse precedes complete electronic/force leases");
+        const bool forces=old.complete&&old.force_borrowed&&!old.energy_only_complete;
+        const bool electronic=old.energy_only_complete&&!old.complete&&!old.force_borrowed;
+        remag::require(remag_orientation_retain_geometry()&&old.production&&old.bound&&old.passed&&(forces||electronic)&&
+            old.scf_borrowed&&old.scf_released&&old.status==0&&
+            remag::geometry_epoch()==old.epoch+1,"H0 reuse precedes accepted final state");
         auto next=old;next.preparation_epoch=old.epoch;next.epoch=remag::geometry_epoch();
-        next.scf_borrowed=false;next.scf_released=false;next.force_borrowed=false;next.complete=false;
+        next.scf_borrowed=false;next.scf_released=false;next.force_borrowed=false;next.complete=false;next.energy_only_complete=false;
         next.staged=0;next.allocated=0;next.exported=0;
         next.geometry_prepare=-1.;next.owner_prepare=-1.;next.graph_execution=-1.;next.validation_export=-1.;
         s.record=remag::evidence().rows.size();remag::evidence().rows.push_back(next);return 0;

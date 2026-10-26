@@ -15,7 +15,7 @@ void require(bool v,const char* m){if(!v)throw std::runtime_error(m);}
 void check(cudaError_t e){if(e!=cudaSuccess)throw std::runtime_error(cudaGetErrorString(e));}
 struct Record {
     uint64_t epoch=0;int atoms=0,rows=0,columns=0,capacity=0,queries=0,consumed=0;
-    double volume=0.;size_t staged=0,allocated=0;bool complete=false;
+    double volume=0.;size_t staged=0,allocated=0;bool complete=false,energy_only_complete=false;
 };
 struct Records {
     std::vector<Record> rows;
@@ -25,8 +25,8 @@ struct Records {
         const bool complete=std::all_of(rows.begin(),rows.end(),[](const auto& r){return r.complete;});
         std::fprintf(f,"{\"scope\":\"pre-SCF orbital-pair geometry shared by kinetic and overlap retained-D/E consumers\",\"complete\":%s,\"cycles\":[",complete?"true":"false");
         for(size_t i=0;i<rows.size();i++){const auto& r=rows[i];
-            std::fprintf(f,"%s{\"epoch\":%llu,\"atoms\":%d,\"rows\":%d,\"columns\":%d,\"capacity\":%d,\"queries\":%d,\"volume\":%.17g,\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"consumer_mask\":%d,\"complete\":%s}",
-                i?",":"",static_cast<unsigned long long>(r.epoch),r.atoms,r.rows,r.columns,r.capacity,r.queries,r.volume,r.staged,r.allocated,r.consumed,r.complete?"true":"false");}
+            std::fprintf(f,"%s{\"epoch\":%llu,\"atoms\":%d,\"rows\":%d,\"columns\":%d,\"capacity\":%d,\"queries\":%d,\"volume\":%.17g,\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"consumer_mask\":%d,\"complete\":%s,\"energy_only_complete\":%s}",
+                i?",":"",static_cast<unsigned long long>(r.epoch),r.atoms,r.rows,r.columns,r.capacity,r.queries,r.volume,r.staged,r.allocated,r.consumed,r.complete?"true":"false",r.energy_only_complete?"true":"false");}
         std::fputs("]}\n",f);std::fclose(f);
     }
 };
@@ -96,13 +96,13 @@ extern "C" int remag_pair_geometry_bind(){
 namespace remag {
 void validate_pair_geometry(int consumer,int atoms,int rows,int columns,int capacity,double volume,const int* num,const int* ptr,const int* list){
     auto& r=current();auto& g=*geometry;
-    require(g.ready&&g.bound&&!g.active&&((consumer==1&&r.consumed==0)||(consumer==4&&r.consumed==1))&&
+    require(g.ready&&g.bound&&!g.active&&!r.energy_only_complete&&((consumer==1&&r.consumed==0)||(consumer==4&&r.consumed==1))&&
         atoms==r.atoms&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&volume==r.volume&&num&&ptr&&list&&
         std::equal(g.num.begin(),g.num.end(),num)&&std::equal(g.ptr.begin(),g.ptr.end(),ptr)&&std::equal(g.list.begin(),g.list.end(),list),
         "Pair geometry changed or consumed out of order");
 }
 void begin_pair_geometry(int consumer){
-    auto& r=current();auto& g=*geometry;require(g.ready&&g.bound&&!g.active&&((consumer==1&&r.consumed==0)||(consumer==4&&r.consumed==1)),"Pair geometry consumer order");
+    auto& r=current();auto& g=*geometry;require(g.ready&&g.bound&&!g.active&&!r.energy_only_complete&&((consumer==1&&r.consumed==0)||(consumer==4&&r.consumed==1)),"Pair geometry consumer order");
     g.active=consumer;g.seen=0;g.staged=false;
 }
 void observe_pair_geometry(int consumer,int row,int column,int a,int b){
@@ -134,15 +134,24 @@ void finish_integral_pair_geometry(uint64_t epoch,int status){
         "Production pair geometry publication before successful completion");
     r.complete=true;if(!remag_orientation_retain_geometry())geometry.reset();
 }
+void complete_pair_geometry_energy_only(uint64_t epoch){
+    auto& r=current();auto& g=*geometry;
+    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
+        g.integral&&g.ready&&g.bound&&r.epoch==epoch&&!g.active&&!g.staged&&r.consumed==0&&
+        !r.complete&&!r.energy_only_complete,"Pair geometry retirement requires accepted energy-only state and no force leases");
+    r.energy_only_complete=true;
+}
 }
 
 extern "C" int remag_reuse_pair_geometry() {
     try {
         valid();require(remag_orientation_retain_geometry()&&geometry,"Missing retained pair geometry");
         auto& g=*geometry;const auto& old=records().rows[g.record];
-        require(g.integral&&g.ready&&g.bound&&!g.active&&old.complete&&old.consumed==5&&
-            remag::geometry_epoch()==old.epoch+1,"Pair geometry reuse precedes complete forces");
-        Record next=old;next.epoch=remag::geometry_epoch();next.consumed=0;next.complete=false;
+        const bool forces=old.complete&&old.consumed==5&&!old.energy_only_complete;
+        const bool electronic=old.energy_only_complete&&!old.complete&&old.consumed==0&&!g.staged;
+        require(g.integral&&g.ready&&g.bound&&!g.active&&(forces||electronic)&&
+            remag::geometry_epoch()==old.epoch+1,"Pair geometry reuse precedes accepted final state");
+        Record next=old;next.epoch=remag::geometry_epoch();next.consumed=0;next.complete=false;next.energy_only_complete=false;
         next.staged=0;next.allocated=0;g.preparation_epoch=old.epoch;
         g.record=records().rows.size();records().rows.push_back(next);
         g.seen=0;g.staged=false;return 0;

@@ -20,7 +20,7 @@ void require(bool v,const char* s){if(!v)throw std::runtime_error(s);}
 void check(cudaError_t e){if(e!=cudaSuccess)throw std::runtime_error(cudaGetErrorString(e));}
 struct Record {
     unsigned long long epoch=0;int consumer=0,atoms=0,rows=0,columns=0,capacity=0,components=0,queries=0,centers=0,neighbors=0,blocks=0,status=-1;
-    size_t geometry_bytes=0,staged=0,allocated=0,exported=0;bool complete=false,passed=false,integral=false;
+    size_t geometry_bytes=0,staged=0,allocated=0,exported=0;bool complete=false,passed=false,integral=false,energy_only_complete=false;
     double volume=0.;std::vector<double> initial,reference,actual;
     bool compact_queries=false;int projector_entries=0;
     size_t query_metadata_bytes=0,query_output_bytes=0;
@@ -34,6 +34,7 @@ struct Records {std::vector<Record> rows;~Records(){
     for(size_t i=0;i<rows.size();i++){auto& r=rows[i];
         std::fprintf(f,"%s{\"epoch\":%llu,\"consumer\":%d,\"atoms\":%d,\"rows\":%d,\"columns\":%d,\"capacity\":%d,\"components\":%d,\"queries\":%d,\"centers\":%d,\"neighbors\":%d,\"blocks\":%d,\"volume\":%.17g,\"geometry_bytes\":%zu,\"setup_bytes\":%zu,\"device_allocation_bytes\":%zu,\"export_bytes\":%zu,\"electronic_upload_bytes\":0,\"graph_nodes\":2,\"status\":%d,\"complete\":%s,\"passed\":%s",
             i?",":"",r.epoch,r.consumer,r.atoms,r.rows,r.columns,r.capacity,r.components,r.queries,r.centers,r.neighbors,r.blocks,r.volume,r.geometry_bytes,r.staged,r.allocated,r.exported,r.status,r.complete?"true":"false",r.passed?"true":"false");
+        std::fprintf(f,",\"energy_only_complete\":%s",r.energy_only_complete?"true":"false");
         std::fprintf(f,",\"compact_queries\":%s,\"projector_entries\":%d,\"query_metadata_bytes\":%zu,\"query_output_bytes\":%zu",
             r.compact_queries?"true":"false",r.projector_entries,r.query_metadata_bytes,r.query_output_bytes);
         const char* names[]={"initial","reference","actual"};const std::vector<double>* arrays[]={&r.initial,&r.reference,&r.actual};
@@ -89,7 +90,7 @@ extern "C" int remag_nonlocal_begin(int mode,int consumer,int atoms,int rows,int
             records().rows.push_back(r);geometry=std::move(g);
         }else{
             auto& r=current();auto& g=*geometry;
-            require(g.ready&&g.bound&&!g.mode&&r.epoch==remag::geometry_epoch()&&consumer==g.consumer&&split==g.split&&atoms==r.atoms&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&volume==r.volume&&
+            require(g.ready&&g.bound&&!g.mode&&!r.energy_only_complete&&r.epoch==remag::geometry_epoch()&&consumer==g.consumer&&split==g.split&&atoms==r.atoms&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&volume==r.volume&&
                 std::equal(g.num.begin(),g.num.end(),num)&&std::equal(g.ptr.begin(),g.ptr.end(),ptr)&&std::equal(g.list.begin(),g.list.end(),list),"Nonlocal geometry changed after staging");
             remag::validate_grid_sparse_topology(rows,columns,capacity,num,ptr,list);
             r.initial=values(atoms,nullptr,force,stress);g.fields=remag::borrow_final_pair_state(r.epoch,consumer);
@@ -240,13 +241,13 @@ extern "C" int remag_nonlocal_bind_geometry(){
 namespace remag {
 void validate_nonlocal_h0_topology(int rows,int columns,int capacity,const int* num,const int* ptr,const int* list){
     auto& r=current();auto& g=*geometry;
-    require(nonlocal_h0_enabled()&&g.ready&&g.bound&&!g.mode&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&
+    require(nonlocal_h0_enabled()&&g.ready&&g.bound&&!g.mode&&!r.energy_only_complete&&rows==r.rows&&columns==r.columns&&capacity==r.capacity&&
         num&&ptr&&list&&std::equal(g.num.begin(),g.num.end(),num)&&std::equal(g.ptr.begin(),g.ptr.end(),ptr)&&
         std::equal(g.list.begin(),g.list.end(),list),"H0 SCF topology differs from prepared geometry");
 }
 PreparedNonlocalForceView borrow_integral_nonlocal(int consumer,int atoms,const FinalGridStateView& fields,cudaStream_t stream){
     auto& r=current();auto& g=*geometry;
-    require(integral_force_enabled()&&!remag_nonlocal_force_shadow_enabled()&&g.ready&&g.bound&&!g.mode&&!g.referenced&&!g.staged&&
+    require(integral_force_enabled()&&!remag_nonlocal_force_shadow_enabled()&&g.ready&&g.bound&&!g.mode&&!g.referenced&&!g.staged&&!r.energy_only_complete&&
         consumer==g.consumer&&atoms==r.atoms&&stream&&fields.epoch==r.epoch&&fields.shape.nuo==r.rows&&fields.shape.no==r.columns&&
         fields.shape.nnz==r.capacity&&((consumer==3)==(fields.h_spins==8))&&
         std::abs(fields.volume-r.volume)<=1e-12*std::max(1.,std::abs(r.volume)),"Invalid prepared production nonlocal geometry");
@@ -264,6 +265,14 @@ void apply_integral_nonlocal(const double* integrals,double* weights,const Final
 void finish_integral_nonlocal(int status){
     auto& r=current();auto& g=*geometry;require(integral_force_enabled()&&g.mode==2&&g.staged&&g.applied&&!r.complete&&status==0,
         "Invalid production nonlocal publication");r.status=status;r.complete=true;r.passed=true;remag::finish_nonlocal_h0_shadow(r.epoch);if(remag_orientation_retain_geometry())g.stream=nullptr;else geometry.reset();
+}
+void complete_nonlocal_geometry_energy_only(uint64_t epoch){
+    auto& r=current();auto& g=*geometry;
+    require(remag_orientation_retain_geometry()&&energy_only_enabled()&&final_electronic_state_complete(epoch)&&
+        r.epoch==epoch&&r.integral&&g.ready&&g.bound&&g.mode==0&&!g.referenced&&!g.staged&&!g.applied&&
+        !r.complete&&!r.passed&&r.status==-1&&!r.energy_only_complete,
+        "Nonlocal geometry retirement requires accepted energy-only state and no force leases");
+    r.energy_only_complete=true;
 }
 bool nonlocal_force_shadow_pending(int consumer){if(!remag_nonlocal_force_shadow_enabled()||(consumer!=2&&consumer!=3))return false;
     auto& r=current();require(r.consumer==consumer&&geometry->referenced,"Missing nonlocal reference");return true;}
@@ -288,9 +297,12 @@ extern "C" int remag_reuse_nonlocal_geometry() {
     try {
         valid();require(remag_orientation_retain_geometry()&&geometry,"Missing retained nonlocal geometry");
         auto& g=*geometry;const auto& old=records().rows[g.record];
-        require(old.integral&&g.ready&&g.bound&&g.mode==2&&g.staged&&g.applied&&old.complete&&old.passed&&old.status==0&&
-            remag::geometry_epoch()==old.epoch+1,"Nonlocal geometry reuse precedes complete forces");
-        Record next=old;next.epoch=remag::geometry_epoch();next.complete=false;next.passed=false;next.status=-1;
+        const bool forces=g.mode==2&&g.staged&&g.applied&&old.complete&&old.passed&&old.status==0&&!old.energy_only_complete;
+        const bool electronic=old.energy_only_complete&&g.mode==0&&!g.referenced&&!g.staged&&!g.applied&&
+            !old.complete&&!old.passed&&old.status==-1;
+        require(old.integral&&g.ready&&g.bound&&(forces||electronic)&&
+            remag::geometry_epoch()==old.epoch+1,"Nonlocal geometry reuse precedes accepted final state");
+        Record next=old;next.epoch=remag::geometry_epoch();next.complete=false;next.passed=false;next.status=-1;next.energy_only_complete=false;
         next.geometry_bytes=0;next.staged=0;next.allocated=0;next.exported=0;
         next.initial.clear();next.reference.clear();next.actual.clear();g.preparation_epoch=old.epoch;
         g.record=records().rows.size();records().rows.push_back(next);

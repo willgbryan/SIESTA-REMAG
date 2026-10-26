@@ -221,6 +221,17 @@ single-geometry capability. Keep frozen evaluation experimental; interpolation
 and reduced-SOC screening cannot inherit accuracy from these failed estimates.
 No additional allocation is authorized by this document.
 
+The first energy-only sweep component now separates electronic acceptance from
+force completion in the retained pair, projector, H0 and initial-mesh owners.
+Retirement requires an accepted final snapshot and released electronic leases;
+reuse accepts only the immediately following epoch and clears its acceptance.
+Force consumers remain unavailable after energy-only retirement. The initial
+density owner also accepts the completed electronic snapshot before creating a
+fresh atomic guess. Thirty-eight focused local tests and host C++ syntax checks
+pass; these do not validate CUDA execution. The orientation input guard remains
+closed while per-direction publication and collection are completed. README's
+single-geometry energy-only scope remains unchanged.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

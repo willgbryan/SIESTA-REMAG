@@ -12,6 +12,7 @@ const float* initial_mesh_values(uint64_t epoch,int no,int np,int nsp,int entrie
 const double* borrow_initial_mesh_density(uint64_t epoch,const GridPotentialProblem&,
     GridPotentialProblem* device_problem,cudaStream_t);
 void complete_initial_mesh_forces(uint64_t epoch);
+void complete_initial_mesh_energy_only(uint64_t epoch);
 void release_initial_mesh_density(uint64_t epoch,int cycle_status,int producer_status,int converged);
 }
 extern "C" int remag_initial_mesh_enabled();
