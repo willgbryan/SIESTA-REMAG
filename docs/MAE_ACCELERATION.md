@@ -195,6 +195,17 @@ the same basis/grid/k/smearing settings and eigenvalues-only control. Production
 admission remains 128 k points; the staged 32768 ceiling is not general capacity
 qualification. No additional allocation is authorized by this document.
 
+The corrected validation recipe is prepared in
+`build/mae-soc-free-scalar-20261026`, using the scalar-preserving and stream-order
+fixes through `d08b6c50`. It runs the corrected FePt reference first, followed
+by the ordinary FePt controls, three fresh full-SOC FeCo anchors, two SOC-free
+FeCo reference directions and the eigenvalues-only control. The nine serial
+calculations retain the same inputs and acceptance targets. The proposed new
+allowance is 20 H100-minutes, including a 90-second evidence reserve; authorization
+is zero until explicitly approved. The failed original stage stays closed.
+Source overlays, retained inputs/attempts and the launch guard pass local
+preflight. This preparation adds no runtime or accuracy qualification.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |
