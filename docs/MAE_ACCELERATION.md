@@ -185,6 +185,16 @@ for evidence; authorization remains zero and the app refuses an unfunded
 launch. The prior app is STOPPED with zero account containers. See the local
 `PREPARED.md` for the exact sequence and evidence-recovery commands.
 
+Frozen-point direction checks now use the requested axes from the ordered
+target input manifests, independently of the probe's reported quaternions.
+They reject missing/reordered points, nonidentity reference rotations and
+rotations that reach the wrong axis. Spinful probes must also finish within
+one degree of that signed target; eigenvalues-only probes explicitly lack this
+moment check. This closes a mislabeled-direction gap that internally consistent
+matrix algebra alone cannot detect. All five saved reference-diagnostic
+calculations pass the strengthened checks; 103 focused local tests pass. The
+pending nine-calculation batch includes these gates without added GPU work.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

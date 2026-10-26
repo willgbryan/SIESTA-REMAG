@@ -46,3 +46,48 @@ def test_missing_or_wrong_reference_cannot_pass(defect):
     else:p['generator_spectrum_max_abs_error_ry'] = float('nan') if defect == 'nonfinite' else 1e-6
     assert evidence_errors(t, True)
     assert evidence_errors(telemetry(), False)
+
+
+def directional_report(spin=True):
+    # z -> x by +90 degrees about y, independent of the helper's vector formula.
+    return dict(spin_expectations=spin, points=[
+        dict(index=0, quaternion=[1., 0., 0., 0.], spin_muB=[0., 0., 4.] if spin else None),
+        dict(index=1, quaternion=[1., 0., 1., 0.], spin_muB=[4., 0., 0.] if spin else None)])
+
+
+@pytest.mark.parametrize('spin', [True, False])
+def test_direction_labels_require_requested_axes_even_with_consistent_rotations(spin):
+    from siesta_remag.frozen_reference import direction_checks
+    report = directional_report(spin)
+    assert direction_checks(report, [[0, 0, 1], [1, 0, 0]])['passed']
+    # All reported algebra, spins and spectra could be internally consistent,
+    # yet this is x mislabeled as [110]. Eigenvalues-only must reject it too.
+    wrong = direction_checks(report, [[0, 0, 1], [1, 1, 0]])
+    assert not wrong['passed'] and not wrong['points'][1]['rotation_matches_target']
+    assert wrong['points'][1]['moment_direction_checked'] is spin
+
+
+@pytest.mark.parametrize('moment', [None, [0, 0, 0], [0, 0, 1e-15], [float('nan'), 0, 0], [3., 0., .1], [-4., 0., 0.]])
+def test_frozen_final_moment_must_reach_intended_signed_axis(moment):
+    from siesta_remag.frozen_reference import direction_checks
+    report = directional_report();report['points'][1]['spin_muB'] = moment
+    assert not direction_checks(report, [[0, 0, 1], [1, 0, 0]])['passed']
+
+
+@pytest.mark.parametrize('defect', ['missing', 'reordered', 'zero_quaternion', 'nonidentity_reference'])
+def test_frozen_rotation_coverage_and_reference_identity(defect):
+    from siesta_remag.frozen_reference import direction_checks
+    report = directional_report()
+    if defect == 'missing':report['points'].pop()
+    elif defect == 'reordered':report['points'].reverse()
+    elif defect == 'zero_quaternion':report['points'][1]['quaternion'] = [0, 0, 0, 0]
+    else:report['points'][0]['quaternion'] = [0, 0, 0, 1]  # z stays z, but this is not the identity.
+    assert not direction_checks(report, [[0, 0, 1], [1, 0, 0]])['passed']
+
+
+def test_quaternion_sign_and_scale_do_not_change_target_direction():
+    from siesta_remag.frozen_reference import direction_checks
+    report = directional_report()
+    report['points'][0]['quaternion'] = [-1e-300, 0, 0, 0]
+    report['points'][1]['quaternion'] = [-1e300, 0, -1e300, 0]
+    assert direction_checks(report, [[0, 0, 1], [1, 0, 0]])['passed']
