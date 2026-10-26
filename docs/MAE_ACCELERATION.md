@@ -247,6 +247,13 @@ generation and force-completion fields stay false. Ordinary force sweeps retain
 their previous orbital lifecycle. Host tests exercise both paths and reject
 premature/stale/duplicate reuse and force access after electronic retirement.
 
+Per-direction collection now binds ordered native markers to the requested
+absolute rotations and axes, checks final signed moments, and retains separate
+electronic output views without altering the original files. Missing/duplicate
+markers, partial execution and earlier failures remain visible. Eighteen focused
+tests pass; replay also accepts the saved successful v136 z/x/z stdout. This
+qualifies collection only, not the new combined energy-only CUDA path.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |
