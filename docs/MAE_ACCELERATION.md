@@ -135,7 +135,7 @@ exactly, leaving no independent test of omitted angular terms. Proposed [210]
 and [211] holdouts and the [100]/[001] cubic equivalence control remain unrun
 and were not part of the completed five-calculation diagnostic budget.
 
-## SOC-free common reference (failed diagnostic; local correction)
+## SOC-free common reference (failed diagnostic and corrected validation)
 
 The [26 October diagnostic](../benchmarks/evidence/mae-soc-free-reference-20261026T182811Z/REPORT.md)
 stopped at calculation three of nine. Fresh full-SOC FePt z/x anchors pass their
@@ -176,8 +176,8 @@ and 1e-7 eV; method E/F bias and reference spread retain the 5 µeV/f.u. target.
 The correction passes 107 focused local tests and host-only C++ syntax checks
 with and without the experimental macro. Host-compiled decomposition replay
 on six saved dense captures preserves/reconstructs the operator within
-roundoff. Corrected CUDA compilation, magnetic SCF, method bias and reference
-invariance remain unvalidated. The failed attempt, exact executed sources,
+roundoff. At that stage, corrected CUDA compilation, magnetic SCF, method bias
+and reference invariance remained unvalidated. The failed attempt, exact executed sources,
 raw outputs and postprocessing correction are retained separately; the staged
 recipe is closed and must not be relaunched as if it passed. No production
 screening option or MAE accuracy/speedup improvement is established.
@@ -188,23 +188,38 @@ points, nonidentity reference rotations and rotations to the wrong axis.
 Spinful probes must finish within one degree of the signed target; zero moments
 are invalid. Eigenvalues-only probes explicitly lack a moment check.
 
-The next runtime validation must first establish a magnetic, scalar-preserving
-FePt reference, then compare common-reference FePt/FeCo estimates with fresh
-full-SOC anchors and independently converged FeCo reference directions. Retain
-the same basis/grid/k/smearing settings and eigenvalues-only control. Production
-admission remains 128 k points; the staged 32768 ceiling is not general capacity
-qualification. No additional allocation is authorized by this document.
+The [corrected validation](../benchmarks/evidence/mae-soc-free-scalar-20261026T210526Z/REPORT.md)
+now completes all nine serial calculations with the scalar-preserving and
+stream-order fixes through `d08b6c50`. All 26 remote checks, nine locally
+reanalyzed calculations and 39 selected-k matrix captures pass. FePt retains
+a 3.401840 µB SOC-free reference moment. FeCo's two independently converged
+SOC-free references agree in restored directional energies within 6.72e-12 eV,
+removing the prior large reference-direction spread. Its eigenvalues-only
+control also passes. These are sampled implementation and consistency results.
 
-The corrected validation recipe is prepared in
-`build/mae-soc-free-scalar-20261026`, using the scalar-preserving and stream-order
-fixes through `d08b6c50`. It runs the corrected FePt reference first, followed
-by the ordinary FePt controls, three fresh full-SOC FeCo anchors, two SOC-free
-FeCo reference directions and the eigenvalues-only control. The nine serial
-calculations retain the same inputs and acceptance targets. The proposed new
-allowance is 20 H100-minutes, including a 90-second evidence reserve; authorization
-is zero until explicitly approved. The failed original stage stays closed.
-Source overlays, retained inputs/attempts and the launch guard pass local
-preflight. This preparation adds no runtime or accuracy qualification.
+The approximation still fails the unchanged 5 µeV/f.u. total/free-energy target
+at 300 K electronic smearing. FePt x−z biases are −83.804/−138.426 µeV/f.u.;
+FeCo [110]−[001] biases are −9.346/−9.325 and [111]−[001] biases are
+−23.274/−23.229 µeV/f.u. FeCo's sampled ordering is reversed relative to full
+SCF. The common reference fixes consistency without qualifying replacement of
+full SCF. The full-SCF anchors themselves remain physically unconverged.
+
+The single H100 app is STOPPED with zero containers after 1164.137622 seconds
+of conservative app lifetime, within the approved 1200 seconds and fixed
+deadline. All 81 supplementary outputs were fetched using the exact completed
+attempt. The batch stopped after completing its prepared diagnostic; its
+allowance is closed. The old failure remains preserved. Production admission
+is still 128; staged 32768 is only an admission ceiling. No useful or
+upstream-GPU speedup is established by this diagnostic.
+
+Next prioritize combining energy-only finalization with the existing full-SCF
+geometry-reuse sweep, targeting the measured setup cost while retaining
+independent atomic guesses, final direction and exact SCF acceptance. The
+retained-density warm start remains unqualified. Runtime equivalence and
+matched end-to-end timings are required before extending the documented
+single-geometry capability. Keep frozen evaluation experimental; interpolation
+and reduced-SOC screening cannot inherit accuracy from these failed estimates.
+No additional allocation is authorized by this document.
 
 ## Implementation sequence
 

@@ -1,0 +1,18 @@
+{
+  "before": {
+    "invocation_sha256": "2411f8d46dd9b58756067e3f19fe82debfad1327a04186ab104907f98dd57f98",
+    "attempt_id": "677395ac67de45dea1d3e7b75dd8adc9",
+    "state": "complete",
+    "interrupted_attempts": [],
+    "policy": "Fresh batch per interrupted attempt; no cross-attempt material or timing merge"
+  },
+  "after": {
+    "invocation_sha256": "2411f8d46dd9b58756067e3f19fe82debfad1327a04186ab104907f98dd57f98",
+    "attempt_id": "677395ac67de45dea1d3e7b75dd8adc9",
+    "state": "complete",
+    "interrupted_attempts": [],
+    "policy": "Fresh batch per interrupted attempt; no cross-attempt material or timing merge"
+  },
+  "consistent": true,
+  "downloaded_files": 81
+}

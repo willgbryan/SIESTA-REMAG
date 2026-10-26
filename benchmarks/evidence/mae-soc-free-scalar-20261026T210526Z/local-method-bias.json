@@ -1,0 +1,82 @@
+{
+  "tzdp_np_s25_m400_k4_t300_z-soc_free_spin": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": -0.0013575836378549866,
+        "full_scf_free_difference_ev": -0.0005417855677478656,
+        "frozen_band_difference_ev": -0.0014413878129236027,
+        "frozen_band_free_difference_ev": -0.0006802115475847063,
+        "total_bias_ev": -8.380417506861611e-05,
+        "free_bias_ev": -0.00013842597983684075,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  },
+  "tzdp_np_s25_m400_k4_t300_z-frozen_spin": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": -0.0013575836378549866,
+        "full_scf_free_difference_ev": -0.0005417855677478656,
+        "frozen_band_difference_ev": -0.0013579444506945165,
+        "frozen_band_free_difference_ev": -0.0005795817639249488,
+        "total_bias_ev": -3.60812839529873e-07,
+        "free_bias_ev": -3.779619617708325e-05,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  },
+  "grid2000_shift0p00125_k16_t300_001-soc_free_spin": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": 7.444048605975695e-06,
+        "full_scf_free_difference_ev": 8.558902663935442e-06,
+        "frozen_band_difference_ev": -1.9017915394051224e-06,
+        "frozen_band_free_difference_ev": -7.659175914144961e-07,
+        "total_bias_ev": -9.345840145380817e-06,
+        "free_bias_ev": -9.324820255349938e-06,
+        "within_5_microev_diagnostic_target": false
+      },
+      {
+        "index": 2,
+        "full_scf_total_difference_ev": 2.0732441043946892e-05,
+        "full_scf_free_difference_ev": 2.2214282580534928e-05,
+        "frozen_band_difference_ev": -2.541187670404014e-06,
+        "frozen_band_free_difference_ev": -1.014880276786928e-06,
+        "total_bias_ev": -2.3273628714350905e-05,
+        "free_bias_ev": -2.3229162857321857e-05,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  },
+  "grid2000_shift0p00125_k16_t300_110-soc_free_spin": {
+    "scope": "Method bias at this basis/grid/k/smearing only; no physical convergence",
+    "rows": [
+      {
+        "index": 1,
+        "full_scf_total_difference_ev": -7.444048605975695e-06,
+        "full_scf_free_difference_ev": -8.558902663935442e-06,
+        "frozen_band_difference_ev": 1.9017905302102148e-06,
+        "frozen_band_free_difference_ev": 7.659164960228276e-07,
+        "total_bias_ev": 9.34583913618591e-06,
+        "free_bias_ev": 9.324819159958268e-06,
+        "within_5_microev_diagnostic_target": false
+      },
+      {
+        "index": 2,
+        "full_scf_total_difference_ev": 1.3288392437971197e-05,
+        "full_scf_free_difference_ev": 1.3655379916599486e-05,
+        "frozen_band_difference_ev": -6.394038569886292e-07,
+        "frozen_band_free_difference_ev": -2.489704071629436e-07,
+        "total_bias_ev": -1.3927796294959827e-05,
+        "free_bias_ev": -1.390435032376243e-05,
+        "within_5_microev_diagnostic_target": false
+      }
+    ]
+  }
+}

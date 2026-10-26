@@ -1,0 +1,8 @@
+{
+  "status": "diagnostic_complete",
+  "physical_accuracy_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "stopping_reason": "SOC-free common-reference implementation, method bias and reference sensitivity measured; physical qualification remains open",
+  "within_method_diagnostic_target": false,
+  "elapsed_seconds": 976.1895518302917
+}

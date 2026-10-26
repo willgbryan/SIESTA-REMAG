@@ -1,0 +1,37 @@
+{
+  "grid2000_shift0p00125_k16_t300_001": {
+    "passed": true,
+    "checks": [
+      {
+        "index": 0,
+        "errors": {
+          "band_difference_ry": 0.0,
+          "band_free_difference_ry": 0.0,
+          "canonical_free_difference_ry": 0.0,
+          "spectrum_ev": 4.779565951420118e-08
+        },
+        "passed": true
+      },
+      {
+        "index": 1,
+        "errors": {
+          "band_difference_ry": 5.1369103808985197e-11,
+          "band_free_difference_ry": 5.138365215233182e-11,
+          "canonical_free_difference_ry": 1.9992832782665705e-13,
+          "spectrum_ev": 4.794427202674308e-08
+        },
+        "passed": true
+      },
+      {
+        "index": 2,
+        "errors": {
+          "band_difference_ry": 8.555313650388258e-10,
+          "band_free_difference_ry": 8.572966663427363e-10,
+          "canonical_free_difference_ry": 1.4289368366155583e-13,
+          "spectrum_ev": 4.7815211884122534e-08
+        },
+        "passed": true
+      }
+    ]
+  }
+}

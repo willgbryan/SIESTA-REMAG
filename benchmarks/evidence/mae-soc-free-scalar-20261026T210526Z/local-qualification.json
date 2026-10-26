@@ -1,0 +1,3466 @@
+{
+  "run": "mae-soc-free-scalar-20261026T210526Z",
+  "attempt_id": "677395ac67de45dea1d3e7b75dd8adc9",
+  "status": "diagnostic_complete",
+  "stopping_reason": "SOC-free common-reference implementation, method bias and reference sensitivity measured; physical qualification remains open",
+  "completed_calculations": 9,
+  "recorded_calculations": 9,
+  "planned_calculations": 9,
+  "remote_checks_passed": true,
+  "local_checks_passed": true,
+  "checks": [
+    {
+      "case": "tzdp_np_s25_m400_k4_t300_z",
+      "role": "soc_free_spin",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T210534.984.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -2224.3246990198727,
+        "free_energy_ev": -2224.328740414013,
+        "total_moment_muB": [
+          -0.0,
+          -0.0,
+          3.40184
+        ],
+        "atom_moments_muB": [
+          [
+            -0.0,
+            -0.0,
+            3.216875
+          ],
+          [
+            -0.0,
+            -0.0,
+            0.184966
+          ]
+        ]
+      },
+      "scf_soc_mode": "soc_free_reference",
+      "spin_magnitude_muB": 3.40184,
+      "passed": true,
+      "probe": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "completed_native_probe",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "actual_mesh",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "spin_mode",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "generator_spectrum",
+            "passed": true,
+            "value": 1.7053025658242404e-13
+          },
+          {
+            "name": "reference_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "target_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "intended_target_directions",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "independent_reference_identity",
+            "passed": true,
+            "value": 2.320182339245889e-12
+          },
+          {
+            "name": "reference_identity_receipt",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "identity_band_difference",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 3.9302328752599536e-19
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 3.9302328752599536e-19
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 2.588939262623824e-16
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          }
+        ],
+        "errors": [],
+        "report": {
+          "schema": 1,
+          "status": "complete",
+          "scope": "Experimental common-generator frozen exchange with fixed full offsite SOC; band differences, not full-SCF total energies",
+          "reference": "Final SCF generator Hamiltonian",
+          "energy_unit": "Ry",
+          "temperature_ry": 0.0019000869380734083,
+          "electrons": 18.000000000000004,
+          "bands": 96,
+          "kpoints": 64,
+          "solver_lanes": 1,
+          "spin_expectations": true,
+          "explicit_plan_workspace_bytes": 17020708,
+          "qualification_download_bytes": 4129480,
+          "generator_spectrum_max_abs_error_ry": 1.7053025658242404e-13,
+          "matrix_samples": true,
+          "matrix_capture_workspace_bytes": 589824,
+          "lattice_operator": "spin_traceless_offsite",
+          "reference_soc_scale": 0,
+          "target_soc_scale": 1,
+          "reference_control": {
+            "soc_scale": 0,
+            "completed": true,
+            "status": 0,
+            "failed_k": -1,
+            "solver_info": 0,
+            "eigensystem_jobs": 64,
+            "seconds": 0.191198157,
+            "raw_spectrum": "remag-frozen-reference.csv"
+          },
+          "physical_accuracy_qualified": false,
+          "points": [
+            {
+              "index": 0,
+              "quaternion": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 64,
+              "completed": true,
+              "seconds": 0.16963128,
+              "fermi_ry": -0.27779934238771753,
+              "charge": 18.000000000042135,
+              "band_difference_ry": 0,
+              "band_free_difference_ry": 0,
+              "canonical_free_difference_ry": 0,
+              "charge_error_reference": 4.213163151689514e-11,
+              "charge_error_current": 4.213163151689514e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                5.848789632388434e-16,
+                -1.1155842228735668e-15,
+                3.3802993540045945
+              ],
+              "raw_spectrum": "remag-frozen-000.csv"
+            },
+            {
+              "index": 1,
+              "quaternion": [
+                0.7071067811865475,
+                0,
+                0.7071067811865475,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 64,
+              "completed": true,
+              "seconds": 0.161578079,
+              "fermi_ry": -0.27770204767302065,
+              "charge": 17.99999999997882,
+              "band_difference_ry": -0.0001059400502343844,
+              "band_free_difference_ry": -4.99946266195825e-05,
+              "canonical_free_difference_ry": -4.9994644206534664e-05,
+              "charge_error_reference": 4.213163151689514e-11,
+              "charge_error_current": -2.1184831666687387e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                3.382102304523643,
+                -1.443853964280077e-16,
+                9.315397643902737e-15
+              ],
+              "raw_spectrum": "remag-frozen-001.csv"
+            }
+          ]
+        },
+        "directions": {
+          "passed": true,
+          "points": [
+            {
+              "index": 0,
+              "expected_direction": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 2.1350240774869557e-14,
+              "rotation_target_vector_error": 0.0
+            },
+            {
+              "index": 1,
+              "expected_direction": [
+                1.0,
+                0.0,
+                6.123233995736766e-17
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 1.543220380386542e-13,
+              "rotation_target_vector_error": 2.7416125025310067e-16
+            }
+          ],
+          "moment_tolerance_degrees": 1.0,
+          "physical_accuracy_qualified": false
+        }
+      }
+    },
+    {
+      "case": "tzdp_np_s25_m400_k4_t300_z",
+      "role": "frozen_spin",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T210559.489.log": "b95d27bd3d191472ca2ef357a1fd7b16b88710b1914aaf366ba9b7b94e60b351"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -2224.672759547322,
+        "free_energy_ev": -2224.676900134353,
+        "total_moment_muB": [
+          0.0,
+          0.0,
+          3.37862
+        ],
+        "atom_moments_muB": [
+          [
+            -0.0,
+            0.0,
+            3.200654
+          ],
+          [
+            0.0,
+            -0.0,
+            0.177969
+          ]
+        ]
+      },
+      "scf_soc_mode": "full_soc",
+      "spin_magnitude_muB": 3.37862,
+      "passed": true,
+      "science": {
+        "passed": true,
+        "reasons": [],
+        "checks": {
+          "energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 8.412825991399586e-12,
+            "tolerance": 1e-05
+          },
+          "free_energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 1.3869794202037156e-11,
+            "tolerance": 1e-05
+          },
+          "fermi_energy_ev": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-05
+          },
+          "total_moment_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_moments_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_net_charges_e": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "eigenvalues_ev": {
+            "passed": true,
+            "max_absolute_error": 1.0000000116860974e-06,
+            "tolerance": 0.0001
+          },
+          "density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "tolerance": 1e-05
+          },
+          "deformation_density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "tolerance": 1e-05
+          },
+          "tsde_not_requested": {
+            "passed": true
+          },
+          "netcdf_not_requested": {
+            "passed": true
+          }
+        },
+        "end_to_end_speedup": null,
+        "performance_comparable": false,
+        "performance_reasons": [
+          "Frozen-potential qualification adds spectral solves and raw exports",
+          "Hardware or runtime allocation differs"
+        ],
+        "reference_seconds": 13.292505946999999,
+        "candidate_seconds": 16.291827324,
+        "reference_iterations": 51,
+        "candidate_iterations": 51
+      },
+      "exports": {
+        "passed": true,
+        "checks": {
+          "hsx_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_offsets": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_labels": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_precision": {
+            "passed": true
+          },
+          "hsx_basis": {
+            "passed": true
+          },
+          "hsx_kpoints": {
+            "passed": true
+          },
+          "hsx_charge": {
+            "passed": true
+          },
+          "hsx_temperature_ry": {
+            "passed": true
+          },
+          "hsx_h": {
+            "passed": true,
+            "max_absolute_error": 1.2309065433591115e-09,
+            "tolerance": 1e-06
+          },
+          "hsx_overlap": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-06
+          },
+          "hsx_fermi_ry": {
+            "passed": true,
+            "max_absolute_error": 1.471250898887888e-11,
+            "tolerance": 1e-06
+          },
+          "hsx_positions": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.001
+          },
+          "hsx_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-08
+          },
+          "drho_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "drho": {
+            "passed": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "tolerance": 1e-05
+          },
+          "dm_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_values": {
+            "passed": true,
+            "max_absolute_error": 6.207186764584094e-09,
+            "tolerance": 1e-07
+          }
+        }
+      },
+      "historical_pristine_cpu_passed": true,
+      "probe": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "completed_native_probe",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "actual_mesh",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "spin_mode",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "generator_spectrum",
+            "passed": true,
+            "value": 1.7053025658242404e-13
+          },
+          {
+            "name": "reference_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "target_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "intended_target_directions",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "identity_band_difference",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "identity_scf_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 4.512991542970912e-18
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 4.5197678065489466e-18
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 8.639465011450742e-16
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0008403470687170588
+          }
+        ],
+        "errors": [],
+        "report": {
+          "schema": 1,
+          "status": "complete",
+          "scope": "Experimental common-generator frozen exchange with fixed full offsite SOC; band differences, not full-SCF total energies",
+          "reference": "Final SCF generator Hamiltonian",
+          "energy_unit": "Ry",
+          "temperature_ry": 0.0019000869380734083,
+          "electrons": 18.000000000000004,
+          "bands": 96,
+          "kpoints": 64,
+          "solver_lanes": 1,
+          "spin_expectations": true,
+          "explicit_plan_workspace_bytes": 17020708,
+          "qualification_download_bytes": 4080296,
+          "generator_spectrum_max_abs_error_ry": 1.7053025658242404e-13,
+          "matrix_samples": true,
+          "matrix_capture_workspace_bytes": 589824,
+          "lattice_operator": "full_offsite",
+          "reference_soc_scale": 1,
+          "target_soc_scale": 1,
+          "reference_control": null,
+          "physical_accuracy_qualified": false,
+          "points": [
+            {
+              "index": 0,
+              "quaternion": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 64,
+              "completed": true,
+              "seconds": 0.211084408,
+              "fermi_ry": -0.2772873688991732,
+              "charge": 18.000000000006366,
+              "band_difference_ry": 0,
+              "band_free_difference_ry": 0,
+              "canonical_free_difference_ry": 0,
+              "charge_error_reference": 6.366462912410498e-12,
+              "charge_error_current": 6.366462912410498e-12,
+              "electron_count_passed": true,
+              "spin_muB": [
+                1.0420463120068333e-15,
+                3.2904867487592345e-16,
+                3.3786224420079116
+              ],
+              "raw_spectrum": "remag-frozen-000.csv"
+            },
+            {
+              "index": 1,
+              "quaternion": [
+                0.7071067811865475,
+                0,
+                0.7071067811865475,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 64,
+              "completed": true,
+              "seconds": 0.15890131,
+              "fermi_ry": -0.27719937929103655,
+              "charge": 17.999999999976865,
+              "band_difference_ry": -9.980707623043126e-05,
+              "band_free_difference_ry": -4.259847393922471e-05,
+              "canonical_free_difference_ry": -4.25984821177637e-05,
+              "charge_error_reference": 6.366462912410498e-12,
+              "charge_error_current": -2.3138824190027663e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                3.3813661045569456,
+                7.647350209821866e-16,
+                4.959389259940524e-05
+              ],
+              "raw_spectrum": "remag-frozen-001.csv"
+            }
+          ]
+        },
+        "directions": {
+          "passed": true,
+          "points": [
+            {
+              "index": 0,
+              "expected_direction": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 1.8531450739745802e-14,
+              "rotation_target_vector_error": 0.0
+            },
+            {
+              "index": 1,
+              "expected_direction": [
+                1.0,
+                0.0,
+                6.123233995736766e-17
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 0.000840346962585914,
+              "rotation_target_vector_error": 2.7416125025310067e-16
+            }
+          ],
+          "moment_tolerance_degrees": 1.0,
+          "physical_accuracy_qualified": false
+        }
+      },
+      "default_probe_regression": {
+        "passed": true,
+        "checks": [
+          {
+            "index": 0,
+            "errors": {
+              "band_difference_ry": 0.0,
+              "band_free_difference_ry": 0.0,
+              "canonical_free_difference_ry": 0.0,
+              "spectrum_ev": 1.3434426726606246e-08
+            },
+            "passed": true
+          },
+          {
+            "index": 1,
+            "errors": {
+              "band_difference_ry": 1.6873975697212892e-11,
+              "band_free_difference_ry": 9.036309446909173e-12,
+              "canonical_free_difference_ry": 3.915714907722411e-11,
+              "spectrum_ev": 1.3432269682087729e-08
+            },
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "case": "tzdp_np_s25_m400_k4_t300_x",
+      "role": "energy_only",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T210627.147.log": "b0b63ead7f7a1f30a598e5eb38d64c6670726623220929281b57b3396cbace0d"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -2224.67411713096,
+        "free_energy_ev": -2224.677441919921,
+        "total_moment_muB": [
+          3.3821,
+          0.0,
+          0.0
+        ],
+        "atom_moments_muB": [
+          [
+            3.203116,
+            0.0,
+            0.0
+          ],
+          [
+            0.178984,
+            -0.0,
+            0.0
+          ]
+        ]
+      },
+      "scf_soc_mode": "full_soc",
+      "spin_magnitude_muB": 3.3821,
+      "passed": true,
+      "science": {
+        "passed": true,
+        "reasons": [],
+        "checks": {
+          "energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 6.298250809777528e-11,
+            "tolerance": 1e-05
+          },
+          "free_energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 8.640199666842818e-11,
+            "tolerance": 1e-05
+          },
+          "fermi_energy_ev": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-05
+          },
+          "total_moment_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_moments_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_net_charges_e": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "eigenvalues_ev": {
+            "passed": true,
+            "max_absolute_error": 9.999999974752427e-07,
+            "tolerance": 0.0001
+          },
+          "density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "tolerance": 1e-05
+          },
+          "deformation_density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "tolerance": 1e-05
+          },
+          "tsde_not_requested": {
+            "passed": true
+          },
+          "netcdf_not_requested": {
+            "passed": true
+          }
+        },
+        "end_to_end_speedup": null,
+        "performance_comparable": false,
+        "performance_reasons": [
+          "Hardware or runtime allocation differs"
+        ],
+        "reference_seconds": 13.492947522999998,
+        "candidate_seconds": 16.505078286,
+        "reference_iterations": 75,
+        "candidate_iterations": 77
+      },
+      "exports": {
+        "passed": true,
+        "checks": {
+          "hsx_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_offsets": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_labels": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_precision": {
+            "passed": true
+          },
+          "hsx_basis": {
+            "passed": true
+          },
+          "hsx_kpoints": {
+            "passed": true
+          },
+          "hsx_charge": {
+            "passed": true
+          },
+          "hsx_temperature_ry": {
+            "passed": true
+          },
+          "hsx_h": {
+            "passed": true,
+            "max_absolute_error": 8.747345903170611e-10,
+            "tolerance": 1e-06
+          },
+          "hsx_overlap": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-06
+          },
+          "hsx_fermi_ry": {
+            "passed": true,
+            "max_absolute_error": 3.757975042262274e-10,
+            "tolerance": 1e-06
+          },
+          "hsx_positions": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.001
+          },
+          "hsx_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-08
+          },
+          "drho_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "drho": {
+            "passed": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "tolerance": 1e-05
+          },
+          "dm_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_values": {
+            "passed": true,
+            "max_absolute_error": 7.855625039354663e-10,
+            "tolerance": 1e-07
+          }
+        }
+      },
+      "historical_pristine_cpu_passed": true
+    },
+    {
+      "case": "grid2000_shift0p00125_k16_t300_001",
+      "role": "energy_only",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T210647.879.log": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -7573.84775988338,
+        "free_energy_ev": -7573.850477403175,
+        "total_moment_muB": [
+          -0.0,
+          -0.0,
+          4.59251
+        ],
+        "atom_moments_muB": [
+          [
+            0.0,
+            0.0,
+            2.888406
+          ],
+          [
+            -0.0,
+            -0.0,
+            1.704107
+          ]
+        ]
+      },
+      "scf_soc_mode": "full_soc",
+      "spin_magnitude_muB": 4.59251,
+      "passed": true,
+      "science": {
+        "passed": true,
+        "reasons": [],
+        "checks": {
+          "energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 6.448317435570061e-10,
+            "tolerance": 1e-05
+          },
+          "free_energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 6.45741238258779e-10,
+            "tolerance": 1e-05
+          },
+          "fermi_energy_ev": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-05
+          },
+          "total_moment_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_moments_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_net_charges_e": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "eigenvalues_ev": {
+            "passed": true,
+            "max_absolute_error": 1.0000000258969521e-06,
+            "tolerance": 0.0001
+          },
+          "density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 1.1920928955078125e-07,
+            "tolerance": 1e-05
+          },
+          "deformation_density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "tolerance": 1e-05
+          },
+          "tsde_not_requested": {
+            "passed": true
+          },
+          "netcdf_not_requested": {
+            "passed": true
+          }
+        },
+        "end_to_end_speedup": null,
+        "performance_comparable": false,
+        "performance_reasons": [
+          "Hardware or runtime allocation differs"
+        ],
+        "reference_seconds": 92.66220361300003,
+        "candidate_seconds": 104.03194861000001,
+        "reference_iterations": 35,
+        "candidate_iterations": 33
+      },
+      "exports": {
+        "passed": true,
+        "checks": {
+          "hsx_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_offsets": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_labels": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_precision": {
+            "passed": true
+          },
+          "hsx_basis": {
+            "passed": true
+          },
+          "hsx_kpoints": {
+            "passed": true
+          },
+          "hsx_charge": {
+            "passed": true
+          },
+          "hsx_temperature_ry": {
+            "passed": true
+          },
+          "hsx_h": {
+            "passed": true,
+            "max_absolute_error": 4.4051401415501346e-10,
+            "tolerance": 1e-06
+          },
+          "hsx_overlap": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-06
+          },
+          "hsx_fermi_ry": {
+            "passed": true,
+            "max_absolute_error": 9.303757764200782e-11,
+            "tolerance": 1e-06
+          },
+          "hsx_positions": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.001
+          },
+          "hsx_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-08
+          },
+          "drho_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "drho": {
+            "passed": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "tolerance": 1e-05
+          },
+          "dm_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_values": {
+            "passed": true,
+            "max_absolute_error": 8.410037111161728e-10,
+            "tolerance": 1e-07
+          }
+        }
+      }
+    },
+    {
+      "case": "grid2000_shift0p00125_k16_t300_110",
+      "role": "energy_only",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T210840.962.log": "0493f9d6226c34f541fb2fda75d0fbe2d369481f9c20c5d867468a06d4998a0b"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -7573.847752439331,
+        "free_energy_ev": -7573.850468844273,
+        "total_moment_muB": [
+          3.24739,
+          3.24739,
+          0.0
+        ],
+        "atom_moments_muB": [
+          [
+            2.042416,
+            2.042416,
+            0.0
+          ],
+          [
+            1.204975,
+            1.204975,
+            -0.0
+          ]
+        ]
+      },
+      "scf_soc_mode": "full_soc",
+      "spin_magnitude_muB": 4.592502980314766,
+      "passed": true,
+      "science": {
+        "passed": true,
+        "reasons": [],
+        "checks": {
+          "energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 5.175024853087962e-10,
+            "tolerance": 1e-05
+          },
+          "free_energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 5.106812750454992e-10,
+            "tolerance": 1e-05
+          },
+          "fermi_energy_ev": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-05
+          },
+          "total_moment_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_moments_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_net_charges_e": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "eigenvalues_ev": {
+            "passed": true,
+            "max_absolute_error": 1.0000000258969521e-06,
+            "tolerance": 0.0001
+          },
+          "density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 1.1920928955078125e-07,
+            "tolerance": 1e-05
+          },
+          "deformation_density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 1.4901161193847656e-08,
+            "tolerance": 1e-05
+          },
+          "tsde_not_requested": {
+            "passed": true
+          },
+          "netcdf_not_requested": {
+            "passed": true
+          }
+        },
+        "end_to_end_speedup": null,
+        "performance_comparable": false,
+        "performance_reasons": [
+          "Hardware or runtime allocation differs"
+        ],
+        "reference_seconds": 99.86814143900006,
+        "candidate_seconds": 111.02640974000002,
+        "reference_iterations": 39,
+        "candidate_iterations": 39
+      },
+      "exports": {
+        "passed": true,
+        "checks": {
+          "hsx_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_offsets": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_labels": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_precision": {
+            "passed": true
+          },
+          "hsx_basis": {
+            "passed": true
+          },
+          "hsx_kpoints": {
+            "passed": true
+          },
+          "hsx_charge": {
+            "passed": true
+          },
+          "hsx_temperature_ry": {
+            "passed": true
+          },
+          "hsx_h": {
+            "passed": true,
+            "max_absolute_error": 9.742837647763736e-10,
+            "tolerance": 1e-06
+          },
+          "hsx_overlap": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-06
+          },
+          "hsx_fermi_ry": {
+            "passed": true,
+            "max_absolute_error": 2.380576291649561e-10,
+            "tolerance": 1e-06
+          },
+          "hsx_positions": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.001
+          },
+          "hsx_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-08
+          },
+          "drho_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "drho": {
+            "passed": true,
+            "max_absolute_error": 1.4901161193847656e-08,
+            "tolerance": 1e-05
+          },
+          "dm_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_values": {
+            "passed": true,
+            "max_absolute_error": 2.316653091583021e-09,
+            "tolerance": 1e-07
+          }
+        }
+      }
+    },
+    {
+      "case": "grid2000_shift0p00125_k16_t300_111",
+      "role": "energy_only",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T211038.182.log": "de66586a3f2370d6a134316357931c88bf566847ab35cef4ef9d14669fd82b69"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -7573.847739150939,
+        "free_energy_ev": -7573.850455188893,
+        "total_moment_muB": [
+          2.65148,
+          2.65148,
+          2.65148
+        ],
+        "atom_moments_muB": [
+          [
+            1.667628,
+            1.667628,
+            1.667628
+          ],
+          [
+            0.983855,
+            0.983855,
+            0.983855
+          ]
+        ]
+      },
+      "scf_soc_mode": "full_soc",
+      "spin_magnitude_muB": 4.592498075252727,
+      "passed": true,
+      "science": {
+        "passed": true,
+        "reasons": [],
+        "checks": {
+          "energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 1.8362698028795421e-09,
+            "tolerance": 1e-05
+          },
+          "free_energy_per_atom_ev": {
+            "passed": true,
+            "max_absolute_error": 1.8289938452653587e-09,
+            "tolerance": 1e-05
+          },
+          "fermi_energy_ev": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-05
+          },
+          "total_moment_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_moments_muB": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "atom_net_charges_e": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0001
+          },
+          "eigenvalues_ev": {
+            "passed": true,
+            "max_absolute_error": 1.0000000258969521e-06,
+            "tolerance": 0.0001
+          },
+          "density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 1.1920928955078125e-07,
+            "tolerance": 1e-05
+          },
+          "deformation_density_components_e_bohr3": {
+            "passed": true,
+            "max_absolute_error": 1.4901161193847656e-08,
+            "tolerance": 1e-05
+          },
+          "tsde_not_requested": {
+            "passed": true
+          },
+          "netcdf_not_requested": {
+            "passed": true
+          }
+        },
+        "end_to_end_speedup": null,
+        "performance_comparable": false,
+        "performance_reasons": [
+          "Hardware or runtime allocation differs"
+        ],
+        "reference_seconds": 91.77081710499999,
+        "candidate_seconds": 112.53752873300004,
+        "reference_iterations": 34,
+        "candidate_iterations": 40
+      },
+      "exports": {
+        "passed": true,
+        "checks": {
+          "hsx_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_offsets": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_labels": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "hsx_precision": {
+            "passed": true
+          },
+          "hsx_basis": {
+            "passed": true
+          },
+          "hsx_kpoints": {
+            "passed": true
+          },
+          "hsx_charge": {
+            "passed": true
+          },
+          "hsx_temperature_ry": {
+            "passed": true
+          },
+          "hsx_h": {
+            "passed": true,
+            "max_absolute_error": 9.354117480597779e-10,
+            "tolerance": 1e-06
+          },
+          "hsx_overlap": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-06
+          },
+          "hsx_fermi_ry": {
+            "passed": true,
+            "max_absolute_error": 1.3167333889896327e-10,
+            "tolerance": 1e-06
+          },
+          "hsx_positions": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.001
+          },
+          "hsx_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 1e-08
+          },
+          "drho_cell": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "drho": {
+            "passed": true,
+            "max_absolute_error": 1.4901161193847656e-08,
+            "tolerance": 1e-05
+          },
+          "dm_header": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_counts": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_columns": {
+            "passed": true,
+            "max_absolute_error": 0.0,
+            "tolerance": 0.0
+          },
+          "dm_values": {
+            "passed": true,
+            "max_absolute_error": 1.6344904318899012e-09,
+            "tolerance": 1e-07
+          }
+        }
+      }
+    },
+    {
+      "case": "grid2000_shift0p00125_k16_t300_001",
+      "role": "soc_free_spin",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T211239.590.log": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -7573.809923233958,
+        "free_energy_ev": -7573.812653853731,
+        "total_moment_muB": [
+          -0.0,
+          0.0,
+          4.59635
+        ],
+        "atom_moments_muB": [
+          [
+            -0.0,
+            0.0,
+            2.890101
+          ],
+          [
+            -0.0,
+            0.0,
+            1.706252
+          ]
+        ]
+      },
+      "scf_soc_mode": "soc_free_reference",
+      "spin_magnitude_muB": 4.59635,
+      "passed": true,
+      "probe": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "completed_native_probe",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "actual_mesh",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "spin_mode",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "generator_spectrum",
+            "passed": true,
+            "value": 6.9046990347487736e-12
+          },
+          {
+            "name": "reference_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "target_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "intended_target_directions",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "independent_reference_identity",
+            "passed": true,
+            "value": 9.394321617342469e-11
+          },
+          {
+            "name": "reference_identity_receipt",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "identity_band_difference",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 1.4584848560534984e-19
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 1.4595436472375663e-19
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 5.6558872554972926e-15
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "point_2_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_2_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 1.2041102740811913e-19
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 1.2054337630612762e-19
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 2.3886173734965008e-15
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          }
+        ],
+        "errors": [],
+        "report": {
+          "schema": 1,
+          "status": "complete",
+          "scope": "Experimental common-generator frozen exchange with fixed full offsite SOC; band differences, not full-SCF total energies",
+          "reference": "Final SCF generator Hamiltonian",
+          "energy_unit": "Ry",
+          "temperature_ry": 0.0019000869380734083,
+          "electrons": 32.99999999999999,
+          "bands": 112,
+          "kpoints": 4096,
+          "solver_lanes": 1,
+          "spin_expectations": true,
+          "explicit_plan_workspace_bytes": 30329508,
+          "qualification_download_bytes": 69648648,
+          "generator_spectrum_max_abs_error_ry": 6.9046990347487736e-12,
+          "matrix_samples": true,
+          "matrix_capture_workspace_bytes": 802816,
+          "lattice_operator": "spin_traceless_offsite",
+          "reference_soc_scale": 0,
+          "target_soc_scale": 1,
+          "reference_control": {
+            "soc_scale": 0,
+            "completed": true,
+            "status": 0,
+            "failed_k": -1,
+            "solver_info": 0,
+            "eigensystem_jobs": 4096,
+            "seconds": 10.211654141,
+            "raw_spectrum": "remag-frozen-reference.csv"
+          },
+          "physical_accuracy_qualified": false,
+          "points": [
+            {
+              "index": 0,
+              "quaternion": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 11.878181436,
+              "fermi_ry": -0.4374393302472267,
+              "charge": 33.00000000008686,
+              "band_difference_ry": 0,
+              "band_free_difference_ry": 0,
+              "canonical_free_difference_ry": 0,
+              "charge_error_reference": 8.687095487402985e-11,
+              "charge_error_current": 8.687095487402985e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                -1.3691741468695693e-17,
+                -6.648121823308928e-17,
+                4.59314236131203
+              ],
+              "raw_spectrum": "remag-frozen-000.csv"
+            },
+            {
+              "index": 1,
+              "quaternion": [
+                0.7071067811865475,
+                -0.49999999999999994,
+                0.49999999999999994,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 11.566376759,
+              "fermi_ry": -0.4374379223104369,
+              "charge": 33.000000000029175,
+              "band_difference_ry": -1.397790999850674e-07,
+              "band_free_difference_ry": -5.6293904653786004e-08,
+              "canonical_free_difference_ry": -5.631913644843364e-08,
+              "charge_error_reference": 8.687095487402985e-11,
+              "charge_error_current": 2.9189095585024916e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                3.247836187740018,
+                3.24783618773918,
+                1.1976989160209749e-15
+              ],
+              "raw_spectrum": "remag-frozen-001.csv"
+            },
+            {
+              "index": 2,
+              "quaternion": [
+                0.8880738339771151,
+                -0.32505758367186816,
+                0.32505758367186816,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 11.471966216,
+              "fermi_ry": -0.43743751403784104,
+              "charge": 33.00000000003351,
+              "band_difference_ry": -1.8677384881695855e-07,
+              "band_free_difference_ry": -7.459232452272146e-08,
+              "canonical_free_difference_ry": -7.461566328826229e-08,
+              "charge_error_reference": 8.687095487402985e-11,
+              "charge_error_current": 3.3516300845803926e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                2.65184610219682,
+                2.6518461021961404,
+                2.651846101956283
+              ],
+              "raw_spectrum": "remag-frozen-002.csv"
+            }
+          ]
+        },
+        "directions": {
+          "passed": true,
+          "points": [
+            {
+              "index": 0,
+              "expected_direction": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 8.4670479772058075e-16,
+              "rotation_target_vector_error": 0.0
+            },
+            {
+              "index": 1,
+              "expected_direction": [
+                0.7071067811865475,
+                0.7071067811865475,
+                0.0
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 7.3884436307042e-12,
+              "rotation_target_vector_error": 2.7194799110210365e-16
+            },
+            {
+              "index": 2,
+              "expected_direction": [
+                0.5773502691896258,
+                0.5773502691896258,
+                0.5773502691896258
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 2.4464561185920773e-09,
+              "rotation_target_vector_error": 1.9229626863835638e-16
+            }
+          ],
+          "moment_tolerance_degrees": 1.0,
+          "physical_accuracy_qualified": false
+        }
+      }
+    },
+    {
+      "case": "grid2000_shift0p00125_k16_t300_110",
+      "role": "soc_free_spin",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T211545.306.log": "0493f9d6226c34f541fb2fda75d0fbe2d369481f9c20c5d867468a06d4998a0b"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -7573.809923239273,
+        "free_energy_ev": -7573.812653859027,
+        "total_moment_muB": [
+          3.25011,
+          3.25011,
+          0.0
+        ],
+        "atom_moments_muB": [
+          [
+            2.04361,
+            2.04361,
+            0.0
+          ],
+          [
+            1.206502,
+            1.206502,
+            0.0
+          ]
+        ]
+      },
+      "scf_soc_mode": "soc_free_reference",
+      "spin_magnitude_muB": 4.596349641204419,
+      "passed": true,
+      "probe": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "completed_native_probe",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "actual_mesh",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "spin_mode",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "generator_spectrum",
+            "passed": true,
+            "value": 5.771383371211414e-12
+          },
+          {
+            "name": "reference_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "target_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "intended_target_directions",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "independent_reference_identity",
+            "passed": true,
+            "value": 7.852367104385305e-11
+          },
+          {
+            "name": "reference_identity_receipt",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "identity_band_difference",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 3.0892879773140435e-19
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 3.0879644883339587e-19
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 5.823412591389746e-16
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "point_2_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_2_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 4.924106924854667e-19
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 4.923345918691119e-19
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 2.5166637345621825e-15
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_spin",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "final_direction_degrees",
+            "passed": true,
+            "value": 0.0
+          }
+        ],
+        "errors": [],
+        "report": {
+          "schema": 1,
+          "status": "complete",
+          "scope": "Experimental common-generator frozen exchange with fixed full offsite SOC; band differences, not full-SCF total energies",
+          "reference": "Final SCF generator Hamiltonian",
+          "energy_unit": "Ry",
+          "temperature_ry": 0.0019000869380734083,
+          "electrons": 32.99999999999999,
+          "bands": 112,
+          "kpoints": 4096,
+          "solver_lanes": 1,
+          "spin_expectations": true,
+          "explicit_plan_workspace_bytes": 30329508,
+          "qualification_download_bytes": 69648648,
+          "generator_spectrum_max_abs_error_ry": 5.771383371211414e-12,
+          "matrix_samples": true,
+          "matrix_capture_workspace_bytes": 802816,
+          "lattice_operator": "spin_traceless_offsite",
+          "reference_soc_scale": 0,
+          "target_soc_scale": 1,
+          "reference_control": {
+            "soc_scale": 0,
+            "completed": true,
+            "status": 0,
+            "failed_k": -1,
+            "solver_info": 0,
+            "eigensystem_jobs": 4096,
+            "seconds": 10.539923413,
+            "raw_spectrum": "remag-frozen-reference.csv"
+          },
+          "physical_accuracy_qualified": false,
+          "points": [
+            {
+              "index": 0,
+              "quaternion": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 11.773390472,
+              "fermi_ry": -0.4374379230958131,
+              "charge": 33.000000000016605,
+              "band_difference_ry": 0,
+              "band_free_difference_ry": 0,
+              "canonical_free_difference_ry": 0,
+              "charge_error_reference": 1.6619594589428743e-11,
+              "charge_error_current": 1.6619594589428743e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                3.247836185932296,
+                3.247836185931466,
+                1.0799121396687862e-12
+              ],
+              "raw_spectrum": "remag-frozen-000.csv"
+            },
+            {
+              "index": 1,
+              "quaternion": [
+                0.7071067811865475,
+                0.49999999999999994,
+                -0.49999999999999994,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 11.714647658,
+              "fermi_ry": -0.4374393310325003,
+              "charge": 33.00000000007451,
+              "band_difference_ry": 1.3977902581060982e-07,
+              "band_free_difference_ry": 5.629382414398333e-08,
+              "canonical_free_difference_ry": 5.631915030915692e-08,
+              "charge_error_reference": 1.6619594589428743e-11,
+              "charge_error_current": 7.451461669916171e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                -7.76813500455246e-13,
+                -7.723923395362764e-13,
+                4.5931423587541484
+              ],
+              "raw_spectrum": "remag-frozen-001.csv"
+            },
+            {
+              "index": 2,
+              "quaternion": [
+                0.9530206138714226,
+                0.2141864952980661,
+                -0.2141864952980661,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 11.787846176,
+              "fermi_ry": -0.43743751482317317,
+              "charge": 33.00000000002224,
+              "band_difference_ry": -4.6995316681663125e-08,
+              "band_free_difference_ry": -1.829898741007003e-08,
+              "canonical_free_difference_ry": -1.829652632992027e-08,
+              "charge_error_reference": 1.6619594589428743e-11,
+              "charge_error_current": 2.2239987629291136e-11,
+              "electron_count_passed": true,
+              "spin_muB": [
+                2.6518461007201246,
+                2.651846100719451,
+                2.6518461004809497
+              ],
+              "raw_spectrum": "remag-frozen-002.csv"
+            }
+          ]
+        },
+        "directions": {
+          "passed": true,
+          "points": [
+            {
+              "index": 0,
+              "expected_direction": [
+                0.7071067811865475,
+                0.7071067811865475,
+                0.0
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 1.5333706366783132e-11,
+              "rotation_target_vector_error": 0.0
+            },
+            {
+              "index": 1,
+              "expected_direction": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 1.366496810960508e-11,
+              "rotation_target_vector_error": 4.577566798522237e-16
+            },
+            {
+              "index": 2,
+              "expected_direction": [
+                0.5773502691896258,
+                0.5773502691896258,
+                0.5773502691896258
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": true,
+              "moment_error_degrees": 2.4326134726294007e-09,
+              "rotation_target_vector_error": 2.7194799110210365e-16
+            }
+          ],
+          "moment_tolerance_degrees": 1.0,
+          "physical_accuracy_qualified": false
+        }
+      }
+    },
+    {
+      "case": "grid2000_shift0p00125_k16_t300_001",
+      "role": "soc_free_values",
+      "valid": true,
+      "convergence": {
+        "passed": true,
+        "errors": [],
+        "observed": {
+          "DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.DM.Tolerance": [
+            [
+              "0.1000000000E-08"
+            ]
+          ],
+          "SCF.H.Tolerance": [
+            [
+              "0.7349864435E-09",
+              "Ry"
+            ]
+          ],
+          "SCF.DM.Converge": [
+            [
+              "T"
+            ]
+          ],
+          "SCF.H.Converge": [
+            [
+              "T"
+            ]
+          ]
+        },
+        "expected_tolerances": {
+          "DM.Tolerance": 1e-09,
+          "SCF.DM.Tolerance": 1e-09,
+          "SCF.H.Tolerance": 1e-08
+        },
+        "evidence_sha256": {
+          "fdf.20261026T211845.455.log": "13668d5bb9a136538d0b2b73bffa6a4ceba45e9b4c6b31dfa33c77469ad21dcf"
+        }
+      },
+      "reference_errors": [],
+      "scf_observables": {
+        "total_energy_ev": -7573.809923237602,
+        "free_energy_ev": -7573.812653857369,
+        "total_moment_muB": [
+          -0.0,
+          0.0,
+          4.59635
+        ],
+        "atom_moments_muB": [
+          [
+            -0.0,
+            0.0,
+            2.890101
+          ],
+          [
+            -0.0,
+            0.0,
+            1.706252
+          ]
+        ]
+      },
+      "scf_soc_mode": "soc_free_reference",
+      "spin_magnitude_muB": 4.59635,
+      "passed": true,
+      "probe": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "completed_native_probe",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "actual_mesh",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "spin_mode",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "generator_spectrum",
+            "passed": true,
+            "value": 9.677592061052565e-12
+          },
+          {
+            "name": "reference_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "target_soc_scale",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "intended_target_directions",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "reference_control_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "independent_reference_identity",
+            "passed": true,
+            "value": 1.316703477522042e-10
+          },
+          {
+            "name": "reference_identity_receipt",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_0_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 0.0
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "identity_band_difference",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_1_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 6.691560283308973e-20
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 6.700824706169567e-20
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 1.6619006256648965e-15
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_2_native",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "point_2_shape",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "paired_layout",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "finite_occupied_states",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "normalized_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "same_scf_generator_spectrum",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "common_weights",
+            "passed": true,
+            "value": null
+          },
+          {
+            "name": "raw_band_difference_ry",
+            "passed": true,
+            "value": 1.284049008478316e-19
+          },
+          {
+            "name": "raw_band_free_difference_ry",
+            "passed": true,
+            "value": 1.2857695441524262e-19
+          },
+          {
+            "name": "raw_canonical_free_difference_ry",
+            "passed": true,
+            "value": 4.608583578582194e-16
+          },
+          {
+            "name": "independent_electron_count",
+            "passed": true,
+            "value": null
+          }
+        ],
+        "errors": [],
+        "report": {
+          "schema": 1,
+          "status": "complete",
+          "scope": "Experimental common-generator frozen exchange with fixed full offsite SOC; band differences, not full-SCF total energies",
+          "reference": "Final SCF generator Hamiltonian",
+          "energy_unit": "Ry",
+          "temperature_ry": 0.0019000869380734083,
+          "electrons": 32.99999999999999,
+          "bands": 112,
+          "kpoints": 4096,
+          "solver_lanes": 1,
+          "spin_expectations": false,
+          "explicit_plan_workspace_bytes": 18516644,
+          "qualification_download_bytes": 36618504,
+          "generator_spectrum_max_abs_error_ry": 9.677592061052565e-12,
+          "matrix_samples": true,
+          "matrix_capture_workspace_bytes": 802816,
+          "lattice_operator": "spin_traceless_offsite",
+          "reference_soc_scale": 0,
+          "target_soc_scale": 1,
+          "reference_control": {
+            "soc_scale": 0,
+            "completed": true,
+            "status": 0,
+            "failed_k": -1,
+            "solver_info": 0,
+            "eigensystem_jobs": 4096,
+            "seconds": 6.452510746,
+            "raw_spectrum": "remag-frozen-reference.csv"
+          },
+          "physical_accuracy_qualified": false,
+          "points": [
+            {
+              "index": 0,
+              "quaternion": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 6.998834649,
+              "fermi_ry": -0.4374393302684473,
+              "charge": 32.99999999998287,
+              "band_difference_ry": 0,
+              "band_free_difference_ry": 0,
+              "canonical_free_difference_ry": 0,
+              "charge_error_reference": -1.7124079931818414e-11,
+              "charge_error_current": -1.7124079931818414e-11,
+              "electron_count_passed": true,
+              "spin_muB": null,
+              "raw_spectrum": "remag-frozen-000.csv"
+            },
+            {
+              "index": 1,
+              "quaternion": [
+                0.7071067811865475,
+                -0.49999999999999994,
+                0.49999999999999994,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 6.964450398,
+              "fermi_ry": -0.43743792233121703,
+              "charge": 32.999999999933785,
+              "band_difference_ry": -1.397828755445589e-07,
+              "band_free_difference_ry": -5.629768128256102e-08,
+              "canonical_free_difference_ry": -5.6319151142894704e-08,
+              "charge_error_reference": -1.7124079931818414e-11,
+              "charge_error_current": -6.620837211812614e-11,
+              "electron_count_passed": true,
+              "spin_muB": null,
+              "raw_spectrum": "remag-frozen-001.csv"
+            },
+            {
+              "index": 2,
+              "quaternion": [
+                0.8880738339771151,
+                -0.32505758367186816,
+                0.32505758367186816,
+                0
+              ],
+              "status": 0,
+              "failed_k": -1,
+              "solver_info": 0,
+              "eigensystem_jobs": 4096,
+              "completed": true,
+              "seconds": 6.935142213,
+              "fermi_ry": -0.43743751405041603,
+              "charge": 33.000000000073534,
+              "band_difference_ry": -1.8683672921248893e-07,
+              "band_free_difference_ry": -7.465533466550455e-08,
+              "canonical_free_difference_ry": -7.461567379075432e-08,
+              "charge_error_reference": -1.7124079931818414e-11,
+              "charge_error_current": 7.354117315117037e-11,
+              "electron_count_passed": true,
+              "spin_muB": null,
+              "raw_spectrum": "remag-frozen-002.csv"
+            }
+          ]
+        },
+        "directions": {
+          "passed": true,
+          "points": [
+            {
+              "index": 0,
+              "expected_direction": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": false,
+              "moment_error_degrees": null,
+              "rotation_target_vector_error": 0.0
+            },
+            {
+              "index": 1,
+              "expected_direction": [
+                0.7071067811865475,
+                0.7071067811865475,
+                0.0
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": false,
+              "moment_error_degrees": null,
+              "rotation_target_vector_error": 2.7194799110210365e-16
+            },
+            {
+              "index": 2,
+              "expected_direction": [
+                0.5773502691896258,
+                0.5773502691896258,
+                0.5773502691896258
+              ],
+              "passed": true,
+              "rotation_matches_target": true,
+              "moment_direction_checked": false,
+              "moment_error_degrees": null,
+              "rotation_target_vector_error": 1.9229626863835638e-16
+            }
+          ],
+          "moment_tolerance_degrees": 1.0,
+          "physical_accuracy_qualified": false
+        }
+      }
+    }
+  ],
+  "eigenvalues_only": {
+    "grid2000_shift0p00125_k16_t300_001": {
+      "passed": true,
+      "checks": [
+        {
+          "index": 0,
+          "errors": {
+            "band_difference_ry": 0.0,
+            "band_free_difference_ry": 0.0,
+            "canonical_free_difference_ry": 0.0,
+            "spectrum_ev": 4.779565951420118e-08
+          },
+          "passed": true
+        },
+        {
+          "index": 1,
+          "errors": {
+            "band_difference_ry": 5.1369103808985197e-11,
+            "band_free_difference_ry": 5.138365215233182e-11,
+            "canonical_free_difference_ry": 1.9992832782665705e-13,
+            "spectrum_ev": 4.794427202674308e-08
+          },
+          "passed": true
+        },
+        {
+          "index": 2,
+          "errors": {
+            "band_difference_ry": 8.555313650388258e-10,
+            "band_free_difference_ry": 8.572966663427363e-10,
+            "canonical_free_difference_ry": 1.4289368366155583e-13,
+            "spectrum_ev": 4.7815211884122534e-08
+          },
+          "passed": true
+        }
+      ]
+    }
+  },
+  "full_scf_directional_checks": [
+    {
+      "material": "fept",
+      "target": "tzdp_np_s25_m400_k4_t300_x",
+      "quantity": "total_energy_ev",
+      "passed": true,
+      "max_absolute_error": 1.4279066817834973e-10,
+      "tolerance": 5e-06
+    },
+    {
+      "material": "fept",
+      "target": "tzdp_np_s25_m400_k4_t300_x",
+      "quantity": "free_energy_ev",
+      "passed": true,
+      "max_absolute_error": 1.4506440493278205e-10,
+      "tolerance": 5e-06
+    },
+    {
+      "material": "feco",
+      "target": "grid2000_shift0p00125_k16_t300_110",
+      "quantity": "total_energy_ev",
+      "passed": true,
+      "max_absolute_error": 2.546585164964199e-10,
+      "tolerance": 5e-06
+    },
+    {
+      "material": "feco",
+      "target": "grid2000_shift0p00125_k16_t300_110",
+      "quantity": "free_energy_ev",
+      "passed": true,
+      "max_absolute_error": 2.701199264265597e-10,
+      "tolerance": 5e-06
+    },
+    {
+      "material": "feco",
+      "target": "grid2000_shift0p00125_k16_t300_111",
+      "quantity": "total_energy_ev",
+      "passed": true,
+      "max_absolute_error": 2.382876118645072e-09,
+      "tolerance": 5e-06
+    },
+    {
+      "material": "feco",
+      "target": "grid2000_shift0p00125_k16_t300_111",
+      "quantity": "free_energy_ev",
+      "passed": true,
+      "max_absolute_error": 2.3665052140131593e-09,
+      "tolerance": 5e-06
+    }
+  ],
+  "independent_matrices_passed": true,
+  "physical_accuracy_qualified": false,
+  "method_replacement_qualified": false,
+  "speedup_over_upstream_gpu": null,
+  "temperature_k": 300,
+  "production_k_guard": 128,
+  "staged_admission_ceiling": 32768,
+  "capacity_qualified": false
+}

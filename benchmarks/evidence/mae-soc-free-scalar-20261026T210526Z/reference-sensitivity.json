@@ -1,0 +1,38 @@
+[
+  {
+    "target": "grid2000_shift0p00125_k16_t300_110",
+    "relative_to": "grid2000_shift0p00125_k16_t300_001",
+    "references": [
+      {
+        "reference": "grid2000_shift0p00125_k16_t300_001",
+        "total_difference_ev": -1.9017915394051224e-06,
+        "free_difference_ev": -7.659175914144961e-07
+      },
+      {
+        "reference": "grid2000_shift0p00125_k16_t300_110",
+        "total_difference_ev": -1.9017905302102148e-06,
+        "free_difference_ev": -7.659164960228276e-07
+      }
+    ],
+    "total_spread_ev": 1.0091949075294912e-12,
+    "free_spread_ev": 1.0953916685129051e-12
+  },
+  {
+    "target": "grid2000_shift0p00125_k16_t300_111",
+    "relative_to": "grid2000_shift0p00125_k16_t300_001",
+    "references": [
+      {
+        "reference": "grid2000_shift0p00125_k16_t300_001",
+        "total_difference_ev": -2.541187670404014e-06,
+        "free_difference_ev": -1.014880276786928e-06
+      },
+      {
+        "reference": "grid2000_shift0p00125_k16_t300_110",
+        "total_difference_ev": -2.541194387198844e-06,
+        "free_difference_ev": -1.014886903185771e-06
+      }
+    ],
+    "total_spread_ev": 6.7167948301050074e-12,
+    "free_spread_ev": 6.626398843146241e-12
+  }
+]
