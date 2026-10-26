@@ -219,3 +219,81 @@ def test_publication_then_reuse_preserves_distinct_force_state(executable, mode,
     assert rows[0].get('complete', rows[0].get('forces_complete', rows[0].get('consumed'))) is (mode == 'force')
     assert rows[1]['energy_only_complete'] is False
     assert rows[1].get('complete', rows[1].get('forces_complete', rows[1].get('consumed'))) is False
+
+
+def test_final_snapshot_reset_distinguishes_electronic_and_force_acceptance(tmp_path):
+    compiler = shutil.which('c++')
+    if not compiler:
+        pytest.skip('C++ compiler needed for final snapshot lifetime check')
+    (tmp_path/'cuda_runtime_api.h').write_text(CUDA)
+    (tmp_path/'cuda_runtime.h').write_text('#include "cuda_runtime_api.h"\n')
+    (tmp_path/'cufft.h').write_text('using cufftHandle=int; struct cufftDoubleComplex {double x,y;};\n')
+    source = tmp_path/'check.cpp'
+    source.write_text(r'''
+#include <cassert>
+#include "final_grid_state.cpp"
+static uint64_t test_epoch=7;
+static bool test_scf=false;
+static int population_resets=0;
+namespace remag {
+bool in_scf(){return test_scf;}
+uint64_t geometry_epoch(){return test_epoch;}
+void reset_population_state(){++population_resets;}
+}
+void accepted(bool energy){
+    remag::snapshot=std::make_unique<remag::Snapshot>();
+    auto& s=*remag::snapshot;s.view.epoch=7;s.integral=true;s.energy_only=energy;
+    s.publication_attempted=true;s.collected=true;s.published=true;
+    s.required=7;s.pair_required=7;
+    if(!energy){s.consumed=s.required;s.pair_consumed=s.pair_required;}
+}
+void rejected(){
+    const auto before=population_resets;auto* prior=remag::snapshot.get();
+    bool failed=false;
+    try{remag::reset_final_grid_state();}catch(const std::exception&){failed=true;}
+    assert(failed&&remag::snapshot.get()==prior&&population_resets==before);
+}
+int main(){
+    remag::reset_final_grid_state();assert(population_resets==1);
+    for(bool energy:{true,false}){
+        accepted(energy);
+        assert(remag::final_electronic_state_complete(7));
+        assert(remag::final_grid_forces_complete(7)==!energy);
+        test_scf=true;rejected();test_scf=false;
+        for(int which=0;which<3;++which){
+            if(which==0)remag::snapshot->active=4;
+            if(which==1)remag::snapshot->pair_active=2;
+            if(which==2)remag::snapshot->history_active=true;
+            rejected();accepted(energy);
+        }
+        remag::snapshot->published=false;rejected();accepted(energy);
+        if(energy){
+            remag::snapshot->publication_attempted=false;rejected();accepted(true);
+            remag::snapshot->collected=false;rejected();accepted(true);
+            remag::snapshot->consumed=4;rejected();accepted(true);
+            remag::snapshot->pair_consumed=1;rejected();accepted(true);
+            remag::snapshot->borrowed=4;rejected();accepted(true);
+            remag::snapshot->integral_records.emplace_back();rejected();accepted(true);
+            remag::snapshot->atomic_records.emplace_back();rejected();accepted(true);
+        }else{
+            remag::snapshot->consumed=0;rejected();accepted(false);
+            remag::snapshot->pair_consumed=0;rejected();accepted(false);
+        }
+        // H0 has already advanced the geometry before the next SCF request.
+        // Reset retires the prior publication, not a newly accepted epoch.
+        test_epoch=8;
+        assert(!remag::final_electronic_state_complete(7));
+        remag::reset_final_grid_state();assert(!remag::snapshot);
+        test_epoch=7;
+    }
+    assert(population_resets==3);
+}
+''')
+    target = tmp_path/'check'
+    linker = '-Wl,-dead_strip' if sys.platform == 'darwin' else '-Wl,--gc-sections'
+    built = subprocess.run([compiler, '-std=c++17', '-O1', '-ffunction-sections', '-fdata-sections',
+                            '-Wall', '-Wextra', '-Werror', linker, '-I'+str(tmp_path), '-I'+str(ROOT/'native'),
+                            str(source), '-o', str(target)], capture_output=True, text=True)
+    assert built.returncode == 0, built.stderr
+    result = subprocess.run([str(target)], cwd=tmp_path, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr

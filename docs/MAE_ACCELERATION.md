@@ -271,6 +271,15 @@ containers. A new 20-minute H100 budget has been requested; the prepared app
 refuses launch without fresh authorization and a fixed deadline. No additional
 GPU time has been used for this preparation.
 
+A subsequent transition review found that the final electronic snapshot reset
+still required completed force masks. That would reject the second direction
+after a valid energy-only publication. Reset now accepts a fully published
+electronic result with no force consumers, while rejecting active leases,
+partial publication and incomplete force-mode results. A host-compiled check
+reproduced the original failure and now passes; 54 focused tests pass. The
+prepared native overlay includes this correction. CUDA qualification and the
+new budget approval are still pending.
+
 ## Implementation sequence
 
 | Workstream | Change and acceptance condition |

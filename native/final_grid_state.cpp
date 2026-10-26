@@ -66,9 +66,22 @@ bool integral_force_enabled() {
 }
 bool pair_force_active() {return pair_force_shadow_enabled()||integral_force_enabled();}
 void reset_final_grid_state() {
-    require(!in_scf()&&(!snapshot||(snapshot->consumed==snapshot->required&&!snapshot->pair_active&&!snapshot->history_active&&
-        (!snapshot->pair_required||snapshot->pair_consumed==snapshot->pair_required)&&
-        (!snapshot->integral||snapshot->published))),"Final force consumer incomplete before new geometry");reset_population_state();snapshot.reset();
+    require(!in_scf(),"Final electronic state cannot reset during SCF");
+    if(snapshot) {
+        const auto& s=*snapshot;
+        // H0 has advanced the geometry epoch before the next SCF request.
+        // Retire the prior publication without requiring unrequested forces
+        // or treating skipped force consumers as completed ones.
+        const bool accepted=s.energy_only?
+            (s.integral&&s.publication_attempted&&s.collected&&s.published&&
+             !s.borrowed&&!s.consumed&&!s.pair_consumed&&
+             s.atomic_records.empty()&&s.integral_records.empty()):
+            (s.consumed==s.required&&(!s.pair_required||s.pair_consumed==s.pair_required)&&
+             (!s.integral||s.published));
+        require(accepted&&!s.active&&!s.pair_active&&!s.history_active,
+            "Final electronic publication or consumer incomplete before new geometry");
+    }
+    reset_population_state();snapshot.reset();
 }
 bool final_grid_forces_complete(uint64_t epoch) {
     return !in_scf()&&snapshot&&!snapshot->energy_only&&!snapshot->active&&!snapshot->history_active&&snapshot->consumed==snapshot->required&&
