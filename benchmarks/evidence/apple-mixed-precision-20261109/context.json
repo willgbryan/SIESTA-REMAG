@@ -1,0 +1,35 @@
+{
+  "recorded_at_utc": "2026-11-10T01:48:10.657855+00:00",
+  "source_commit": "dd8727132172c378f10f3afcdb5627804941af28",
+  "execution": "CPU SciPy/LAPACK; no Metal dispatch",
+  "precision": "complex64 seeds, complex128 reference and correction",
+  "thread_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "numpy_blas": {
+    "name": "accelerate",
+    "found": true,
+    "version": "unknown",
+    "detection method": "system",
+    "include directory": "unknown",
+    "lib directory": "unknown",
+    "openblas configuration": "unknown",
+    "pc file directory": "unknown"
+  },
+  "scipy_blas": {
+    "name": "Accelerate",
+    "found": true,
+    "version": "unknown",
+    "detection method": "extraframeworks",
+    "include directory": "unknown",
+    "lib directory": "unknown",
+    "openblas configuration": "unknown",
+    "pc file directory": "unknown",
+    "has ilp64": false,
+    "cython blas ilp64": false
+  },
+  "source_matrices_modified": false,
+  "performance_seconds": null,
+  "cloud_allocation": null
+}
