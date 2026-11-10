@@ -7,7 +7,7 @@ production remains FP64. An isolated Metal eigensolver prototype now runs and
 passes selected-matrix checks, but is slower than native CPU FP64 on this Mac.
 There is no integrated Apple SIESTA backend or full-SCF qualification. The
 initial CPU replay and subsequent GPU benchmark are separate experiments.
-No cloud allocation was requested.
+Those completed experiments used no cloud allocation.
 
 ## Finding
 
@@ -243,3 +243,26 @@ The Mac baseline answers whether Metal accelerates Apple execution. It does
 not establish an upstream-GPU competitive gain or H100 parity; those require
 their own matched evidence. Production CUDA stays FP64 and the prior MAE goal
 stays paused. No new cloud budget is implied.
+
+## Prepared comparison with REMAG on H100
+
+At the user's request, `experiments/metal-eigensolver/cuda_app.py` now stages
+a direct comparison with the unchanged CUDA `BlockJacobiPlan`. It uses the
+same 39 hashed H/S captures, four batch sizes and existing five-repetition
+native CPU timings. Local preparation verified exact input preservation and
+reran the CPU accuracy checks successfully on all 39 pairs. The CUDA adapter
+still requires compilation and execution on H100; no comparison result or
+shipping decision is available yet.
+
+Eight solver lanes, cold bases and identical-input warm-basis controls retain
+the production FP64 settings. Graph execution and host-transfer boundaries
+are reported separately. Repeated matrices are labelled exact replays, and
+warm-basis replay does not establish performance on changing SCF operators.
+The requested new budget is at most ten H100-minutes; it is awaiting approval.
+The launcher defaults to no allowance and enforces one GPU at a time.
+
+A competitive component result would support proceeding with Mac CPU backend
+integration. The current comparator has a separate batch ABI and supports
+only the small experiment's dimensions; it is not a drop-in SIESTA backend.
+The full-SCF and directional-energy qualification above remains the release
+gate before advertising a supported Mac solver.
