@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-09",
+  "repository_commit": "05215aa9a326e249150aa50d2f6ddd5c60c01671",
+  "system_memory_bytes": 51539607552,
+  "macos_version": "26.5",
+  "macos_build": "25F71",
+  "command_line_developer_directory": "/Library/Developer/CommandLineTools",
+  "standalone_metal_compiler_found": false,
+  "runtime_shader_compiler_available": true,
+  "gpu_kernels_dispatched": 0,
+  "cloud_allocations": 0,
+  "performance_measured": false,
+  "scientific_validation_performed": false,
+  "compile_command": "clang -fobjc-arc -framework Foundation -framework Metal capability.m -o capability",
+  "files": {
+    "capability.m": "dbb6c7951a4596a8197193029106d6bd0f1053594871e56bba4a15ea4535ca7b",
+    "capability.json": "8b12bef5a9d99ee7ae3fca7e930de6a7418b48ebed38f255147a5efeb5cb751d"
+  }
+}

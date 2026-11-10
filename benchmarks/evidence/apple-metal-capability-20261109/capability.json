@@ -1,0 +1,14 @@
+{
+  "recommended_working_set_bytes" : 40200896512,
+  "max_buffer_bytes" : 30150672384,
+  "device" : "Apple M3 Max",
+  "unified_memory" : true,
+  "float" : {
+    "diagnostic" : "",
+    "compiled" : 1
+  },
+  "double" : {
+    "diagnostic" : "program_source:3:26: error: 'double' is not supported in Metal\nkernel void probe(device double* a [[buffer(0)]], uint i [[thread_position_in_grid]]) { a[i] = a[i] + (double)1; }\n                         ^\nprogram_source:3:104: error: 'double' is not supported in Metal\nkernel void probe(device double* a [[buffer(0)]], uint i [[thread_position_in_grid]]) { a[i] = a[i] + (double)1; }\n                                                                                                       ^\n",
+    "compiled" : 0
+  }
+}

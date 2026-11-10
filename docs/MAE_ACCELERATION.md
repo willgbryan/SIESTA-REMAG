@@ -1,5 +1,9 @@
 # MAE acceleration plan
 
+**Paused by user request, 9 November 2026.** The qualified implementation and
+evidence remain intact. Current exploration concerns [Apple Metal support](APPLE_METAL.md).
+This pause does not renew any GPU allowance.
+
 The objective is less time to a stated uncertainty in directional magnetic
 energy, with separate bounds for implementation error, sampling error and
 physical-model sensitivity. Full self-consistent SIESTA remains the numerical
