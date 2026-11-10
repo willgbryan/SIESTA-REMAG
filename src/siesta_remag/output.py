@@ -14,6 +14,7 @@ def parse_output(text):
         matches = re.findall(pattern, text, re.MULTILINE)
         return float(matches[-1].replace("D", "E")) if matches else None
     energy = last(r"^siesta:\s+Total\s*=\s*(" + NUMBER + ")")
+    free_energy = last(r"^siesta:\s+FreeEng\s*=\s*(" + NUMBER + ")")
     fermi = last(r"^siesta:\s+Fermi\s*=\s*(" + NUMBER + ")")
     soc = last(r"^siesta:\s+Eso\s*=\s*(" + NUMBER + ")")
     force_blocks = re.findall(r"siesta: Atomic forces \(eV/Ang\):[^\n]*\n((?:(?:siesta:)?[ \t]+\d+[ \t]+[^\n]+\n)+)", text)
@@ -48,7 +49,7 @@ def parse_output(text):
             atomic_moments = [[0., 0., row[3]] for row in rows]
         elif spin_degenerate and 'valence' in header and 'Sz' not in header and all(len(row) == 3 for row in rows):
             atomic_moments = [[0., 0., 0.] for row in rows]
-    return dict(total_energy_ev=energy, fermi_energy_ev=fermi, soc_energy_ev=soc,
+    return dict(total_energy_ev=energy, free_energy_ev=free_energy, fermi_energy_ev=fermi, soc_energy_ev=soc,
                 soc_energy_representation="included_in_nonlocal" if "Eso(nil)" in text else "split",
                 forces_ev_ang=forces, stress_ev_ang3=stress, total_moment_muB=spin,
                 scf_iterations=len(iterations), converged=converged,

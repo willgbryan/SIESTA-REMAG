@@ -35,7 +35,7 @@ from .population import record_errors as population_errors
 from .initial_state import record_errors as initial_state_errors
 from .nonlocal_h0 import audit as audit_nonlocal_h0
 
-def run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None):
+def run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None, restart=None):
     if threads < 1 or timeout <= 0:
         raise ValueError("Positive thread count and timeout required")
     case, executable, destination = case.resolve(), executable.resolve(), destination.resolve()
@@ -47,6 +47,15 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
     if unexpected:
         raise ValueError(f"Prepared input contains unexpected files: {sorted(unexpected)}")
     shutil.copytree(case, destination)  # refuse reuse of stale DM or output files
+    if restart is not None:
+        # Explicit, hash-bound density only; never inherit an arbitrary work directory.
+        import re
+        if not re.search(r'^\s*DM\.UseSaveDM\s+true\s*$', (case/'input.fdf').read_text(), re.M | re.I):
+            raise ValueError('Restart requires DM.UseSaveDM true')
+        source = Path(restart['path'])
+        if sha256(source) != restart['sha256']:
+            raise ValueError('Restart density checksum mismatch')
+        shutil.copyfile(source, destination/'remag.DM')
     manifest = json.loads((destination / "manifest.json").read_text())
     if sha256(destination / "input.fdf") != manifest["input_sha256"]:
         raise ValueError("Input differs from benchmark manifest")
@@ -209,7 +218,12 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         if not output["relaxation_converged"]:
             parse_errors.append("Structural relaxation did not reach its force tolerance")
     timefile = destination / "time.json"
-    profile = summarize(json.loads(timefile.read_text()), wall) if timefile.exists() else None
+    (destination/'execution-status.json').write_text(json.dumps(dict(returncode=returncode, timed_out=timed_out, wall_seconds=wall)))
+    try:
+        profile = summarize(json.loads(timefile.read_text()), wall) if timefile.exists() else None
+    except (json.JSONDecodeError, KeyError, ValueError) as error:
+        profile = None
+        (destination/'timing-parse-error.json').write_text(json.dumps(dict(error=str(error), raw_file_retained=True)))
     telemetry = dict(cpu_samples=samples, peak_rss_bytes=max((s["rss_bytes"] for s in samples), default=None),
                      host_to_device_bytes=None, device_to_host_bytes=None, kernel_launch_count=None,
                      device_allocation_count=None, gpu_samples_file="gpu.csv" if gpu else None,
@@ -268,6 +282,8 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
             if any(r["status"] or not r["converged"] or r["forbidden_nodes"] or r["graph_nodes"]<1 for r in rows):
                 parse_errors.append("Device cycle failed, did not converge or has invalid graph evidence")
             parse_errors.extend(vector_cache_errors(rows, output.get('eigenvalues'), manifest, vector_cache, int(solver_lanes), warm_start == '1'))
+            if profile is None:
+                profile = {}
             profile["device_cycle_seconds"]=sum(r["seconds"] for r in rows)
             profile["device_iterations"]=sum(r["iterations"] for r in rows)
             profile["average_device_iteration_seconds"]=(profile["device_cycle_seconds"]/profile["device_iterations"]

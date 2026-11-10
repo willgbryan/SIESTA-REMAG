@@ -25,6 +25,15 @@ CPU geometry/setup and ionic work remain. Requested scientific outputs are
 exported explicitly. See [execution and configuration](docs/RUNNING.md) for the
 integrated GPU path and its supported settings.
 
+## Candidate discovery
+
+`remag-discover` runs a bounded **Orb relaxation → REMAG DFT relaxation → xyz SOC
+screen**, using default SCF tolerances and practical geometry targets. It reuses
+accepted densities, stops on failed handoffs, and writes a machine-readable report
+for a discovery loop. See [the discovery guide](docs/DISCOVERY_SCREEN.md) for
+installation, defaults, one-A100 execution and result recovery. Screening signals
+are preliminary; they do not establish K1 or synthesis stability.
+
 ## Benchmarks
 
 The latest repeated comparisons use the same A100-SXM4-80GB allocation and
