@@ -6,6 +6,7 @@ import pytest
 
 from metal_seed import MetalSeed
 from hybrid import BatchSolver
+from cpu_fp64 import CpuFP64
 
 LIBRARY = os.environ.get('REMAG_METAL_LIBRARY', 'build/metal-eigensolver/libmetal_seed.dylib')
 
@@ -76,3 +77,17 @@ def test_failure_preserved_with_fp64_fallback(controls):
         assert report['jobs'][0]['fallback_acceptance']['accepted']
         w, v = result[0]
         assert np.linalg.norm(h@v-(s@v)*w) < 1e-12
+
+
+@pytest.mark.parametrize('n', [96, 112])
+def test_native_cpu_comparator_on_saved_matrices(n):
+    from captures import load, check
+    cases = [c for c in load() if c['provenance']['bands'] == n]
+    hs = [(c['h'], c['s']) for c in cases]
+    solver = CpuFP64(LIBRARY, n, 4)
+    try:
+        for factors in (None, [c['l'] for c in cases]):
+            for case, solution in zip(cases, solver.solve(hs, factors)):
+                assert check(case, solution)['component_gates_passed']
+    finally:
+        solver.close()

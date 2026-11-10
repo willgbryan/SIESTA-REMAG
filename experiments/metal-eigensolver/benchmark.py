@@ -18,6 +18,7 @@ from scipy.linalg import cholesky
 from captures import ROOT, PREVIOUS, load, check
 from hybrid import BatchSolver
 from metal_seed import MetalSeed
+from cpu_fp64 import CpuFP64
 
 
 def digest(path):
@@ -38,6 +39,7 @@ def main():
     parser.add_argument('--repetitions', type=int, default=5)
     parser.add_argument('--multipliers', type=int, nargs='+', default=[1, 8])
     parser.add_argument('--workers', type=int, nargs='+', default=[1, 4])
+    parser.add_argument('--cpu-backend', choices=['native', 'scipy'], default='native')
     args = parser.parse_args()
     if args.repetitions < 3 or any(m < 1 or m > 16 for m in args.multipliers) or any(w not in (1, 4) for w in args.workers):
         parser.error('Require >=3 repetitions, replay multipliers 1..16, and 1 or 4 CPU workers')
@@ -50,13 +52,13 @@ def main():
     report = dict(schema=1, started_at_utc=datetime.now(timezone.utc).isoformat(), state='running',
         scope='Matched local eigensolver component benchmark; selected-k captures and labelled exact replays, not full meshes or SCF',
         source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-        source_files={str(p.relative_to(ROOT)): digest(p) for p in sorted(directory.iterdir()) if p.suffix in ('.py', '.metal', '.mm')},
+        source_files={str(p.relative_to(ROOT)): digest(p) for p in sorted(directory.iterdir()) if p.suffix in ('.py', '.metal', '.mm', '.cpp')},
         library_sha256=digest(args.library), previous_report_sha256=digest(PREVIOUS/'replay.json'),
         platform=platform.platform(), numpy=np.__version__, scipy=scipy.__version__,
         blas=scipy.show_config(mode='dicts')['Build Dependencies']['blas'],
         thread_environment=dict(VECLIB_MAXIMUM_THREADS=os.environ.get('VECLIB_MAXIMUM_THREADS')),
         timing_scope='Function wall time includes standardization, packing/copies, GPU submission/wait, FP64 correction, acceptance and fallback. Input I/O and independent verification excluded for both. Compile/allocation setup reported separately.',
-        samples=[], inputs=[c['provenance'] for c in cases], mae_qualified=False, production_changed=False)
+        cpu_backend=args.cpu_backend, samples=[], inputs=[c['provenance'] for c in cases], mae_qualified=False, production_changed=False)
 
     def save():
         temporary = args.output.with_suffix('.tmp')
@@ -79,16 +81,20 @@ def main():
                     report['device'] = seed.device
                     for workers in args.workers:
                         solver = BatchSolver(seed, workers)
+                        started = perf_counter()
+                        native_cpu = CpuFP64(args.library, n, workers) if args.cpu_backend == 'native' else None
+                        cpu_setup = perf_counter()-started
+                        cpu_solve = native_cpu.solve if native_cpu else solver.cpu
                         try:
                             for cached in (False, True):
                                 factor_arg = factors if cached else None
                                 sample = dict(material=unique[0]['provenance']['material'], bands=n, batch=len(batch),
                                     unique_captures=len(unique), exact_replay_multiplier=multiplier, cpu_workers=workers,
                                     overlap_cached=cached, factor_setup_seconds=factor_setup,
-                                    metal_plan_setup_seconds=plan_setup, repetitions=[])
+                                    metal_plan_setup_seconds=plan_setup, cpu_plan_setup_seconds=cpu_setup, repetitions=[])
                                 report['samples'].append(sample)
                                 # One untimed warmup per path; retain its checks and fallbacks.
-                                cpu = solver.cpu(hs, factor_arg)
+                                cpu = cpu_solve(hs, factor_arg)
                                 mixed, details = solver.mixed(hs, factor_arg)
                                 sample['warmup'] = dict(cpu=verification(batch, cpu), mixed=verification(batch, mixed), details=details)
                                 save()
@@ -97,7 +103,7 @@ def main():
                                     for method in row['order']:
                                         start = perf_counter()
                                         if method == 'cpu':
-                                            values = solver.cpu(hs, factor_arg)
+                                            values = cpu_solve(hs, factor_arg)
                                             duration = perf_counter()-start
                                         else:
                                             values, details = solver.mixed(hs, factor_arg)
@@ -116,6 +122,8 @@ def main():
                                 save()
                                 print(json.dumps({k: sample[k] for k in ('material', 'batch', 'cpu_workers', 'overlap_cached', 'component_qualified', 'cpu_median_seconds', 'mixed_median_seconds', 'median_paired_ratio_cpu_over_mixed')}), flush=True)
                         finally:
+                            if native_cpu:
+                                native_cpu.close()
                             solver.close()
         report['state'] = 'complete'
     except Exception as error:

@@ -9,8 +9,9 @@ Build on macOS with Command Line Tools (the shader is compiled at runtime):
 
 ```sh
 mkdir -p build/metal-eigensolver
-clang++ -O3 -std=c++17 -fobjc-arc -dynamiclib -framework Foundation -framework Metal \
-  experiments/metal-eigensolver/bridge.mm -o build/metal-eigensolver/libmetal_seed.dylib
+clang++ -O3 -std=c++17 -fobjc-arc -dynamiclib -framework Foundation -framework Metal -framework Accelerate \
+  experiments/metal-eigensolver/bridge.mm experiments/metal-eigensolver/cpu_fp64.cpp \
+  -o build/metal-eigensolver/libmetal_seed.dylib
 VECLIB_MAXIMUM_THREADS=1 .venv/bin/python -m pytest -q experiments/metal-eigensolver/test_solver.py
 ```
 
@@ -42,6 +43,9 @@ VECLIB_MAXIMUM_THREADS=1 .venv/bin/python experiments/metal-eigensolver/benchmar
 It compares fresh and cached-overlap solves with CPU FP64 Accelerate, using
 both one and four CPU job workers, one untimed warmup and five alternating
 timing pairs. Both methods receive the same H/S and cache opportunity.
+The default CPU comparator calls the new Accelerate LP64 LAPACK C interface
+directly, with persistent per-worker workspaces and native task dispatch;
+`--cpu-backend scipy` retains the initial Python baseline for comparison.
 Independent spectrum/residual/orthogonality/density checks run outside timing;
 the hybrid's required acceptance checks and fallback run inside timing.
 The eightfold batches repeat saved matrices to measure amortization; they
