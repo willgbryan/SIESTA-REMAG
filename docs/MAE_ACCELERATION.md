@@ -21,7 +21,10 @@ large derivative arrays. These diagnostic timings are not a speedup claim.
 
 The previous overlap-factor cache passed numerical checks but had no repeatable
 end-to-end gain (v137). It stays deferred unless a new workload changes that
-tradeoff. Mixed precision is also deferred.
+tradeoff. Mixed precision was deferred for this campaign; the user's separate
+9 November Apple exploration now authorizes precision qualification. Its
+[selected-k replay](APPLE_METAL.md#local-precision-replay) does not qualify a
+production precision change or resume this MAE goal.
 
 The first implementation milestone is [energy-only full SCF](RUNNING.md#energy-only-fixed-geometry-calculations).
 Its recorded FePt/FeCo checks pass, including default force-path regression;

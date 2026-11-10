@@ -1,9 +1,12 @@
 # Apple Silicon / Metal feasibility
 
 Exploration dated 9 November 2026, following the user's pause of the MAE goal.
-No Apple backend is implemented or scientifically qualified. No cloud allocation
-was requested. The local experiment queries capabilities and compiles shaders;
-it dispatches no GPU kernels and measures no performance.
+The user subsequently authorized investigating FP32 and mixed precision for
+acceleration. This supersedes the earlier deferral for this qualification work;
+production remains FP64. No Apple backend is implemented or scientifically
+qualified. The local experiments compile shaders and replay saved matrices on
+the CPU; they dispatch no GPU kernels and measure no performance. No cloud
+allocation was requested.
 
 ## Finding
 
@@ -15,11 +18,11 @@ provide no FP64/complex-FP64 substitute. This affects much more than final
 energy summation: Hamiltonian assembly, density construction, eigensolving,
 Hartree FFTs and grid contractions currently depend on double precision.
 
-The recommendation is an accurate Mac baseline followed by a narrowly scoped
-Metal feasibility experiment. Native Mac execution, Metal GPU execution and
-scientifically equivalent speedup must be reported separately. Mixed precision
-remains deferred under the existing project instructions; this exploration
-does not silently enable it.
+The recommended acceleration candidate is an FP32 eigensolver seed with FP64
+overlap treatment and correction against the original operators. The local
+replay below establishes component accuracy on saved matrices, not speed or
+full-SCF equivalence. Native Mac execution, Metal GPU execution and
+scientifically equivalent speedup must be reported separately.
 
 ## Observed local environment
 
@@ -69,8 +72,8 @@ substantial backend project, not a build-option change.
 [Accelerate](https://developer.apple.com/documentation/accelerate) supplies CPU
 linear algebra and signal-processing routines. Its existence should not be
 reported as Metal acceleration. The local SDK includes the needed complex
-generalized eigensolver declaration, but no solver replay or end-to-end Mac
-SCF has yet been performed here.
+generalized eigensolver declaration. The precision replay below uses SciPy's
+CPU LAPACK; a REMAG native Mac adapter and end-to-end Mac SCF remain untested.
 
 The pinned upstream explicitly marks
 `cmake/toolchains/mac-accelerate-test-only.cmake` as test-only because of
@@ -85,8 +88,9 @@ the SIESTA link line is insufficient.
 
 | Route | Scientific implication | Assessment |
 | --- | --- | --- |
-| CPU FP64 physics with selective exact Metal work | Can preserve the current numerical contract after validation | Best initial path under the existing precision constraint; actual GPU benefit is unknown. |
-| FP32 Metal operators with CPU FP64 corrections/refinement | New mixed-precision algorithm; small residuals alone do not establish accurate directional E/F | Potential later research, requiring an explicit precision-policy change and end-to-end validation. |
+| CPU FP64 physics with selective exact Metal work | Can preserve the current numerical contract after validation | Useful baseline, but exact data movement alone is unlikely to address the measured eigensolver bottleneck. |
+| FP32 eigensolver seed, FP64 overlap and corrections against original H/S | New mixed-precision algorithm; small residuals alone do not establish accurate directional E/F | Recommended first acceleration experiment; local component evidence below. |
+| Early FP32 SCF, followed by full FP64 convergence | Must reach the same magnetic solution and unchanged convergence criteria | Second candidate, especially with an existing FP64 GPU backend; on Apple the final FP64 stages would initially run on CPU. |
 | Software FP64 or paired-float Metal arithmetic | Requires numerical qualification and custom solver/FFT support; paired floats are not IEEE binary64 | Research option, not a ready production backend. |
 
 For scale, storing a total energy around −2224 eV in FP32 gives adjacent values
@@ -101,21 +105,118 @@ performance tables are theoretical. Do not treat it as a qualified dependency
 or transfer its throughput estimates to REMAG. MPS/MLX cannot bypass the
 underlying absence of native Metal FP64.
 
-## Proposed first implementation milestone
+## Local precision replay
 
-1. Build a pinned upstream Mac reference with compatible BLAS/LAPACK. Preserve
-   all upstream library checks and establish one small full-SOC FePt case.
-2. Introduce only the backend boundary needed for one selected path: explicit
-   buffers, synchronization and solver ABI. Keep the CUDA default unchanged;
-   avoid a broad abstraction rewrite before a measured Apple result exists.
-3. Replay saved complex H/S matrices through a CPU FP64 solver adapter. Check
-   generalized residuals, S-orthogonality and spectra, then run the actual SCF
-   x/z pair. Existing density, moment, convergence and direct E/F gates remain.
-4. Profile that local calculation. Select one meaningful exact Metal task, or
-   document that substantive GPU acceleration requires a separately approved
-   precision experiment. Compare equivalent requested outputs against the
-   same Mac's FP64 baseline, including synchronization and CPU fallback time.
+[Replay script](../benchmarks/evidence/apple-mixed-precision-20261109/replay.py)
+and [all results, including failures](../benchmarks/evidence/apple-mixed-precision-20261109/replay.json)
+use the 39 independently checked complex H/S captures from
+`mae-soc-free-scalar-20261026T210526Z`, completed attempt
+`677395ac67de45dea1d3e7b75dd8adc9`. There are 12 FePt 96-state matrices and
+27 FeCo 112-state matrices, sampling three k points per rotation/reference
+from 64- and 4096-point parent meshes. Some captures differ only through their
+reference/direction or separate solver controls; these are not 39 independent
+materials or full SCF runs. Original files remain in that run's results folder;
+the replay records their hashes and retains every attempted method.
 
-Success means a reproducible, accurate Apple execution path and a measured
-decision about its first GPU operation. It does not mean H100 parity, a
-complete Metal backend, physical MAE convergence or renewed cloud spending.
+All solves here use CPU SciPy/LAPACK, including the complex64 solves. The lower
+Hermitian triangle is authoritative, matching the original solver. Captured
+overlap condition numbers span approximately 54,882–366,827. The current
+component spectrum gate is 1e-7 eV; additional replay gates require relative
+generalized residual <=1e-10 and maximum S-orthogonality error <=1e-10.
+
+| Arithmetic | FePt maximum eigenvalue error (eV) | FeCo maximum eigenvalue error (eV) | Captures passing all three component gates |
+| --- | ---: | ---: | ---: |
+| FP32 H/S rounding, then FP64 generalized solve | 1.0406e-2 | 1.2832e-1 | 0/39 |
+| FP32 generalized solve | 2.7451e-2 | 1.8538e-1 | 0/39 |
+| FP64 overlap/standardization, FP32 standard solve | 6.6423e-5 | 1.0423e-4 | 0/39 |
+| Above, with FP64 Rayleigh quotients only | 4.2066e-5 | 5.9543e-5 | 0/39 |
+| Above FP32 seed, with FP64 vector correction | 1.0385e-10 | 2.1781e-10 | 39/39 |
+
+The first row isolates information lost by rounding H/S; a high-precision solver
+cannot recover it. Large all-band errors include unoccupied states. For the
+uncorrected FP32 generalized solve, errors among states with reference
+occupation >=1e-8 reach **53.51 micro-eV in FePt and 120.20 micro-eV in FeCo**.
+These are per-eigenvalue errors, not measured MAE errors.
+
+The successful correction keeps original H/S in FP64, reorthogonalizes the
+seed with the original overlap, projects H into that basis, diagonalizes
+near-degenerate blocks, and applies an off-diagonal vector correction. It
+needed at most two correction steps and clusters of at most two states in
+these captures. The reference spectrum is used only for measurement, not for
+computing the correction or deciding when to stop. Worst corrected residual is
+9.47e-11 and S-orthogonality error 1.64e-12. At the saved 300 K electronic
+smearing and fixed source chemical potential, the relative density-operator
+error in an orthonormal basis is <=1.44e-9. This is a selected-k density
+diagnostic; it neither re-solves the full-mesh electron count nor validates SCF.
+
+**This replay deliberately retains substantial O(n^3) CPU FP64 work** in the
+projection products and Cholesky steps. It proves an accuracy route exists for
+these samples, not that this implementation is cheaper. It is a small
+experimental correction, not a production implementation of a published
+refinement algorithm or a convergence proof for arbitrary spectra. No Metal
+timing, SCF, directional E/F, or acceleration claim follows from it. The source
+frozen-potential approximation still fails its full-SCF bias gates; improving
+its matrix arithmetic does not repair that physical approximation.
+
+## Techniques worth adapting
+
+- [ELPA-AEO mixed-precision SCF study](https://arxiv.org/html/1806.01036v1),
+  section 4.3: use lower precision in appropriate early eigensolver steps,
+  then restore precision as SCF accuracy demands. This is directly relevant
+  to atom-centered generalized eigenproblems. Its zirconia evidence does not
+  qualify metallic SOC anisotropy. A fixed iteration-number switch is weaker
+  than monitoring error/stagnation and completing the original FP64 criteria.
+- [Residual-based Chebyshev filtering](https://arxiv.org/html/2503.22652v5):
+  applies approximate matrix products to corrections that shrink as the
+  solution improves, while retaining accurate residual information. It covers
+  complex generalized DFT problems. It is more attractive for larger problems
+  requiring a subset of states than our current 96/112-state, full-spectrum
+  dense solves; its published speedups do not transfer automatically.
+- [Ogita–Aishima clustered-eigenvalue refinement](https://link.springer.com/article/10.1007/s13160-019-00348-4):
+  relevant because naïve corrections divided by small eigenvalue gaps are
+  unstable. Preserve degenerate subspaces rather than demanding individual
+  eigenvector agreement. This motivates cluster treatment; the local script
+  is not a reproduction of the paper's exact algorithm.
+- [Mixed-precision block Davidson implementation](https://github.com/jeheon1905/mp_davidson):
+  another candidate for a future occupied-subspace solver. Adapting its
+  real-space workflow to nonorthogonal full-SOC SIESTA requires explicit
+  overlap, occupation, near-Fermi-state and final-density treatment.
+
+Paired-float or split-matrix products may later move some accurate correction
+work onto Metal. A pair of floats is not automatically IEEE FP64: exponent
+range, cancellation, rounding, fused operations and reductions still need
+qualification. Do not expand to a software-double backend before measuring
+the narrower hybrid path.
+
+## Qualification sequence and stopping decisions
+
+1. **Component feasibility, done:** preserve original FP64 matrices; compare
+   rounding, FP32 solves, and correction on the existing captures. Blanket
+   FP32 and Rayleigh-quotient-only correction fail this sample set.
+2. **Actual acceleration, next:** prototype a batched complex FP32 Metal seed
+   solver with CPU FP64 overlap/correction. Use the runtime compiler already
+   verified locally. Batch k points rather than synchronizing per matrix.
+   Cache the FP64 overlap factor only for identical geometry/basis/k data.
+   Compare with a tuned CPU FP64 solve on the same Mac, including factorization,
+   packing, synchronization, correction and any fallback. Report cold and
+   reused-factor costs separately. If correction erases the gain, do not
+   broaden the backend on the strength of raw FP32 throughput.
+3. **Full SCF:** build the pinned pristine Mac reference with compatible
+   BLAS/LAPACK and keep its ABI tests. Validate matched FePt x/z and FeCo
+   001/110/111 runs, retaining density, charge, spectra, final moments and
+   directions, exports, and convergence checks. Use original DM 1e-9 and
+   H 1e-8 eV criteria for the final accepted state. Adaptive precision and
+   bounded correction must fall back to FP64 on failure; retain the failure
+   and include the fallback time. No automatic tolerance relaxation.
+4. **MAE and end-to-end gain:** compare direct total/free directional-energy
+   differences with the unchanged 5 micro-eV/f.u. implementation gate, first
+   at matched 300 K settings and then at the denser meshes/lower smearing that
+   matter scientifically. Treat metallic near-degeneracy as a required case.
+   Repeat matched timings with identical requested outputs. An energy-only
+   path makes no force/stress claim. Separate implementation equivalence from
+   physical k/smearing/basis/pseudopotential convergence.
+
+The Mac baseline answers whether Metal accelerates Apple execution. It does
+not establish an upstream-GPU competitive gain or H100 parity; those require
+their own matched evidence. Production CUDA stays FP64 and the prior MAE goal
+stays paused. No new cloud budget is implied.
