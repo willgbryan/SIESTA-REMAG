@@ -258,8 +258,11 @@ Eight solver lanes, cold bases and identical-input warm-basis controls retain
 the production FP64 settings. Graph execution and host-transfer boundaries
 are reported separately. Repeated matrices are labelled exact replays, and
 warm-basis replay does not establish performance on changing SCF operators.
-The requested new budget is at most ten H100-minutes; it is awaiting approval.
-The launcher defaults to no allowance and enforces one GPU at a time.
+The user approved a new budget of at most ten H100-minutes. The initial launch
+was refused because a separate Fe56 discovery run still held the account's
+single GPU allocation. No benchmark GPU time was consumed; the allowance is
+retained in `build/metal-cuda-comparison/run-status.json`. The launcher defaults
+to no allowance and enforces one GPU at a time.
 
 A competitive component result would support proceeding with Mac CPU backend
 integration. The current comparator has a separate batch ABI and supports
