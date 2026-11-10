@@ -55,3 +55,25 @@ the hybrid's required acceptance checks and fallback run inside timing.
 The eightfold batches repeat saved matrices to measure amortization; they
 are not new k meshes or evidence of additional scientific capacity. Existing
 output paths are rejected, and partial/failed benchmark results are saved.
+
+For the prepared cross-hardware comparison with REMAG's H100 solver:
+
+```sh
+VECLIB_MAXIMUM_THREADS=1 .venv/bin/python experiments/metal-eigensolver/compare_cuda.py prepare \
+  --folder build/metal-cuda-comparison
+# Requires a new, explicitly approved GPU allowance; no default budget.
+.venv/bin/python scripts/run_modal.py --module-file experiments/metal-eigensolver/cuda_app.py \
+  --budget-seconds 600
+```
+
+The adapter compiles the unchanged production `BlockJacobiPlan`, with eight
+independent lanes, FP64 and the existing 32-sweep/2e-13 limits. It replays the
+same 39 matrices and four batch sizes used in the native four-worker CPU
+benchmark, retaining all five CPU timing repetitions. GPU graph time,
+resident submission/wait time and host input/output time remain separate.
+The identical-input warm-basis control is an optimistic bound on reuse;
+it does not measure SCF Hamiltonian evolution. This comparison excludes
+assembly, occupations and density construction. Passing it alone does not
+qualify a production backend, full SCF, MAE or an upstream-GPU speedup.
+The single H100 function has a 540-second ceiling, a shared fixed deadline,
+a 60-second evidence reserve and no automatic retry.
