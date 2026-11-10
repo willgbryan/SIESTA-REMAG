@@ -3,10 +3,11 @@
 Exploration dated 9 November 2026, following the user's pause of the MAE goal.
 The user subsequently authorized investigating FP32 and mixed precision for
 acceleration. This supersedes the earlier deferral for this qualification work;
-production remains FP64. No Apple backend is implemented or scientifically
-qualified. The local experiments compile shaders and replay saved matrices on
-the CPU; they dispatch no GPU kernels and measure no performance. No cloud
-allocation was requested.
+production remains FP64. An isolated Metal eigensolver prototype now runs and
+passes selected-matrix checks, but is slower than native CPU FP64 on this Mac.
+There is no integrated Apple SIESTA backend or full-SCF qualification. The
+initial CPU replay and subsequent GPU benchmark are separate experiments.
+No cloud allocation was requested.
 
 ## Finding
 
@@ -18,11 +19,11 @@ provide no FP64/complex-FP64 substitute. This affects much more than final
 energy summation: Hamiltonian assembly, density construction, eigensolving,
 Hartree FFTs and grid contractions currently depend on double precision.
 
-The recommended acceleration candidate is an FP32 eigensolver seed with FP64
-overlap treatment and correction against the original operators. The local
-replay below establishes component accuracy on saved matrices, not speed or
-full-SCF equivalence. Native Mac execution, Metal GPU execution and
-scientifically equivalent speedup must be reported separately.
+The implemented candidate uses an FP32 eigensolver seed with FP64 overlap
+treatment and correction against the original operators. It establishes
+component accuracy, but fails the measured performance gate. Native Mac
+execution, Metal GPU execution and scientifically equivalent speedup remain
+separate claims.
 
 ## Observed local environment
 
@@ -38,7 +39,7 @@ scientifically equivalent speedup must be reported separately.
 | Runtime native FP64 shader compilation | Rejected: `double` unsupported |
 | Standalone `metal` compiler in selected CLT installation | Not found |
 | Host clang / gfortran | Available |
-| Accelerate SDK `zhegvd_` interface | Present; execution not tested |
+| Accelerate new-LAPACK `zhegvd_` interface | Native CPU comparator passes all 39 saved matrix captures |
 
 The working-set recommendation is an observed API value, not a demonstrated
 problem-size capacity. No large allocation was attempted. Runtime shader
@@ -72,8 +73,10 @@ substantial backend project, not a build-option change.
 [Accelerate](https://developer.apple.com/documentation/accelerate) supplies CPU
 linear algebra and signal-processing routines. Its existence should not be
 reported as Metal acceleration. The local SDK includes the needed complex
-generalized eigensolver declaration. The precision replay below uses SciPy's
-CPU LAPACK; a REMAG native Mac adapter and end-to-end Mac SCF remain untested.
+generalized eigensolver declaration. The initial precision replay uses SciPy's
+CPU LAPACK; the later benchmark also validates a direct C++ Accelerate
+comparator. REMAG/SIESTA native Mac integration and end-to-end Mac SCF remain
+untested.
 
 The pinned upstream explicitly marks
 `cmake/toolchains/mac-accelerate-test-only.cmake` as test-only because of
@@ -158,6 +161,29 @@ timing, SCF, directional E/F, or acceleration claim follows from it. The source
 frozen-potential approximation still fails its full-SCF bias gates; improving
 its matrix arithmetic does not repair that physical approximation.
 
+## Actual Metal prototype and benchmark
+
+The [isolated implementation](../experiments/metal-eigensolver/README.md) uses
+a batched complex FP32 cyclic-Jacobi kernel, CPU FP64 standardization and
+bounded corrections, original-H/S acceptance checks, and explicit FP64
+fallback. Production has no dependency on it. Eleven focused tests pass.
+
+The [measured report](../benchmarks/evidence/apple-metal-solver-20261110/REPORT.md)
+retains 16 configurations and 80 timing pairs on the M3 Max. All corrected
+matrix checks pass with zero timed fallbacks; maximum eigenvalue error is
+1.93e-10 eV. With four CPU workers, the fresh 12-matrix FePt batch takes
+**7.05 ms on native CPU FP64 versus 40.46 ms hybrid**, and the 27-matrix FeCo
+batch **23.73 versus 107.77 ms**. Cached factors and eightfold repeated batches
+also fail to produce a speedup. Repeated batches are throughput controls, not
+additional scientific k-point coverage.
+
+The initial Python CPU comparator was replaced by direct native Accelerate
+task dispatch to avoid judging against a weak baseline. The hybrid correction
+still uses Python/NumPy/SciPy and accounts for the largest measured stage.
+Its cost and the Metal seed kernel must improve before expanding this backend.
+Native correction and tiled/block-Jacobi seeds are the next specific candidates;
+neither has measured gains yet. Emulated FP64 remains unqualified and unused.
+
 ## Techniques worth adapting
 
 - [ELPA-AEO mixed-precision SCF study](https://arxiv.org/html/1806.01036v1),
@@ -193,14 +219,11 @@ the narrower hybrid path.
 1. **Component feasibility, done:** preserve original FP64 matrices; compare
    rounding, FP32 solves, and correction on the existing captures. Blanket
    FP32 and Rayleigh-quotient-only correction fail this sample set.
-2. **Actual acceleration, next:** prototype a batched complex FP32 Metal seed
-   solver with CPU FP64 overlap/correction. Use the runtime compiler already
-   verified locally. Batch k points rather than synchronizing per matrix.
-   Cache the FP64 overlap factor only for identical geometry/basis/k data.
-   Compare with a tuned CPU FP64 solve on the same Mac, including factorization,
-   packing, synchronization, correction and any fallback. Report cold and
-   reused-factor costs separately. If correction erases the gain, do not
-   broaden the backend on the strength of raw FP32 throughput.
+2. **Prototype done; acceleration gate failed:** the batched FP32 Metal seed
+   plus CPU FP64 correction is accurate on the captures but slower than the
+   matched native CPU baseline. Preserve fresh/cached-factor timings and all
+   failures. Optimize the measured correction and seed costs before broadening
+   the backend; raw FP32 throughput does not establish an end-to-end gain.
 3. **Full SCF:** build the pinned pristine Mac reference with compatible
    BLAS/LAPACK and keep its ABI tests. Validate matched FePt x/z and FeCo
    001/110/111 runs, retaining density, charge, spectra, final moments and

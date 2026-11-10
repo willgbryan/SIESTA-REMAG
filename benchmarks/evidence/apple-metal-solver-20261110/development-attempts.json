@@ -1,0 +1,50 @@
+{
+  "scope": "Development attempts retained; not timing or scientific qualification",
+  "attempts": [
+    {
+      "step": "Initial sandbox smoke",
+      "outcome": "No Metal device visible; rerun with local GPU access succeeded",
+      "workload_dispatched": false
+    },
+    {
+      "step": "Initial seed tests before column normalization",
+      "outcome": "2 failed, 3 passed",
+      "failed_dimensions": [
+        96,
+        112
+      ],
+      "failure": "FP32 column norm drift exceeded 1e-5; eigenvalue/residual checks passed",
+      "maximum_s_orthogonality_96": 1.5139579772949219e-05,
+      "maximum_s_orthogonality_112": null,
+      "fix": "Normalize seed vector columns in the Metal kernel; leave scientific and test thresholds unchanged"
+    },
+    {
+      "step": "Normalized seed tests",
+      "outcome": "5 passed"
+    },
+    {
+      "step": "Hybrid/fallback tests",
+      "outcome": "9 passed"
+    },
+    {
+      "step": "Native comparator and full isolated tests",
+      "outcome": "11 passed",
+      "command": "VECLIB_MAXIMUM_THREADS=1 .venv/bin/python -m pytest -q experiments/metal-eigensolver/test_solver.py"
+    },
+    {
+      "step": "Initial benchmark",
+      "report": "benchmark-01.json.gz",
+      "outcome": "Complete; all four configurations passed"
+    },
+    {
+      "step": "Python comparator benchmark",
+      "report": "benchmark-02.json.gz",
+      "outcome": "Complete; all 16 configurations passed, hybrid slower in every configuration"
+    },
+    {
+      "step": "Native comparator benchmark",
+      "report": "benchmark-03-native.json.gz",
+      "outcome": "Complete; all 16 configurations passed, hybrid slower in every configuration"
+    }
+  ]
+}

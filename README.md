@@ -10,8 +10,8 @@ source release. It applies an integration patch to a disposable copy of the
 [pinned upstream source](upstream.lock.json), keeping pristine SIESTA as the
 numerical reference. Execution supports one NVIDIA A100 or H100 GPU.
 
-[Apple Metal and mixed precision](docs/APPLE_METAL.md) are under investigation;
-the supported runtime remains CUDA with FP64 solvers.
+An [experimental Metal eigensolver](docs/APPLE_METAL.md) is available for local
+benchmarking; the supported runtime remains CUDA with FP64 solvers.
 
 ## Capabilities
 

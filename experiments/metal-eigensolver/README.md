@@ -5,6 +5,10 @@ with one threadgroup per matrix and a reusable shared-buffer batch plan.
 The 512-matrix allocation bound is not validated scientific capacity.
 No production build, runtime option, or CUDA source uses this code.
 
+The [M3 Max benchmark](../../benchmarks/evidence/apple-metal-solver-20261110/REPORT.md)
+passes the saved-matrix accuracy checks but is slower than native CPU FP64.
+This prototype is not a production acceleration option or an MAE workflow.
+
 Build on macOS with Command Line Tools (the shader is compiled at runtime):
 
 ```sh

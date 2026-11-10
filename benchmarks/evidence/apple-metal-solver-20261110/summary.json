@@ -1,0 +1,522 @@
+{
+  "source_commit": "2492745a76ddca9f7846e5f6d4f68a4659a942e8",
+  "device": "Apple M3 Max",
+  "platform": "macOS-26.5-arm64-arm-64bit",
+  "source_run": "mae-soc-free-scalar-20261026T210526Z",
+  "source_attempt": "677395ac67de45dea1d3e7b75dd8adc9",
+  "source_files": {
+    "experiments/metal-eigensolver/benchmark.py": "ffc62de51e3b8d26d27b45f7fa9731806327e3f108d1c6b8995e26aa798956a3",
+    "experiments/metal-eigensolver/bridge.mm": "3e1092b5beab55a024c027e3a3ec4bdff02277aac0051aafc74949c06047168d",
+    "experiments/metal-eigensolver/captures.py": "10a5e5414a1e36eb21b9d09a6f5275182d4106728d2c15c8fe662eb691d3242c",
+    "experiments/metal-eigensolver/cpu_fp64.cpp": "dc205c7687a7367bf97a88c9e3fde9d1e0162c40fadb463b8a2a75a52454a0c4",
+    "experiments/metal-eigensolver/cpu_fp64.py": "fe1f92ad49fc172975b47dfe05636a3a13cfd780ac431a26fc0354fe4428c2c4",
+    "experiments/metal-eigensolver/hybrid.py": "7b23652e00bca5a9237ec1c1a3bdb09535e954f9983e8c75e03f89900cb5d056",
+    "experiments/metal-eigensolver/jacobi.metal": "f06d1596414102bd72bfdfa3c65f3af98e498eac8f324c889a271877a7b78a4c",
+    "experiments/metal-eigensolver/metal_seed.py": "7d22691a3eb84d9c734c22a0ff9cff9b887bfd6c8fda98efe5e1910d41e92b2f",
+    "experiments/metal-eigensolver/test_solver.py": "564153ab655b88f1ba920514cda8aa0938fe7c7a51979b4d63b79a54def3061a"
+  },
+  "library_sha256": "aab7450018b56ebbcc7b3a2968da51e3d36a90cfca1961db2abc883fa0bf9fce",
+  "raw_reports": {
+    "benchmark-01.json": {
+      "state": "complete",
+      "sha256": "8395c06a7c59b44120fdd42eceb803ba716bdadc5bb1e6d23ae7067c6d3c799b",
+      "source_commit": "87d43114509d2bb08eca4132af98c6e511ac43d8",
+      "configurations": 4
+    },
+    "benchmark-02.json": {
+      "state": "complete",
+      "sha256": "9cf45acedb0e18066c8887518a173ea32ab0d8b070fc558919664135db7b9c94",
+      "source_commit": "e9fadabe3b14ea1d62254ecdd5243a8e59512189",
+      "configurations": 16
+    },
+    "benchmark-03-native.json": {
+      "state": "complete",
+      "sha256": "80dcab5f277c9e01b7684d741cd61bd31a855884a0fe7757bebf0b4f2b7c27d9",
+      "source_commit": "2492745a76ddca9f7846e5f6d4f68a4659a942e8",
+      "configurations": 16
+    }
+  },
+  "unique_captures": 39,
+  "matched_timing_pairs": 80,
+  "eigensystems_per_method": 7020,
+  "fallback_count": 0,
+  "corrected_maxima": {
+    "spectrum_max_abs_error_ev": 1.932276854403217e-10,
+    "max_relative_generalized_residual": 3.365855947683973e-13,
+    "max_abs_s_orthogonality_error": 1.5465242512441745e-12,
+    "occupied_spectrum_max_abs_error_ev": 2.0543281128739644e-13,
+    "fixed_mu_density_relative_frobenius_error": 9.617257184110219e-13
+  },
+  "maximum_correction_steps": 2,
+  "scientific_scope": "Selected-k matrix arithmetic only; exact replicated batches are throughput tests, not additional k points",
+  "mae_qualified": false,
+  "full_scf_qualified": false,
+  "production_changed": false,
+  "compile_command": "clang++ -O3 -std=c++17 -fobjc-arc -dynamiclib -framework Foundation -framework Metal -framework Accelerate experiments/metal-eigensolver/bridge.mm experiments/metal-eigensolver/cpu_fp64.cpp -o build/metal-eigensolver/libmetal_seed.dylib",
+  "samples": [
+    {
+      "material": "FePt",
+      "bands": 96,
+      "batch": 12,
+      "unique_captures": 12,
+      "exact_replay_multiplier": 1,
+      "cpu_workers": 1,
+      "overlap_cached": false,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.02430404257029295,
+      "mixed_median_seconds": 0.046419291757047176,
+      "median_paired_ratio_cpu_over_mixed": 0.5223079937968396,
+      "metal_plan_setup_seconds": 0.051417792215943336,
+      "cpu_plan_setup_seconds": 0.00033675041049718857,
+      "factor_setup_seconds": 0.0008212095126509666,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.004194209352135658,
+        "seed_wall_seconds": 0.016872666776180267,
+        "seed_gpu_seconds": 0.015377666801214218,
+        "correction_and_acceptance_seconds": 0.026965207420289516
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.5351369897751611,
+        0.5223079937968396,
+        0.4443135279008433,
+        0.5487452763568464,
+        0.4555820851167117
+      ]
+    },
+    {
+      "material": "FePt",
+      "bands": 96,
+      "batch": 12,
+      "unique_captures": 12,
+      "exact_replay_multiplier": 1,
+      "cpu_workers": 1,
+      "overlap_cached": true,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.023881916888058186,
+      "mixed_median_seconds": 0.04592925030738115,
+      "median_paired_ratio_cpu_over_mixed": 0.520548792964545,
+      "metal_plan_setup_seconds": 0.051417792215943336,
+      "cpu_plan_setup_seconds": 0.00033675041049718857,
+      "factor_setup_seconds": 0.0008212095126509666,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.003340374678373337,
+        "seed_wall_seconds": 0.01472224947065115,
+        "seed_gpu_seconds": 0.013454792089760303,
+        "correction_and_acceptance_seconds": 0.027476917020976543
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.5507933209493561,
+        0.48495507368638757,
+        0.4240983989818071,
+        0.5728443043980663,
+        0.520548792964545
+      ]
+    },
+    {
+      "material": "FePt",
+      "bands": 96,
+      "batch": 12,
+      "unique_captures": 12,
+      "exact_replay_multiplier": 1,
+      "cpu_workers": 4,
+      "overlap_cached": false,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.007048917002975941,
+      "mixed_median_seconds": 0.04046162497252226,
+      "median_paired_ratio_cpu_over_mixed": 0.1742124051558212,
+      "metal_plan_setup_seconds": 0.051417792215943336,
+      "cpu_plan_setup_seconds": 0.0004220418632030487,
+      "factor_setup_seconds": 0.0008212095126509666,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.004242291674017906,
+        "seed_wall_seconds": 0.01581904198974371,
+        "seed_gpu_seconds": 0.014571833424270153,
+        "correction_and_acceptance_seconds": 0.01889229193329811
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.14654362495394882,
+        0.14931620333180542,
+        0.21099550141818046,
+        0.1906281958350869,
+        0.1742124051558212
+      ]
+    },
+    {
+      "material": "FePt",
+      "bands": 96,
+      "batch": 12,
+      "unique_captures": 12,
+      "exact_replay_multiplier": 1,
+      "cpu_workers": 4,
+      "overlap_cached": true,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.006900500506162643,
+      "mixed_median_seconds": 0.03846787475049496,
+      "median_paired_ratio_cpu_over_mixed": 0.18488585499239962,
+      "metal_plan_setup_seconds": 0.051417792215943336,
+      "cpu_plan_setup_seconds": 0.0004220418632030487,
+      "factor_setup_seconds": 0.0008212095126509666,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.0036895833909511566,
+        "seed_wall_seconds": 0.015093917027115822,
+        "seed_gpu_seconds": 0.014358874410390854,
+        "correction_and_acceptance_seconds": 0.02031845785677433
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.18488585499239962,
+        0.17419670122312617,
+        0.141972724414767,
+        0.1959260743977593,
+        0.18803307791856952
+      ]
+    },
+    {
+      "material": "FePt",
+      "bands": 96,
+      "batch": 96,
+      "unique_captures": 12,
+      "exact_replay_multiplier": 8,
+      "cpu_workers": 1,
+      "overlap_cached": false,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.18998404126614332,
+      "mixed_median_seconds": 0.28201008401811123,
+      "median_paired_ratio_cpu_over_mixed": 0.6775924984741551,
+      "metal_plan_setup_seconds": 0.0009022913873195648,
+      "cpu_plan_setup_seconds": 0.0001871250569820404,
+      "factor_setup_seconds": 0.005070291459560394,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.03256179206073284,
+        "seed_wall_seconds": 0.0344562903046608,
+        "seed_gpu_seconds": 0.030905917286872864,
+        "correction_and_acceptance_seconds": 0.21089587453752756
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.7333382305516458,
+        0.6798557391460518,
+        0.6775924984741551,
+        0.635734926667629,
+        0.6251731130177797
+      ]
+    },
+    {
+      "material": "FePt",
+      "bands": 96,
+      "batch": 96,
+      "unique_captures": 12,
+      "exact_replay_multiplier": 8,
+      "cpu_workers": 1,
+      "overlap_cached": true,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.18513350002467632,
+      "mixed_median_seconds": 0.2874339586123824,
+      "median_paired_ratio_cpu_over_mixed": 0.6440905622927358,
+      "metal_plan_setup_seconds": 0.0009022913873195648,
+      "cpu_plan_setup_seconds": 0.0001871250569820404,
+      "factor_setup_seconds": 0.005070291459560394,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.02742850035429001,
+        "seed_wall_seconds": 0.03416891768574715,
+        "seed_gpu_seconds": 0.030609874986112118,
+        "correction_and_acceptance_seconds": 0.21953099966049194
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.6657259667944297,
+        0.6883806070125988,
+        0.6240652974092014,
+        0.6440905622927358,
+        0.6179714310833588
+      ]
+    },
+    {
+      "material": "FePt",
+      "bands": 96,
+      "batch": 96,
+      "unique_captures": 12,
+      "exact_replay_multiplier": 8,
+      "cpu_workers": 4,
+      "overlap_cached": false,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.05263758450746536,
+      "mixed_median_seconds": 0.22745254263281822,
+      "median_paired_ratio_cpu_over_mixed": 0.22428541758825984,
+      "metal_plan_setup_seconds": 0.0009022913873195648,
+      "cpu_plan_setup_seconds": 0.00033575017005205154,
+      "factor_setup_seconds": 0.005070291459560394,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.03357845824211836,
+        "seed_wall_seconds": 0.03462183382362127,
+        "seed_gpu_seconds": 0.030212249606847763,
+        "correction_and_acceptance_seconds": 0.16301462519913912
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.22194941072919916,
+        0.22729177948729265,
+        0.22428541758825984,
+        0.23375820105255302,
+        0.22422717960089542
+      ]
+    },
+    {
+      "material": "FePt",
+      "bands": 96,
+      "batch": 96,
+      "unique_captures": 12,
+      "exact_replay_multiplier": 8,
+      "cpu_workers": 4,
+      "overlap_cached": true,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.05131700076162815,
+      "mixed_median_seconds": 0.2250560000538826,
+      "median_paired_ratio_cpu_over_mixed": 0.22801880753831005,
+      "metal_plan_setup_seconds": 0.0009022913873195648,
+      "cpu_plan_setup_seconds": 0.00033575017005205154,
+      "factor_setup_seconds": 0.005070291459560394,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.027277749963104725,
+        "seed_wall_seconds": 0.035116832703351974,
+        "seed_gpu_seconds": 0.0297350836917758,
+        "correction_and_acceptance_seconds": 0.16145949997007847
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.22801880753831005,
+        0.23832188476419747,
+        0.2263158801532057,
+        0.22940370617165065,
+        0.21812302439798079
+      ]
+    },
+    {
+      "material": "FeCo",
+      "bands": 112,
+      "batch": 27,
+      "unique_captures": 27,
+      "exact_replay_multiplier": 1,
+      "cpu_workers": 1,
+      "overlap_cached": false,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.07784183416515589,
+      "mixed_median_seconds": 0.1373489173129201,
+      "median_paired_ratio_cpu_over_mixed": 0.5705109651634482,
+      "metal_plan_setup_seconds": 0.001788834109902382,
+      "cpu_plan_setup_seconds": 0.00023091677576303482,
+      "factor_setup_seconds": 0.002634500153362751,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.014172041788697243,
+        "seed_wall_seconds": 0.030059500597417355,
+        "seed_gpu_seconds": 0.02803224977105856,
+        "correction_and_acceptance_seconds": 0.09117408376187086
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.5705109651634482,
+        0.537119438165182,
+        0.5627977861294523,
+        0.6295894773831772,
+        0.6074593025067276
+      ]
+    },
+    {
+      "material": "FeCo",
+      "bands": 112,
+      "batch": 27,
+      "unique_captures": 27,
+      "exact_replay_multiplier": 1,
+      "cpu_workers": 1,
+      "overlap_cached": true,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.076150625012815,
+      "mixed_median_seconds": 0.13198062498122454,
+      "median_paired_ratio_cpu_over_mixed": 0.5761675893417827,
+      "metal_plan_setup_seconds": 0.001788834109902382,
+      "cpu_plan_setup_seconds": 0.00023091677576303482,
+      "factor_setup_seconds": 0.002634500153362751,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.012475584633648396,
+        "seed_wall_seconds": 0.03181833401322365,
+        "seed_gpu_seconds": 0.029849291779100895,
+        "correction_and_acceptance_seconds": 0.08776204194873571
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.595442971525048,
+        0.5999918018584437,
+        0.5244736584030331,
+        0.5738844129768113,
+        0.5761675893417827
+      ]
+    },
+    {
+      "material": "FeCo",
+      "bands": 112,
+      "batch": 27,
+      "unique_captures": 27,
+      "exact_replay_multiplier": 1,
+      "cpu_workers": 4,
+      "overlap_cached": false,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.023734208196401596,
+      "mixed_median_seconds": 0.1077691251412034,
+      "median_paired_ratio_cpu_over_mixed": 0.21910480816888117,
+      "metal_plan_setup_seconds": 0.001788834109902382,
+      "cpu_plan_setup_seconds": 0.00044183339923620224,
+      "factor_setup_seconds": 0.002634500153362751,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.012760999612510204,
+        "seed_wall_seconds": 0.030249458737671375,
+        "seed_gpu_seconds": 0.027758166193962097,
+        "correction_and_acceptance_seconds": 0.06424979120492935
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.2074013931027221,
+        0.23002851913979824,
+        0.21444569001076141,
+        0.21910480816888117,
+        0.2283853418832455
+      ]
+    },
+    {
+      "material": "FeCo",
+      "bands": 112,
+      "batch": 27,
+      "unique_captures": 27,
+      "exact_replay_multiplier": 1,
+      "cpu_workers": 4,
+      "overlap_cached": true,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.023119167424738407,
+      "mixed_median_seconds": 0.10084600001573563,
+      "median_paired_ratio_cpu_over_mixed": 0.23823986685250367,
+      "metal_plan_setup_seconds": 0.001788834109902382,
+      "cpu_plan_setup_seconds": 0.00044183339923620224,
+      "factor_setup_seconds": 0.002634500153362751,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.010860749520361423,
+        "seed_wall_seconds": 0.028453541919589043,
+        "seed_gpu_seconds": 0.026391666382551193,
+        "correction_and_acceptance_seconds": 0.06083241570740938
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.23823986685250367,
+        0.24109787260747495,
+        0.22604583689944435,
+        0.22772882519742235,
+        0.24512044330053886
+      ]
+    },
+    {
+      "material": "FeCo",
+      "bands": 112,
+      "batch": 216,
+      "unique_captures": 27,
+      "exact_replay_multiplier": 8,
+      "cpu_workers": 1,
+      "overlap_cached": false,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.6167014576494694,
+      "mixed_median_seconds": 0.9577017091214657,
+      "median_paired_ratio_cpu_over_mixed": 0.6423301341936482,
+      "metal_plan_setup_seconds": 0.0010842913761734962,
+      "cpu_plan_setup_seconds": 0.00014474987983703613,
+      "factor_setup_seconds": 0.01736954227089882,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.10392158292233944,
+        "seed_wall_seconds": 0.13938924949616194,
+        "seed_gpu_seconds": 0.12473462428897619,
+        "correction_and_acceptance_seconds": 0.71409304253757
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.6500275263296611,
+        0.6704589387499156,
+        0.6423301341936482,
+        0.6269471998277186,
+        0.5862384829527811
+      ]
+    },
+    {
+      "material": "FeCo",
+      "bands": 112,
+      "batch": 216,
+      "unique_captures": 27,
+      "exact_replay_multiplier": 8,
+      "cpu_workers": 1,
+      "overlap_cached": true,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.6094479998573661,
+      "mixed_median_seconds": 1.042611625045538,
+      "median_paired_ratio_cpu_over_mixed": 0.5833731476887448,
+      "metal_plan_setup_seconds": 0.0010842913761734962,
+      "cpu_plan_setup_seconds": 0.00014474987983703613,
+      "factor_setup_seconds": 0.01736954227089882,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.08974808268249035,
+        "seed_wall_seconds": 0.14352962467819452,
+        "seed_gpu_seconds": 0.1269712084904313,
+        "correction_and_acceptance_seconds": 0.8130587497726083
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.5459438188180303,
+        0.6259851984125667,
+        0.5218349345878476,
+        0.6386197569962587,
+        0.5833731476887448
+      ]
+    },
+    {
+      "material": "FeCo",
+      "bands": 112,
+      "batch": 216,
+      "unique_captures": 27,
+      "exact_replay_multiplier": 8,
+      "cpu_workers": 4,
+      "overlap_cached": false,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.1764644170179963,
+      "mixed_median_seconds": 0.8190316669642925,
+      "median_paired_ratio_cpu_over_mixed": 0.2154549379904375,
+      "metal_plan_setup_seconds": 0.0010842913761734962,
+      "cpu_plan_setup_seconds": 0.0008734576404094696,
+      "factor_setup_seconds": 0.01736954227089882,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.10428041592240334,
+        "seed_wall_seconds": 0.14230529218912125,
+        "seed_gpu_seconds": 0.1260580001398921,
+        "correction_and_acceptance_seconds": 0.5697837499901652
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.2154549379904375,
+        0.2330387891013539,
+        0.2188869898111917,
+        0.21444833685776069,
+        0.20261608677620233
+      ]
+    },
+    {
+      "material": "FeCo",
+      "bands": 112,
+      "batch": 216,
+      "unique_captures": 27,
+      "exact_replay_multiplier": 8,
+      "cpu_workers": 4,
+      "overlap_cached": true,
+      "component_qualified": true,
+      "cpu_median_seconds": 0.1756722079589963,
+      "mixed_median_seconds": 0.8741845833137631,
+      "median_paired_ratio_cpu_over_mixed": 0.19617691328258793,
+      "metal_plan_setup_seconds": 0.0010842913761734962,
+      "cpu_plan_setup_seconds": 0.0008734576404094696,
+      "factor_setup_seconds": 0.01736954227089882,
+      "mixed_stage_medians_seconds": {
+        "preparation_seconds": 0.0852464996278286,
+        "seed_wall_seconds": 0.14709612540900707,
+        "seed_gpu_seconds": 0.12813649978488684,
+        "correction_and_acceptance_seconds": 0.642263999208808
+      },
+      "paired_ratios_cpu_over_mixed": [
+        0.21794846123499606,
+        0.17347712248740726,
+        0.1960109948174329,
+        0.21152478043159567,
+        0.19617691328258793
+      ]
+    }
+  ]
+}
