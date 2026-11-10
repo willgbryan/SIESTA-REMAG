@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "purpose": "End-to-end integration smoke test; not an Fe anisotropy benchmark or a speedup comparison",
+  "date_UTC": "2026-11-10",
+  "material": "bcc Fe conventional two-atom starting cell, a=2.87 Angstrom",
+  "input_sha256": "5697b453dfc9c7d9f40e25b7411e6bc2c1ae456a4017b4f1d4d549be8e3031f9",
+  "orb": {
+    "steps": 7,
+    "worker_wall_seconds": 3.3186389170587063,
+    "metrics": {
+      "max_force_ev_ang": 0.017936035990715027,
+      "max_stress_gpa": 0.08676684647798538,
+      "energy_ev": -16.87137222290039,
+      "volume_a3": 22.846516063408426
+    },
+    "model": "orb-v3-conservative-inf-mpa",
+    "weights_sha256": "bd1840d1488f3cd01d213970d9618a63f971590ad45e5e83bf5404d4b95d216a",
+    "versions": {
+      "ase": "3.29.0",
+      "numpy": "2.5.4",
+      "orb-models": "0.5.4",
+      "torch": "2.15.0"
+    }
+  },
+  "settings": {
+    "orb_fmax_ev_ang": 0.02,
+    "orb_stress_gpa": 0.1,
+    "orb_steps": 400,
+    "orb_seconds": 120,
+    "dft_fmax_ev_ang": 0.04,
+    "dft_stress_gpa": 0.5,
+    "dft_steps": 30,
+    "dft_seconds": 300,
+    "soc_seconds": 90,
+    "total_dft_seconds": 600,
+    "max_scf": 100,
+    "dm_tolerance": 0.0001,
+    "h_tolerance_ev": 0.001,
+    "mixing_weight": 0.03,
+    "mixing_history": 8,
+    "mesh_ry": 300,
+    "smearing_k": 300,
+    "k_spacing_inv_ang": 0.35,
+    "max_kpoints": 512,
+    "max_atoms": 200,
+    "minimum_js_t": 0.4,
+    "axis_tolerance_deg": 1.0,
+    "branch_rms_mub": 0.2,
+    "branch_net_fraction": 0.05
+  },
+  "native_status": "screened",
+  "stages": [
+    {
+      "stage": "dft-relax",
+      "scf_iterations": 106,
+      "solver_seconds": 90.059658527,
+      "native_optimizer_converged": true,
+      "max_force_ev_ang": 0.026522635106640515,
+      "max_stress_gpa": 0.30633616989696,
+      "native_grid": [
+        30,
+        30,
+        30
+      ],
+      "native_kpoints": 172,
+      "axis_deviation_deg": null,
+      "artifact_sha256": {
+        "Fe.psml": "959e0d8bd121540933877209affcb5787f15cafcb7ac05dcc984f85580acdd9f",
+        "input.fdf": "7c6a848b9ab25301b7bcba58c58e48ec72b198dbfbb4eb342543174468cb2e0f",
+        "remag.DM": "5f869d3e9320f651e1c8b4c3a63c81b723263075c4cfdea3452bc7d87d3581b2",
+        "remag.HSX": "35f0ffc083f11cd653a5ede22091039babd5e1f45362a18d22fbdb162aa4b17a",
+        "remag.STRUCT_OUT": "d6d9b1d85d66f135de28f9aeb8a055f664129a118687c3e83236d10a5687e9e6",
+        "remag.XV": "c47253d8a5ece27bd122ff7079a54d2e2cda87f51ec4f80a8c90b94fdbaf78a2",
+        "result.json": "d57273c5375eacc140a8bbf2ef142bb9af9af64ed4be91c51e7f547dcf8d2266",
+        "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+        "stdout.log": "14eb03ec58eb8370d8a7c3f0c0e963d1db09d3d178f5a34932f1f35fea3d67d9"
+      }
+    },
+    {
+      "stage": "soc-z",
+      "scf_iterations": 6,
+      "solver_seconds": 12.036610214999996,
+      "native_optimizer_converged": null,
+      "max_force_ev_ang": 0.026310138445093747,
+      "max_stress_gpa": 0.23119408638144,
+      "native_grid": [
+        30,
+        30,
+        30
+      ],
+      "native_kpoints": 343,
+      "axis_deviation_deg": 0.0002895123648591735,
+      "artifact_sha256": {
+        "Fe.psml": "959e0d8bd121540933877209affcb5787f15cafcb7ac05dcc984f85580acdd9f",
+        "input.fdf": "d41847e3e4335201089a51b6bcf791f601bb13c6c69f14454a75a21ef377ac7d",
+        "remag.DM": "794a702080e48a5904375f525818c0ba0f50878443f68718ea87cfb6bcc6c25a",
+        "remag.HSX": "f9dbca5be285d54a8a8c8ce12747d10a479aeba2f2cf868152b5d381e6bb62bd",
+        "remag.STRUCT_OUT": "d6d9b1d85d66f135de28f9aeb8a055f664129a118687c3e83236d10a5687e9e6",
+        "remag.XV": "ef9a6304f154125839648bddd00fcc58642e6d2936e0d4149af6629ebc96dce2",
+        "result.json": "010980a7d67ad7a26a8e971c7423e68f686328ad25266f817303754d7508699d",
+        "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+        "stdout.log": "818ed59513d04735524efc657be3489195d35fc7bb127de69b02fc40d13afe57"
+      }
+    },
+    {
+      "stage": "soc-x",
+      "scf_iterations": 6,
+      "solver_seconds": 11.725735165999993,
+      "native_optimizer_converged": null,
+      "max_force_ev_ang": 0.026282845146597046,
+      "max_stress_gpa": 0.25827087127296,
+      "native_grid": [
+        30,
+        30,
+        30
+      ],
+      "native_kpoints": 343,
+      "axis_deviation_deg": 0.0004182706715313247,
+      "artifact_sha256": {
+        "Fe.psml": "959e0d8bd121540933877209affcb5787f15cafcb7ac05dcc984f85580acdd9f",
+        "input.fdf": "6aec461c89d82b4b9d5192cbc93973235b77f082371be8dcf3de443f9975567b",
+        "remag.DM": "0518162e6e14ad7029a1a974fae0dcf1e23a1998eefb4e5c617e7c4b794c6f24",
+        "remag.HSX": "cfd8a94cd0c385ff1847fa05fdc584e306d6e78fb9a1a8458ef24e288fcf7644",
+        "remag.STRUCT_OUT": "d6d9b1d85d66f135de28f9aeb8a055f664129a118687c3e83236d10a5687e9e6",
+        "remag.XV": "ef9a6304f154125839648bddd00fcc58642e6d2936e0d4149af6629ebc96dce2",
+        "result.json": "903f9e07bc14dd68efb2f972f54a3a97a2adf87b8d8a61d349e3b395d4b50ce0",
+        "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+        "stdout.log": "60b7b77454d90d64b18ac1b9f16c91730657c76823081cfc5135064d22755b95"
+      }
+    },
+    {
+      "stage": "soc-y",
+      "scf_iterations": 6,
+      "solver_seconds": 11.738339894999996,
+      "native_optimizer_converged": null,
+      "max_force_ev_ang": 0.0263378127034118,
+      "max_stress_gpa": 0.25170194712767996,
+      "native_grid": [
+        30,
+        30,
+        30
+      ],
+      "native_kpoints": 343,
+      "axis_deviation_deg": 4.2688682312580685e-05,
+      "artifact_sha256": {
+        "Fe.psml": "959e0d8bd121540933877209affcb5787f15cafcb7ac05dcc984f85580acdd9f",
+        "input.fdf": "c336bfda9bde8eeb0be90beed576ad921b8bab634871ba4a788d7f941c3b152e",
+        "remag.DM": "4971665b1e8b70581f35cfca9b8d131a8273f24356b2741c5d684c59457e8bc1",
+        "remag.HSX": "ecb4821973988024468de6335c6542a0108398b13e68a10e7e0492b6f6fdd93a",
+        "remag.STRUCT_OUT": "d6d9b1d85d66f135de28f9aeb8a055f664129a118687c3e83236d10a5687e9e6",
+        "remag.XV": "ef9a6304f154125839648bddd00fcc58642e6d2936e0d4149af6629ebc96dce2",
+        "result.json": "c0f434048b6b249d61b3a13ae7d277037a2510aa42c53b5ce9a79ddc0535e32c",
+        "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+        "stdout.log": "d979f82002a44aa4cab68b8e3baf3c52f6ebea47c3b33b083eb655f0215221a0"
+      }
+    }
+  ],
+  "timing": {
+    "run_id": "discovery-1e673c85991d40028b75d1c860828719",
+    "solver_seconds": 125.56034380299998,
+    "whole_dft_pipeline_seconds": 145.264022655,
+    "allocation_seconds": 155.64943313598633,
+    "collection_wait_and_download_seconds": 162.23584316764027,
+    "download_only_seconds": null,
+    "local_unpack_seconds": 0.06748516578227282
+  },
+  "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+  "source_code_at_execution": {
+    "__init__.py": "24f91aa34873a757427724a85bd052e9e738e000e1e952a42d565f08ad8c168d",
+    "cli.py": "f344fd5a62352591e70079ef413585a23d5bf1b3e6b167aa16be4c7e124b5da2",
+    "collection.py": "bda4af30bec55a52da8f5d200dabb85bb12b2a0c461396fa8c734f3fe9024b66",
+    "common.py": "2c99c1f091bb0af59af5b06de69fe429582a2ec508fa850cb8ae9f5cddbcde8a",
+    "config.py": "76ae475671a6269d9910ccaa592814ff70b57f029a162611e1a8e65a9d53c343",
+    "inputs.py": "0614d21e4522ef3d0a1200a4c942d20846e0b73f1a4985dd73d65d58a8655e27",
+    "orb.py": "e7daa9465e7ec9f7232bac37e5e9d6a7549b3f6b00dc6f98e5e65bb22088ec4e",
+    "pipeline.py": "f60961203027eea42fd73a9a028180a98f6fd8b023ad07ed38459efe1c20b66e",
+    "review.py": "e821b20b9dc36d6374228e56afef40488b57c651f1ef778a4d700779cb34a7f7",
+    "seed.py": "d25acf7144d32bcbdd44fc27d2615928fe74d2d0a06a9b1a06147aeb57a962e0",
+    "../runner.py": "98d49c6688805c38e8fb115826b031de906abd6b8fc24af26f588dcd4c9d61a2",
+    "../output.py": "83cfe25f907265651237e24b08dd71664e420b670fe357c7aa3d0b8da72cfc71"
+  },
+  "runtime_example": "examples/discovery/a100-host-runtime.json",
+  "report_sha256": "d7dc47a9bedd44397f68cfdcb164c03cd90906b9c2e8cf2416d2c1909f2cc5bb",
+  "archive_sha256": "2eef3b147138b51017aaf125f92da44a065be664c5afc19142d9d6e43e6a7989",
+  "GPU_stopped": true,
+  "K1": null,
+  "physical_anisotropy_qualified": false,
+  "notes": [
+    "All four native cases independently passed the final reviewer, including full off-site SOC and successful DM reading.",
+    "The 106 scalar SCF iterations span 17 ionic evaluations; the per-cycle cap was 100.",
+    "Each SOC direction converged in 6 iterations.",
+    "Shorter smoke-test operational bounds were used; numerical defaults were unchanged.",
+    "A pending launch was canceled before task assignment after correcting FDF spin-token syntax. A second launch failed during remote import before any solver ran; its package path was fixed and checked on CPU. Those failures are separate from the successful run timings.",
+    "The final reviewer gained native spin-mode and density-read checks after execution; it was replayed against saved native output with no recomputation.",
+    "Default-tolerance Fe directional energies are not promoted as physical anisotropy."
+  ]
+}
