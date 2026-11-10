@@ -5,6 +5,7 @@ import numpy as np
 import pytest
 
 from metal_seed import MetalSeed
+from hybrid import BatchSolver
 
 LIBRARY = os.environ.get('REMAG_METAL_LIBRARY', 'build/metal-eigensolver/libmetal_seed.dylib')
 
@@ -45,3 +46,33 @@ def test_explicit_nonconvergence_and_lifetime():
 def test_invalid_plan():
     with pytest.raises(RuntimeError, match='even dimension'):
         MetalSeed(LIBRARY, 3, 1)
+
+
+@pytest.mark.parametrize('n', [96, 112])
+def test_corrected_saved_magnetic_matrices(n):
+    from captures import load, check
+    cases = [c for c in load() if c['provenance']['bands'] == n]
+    hs = [(c['h'], c['s']) for c in cases]
+    with MetalSeed(LIBRARY, n, len(cases)) as seed:
+        solver = BatchSolver(seed)
+        try:
+            solutions, report = solver.mixed(hs)
+            assert report['fallback_count'] == 0
+            for case, solution in zip(cases, solutions):
+                assert check(case, solution)['component_gates_passed']
+        finally:
+            solver.close()
+
+
+@pytest.mark.parametrize('controls', [{'seed_maximum': 0}, {'correction_maximum': 0}])
+def test_failure_preserved_with_fp64_fallback(controls):
+    h = np.array([[3, 0.7j], [-0.7j, 1]], dtype=complex)
+    s = np.array([[1, 0.1], [0.1, 1.5]], dtype=complex)
+    with MetalSeed(LIBRARY, 2, 1) as seed:
+        solver = BatchSolver(seed)
+        result, report = solver.mixed([(h, s)], **controls)
+        assert report['fallback_count'] == 1
+        assert report['jobs'][0]['fallback_reason']
+        assert report['jobs'][0]['fallback_acceptance']['accepted']
+        w, v = result[0]
+        assert np.linalg.norm(h@v-(s@v)*w) < 1e-12
