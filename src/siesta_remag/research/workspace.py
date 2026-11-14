@@ -5,11 +5,12 @@ import json
 from pathlib import Path
 import numpy as np
 
-from ..discovery.common import load
+from ..discovery.common import load, digest
 from ..corpus import sha256
+from .convergence import numerical_configuration
 
 
-def electronic_preview(folder):
+def electronic_preview(folder, *, expected_hsx_sha256=None):
     accepted = []
     for path in sorted(folder.glob('electronic-z*/electronic.json')):
         candidate = load(path)
@@ -18,6 +19,8 @@ def electronic_preview(folder):
             accepted.append((path, candidate))
     if not accepted: return None
     meta_path, meta = accepted[-1]
+    if expected_hsx_sha256 is not None and meta.get('hsx_sha256') != expected_hsx_sha256:
+        raise ValueError('Electronic Hamiltonian binding differs')
     artifact = meta_path.parent/meta['artifact']
     if not artifact.resolve().is_relative_to(meta_path.parent.resolve()) or sha256(artifact) != meta['artifact_sha256']:
         raise ValueError('Electronic artifact binding differs')
@@ -37,40 +40,67 @@ def electronic_preview(folder):
                 sampling=meta.get('sampling', 'supplied k points'))
 
 
-@lru_cache(maxsize=1)
-def authored_family():
-    from gpac.physical import fept_reference, strain, export_geometry, coordination
+@lru_cache(maxsize=3)
+def authored_family(kind='axial'):
+    from gpac.physical import (fept_reference, strain, export_geometry, coordination,
+                               isotropic_scale, volume_preserving_tetragonal)
+    from fractions import Fraction
+    if kind not in ('axial', 'volume', 'shape'):
+        raise ValueError('Unknown structural control')
     parent = fept_reference()
     rows = []
-    for q in ['-1/50', '-1/100', '-1/200', '0', '1/200', '1/100', '1/50']:
-        change = strain(parent, 2, q, expected_sha256=parent.sha256)
+    parameters = (['-1/50', '-1/100', '-1/200', '-1/400', '0', '1/400', '1/200', '1/100', '1/50']
+                  if kind == 'axial' else ['-1/400', '0', '1/400'])
+    for q in parameters:
+        if kind == 'axial':
+            change = strain(parent, 2, q, expected_sha256=parent.sha256)
+        else:
+            operation = isotropic_scale if kind == 'volume' else volume_preserving_tetragonal
+            change = operation(parent, str(1 + Fraction(q)), expected_sha256=parent.sha256)
         export = export_geometry(change['child']['program'], length_unit='angstrom')
-        from fractions import Fraction
         rows.append(dict(strain=float(Fraction(q)), exact_strain=q, structure=export,
                          coordination=coordination(export['geometry'], cutoff_angstrom=3.4)))
     return rows
 
 
+def comparison_key(report):
+    """Physical controls and runtime match; execution ceilings are not observables."""
+    config = numerical_configuration(report)
+    del config['source_sha256']
+    return digest(config)
+
+
 def dataset(workspace):
-    rows = [dict(r, result=None) for r in authored_family()]
+    workspace = Path(workspace)
+    families = [dict(id=kind, label=label, hint=hint,
+                     rows=[dict(r, result=None) for r in authored_family(kind)])
+                for kind, label, hint in [('axial', 'c strain', 'Fixed a, b'),
+                                         ('volume', 'Volume', 'Uniform scale'),
+                                         ('shape', 'Shape', 'In-plane scale · fixed volume')]]
+    rows = [row for family in families for row in family['rows']]
     # Display only reports bound to the exact source represented by each row.
     for path in sorted(Path(workspace).rglob('report.json')):
         report = load(path)
         if report.get('format') != 'REMAG-EXPERIMENT-RESULT/1': continue
-        for row in rows:
-            if report.get('source_sha256') == row['structure']['source']['sha256']:
-                row.setdefault('calculations', []).append(dict(path=str(path.relative_to(workspace)), status=report['status'],
+        matching = [row for row in rows if report.get('source_sha256') == row['structure']['source']['sha256']]
+        if not matching: continue
+        calculation = dict(path=str(path.relative_to(workspace)), status=report['status'],
                     settings=report['request']['settings'], kmesh=report['request']['kmesh'],
                     basis_size=report['request']['basis_size'], anisotropy=report.get('anisotropy'),
                     basis_energy_shift_ry=report['request']['basis_energy_shift_ry'],
                     pseudopotentials=report['request']['pseudopotentials'],
                     stages=report['stages'],
+                    comparison_key=comparison_key(report),
                     observations={stage: {key: value for key, value in observation.items() if key != 'eigenvalues'}
                                   for stage, observation in report['observations'].items()},
                     executable_sha256=report['executable_sha256'],
-                    electronic=electronic_preview(path.parent)))
-                row['result'] = row['calculations'][-1]
-    return dict(format='REMAG-WORKSPACE/1', material='FePt', rows=rows)
+                    electronic=electronic_preview(path.parent,
+                        expected_hsx_sha256=report.get('artifacts', {}).get('soc-z/remag.HSX')))
+        for row in matching:
+            row.setdefault('calculations', []).append(calculation)
+            row['result'] = calculation
+    # Keep the original rows field for saved-state consumers; new views add families.
+    return dict(format='REMAG-WORKSPACE/1', material='FePt', rows=families[0]['rows'], families=families)
 
 
 def serve(workspace, port=8765):

@@ -27,6 +27,11 @@ palette follows Project 14. Drag or use arrow keys to rotate; select an atom,
 toggle its coordination shell and choose exact strain samples. Source words and
 calculation details are collapsed. The viewer never launches paid calculations.
 Unmeasured quantities stay empty. Comparisons require identical numerical settings.
+The compact control selector includes the new ±0.25% c strains, independent
+uniform scaling and volume-preserving shape controls. E and F can be inspected
+separately. Curves match scientific settings, executable and runtime flags;
+execution deadlines do not split otherwise comparable observations. Orbital
+previews also bind their HSX hash to the displayed calculation.
 
 ## Structure and execution
 
