@@ -4,6 +4,7 @@ These are post-SCF diagnostics of the exported Hamiltonian, not a new SCF solver
 or a unique partition of observables. Native EIG comparison qualifies each use.
 """
 from pathlib import Path
+from decimal import Decimal, InvalidOperation
 import struct
 
 import numpy as np
@@ -199,13 +200,32 @@ def spectrum_from_run(directory, output, *, collinear_spin=0):
         native = native[:, collinear_spin*eigen['nbands']:(collinear_spin+1)*eigen['nbands']]
     cell_bohr = hsx['cell'].reshape(3, 3)
     fractional = kp[:, 1:4] @ cell_bohr.T / (2*np.pi)
-    total = kp[:, 4].sum()
-    if abs(total-1) > 2e-6 or np.any(kp[:, 4] < 0):
-        raise ValueError('Native k-point weights do not sum to one within text rounding')
-    result = spectrum(root/'remag.HSX', fractional, kp[:, 4]/total, output,
+    weights, total, rounding_bound = _native_weights([line.split()[4] for line in lines[1:]])
+    result = spectrum(root/'remag.HSX', fractional, weights, output,
                       collinear_spin=collinear_spin, native_eigenvalues_ev=native)
     result.update(kp_sha256=sha256(root/'remag.KP'), eig_sha256=sha256(root/'remag.EIG'),
-                  native_kp_weight_sum=float(total), sampling='native SCF k mesh; KP decimal rounding retained',
+                  native_kp_weight_sum=total, native_kp_weight_rounding_bound=rounding_bound,
+                  sampling='native SCF k mesh; KP decimal rounding retained',
                   native_comparison_limit='EIG/KP printed precision; not micro-eV qualification')
     save(Path(output)/'electronic.json', result)
     return result
+
+
+def _native_weights(tokens):
+    """Normalize only a discrepancy covered by the printed decimal precision.
+
+    SIESTA's 512 equal weights print as 0.195312E-02; their 2.56e-6
+    sum discrepancy is exactly half a last-place unit per printed weight.
+    Counting missing samples or accepting coarsely printed weights is excluded.
+    """
+    try:
+        values = [Decimal(token) for token in tokens]
+    except (InvalidOperation, ValueError):
+        raise ValueError('Invalid native k-point weight') from None
+    if not values or any(not v.is_finite() or v < 0 or abs(v.as_tuple().exponent) > 100 for v in values):
+        raise ValueError('Invalid native k-point weight')
+    total = sum(values)
+    bound = sum(Decimal(10)**v.as_tuple().exponent/2 for v in values)
+    if total <= 0 or bound > Decimal('0.0001') or abs(total-1) > bound:
+        raise ValueError('Native k-point weights do not sum to one within text rounding')
+    return np.array([float(v/total) for v in values]), float(total), float(bound)

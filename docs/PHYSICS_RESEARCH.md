@@ -108,6 +108,8 @@ outcome is known. Retrieval is local text search; no model service or API key is
 assumed. `evaluate_holdout` compares supplied agent predictions with linear and
 interpolation baselines on disjoint bracketed samples. Matching a prediction
 does not automatically verify a mechanism.
+`record_analysis` appends evidence-bound replication or convergence findings
+without changing the original predictions or outcomes.
 
 ## One-GPU campaigns
 

@@ -1,0 +1,51 @@
+{
+  "format": "REMAG-FEPT-GPU-PREDICTION-EVALUATION/1",
+  "status": "measured",
+  "app_id": "ap-gxb7wIuXC5nItfKFjxlBoZ",
+  "original_predictions_sha256": "01f15ea5b23ea664598e200501e16815059f75ab55846a18e78ea6325c81bdef",
+  "trials": [
+    {
+      "label": "m050",
+      "q": -0.005,
+      "event_id": "38ab1eefbb9a46c48b674c87bafc7c40",
+      "prediction_id": "1f32d0ead93c422f92663d05c056d3e0",
+      "prediction_mev_cell": 1.537312499962695,
+      "observed_mev_cell": 1.709772733192949,
+      "report_sha256": "826754fcd49ad3473ec7cf73e889227b2400edb0bcccdc5b8f5497289a010610",
+      "gpu_minus_pristine_ev": -2.2726680981577374e-07
+    },
+    {
+      "label": "p050",
+      "q": 0.005,
+      "event_id": "4cfaf816b6de46a782ba726d81d56cb2",
+      "prediction_id": "3e06d10fe36543158702b2739ef338bf",
+      "prediction_mev_cell": 1.119312499994862,
+      "observed_mev_cell": 0.9196177429657837,
+      "report_sha256": "6f44527fa55aa2fb0a24fdc18a147cadff23796e0f3db194b2b605eb7b1e54ee",
+      "gpu_minus_pristine_ev": 6.177433533594012e-07
+    }
+  ],
+  "metrics": {
+    "agent": {
+      "mae": 0.1860774951296662,
+      "rmse": 0.18657508948240686
+    },
+    "linear": {
+      "mae": 0.1860774951296662,
+      "rmse": 0.2595678950146741
+    },
+    "interpolation": {
+      "mae": 0.1860774951296662,
+      "rmse": 0.19728725503235403
+    }
+  },
+  "units": "meV/cell",
+  "evaluation_scope": "Original predictions were locked before either native or REMAG held-out outcomes. This is REMAG replication of those predictions, not a new blind test after seeing native outcomes.",
+  "mechanism_verified": false,
+  "physical_accuracy_qualified": false,
+  "value_beyond_scalar_baselines_demonstrated": false,
+  "allocation_elapsed_seconds": 182.009719648,
+  "reserved_cost_bound_usd": 6.666666666666666,
+  "billed_cost_usd": null,
+  "collection_sha256": "96604c4c7aee705e23dbbe69f03a78847221e48813416a7c78b2cdd8864940de"
+}

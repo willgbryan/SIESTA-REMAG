@@ -93,6 +93,22 @@ class Notebook:
         if type(limit) is not int or not 1 <= limit <= 200: raise ValueError('Limit must be 1..200')
         return [self.get(r[0]) for r in self.db.execute('SELECT id FROM events WHERE instr(lower(payload),lower(?))>0 ORDER BY rowid DESC LIMIT ?', (query, limit))]
 
+    def record_analysis(self, parent_id, *, conclusion, report_sha256, status='inconclusive'):
+        """Append an evidence-bound interpretation without changing predictions.
+
+        This can retain replication or convergence findings. It is an analyst's
+        interpretation, not automatic verification of a physical mechanism.
+        """
+        if self.get(parent_id)['kind'] not in ('hypothesis', 'experiment') or not conclusion:
+            raise ValueError('Analysis requires an existing hypothesis/experiment and conclusion')
+        if status not in ('evaluated', 'inconclusive'):
+            raise ValueError('Analysis status must be evaluated or inconclusive')
+        if not isinstance(report_sha256, str) or len(report_sha256) != 64 or any(c not in '0123456789abcdef' for c in report_sha256):
+            raise ValueError('Analysis requires an evidence SHA-256')
+        with self.db:
+            return self._append('analysis', dict(conclusion=conclusion, report_sha256=report_sha256,
+                status=status, mechanism_verified=False), parent_id)
+
 
 def evaluate_holdout(training, heldout, *, agent_predictions):
     """Compare preregistered predictions to linear and interpolation baselines.

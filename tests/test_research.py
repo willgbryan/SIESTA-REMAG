@@ -61,6 +61,15 @@ def test_viewer_withholds_uncompared_or_failed_spectra(tmp_path):
         assert electronic_preview(tmp_path) is None
 
 
+def test_native_kp_rounding_does_not_hide_missing_samples():
+    from siesta_remag.research.electronic import _native_weights
+    w, total, bound = _native_weights(['0.195312E-02']*512)
+    assert np.allclose(w, np.full(512, 1/512), atol=0, rtol=0)
+    assert total == .99999744 and bound == 2.56e-6
+    for tokens in [['0.195312E-02']*511, ['0.2']*5, ['NaN'], ['-0.1'], ['0']]:
+        with pytest.raises(ValueError): _native_weights(tokens)
+
+
 def test_predictions_cannot_follow_outcomes(tmp_path):
     n = Notebook(tmp_path/'research.sqlite')
     h = n.record_hypothesis('strain changes near-Fermi states', predictions=['positive slope'], alternatives=['branch change'])
@@ -71,6 +80,9 @@ def test_predictions_cannot_follow_outcomes(tmp_path):
     assert n.evaluate(e)['within_predicted_uncertainty']
     with pytest.raises(ValueError): n.record_prediction(e, observable='MAE', value=1.1, unit='meV/cell')
     assert len(n.retrieve('strain')) == 2
+    analysis = n.record_analysis(h, conclusion='Replication agrees; physical convergence remains open', report_sha256='c'*64)
+    assert not n.get(analysis)['payload']['mechanism_verified']
+    assert n.evaluate(e)['error'] == pytest.approx(.1)
     n.close()
     r = evaluate_holdout([[-1, 0], [0, 1], [1, 2]], [[.5, 1.5]], agent_predictions=[1.6])
     assert r['agent']['mae'] == pytest.approx(.1)
