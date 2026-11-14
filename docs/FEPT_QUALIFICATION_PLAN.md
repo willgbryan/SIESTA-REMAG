@@ -25,6 +25,30 @@ checks pass. Overlap remains positive at every sampled point, with worst
 condition number about 105,469. The registered 0.0025 Ry point is running;
 no new prediction targets are scheduled.
 
+## Completed 36³ mesh and local radial checkpoint
+
+The [36³ result](../tests/evidence/research/fept-mesh-r3-k36-review-2026-11-14.json)
+passes the original mesh criterion at the existing DZP/0.02 Ry settings:
+28→32 and 32→36 both change E/F by less than 0.05 meV. The new step is
++0.035141/+0.006256 meV. Native, transverse and magnetic-branch checks pass;
+the earlier 24→28 failure remains recorded. All 15 omitted native binary
+artifacts were recovered and hash-verified. The 40³ confirmation started
+12 seconds after the 36³ app stopped, on one A100. This mesh result does not
+transfer to a different basis or orbital range.
+
+The [local TZP radial ladder](../tests/evidence/research/fept-radial-r2-evaluation-2026-11-14.json)
+finished without passing: its final 0.005→0.0025 Ry step changes E/F by
+−0.077/−0.063 meV. All three radial steps exceed tolerance, with alternating
+signs. All native, branch and transverse checks pass. The
+[overlap diagnostics](../tests/evidence/research/fept-radial-r2-overlap-2026-11-14.json)
+remain positive on every sampled k point; the final worst condition number is
+about 298,404. The registered basis-size comparison selected 0.0025 Ry by its
+preregistered rule and has started locally, retaining the failed radial gate.
+
+The full $50 mesh-stage envelope is now reserved, bringing cumulative
+reservations to $146.67 against the $350 authorized ceiling. The $150 basis
+and $50 final-control sublimits remain unused; actual billing is unreconciled.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
