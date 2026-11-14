@@ -1,0 +1,110 @@
+{
+  "format": "REMAG-RESPONSE-CONTROLS-AUDIT/1",
+  "reference_report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e",
+  "controls": [
+    {
+      "id": "volume-minus",
+      "status": "measured",
+      "report_sha256": "946c276cf06b9e45a4b64efa7e106be01bbed8e58076794b78273a24d2bc7c23",
+      "heldout": false,
+      "numerical_configuration_matches": true,
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.00928251609209492,
+        "net_fractional_change": 0.0036941818138131635,
+        "robust_site_flip": false
+      },
+      "transverse_splits_ev": {
+        "total_energy_ev": 0.0,
+        "free_energy_ev": 0.0
+      }
+    },
+    {
+      "id": "volume-plus",
+      "status": "measured",
+      "report_sha256": "cd9f9f72940a6c1a70172532cc705977d8eac7f134e43acb78002a42b924aa54",
+      "heldout": false,
+      "numerical_configuration_matches": true,
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.009462883942012562,
+        "net_fractional_change": 0.0038563654056392393,
+        "robust_site_flip": false
+      },
+      "transverse_splits_ev": {
+        "total_energy_ev": 0.0,
+        "free_energy_ev": 0.0
+      }
+    },
+    {
+      "id": "shape-minus",
+      "status": "measured",
+      "report_sha256": "0e052d1ce46c1dc16018acd06db31a35093e72075cc9dd8e0088fcff38291da7",
+      "heldout": false,
+      "numerical_configuration_matches": true,
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.006206416437848904,
+        "net_fractional_change": 0.003715205612753568,
+        "robust_site_flip": false
+      },
+      "transverse_splits_ev": {
+        "total_energy_ev": 0.0,
+        "free_energy_ev": 0.0
+      }
+    },
+    {
+      "id": "shape-plus",
+      "status": "measured",
+      "report_sha256": "2ba6d21995a11de20d1806bc217721e4ad5f497ee801084cafb50ad7a1b26ec5",
+      "heldout": false,
+      "numerical_configuration_matches": true,
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.007331867190559131,
+        "net_fractional_change": 0.004399980778240984,
+        "robust_site_flip": false
+      },
+      "transverse_splits_ev": {
+        "total_energy_ev": 0.0,
+        "free_energy_ev": 0.0
+      }
+    },
+    {
+      "id": "mixed-minus",
+      "status": "measured",
+      "report_sha256": "649773f796dcb14d6319456d0a782952b83d5ea685634480c78e81fd51f68317",
+      "heldout": true,
+      "numerical_configuration_matches": true,
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.0023294550864956503,
+        "net_fractional_change": 8.709859561026788e-05,
+        "robust_site_flip": false
+      },
+      "transverse_splits_ev": {
+        "total_energy_ev": 0.0,
+        "free_energy_ev": 0.0
+      }
+    },
+    {
+      "id": "mixed-plus",
+      "status": "measured",
+      "report_sha256": "b535dfff2dccbeeceaa01f1accb0bc21cdd91912de1748a65982feccef90e8e2",
+      "heldout": true,
+      "numerical_configuration_matches": true,
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.0022046869392273504,
+        "net_fractional_change": 7.208159636702625e-05,
+        "robust_site_flip": false
+      },
+      "transverse_splits_ev": {
+        "total_energy_ev": 0.0,
+        "free_energy_ev": 0.0
+      }
+    }
+  ],
+  "physical_accuracy_qualified": false,
+  "scope": "Additional descriptive branch and transverse diagnostics; no retrospective alteration of preregistered model or prediction gates."
+}

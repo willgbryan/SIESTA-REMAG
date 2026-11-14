@@ -60,6 +60,39 @@ were pushed in `c388dc0` before either target calculation. E predictions for
 −0.25%/+0.25% c strain are 2.821208/2.886315 meV/cell; F predictions are
 2.689032/2.733753 meV/cell. All three same-training baselines were sealed too.
 
+## Blind mixed outcomes at 16³
+
+Both [prospective targets](../tests/evidence/research/fept-response-evaluation-r1-2026-11-14.json)
+completed after the prediction commit. Measured E anisotropies are
+2.821/2.894 meV/cell for −0.25%/+0.25% c strain; F values are 2.690/2.742.
+The unchanged additive model predicts both response directions correctly and
+has lower mean absolute error than each registered baseline for both observables.
+
+| Same-training model | E MAE (meV/cell) | F MAE (meV/cell) |
+| --- | ---: | ---: |
+| Additive volume + shape | 0.003946 | 0.004607 |
+| Constant | 0.036500 | 0.026000 |
+| Shape only | 0.017052 | 0.013692 |
+| Volume only | 0.057486 | 0.043328 |
+
+The positive target is underpredicted by 0.007685/0.008247 meV for E/F.
+The negative E error is only 0.000208 meV, below the native energy print
+increment of 0.001 meV. Rounding does not provide an SCF or sampling error bar.
+These are two nearby structures at fixed settings, not a significance test or
+a generalization result. The original negative shape-slope hypothesis remains
+falsified at 16³ even though the separately registered response fit performs well.
+
+The [control audit](../tests/evidence/research/fept-response-controls-audit-2026-11-14.json)
+finds matching numerical settings, consistent reference magnetic moments under
+the existing branch criterion, and zero x/y splits at native printed precision
+for all six new local controls. This does not establish a global magnetic ground state.
+
+The already [registered 32³ transfer](../tests/evidence/research/fept-response-transfer-plan-2026-11-14.json)
+will retain every coefficient and use the same reference-only E/F offset for
+the model and all baselines. It also changes from pristine to REMAG execution;
+the independent 16³ reference replication supports that bridge, but the target
+comparison is not a strictly isolated k-mesh response-convergence experiment.
+
 ## Post-training orbital diagnostic
 
 The [independent descriptor analysis](../tests/evidence/research/fept-independent-descriptors-2026-11-14.json)

@@ -1,0 +1,172 @@
+{
+  "format": "REMAG-BLIND-RESPONSE-EVALUATION/1",
+  "predictions_sha256": "9d854eeaff57f860472d04f4593b76e9dcb5dec3b085d915c83e147b239c2820",
+  "predictions_commit": "c388dc0109fefc9f0107cc9144977251c89ccdfd",
+  "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+  "outcomes": [
+    {
+      "id": "mixed-minus",
+      "status": "measured",
+      "report_sha256": "649773f796dcb14d6319456d0a782952b83d5ea685634480c78e81fd51f68317",
+      "actual": {
+        "energy_anisotropy_ev": 0.0028210000000399305,
+        "free_energy_anisotropy_ev": 0.002690000000256987
+      }
+    },
+    {
+      "id": "mixed-plus",
+      "status": "measured",
+      "report_sha256": "b535dfff2dccbeeceaa01f1accb0bc21cdd91912de1748a65982feccef90e8e2",
+      "actual": {
+        "energy_anisotropy_ev": 0.0028940000001966837,
+        "free_energy_anisotropy_ev": 0.002741999999670952
+      }
+    }
+  ],
+  "status": "evaluated",
+  "physical_accuracy_qualified": false,
+  "mechanism_verified": false,
+  "scope": "Two prospective fixed-setting mixed controls; numerical uncertainty and generalization remain unqualified.",
+  "metrics": {
+    "energy_anisotropy_ev": {
+      "models": {
+        "additive": {
+          "predictions_ev": [
+            0.0028212080870123305,
+            0.0028863151123167683
+          ],
+          "errors_ev": [
+            2.0808697240000743e-07,
+            -7.684887879915413e-06
+          ],
+          "mae_ev": 3.94648742615771e-06,
+          "rmse_ev": 5.4360280497323325e-06,
+          "response_sign_correct": [
+            true,
+            true
+          ]
+        },
+        "constant": {
+          "predictions_ev": [
+            0.002835200000026816,
+            0.002835200000026816
+          ],
+          "errors_ev": [
+            1.4199999986885727e-05,
+            -5.8800000169867504e-05
+          ],
+          "mae_ev": 3.6500000078376615e-05,
+          "rmse_ev": 4.277312251638857e-05,
+          "response_sign_correct": [
+            true,
+            false
+          ]
+        },
+        "shape_only": {
+          "predictions_ev": [
+            0.00279489628664068,
+            0.002901999325178975
+          ],
+          "errors_ev": [
+            -2.610371339925024e-05,
+            7.999324982291365e-06
+          ],
+          "mae_ev": 1.7051519190770803e-05,
+          "rmse_ev": 1.9305349691245008e-05,
+          "response_sign_correct": [
+            true,
+            true
+          ]
+        },
+        "volume_only": {
+          "predictions_ev": [
+            0.0028490778969380444,
+            0.0028071052170984367
+          ],
+          "errors_ev": [
+            2.8077896898113987e-05,
+            -8.689478309824696e-05
+          ],
+          "mae_ev": 5.748633999818047e-05,
+          "rmse_ev": 6.457194291607038e-05,
+          "response_sign_correct": [
+            true,
+            false
+          ]
+        }
+      },
+      "reference_ev": 0.00286099999993894,
+      "improves_on_all_baselines": true
+    },
+    "free_energy_anisotropy_ev": {
+      "models": {
+        "additive": {
+          "predictions_ev": [
+            0.002689032058697025,
+            0.002733753428247455
+          ],
+          "errors_ev": [
+            -9.679415599616638e-07,
+            -8.24657142349701e-06
+          ],
+          "mae_ev": 4.607256491729337e-06,
+          "rmse_ev": 5.871237139919427e-06,
+          "response_sign_correct": [
+            true,
+            true
+          ]
+        },
+        "constant": {
+          "predictions_ev": [
+            0.002699599999868951,
+            0.002699599999868951
+          ],
+          "errors_ev": [
+            9.599999611964276e-06,
+            -4.2399999802000994e-05
+          ],
+          "mae_ev": 2.5999999706982635e-05,
+          "rmse_ev": 3.0740201493804484e-05,
+          "response_sign_correct": [
+            true,
+            false
+          ]
+        },
+        "shape_only": {
+          "predictions_ev": [
+            0.002666389988042618,
+            0.00274577402230996
+          ],
+          "errors_ev": [
+            -2.3610012214368703e-05,
+            3.774022639008081e-06
+          ],
+          "mae_ev": 1.3692017426688392e-05,
+          "rmse_ev": 1.690674308733626e-05,
+          "response_sign_correct": [
+            true,
+            true
+          ]
+        },
+        "volume_only": {
+          "predictions_ev": [
+            0.0027143428075069227,
+            0.0026796860687313536
+          ],
+          "errors_ev": [
+            2.4342807249935847e-05,
+            -6.231393093959845e-05
+          ],
+          "mae_ev": 4.332836909476715e-05,
+          "rmse_ev": 4.730538158578036e-05,
+          "response_sign_correct": [
+            true,
+            false
+          ]
+        }
+      },
+      "reference_ev": 0.0027159999999639695,
+      "improves_on_all_baselines": true
+    }
+  }
+}
