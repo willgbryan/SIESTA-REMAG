@@ -34,3 +34,49 @@ or a unique electronic mechanism.
 Acceptance of the structural response hypothesis requires prospective outcomes.
 An advantage over baselines, if observed, remains scoped to the tested numerical
 settings until response convergence is demonstrated.
+
+## Independent controls at 16³
+
+The five pristine measurements completed with native scalar and SOC checks.
+The [fitted response](../tests/evidence/research/fept-response-model-r1-2026-11-14.json)
+retains all source and report hashes. The original negative-shape-derivative
+hypothesis fails for both E and F: shape dominates in magnitude, but its slope
+is positive. The registered additive model remains unchanged.
+
+| Control | E anisotropy (meV/cell) | F anisotropy (meV/cell) |
+| --- | ---: | ---: |
+| Reference | 2.861 | 2.716 |
+| Isotropic scale 399/400 | 2.913 | 2.757 |
+| Isotropic scale 401/400 | 2.787 | 2.653 |
+| Volume-preserving in-plane scale 399/400 | 2.968 | 2.805 |
+| Volume-preserving in-plane scale 401/400 | 2.647 | 2.567 |
+
+At the reference, the E derivatives are −8.404 meV per unit log(volume) and
++21.418 meV per unit log(c/a). The corresponding F derivatives are −6.937 and
++15.877 meV. These are fixed-setting local fits with no inferred uncertainty;
+five observations interpolate five coefficients and do not estimate an error bar.
+The [mixed-control predictions](../tests/evidence/research/fept-response-predictions-r1-2026-11-14.json)
+were pushed in `c388dc0` before either target calculation. E predictions for
+−0.25%/+0.25% c strain are 2.821208/2.886315 meV/cell; F predictions are
+2.689032/2.733753 meV/cell. All three same-training baselines were sealed too.
+
+## Post-training orbital diagnostic
+
+The [independent descriptor analysis](../tests/evidence/research/fept-independent-descriptors-2026-11-14.json)
+uses only the five training SOC-z spectra and the previously used Gaussian
+widths 0.08, 0.12 and 0.20 eV. The analysis plan was committed before these new
+spectra were reconstructed; the training energies were already known. This is
+a post-training diagnostic, separate from the blind predictions.
+
+All native spectrum comparisons pass; maximum eigenvalue discrepancies range
+from 0.0849 to 0.1266 meV. Fe and Pt d-DOS derivatives are positive under volume
+expansion and negative under increasing c/a at fixed volume at all three widths.
+At 0.12 eV, the volume derivatives are +3.060/+0.641 and the shape derivatives
+−4.232/−0.992 states/eV per respective log coordinate for Fe/Pt. Magnitudes
+remain width-sensitive: the Pt shape derivative changes from −2.580 to −0.205
+between the narrowest and broadest widths.
+
+These signs are opposite to the fitted anisotropy derivatives at this mesh.
+That association does not identify SOC transition matrix elements or establish
+an orbital mechanism. The earlier 6³-to-16³ descriptor sampling sensitivity,
+unqualified basis and absent response-convergence result remain limitations.

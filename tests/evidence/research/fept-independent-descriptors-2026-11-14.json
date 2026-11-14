@@ -1,0 +1,279 @@
+{
+  "format": "REMAG-INDEPENDENT-DESCRIPTORS/1",
+  "plan_sha256": "2a3bd71d39281a30c200fcb5e32742e57ddfa876776eb9a477447a4c63965ff2",
+  "untouched_predictions_sha256": "9d854eeaff57f860472d04f4593b76e9dcb5dec3b085d915c83e147b239c2820",
+  "rows": [
+    {
+      "id": "reference",
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e",
+      "coordinates": {
+        "log_volume_ratio": 0.0,
+        "log_c_over_a_ratio": 0.0
+      },
+      "metadata_sha256": "3b536b2a7781fcf0b1545c478e56f8086dd555a0d923160f6df2045b2be0365b",
+      "artifact_sha256": "2abd83c866e3928c491f8f9bc40e114bc0781674bc67f6e22c30e69f099f5bfd",
+      "native_max_abs_error_ev": 8.486711797672797e-05,
+      "dos_ef_states_per_ev": {
+        "Fe_d": {
+          "0.08": 0.7857092601248579,
+          "0.12": 0.8745063558664355,
+          "0.2": 0.9282280128214769
+        },
+        "Pt_d": {
+          "0.08": 0.2874545641029015,
+          "0.12": 0.2990348969619324,
+          "0.2": 0.3194092824033476
+        }
+      }
+    },
+    {
+      "id": "volume-minus",
+      "source_sha256": "287e42532878b39e779963ccf5cb49526fdc4c3f216bf7282bd8280a2666c80b",
+      "report_sha256": "946c276cf06b9e45a4b64efa7e106be01bbed8e58076794b78273a24d2bc7c23",
+      "coordinates": {
+        "log_volume_ratio": -0.00750939065435561,
+        "log_c_over_a_ratio": 0.0
+      },
+      "metadata_sha256": "804ab2b09667f71656e4cfb08eb1f42090625fc2414349f3913b0a99445de4e3",
+      "artifact_sha256": "c20c6ce132f2a3e2e660595806dce4f581959de6342132b014c0ab76414a6379",
+      "native_max_abs_error_ev": 0.00012661453418161273,
+      "dos_ef_states_per_ev": {
+        "Fe_d": {
+          "0.08": 0.7585431774218028,
+          "0.12": 0.8524536152959834,
+          "0.2": 0.9103363928663051
+        },
+        "Pt_d": {
+          "0.08": 0.2801013257964393,
+          "0.12": 0.2943571234185559,
+          "0.2": 0.3167504176759671
+        }
+      }
+    },
+    {
+      "id": "volume-plus",
+      "source_sha256": "7bb61c54412dc20843cddae68cc90b88c0763001c9670694b2daf9be838f8ff2",
+      "report_sha256": "cd9f9f72940a6c1a70172532cc705977d8eac7f134e43acb78002a42b924aa54",
+      "coordinates": {
+        "log_volume_ratio": 0.007490640595761618,
+        "log_c_over_a_ratio": 0.0
+      },
+      "metadata_sha256": "86e6546c5cb2306b45ea130d04d52c708c13068de818040f8d6deeacd249c7e5",
+      "artifact_sha256": "f4f12da60f2695710394085d54c44198c39aacfa5d73b4c932f5df98cddc9c2a",
+      "native_max_abs_error_ev": 9.473311783381178e-05,
+      "dos_ef_states_per_ev": {
+        "Fe_d": {
+          "0.08": 0.8192546247612267,
+          "0.12": 0.8983556850980562,
+          "0.2": 0.9465305977512442
+        },
+        "Pt_d": {
+          "0.08": 0.295304373785061,
+          "0.12": 0.30397073078102094,
+          "0.2": 0.3221629541283347
+        }
+      }
+    },
+    {
+      "id": "shape-minus",
+      "source_sha256": "2903d1be30db1bf417a85407aaaed2ff257a194015163c764e66a0f61fa10a69",
+      "report_sha256": "0e052d1ce46c1dc16018acd06db31a35093e72075cc9dd8e0088fcff38291da7",
+      "coordinates": {
+        "log_volume_ratio": 0.0,
+        "log_c_over_a_ratio": 0.007509390654355579
+      },
+      "metadata_sha256": "68799e3a94bd3b6f7b151b742340387f0681c702b3a50e9d0206b811e2e26345",
+      "artifact_sha256": "3964d06ebc62009a72eb2482aba76c875c01e78e2107e605cbab591ff4806aa3",
+      "native_max_abs_error_ev": 8.682813822247226e-05,
+      "dos_ef_states_per_ev": {
+        "Fe_d": {
+          "0.08": 0.7466859984462724,
+          "0.12": 0.8450678985415931,
+          "0.2": 0.9035706726234753
+        },
+        "Pt_d": {
+          "0.08": 0.26639217290386263,
+          "0.12": 0.2918021734871679,
+          "0.2": 0.3182965688337854
+        }
+      }
+    },
+    {
+      "id": "shape-plus",
+      "source_sha256": "3618f18cee64c52f29d21a5fbcf77f293c049b4009808ca67dc7ee3deaf6d15f",
+      "report_sha256": "2ba6d21995a11de20d1806bc217721e4ad5f497ee801084cafb50ad7a1b26ec5",
+      "coordinates": {
+        "log_volume_ratio": 0.0,
+        "log_c_over_a_ratio": -0.00749064059576159
+      },
+      "metadata_sha256": "4273c1cbd7457266066cd68cd0072e09859e21c72c23f733addc3eaa4efa830e",
+      "artifact_sha256": "a7b1a58ae06c51abc3b766102e0329b7eb5f45a96b6810831beb1a105a8a81f5",
+      "native_max_abs_error_ev": 9.986066805822702e-05,
+      "dos_ef_states_per_ev": {
+        "Fe_d": {
+          "0.08": 0.8340159777101195,
+          "0.12": 0.908535595912165,
+          "0.2": 0.9552117322811531
+        },
+        "Pt_d": {
+          "0.08": 0.30510025381534855,
+          "0.12": 0.30668050246410367,
+          "0.2": 0.3213688875433672
+        }
+      }
+    }
+  ],
+  "derivatives": {
+    "volume": {
+      "Fe_d": {
+        "by_sigma_ev": {
+          "0.08": {
+            "at": 0.0,
+            "first": 4.048497252916002,
+            "second": 114.7583024208979,
+            "first_unit": "states/eV/log_volume_ratio",
+            "second_unit": "states/eV/log_volume_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          },
+          "0.12": {
+            "at": 0.0,
+            "first": 3.0604406060523797,
+            "second": 32.959315202595064,
+            "first_unit": "states/eV/log_volume_ratio",
+            "second_unit": "states/eV/log_volume_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          },
+          "0.2": {
+            "at": 0.0,
+            "first": 2.4130180000172263,
+            "second": 8.110339373989234,
+            "first_unit": "states/eV/log_volume_ratio",
+            "second_unit": "states/eV/log_volume_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          }
+        },
+        "sign_consistent_across_widths": true
+      },
+      "Pt_d": {
+        "by_sigma_ev": {
+          "0.08": {
+            "at": 0.0,
+            "first": 1.0136203502824839,
+            "second": 9.165757561480945,
+            "first_unit": "states/eV/log_volume_ratio",
+            "second_unit": "states/eV/log_volume_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          },
+          "0.12": {
+            "at": 0.0,
+            "first": 0.6409508351785463,
+            "second": 4.801361672988946,
+            "first_unit": "states/eV/log_volume_ratio",
+            "second_unit": "states/eV/log_volume_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          },
+          "0.2": {
+            "at": 0.0,
+            "first": 0.36085194053676295,
+            "second": 1.805731745904744,
+            "first_unit": "states/eV/log_volume_ratio",
+            "second_unit": "states/eV/log_volume_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          }
+        },
+        "sign_consistent_across_widths": true
+      }
+    },
+    "shape": {
+      "Fe_d": {
+        "by_sigma_ev": {
+          "0.08": {
+            "at": 0.0,
+            "first": -5.823551925636891,
+            "second": 166.97944950206352,
+            "first_unit": "states/eV/log_c_over_a_ratio",
+            "second_unit": "states/eV/log_c_over_a_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          },
+          "0.12": {
+            "at": 0.0,
+            "first": -4.231949363041738,
+            "second": 83.02409357263434,
+            "first_unit": "states/eV/log_c_over_a_ratio",
+            "second_unit": "states/eV/log_c_over_a_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          },
+          "0.2": {
+            "at": 0.0,
+            "first": -3.4431286267802967,
+            "second": 42.505323148404045,
+            "first_unit": "states/eV/log_c_over_a_ratio",
+            "second_unit": "states/eV/log_c_over_a_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          }
+        },
+        "sign_consistent_across_widths": true
+      },
+      "Pt_d": {
+        "by_sigma_ev": {
+          "0.08": {
+            "at": 0.0,
+            "first": -2.5799719649528576,
+            "second": -59.8810233490226,
+            "first_unit": "states/eV/log_c_over_a_ratio",
+            "second_unit": "states/eV/log_c_over_a_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          },
+          "0.12": {
+            "at": 0.0,
+            "first": -0.9919584453881488,
+            "second": 7.670734832952803,
+            "first_unit": "states/eV/log_c_over_a_ratio",
+            "second_unit": "states/eV/log_c_over_a_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          },
+          "0.2": {
+            "at": 0.0,
+            "first": -0.20496260932979976,
+            "second": 15.124084575893612,
+            "first_unit": "states/eV/log_c_over_a_ratio",
+            "second_unit": "states/eV/log_c_over_a_ratio^2",
+            "propagated_error_bound": null,
+            "truncation_error": null,
+            "approximation": "local quadratic three-point finite difference"
+          }
+        },
+        "sign_consistent_across_widths": true
+      }
+    }
+  },
+  "status": "evaluated",
+  "retrospective": true,
+  "blinded": false,
+  "mechanism_verified": false,
+  "physical_accuracy_qualified": false,
+  "scope": "Post-training, signed Mulliken DOS gradients from independent volume/shape controls. Width consistency is descriptive; no descriptor model was fitted, and no target outcome or target spectrum entered this diagnostic."
+}
