@@ -1,0 +1,612 @@
+{
+  "format": "REMAG-FEPT-DENSE-BASIS-CHECKPOINT/1",
+  "recorded_at": "2026-11-14T23:06:23.867846+00:00",
+  "plan_commit": "903dd7f360f988ad5ee4afa6cac2439ea1bca45b",
+  "plan_sha256": "0d656b73354114fd0c1b79465a6a71986c4d3e9a4482e8da9df5cf3c8cb66b48",
+  "report_sha256": "bed9c6748db9b1dc26e31afe7b527e4d008170485f32ce31f02757dca3a27552",
+  "health": {
+    "format": "REMAG-FEPT-DENSE-BASIS-HEALTH/1",
+    "passed": true,
+    "gates": {
+      "native": true,
+      "branches": true,
+      "transverse": true,
+      "native_radial_identity": true,
+      "shared_radial_identity": true,
+      "overlap_positive": true
+    },
+    "report_sha256": "bed9c6748db9b1dc26e31afe7b527e4d008170485f32ce31f02757dca3a27552",
+    "reference_report_sha256": "7122d67178d02f05ef377561fd8363e34735751e527e424c338e6a286a76e3ff",
+    "previous_report_sha256": null,
+    "branches": {
+      "scalar": {
+        "passed": true,
+        "site_rms_mub": 0.003542235452366205,
+        "net_fractional_change": 0.0016084572744070966,
+        "robust_site_flip": false
+      },
+      "soc-z": {
+        "passed": true,
+        "site_rms_mub": 0.0034559387292022845,
+        "net_fractional_change": 0.00039368877224036785,
+        "robust_site_flip": false
+      },
+      "soc-x": {
+        "passed": true,
+        "site_rms_mub": 0.0033310809056521003,
+        "net_fractional_change": 0.00024685112439162696,
+        "robust_site_flip": false
+      },
+      "soc-y": {
+        "passed": true,
+        "site_rms_mub": 0.0033316384107523636,
+        "net_fractional_change": 0.00024685112439162696,
+        "robust_site_flip": false
+      }
+    },
+    "transverse_split_ev": 6.411937647499144e-11,
+    "radial_identity": {
+      "passed": true,
+      "stages": {
+        "scalar": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 1.0000333894311098e-13,
+            "passed": true,
+            "reference_xml_sha256": "e80ece9840d7e9f758f475e165c5b3c6066ca003877f8a16555aa5c1e939679a",
+            "current_xml_sha256": "6c2063e77859b303a136280ab2eebf300d5d9e2d968002ff7d1dec3ebc84da1d"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 1.0000056338554941e-12,
+            "passed": true,
+            "reference_xml_sha256": "bf6f3ffd3574d0f4aaf43a500638c9db904bcac13749184e39e0bab1603251bb",
+            "current_xml_sha256": "9201eb2dec27b967365456be502b9adf82fda21380c0040d03aa6060e853387d"
+          }
+        ],
+        "soc-z": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 1.0000333894311098e-13,
+            "passed": true,
+            "reference_xml_sha256": "109cd1afa3c4841f63448fb96d88049b538af21ce6c58a0e9d75bb1fd7aa392c",
+            "current_xml_sha256": "32bda8d15e60e91e1b8b5a431ed4ef527dd42d687f322361069cbc08393b169c"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 1.0000056338554941e-12,
+            "passed": true,
+            "reference_xml_sha256": "0ef3ff00f3d4cbc4d4b3719c875aab0998b464a2eaa8a7687741b818f17e7be1",
+            "current_xml_sha256": "fdded2cd737d9f2d39cb26ef46d6383f4661f700a3f2de93c4ad067c40188077"
+          }
+        ],
+        "soc-x": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 1.0000333894311098e-13,
+            "passed": true,
+            "reference_xml_sha256": "109cd1afa3c4841f63448fb96d88049b538af21ce6c58a0e9d75bb1fd7aa392c",
+            "current_xml_sha256": "32bda8d15e60e91e1b8b5a431ed4ef527dd42d687f322361069cbc08393b169c"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 1.0000056338554941e-12,
+            "passed": true,
+            "reference_xml_sha256": "0ef3ff00f3d4cbc4d4b3719c875aab0998b464a2eaa8a7687741b818f17e7be1",
+            "current_xml_sha256": "fdded2cd737d9f2d39cb26ef46d6383f4661f700a3f2de93c4ad067c40188077"
+          }
+        ],
+        "soc-y": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 1.0000333894311098e-13,
+            "passed": true,
+            "reference_xml_sha256": "109cd1afa3c4841f63448fb96d88049b538af21ce6c58a0e9d75bb1fd7aa392c",
+            "current_xml_sha256": "32bda8d15e60e91e1b8b5a431ed4ef527dd42d687f322361069cbc08393b169c"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 1.0000056338554941e-12,
+            "passed": true,
+            "reference_xml_sha256": "0ef3ff00f3d4cbc4d4b3719c875aab0998b464a2eaa8a7687741b818f17e7be1",
+            "current_xml_sha256": "fdded2cd737d9f2d39cb26ef46d6383f4661f700a3f2de93c4ad067c40188077"
+          }
+        ]
+      }
+    },
+    "shared_radial_identity": null,
+    "overlap": {
+      "format": "REMAG-OVERLAP-HEALTH/1",
+      "hsx_sha256": "761681d73d3255bc647d97a5af86e02830d0070c3825f18cc0a00e45a2d49232",
+      "kp_sha256": "b5d0336ccb9674b5401116070dd3582ef0ced0f7a24e43e3d07d6817e8779329",
+      "spatial_orbitals": 42,
+      "native_kpoints": 7224,
+      "native_kp_weight_sum": 1.000000512,
+      "native_kp_weight_rounding_bound": 3.3312e-06,
+      "min_eigenvalue": 1.977815327920743e-05,
+      "max_eigenvalue": 12.481029087899778,
+      "min_eigenvalue_kpoint_index": 6816,
+      "min_eigenvalue_k_fractional": [
+        0.4999996486470242,
+        -0.20833325535899028,
+        0.5000004576894169
+      ],
+      "nonpositive_kpoints": 0,
+      "positive_definite": true,
+      "max_condition_number": 318243.10158769216,
+      "min_relative_eigenvalue": 3.142251929456039e-06,
+      "max_condition_kpoint_index": 4053,
+      "sampling": "Every native SCF KP point; decimal coordinate rounding retained",
+      "hermitian_policy": "Same bounded Hermitian reconstruction as electronic spectra",
+      "physical_accuracy_qualified": false,
+      "scope": "Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate"
+    },
+    "physical_accuracy_qualified": false,
+    "plan_commit": "903dd7f360f988ad5ee4afa6cac2439ea1bca45b",
+    "plan_sha256": "0d656b73354114fd0c1b79465a6a71986c4d3e9a4482e8da9df5cf3c8cb66b48",
+    "lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-14 16:10:48-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-14 17:03:16-06:00",
+      "stopped_by": null
+    },
+    "recovery_manifest_sha256": "e83a261e39dee687b1c691fa186605ff433f16bae9b2b26fe7be43dd67cf1eee"
+  },
+  "mesh_comparison": {
+    "format": "REMAG-NUMERICAL-STABILITY/1",
+    "varied": "kmesh",
+    "samples": [
+      {
+        "parameters": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ]
+        },
+        "energy_anisotropy_ev": 0.0026345196770307666,
+        "free_energy_anisotropy_ev": 0.0025335206801173626,
+        "transverse_split_ev": 4.756657290272415e-10,
+        "report_sha256": "7122d67178d02f05ef377561fd8363e34735751e527e424c338e6a286a76e3ff"
+      },
+      {
+        "parameters": {
+          "kmesh": [
+            24,
+            24,
+            24
+          ]
+        },
+        "energy_anisotropy_ev": 0.0023232688781718025,
+        "free_energy_anisotropy_ev": 0.002317028102424956,
+        "transverse_split_ev": 6.411937647499144e-11,
+        "report_sha256": "bed9c6748db9b1dc26e31afe7b527e4d008170485f32ce31f02757dca3a27552"
+      }
+    ],
+    "changes": [
+      {
+        "energy_ev": -0.0003112507988589641,
+        "free_energy_ev": -0.00021649257769240648
+      }
+    ],
+    "tolerance_ev": 5e-05,
+    "successive_changes_required": 2,
+    "transverse_tolerance_ev": 1e-05,
+    "transverse_passed": true,
+    "sufficient_refinements": false,
+    "observed_stability_passed": false,
+    "fixed_configuration": {
+      "basis_size": "explicit",
+      "basis_energy_shift_ry": 0.0025,
+      "pseudopotentials": {
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+      },
+      "basis_spec": {
+        "format": "REMAG-PAO-BASIS/1",
+        "species": {
+          "Fe": [
+            {
+              "n": 4,
+              "l": 0,
+              "zeta": 3,
+              "polarization": 1,
+              "radii_bohr": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "n": 3,
+              "l": 2,
+              "zeta": 3,
+              "polarization": 0,
+              "radii_bohr": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "Pt": [
+            {
+              "n": 6,
+              "l": 0,
+              "zeta": 3,
+              "polarization": 1,
+              "radii_bohr": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "n": 5,
+              "l": 2,
+              "zeta": 3,
+              "polarization": 0,
+              "radii_bohr": [
+                0,
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "mesh_ry": 300,
+      "smearing_k": 300,
+      "dm_tolerance": 1e-05,
+      "h_tolerance_ev": 0.0001,
+      "mixing_weight": 0.03,
+      "mixing_history": 8,
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "environment": {
+        "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+        "REMAG_NONLOCAL_H0": "0",
+        "REMAG_NONLOCAL_H0_SHADOW": "0",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "REMAG_GRID": "1",
+        "REMAG_DM": "1",
+        "REMAG_GRID_EPOCH": "1",
+        "REMAG_GRID_VERIFY_EPOCH": "0",
+        "REMAG_NORMALIZE": "1",
+        "REMAG_OCCUPATIONS": "1",
+        "REMAG_RESIDENT_SPECTRA": "1",
+        "REMAG_HS": "1",
+        "REMAG_HARTREE": "1",
+        "REMAG_RESIDENT_GRID": "1",
+        "REMAG_RESIDENT_SCF": "1",
+        "REMAG_DEVICE_SCF": "0",
+        "REMAG_DEVICE_VECTOR_CACHE": "0",
+        "REMAG_BLOCK_SOLVER": "0",
+        "REMAG_BLOCK_WIDTH": "32",
+        "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+        "REMAG_FORCE_SHADOW": "0",
+        "REMAG_FORCE_SHADOW_RESIDENT": "0",
+        "REMAG_GRID_FORCE": "0",
+        "REMAG_ATOMIC_GRID_FORCE": "0",
+        "REMAG_ATOMIC_FORCE_SHADOW": "0",
+        "REMAG_FINAL_GRID": "0",
+        "REMAG_FINAL_GRID_SHADOW": "0",
+        "REMAG_FINAL_DENSITY": "0",
+        "REMAG_FINAL_DENSITY_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS": "0",
+        "REMAG_ATOMIC_BASIS_SHADOW": "0",
+        "REMAG_ATOMIC_BASIS": "0",
+        "REMAG_TWO_CENTER_SHADOW": "0",
+        "REMAG_PAIR_FORCE_SHADOW": "0",
+        "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+        "REMAG_INTEGRAL_FORCE": "0",
+        "REMAG_POPULATION": "0",
+        "REMAG_TRACE_IO": "0",
+        "REMAG_TRACE_CUDA": "0",
+        "REMAG_GPU_INITIALIZATION": "0",
+        "REMAG_GPU_HISTORY": "0",
+        "REMAG_FINAL_SPECTRA": "0",
+        "REMAG_GATE_H_EXPORT": "0",
+        "REMAG_DEFER_SCF_LOG": "0",
+        "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+        "GFORTRAN_UNBUFFERED_ALL": "0",
+        "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+        "REMAG_BLOCK_SHARED_JACOBI": "1",
+        "REMAG_INITIAL_MESH": "0",
+        "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+        "REMAG_SCF_SOLVER_LANES": "1",
+        "REMAG_SCF_WARM_START": "0",
+        "REMAG_RADIAL_BATCH": "0",
+        "REMAG_GRID_POTENTIAL_SPINS": "1",
+        "REMAG_SCF_STAGE_PROFILE": "0",
+        "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+        "REMAG_BLOCK_FUSED_MATRIX": "0",
+        "REMAG_BLOCK_FP64_VECTORS": "0",
+        "REMAG_BLOCK_FP64_MATRIX": "0",
+        "CUDA_DISABLE_PTX_JIT": "1",
+        "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+        "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+      }
+    },
+    "physical_accuracy_qualified": false,
+    "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+  },
+  "spatial_orbitals": 42,
+  "common_mesh_basis_refinements": 0,
+  "basis_gate_status": "pending48and62",
+  "measurement": {
+    "wall_seconds": 3009.399033689,
+    "stages": {
+      "scalar": {
+        "accepted": true,
+        "solver_seconds": 670.945312146
+      },
+      "soc-z": {
+        "accepted": true,
+        "solver_seconds": 770.0747928459999
+      },
+      "soc-x": {
+        "accepted": true,
+        "solver_seconds": 765.050224152
+      },
+      "soc-y": {
+        "accepted": true,
+        "solver_seconds": 766.2143345869999
+      }
+    },
+    "energies_ev": {
+      "scalar": {
+        "total_energy_ev": -2224.3660591237217,
+        "free_energy_ev": -2224.3691380377836
+      },
+      "soc-z": {
+        "total_energy_ev": -2224.654072358508,
+        "free_energy_ev": -2224.657200964996
+      },
+      "soc-x": {
+        "total_energy_ev": -2224.65174908963,
+        "free_energy_ev": -2224.6548839368934
+      },
+      "soc-y": {
+        "total_energy_ev": -2224.6517490895762,
+        "free_energy_ev": -2224.6548839368293
+      }
+    }
+  },
+  "native_basis": {
+    "passed": true,
+    "spatial_orbitals": 42,
+    "species": [
+      {
+        "symbol": "Fe",
+        "ion_sha256": "6c2063e77859b303a136280ab2eebf300d5d9e2d968002ff7d1dec3ebc84da1d",
+        "orbitals": [
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 1,
+            "cutoff_bohr": 8.16294912714
+          },
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 2,
+            "cutoff_bohr": 4.80545151776
+          },
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 3,
+            "cutoff_bohr": 5.77246356394
+          },
+          {
+            "n": 4,
+            "l": 1,
+            "zeta": 1,
+            "cutoff_bohr": 8.16294912714
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 1,
+            "cutoff_bohr": 4.96701251287
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 2,
+            "cutoff_bohr": 2.23079298417
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 3,
+            "cutoff_bohr": 2.96972142324
+          }
+        ]
+      },
+      {
+        "symbol": "Pt",
+        "ion_sha256": "9201eb2dec27b967365456be502b9adf82fda21380c0040d03aa6060e853387d",
+        "orbitals": [
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 1,
+            "cutoff_bohr": 7.93728065369
+          },
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 2,
+            "cutoff_bohr": 4.67717386783
+          },
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 3,
+            "cutoff_bohr": 5.61280030103
+          },
+          {
+            "n": 6,
+            "l": 1,
+            "zeta": 1,
+            "cutoff_bohr": 7.93728065369
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 1,
+            "cutoff_bohr": 5.81890880571
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 2,
+            "cutoff_bohr": 2.93417845051
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 3,
+            "cutoff_bohr": 3.71784311858
+          }
+        ]
+      }
+    ],
+    "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+  },
+  "provenance": {
+    "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "0",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "0",
+      "REMAG_DEVICE_VECTOR_CACHE": "0",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "0",
+      "REMAG_ATOMIC_GRID_FORCE": "0",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "0",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "0",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "0",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "0",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "0",
+      "REMAG_POPULATION": "0",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "0",
+      "REMAG_GPU_HISTORY": "0",
+      "REMAG_FINAL_SPECTRA": "0",
+      "REMAG_GATE_H_EXPORT": "0",
+      "REMAG_DEFER_SCF_LOG": "0",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "0",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "1",
+      "REMAG_SCF_WARM_START": "0",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "source_code": {
+      "__init__.py": "24f91aa34873a757427724a85bd052e9e738e000e1e952a42d565f08ad8c168d",
+      "cli.py": "f344fd5a62352591e70079ef413585a23d5bf1b3e6b167aa16be4c7e124b5da2",
+      "collection.py": "01daa11f0ff42a14010b831f6fe11f2aec8f5cccd1cfa99caa3ebd550a708c2f",
+      "common.py": "2c99c1f091bb0af59af5b06de69fe429582a2ec508fa850cb8ae9f5cddbcde8a",
+      "config.py": "76ae475671a6269d9910ccaa592814ff70b57f029a162611e1a8e65a9d53c343",
+      "inputs.py": "7db64d2ee4981ce91afac2beaa7883435036e173714d8ddf150097ef6da54796",
+      "orb.py": "e7daa9465e7ec9f7232bac37e5e9d6a7549b3f6b00dc6f98e5e65bb22088ec4e",
+      "pipeline.py": "f60961203027eea42fd73a9a028180a98f6fd8b023ad07ed38459efe1c20b66e",
+      "review.py": "153652c9cab7194b69bd2b3522246f1e2bb2e518dc642513363820437a24f946",
+      "seed.py": "d25acf7144d32bcbdd44fc27d2615928fe74d2d0a06a9b1a06147aeb57a962e0",
+      "../runner.py": "98d49c6688805c38e8fb115826b031de906abd6b8fc24af26f588dcd4c9d61a2",
+      "../output.py": "83cfe25f907265651237e24b08dd71664e420b670fe357c7aa3d0b8da72cfc71",
+      "research/convergence.py": "2ad2a97f845b6b1fbb424b5f38490773d58870cfc3f834121fa2ce6e71ae9194",
+      "research/experiments.py": "93f88c7df3536335eb6fd6d5462a508ef32d09a6957af7f8f7e6a8859dd447a6",
+      "research/electronic.py": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b",
+      "research/workspace.py": "f785563ffa31c87d3d1396cbc38384cc281e1de2b1159b32b9e017629ae113a9",
+      "research/memory.py": "0614d683b0908c53933ead96e8b1de2d0cb18d2a9aae2c2e932f843d8bf5517e",
+      "research/response.py": "12ce1f617e850ec2793772c0b40f8e7cd1663343025e14a60968876d3bf64ce0",
+      "research/__init__.py": "5d9878d3db7f53bf90f3859797af7c5d587c3ff6700b6822936a74e0a21fb47b",
+      "research/__main__.py": "23bee9011dadfb25da9dc32990fe51cd21a010994c34c3e4a5238780a53b75e9",
+      "research/basis.py": "0cefb5469aac12cae67188b918e1f0517fdb79279b52d6472a2c2a016b6c6733",
+      "research/budget.py": "3c7991b8f09618661024cb1ac64820ebfc16a2c0625f3a45c77c1b8cb8d44fdd"
+    },
+    "input_and_stdout_hashes": {
+      "scalar": {
+        "input.fdf": "33ccfa52a5bacf588bf0c275aa1a2e9aa5c8c128761ea0e4e8a8ff0c7b967a5f",
+        "stdout.log": "2f2df851b1158c800d46bb66ac828de75296a39dfe3443c9ab4d45d0cad3ab9d"
+      },
+      "soc-z": {
+        "input.fdf": "4ecf34b6db880abf51856532094cd8622f86a91b1f5c6de61366aa5868ea87ae",
+        "stdout.log": "9a84fc0ac54bdaf387233c5a6c51547469ec3c9219340fb3b666f3b0439d281a"
+      },
+      "soc-x": {
+        "input.fdf": "2dadf128360b1ed01a5435150948cfc561e9b363955b327e22e35b9a54cc7539",
+        "stdout.log": "e1094420fa7e0a031e063db315ff7b430d163edb4d26b377d122719dcf9dfaca"
+      },
+      "soc-y": {
+        "input.fdf": "776fe845abe23d6462866038d0db3e4a5e48d31836b013631ae2023921392db7",
+        "stdout.log": "c6392aedce7fcff35bcc5beaa2064bf5db84ae376ff579feef06b4843757290d"
+      }
+    },
+    "receipt_sha256": "3a79d25b0a1be6d6dc2d51af53d65014f7b79b696cd62e6e511d5a94378ba406",
+    "recovery_manifest_sha256": "e83a261e39dee687b1c691fa186605ff433f16bae9b2b26fe7be43dd67cf1eee"
+  },
+  "recovered_native_files": 23,
+  "recovered_native_bytes": 93237144,
+  "physical_accuracy_qualified": false,
+  "scope": "First point of the registered42/48/62 basis ladder atcommon24; no basis refinement yet. The separate42-orbital16to24 mesh change exceeds bothE/F thresholds and supplies onlyone refinement. No transfer of the earlierDZP mesh qualification."
+}

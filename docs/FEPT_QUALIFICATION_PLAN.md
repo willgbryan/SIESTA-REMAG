@@ -177,6 +177,19 @@ is conditional on results and budget, and is not queued. A pass at 24³ alone
 cannot qualify its mesh or radial extent. Final controls and new predictions
 remain conditional on the reference gates.
 
+The [first common-mesh point](../tests/evidence/research/fept-basis24-r3-42-review-2026-11-14.json)
+completed with 42 orbitals at 24³: E/F anisotropy is 2.323269/2.317028 meV/cell.
+Relative to the matching REMAG 16³ calculation, the single mesh change is
+−0.311251/−0.216493 meV, exceeding both original 0.05 meV thresholds.
+There is only one mesh refinement here and no common-mesh basis refinement yet.
+All native, branch, transverse and radial-identity checks pass. The scalar overlap
+is positive at all 7,224 native k points, with worst condition number 318,243.
+All 23 native files are recovered and verified. The calculation took 3,009.40
+seconds, close to the 2,991.65-second estimate, and its app stopped at 23:03:16 UTC.
+The existing driver then started the registered 48-orbital case. This result
+retains the earlier DZP mesh pass within its original scope and leaves enlarged
+basis, mesh and radial qualification unresolved.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
