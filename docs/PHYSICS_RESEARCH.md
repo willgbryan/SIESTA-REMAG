@@ -61,7 +61,7 @@ The defaults are preliminary screening settings, not a physical convergence
 qualification. Basis, mesh, k sampling, smearing, SCF thresholds and magnetic
 branches need explicit sensitivity studies and pristine-SIESTA comparison.
 
-## Electronic diagnostics
+## Numerical convergence
 
 `convergence` compares measured reports while rejecting unrelated changes in
 source, executable, pseudopotentials, electronic settings or runtime environment.
@@ -79,6 +79,36 @@ python -m siesta_remag.research convergence k16/report.json k20/report.json k24/
 The command returns status 2 when the declared stability criterion is not met.
 It refuses to overwrite an existing evaluation. Basis, radial extent, smearing,
 grid and SCF checks are separate controls; a k-mesh result cannot qualify them.
+
+## Independent structural responses
+
+Pure c-axis strain changes both volume and c/a. The original FePt strain series
+therefore cannot identify their separate contributions. GPAC's exact
+`isotropic_scale` and `volume_preserving_tetragonal` controls separate these
+variables while retaining fractional sites and the authored Hall setting.
+
+`research.response` uses `v=log(V/V0)` and `s=log((c/a)/(c/a)0)` and fits
+`K=K0+Av+Bs+Cv²+Ds²` separately for total-energy and free-energy anisotropy.
+It rejects rank-deficient controls, repeated structures and mismatched numerical
+settings. Exact reference geometry and report hashes accompany the fit. A mixed
+`v*s` term is deliberately unmeasured by axis controls: mixed deformations are
+prospective falsification tests of the additive hypothesis.
+
+```sh
+python -m siesta_remag.research response-fit reference/report.json volume-minus/report.json \
+  volume-plus/report.json shape-minus/report.json shape-plus/report.json \
+  --reference reference/structure.json --output response-model.json
+python -m siesta_remag.research response-predict --model response-model.json \
+  --structure mixed-control/structure.json --output prediction.json
+```
+
+These are geometric response hypotheses, not identified orbital mechanisms.
+Prediction uncertainty remains unknown. Register predictions in `Notebook` and
+commit their hashes before measuring the held-out structures. Existing exposed
+outcomes cannot become blind tests by changing their labels or fitting protocol.
+Convergence and held-out errors remain separate from training residuals.
+
+## Electronic diagnostics
 
 `research.electronic` reconstructs Bloch H and S from the existing HSX v2 export
 and solves `H c = E S c`. It supports scalar, collinear and spinor layouts with

@@ -41,6 +41,14 @@ def main(argv=None):
     p.add_argument('--successive-changes', type=int, default=2)
     p.add_argument('--transverse-tolerance-ev', type=float)
     p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('response-fit', help='Fit independently identifiable volume and shape responses')
+    p.add_argument('reports', type=Path, nargs='+')
+    p.add_argument('--reference', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('response-predict', help='Predict E and F anisotropy for an exact structural control')
+    p.add_argument('--model', type=Path, required=True)
+    p.add_argument('--structure', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
     if args.command == 'serve':
         from .workspace import serve
@@ -68,6 +76,13 @@ def main(argv=None):
         runtime = load(args.runtime)
         result = run_experiment(args.bundle, args.output, runtime['executable'], executable_sha256=runtime['executable_sha256'],
                                 runtime_env=runtime.get('environment', {}), threads=runtime.get('threads', 1))
+    elif args.command in ('response-fit', 'response-predict'):
+        from .response import fit, predict
+        if args.output.exists():
+            raise FileExistsError(args.output)
+        result = (fit(load(args.reference), args.reports) if args.command == 'response-fit'
+                  else predict(load(args.model), load(args.structure)))
+        save(args.output, result)
     elif args.command == 'convergence':
         from .convergence import assess
         if args.output.exists():
