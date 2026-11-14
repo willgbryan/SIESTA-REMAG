@@ -1,0 +1,291 @@
+{
+  "format": "REMAG-FEPT-BASIS-INTERIM/1",
+  "recorded_at": "2026-11-14T18:58:18.642957+00:00",
+  "plan_sha256": "6c5b75cf06164720669c7463f5f9110f06452f0da7b905fc3ca6ada1552b4a0f",
+  "plan_commit": "a3fbecce1eefab47189e48ece313713ae34eeb89",
+  "selection": {
+    "radial_id": "shift00025",
+    "radial_evaluation_sha256": "7e35fd06d76d768cffe887f7573292162c26fb149ce8cfbebf176e0254e83857",
+    "radial_gate_passed": false,
+    "reference_report_sha256": "ce1fc97c1c4c9a115c41636854bf05266679b514f227638aa8cfd271256b1de8",
+    "plan_sha256": "6c5b75cf06164720669c7463f5f9110f06452f0da7b905fc3ca6ada1552b4a0f"
+  },
+  "result": {
+    "id": "tzp2",
+    "status": "measured",
+    "report_sha256": "928f08aa6f7985cdecc28a76208254317ff18a34399734498fda57872df73e13",
+    "branch": {
+      "passed": true,
+      "site_rms_mub": 0.00912119125991774,
+      "net_fractional_change": 0.005206457716605076,
+      "robust_site_flip": false
+    },
+    "check": {
+      "format": "REMAG-NUMERICAL-STABILITY/1",
+      "varied": "basis",
+      "samples": [
+        {
+          "parameters": {
+            "basis_size": "explicit",
+            "basis_spec": {
+              "format": "REMAG-PAO-BASIS/1",
+              "species": {
+                "Fe": [
+                  {
+                    "n": 4,
+                    "l": 0,
+                    "zeta": 3,
+                    "polarization": 1,
+                    "radii_bohr": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "n": 3,
+                    "l": 2,
+                    "zeta": 3,
+                    "polarization": 0,
+                    "radii_bohr": [
+                      0,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "Pt": [
+                  {
+                    "n": 6,
+                    "l": 0,
+                    "zeta": 3,
+                    "polarization": 1,
+                    "radii_bohr": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "n": 5,
+                    "l": 2,
+                    "zeta": 3,
+                    "polarization": 0,
+                    "radii_bohr": [
+                      0,
+                      0,
+                      0
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "energy_anisotropy_ev": 0.0026350000002821616,
+          "free_energy_anisotropy_ev": 0.0025340000001961016,
+          "transverse_split_ev": 0.0,
+          "report_sha256": "e98976221dd1650ee794dd6b30bfae7a18963239829ed2d4d8222acc290e50f0"
+        },
+        {
+          "parameters": {
+            "basis_size": "explicit",
+            "basis_spec": {
+              "format": "REMAG-PAO-BASIS/1",
+              "species": {
+                "Fe": [
+                  {
+                    "n": 4,
+                    "l": 0,
+                    "zeta": 3,
+                    "polarization": 2,
+                    "radii_bohr": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "n": 3,
+                    "l": 2,
+                    "zeta": 3,
+                    "polarization": 0,
+                    "radii_bohr": [
+                      0,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "Pt": [
+                  {
+                    "n": 6,
+                    "l": 0,
+                    "zeta": 3,
+                    "polarization": 2,
+                    "radii_bohr": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "n": 5,
+                    "l": 2,
+                    "zeta": 3,
+                    "polarization": 0,
+                    "radii_bohr": [
+                      0,
+                      0,
+                      0
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "energy_anisotropy_ev": 0.0029870000003029418,
+          "free_energy_anisotropy_ev": 0.0028339999998934218,
+          "transverse_split_ev": 0.0,
+          "report_sha256": "928f08aa6f7985cdecc28a76208254317ff18a34399734498fda57872df73e13"
+        }
+      ],
+      "changes": [
+        {
+          "energy_ev": 0.00035200000002078013,
+          "free_energy_ev": 0.00029999999969732016
+        }
+      ],
+      "tolerance_ev": 5e-05,
+      "successive_changes_required": 2,
+      "transverse_tolerance_ev": 1e-05,
+      "transverse_passed": true,
+      "sufficient_refinements": false,
+      "observed_stability_passed": false,
+      "fixed_configuration": {
+        "kmesh": [
+          16,
+          16,
+          16
+        ],
+        "basis_energy_shift_ry": 0.0025,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "mesh_ry": 300,
+        "smearing_k": 300,
+        "dm_tolerance": 1e-05,
+        "h_tolerance_ev": 0.0001,
+        "mixing_weight": 0.03,
+        "mixing_history": 8,
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+        "environment": {}
+      },
+      "physical_accuracy_qualified": false,
+      "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+    }
+  },
+  "native_basis_counts": {
+    "scalar": 48,
+    "soc-z": 48,
+    "soc-x": 48,
+    "soc-y": 48
+  },
+  "shared_radial_functions": {
+    "scalar": [
+      {
+        "species": "Fe",
+        "shared_radial_functions": 7,
+        "max_abs_difference": 0.0,
+        "baseline_ion_sha256": "633f38db6563cb3437a603fa8d3d7ae3aabb955659bee8938f760f726efe33c6",
+        "enriched_ion_sha256": "ca468ff4c79d920be799558f6a2e422280bfafb691c3e6ca7285e74abe2e4390"
+      },
+      {
+        "species": "Pt",
+        "shared_radial_functions": 7,
+        "max_abs_difference": 0.0,
+        "baseline_ion_sha256": "dc3c0b099a9bc93d436b5a54edf3e172c3ac9a62bf65245a029519686699e782",
+        "enriched_ion_sha256": "cb93fa8ac28c8eb88316f1b2a9300ea914dd99aaabd4e92fe398ec607cad98ee"
+      }
+    ],
+    "soc-z": [
+      {
+        "species": "Fe",
+        "shared_radial_functions": 7,
+        "max_abs_difference": 0.0,
+        "baseline_ion_sha256": "d35007cabb626efb587b0cd52b8fd93269b25e28f266d954084718a80990ada7",
+        "enriched_ion_sha256": "aad35cfb9aa2698cba4414ba40dee299cdf3746692491b39fcec8c90dc96d330"
+      },
+      {
+        "species": "Pt",
+        "shared_radial_functions": 7,
+        "max_abs_difference": 0.0,
+        "baseline_ion_sha256": "4bd2816409c2afbcf930e00104824fba3196c74329e940fb9db4f7ef926d5956",
+        "enriched_ion_sha256": "e6dcb53b060a64a0fb05987bdd6653c775799b48b257434b76425d753f6d0683"
+      }
+    ],
+    "soc-x": [
+      {
+        "species": "Fe",
+        "shared_radial_functions": 7,
+        "max_abs_difference": 0.0,
+        "baseline_ion_sha256": "d35007cabb626efb587b0cd52b8fd93269b25e28f266d954084718a80990ada7",
+        "enriched_ion_sha256": "aad35cfb9aa2698cba4414ba40dee299cdf3746692491b39fcec8c90dc96d330"
+      },
+      {
+        "species": "Pt",
+        "shared_radial_functions": 7,
+        "max_abs_difference": 0.0,
+        "baseline_ion_sha256": "4bd2816409c2afbcf930e00104824fba3196c74329e940fb9db4f7ef926d5956",
+        "enriched_ion_sha256": "e6dcb53b060a64a0fb05987bdd6653c775799b48b257434b76425d753f6d0683"
+      }
+    ],
+    "soc-y": [
+      {
+        "species": "Fe",
+        "shared_radial_functions": 7,
+        "max_abs_difference": 0.0,
+        "baseline_ion_sha256": "d35007cabb626efb587b0cd52b8fd93269b25e28f266d954084718a80990ada7",
+        "enriched_ion_sha256": "aad35cfb9aa2698cba4414ba40dee299cdf3746692491b39fcec8c90dc96d330"
+      },
+      {
+        "species": "Pt",
+        "shared_radial_functions": 7,
+        "max_abs_difference": 0.0,
+        "baseline_ion_sha256": "4bd2816409c2afbcf930e00104824fba3196c74329e940fb9db4f7ef926d5956",
+        "enriched_ion_sha256": "e6dcb53b060a64a0fb05987bdd6653c775799b48b257434b76425d753f6d0683"
+      }
+    ]
+  },
+  "wall_seconds": 2708.9805214591324,
+  "overlap": {
+    "format": "REMAG-OVERLAP-HEALTH/1",
+    "hsx_sha256": "00963c4a3b8d20907ff8f9e139b83bf8970179dc5dd22d5a1bab0d72b3be1c89",
+    "kp_sha256": "3d98643c0530e3e36522528f990ef5bce5f0977129b88087aed495ebaf3ffce8",
+    "spatial_orbitals": 48,
+    "native_kpoints": 2192,
+    "native_kp_weight_sum": 0.999999632,
+    "native_kp_weight_rounding_bound": 1.096e-06,
+    "min_eigenvalue": 1.9154956818824007e-05,
+    "max_eigenvalue": 13.214136180670671,
+    "min_eigenvalue_kpoint_index": 2171,
+    "min_eigenvalue_k_fractional": [
+      0.18750017614492015,
+      0.4374995899320507,
+      0.5000004576894169
+    ],
+    "nonpositive_kpoints": 0,
+    "positive_definite": true,
+    "max_condition_number": 512194.582711414,
+    "min_relative_eigenvalue": 1.9523830078527606e-06,
+    "max_condition_kpoint_index": 856,
+    "sampling": "Every native SCF KP point; decimal coordinate rounding retained",
+    "hermitian_policy": "Same bounded Hermitian reconstruction as electronic spectra",
+    "physical_accuracy_qualified": false,
+    "scope": "Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate"
+  },
+  "physical_accuracy_qualified": false,
+  "status": "first_basis_enrichment_failed_62_orbital_case_running",
+  "scope": "Fixed16-cubed/.0025Ry basis-size screening only; first42-to48-orbital E/F change exceeds original tolerance. Native, magnetic and transverse checks pass. Dense-mesh and radial qualification remain separate."
+}

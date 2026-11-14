@@ -57,6 +57,14 @@ stages, so the existing overlap diagnostic is reused by hash. This establishes
 the explicit 42-orbital baseline, not a basis refinement. The 48-orbital
 enrichment is running locally; the failed radial gate remains unchanged.
 
+The [42→48-orbital enrichment](../tests/evidence/research/fept-basis-r2-first-enrichment-2026-11-14.json)
+is complete and fails the E/F criterion: +0.352/+0.300 meV at fixed 16³ and
+0.0025 Ry. Native, branch and transverse checks pass, and all shared radial
+functions remain identical in every scalar/SOC stage. The overlap is positive
+on every sampled k point, with worst condition number about 512,195. Runtime
+was 2,708.98 seconds on the pinned local CPU. The 62-orbital case is running;
+neither basis-size nor radial convergence is qualified.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
