@@ -55,3 +55,10 @@ against the pristine 16³ reference, using the same 0.05 meV/cell E/F and
 not basis or zero-temperature extrapolations. They run sequentially on the
 existing local CPU and add no GPU reservation. The sealed strain models and
 their evaluations remain unchanged.
+
+The [completed TZP control](../tests/evidence/research/fept-basis-control-2026-11-14.json)
+gives E/F anisotropies of 2.735/2.625 meV/cell, changes of
+−0.126/−0.091 meV from DZP. Both exceed the declared threshold. All four native
+stages and the reference magnetic-branch comparison pass; x/y splits are zero
+at printed precision. Basis sensitivity therefore remains unresolved, at a scale
+larger than the 16³ mixed-target prediction errors.
