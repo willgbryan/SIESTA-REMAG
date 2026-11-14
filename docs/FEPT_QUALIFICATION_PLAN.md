@@ -49,6 +49,14 @@ The full $50 mesh-stage envelope is now reserved, bringing cumulative
 reservations to $146.67 against the $350 authorized ceiling. The $150 basis
 and $50 final-control sublimits remain unused; actual billing is unreconciled.
 
+The [explicit TZP replication](../tests/evidence/research/fept-basis-r2-replication-2026-11-14.json)
+passes at 16³ and 0.0025 Ry: all eight scalar/SOC E/F comparisons have zero
+difference at native printed precision, with native and branch checks passing.
+HSX, KP and both species' basis XML files are byte-identical for all four
+stages, so the existing overlap diagnostic is reused by hash. This establishes
+the explicit 42-orbital baseline, not a basis refinement. The 48-orbital
+enrichment is running locally; the failed radial gate remains unchanged.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
