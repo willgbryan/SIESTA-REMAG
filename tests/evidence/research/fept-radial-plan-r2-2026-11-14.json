@@ -1,0 +1,39 @@
+{
+  "format": "REMAG-FEPT-RADIAL-PLAN/1",
+  "recorded_at": "2026-11-14T16:04:01.562172+00:00",
+  "authorization_sha256": "f073325a72e966232fe068427bd143956b98069ec553b6fc812fe955b1952483",
+  "reference_report_sha256": "de36053e6a418c3d6880aefe3fa903aab118259fee1b5d31b4bd609fadda4d86",
+  "runtime": {
+    "executable": "/Users/willgbryan/Desktop/SIESTA-REMAG/build/upstream/Src/siesta",
+    "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+    "threads": 1,
+    "environment": {}
+  },
+  "launcher_commit": "ed6e7c327db6f511b647a9075d3f9efc59fd303f",
+  "experiments": [
+    {
+      "id": "shift001",
+      "basis_energy_shift_ry": 0.01,
+      "request_sha256": "1800583ff9bf017f607273ed3a2d08cf63328f86683bab5d092eeb5a7e04ef96"
+    },
+    {
+      "id": "shift0005",
+      "basis_energy_shift_ry": 0.005,
+      "request_sha256": "e6f927dcfea5ae609cd7bb3d00b3393b310c32d365f92ab9cdce34f1c6524ff0"
+    },
+    {
+      "id": "shift00025",
+      "basis_energy_shift_ry": 0.0025,
+      "request_sha256": "f5284ef07f747248c6dcb83ad1de3b9ddfdc7695022174effe5013c1a802f0cd"
+    }
+  ],
+  "criterion": {
+    "tolerance_ev": 5e-05,
+    "successive_changes": 2,
+    "transverse_tolerance_ev": 1e-05
+  },
+  "allocation": "Existing local CPU, one thread, sequential; no cloud allocation or GPU reservation.",
+  "order": "Run 0.01 and 0.005 Ry, then run 0.0025 Ry only if two successive changes have not passed. Stop on native/branch failure. Inspect native basis shells/radii at every measured point.",
+  "scope": "Low-mesh TZP radial screening only. A passing finite ladder does not qualify basis size, dense-mesh anisotropy or physical accuracy. No new prediction targets.",
+  "predictions_expansion_allowed": false
+}
