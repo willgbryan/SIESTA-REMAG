@@ -1,0 +1,38 @@
+# FePt convergence continuation
+
+The [first continuation batch](../tests/evidence/research/fept-convergence-r1-evaluation-2026-11-14.json)
+completed all four fixed-geometry experiments. The preregistered criterion is
+0.05 meV/cell for both E[x]−E[z] and F[x]−F[z], with two successive k refinements
+and an x/y split below 0.01 meV/cell. It has not yet passed.
+
+| Mesh | E anisotropy (meV/cell) | F anisotropy (meV/cell) |
+| --- | ---: | ---: |
+| 16³ | 2.860936 | 2.715598 |
+| 20³ | 2.365251 | 2.382505 |
+| 24³ | 2.397985 | 2.459264 |
+
+The 20→24 total-energy change passes, but the free-energy change is 0.076759
+meV/cell and fails. The threshold is unchanged. A conditional
+[28³/32³ plan](../tests/evidence/research/fept-convergence-plan-r2-2026-11-14.json)
+was committed before submission.
+
+At 16³, tightening DM/H tolerances tenfold changes E/F anisotropy by
+−0.0000156/−0.0000407 meV/cell. Increasing the grid cutoff from 300 to 500 Ry
+changes them by −0.038369/−0.040433 meV/cell. Both controls pass the declared
+single-change threshold; this is a finite sensitivity check, not an asymptotic
+grid error bound. All four continuation cases remain consistent with the 16³
+reference magnetic branch under the existing moment checks.
+
+A separate [pristine SIESTA 16³ replication](../tests/evidence/research/fept-pristine-k16-replication-2026-11-14.json)
+uses an identical scalar input hash and agrees with REMAG within native printed
+energy precision. Its HSX reconstruction passes the native eigenvalue comparison.
+These checks support implementation agreement, not basis or physical accuracy.
+
+Basis size, radial extent, electronic smearing, pseudopotential/functional
+accuracy and magnetic ground state remain unqualified. The fixed lattice is not
+an equilibrium relaxation, and the 300 K setting is an electronic occupation
+temperature. The directional energy difference is not a fitted K1 constant.
+
+The [response study](FEPT_RESPONSE_CONTROLS.md) uses separately preregistered
+volume/shape controls and new blind mixed strains. Its initial 16³ predictions
+remain explicitly scoped to those numerical settings.
