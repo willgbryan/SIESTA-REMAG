@@ -1,0 +1,494 @@
+{
+  "format": "REMAG-PAO-PREFLIGHT-EVALUATION/1",
+  "plan_sha256": "d13f5189651b8cdf72e2283eee78ae05cf9889b269f2b1d4049a39729345820f",
+  "plan_commit": "0bde2dd70b5da781ff4c7d98813ab00f89eeb89d",
+  "results": [
+    {
+      "id": "tzp-explicit",
+      "basis_identity": {
+        "passed": true,
+        "spatial_orbitals": 42,
+        "species": [
+          {
+            "symbol": "Fe",
+            "ion_sha256": "523cc4328d751a64bb24abd384ee2c0e46fa9b5289400d2ab677722230484639",
+            "orbitals": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.31702292812
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.30384584647
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 4.94714422588
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.31702292812
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 3.66234276508
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.01755333815
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 2.5393280484
+              }
+            ]
+          },
+          {
+            "symbol": "Pt",
+            "ion_sha256": "9c61532ec84580b3be09677970a168e0a0370786d270654647de5e94263d427b",
+            "orbitals": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.17934839638
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.2141996631
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 4.83927793271
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.17934839638
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.39539450578
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.68077650092
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 3.22112319123
+              }
+            ]
+          }
+        ],
+        "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+      },
+      "shared_radial_functions": [
+        {
+          "symbol": "Fe",
+          "shared_orbitals": 7,
+          "max_abs_difference": 0.0
+        },
+        {
+          "symbol": "Pt",
+          "shared_orbitals": 7,
+          "max_abs_difference": 0.0
+        }
+      ],
+      "native_valid": false,
+      "native_returncode": -6,
+      "scientific_measurement": false,
+      "artifacts": {
+        "CLOCK": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Fe.ion": "986325b8a0027831edfedb13eb17c584c61a2f19b68d1b9352100b3a4829915e",
+        "Fe.ion.xml": "523cc4328d751a64bb24abd384ee2c0e46fa9b5289400d2ab677722230484639",
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "INPUT_TMP.67971": "29f29bace99fa840ddbacd3c49d2e733b7bf0f54f4711e64e7ccf56d2bf959ee",
+        "MESSAGES": "90ef97d331a4262592d032fa90310f97390a9876f3feb1315a6eeec6738d103f",
+        "NON_TRIMMED_KP_LIST": "9415f131969acdd4c284dde88ba4e53bd92abb2e8ad472915ed8e37ade8a9d0c",
+        "PARALLEL_DIST": "4f1707dc5820e2ada9ab43f52b9921bc22ab073e017c7d29d856969875eec3e8",
+        "Pt.ion": "20a40ca0ddcee5755dad765793d8ce593bd2ff8a6d0f8fc8e883fae5222a4209",
+        "Pt.ion.xml": "9c61532ec84580b3be09677970a168e0a0370786d270654647de5e94263d427b",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+        "execution-status.json": "fc4d808e3b7245fe544e3d2920651bdaf40b5dba7de67d4bb83fb7250aedf3c2",
+        "fdf.20261114T101514.051.log": "2d5d0cd60ac12ec11cf53f9e7742265ccfc9b75b96695940565e9e0da1dfe6bc",
+        "input.fdf": "29f29bace99fa840ddbacd3c49d2e733b7bf0f54f4711e64e7ccf56d2bf959ee",
+        "manifest.json": "dd47f43ab4f92437043b5fdca19226927d6e234189159d96f6609fcbfb0c6472",
+        "remag.BONDS": "c9f411a28075abf1244216c5d627b8ab79ea70b5a59579321bb9bb3538badf96",
+        "remag.DM": "e1b08734cb15c28b33b82df18e5f99391452de341835edfbfe95739cb4ef8378",
+        "remag.KP": "8e29abb5ee5bfce52b58edacaf091b23ec2da0931f9f345c62f46c5d99de997f",
+        "remag.ORB_INDX": "77b163a40482d2ff914748e36fb4f658c779474d9cb06be713d4a13d1fee2df8",
+        "remag.STRUCT_OUT": "3741bfd3043d36704be0dccf8bff7f6f58b4f248b9aadce82f8f7b0e3d5b9011",
+        "remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+        "remag.alloc": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "result.json": "285ddb5d5a1e4daada1bdec773c6627f6bd0fdb4ff051264b7d396ad4c747810",
+        "stderr.log": "ef8bb79d1e4c62a41868cf5a75dd25843fa50332c67ad9666b8d709a168b56c5",
+        "stdout.log": "fc78a1ca69bdec8b440bddcd29a32a2ec702139dcc6ec7bd710702d782f5ce54",
+        "time.json": "7afdc28fd8419ea28dde88549fbdbd0d5b2529f328e93e87ba3a5df0a74b2ab3"
+      }
+    },
+    {
+      "id": "tzp2",
+      "basis_identity": {
+        "passed": true,
+        "spatial_orbitals": 48,
+        "species": [
+          {
+            "symbol": "Fe",
+            "ion_sha256": "89622b0c34af16e36c8151f7cc57eed75d0014b2922ac0e28c2d122d536d4ed9",
+            "orbitals": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.31702292812
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.30384584647
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 4.94714422588
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.31702292812
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 4.71482164911
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 3.66234276508
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.01755333815
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 2.5393280484
+              }
+            ]
+          },
+          {
+            "symbol": "Pt",
+            "ion_sha256": "8e1f80ec658452b2b7a98da16bd197e2668bcf4fe522c81eafdde566ee0ebf93",
+            "orbitals": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.17934839638
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.2141996631
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 4.83927793271
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.17934839638
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 4.71954883395
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.39539450578
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.68077650092
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 3.22112319123
+              }
+            ]
+          }
+        ],
+        "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+      },
+      "shared_radial_functions": [
+        {
+          "symbol": "Fe",
+          "shared_orbitals": 7,
+          "max_abs_difference": 0.0
+        },
+        {
+          "symbol": "Pt",
+          "shared_orbitals": 7,
+          "max_abs_difference": 0.0
+        }
+      ],
+      "native_valid": false,
+      "native_returncode": -6,
+      "scientific_measurement": false,
+      "artifacts": {
+        "CLOCK": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Fe.ion": "89da6b9c31263e4ff3f2b61170879e06985e3b5c56bf9a6578fc8bb64e4e8918",
+        "Fe.ion.xml": "89622b0c34af16e36c8151f7cc57eed75d0014b2922ac0e28c2d122d536d4ed9",
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "INPUT_TMP.71342": "a38e485c5e340e226fdea6bb8ae74e5da5a4664b71630e795bd6ea9e7937e641",
+        "MESSAGES": "d26ac8aab772d6cdd8c9c8fa34dbca17dbc6544d2e64f900730bfa8fc5712ad7",
+        "NON_TRIMMED_KP_LIST": "9415f131969acdd4c284dde88ba4e53bd92abb2e8ad472915ed8e37ade8a9d0c",
+        "PARALLEL_DIST": "8883e3bee2f82bc10a5f19cd3750e7090fca5814029e3384467cf7956a4359dd",
+        "Pt.ion": "5cc8e27d391cd59780474b954c1f717220ab6f073e132729ae622dfb3cbd8603",
+        "Pt.ion.xml": "8e1f80ec658452b2b7a98da16bd197e2668bcf4fe522c81eafdde566ee0ebf93",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+        "execution-status.json": "1762e8311265db21920834ada458a0fc6a8abceb36b60d2f3d1f50753ac4834e",
+        "fdf.20261114T101517.422.log": "b71e29422513082f73491362d6de17db4b56350d2d8fb8faabc27876fd9e4e83",
+        "input.fdf": "a38e485c5e340e226fdea6bb8ae74e5da5a4664b71630e795bd6ea9e7937e641",
+        "manifest.json": "23235c99554d79a65c6644c952af21c745e72aa524ee6e1f396da319fcac7c27",
+        "remag.BONDS": "c9f411a28075abf1244216c5d627b8ab79ea70b5a59579321bb9bb3538badf96",
+        "remag.DM": "79668277f508ec4ddf44e58140ce898cfd0f00757de9c371270e71cc5c598980",
+        "remag.KP": "8e29abb5ee5bfce52b58edacaf091b23ec2da0931f9f345c62f46c5d99de997f",
+        "remag.ORB_INDX": "d54969c5d42b28de8a88641868a3f7367c164e13ef68b8bd8ebf73da96a2bfe1",
+        "remag.STRUCT_OUT": "3741bfd3043d36704be0dccf8bff7f6f58b4f248b9aadce82f8f7b0e3d5b9011",
+        "remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+        "remag.alloc": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "result.json": "84d99a712e8f110ef9debac53bd1cceb8dd55b13d4f06e999b8f2e43750bbc55",
+        "stderr.log": "29a9971deaae4fdfa47a7916dffd5d0743b42f03553c4a24225449b2c089418a",
+        "stdout.log": "24caaecb5abdbf6556570421389806c66a16b003146bb66f019b9419d3186ce8",
+        "time.json": "aadc7829c6ff2084fe27a157ed2a6bd55f62d4d91c07775a2e636c2d765d527f"
+      }
+    },
+    {
+      "id": "tzp2-f1",
+      "basis_identity": {
+        "passed": true,
+        "spatial_orbitals": 62,
+        "species": [
+          {
+            "symbol": "Fe",
+            "ion_sha256": "2f5e4ced7ec5667ecdef6b7c8231b42ebcc8182c574d5ab5943bb88f228de235",
+            "orbitals": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.31702292812
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.30384584647
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 4.94714422588
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.31702292812
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 4.71482164911
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 3.66234276508
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.01755333815
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 2.5393280484
+              },
+              {
+                "n": 4,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 3.66234276508
+              }
+            ]
+          },
+          {
+            "symbol": "Pt",
+            "ion_sha256": "5f5447cedb80f8dabac66f05779cf1b149292b37889705bb1d00c4c15af17d29",
+            "orbitals": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.17934839638
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.2141996631
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 4.83927793271
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.17934839638
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 4.71954883395
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.39539450578
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.68077650092
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 3.22112319123
+              },
+              {
+                "n": 5,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.39539450578
+              }
+            ]
+          }
+        ],
+        "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+      },
+      "shared_radial_functions": [
+        {
+          "symbol": "Fe",
+          "shared_orbitals": 7,
+          "max_abs_difference": 0.0
+        },
+        {
+          "symbol": "Pt",
+          "shared_orbitals": 7,
+          "max_abs_difference": 0.0
+        }
+      ],
+      "native_valid": false,
+      "native_returncode": -6,
+      "scientific_measurement": false,
+      "artifacts": {
+        "CLOCK": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Fe.ion": "842a4080cf2d6794c6f07534a15a1795891c519f1bf09a0c764143d3f0eb292e",
+        "Fe.ion.xml": "2f5e4ced7ec5667ecdef6b7c8231b42ebcc8182c574d5ab5943bb88f228de235",
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "INPUT_TMP.75538": "84ec201f77e2cb5f2236f1010f06cad5f9d204de97fee66a7dd09c6a1c85749b",
+        "MESSAGES": "aba958d7216ecd9d916c8e647702b01add8ad7d1b8e4bdd14c2b1600d4327194",
+        "NON_TRIMMED_KP_LIST": "9415f131969acdd4c284dde88ba4e53bd92abb2e8ad472915ed8e37ade8a9d0c",
+        "PARALLEL_DIST": "bbdcb718a579e2dc5408f8b66b062a6f39cede54a0abf5b59b66832b790c3f39",
+        "Pt.ion": "c2f54d212246f0bd98abb6e563ee3049b6a20baf7bbe40fdf416e6fcf6f9f803",
+        "Pt.ion.xml": "5f5447cedb80f8dabac66f05779cf1b149292b37889705bb1d00c4c15af17d29",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+        "execution-status.json": "05351cd4ce9411586a4c512e7183f1d712b92cb7a5a2ff48d1f5a0c22f94a844",
+        "fdf.20261114T101521.618.log": "cacc85f1390b6a6fd2c84425df8e5f6fcef003bec82dd58eb6ef548bbac2a724",
+        "input.fdf": "84ec201f77e2cb5f2236f1010f06cad5f9d204de97fee66a7dd09c6a1c85749b",
+        "manifest.json": "6884ab9b3cfdac40d38d9cd41f3f9a1fb223cc0e4d30ddfff54857d6f74a3a24",
+        "remag.BONDS": "c9f411a28075abf1244216c5d627b8ab79ea70b5a59579321bb9bb3538badf96",
+        "remag.DM": "c062a6cbcc5da5b2bb3ca82fc9070069f4f2a09fb28ee3e203b3ad1598884f73",
+        "remag.KP": "8e29abb5ee5bfce52b58edacaf091b23ec2da0931f9f345c62f46c5d99de997f",
+        "remag.ORB_INDX": "690423cb69d2b6aff9e4570662a70296ac7a4dc434f96d93f18e3e783bf02b16",
+        "remag.STRUCT_OUT": "3741bfd3043d36704be0dccf8bff7f6f58b4f248b9aadce82f8f7b0e3d5b9011",
+        "remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+        "remag.alloc": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "result.json": "e53eed117dbf70f8edccac3a4f5f8fe4fd47dc0522cc48b29ce24fa8686ace0f",
+        "stderr.log": "bf664a4e2aba785cf4845c2ad683c4f974abcae6b000feb31588ee84ad4cdf1e",
+        "stdout.log": "5f38c6a25999aac2968ce6fef31387ef82e5836294db29c9807ed9f234bb6af0",
+        "time.json": "a93cae9e299a91ba9c1f01926a7540effa127bb28bce6807c735168b08619051"
+      }
+    }
+  ],
+  "status": "basis_identity_verified",
+  "scientific_measurement": false,
+  "physical_accuracy_qualified": false,
+  "scope": "Native basis-generation identity only; no anisotropy, convergence, magnetic-branch or prediction claim."
+}

@@ -1,0 +1,67 @@
+{
+  "format": "REMAG-FEPT-BASIS-PLAN/1",
+  "recorded_at": "2026-11-14T16:17:58.589654+00:00",
+  "authorization_sha256": "f073325a72e966232fe068427bd143956b98069ec553b6fc812fe955b1952483",
+  "radial_plan_sha256": "57969103c131ea2328929917a52be8a92d281e087d54d1257756f8949dc4649b",
+  "preflight_sha256": "00d2e8f26a6070ae7923ac0621fa0a49b44a0bd28734346697cf350661218dcc",
+  "specifications_sha256": "a546d55e0e93f26289129335c6f4d482c3894c20b7ca4de7d1eda31a73513b2f",
+  "runtime": {
+    "executable": "/Users/willgbryan/Desktop/SIESTA-REMAG/build/upstream/Src/siesta",
+    "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+    "threads": 1,
+    "environment": {}
+  },
+  "experiments": [
+    {
+      "id": "tzp-explicit",
+      "radial_id": "shift0005",
+      "basis_energy_shift_ry": 0.005,
+      "request_sha256": "4390cc88d1a33a296a033c218bfe769c72d9b65b3c69614743f40d1d70d2bb07"
+    },
+    {
+      "id": "tzp2",
+      "radial_id": "shift0005",
+      "basis_energy_shift_ry": 0.005,
+      "request_sha256": "e31de18498a1206803e7feb177a75ec7c8c852ecd1ec3a52013acc12ed4ef972"
+    },
+    {
+      "id": "tzp2-f1",
+      "radial_id": "shift0005",
+      "basis_energy_shift_ry": 0.005,
+      "request_sha256": "9fcf94b289cd232900c2cef4c949f1160742e3452c6aa903da19d94a3ff7856e"
+    },
+    {
+      "id": "tzp-explicit",
+      "radial_id": "shift00025",
+      "basis_energy_shift_ry": 0.0025,
+      "request_sha256": "403ff3891470cd36fb098679058c7117bd119a4fa5b9b483258f54093e1d0265"
+    },
+    {
+      "id": "tzp2",
+      "radial_id": "shift00025",
+      "basis_energy_shift_ry": 0.0025,
+      "request_sha256": "eb95a35c2c1df1333c4c7b97b8fc7b71e57962c369481018a0048ff24e5072c9"
+    },
+    {
+      "id": "tzp2-f1",
+      "radial_id": "shift00025",
+      "basis_energy_shift_ry": 0.0025,
+      "request_sha256": "cd4fbd9008523e6f782a7bd605be34918c3fbee86568e174d274798ed979d66e"
+    }
+  ],
+  "selection": "Wait for radial-r2 evaluation. Require every attempted native and magnetic-branch check to pass. Select its final measured (smallest) energy shift, either 0.005 or 0.0025 Ry, independent of whether its finite stability gate passes. Preserve a failed radial gate.",
+  "order": [
+    "tzp-explicit",
+    "tzp2",
+    "tzp2-f1"
+  ],
+  "criterion": {
+    "tolerance_ev": 5e-05,
+    "successive_changes": 2,
+    "transverse_tolerance_ev": 1e-05
+  },
+  "replication_tolerance_ev": 1.0001e-06,
+  "replication": "Before enriched bases, compare explicit 42-orbital TZP against the same-shift automatic TZP for all scalar/SOC E/F values at native print precision. A replication is not a basis refinement. Stop on disagreement or native/branch failure.",
+  "allocation": "Local CPU, one thread, sequential after the radial ladder. No cloud allocation or GPU reservation.",
+  "scope": "Fixed-16 basis screening only, with 42, 48 and 62 spatial orbitals. Dense-mesh, radial and physical qualification remain separate. No prediction expansion."
+}
