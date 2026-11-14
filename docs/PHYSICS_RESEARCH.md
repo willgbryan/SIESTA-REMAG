@@ -18,6 +18,10 @@ python -m siesta_remag.research run runs/fept/zero \
 python -m siesta_remag.research serve --workspace runs --port 8765
 ```
 
+Use `python -m siesta_remag.research snapshot --workspace runs --output fept.html`
+to save a self-contained interactive view with exact sources and saved observations.
+The snapshot needs no server or network and refuses to overwrite an existing file.
+
 The viewer binds only `127.0.0.1`. Its white, charcoal, cool gray and `#FF0860`
 palette follows Project 14. Drag or use arrow keys to rotate; select an atom,
 toggle its coordination shell and choose exact strain samples. Source words and

@@ -31,6 +31,9 @@ def main(argv=None):
     p.add_argument('directory', type=Path)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--spin', type=int, default=0)
+    p = sub.add_parser('snapshot', help='Save a self-contained interactive workspace')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
     if args.command == 'serve':
         from .workspace import serve
@@ -58,6 +61,9 @@ def main(argv=None):
         runtime = load(args.runtime)
         result = run_experiment(args.bundle, args.output, runtime['executable'], executable_sha256=runtime['executable_sha256'],
                                 runtime_env=runtime.get('environment', {}), threads=runtime.get('threads', 1))
+    elif args.command == 'snapshot':
+        from .workspace import snapshot
+        result = snapshot(args.workspace, args.output)
     elif args.command == 'electronic-run':
         from .electronic import spectrum_from_run
         result = spectrum_from_run(args.directory, args.output, collinear_spin=args.spin)

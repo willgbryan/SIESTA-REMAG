@@ -98,3 +98,16 @@ def serve(workspace, port=8765):
     print(f'Local: http://127.0.0.1:{server.server_port}', flush=True)
     try: server.serve_forever()
     finally: server.server_close()
+
+
+def snapshot(workspace, output):
+    """Self-contained read-only HTML, with the same source/result binding as serve."""
+    state = dataset(Path(workspace).resolve())
+    payload = json.dumps(state, allow_nan=False).replace('<', '\\u003c')
+    html = Path(__file__).with_name('workspace.html').read_text()
+    html = html.replace('<script>', '<script type="application/json" id="saved-state">'+payload+'</script>\n<script>', 1)
+    target = Path(output)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with target.open('x') as stream:
+        stream.write(html)
+    return dict(format='REMAG-WORKSPACE-SNAPSHOT/1', path=str(target), sha256=sha256(target))
