@@ -44,3 +44,14 @@ temperature. The directional energy difference is not a fitted K1 constant.
 The [response study](FEPT_RESPONSE_CONTROLS.md) uses separately preregistered
 volume/shape controls and new blind mixed strains. Its initial 16³ predictions
 remain explicitly scoped to those numerical settings.
+
+## Additional local controls
+
+A [separate CPU plan](../tests/evidence/research/fept-local-controls-plan-2026-11-14.json)
+tests TZP versus DZP, radial confinement shift 0.01 versus 0.02 Ry, and electronic
+occupation temperature 150 versus 300 K. Each varies only its named control
+against the pristine 16³ reference, using the same 0.05 meV/cell E/F and
+0.01 meV/cell transverse thresholds. These are single-change sensitivity tests,
+not basis or zero-temperature extrapolations. They run sequentially on the
+existing local CPU and add no GPU reservation. The sealed strain models and
+their evaluations remain unchanged.
