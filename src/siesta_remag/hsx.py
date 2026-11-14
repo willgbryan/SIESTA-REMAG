@@ -71,7 +71,7 @@ def read_hsx(path):
         overlap = np.concatenate([values(kind, int(n)) for n in counts])
         if not np.isfinite(h).all() or not np.isfinite(overlap).all() or stream.read(1):
             raise ValueError('Nonfinite or trailing HSX matrix data')
-    return dict(header=header, precision=int(precision), cell=scalars[:9], fermi_ry=float(scalars[9]),
+    return dict(header=header, precision=int(precision), endian=endian, cell=scalars[:9], fermi_ry=float(scalars[9]),
                 charge=float(scalars[10]), temperature_ry=float(scalars[11]), offsets=offsets,
                 positions=positions, labels=labels, basis=basis, kpoints=kpoints, counts=counts,
                 columns=columns, h=h, overlap=overlap)

@@ -44,11 +44,18 @@ def axes(atoms):
     return {'z': z.tolist(), 'x': x.tolist(), 'y': np.cross(z, x).tolist()}
 
 
-def pseudos_for(atoms, directory):
+def pseudos_for(atoms, directory, *, allow_psf=False):
     """Only fully relativistic PBE PSML; caller supplies licensed/cached files."""
     result = {}
     for symbol in dict.fromkeys(atoms.get_chemical_symbols()):
         path = Path(directory) / (symbol + '.psml')
+        if not path.exists() and allow_psf:
+            path = Path(directory) / (symbol + '.psf')
+            header = path.read_text().splitlines()[0].split()
+            if len(header) < 3 or header[:3] != [symbol, 'pb', 'rel']:
+                raise ValueError(f'{symbol}: expected fully relativistic PBE PSF header')
+            result[path.name] = sha256(path)
+            continue
         tree = ET.parse(path)
         spec = next((x for x in tree.iter() if x.tag.split('}')[-1] == 'pseudo-atom-spec'), None)
         if spec is None or spec.get('atomic-label') != symbol or spec.get('relativity') != 'dirac':
@@ -61,11 +68,19 @@ def pseudos_for(atoms, directory):
 
 
 def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=None,
-                 spins=None, relax=False, restart=False):
+                 spins=None, relax=False, restart=False, allow_psf=False,
+                 basis_size='DZP', basis_energy_shift_ry=0.02, diagnostics=False):
     validate_atoms(atoms, settings)
     destination = Path(destination)
-    hashes = pseudos_for(atoms, pseudos)
+    hashes = pseudos_for(atoms, pseudos, allow_psf=allow_psf)
+    if basis_size not in ('SZ', 'SZP', 'DZ', 'DZP', 'TZ', 'TZP'):
+        raise ValueError('Unsupported PAO basis size')
+    if type(basis_energy_shift_ry) not in (int, float) or not 0 < basis_energy_shift_ry <= 1:
+        raise ValueError('Basis energy shift must be in (0,1] Ry')
     mesh = mesh or kmesh(atoms, settings)
+    if (len(mesh) != 3 or any(type(n) is not int or n < 1 for n in mesh)
+            or math.prod(mesh) > settings.max_kpoints):
+        raise ValueError('Invalid or over-budget integer k mesh')
     symbols = atoms.get_chemical_symbols()
     order = list(dict.fromkeys(symbols))
     if spins is None:
@@ -97,7 +112,7 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
             lines.append(f'{i} {m:.12f}')
         else:
             lines.append(f'{i} {abs(m):.12f} {theta if m >= 0 else 180-theta:.12f} {phi if m >= 0 else phi+180:.12f}')
-    lines += ['%endblock DM.InitSpin', 'PAO.BasisSize DZP', 'PAO.EnergyShift 0.02 Ry', 'PAO.SplitNorm 0.25',
+    lines += ['%endblock DM.InitSpin', f'PAO.BasisSize {basis_size}', f'PAO.EnergyShift {basis_energy_shift_ry} Ry', 'PAO.SplitNorm 0.25',
               'PAO.Polarization.NonPerturbative true', f'MeshCutoff {settings.mesh_ry} Ry', 'XC.functional GGA', 'XC.authors PBE',
               f'ElectronicTemperature {settings.smearing_k} K', 'SolutionMethod diagon', 'Diag.Algorithm divide-and-conquer',
               f'MaxSCFIterations {settings.max_scf}', 'SCF.MustConverge true', f'DM.Tolerance {settings.dm_tolerance}',
@@ -116,6 +131,8 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
         lines += ['MD.NumCGsteps 0']
     if direction is not None:
         lines += ['WriteOrbMom true']
+    if diagnostics:
+        lines += ['WriteKpoints true']
     destination.mkdir(parents=True, exist_ok=False)
     for name in hashes:
         shutil.copyfile(Path(pseudos) / name, destination / name)
@@ -125,6 +142,7 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
                     kmesh=mesh, direction=axis.tolist() if direction is not None else None,
                     settings=settings.to_dict(), screening=True, density_matrix_output=True, hamiltonian_output=True,
                     relaxation=relax, orientation_constrained=False,
-                    geometry_sha256=digest(geometry(atoms)))
+                    geometry_sha256=digest(geometry(atoms)), basis_size=basis_size,
+                    basis_energy_shift_ry=basis_energy_shift_ry, diagnostics=diagnostics)
     save(destination / 'manifest.json', manifest)
     return destination
