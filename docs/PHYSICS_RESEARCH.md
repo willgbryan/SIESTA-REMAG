@@ -51,8 +51,11 @@ grids are checked. A failure stops that experiment and preserves its evidence.
 Completed calls can be reused only with matching inputs, code, runtime and
 artifact hashes. Interrupted runs require an explicitly new attempt.
 
-MAE is `E[100] - E[001]`, in eV per computational cell, with positive values
-favoring [001]. Free-energy differences are retained separately. K1/K2 and
+For tetragonal FePt, MAE is `E[100] - E[001]`, in eV per computational cell,
+with positive values favoring [001]. General cells record Cartesian direction
+vectors: z follows authored c, x follows the component of a perpendicular to z,
+and y is z cross x. Their energy difference is E[x] − E[z]; x need not coincide
+with crystallographic [100] in a skew cell. Free-energy differences are retained separately. K1/K2 and
 numerical uncertainties remain unknown; an x/z pair is not a K1 fit.
 The defaults are preliminary screening settings, not a physical convergence
 qualification. Basis, mesh, k sampling, smearing, SCF thresholds and magnetic

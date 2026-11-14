@@ -99,6 +99,7 @@ def test_fixed_experiment_and_provenance(experiment, tmp_path):
     assert report['status'] == 'measured', report.get('reason', report['stages'])
     assert [c[0] for c in calls] == ['scalar', 'soc-z', 'soc-x', 'soc-y']
     assert report['anisotropy']['mae_ev_cell'] == pytest.approx(.0001)
+    assert report['anisotropy']['axes_cartesian'] == dict(z=[0.,0.,1.], x=[1.,0.,0.], y=[0.,1.,0.])
     assert not report['physical_accuracy_qualified']
     assert 'MD.NumCGsteps 0' in (experiment/'scalar/input.fdf').read_text()
     assert 'MD.VariableCell' not in (experiment/'scalar/input.fdf').read_text()

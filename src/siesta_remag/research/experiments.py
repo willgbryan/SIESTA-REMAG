@@ -142,8 +142,9 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
             report['anisotropy'] = directional_result(rows, atoms.get_volume()) | dict(
                 mae_ev_cell=rows['x']['total_energy_ev']-rows['z']['total_energy_ev'],
                 transverse_split_ev_cell=rows['y']['total_energy_ev']-rows['x']['total_energy_ev'],
-                convention='E[100] - E[001]; positive favors [001]', uncertainty_ev_cell=None)
-            report['anisotropy']['axis_convention'] = 'Fixed authored Cartesian frame; [001] is c'
+                convention='E[x] - E[z]; positive favors z; see axes_cartesian', uncertainty_ev_cell=None,
+                axes_cartesian=rotations)
+            report['anisotropy']['axis_convention'] = 'z parallel to authored c; x perpendicular projection of authored a; y=z cross x'
             report['status'] = 'measured'
         except Exception as exc:
             report.update(status='held_error', reason=str(exc))
