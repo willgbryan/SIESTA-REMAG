@@ -20,15 +20,14 @@ if modal.is_local():
     from siesta_remag.research.budget import BudgetLedger, reservation_cents
     budget = BudgetLedger(os.environ['REMAG_RESEARCH_BUDGET_LEDGER'])
     reserved_cents = reservation_cents(policy['timeout_seconds'], policy['hourly_reservation_usd'])
-    if budget.remaining_cents() < reserved_cents:
+    budget_stage = policy.get('budget_stage')
+    if budget.remaining_cents(budget_stage) < reserved_cents:
         raise ValueError('Insufficient cumulative budget before image preparation')
     volume_name = policy.get('volume', 'siesta-remag-results')
     diagnostic_axes = policy.get('diagnostic_axes', ['z', 'x', 'y'])
     if not isinstance(diagnostic_axes, list) or len(set(diagnostic_axes)) != len(diagnostic_axes) or any(a not in ('x','y','z') for a in diagnostic_axes):
         raise ValueError('Diagnostic axes must be a unique subset of x,y,z')
     timeout = policy['timeout_seconds']
-    if type(timeout) is not int or not 120 <= timeout <= 7200:
-        raise ValueError('Campaign timeout must be 120..7200 seconds')
     # Conservative allocation reservation, not a claim about a billing invoice.
     if any(type(policy[k]) not in (int, float) or not math.isfinite(policy[k]) or policy[k] <= 0
            for k in ['hourly_reservation_usd', 'budget_usd']):
@@ -44,8 +43,9 @@ if modal.is_local():
         .add_local_dir(campaign, '/opt/research/campaign', copy=True)
         .add_local_file(runtime_path, '/opt/research/runtime.json', copy=True))
 else:
-    image, timeout = None, 7200
-    volume_name = load('/opt/research/campaign/execution.json').get('volume', 'siesta-remag-results')
+    policy = load('/opt/research/campaign/execution.json')
+    image, timeout = None, policy['timeout_seconds']
+    volume_name = policy.get('volume', 'siesta-remag-results')
 
 app = modal.App('siesta-remag-single-gpu')
 volume = modal.Volume.from_name(volume_name, create_if_missing=True)
@@ -110,7 +110,7 @@ def main(receipt: str, output: str):
         raise ValueError('Existing submission/output: collect it instead of resubmitting')
     run_id = 'physics-'+uuid.uuid4().hex
     budget.reserve(run_id, reserved_cents, metadata=dict(policy_sha256=digest(policy), app_id=app.app_id,
-                   receipt=str(path.resolve()), campaign=str(campaign)))
+                   receipt=str(path.resolve()), campaign=str(campaign)), stage=budget_stage)
     save(path, dict(status='submitting', run_id=run_id, app_id=app.app_id, image=image_id,
                    volume=volume_name, reserved_cents=reserved_cents))
     call = calculate.spawn(run_id)

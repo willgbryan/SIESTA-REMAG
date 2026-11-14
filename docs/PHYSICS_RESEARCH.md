@@ -182,7 +182,7 @@ python scripts/run_modal.py --module-file scripts/research_modal.py \
 ```
 
 `execution.json` in the campaign contains ordered `experiments`,
-`timeout_seconds` (120..7200), `hourly_reservation_usd`, and `budget_usd`.
+`timeout_seconds` (120..21600), `hourly_reservation_usd`, and `budget_usd`.
 The deadline reservation must fit the declared budget, at most $100. That
 configuration records a bound; the operator still needs authorization to spend.
 The cumulative `research.budget.BudgetLedger` must already exist under the
@@ -191,6 +191,16 @@ an existing budget. Charges round upward to whole cents; completion and unknown
 submission outcomes do not automatically release reservations. Concurrent
 reservations cannot exceed the shared cap, and an existing ledger cannot be reset.
 The local receipt binds each reservation before GPU submission.
+
+An explicitly authorized increase uses `BudgetLedger.authorize_additional` with
+a unique authorization ID. It appends the amount and prior/new ceilings while
+preserving the original cap, authorization and reservations. The effective cap
+is the original amount plus these extensions; recording the same ID is idempotent
+and cannot change its amount. `define_stage` adds an immutable sub-limit, such as
+$50 for mesh checks. Once stages exist, new reservations must name one through
+the campaign's `budget_stage`; both stage and cumulative caps are checked under
+the same lock. Completion does not refund either limit. No extension is implied
+by a plan or a runtime estimate.
 
 Optional `diagnostic_axes` selects a unique subset of x/y/z for postprocessing;
 an empty list preserves native outputs while skipping reconstructed arrays.

@@ -4,6 +4,12 @@ Planning estimate, 14 November 2026. Mesh and basis checks take priority over
 new physics-guided predictions. This proposal does not authorize additional
 spending, alter the original $100 ledger, or launch compute.
 
+The owner subsequently authorized **up to $250 additional**, one GPU at a time,
+starting with the $50 mesh stage. The [authorization record](../tests/evidence/research/fept-authorization-r2-2026-11-14.json)
+preserves the original reservations; the [36³/40³ execution plan](../tests/evidence/research/fept-mesh-r3-plan-2026-11-14.json)
+allocates $20 and $30 respectively. The cumulative authorized ceiling is $350.
+The remaining sections retain the proposal's estimates and scientific priorities.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
