@@ -27,6 +27,10 @@ def main(argv=None):
     p.add_argument('hsx', type=Path)
     p.add_argument('--sampling', type=Path, required=True, help='JSON kpoints (reciprocal fractional) and normalized weights')
     p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('electronic-run', help='Reconstruct and check spectra against native KP/EIG outputs')
+    p.add_argument('directory', type=Path)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--spin', type=int, default=0)
     args = parser.parse_args(argv)
     if args.command == 'serve':
         from .workspace import serve
@@ -54,6 +58,9 @@ def main(argv=None):
         runtime = load(args.runtime)
         result = run_experiment(args.bundle, args.output, runtime['executable'], executable_sha256=runtime['executable_sha256'],
                                 runtime_env=runtime.get('environment', {}), threads=runtime.get('threads', 1))
+    elif args.command == 'electronic-run':
+        from .electronic import spectrum_from_run
+        result = spectrum_from_run(args.directory, args.output, collinear_spin=args.spin)
     else:
         from .electronic import spectrum
         sampling = load(args.sampling)

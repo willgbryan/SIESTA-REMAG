@@ -99,9 +99,11 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
              f'NumberOfSpecies {len(order)}', '%block ChemicalSpeciesLabel']
     lines += [f'{i} {atoms.numbers[symbols.index(s)]} {s}' for i, s in enumerate(order, 1)]
     lines += ['%endblock ChemicalSpeciesLabel', 'LatticeConstant 1 Ang', '%block LatticeVectors']
-    lines += [' '.join(f'{v:.15g}' for v in row) for row in atoms.cell.array]
+    # libfdf distinguishes integer and real tokens in coordinate blocks. In
+    # particular "0 0 0 1" can make the first zero the species identifier.
+    lines += [' '.join(f'{v:.16f}' for v in row) for row in atoms.cell.array]
     lines += ['%endblock LatticeVectors', 'AtomicCoordinatesFormat Fractional', '%block AtomicCoordinatesAndAtomicSpecies']
-    lines += [' '.join(f'{v:.15g}' for v in row) + f' {order.index(s)+1}' for row, s in zip(atoms.get_scaled_positions(wrap=False), symbols)]
+    lines += [' '.join(f'{v:.16f}' for v in row) + f' {order.index(s)+1}' for row, s in zip(atoms.get_scaled_positions(wrap=False), symbols)]
     lines += ['%endblock AtomicCoordinatesAndAtomicSpecies', '%block kgrid_Monkhorst_Pack']
     lines += [' '.join(str(mesh[i] if i == j else 0) for j in range(3)) + ' 0.0' for i in range(3)]
     lines += ['%endblock kgrid_Monkhorst_Pack', 'Spin ' + ('spin-orbit' if direction is not None else 'polarized'), '%block DM.InitSpin']

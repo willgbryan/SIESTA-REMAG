@@ -37,6 +37,30 @@ def test_unequal_finite_difference_and_unknown_error():
     assert finite_difference(points, parameter_unit='strain', property_unit='eV')['propagated_error_bound']['first'] > 0
 
 
+def test_complex_offsite_spinor_uses_native_spatial_index_order():
+    # Independent explicit matrix from SIESTA diag3kp.F90 setup_k's (spin,j,spin,i).
+    # A one-orbital or real collinear control cannot detect this transpose error.
+    from siesta_remag.research.electronic import RY_EV
+    raw = dict(header=[2, 2, 8], counts=np.array([2, 2]), columns=np.array([1, 2, 1, 2]),
+        offsets=np.array([0, 0, 0]), overlap=np.array([1., 0, 0, 1]), precision=1,
+        h=np.array([[1,0,0,2], [3,0,0,4], [.2,.8,.6,1], [.1,.9,.7,.2],
+                    [0,-.3,.3,0], [0,.4,-.4,0], [.2,.6,.8,1], [.1,.7,.9,.2]]))
+    expected = np.array([[1,.2-.1j,.3j,.6-.7j], [.2+.1j,3,.8+.9j,-.4j],
+                         [-.3j,.8-.9j,2,1-.2j], [.6+.7j,.4j,1+.2j,4]])
+    h, s = bloch_matrices(raw, [0, 0, 0])
+    assert np.allclose(h/RY_EV, expected)
+    assert np.allclose(s, np.eye(4))
+
+
+def test_viewer_withholds_uncompared_or_failed_spectra(tmp_path):
+    from siesta_remag.research.workspace import electronic_preview
+    from siesta_remag.discovery.common import save
+    p = tmp_path/'electronic-z'; p.mkdir()
+    for residual, passed in [(None, False), (1.2, False), (1.2, True)]:
+        save(p/'electronic.json', dict(native_max_abs_error_ev=residual, native_comparison_passed=passed))
+        assert electronic_preview(tmp_path) is None
+
+
 def test_predictions_cannot_follow_outcomes(tmp_path):
     n = Notebook(tmp_path/'research.sqlite')
     h = n.record_hypothesis('strain changes near-Fermi states', predictions=['positive slope'], alternatives=['branch change'])
@@ -78,6 +102,7 @@ def test_fixed_experiment_and_provenance(experiment, tmp_path):
     assert not report['physical_accuracy_qualified']
     assert 'MD.NumCGsteps 0' in (experiment/'scalar/input.fdf').read_text()
     assert 'MD.VariableCell' not in (experiment/'scalar/input.fdf').read_text()
+    assert '0.0000000000000000 0.0000000000000000 0.0000000000000000 1' in (experiment/'scalar/input.fdf').read_text()
     assert run_experiment(experiment, tmp_path/'result', exe, executable_sha256=sha256(exe), runner=backend(calls))['status'] == 'measured'
     assert len(calls) == 4
     (experiment/'scalar/input.fdf').write_text('tampered')

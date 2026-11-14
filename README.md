@@ -34,6 +34,10 @@ for a discovery loop. See [the discovery guide](docs/DISCOVERY_SCREEN.md) for
 installation, defaults, one-A100 execution and result recovery. Screening signals
 are preliminary; they do not establish K1 or synthesis stability.
 
+The [physics research workspace](docs/PHYSICS_RESEARCH.md) adds GPAC exact strain
+interventions, fixed-geometry SOC measurements, checked orbital diagnostics and
+a local interactive FePt viewer.
+
 ## Benchmarks
 
 The latest repeated comparisons use the same A100-SXM4-80GB allocation and

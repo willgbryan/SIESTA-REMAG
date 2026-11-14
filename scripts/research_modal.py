@@ -1,6 +1,7 @@
 """One bounded physics campaign, launched through scripts/run_modal.py only."""
 from pathlib import Path
 import json
+import math
 import os
 import sys
 import uuid
@@ -20,6 +21,9 @@ if modal.is_local():
     if type(timeout) is not int or not 120 <= timeout <= 7200:
         raise ValueError('Campaign timeout must be 120..7200 seconds')
     # Conservative allocation reservation, not a claim about a billing invoice.
+    if any(type(policy[k]) not in (int, float) or not math.isfinite(policy[k]) or policy[k] <= 0
+           for k in ['hourly_reservation_usd', 'budget_usd']):
+        raise ValueError('Positive finite allocation rate and budget required')
     if timeout/3600*policy['hourly_reservation_usd'] > policy['budget_usd'] or policy['budget_usd'] > 100:
         raise ValueError('Campaign exceeds its declared allocation budget')
     from siesta_remag.research.experiments import verify_experiment
@@ -43,7 +47,7 @@ volume = modal.Volume.from_name('siesta-remag-results', create_if_missing=True)
 def calculate(run_id):
     import time
     from siesta_remag.research.experiments import run_experiment
-    from siesta_remag.research.electronic import spectrum
+    from siesta_remag.research.electronic import spectrum_from_run
     from siesta_remag.discovery.collection import pack
     from siesta_remag.corpus import sha256
     root = Path('/results')/run_id
@@ -73,7 +77,7 @@ def calculate(run_id):
                 report['status'] = 'held_experiment'; flush(); break
             for axis in ['z', 'x', 'y']:
                 try:
-                    spectrum(root/name/('soc-'+axis)/'remag.HSX', [[0, 0, 0]], [1.], root/name/('electronic-'+axis))
+                    spectrum_from_run(root/name/('soc-'+axis), root/name/('electronic-'+axis))
                 except Exception as exc:
                     save(root/name/('electronic-'+axis+'-error.json'), dict(status='held_diagnostic', reason=str(exc)))
             flush()

@@ -11,6 +11,7 @@ from scipy.linalg import eigh
 
 from ..corpus import sha256
 from ..hsx import read_hsx
+from ..output import read_eigenvalues
 from ..discovery.common import save
 
 RY_EV = 13.605693122994
@@ -43,10 +44,11 @@ def orbital_metadata(hsx):
 def bloch_matrices(hsx, k_fractional, *, collinear_spin=0):
     """H(k), S(k) in the lattice gauge, interleaved up/down for spinors.
 
-    HSX supercell indices identify R. H(k)=sum_R H(0,R) exp(+2π i k·R).
-    Cartesian atomic-position phases are a gauge transform of this convention.
-    H components follow pinned native/hamiltonian.cu, including the upper-right
-    negative imaginary off-diagonal convention.
+    HSX sparse row i / column j entries populate matrix (j,i), following
+    pinned upstream diag3kp.F90 setup_k. Their phase is exp(-2π i k·R).
+    Transposing spatial indices while preserving spin indices is essential:
+    a scalar-only test cannot detect the incorrect spin-orbit convention.
+    Atomic-position phases are removed by a lattice-gauge transform.
     """
     _, n, spins = map(int, hsx['header'][:3])
     if n > 2048:
@@ -58,10 +60,10 @@ def bloch_matrices(hsx, k_fractional, *, collinear_spin=0):
     col = (hsx['columns']-1) % n
     image = (hsx['columns']-1) // n
     translations = hsx['offsets'].reshape(-1, 3)
-    phase = np.exp(2j*np.pi*(translations[image] @ k))
+    phase = np.exp(-2j*np.pi*(translations[image] @ k))
     def dense(values):
         result = np.zeros((n, n), complex)
-        np.add.at(result, (row, col), values*phase)
+        np.add.at(result, (col, row), values*phase)
         return result
     overlap = dense(hsx['overlap'])
     h = hsx['h']
@@ -78,7 +80,9 @@ def bloch_matrices(hsx, k_fractional, *, collinear_spin=0):
         overlap = np.kron(overlap, np.eye(2))
     for name, a in [('H', matrix), ('S', overlap)]:
         error = np.max(abs(a-a.conj().T))
-        tolerance = (2e-6 if not hsx['precision'] else 2e-9)*max(1., np.max(abs(a)))
+        # Native sparse integration leaves small row-pair asymmetry even in
+        # double exports. Bound it before explicitly taking the Hermitian part.
+        tolerance = (2e-6 if not hsx['precision'] else 1e-7)*max(1., np.max(abs(a)))
         if error > tolerance:
             raise ValueError(f'{name}(k) is not Hermitian: {error}')
     return (matrix+matrix.conj().T)*(.5*RY_EV), (overlap+overlap.conj().T)*.5
@@ -142,8 +146,11 @@ def spectrum(hsx_path, kpoints, weights, output, *, collinear_spin=0, native_eig
         collinear_spin=collinear_spin if spins <= 2 else None, orbitals=orbital_metadata(hsx),
         projection='Mulliken Re(c* S c); basis-dependent; negative contributions retained',
         occupations_model='Fermi-Dirac at HSX chemical potential and temperature; not native occupation export',
-        spin_frame='Cartesian solver frame; interleaved up/down', lattice_gauge='exp(+2pi i k.R)',
+        spin_frame='Cartesian solver frame; interleaved up/down', lattice_gauge='H[j,i] += H_sparse[i,j,R] exp(-2pi i k.R)',
         native_max_abs_error_ev=residual, native_spectrum_compared=residual is not None,
+        native_comparison_tolerance_ev=1e-3,
+        native_comparison_passed=residual is not None and residual <= 1e-3,
+        hermitian_policy='reject relative skew >1e-7 (double) or 2e-6 (single); then (A+A†)/2',
         physical_accuracy_qualified=False)
     save(root/'electronic.json', metadata)
     return metadata
@@ -169,3 +176,36 @@ def finite_difference(points, *, parameter_unit, property_unit):
     return dict(at=float(q[1]), first=float(fit[1]), second=float(2*fit[2]),
         first_unit=f'{property_unit}/{parameter_unit}', second_unit=f'{property_unit}/{parameter_unit}^2',
         propagated_error_bound=bound, truncation_error=None, approximation='local quadratic three-point finite difference')
+
+
+def spectrum_from_run(directory, output, *, collinear_spin=0):
+    """Use native .KP (Cartesian bohr^-1) sampling and compare native .EIG.
+
+    Both files are text and limit the comparison precision. Weight normalization
+    corrects only bounded decimal-output rounding, never a missing k point.
+    """
+    root = Path(directory)
+    hsx = read_hsx(root/'remag.HSX')
+    lines = (root/'remag.KP').read_text().splitlines()
+    count = int(lines[0])
+    kp = np.array([[float(x) for x in line.split()] for line in lines[1:]])
+    if kp.shape != (count, 5) or not np.isfinite(kp).all() or not np.array_equal(kp[:, 0], np.arange(1, count+1)):
+        raise ValueError('Invalid native KP sampling')
+    eigen = read_eigenvalues(root/'remag.EIG')
+    native = np.array(eigen['values_ev'])
+    if eigen['nk'] != count or eigen['nspin'] != int(hsx['header'][2]):
+        raise ValueError('Native KP/EIG/HSX dimensions differ')
+    if eigen['nspin'] <= 2:
+        native = native[:, collinear_spin*eigen['nbands']:(collinear_spin+1)*eigen['nbands']]
+    cell_bohr = hsx['cell'].reshape(3, 3)
+    fractional = kp[:, 1:4] @ cell_bohr.T / (2*np.pi)
+    total = kp[:, 4].sum()
+    if abs(total-1) > 2e-6 or np.any(kp[:, 4] < 0):
+        raise ValueError('Native k-point weights do not sum to one within text rounding')
+    result = spectrum(root/'remag.HSX', fractional, kp[:, 4]/total, output,
+                      collinear_spin=collinear_spin, native_eigenvalues_ev=native)
+    result.update(kp_sha256=sha256(root/'remag.KP'), eig_sha256=sha256(root/'remag.EIG'),
+                  native_kp_weight_sum=float(total), sampling='native SCF k mesh; KP decimal rounding retained',
+                  native_comparison_limit='EIG/KP printed precision; not micro-eV qualification')
+    save(Path(output)/'electronic.json', result)
+    return result

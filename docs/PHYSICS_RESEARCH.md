@@ -58,7 +58,7 @@ branches need explicit sensitivity studies and pristine-SIESTA comparison.
 
 `research.electronic` reconstructs Bloch H and S from the existing HSX v2 export
 and solves `H c = E S c`. It supports scalar, collinear and spinor layouts with
-the same eight-component convention as `native/hamiltonian.cu`. Lattice-gauge
+the pinned upstream `diag3kp.F90` spatial/spin index convention. Lattice-gauge
 phases use reciprocal fractional k points; energy units are eV. Hermiticity and
 S-orthonormality are checked before projection.
 
@@ -70,10 +70,15 @@ dependent, not unique physical observables. Spinor Pauli expectation values
 use the same overlap metric.
 
 ```sh
-python -m siesta_remag.research electronic runs/measurements/zero/soc-z/remag.HSX \
-  --sampling sampling.json --output runs/measurements/zero/electronic-z
+python -m siesta_remag.research electronic-run runs/measurements/zero/soc-z \
+  --output runs/measurements/zero/electronic-z
 ```
 
+`electronic-run` reads native `.KP` and `.EIG` and records a spectral comparison.
+The viewer withholds untested spectra and residuals above 1 meV; this diagnostic
+threshold is not an MAE accuracy criterion. The plot uses 0.12 eV Gaussian
+broadening and retains signed Mulliken contributions. The lower-level
+`electronic --sampling sampling.json` command accepts custom sampling:
 `sampling.json` supplies `kpoints` (fractional reciprocal triples) and `weights`
 (nonnegative, sum one). Spectra and orbital weights go to `spectrum.npz`, with
 hashes and conventions in `electronic.json`. The Python API accepts matched

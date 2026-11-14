@@ -143,6 +143,7 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
                 mae_ev_cell=rows['x']['total_energy_ev']-rows['z']['total_energy_ev'],
                 transverse_split_ev_cell=rows['y']['total_energy_ev']-rows['x']['total_energy_ev'],
                 convention='E[100] - E[001]; positive favors [001]', uncertainty_ev_cell=None)
+            report['anisotropy']['axis_convention'] = 'Fixed authored Cartesian frame; [001] is c'
             report['status'] = 'measured'
         except Exception as exc:
             report.update(status='held_error', reason=str(exc))
