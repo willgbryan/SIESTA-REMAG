@@ -33,6 +33,9 @@ def main(argv=None):
     p.add_argument('directory', type=Path)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--spin', type=int, default=0)
+    p = sub.add_parser('overlap-run', help='Measure basis overlap conditioning on every native KP point')
+    p.add_argument('directory', type=Path)
+    p.add_argument('--output', type=Path, required=True)
     p = sub.add_parser('snapshot', help='Save a self-contained interactive workspace')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
@@ -101,13 +104,20 @@ def main(argv=None):
     elif args.command == 'electronic-run':
         from .electronic import spectrum_from_run
         result = spectrum_from_run(args.directory, args.output, collinear_spin=args.spin)
+    elif args.command == 'overlap-run':
+        from .electronic import overlap_from_run
+        if args.output.exists():
+            raise FileExistsError(args.output)
+        result = overlap_from_run(args.directory)
+        save(args.output, result)
     else:
         from .electronic import spectrum
         sampling = load(args.sampling)
         result = spectrum(args.hsx, sampling['kpoints'], sampling['weights'], args.output)
     print(json.dumps(result, indent=2, allow_nan=False))
     return 2 if (result.get('status', '').startswith('held') or
-                 result.get('observed_stability_passed') is False) else 0
+                 result.get('observed_stability_passed') is False or
+                 result.get('positive_definite') is False) else 0
 
 
 if __name__ == '__main__':

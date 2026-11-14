@@ -211,6 +211,55 @@ def spectrum_from_run(directory, output, *, collinear_spin=0):
     return result
 
 
+def overlap_from_run(directory):
+    """Measure overlap conditioning at every native printed SCF k point.
+
+    This is a basis-health diagnostic, not an energy convergence gate. No
+    regularization, eigenvalue clipping or arbitrary condition cutoff is used.
+    """
+    root = Path(directory)
+    hsx = read_hsx(root/'remag.HSX')
+    lines = (root/'remag.KP').read_text().splitlines()
+    count = int(lines[0])
+    if not 0 < count <= 100000:
+        raise ValueError('Overlap diagnostic requires 1..100000 native k points')
+    kp = np.array([[float(x) for x in line.split()] for line in lines[1:]])
+    if kp.shape != (count, 5) or not np.isfinite(kp).all() or not np.array_equal(kp[:, 0], np.arange(1, count+1)):
+        raise ValueError('Invalid native KP sampling')
+    _, total, rounding_bound = _native_weights([line.split()[4] for line in lines[1:]])
+    fractional = kp[:, 1:4] @ hsx['cell'].reshape(3, 3).T / (2*np.pi)
+    extrema = []
+    for k in fractional:
+        _, overlap = bloch_matrices(hsx, k)
+        # The spinor overlap duplicates the spatial matrix; report its spatial
+        # eigenvalues, independently of the Hamiltonian's spin representation.
+        if int(hsx['header'][2]) > 2:
+            overlap = overlap[0::2, 0::2]
+        eigenvalues = np.linalg.eigvalsh(overlap)
+        if not np.isfinite(eigenvalues).all():
+            raise ValueError('Nonfinite overlap eigenvalues')
+        extrema.append([eigenvalues[0], eigenvalues[-1]])
+    extrema = np.array(extrema)
+    positive = bool(np.all(extrema[:, 0] > 0))
+    imin = int(np.argmin(extrema[:, 0]))
+    condition = extrema[:, 1]/extrema[:, 0] if positive else None
+    icond = int(np.argmax(condition)) if positive else None
+    return dict(format='REMAG-OVERLAP-HEALTH/1',
+        hsx_sha256=sha256(root/'remag.HSX'), kp_sha256=sha256(root/'remag.KP'),
+        spatial_orbitals=int(hsx['header'][1]), native_kpoints=count,
+        native_kp_weight_sum=total, native_kp_weight_rounding_bound=rounding_bound,
+        min_eigenvalue=float(extrema[imin, 0]), max_eigenvalue=float(extrema[:, 1].max()),
+        min_eigenvalue_kpoint_index=imin+1, min_eigenvalue_k_fractional=fractional[imin].tolist(),
+        nonpositive_kpoints=int(np.count_nonzero(extrema[:, 0] <= 0)), positive_definite=positive,
+        max_condition_number=float(condition[icond]) if positive else None,
+        min_relative_eigenvalue=float(1/condition[icond]) if positive else None,
+        max_condition_kpoint_index=icond+1 if positive else None,
+        sampling='Every native SCF KP point; decimal coordinate rounding retained',
+        hermitian_policy='Same bounded Hermitian reconstruction as electronic spectra',
+        physical_accuracy_qualified=False,
+        scope='Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate')
+
+
 def _native_weights(tokens):
     """Normalize only a discrepancy covered by the printed decimal precision.
 

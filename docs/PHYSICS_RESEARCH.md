@@ -140,6 +140,15 @@ viewer curve. Historical preset inputs retain their original bytes.
 
 ## Electronic diagnostics
 
+`overlap-run RUN_DIRECTORY --output overlap.json` measures the smallest and
+largest eigenvalues of the native overlap matrix at every printed SCF k point,
+plus the worst condition number and its k-point index. Use a scalar stage to
+avoid duplicated spinor work. Nonpositive eigenvalues produce a failed status;
+positive definiteness alone does not establish good conditioning or basis
+completeness. No clipping or regularization is applied. The diagnostic retains
+HSX/KP hashes and the native text-coordinate precision limit; it neither
+changes a calculation nor substitutes for E/F convergence.
+
 `research.electronic` reconstructs Bloch H and S from the existing HSX v2 export
 and solves `H c = E S c`. It supports scalar, collinear and spinor layouts with
 the pinned upstream `diag3kp.F90` spatial/spin index convention. Lattice-gauge
