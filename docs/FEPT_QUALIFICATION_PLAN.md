@@ -65,6 +65,23 @@ on every sampled k point, with worst condition number about 512,195. Runtime
 was 2,708.98 seconds on the pinned local CPU. The 62-orbital case is running;
 neither basis-size nor radial convergence is qualified.
 
+## Completed $50 mesh stage
+
+The [full mesh checkpoint](../tests/evidence/research/fept-mesh-r3-review-2026-11-14.json)
+confirms the DZP mesh gate through 40³. The 36→40 step changes E/F by
+−0.009411/−0.007168 meV; 28→32, 32→36 and 36→40 each meet the unchanged
+0.05 meV criterion. The earlier 24→28 failure remains in the record. All native,
+magnetic-branch and transverse checks pass. The 40³ E/F anisotropies are
+2.494797/2.479596 meV/cell, at fixed DZP/0.02 Ry/300 Ry/300 K settings.
+
+The calculation took 7,304.16 seconds, and the owned app stopped at
+19:41:10 UTC on 14 November. All 15 omitted native files were recovered and
+hash-verified. Mesh reservations remain $50, cumulative reservations $146.67;
+these are not reconciled invoices. Basis and radial gates remain unresolved,
+and the registered 62-orbital local screen continues. Dense common-mesh basis
+work must await that screen's review and an available single GPU slot; this
+DZP mesh pass does not transfer to an enlarged basis.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
