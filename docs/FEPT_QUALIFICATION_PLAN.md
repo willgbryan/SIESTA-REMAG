@@ -18,6 +18,13 @@ every native sampled k point, but the worst condition number grows from about
 13,093 to 125,457. This is a conditioning diagnostic, not a basis-completeness
 claim. Further radial and explicit-basis results remain pending.
 
+The [second radial step](../tests/evidence/research/fept-radial-r2-second-step-2026-11-14.json),
+0.01→0.005 Ry, changes E/F by +0.077/+0.066 meV: both fail and reverse the
+first step's trend. All four native stages, magnetic-branch and transverse
+checks pass. Overlap remains positive at every sampled point, with worst
+condition number about 105,469. The registered 0.0025 Ry point is running;
+no new prediction targets are scheduled.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed

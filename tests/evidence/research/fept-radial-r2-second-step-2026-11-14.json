@@ -1,0 +1,219 @@
+{
+  "format": "REMAG-FEPT-RADIAL-INTERIM/1",
+  "recorded_at": "2026-11-14T17:07:58.320703+00:00",
+  "plan_sha256": "57969103c131ea2328929917a52be8a92d281e087d54d1257756f8949dc4649b",
+  "plan_commit": "87356e278c85ffe09ab0d825eab7f052a80c97e3",
+  "prior_interim_sha256": "85b6fc54e0fbf56159efdcd3a4ab656b087ea8051b86114c31970376a2d7438b",
+  "result": {
+    "id": "shift0005",
+    "status": "measured",
+    "report_sha256": "3c1959cfeb5fbe3d6dfbbfb58aa18fba693d6d948bef110bcd10feedc15dc4c4",
+    "basis_energy_shift_ry": 0.005,
+    "check": {
+      "format": "REMAG-NUMERICAL-STABILITY/1",
+      "varied": "radial_extent",
+      "samples": [
+        {
+          "parameters": {
+            "basis_energy_shift_ry": 0.02
+          },
+          "energy_anisotropy_ev": 0.002735000000029686,
+          "free_energy_anisotropy_ev": 0.0026250000000800355,
+          "transverse_split_ev": 0.0,
+          "report_sha256": "de36053e6a418c3d6880aefe3fa903aab118259fee1b5d31b4bd609fadda4d86"
+        },
+        {
+          "parameters": {
+            "basis_energy_shift_ry": 0.01
+          },
+          "energy_anisotropy_ev": 0.0026349999998274143,
+          "free_energy_anisotropy_ev": 0.0025309999996352417,
+          "transverse_split_ev": 9.99999883788405e-07,
+          "report_sha256": "9dba26e5185fd6b6dfb8b106e700ebe3f155a630d68e087426641b073d46046c"
+        },
+        {
+          "parameters": {
+            "basis_energy_shift_ry": 0.005
+          },
+          "energy_anisotropy_ev": 0.0027119999999740685,
+          "free_energy_anisotropy_ev": 0.0025970000001507287,
+          "transverse_split_ev": 0.0,
+          "report_sha256": "3c1959cfeb5fbe3d6dfbbfb58aa18fba693d6d948bef110bcd10feedc15dc4c4"
+        }
+      ],
+      "changes": [
+        {
+          "energy_ev": -0.00010000000020227162,
+          "free_energy_ev": -9.400000044479384e-05
+        },
+        {
+          "energy_ev": 7.70000001466542e-05,
+          "free_energy_ev": 6.600000051548705e-05
+        }
+      ],
+      "tolerance_ev": 5e-05,
+      "successive_changes_required": 2,
+      "transverse_tolerance_ev": 1e-05,
+      "transverse_passed": true,
+      "sufficient_refinements": true,
+      "observed_stability_passed": false,
+      "fixed_configuration": {
+        "kmesh": [
+          16,
+          16,
+          16
+        ],
+        "basis_size": "TZP",
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "mesh_ry": 300,
+        "smearing_k": 300,
+        "dm_tolerance": 1e-05,
+        "h_tolerance_ev": 0.0001,
+        "mixing_weight": 0.03,
+        "mixing_history": 8,
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+        "environment": {}
+      },
+      "physical_accuracy_qualified": false,
+      "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+    },
+    "branch": {
+      "passed": true,
+      "site_rms_mub": 0.05133470504931338,
+      "net_fractional_change": 0.014781502571087395,
+      "robust_site_flip": false
+    },
+    "native_basis": [
+      {
+        "species": "Fe",
+        "sha256": "cc25bd96941f47e5efaeb79ccb2652c7edc5bcad4459caefd741a9c78039620a",
+        "radial_orbitals": [
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 1,
+            "cutoff_bohr": 7.54968720255
+          },
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 2,
+            "cutoff_bohr": 4.68655759616
+          },
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 3,
+            "cutoff_bohr": 5.55128843323
+          },
+          {
+            "n": 4,
+            "l": 1,
+            "zeta": 1,
+            "cutoff_bohr": 7.54968720255
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 1,
+            "cutoff_bohr": 4.52955874234
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 2,
+            "cutoff_bohr": 2.18203385554
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 3,
+            "cutoff_bohr": 2.8586163744
+          }
+        ]
+      },
+      {
+        "species": "Pt",
+        "sha256": "083cddd4ad49ff90c8582c1ff340a233f2c16d846e1f3faeb3d61ce6a5d20286",
+        "radial_orbitals": [
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 1,
+            "cutoff_bohr": 7.35566850791
+          },
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 2,
+            "cutoff_bohr": 4.56144713269
+          },
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 3,
+            "cutoff_bohr": 5.40314261384
+          },
+          {
+            "n": 6,
+            "l": 1,
+            "zeta": 1,
+            "cutoff_bohr": 7.35566850791
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 1,
+            "cutoff_bohr": 5.32788663826
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 2,
+            "cutoff_bohr": 2.87587981117
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 3,
+            "cutoff_bohr": 3.58602767997
+          }
+        ]
+      }
+    ]
+  },
+  "overlap_diagnostic_commit": "e57de1623c04cf52990ced7387ffb6852f89952f",
+  "overlap": {
+    "format": "REMAG-OVERLAP-HEALTH/1",
+    "hsx_sha256": "c4d96d049eae3f9e7dcb8cd19671541f3955171cbf6d8a0df7e222a61047507e",
+    "kp_sha256": "3d98643c0530e3e36522528f990ef5bce5f0977129b88087aed495ebaf3ffce8",
+    "spatial_orbitals": 42,
+    "native_kpoints": 2192,
+    "native_kp_weight_sum": 0.999999632,
+    "native_kp_weight_rounding_bound": 1.096e-06,
+    "min_eigenvalue": 4.016064293191354e-05,
+    "max_eigenvalue": 11.202198281824018,
+    "min_eigenvalue_kpoint_index": 144,
+    "min_eigenvalue_k_fractional": [
+      0.4999996486470242,
+      0.4999996486470242,
+      0.0
+    ],
+    "nonpositive_kpoints": 0,
+    "positive_definite": true,
+    "max_condition_number": 105468.78679608666,
+    "min_relative_eigenvalue": 9.481478173569967e-06,
+    "max_condition_kpoint_index": 52,
+    "sampling": "Every native SCF KP point; decimal coordinate rounding retained",
+    "hermitian_policy": "Same bounded Hermitian reconstruction as electronic spectra",
+    "physical_accuracy_qualified": false,
+    "scope": "Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate"
+  },
+  "physical_accuracy_qualified": false,
+  "status": "second_step_failed_final_radial_point_pending",
+  "scope": "Local16-cubed TZP radial screening. Second change reverses the first trend and exceeds unchanged E/F thresholds. Native, magnetic-branch and transverse checks pass; final radial and explicit basis-size points remain pending."
+}
