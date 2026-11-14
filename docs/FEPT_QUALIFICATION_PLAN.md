@@ -132,6 +132,17 @@ the later REMAG comparison must include 0.0025 Ry at the same mesh and retain
 the original two-successive-refinement E/F criterion. Native or branch failure
 stops the local sequence without a retry or deadline extension.
 
+The [42-orbital runtime comparison](../tests/evidence/research/fept-basis-transfer-r3-42-review-2026-11-14.json)
+also passes every registered gate. REMAG minus pristine E/F anisotropy is
+−0.000480/−0.000479 meV/cell, and all eight absolute E/F differences are
+below 0.000474 meV. All 23 native files are recovered and hash-verified;
+the scalar overlap is positive at every one of the 2,192 native k points,
+with worst condition number about 298,410. The app stopped at 21:34:22 UTC
+before the sequential 48-orbital app started at 21:35:18 UTC.
+The measured 886.41-second runtime exceeds its 552-second planning estimate;
+dense-mesh deadlines must use this measurement and the pending 48-orbital timing.
+This executable agreement leaves all failed basis/radial refinements unchanged.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
