@@ -1,0 +1,61 @@
+{
+  "format": "REMAG-PRISTINE-REPLICATION/1",
+  "date": "2026-11-14",
+  "kmesh": [
+    16,
+    16,
+    16
+  ],
+  "numerical_configuration": {
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "basis_size": "DZP",
+    "basis_energy_shift_ry": 0.02,
+    "pseudopotentials": {
+      "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+      "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+    },
+    "mesh_ry": 300,
+    "smearing_k": 300,
+    "dm_tolerance": 1e-05,
+    "h_tolerance_ev": 0.0001,
+    "mixing_weight": 0.03,
+    "mixing_history": 8,
+    "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4"
+  },
+  "measurements": {
+    "total_energy_ev": {
+      "pristine_anisotropy_ev": 0.00286099999993894,
+      "remag_anisotropy_ev": 0.0028609357073037245,
+      "remag_minus_pristine_ev": -6.429263521567918e-08
+    },
+    "free_energy_ev": {
+      "pristine_anisotropy_ev": 0.0027159999999639695,
+      "remag_anisotropy_ev": 0.0027155981101714133,
+      "remag_minus_pristine_ev": -4.0188979255617596e-07
+    }
+  },
+  "report_sha256": {
+    "pristine": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e",
+    "remag": "b81ede81f92dd9cf340494b7c1be50e8f4267d90e6593f914be1bb65e3805587"
+  },
+  "executable_sha256": {
+    "pristine": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+    "remag": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274"
+  },
+  "input_sha256": {
+    "pristine": "35bfc2e1468d8e6e1d9b45e1e0fab20f56116da61bd70df2af1b80665b7beae8",
+    "remag": "35bfc2e1468d8e6e1d9b45e1e0fab20f56116da61bd70df2af1b80665b7beae8"
+  },
+  "spectrum": {
+    "native_max_abs_error_ev": 8.486711797672797e-05,
+    "native_comparison_passed": true,
+    "metadata_sha256": "3b536b2a7781fcf0b1545c478e56f8086dd555a0d923160f6df2045b2be0365b",
+    "artifact_sha256": "2abd83c866e3928c491f8f9bc40e114bc0781674bc67f6e22c30e69f099f5bfd"
+  },
+  "interpretation": "E and F anisotropies agree within printed native energy precision; reconstructed spectrum passes its independent native EIG check. Neither result establishes k-mesh, basis or physical accuracy.",
+  "physical_accuracy_qualified": false
+}
