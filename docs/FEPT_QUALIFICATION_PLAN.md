@@ -143,6 +143,40 @@ The measured 886.41-second runtime exceeds its 552-second planning estimate;
 dense-mesh deadlines must use this measurement and the pending 48-orbital timing.
 This executable agreement leaves all failed basis/radial refinements unchanged.
 
+The [48-orbital runtime comparison](../tests/evidence/research/fept-basis-transfer-r3-48-review-2026-11-14.json)
+passes all gates as well: REMAG minus pristine E/F anisotropy is
++0.000063/ +0.000470 meV/cell. All 23 recovered native files verify, with
+positive scalar overlap at all 2,192 native k points and worst condition number
+about 512,205. Its app stopped at 21:52:19 UTC. The
+[completed transfer sequence](../tests/evidence/research/fept-basis-transfer-r3-review-2026-11-14.json)
+therefore supplies matched executable agreement for all three basis sizes,
+without changing the failed low-mesh convergence results.
+
+The [common 24³ basis ladder](../tests/evidence/research/fept-basis24-plan-r3-2026-11-14.json)
+is now registered for 42, 48 and 62 orbitals at fixed 0.0025 Ry, in that order.
+Measured REMAG runtimes at 16³ are 886.41, 973.95 and 1,407.89 seconds;
+cubic mesh scaling estimates 2,991.65, 3,287.08 and 4,751.61 seconds at 24³.
+The native bounds are 5,000, 5,000 and 6,800 seconds, inside app bounds of
+90, 90 and 120 minutes. The three apps reserve at most $15, $15 and $20,
+leaving $70 in the basis subcap after this full ladder. Actual invoices remain
+unreconciled; earlier reservations are retained.
+
+Each app must stop and its evidence must pass native, magnetic-branch,
+transverse, radial-identity and full-KP overlap checks before the next starts.
+The original two-successive-refinement 0.05 meV E/F criterion remains intact;
+a finite basis change above tolerance is retained while the next registered
+refinement proceeds. Common-mesh inputs change only the k grid relative to
+their matched 16³ inputs. Shared native radial functions must remain within
+1e-10 absolute across basis enrichments. No retries or deadline extensions
+are allowed. Validation includes 23 existing basis/convergence/budget tests,
+input-byte comparisons and positive/negative review controls.
+
+Review this ladder before allocating the remaining basis funds to radial
+confirmation and the enlarged-basis 16/20/24 mesh sequence. A 28³ extension
+is conditional on results and budget, and is not queued. A pass at 24³ alone
+cannot qualify its mesh or radial extent. Final controls and new predictions
+remain conditional on the reference gates.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
