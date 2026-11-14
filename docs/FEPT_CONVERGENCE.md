@@ -1,5 +1,8 @@
 # FePt convergence continuation
 
+Next work follows the [mesh-first qualification plan](FEPT_QUALIFICATION_PLAN.md),
+with basis/radial checks ahead of any expansion of physics-guided predictions.
+
 The [first continuation batch](../tests/evidence/research/fept-convergence-r1-evaluation-2026-11-14.json)
 and [28³/32³ continuation](../tests/evidence/research/fept-convergence-r2-evaluation-2026-11-14.json)
 completed all six fixed-geometry experiments. The preregistered criterion is
