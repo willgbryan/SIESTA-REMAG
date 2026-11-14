@@ -9,6 +9,7 @@ from test_research_convergence import report
 
 @pytest.fixture(scope='module')
 def structures():
+    pytest.importorskip('gpac.physical', reason='GPAC authoring is an optional research integration')
     from gpac.physical import fept_reference, export_geometry, isotropic_scale, volume_preserving_tetragonal, strain
     p = fept_reference()
     ref = export_geometry(p, length_unit='angstrom')
