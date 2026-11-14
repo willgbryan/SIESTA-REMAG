@@ -64,7 +64,10 @@ def dataset(workspace):
                     basis_size=report['request']['basis_size'], anisotropy=report.get('anisotropy'),
                     basis_energy_shift_ry=report['request']['basis_energy_shift_ry'],
                     pseudopotentials=report['request']['pseudopotentials'],
-                    stages=report['stages'], observations=report['observations'], executable_sha256=report['executable_sha256'],
+                    stages=report['stages'],
+                    observations={stage: {key: value for key, value in observation.items() if key != 'eigenvalues'}
+                                  for stage, observation in report['observations'].items()},
+                    executable_sha256=report['executable_sha256'],
                     electronic=electronic_preview(path.parent)))
                 row['result'] = row['calculations'][-1]
     return dict(format='REMAG-WORKSPACE/1', material='FePt', rows=rows)
