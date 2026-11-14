@@ -1,0 +1,179 @@
+{
+  "format": "REMAG-BLIND-RESPONSE-PREDICTIONS/1",
+  "recorded_at": "2026-11-14T07:23:01.373163+00:00",
+  "plan_sha256": "591657ea2eadcd3bebed88326de0c192df203659488667686b544e346687fc50",
+  "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+  "model_file_sha256": "ff8f812c6276644fc75692f5e9aa084de1bab5ae3facaa4a64fc5923034d356d",
+  "implementation_sha256": "12ce1f617e850ec2793772c0b40f8e7cd1663343025e14a60968876d3bf64ce0",
+  "training": [
+    {
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e"
+    },
+    {
+      "source_sha256": "287e42532878b39e779963ccf5cb49526fdc4c3f216bf7282bd8280a2666c80b",
+      "report_sha256": "946c276cf06b9e45a4b64efa7e106be01bbed8e58076794b78273a24d2bc7c23"
+    },
+    {
+      "source_sha256": "7bb61c54412dc20843cddae68cc90b88c0763001c9670694b2daf9be838f8ff2",
+      "report_sha256": "cd9f9f72940a6c1a70172532cc705977d8eac7f134e43acb78002a42b924aa54"
+    },
+    {
+      "source_sha256": "2903d1be30db1bf417a85407aaaed2ff257a194015163c764e66a0f61fa10a69",
+      "report_sha256": "0e052d1ce46c1dc16018acd06db31a35093e72075cc9dd8e0088fcff38291da7"
+    },
+    {
+      "source_sha256": "3618f18cee64c52f29d21a5fbcf77f293c049b4009808ca67dc7ee3deaf6d15f",
+      "report_sha256": "2ba6d21995a11de20d1806bc217721e4ad5f497ee801084cafb50ad7a1b26ec5"
+    }
+  ],
+  "training_hypothesis_check": {
+    "energy_anisotropy_ev": {
+      "volume_derivative_ev": -0.008403675382174815,
+      "shape_derivative_ev": 0.021417855602999872,
+      "shape_negative": false,
+      "shape_dominates": true
+    },
+    "free_energy_anisotropy_ev": {
+      "volume_derivative_ev": -0.0069370072066653465,
+      "shape_derivative_ev": 0.015876683174824477,
+      "shape_negative": false,
+      "shape_dominates": true
+    }
+  },
+  "predictions": [
+    {
+      "id": "mixed-minus",
+      "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+      "model": {
+        "format": "REMAG-RESPONSE-PREDICTION/1",
+        "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+        "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+        "coordinates": {
+          "log_volume_ratio": -0.00250313021811854,
+          "log_c_over_a_ratio": -0.00250313021811854
+        },
+        "energy_anisotropy_ev": 0.0028212080870123305,
+        "free_energy_anisotropy_ev": 0.002689032058697025,
+        "uncertainty_ev": null,
+        "numerical_configuration": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ],
+          "basis_size": "DZP",
+          "basis_energy_shift_ry": 0.02,
+          "pseudopotentials": {
+            "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+            "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+          },
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+          "environment": {}
+        },
+        "mechanism_verified": false,
+        "physical_accuracy_qualified": false
+      },
+      "baselines": {
+        "constant": {
+          "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+          "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+          "energy_anisotropy_ev": 0.002835200000026816,
+          "free_energy_anisotropy_ev": 0.002699599999868951
+        },
+        "shape_only": {
+          "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+          "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+          "energy_anisotropy_ev": 0.00279489628664068,
+          "free_energy_anisotropy_ev": 0.002666389988042618
+        },
+        "volume_only": {
+          "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+          "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+          "energy_anisotropy_ev": 0.0028490778969380444,
+          "free_energy_anisotropy_ev": 0.0027143428075069227
+        }
+      },
+      "notebook": {
+        "energy_experiment": "ddf7d64648924f3f9b73c7531e2c3376",
+        "free_energy_experiment": "0a2af4ce340a480bae6cde86027c177a",
+        "energy_prediction": "8eccf20e0f5b440caf782b63a97c932f",
+        "free_energy_prediction": "b2d8529f69be4ed1af924a4b81aaf110"
+      }
+    },
+    {
+      "id": "mixed-plus",
+      "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+      "model": {
+        "format": "REMAG-RESPONSE-PREDICTION/1",
+        "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+        "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+        "coordinates": {
+          "log_volume_ratio": 0.002496880198587249,
+          "log_c_over_a_ratio": 0.002496880198587249
+        },
+        "energy_anisotropy_ev": 0.0028863151123167683,
+        "free_energy_anisotropy_ev": 0.002733753428247455,
+        "uncertainty_ev": null,
+        "numerical_configuration": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ],
+          "basis_size": "DZP",
+          "basis_energy_shift_ry": 0.02,
+          "pseudopotentials": {
+            "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+            "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+          },
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+          "environment": {}
+        },
+        "mechanism_verified": false,
+        "physical_accuracy_qualified": false
+      },
+      "baselines": {
+        "constant": {
+          "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+          "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+          "energy_anisotropy_ev": 0.002835200000026816,
+          "free_energy_anisotropy_ev": 0.002699599999868951
+        },
+        "shape_only": {
+          "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+          "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+          "energy_anisotropy_ev": 0.002901999325178975,
+          "free_energy_anisotropy_ev": 0.00274577402230996
+        },
+        "volume_only": {
+          "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+          "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+          "energy_anisotropy_ev": 0.0028071052170984367,
+          "free_energy_anisotropy_ev": 0.0026796860687313536
+        }
+      },
+      "notebook": {
+        "energy_experiment": "a4451af8e5fe476a96c979d214c7d2ce",
+        "free_energy_experiment": "16e240f7632a49adb792e4cf959ff235",
+        "energy_prediction": "b25d1c48b3674a75829305e1c319a936",
+        "free_energy_prediction": "ef497a0c351b4f18b40541500e97bc2b"
+      }
+    }
+  ],
+  "physical_accuracy_qualified": false,
+  "mechanism_verified": false,
+  "scope": "Prospective fixed-setting 16-cubed pristine calculations. No numerical uncertainty has been inferred from the five-point interpolating fit."
+}

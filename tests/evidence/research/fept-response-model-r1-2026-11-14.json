@@ -1,0 +1,342 @@
+{
+  "format": "REMAG-RESPONSE/1",
+  "model": "additive quadratic in log volume and log c/a",
+  "terms": [
+    "1",
+    "log(V/V0)",
+    "log((c/a)/(c/a)0)",
+    "log(V/V0)^2",
+    "log((c/a)/(c/a)0)^2"
+  ],
+  "observables": [
+    "energy_anisotropy_ev",
+    "free_energy_anisotropy_ev"
+  ],
+  "coefficients": [
+    [
+      0.00286099999993894,
+      0.00271599999996397
+    ],
+    [
+      -0.008403675382174815,
+      -0.0069370072066653465
+    ],
+    [
+      0.021417855602999872,
+      0.015876683174824477
+    ],
+    [
+      -0.19695504158724833,
+      -0.19671060157009393
+    ],
+    [
+      -0.9546752939537718,
+      -0.5359763874466411
+    ]
+  ],
+  "reference": {
+    "format": "GPAC-PHYSICAL/1",
+    "semantic_status": "NONSEMANTIC",
+    "source": {
+      "program": "XCL-E/3-DRAFT/17\nTABLE a5ae833947bd8a610d8b5292eae47c6520867b63ca3c4c0035847fc582916932\nMEMBER 5ce5d65d01327ffbd41555f52257ba4d4dce805be35e650d2b8245653e5baa36\nCORE d5b7fa4d2d226624e5063c66ea19a526ec3d9a60109cee145c5de9126a5bda8d\nMIRROR identify\nINV 2 26:1 78:1\nHALL 400\nGRAM 74529/10000 74529/10000 143641/10000 0 0 0\nORBS 2\nORB 26 20\nORB 78 17\nEND\n",
+      "sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "wire": "XCL-E/3-DRAFT/17",
+      "hashes": {
+        "table": "a5ae833947bd8a610d8b5292eae47c6520867b63ca3c4c0035847fc582916932",
+        "member": "5ce5d65d01327ffbd41555f52257ba4d4dce805be35e650d2b8245653e5baa36",
+        "core": "d5b7fa4d2d226624e5063c66ea19a526ec3d9a60109cee145c5de9126a5bda8d"
+      },
+      "mirror_policy": "identify",
+      "orientation": null,
+      "inventory": [
+        [
+          26,
+          1
+        ],
+        [
+          78,
+          1
+        ]
+      ],
+      "hall": {
+        "number": 400,
+        "hall_symbol": "-P 4 2",
+        "international_short": "P4/mmm",
+        "spacegroup_number": 123,
+        "centering": "P"
+      },
+      "gram6": [
+        "74529/10000",
+        "74529/10000",
+        "143641/10000",
+        "0",
+        "0",
+        "0"
+      ],
+      "gram": [
+        [
+          "74529/10000",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "74529/10000",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "143641/10000"
+        ]
+      ],
+      "orbits": [
+        {
+          "z": 26,
+          "wyckoff_index": 20,
+          "label_primitive": "1a",
+          "label_hall": "1a",
+          "letter": "a",
+          "multiplicity_primitive": 1,
+          "multiplicity_hall": 1,
+          "site_symmetry": "4/mmm",
+          "dof": 0,
+          "parameters": [],
+          "line": 9
+        },
+        {
+          "z": 78,
+          "wyckoff_index": 17,
+          "label_primitive": "1d",
+          "label_hall": "1d",
+          "letter": "d",
+          "multiplicity_primitive": 1,
+          "multiplicity_hall": 1,
+          "site_symmetry": "4/mmm",
+          "dof": 0,
+          "parameters": [],
+          "line": 10
+        }
+      ],
+      "pins": {
+        "wire": "XCL-E/3-DRAFT/17",
+        "protocol_sha256": "a9aa910085c460e639ca9d8a1f4ffafb8b9a9069260e8b4599a2a30457114774",
+        "table_sha256": "a5ae833947bd8a610d8b5292eae47c6520867b63ca3c4c0035847fc582916932",
+        "core_sha256": "d5b7fa4d2d226624e5063c66ea19a526ec3d9a60109cee145c5de9126a5bda8d",
+        "qualification_gates": {
+          "core": "efb05ae8d18f67f8cb271b4a98d097f23f3ca1a84e0502a84d0a53ebaa75fead",
+          "integration": "c57a6cd60e38f3b60a6e2833dc5c1f5ec48bb8280a0063b9e8605415fa9937ca"
+        },
+        "engines": {
+          "a17": "3ceca9480a1da453b4930a3421ce301909095813b2246a8c93af8807e4aee051",
+          "b10": "fbc64c58d2b3a149e8faa47db7811f3806b8c776767f91d7b2f65ff00f126b54"
+        }
+      },
+      "validation_status": "VERIFIED_DRAFT17_LOCAL",
+      "identity_scope": "LOCAL_DRAFT17_SEARCHED_FAMILY"
+    },
+    "geometry": {
+      "format": "GPAC-PHYSICAL-GEOMETRY/1",
+      "units": "angstrom",
+      "cell": [
+        [
+          2.73,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.73,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          3.79
+        ]
+      ],
+      "fractional": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      ],
+      "atomic_numbers": [
+        26,
+        78
+      ],
+      "site_ids": [
+        "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4:site.0000",
+        "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4:site.0001"
+      ]
+    },
+    "orbit_members": [
+      {
+        "id": "orbit.0000",
+        "index": 0,
+        "label": "1a",
+        "z": 26,
+        "atoms": [
+          {
+            "id": "orbit.0000.atom.0000",
+            "site_index": 0,
+            "z": 26,
+            "x": [
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "orbit.0001",
+        "index": 1,
+        "label": "1d",
+        "z": 78,
+        "atoms": [
+          {
+            "id": "orbit.0001.atom.0000",
+            "site_index": 1,
+            "z": 78,
+            "x": [
+              "1/2",
+              "1/2",
+              "1/2"
+            ]
+          }
+        ]
+      }
+    ],
+    "conversion": {
+      "numeric": "IEEE754-binary64",
+      "lattice_vectors": "rows",
+      "cartesian": "fractional @ cell",
+      "frame": "right-handed Cholesky",
+      "source_length_unit": "angstrom",
+      "exact_recovery": false
+    },
+    "geometry_sha256": "89903a2d1d1f6456e6fd15b7ff746a757f1de126571bad8a5213e0ebaa10fbfa",
+    "sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314"
+  },
+  "training": [
+    {
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e"
+    },
+    {
+      "source_sha256": "287e42532878b39e779963ccf5cb49526fdc4c3f216bf7282bd8280a2666c80b",
+      "report_sha256": "946c276cf06b9e45a4b64efa7e106be01bbed8e58076794b78273a24d2bc7c23"
+    },
+    {
+      "source_sha256": "7bb61c54412dc20843cddae68cc90b88c0763001c9670694b2daf9be838f8ff2",
+      "report_sha256": "cd9f9f72940a6c1a70172532cc705977d8eac7f134e43acb78002a42b924aa54"
+    },
+    {
+      "source_sha256": "2903d1be30db1bf417a85407aaaed2ff257a194015163c764e66a0f61fa10a69",
+      "report_sha256": "0e052d1ce46c1dc16018acd06db31a35093e72075cc9dd8e0088fcff38291da7"
+    },
+    {
+      "source_sha256": "3618f18cee64c52f29d21a5fbcf77f293c049b4009808ca67dc7ee3deaf6d15f",
+      "report_sha256": "2ba6d21995a11de20d1806bc217721e4ad5f497ee801084cafb50ad7a1b26ec5"
+    }
+  ],
+  "coordinates": [
+    {
+      "log_volume_ratio": 0.0,
+      "log_c_over_a_ratio": 0.0
+    },
+    {
+      "log_volume_ratio": -0.00750939065435561,
+      "log_c_over_a_ratio": 0.0
+    },
+    {
+      "log_volume_ratio": 0.007490640595761618,
+      "log_c_over_a_ratio": 0.0
+    },
+    {
+      "log_volume_ratio": 0.0,
+      "log_c_over_a_ratio": 0.007509390654355579
+    },
+    {
+      "log_volume_ratio": 0.0,
+      "log_c_over_a_ratio": -0.00749064059576159
+    }
+  ],
+  "training_observations_ev": [
+    [
+      0.00286099999993894,
+      0.0027159999999639695
+    ],
+    [
+      0.002912999999807653,
+      0.0027569999997467676
+    ],
+    [
+      0.002787000000353146,
+      0.0026530000000093423
+    ],
+    [
+      0.002967999999782478,
+      0.0028049999996255792
+    ],
+    [
+      0.0026470000002518645,
+      0.0025669999999990978
+    ]
+  ],
+  "training_residual_ev": [
+    [
+      0.0,
+      -4.336808689942018e-19
+    ],
+    [
+      4.336808689942018e-19,
+      8.673617379884035e-19
+    ],
+    [
+      4.336808689942018e-19,
+      8.673617379884035e-19
+    ],
+    [
+      8.673617379884035e-19,
+      8.673617379884035e-19
+    ],
+    [
+      8.673617379884035e-19,
+      8.673617379884035e-19
+    ]
+  ],
+  "normalized_condition_number": 4.236101277897271,
+  "numerical_configuration": {
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "basis_size": "DZP",
+    "basis_energy_shift_ry": 0.02,
+    "pseudopotentials": {
+      "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+      "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+    },
+    "mesh_ry": 300,
+    "smearing_k": 300,
+    "dm_tolerance": 1e-05,
+    "h_tolerance_ev": 0.0001,
+    "mixing_weight": 0.03,
+    "mixing_history": 8,
+    "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+    "environment": {}
+  },
+  "physical_accuracy_qualified": false,
+  "mechanism_verified": false,
+  "scope": "Geometric response hypothesis; mixed volume-shape term is unmeasured; no electronic mechanism or uncertainty inferred",
+  "sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256"
+}
