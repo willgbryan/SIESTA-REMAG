@@ -10,6 +10,14 @@ preserves the original reservations; the [36³/40³ execution plan](../tests/evi
 allocates $20 and $30 respectively. The cumulative authorized ceiling is $350.
 The remaining sections retain the proposal's estimates and scientific priorities.
 
+The [first local TZP radial step](../tests/evidence/research/fept-radial-r2-first-step-2026-11-14.json)
+is complete: reducing the energy shift from 0.02 to 0.01 Ry changes E/F
+anisotropy by −0.100/−0.094 meV at 16³, exceeding the original threshold.
+Native and magnetic-branch checks pass. Both overlap matrices are positive at
+every native sampled k point, but the worst condition number grows from about
+13,093 to 125,457. This is a conditioning diagnostic, not a basis-completeness
+claim. Further radial and explicit-basis results remain pending.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
