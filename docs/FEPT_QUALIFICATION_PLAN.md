@@ -82,6 +82,31 @@ and the registered 62-orbital local screen continues. Dense common-mesh basis
 work must await that screen's review and an available single GPU slot; this
 DZP mesh pass does not transfer to an enlarged basis.
 
+## Completed local basis screen and next runtime bridge
+
+The [full 42/48/62-orbital screen](../tests/evidence/research/fept-basis-r2-review-2026-11-14.json)
+fails both refinements at fixed 16³ and 0.0025 Ry. Adding f polarization,
+48→62, changes E/F by −0.085/−0.073 meV; the preceding 42→48 change was
++0.352/+0.300 meV. The 62-orbital E/F anisotropies are 2.902/2.761 meV/cell.
+Native, branch and transverse checks pass, with all shared radial functions
+identical in every stage. The scalar overlap is positive at all 2,192 sampled
+points, with worst condition numbers about 298,404, 512,195 and 631,432 for
+42, 48 and 62 orbitals. This does not establish basis completeness.
+
+The 62-orbital pristine calculation took 5,063.75 seconds, including a
+1,827.23-second scalar stage. The [next registered check](../tests/evidence/research/fept-basis-transfer-plan-r2-2026-11-14.json)
+compares REMAG against that completed pristine case, using the same scalar
+input bytes and native basis. Its two-hour deadline reserves at most $20 from
+the $150 basis subcap. It tests all scalar/SOC E/F values and both anisotropies
+within 0.0010001 meV, plus native identity and magnetic branches. A failure
+requires diagnosis; no retry or further GPU case is queued.
+
+This bridge supplies measured timing for dense common-mesh basis/radial
+confirmation and mesh rechecks at the enlarged basis. A 24³ common mesh is a
+planning candidate, not a qualified mesh. Each comparison will use one
+executable; other transferred bases require their own pristine agreement.
+The remaining $50 final-control envelope cannot substitute for basis funds.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
