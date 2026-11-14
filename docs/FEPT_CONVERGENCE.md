@@ -1,7 +1,8 @@
 # FePt convergence continuation
 
 The [first continuation batch](../tests/evidence/research/fept-convergence-r1-evaluation-2026-11-14.json)
-completed all four fixed-geometry experiments. The preregistered criterion is
+and [28³/32³ continuation](../tests/evidence/research/fept-convergence-r2-evaluation-2026-11-14.json)
+completed all six fixed-geometry experiments. The preregistered criterion is
 0.05 meV/cell for both E[x]−E[z] and F[x]−F[z], with two successive k refinements
 and an x/y split below 0.01 meV/cell. It has not yet passed.
 
@@ -10,11 +11,18 @@ and an x/y split below 0.01 meV/cell. It has not yet passed.
 | 16³ | 2.860936 | 2.715598 |
 | 20³ | 2.365251 | 2.382505 |
 | 24³ | 2.397985 | 2.459264 |
+| 28³ | 2.497739 | 2.476167 |
+| 32³ | 2.469067 | 2.480508 |
 
 The 20→24 total-energy change passes, but the free-energy change is 0.076759
 meV/cell and fails. The threshold is unchanged. A conditional
 [28³/32³ plan](../tests/evidence/research/fept-convergence-plan-r2-2026-11-14.json)
-was committed before submission.
+was committed before submission and has now completed. The 24→28 E change is
+0.099753 meV/cell and fails. The final 28→32 changes are −0.028671 meV for E
+and +0.004341 meV for F; both pass individually. Two successive passing steps
+are still absent. The original threshold and acceptance rule are unchanged.
+The 28³/32³ magnetic branch and transverse checks pass, and their recovered
+native binary artifacts are hash-bound separately from the collected text archive.
 
 At 16³, tightening DM/H tolerances tenfold changes E/F anisotropy by
 −0.0000156/−0.0000407 meV/cell. Increasing the grid cutoff from 300 to 500 Ry

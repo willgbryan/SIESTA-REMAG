@@ -1,0 +1,93 @@
+{
+  "format": "REMAG-RESPONSE-TRANSFER-PREDICTIONS/1",
+  "recorded_at": "2026-11-14T08:19:10.197726+00:00",
+  "plan_sha256": "976f064c711c79c1279bd276fee773eae5d2a1b52309555ae90495cb668751b0",
+  "original_predictions_sha256": "9d854eeaff57f860472d04f4593b76e9dcb5dec3b085d915c83e147b239c2820",
+  "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+  "reference_report_sha256": {
+    "k16": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e",
+    "k32": "6e2e0fa40b198336b7b21653c11afbfe2125ec22a97fa5f09930e817136efcb2"
+  },
+  "anchors": {
+    "energy_anisotropy_ev": {
+      "k16_ev": 0.00286099999993894,
+      "k32_ev": 0.002469067163019645,
+      "offset_ev": -0.00039193283691929537
+    },
+    "free_energy_anisotropy_ev": {
+      "k16_ev": 0.0027159999999639695,
+      "k32_ev": 0.002480507896962081,
+      "offset_ev": -0.0002354921030018886
+    }
+  },
+  "predictions": [
+    {
+      "id": "mixed-minus",
+      "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+      "models": {
+        "additive": {
+          "energy_anisotropy_ev": 0.002429275250093035,
+          "free_energy_anisotropy_ev": 0.0024535399556951366
+        },
+        "constant": {
+          "energy_anisotropy_ev": 0.002443267163107521,
+          "free_energy_anisotropy_ev": 0.0024641078968670625
+        },
+        "shape_only": {
+          "energy_anisotropy_ev": 0.002402963449721385,
+          "free_energy_anisotropy_ev": 0.0024308978850407295
+        },
+        "volume_only": {
+          "energy_anisotropy_ev": 0.002457145060018749,
+          "free_energy_anisotropy_ev": 0.002478850704505034
+        }
+      },
+      "notebook": {
+        "energy_anisotropy_ev": {
+          "experiment": "271801b5ca0046b098327d7ed677c577",
+          "prediction": "ad0160b3481f4283ac35bd6a14e966f9"
+        },
+        "free_energy_anisotropy_ev": {
+          "experiment": "1fb50cbe3f514c2c84ee1757b54b2ae6",
+          "prediction": "48b4c793a24342c1a59fad0e1e086a88"
+        }
+      }
+    },
+    {
+      "id": "mixed-plus",
+      "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+      "models": {
+        "additive": {
+          "energy_anisotropy_ev": 0.002494382275397473,
+          "free_energy_anisotropy_ev": 0.0024982613252455665
+        },
+        "constant": {
+          "energy_anisotropy_ev": 0.002443267163107521,
+          "free_energy_anisotropy_ev": 0.0024641078968670625
+        },
+        "shape_only": {
+          "energy_anisotropy_ev": 0.0025100664882596797,
+          "free_energy_anisotropy_ev": 0.0025102819193080716
+        },
+        "volume_only": {
+          "energy_anisotropy_ev": 0.0024151723801791414,
+          "free_energy_anisotropy_ev": 0.002444193965729465
+        }
+      },
+      "notebook": {
+        "energy_anisotropy_ev": {
+          "experiment": "eb414ea25fad45c497d8005a29d55a8a",
+          "prediction": "f1fe6846d99f4a2bb3cabc89c98bbbbe"
+        },
+        "free_energy_anisotropy_ev": {
+          "experiment": "9712c20a1d3f45df86c57001d5215718",
+          "prediction": "037a63fb8c1146a1b5b7b2b434da5577"
+        }
+      }
+    }
+  ],
+  "calibration": "Same reference-only offset for additive model and all three baselines; original coefficients/predictions retained.",
+  "physical_accuracy_qualified": false,
+  "mechanism_verified": false,
+  "uncertainty_ev": null
+}
