@@ -204,6 +204,14 @@ collector to recover a submitted call; do not submit again to recover output.
 The [first FePt pilot](FEPT_PILOT.md) records seven native reference samples,
 pre-observation predictions, baseline evaluation and a failed k-convergence check.
 
+The [continued checks through 32³](FEPT_CONVERGENCE.md) preserve that failed
+reference gate; basis and radial-extent controls also fail. The
+[independent volume/shape study](FEPT_RESPONSE_CONTROLS.md) evaluates sealed
+mixed-strain predictions at 16³ and reference-calibrated transfer at 32³.
+The unchanged model beats all three same-training baselines on aggregate error
+for both E and F in these two-target comparisons. Response endpoint spans still
+change substantially, and neither physical accuracy nor a mechanism is qualified.
+
 This implementation establishes a working structural/physical bridge, fixed
 interventions, electronic analysis, research memory and local inspection.
 It does not establish production MAE accuracy, a verified FePt mechanism,

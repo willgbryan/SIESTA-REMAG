@@ -87,11 +87,50 @@ finds matching numerical settings, consistent reference magnetic moments under
 the existing branch criterion, and zero x/y splits at native printed precision
 for all six new local controls. This does not establish a global magnetic ground state.
 
-The already [registered 32³ transfer](../tests/evidence/research/fept-response-transfer-plan-2026-11-14.json)
-will retain every coefficient and use the same reference-only E/F offset for
-the model and all baselines. It also changes from pristine to REMAG execution;
-the independent 16³ reference replication supports that bridge, but the target
-comparison is not a strictly isolated k-mesh response-convergence experiment.
+## Reference-calibrated transfer to 32³
+
+The [registered transfer](../tests/evidence/research/fept-response-transfer-plan-2026-11-14.json)
+is complete. Numerical predictions were sealed in `1676854` before either 32³
+target was run. The geometries were already measured at 16³; their 32³ outcomes
+were unseen. Every coefficient stayed fixed, with the same reference-only offset
+applied to all four models: −0.391933 meV for E and −0.235492 meV for F.
+
+The [native outcomes and evaluation](../tests/evidence/research/fept-transfer32-evaluation-2026-11-14.json)
+preserve prediction, source, reference and report hashes. All native stages,
+magnetic-branch checks and transverse checks pass.
+
+| c strain | Predicted E | Measured E | Predicted F | Measured F |
+| --- | ---: | ---: | ---: | ---: |
+| −0.25% | 2.429275 | 2.439251 | 2.453540 | 2.456452 |
+| +0.25% | 2.494382 | 2.484114 | 2.498261 | 2.491477 |
+
+All entries are meV/cell. The additive model predicts both response signs
+correctly for E and F and has lower aggregate MAE than every baseline. It does
+not win every individual comparison: the constant model has smaller E error
+for the negative target.
+
+| Same-training model | E MAE (meV/cell) | F MAE (meV/cell) |
+| --- | ---: | ---: |
+| Additive volume + shape | 0.010122 | 0.004848 |
+| Constant | 0.022431 | 0.017513 |
+| Shape only | 0.031120 | 0.022179 |
+| Volume only | 0.043417 | 0.034841 |
+
+The four reference-subtracted responses change by at most 0.017954 meV/cell
+between 16³ and 32³, passing the registered 0.05 meV single-change test. That
+absolute gate is loose relative to the response itself. As a descriptive check,
+the endpoint span K(+0.25%)−K(−0.25%) falls from 0.073000 to 0.044862 meV for E
+and from 0.052000 to 0.035026 meV for F, reductions of about 39% and 33%.
+Passing the absolute gate therefore does not establish stable derivatives.
+
+The transfer also changes from pristine to REMAG execution. The independent
+16³ reference replication supports that bridge only at the reference; this is
+not a strictly isolated k-mesh response-convergence experiment. Independent
+volume/shape derivatives at 32³ and basis/smearing sensitivity of the responses
+remain untested. Reference basis and radial-extent shifts exceed these prediction
+errors, but common offsets might cancel in a response. Two nearby targets do
+not establish generalization, physical accuracy or an electronic mechanism.
+The [reference convergence gate](FEPT_CONVERGENCE.md) still fails.
 
 ## Post-training orbital diagnostic
 
@@ -112,4 +151,4 @@ between the narrowest and broadest widths.
 These signs are opposite to the fitted anisotropy derivatives at this mesh.
 That association does not identify SOC transition matrix elements or establish
 an orbital mechanism. The earlier 6³-to-16³ descriptor sampling sensitivity,
-unqualified basis and absent response-convergence result remain limitations.
+unqualified basis and unqualified response derivatives remain limitations.

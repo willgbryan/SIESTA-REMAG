@@ -1,0 +1,24 @@
+{
+  "format": "REMAG-VIEWER-MANUAL-CHECK/1",
+  "date": "2026-11-14",
+  "source_commit": "d77c4b6",
+  "snapshot_sha256": "36d1bde48c694f8188f138f72ecc53884fd106095b19efacccce45f2d86278e4",
+  "screenshot_sha256": {
+    "FePt-workspace-2026-11-14.jpg": "fa299131227cf957130418b9cd2b5f3dac72a131675a4d4023157e55af8a83f8",
+    "FePt-workspace-detail-2026-11-14.jpg": "1c26307cc43d08f5293ecde6e3de613e23694bc7c1f7b9d4dcc77694741b1af9"
+  },
+  "method": "Browser interaction with standalone snapshot over localhost; normal viewport, no override. Values read from rendered controls.",
+  "checks": {
+    "default_calculation": "DZP \u00b7 32\u00b3",
+    "reference_E_mev": 2.4691,
+    "minus_0_25_percent_E_mev": 2.4393,
+    "minus_0_25_percent_F_mev": 2.4565,
+    "plus_0_25_percent_E_mev": 2.4841,
+    "plus_0_25_percent_F_mev": 2.4915,
+    "matching_curve_points": 3,
+    "calculation_preserved_across_strains": true,
+    "physical_convergence_label": "Unqualified",
+    "console_warnings_or_errors": []
+  },
+  "scope": "Manual UI/data-binding check, not physical qualification."
+}

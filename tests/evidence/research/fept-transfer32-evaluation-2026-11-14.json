@@ -1,0 +1,350 @@
+{
+  "format": "REMAG-RESPONSE-TRANSFER-EVALUATION/1",
+  "predictions_sha256": "7e9d74e5d8f9519649d50cf61edad5885c6aa573b2c381bf8537e2a97c5b7a9c",
+  "predictions_commit": "1676854545f8889689198c8e79e146fe5ce02306",
+  "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+  "outcomes": [
+    {
+      "id": "mixed-minus",
+      "status": "measured",
+      "report_sha256": "1e13499cfd730ec1e33370b36480bed722cf9c637e987d5c061a3e8ac6f57fff",
+      "actual": {
+        "energy_anisotropy_ev": 0.002439251333271386,
+        "free_energy_anisotropy_ev": 0.0024564516088503296
+      }
+    },
+    {
+      "id": "mixed-plus",
+      "status": "measured",
+      "report_sha256": "062cc20d27390e9106d2e9e47c2eda43c61709c3756264a83c12495a8b21e64a",
+      "actual": {
+        "energy_anisotropy_ev": 0.0024841135350470722,
+        "free_energy_anisotropy_ev": 0.0024914773066484486
+      }
+    }
+  ],
+  "reference_report_sha256": {
+    "k16": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e",
+    "k32": "6e2e0fa40b198336b7b21653c11afbfe2125ec22a97fa5f09930e817136efcb2"
+  },
+  "low_evaluation_sha256": "23ad2a64b2928d7ef4cd69cec30a1e69a996cdd2efa664d274413c7143604d61",
+  "anchors": {
+    "energy_anisotropy_ev": {
+      "k16_ev": 0.00286099999993894,
+      "k32_ev": 0.002469067163019645,
+      "offset_ev": -0.00039193283691929537
+    },
+    "free_energy_anisotropy_ev": {
+      "k16_ev": 0.0027159999999639695,
+      "k32_ev": 0.002480507896962081,
+      "offset_ev": -0.0002354921030018886
+    }
+  },
+  "physical_accuracy_qualified": false,
+  "mechanism_verified": false,
+  "comparison_configuration_changes": {
+    "kmesh": {
+      "k16": [
+        16,
+        16,
+        16
+      ],
+      "k32": [
+        32,
+        32,
+        32
+      ]
+    },
+    "executable_sha256": {
+      "k16": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+      "k32": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274"
+    },
+    "environment": {
+      "k16": {},
+      "k32": {
+        "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+        "REMAG_NONLOCAL_H0": "0",
+        "REMAG_NONLOCAL_H0_SHADOW": "0",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "REMAG_GRID": "1",
+        "REMAG_DM": "1",
+        "REMAG_GRID_EPOCH": "1",
+        "REMAG_GRID_VERIFY_EPOCH": "0",
+        "REMAG_NORMALIZE": "1",
+        "REMAG_OCCUPATIONS": "1",
+        "REMAG_RESIDENT_SPECTRA": "1",
+        "REMAG_HS": "1",
+        "REMAG_HARTREE": "1",
+        "REMAG_RESIDENT_GRID": "1",
+        "REMAG_RESIDENT_SCF": "1",
+        "REMAG_DEVICE_SCF": "0",
+        "REMAG_DEVICE_VECTOR_CACHE": "0",
+        "REMAG_BLOCK_SOLVER": "0",
+        "REMAG_BLOCK_WIDTH": "32",
+        "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+        "REMAG_FORCE_SHADOW": "0",
+        "REMAG_FORCE_SHADOW_RESIDENT": "0",
+        "REMAG_GRID_FORCE": "0",
+        "REMAG_ATOMIC_GRID_FORCE": "0",
+        "REMAG_ATOMIC_FORCE_SHADOW": "0",
+        "REMAG_FINAL_GRID": "0",
+        "REMAG_FINAL_GRID_SHADOW": "0",
+        "REMAG_FINAL_DENSITY": "0",
+        "REMAG_FINAL_DENSITY_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS": "0",
+        "REMAG_ATOMIC_BASIS_SHADOW": "0",
+        "REMAG_ATOMIC_BASIS": "0",
+        "REMAG_TWO_CENTER_SHADOW": "0",
+        "REMAG_PAIR_FORCE_SHADOW": "0",
+        "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+        "REMAG_INTEGRAL_FORCE": "0",
+        "REMAG_POPULATION": "0",
+        "REMAG_TRACE_IO": "0",
+        "REMAG_TRACE_CUDA": "0",
+        "REMAG_GPU_INITIALIZATION": "0",
+        "REMAG_GPU_HISTORY": "0",
+        "REMAG_FINAL_SPECTRA": "0",
+        "REMAG_GATE_H_EXPORT": "0",
+        "REMAG_DEFER_SCF_LOG": "0",
+        "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+        "GFORTRAN_UNBUFFERED_ALL": "0",
+        "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+        "REMAG_BLOCK_SHARED_JACOBI": "1",
+        "REMAG_INITIAL_MESH": "0",
+        "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+        "REMAG_SCF_SOLVER_LANES": "1",
+        "REMAG_SCF_WARM_START": "0",
+        "REMAG_RADIAL_BATCH": "0",
+        "REMAG_GRID_POTENTIAL_SPINS": "1",
+        "REMAG_SCF_STAGE_PROFILE": "0",
+        "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+        "REMAG_BLOCK_FUSED_MATRIX": "0",
+        "REMAG_BLOCK_FP64_VECTORS": "0",
+        "REMAG_BLOCK_FP64_MATRIX": "0",
+        "CUDA_DISABLE_PTX_JIT": "1",
+        "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+        "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+      }
+    }
+  },
+  "runtime_bridge": {
+    "reference_replication_sha256": "ca5401c5377913590af3c1449099b490b05cb777ec181a9b04357e660580f738",
+    "scope": "The low-mesh reference agrees between pristine and REMAG within native printed energy precision. The transfer also changes executable/runtime, so target response changes are not isolated k-mesh convergence measurements."
+  },
+  "scope": "Reference-calibrated k16-to-k32 transfer of an unchanged model across pristine/REMAG runtimes. Two meshes and two mixed strains do not certify basis, smearing, electronic mechanism or generalization.",
+  "status": "evaluated",
+  "magnetic_branch_checks": [
+    {
+      "id": "mixed-minus",
+      "passed": true,
+      "site_rms_mub": 0.002297641399348516,
+      "net_fractional_change": 0.00014946208595257354,
+      "robust_site_flip": false
+    },
+    {
+      "id": "mixed-plus",
+      "passed": true,
+      "site_rms_mub": 0.0022057354782474684,
+      "net_fractional_change": 0.0001584298111097917,
+      "robust_site_flip": false
+    }
+  ],
+  "transverse_diagnostics": [
+    {
+      "id": "mixed-minus",
+      "splits_ev": {
+        "total_energy_ev": 3.0377123039215803e-10,
+        "free_energy_ev": 2.7193891583010554e-10
+      }
+    },
+    {
+      "id": "mixed-plus",
+      "splits_ev": {
+        "total_energy_ev": -2.3510438040830195e-10,
+        "free_energy_ev": -2.482920535840094e-10
+      }
+    }
+  ],
+  "metrics": {
+    "energy_anisotropy_ev": {
+      "models": {
+        "additive": {
+          "predictions_ev": [
+            0.002429275250093035,
+            0.002494382275397473
+          ],
+          "errors_ev": [
+            -9.976083178351008e-06,
+            1.0268740350400686e-05
+          ],
+          "mae_ev": 1.0122411764375847e-05,
+          "rmse_ev": 1.0123469364929326e-05,
+          "response_sign_correct": [
+            true,
+            true
+          ]
+        },
+        "constant": {
+          "predictions_ev": [
+            0.002443267163107521,
+            0.002443267163107521
+          ],
+          "errors_ev": [
+            4.015829836134712e-06,
+            -4.0846371939551405e-05
+          ],
+          "mae_ev": 2.243110088784306e-05,
+          "rmse_ev": 2.9022000188623823e-05,
+          "response_sign_correct": [
+            true,
+            false
+          ]
+        },
+        "shape_only": {
+          "predictions_ev": [
+            0.002402963449721385,
+            0.0025100664882596797
+          ],
+          "errors_ev": [
+            -3.6287883550001256e-05,
+            2.5952953212607464e-05
+          ],
+          "mae_ev": 3.112041838130436e-05,
+          "rmse_ev": 3.154652336624627e-05,
+          "response_sign_correct": [
+            true,
+            true
+          ]
+        },
+        "volume_only": {
+          "predictions_ev": [
+            0.002457145060018749,
+            0.0024151723801791414
+          ],
+          "errors_ev": [
+            1.7893726747362972e-05,
+            -6.894115486793086e-05
+          ],
+          "mae_ev": 4.3417440807646916e-05,
+          "rmse_ev": 5.036401637793257e-05,
+          "response_sign_correct": [
+            true,
+            false
+          ]
+        }
+      },
+      "improves_on_all_baselines": true
+    },
+    "free_energy_anisotropy_ev": {
+      "models": {
+        "additive": {
+          "predictions_ev": [
+            0.0024535399556951366,
+            0.0024982613252455665
+          ],
+          "errors_ev": [
+            -2.911653155193098e-06,
+            6.7840185971178996e-06
+          ],
+          "mae_ev": 4.847835876155499e-06,
+          "rmse_ev": 5.220183541897135e-06,
+          "response_sign_correct": [
+            true,
+            true
+          ]
+        },
+        "constant": {
+          "predictions_ev": [
+            0.0024641078968670625,
+            0.0024641078968670625
+          ],
+          "errors_ev": [
+            7.656288016732841e-06,
+            -2.7369409781386085e-05
+          ],
+          "mae_ev": 1.7512848899059463e-05,
+          "rmse_ev": 2.009606103166239e-05,
+          "response_sign_correct": [
+            true,
+            false
+          ]
+        },
+        "shape_only": {
+          "predictions_ev": [
+            0.0024308978850407295,
+            0.0025102819193080716
+          ],
+          "errors_ev": [
+            -2.5553723809600137e-05,
+            1.880461265962299e-05
+          ],
+          "mae_ev": 2.2179168234611564e-05,
+          "rmse_ev": 2.243441839914485e-05,
+          "response_sign_correct": [
+            true,
+            true
+          ]
+        },
+        "volume_only": {
+          "predictions_ev": [
+            0.002478850704505034,
+            0.002444193965729465
+          ],
+          "errors_ev": [
+            2.2399095654704413e-05,
+            -4.728334091898354e-05
+          ],
+          "mae_ev": 3.484121828684398e-05,
+          "rmse_ev": 3.699617422524538e-05,
+          "response_sign_correct": [
+            true,
+            false
+          ]
+        }
+      },
+      "improves_on_all_baselines": true
+    }
+  },
+  "response_stability": [
+    {
+      "id": "mixed-minus",
+      "observable": "energy_anisotropy_ev",
+      "k16_response_ev": -3.999999989900971e-05,
+      "k32_response_ev": -2.9815829748258693e-05,
+      "change_ev": 1.0184170150751015e-05,
+      "tolerance_ev": 5e-05,
+      "passed": true
+    },
+    {
+      "id": "mixed-plus",
+      "observable": "energy_anisotropy_ev",
+      "k16_response_ev": 3.300000025774352e-05,
+      "k32_response_ev": 1.5046372027427424e-05,
+      "change_ev": -1.79536282303161e-05,
+      "tolerance_ev": 5e-05,
+      "passed": true
+    },
+    {
+      "id": "mixed-minus",
+      "observable": "free_energy_anisotropy_ev",
+      "k16_response_ev": -2.5999999706982635e-05,
+      "k32_response_ev": -2.40562881117512e-05,
+      "change_ev": 1.9437115952314343e-06,
+      "tolerance_ev": 5e-05,
+      "passed": true
+    },
+    {
+      "id": "mixed-plus",
+      "observable": "free_energy_anisotropy_ev",
+      "k16_response_ev": 2.5999999706982635e-05,
+      "k32_response_ev": 1.0969409686367726e-05,
+      "change_ev": -1.5030590020614909e-05,
+      "tolerance_ev": 5e-05,
+      "passed": true
+    }
+  ],
+  "observed_response_stability_passed": true
+}

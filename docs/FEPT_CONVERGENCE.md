@@ -70,3 +70,13 @@ These are finite sensitivity checks, not basis or zero-temperature
 extrapolations. Their changes exceed the 16³ mixed-target prediction errors,
 which cannot be interpreted as physical accuracy bounds. The sealed strain
 models remain unchanged, and the occupation temperature is not a spin temperature.
+
+## Campaign closure
+
+The [combined record](../tests/evidence/research/fept-continuation-final-2026-11-14.json)
+contains all requested measurements and retains the failed acceptance gates.
+The [closure check](../tests/evidence/research/fept-campaign-closure-2026-11-14.json)
+verifies that all four continuation GPU apps stopped, their lifecycle windows
+did not overlap, and the account had zero active GPUs at verification.
+Cumulative reservations, including the earlier pilot, are $96.67 of the original
+$100 cap. Actual billing remains unreconciled; no reservation was released.
