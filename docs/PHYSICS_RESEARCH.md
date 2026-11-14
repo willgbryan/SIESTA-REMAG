@@ -132,6 +132,9 @@ collector to recover a submitted call; do not submit again to recover output.
 
 ## Remaining scientific work
 
+The [first FePt pilot](FEPT_PILOT.md) records seven native reference samples,
+pre-observation predictions, baseline evaluation and a failed k-convergence check.
+
 This implementation establishes a working structural/physical bridge, fixed
 interventions, electronic analysis, research memory and local inspection.
 It does not establish production MAE accuracy, a verified FePt mechanism,

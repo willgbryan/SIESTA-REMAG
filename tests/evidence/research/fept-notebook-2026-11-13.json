@@ -1,0 +1,93 @@
+[
+  {
+    "id": "68be9b9dc1a24fffbf67164dd92296e1",
+    "kind": "outcome",
+    "parent": "4cfaf816b6de46a782ba726d81d56cb2",
+    "recorded_at": "2026-11-14T03:26:31.583196+00:00",
+    "payload": {
+      "observable": "E100-E001",
+      "report_sha256": "e39380b9b13ec3e912c0b73a78f05e3691d6f04512bcd9ee235a9ea6638a4317",
+      "status": "measured",
+      "unit": "meV/cell",
+      "value": 0.9189999996124243
+    }
+  },
+  {
+    "id": "b1015960af8f4a489fb38d540815aa67",
+    "kind": "outcome",
+    "parent": "38ab1eefbb9a46c48b674c87bafc7c40",
+    "recorded_at": "2026-11-14T03:26:31.575438+00:00",
+    "payload": {
+      "observable": "E100-E001",
+      "report_sha256": "cc0695fc3c3954926fc6ee757ff3e3066c7aa8fc31114a5062051c5b2b0fc4fd",
+      "status": "measured",
+      "unit": "meV/cell",
+      "value": 1.7100000000027649
+    }
+  },
+  {
+    "id": "3e06d10fe36543158702b2739ef338bf",
+    "kind": "prediction",
+    "parent": "4cfaf816b6de46a782ba726d81d56cb2",
+    "recorded_at": "2026-11-14T03:19:52.713914+00:00",
+    "payload": {
+      "observable": "E100-E001",
+      "uncertainty": null,
+      "unit": "meV/cell",
+      "value": 1.119312499994862
+    }
+  },
+  {
+    "id": "4cfaf816b6de46a782ba726d81d56cb2",
+    "kind": "experiment",
+    "parent": "4caa9feb864246818dc3694861162bc7",
+    "recorded_at": "2026-11-14T03:19:52.713549+00:00",
+    "payload": {
+      "action": "fixed-c-strain",
+      "rationale": "Interpolate between observed endpoints and zero; compare pre-observation predictions with linear and piecewise-linear scalar baselines",
+      "structure_sha256": "e29b79512c3c34b91edda4535110380a0b7fd09299b01a655a9e192790502c16"
+    }
+  },
+  {
+    "id": "1f32d0ead93c422f92663d05c056d3e0",
+    "kind": "prediction",
+    "parent": "38ab1eefbb9a46c48b674c87bafc7c40",
+    "recorded_at": "2026-11-14T03:19:52.712863+00:00",
+    "payload": {
+      "observable": "E100-E001",
+      "uncertainty": null,
+      "unit": "meV/cell",
+      "value": 1.537312499962695
+    }
+  },
+  {
+    "id": "38ab1eefbb9a46c48b674c87bafc7c40",
+    "kind": "experiment",
+    "parent": "4caa9feb864246818dc3694861162bc7",
+    "recorded_at": "2026-11-14T03:19:52.712309+00:00",
+    "payload": {
+      "action": "fixed-c-strain",
+      "rationale": "Interpolate between observed endpoints and zero; compare pre-observation predictions with linear and piecewise-linear scalar baselines",
+      "structure_sha256": "ddcfd55a13fba01f6e7bc375af125414786bb296f4b59b682775dacd41f2e3ea"
+    }
+  },
+  {
+    "id": "4caa9feb864246818dc3694861162bc7",
+    "kind": "hypothesis",
+    "parent": null,
+    "recorded_at": "2026-11-14T03:19:52.711442+00:00",
+    "payload": {
+      "alternatives": [
+        "k-mesh or basis sensitivity",
+        "smearing-dependent occupations",
+        "a magnetic branch change",
+        "the quadratic scalar response has no transferable electronic mechanism"
+      ],
+      "predictions": [
+        "E100-E001 remains positive at \u00b10.5%",
+        "A quadratic local response predicts the held-out MAE"
+      ],
+      "statement": "Within the fixed L10 FePt branch, c-axis compression raises the screening MAE with local curvature. Orbital changes are a candidate explanation, not an established mechanism."
+    }
+  }
+]
