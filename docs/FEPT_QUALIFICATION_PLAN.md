@@ -107,6 +107,22 @@ planning candidate, not a qualified mesh. Each comparison will use one
 executable; other transferred bases require their own pristine agreement.
 The remaining $50 final-control envelope cannot substitute for basis funds.
 
+The [62-orbital runtime comparison](../tests/evidence/research/fept-basis-transfer-r2-review-2026-11-14.json)
+passes all preregistered checks. REMAG minus pristine E/F anisotropy is
++0.000275/−0.000712 meV/cell; all eight absolute E/F differences are below
+0.000498 meV. Native radial arrays differ by at most 1.0e-12, below the
+1.0e-10 absolute limit. The overlap is positive at all 2,192 sampled points.
+All 23 omitted native files, including the basis XML, are recovered and verified.
+The app stopped at 20:59:39 UTC; native four-stage wall time was 1,407.89 seconds.
+That timing informs deadlines and does not establish an upstream-GPU speedup.
+
+The [remaining 42/48-orbital comparisons](../tests/evidence/research/fept-basis-transfer-plan-r3-2026-11-14.json)
+reserve at most $5 each from the basis subcap. Each uses the same scalar input
+bytes as its completed pristine case, and must pass the same energy, basis,
+branch and overlap checks before the next app launches. All previous mesh,
+basis and radial outcomes remain unchanged. Dense common-mesh inputs will be
+registered after these timings and agreement results are reviewed.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
