@@ -17,7 +17,7 @@ from ..discovery.seed import collinear_to_soc
 
 
 def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
-                       basis_size='DZP', basis_energy_shift_ry=.02, parameter=None):
+                       basis_size='DZP', basis_energy_shift_ry=.02, parameter=None, basis_spec=None):
     """GPAC is optional at installation and required only at this authoring boundary."""
     from ase import Atoms
     from gpac.physical import verify_export
@@ -26,6 +26,10 @@ def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
     g = verified['geometry']
     atoms = Atoms(numbers=g['atomic_numbers'], scaled_positions=g['fractional'], cell=g['cell'], pbc=True)
     validate_atoms(atoms, settings)
+    if basis_spec is not None:
+        from .basis import validate_basis
+        basis_spec = validate_basis(basis_spec, atoms.get_chemical_symbols())
+        basis_size = 'explicit'
     pseudo_hashes = pseudos_for(atoms, pseudos, allow_psf=True)
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
@@ -34,13 +38,15 @@ def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
     for name in pseudo_hashes:
         shutil.copyfile(Path(pseudos)/name, output/'pseudos'/name)
     case = prepare_case(atoms, output/'pseudos', output/'scalar', settings, mesh=mesh,
-        allow_psf=True, basis_size=basis_size, basis_energy_shift_ry=basis_energy_shift_ry, diagnostics=True)
+        allow_psf=True, basis_size=basis_size, basis_energy_shift_ry=basis_energy_shift_ry, diagnostics=True,
+        basis_spec=basis_spec)
     manifest = load(case/'manifest.json')
     request = dict(format='REMAG-EXPERIMENT/1', source_sha256=verified['source']['sha256'],
         export_sha256=verified['sha256'], parameter=parameter, fixed_geometry=True,
         settings=settings.to_dict(), kmesh=manifest['kmesh'], basis_size=basis_size,
         basis_energy_shift_ry=basis_energy_shift_ry, pseudopotentials=pseudo_hashes,
         files={str(p.relative_to(output)): sha256(p) for p in sorted(output.rglob('*')) if p.is_file()})
+    if basis_spec is not None: request['basis_spec'] = basis_spec
     save(output/'experiment.json', request)
     return request
 
@@ -59,6 +65,14 @@ def verify_experiment(bundle):
     structure = load(bundle/'structure.json')
     if structure['sha256'] != request['export_sha256'] or structure['source']['sha256'] != request['source_sha256']:
         raise ValueError('Experiment source binding differs')
+    manifest = load(bundle/'scalar/manifest.json')
+    if any(manifest.get(k) != request.get(k) for k in ['basis_spec', 'basis_size', 'basis_energy_shift_ry']):
+        raise ValueError('Scalar and requested PAO basis differ')
+    if request.get('basis_spec') is not None:
+        from .basis import validate_basis
+        spec = validate_basis(request['basis_spec'], manifest['geometry']['species'])
+        if spec != request['basis_spec'] or request['basis_size'] != 'explicit':
+            raise ValueError('Noncanonical explicit PAO request')
     return request
 
 
@@ -112,6 +126,15 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
             if not review['accepted']:
                 report['status'] = 'held_'+label
                 return None
+            if request.get('basis_spec') is not None:
+                from .basis import audit_native_basis
+                audit = audit_native_basis(output/label, request['basis_spec'], atoms.get_chemical_symbols())
+                prior_checks = report.setdefault('basis_checks', {})
+                if prior_checks:
+                    baseline = next(iter(prior_checks.values()))
+                    if [s['orbitals'] for s in baseline['species']] != [s['orbitals'] for s in audit['species']]:
+                        raise ValueError('Scalar/SOC native basis radii or shells differ')
+                prior_checks[label] = audit
             actual = evaluated_structure(output/label, atoms.numbers)
             if not np.allclose(actual.cell.array, atoms.cell.array, atol=2e-8, rtol=0) or not np.allclose(actual.positions, atoms.positions, atol=2e-7, rtol=0):
                 raise ValueError('Fixed geometry changed during '+label)
@@ -128,7 +151,8 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
                 prepared = prepare_case(atoms, bundle/'pseudos', output/'inputs'/label, settings,
                     mesh=request['kmesh'], direction=axis, spins=np.array(scalar['atom_moments_muB'])[:, 2],
                     restart=True, allow_psf=True, basis_size=request['basis_size'],
-                    basis_energy_shift_ry=request['basis_energy_shift_ry'], diagnostics=True)
+                    basis_energy_shift_ry=request['basis_energy_shift_ry'], diagnostics=True,
+                    basis_spec=request.get('basis_spec'))
                 obs = run('soc-'+label, prepared, axis, dict(path=str(seed), sha256=sha256(seed)))
                 if obs is None: return report
                 branch = branch_check(obs, rows.get('z', scalar), axis, rotations['z'] if rows else [0, 0, 1], settings)

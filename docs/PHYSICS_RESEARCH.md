@@ -113,6 +113,31 @@ commit their hashes before measuring the held-out structures. Existing exposed
 outcomes cannot become blind tests by changing their labels or fitting protocol.
 Convergence and held-out errors remain separate from training residuals.
 
+## Explicit basis controls
+
+`prepare_experiment(..., basis_spec=spec)` accepts a bounded
+`REMAG-PAO-BASIS/1` definition. The `fept` CLI also accepts `--basis-spec` and
+`--basis-energy-shift-ry`. A specification covers every species; each shell
+contains integer `n`, `l`, `zeta`, `polarization` and a `radii_bohr` list with one
+entry per zeta. For example, a Fe shell can be
+`{"n":4,"l":0,"zeta":3,"polarization":2,"radii_bohr":[0,0,0]}`.
+The top level is `{"format":"REMAG-PAO-BASIS/1","species":{"Fe":[...],"Pt":[...]}}`.
+
+Zero radii request native energy-shift/split-norm generation. Nonzero radii are
+in bohr. Polarization uses the existing nonperturbative scheme and the pinned
+SIESTA `PAO.Basis` syntax; no arbitrary FDF overlays are accepted. Bounds are
+n≤10, l≤3, up to four zetas and two polarization functions per shell. Overlapping
+explicit/generated shells, unknown fields and nonfinite radii are rejected.
+The specification replaces the preset for all species and is bound into the
+prepared input, scalar manifest and every SOC input.
+
+Native XML shell counts and radii must agree with the requested multiplicities
+and remain identical across scalar/z/x/y stages. These checks establish basis
+identity only; overlap conditioning and convergence remain separate controls.
+Basis definitions participate in numerical comparison keys, so changing an
+explicit shell cannot count as a k-mesh-only refinement or join an unrelated
+viewer curve. Historical preset inputs retain their original bytes.
+
 ## Electronic diagnostics
 
 `research.electronic` reconstructs Bloch H and S from the existing HSX v2 export

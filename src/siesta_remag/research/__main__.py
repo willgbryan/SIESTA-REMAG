@@ -16,6 +16,8 @@ def main(argv=None):
     p.add_argument('--settings', type=Path)
     p.add_argument('--mesh', type=int, nargs=3, default=[6, 6, 6])
     p.add_argument('--basis', default='DZP')
+    p.add_argument('--basis-spec', type=Path, help='Validated explicit REMAG-PAO-BASIS/1 JSON')
+    p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
     p = sub.add_parser('run', help='Run one fixed-geometry experiment with an explicit native runtime')
     p.add_argument('bundle', type=Path)
     p.add_argument('--runtime', type=Path, required=True)
@@ -65,7 +67,9 @@ def main(argv=None):
             intervention = strain(p, 2, q, expected_sha256=p.sha256)
             export = export_geometry(intervention['child']['program'], length_unit='angstrom')
             prepare_experiment(export, args.pseudos, args.output/label, settings=settings, mesh=args.mesh,
-                               basis_size=args.basis, parameter=dict(name='epsilon_c', exact=q, unit='dimensionless'))
+                               basis_size=args.basis, basis_spec=load(args.basis_spec) if args.basis_spec else None,
+                               basis_energy_shift_ry=args.basis_energy_shift_ry,
+                               parameter=dict(name='epsilon_c', exact=q, unit='dimensionless'))
             rows.append(dict(id=label, strain=q, parent_sha256=p.sha256, source_sha256=export['source']['sha256'],
                              heldout=label in ('m050', 'p050'), status='prepared'))
         result = dict(format='REMAG-CAMPAIGN/1', material='L10 FePt',

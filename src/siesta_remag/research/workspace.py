@@ -88,6 +88,7 @@ def dataset(workspace):
                     settings=report['request']['settings'], kmesh=report['request']['kmesh'],
                     basis_size=report['request']['basis_size'], anisotropy=report.get('anisotropy'),
                     basis_energy_shift_ry=report['request']['basis_energy_shift_ry'],
+                    basis_spec=report['request'].get('basis_spec'),
                     pseudopotentials=report['request']['pseudopotentials'],
                     stages=report['stages'],
                     comparison_key=comparison_key(report),
@@ -96,6 +97,11 @@ def dataset(workspace):
                     executable_sha256=report['executable_sha256'],
                     electronic=electronic_preview(path.parent,
                         expected_hsx_sha256=report.get('artifacts', {}).get('soc-z/remag.HSX')))
+        if calculation['basis_spec'] is not None:
+            from .basis import orbital_count
+            from ase.data import chemical_symbols
+            calculation['basis_orbitals'] = orbital_count(calculation['basis_spec'],
+                [chemical_symbols[z] for z in report['structure']['geometry']['atomic_numbers']])
         for row in matching:
             row.setdefault('calculations', []).append(calculation)
             row['result'] = calculation

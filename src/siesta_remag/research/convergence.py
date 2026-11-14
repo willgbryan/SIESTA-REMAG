@@ -7,13 +7,14 @@ from ..discovery.common import load
 
 
 VARIABLES = {'kmesh': ('kmesh',), 'grid': ('mesh_ry',),
-             'scf': ('dm_tolerance', 'h_tolerance_ev'), 'basis': ('basis_size',),
+             'scf': ('dm_tolerance', 'h_tolerance_ev'), 'basis': ('basis_size', 'basis_spec'),
              'radial_extent': ('basis_energy_shift_ry',), 'smearing': ('smearing_k',)}
 
 
 def numerical_configuration(report):
     request = report['request']
     result = {key: request[key] for key in ('kmesh', 'basis_size', 'basis_energy_shift_ry', 'pseudopotentials')}
+    result['basis_spec'] = request.get('basis_spec')
     result.update({key: request['settings'][key] for key in
                    ('mesh_ry', 'smearing_k', 'dm_tolerance', 'h_tolerance_ev', 'mixing_weight', 'mixing_history')})
     result.update(source_sha256=report['source_sha256'], executable_sha256=report['executable_sha256'],

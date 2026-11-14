@@ -1,0 +1,34 @@
+{
+  "format": "REMAG-PAO-PREFLIGHT-PLAN/1",
+  "recorded_at": "2026-11-14T16:13:30.358356+00:00",
+  "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "runtime": {
+    "executable": "/Users/willgbryan/Desktop/SIESTA-REMAG/build/upstream/Src/siesta",
+    "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+    "threads": 1,
+    "environment": {}
+  },
+  "experiments": [
+    {
+      "id": "tzp-explicit",
+      "request_sha256": "35dbe5a7d10ab088d769cf7733c343e910200a10c1719fac856ccef4a4add329",
+      "expected_spatial_orbitals": 42
+    },
+    {
+      "id": "tzp2",
+      "request_sha256": "9a676fe9d0cf31005ecbd38ebe854fb0ebf666adfae8b6f41de63993d109a8c0",
+      "expected_spatial_orbitals": 48
+    },
+    {
+      "id": "tzp2-f1",
+      "request_sha256": "93ceb60b45201b8ec277c5adc62dbbcbad6762145cc0498bccc29426f8423396",
+      "expected_spatial_orbitals": 62
+    }
+  ],
+  "reference_report_sha256": "de36053e6a418c3d6880aefe3fa903aab118259fee1b5d31b4bd609fadda4d86",
+  "specifications_sha256": "a546d55e0e93f26289129335c6f4d482c3894c20b7ca4de7d1eda31a73513b2f",
+  "allocation": "Local CPU only, one short scalar run per basis; no GPU or cloud call.",
+  "native_limit": "One SCF iteration, strict native convergence flag retained. Nonconvergence is expected; energies are not scientific measurements.",
+  "criteria": "Actual scalar orbital counts and shell multiplicities must match; positive finite radii; explicit TZP radial orbitals must match the existing automatic TZP reference. Additional polarization must preserve shared radial functions.",
+  "scope": "Native basis-generation identity only; no anisotropy, convergence, magnetic-branch or prediction claim."
+}

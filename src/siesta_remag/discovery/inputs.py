@@ -69,12 +69,19 @@ def pseudos_for(atoms, directory, *, allow_psf=False):
 
 def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=None,
                  spins=None, relax=False, restart=False, allow_psf=False,
-                 basis_size='DZP', basis_energy_shift_ry=0.02, diagnostics=False):
+                 basis_size='DZP', basis_energy_shift_ry=0.02, diagnostics=False, basis_spec=None):
     validate_atoms(atoms, settings)
     destination = Path(destination)
     hashes = pseudos_for(atoms, pseudos, allow_psf=allow_psf)
-    if basis_size not in ('SZ', 'SZP', 'DZ', 'DZP', 'TZ', 'TZP'):
+    if basis_spec is not None:
+        from ..research.basis import validate_basis, basis_lines
+        basis_spec = validate_basis(basis_spec, atoms.get_chemical_symbols())
+        basis_size = 'explicit'
+        pao_lines = basis_lines(basis_spec, atoms.get_chemical_symbols())
+    elif basis_size not in ('SZ', 'SZP', 'DZ', 'DZP', 'TZ', 'TZP'):
         raise ValueError('Unsupported PAO basis size')
+    else:
+        pao_lines = [f'PAO.BasisSize {basis_size}']
     if type(basis_energy_shift_ry) not in (int, float) or not 0 < basis_energy_shift_ry <= 1:
         raise ValueError('Basis energy shift must be in (0,1] Ry')
     mesh = mesh or kmesh(atoms, settings)
@@ -114,7 +121,7 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
             lines.append(f'{i} {m:.12f}')
         else:
             lines.append(f'{i} {abs(m):.12f} {theta if m >= 0 else 180-theta:.12f} {phi if m >= 0 else phi+180:.12f}')
-    lines += ['%endblock DM.InitSpin', f'PAO.BasisSize {basis_size}', f'PAO.EnergyShift {basis_energy_shift_ry} Ry', 'PAO.SplitNorm 0.25',
+    lines += ['%endblock DM.InitSpin'] + pao_lines + [f'PAO.EnergyShift {basis_energy_shift_ry} Ry', 'PAO.SplitNorm 0.25',
               'PAO.Polarization.NonPerturbative true', f'MeshCutoff {settings.mesh_ry} Ry', 'XC.functional GGA', 'XC.authors PBE',
               f'ElectronicTemperature {settings.smearing_k} K', 'SolutionMethod diagon', 'Diag.Algorithm divide-and-conquer',
               f'MaxSCFIterations {settings.max_scf}', 'SCF.MustConverge true', f'DM.Tolerance {settings.dm_tolerance}',
@@ -146,5 +153,6 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
                     relaxation=relax, orientation_constrained=False,
                     geometry_sha256=digest(geometry(atoms)), basis_size=basis_size,
                     basis_energy_shift_ry=basis_energy_shift_ry, diagnostics=diagnostics)
+    if basis_spec is not None: manifest['basis_spec'] = basis_spec
     save(destination / 'manifest.json', manifest)
     return destination
