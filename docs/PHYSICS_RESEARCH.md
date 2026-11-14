@@ -124,6 +124,7 @@ reconciled with provider usage. No solver build occurs on the paid GPU.
 REMAG_RESEARCH_CAMPAIGN=/absolute/path/to/campaign \
 REMAG_RESEARCH_RUNTIME=/absolute/path/to/runtime.json \
 REMAG_RESEARCH_IMAGE=im-EXISTING_VALIDATED_IMAGE \
+REMAG_RESEARCH_BUDGET_LEDGER=/absolute/path/to/authorized-budget.json \
 python scripts/run_modal.py --module-file scripts/research_modal.py \
   --receipt runs/submission.json --output runs/collected
 ```
@@ -132,6 +133,17 @@ python scripts/run_modal.py --module-file scripts/research_modal.py \
 `timeout_seconds` (120..7200), `hourly_reservation_usd`, and `budget_usd`.
 The deadline reservation must fit the declared budget, at most $100. That
 configuration records a bound; the operator still needs authorization to spend.
+The cumulative `research.budget.BudgetLedger` must already exist under the
+owner's authorization. Import reservations from earlier runs before continuing
+an existing budget. Charges round upward to whole cents; completion and unknown
+submission outcomes do not automatically release reservations. Concurrent
+reservations cannot exceed the shared cap, and an existing ledger cannot be reset.
+The local receipt binds each reservation before GPU submission.
+
+Optional `diagnostic_axes` selects a unique subset of x/y/z for postprocessing;
+an empty list preserves native outputs while skipping reconstructed arrays.
+Optional `volume` selects a results volume, recorded in the receipt. This allows
+a study to avoid an unrelated volume's inode limit without deleting old evidence.
 The campaign holds on any failed experiment. Use the existing discovery
 collector to recover a submitted call; do not submit again to recover output.
 

@@ -17,6 +17,15 @@ if modal.is_local():
     runtime_path = Path(os.environ['REMAG_RESEARCH_RUNTIME']).resolve()
     image_id = os.environ['REMAG_RESEARCH_IMAGE']
     policy = load(campaign/'execution.json')
+    from siesta_remag.research.budget import BudgetLedger, reservation_cents
+    budget = BudgetLedger(os.environ['REMAG_RESEARCH_BUDGET_LEDGER'])
+    reserved_cents = reservation_cents(policy['timeout_seconds'], policy['hourly_reservation_usd'])
+    if budget.remaining_cents() < reserved_cents:
+        raise ValueError('Insufficient cumulative budget before image preparation')
+    volume_name = policy.get('volume', 'siesta-remag-results')
+    diagnostic_axes = policy.get('diagnostic_axes', ['z', 'x', 'y'])
+    if not isinstance(diagnostic_axes, list) or len(set(diagnostic_axes)) != len(diagnostic_axes) or any(a not in ('x','y','z') for a in diagnostic_axes):
+        raise ValueError('Diagnostic axes must be a unique subset of x,y,z')
     timeout = policy['timeout_seconds']
     if type(timeout) is not int or not 120 <= timeout <= 7200:
         raise ValueError('Campaign timeout must be 120..7200 seconds')
@@ -36,9 +45,10 @@ if modal.is_local():
         .add_local_file(runtime_path, '/opt/research/runtime.json', copy=True))
 else:
     image, timeout = None, 7200
+    volume_name = load('/opt/research/campaign/execution.json').get('volume', 'siesta-remag-results')
 
 app = modal.App('siesta-remag-single-gpu')
-volume = modal.Volume.from_name('siesta-remag-results', create_if_missing=True)
+volume = modal.Volume.from_name(volume_name, create_if_missing=True)
 
 
 @app.function(image=image, gpu='A100-80GB:1', cpu=8, memory=98304, timeout=timeout,
@@ -46,6 +56,8 @@ volume = modal.Volume.from_name('siesta-remag-results', create_if_missing=True)
               retries=0, volumes={'/results': volume})
 def calculate(run_id):
     import time
+    for key in ['OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS']:
+        os.environ[key] = '1'
     from siesta_remag.research.experiments import run_experiment
     from siesta_remag.research.electronic import spectrum_from_run
     from siesta_remag.discovery.collection import pack
@@ -75,7 +87,7 @@ def calculate(run_id):
             report['experiments'].append(dict(id=name, status=result['status'], report_sha256=sha256(root/name/'report.json')))
             if result['status'] != 'measured':
                 report['status'] = 'held_experiment'; flush(); break
-            for axis in ['z', 'x', 'y']:
+            for axis in policy.get('diagnostic_axes', ['z', 'x', 'y']):
                 try:
                     spectrum_from_run(root/name/('soc-'+axis), root/name/('electronic-'+axis))
                 except Exception as exc:
@@ -97,10 +109,16 @@ def main(receipt: str, output: str):
     if path.exists() or Path(output).exists():
         raise ValueError('Existing submission/output: collect it instead of resubmitting')
     run_id = 'physics-'+uuid.uuid4().hex
-    save(path, dict(status='submitting', run_id=run_id, app_id=app.app_id, image=image_id))
+    budget.reserve(run_id, reserved_cents, metadata=dict(policy_sha256=digest(policy), app_id=app.app_id,
+                   receipt=str(path.resolve()), campaign=str(campaign)))
+    save(path, dict(status='submitting', run_id=run_id, app_id=app.app_id, image=image_id,
+                   volume=volume_name, reserved_cents=reserved_cents))
     call = calculate.spawn(run_id)
     save(path, dict(status='running', run_id=run_id, app_id=app.app_id, image=image_id,
+                   volume=volume_name, reserved_cents=reserved_cents,
                    function_call_id=call.object_id, output=str(Path(output).resolve())))
+    budget.record(run_id, load(path))
     print('Submission receipt:', path, flush=True)
     result = collect(path, output, timeout=timeout+60)
+    budget.record(run_id, load(path))
     print(json.dumps(dict(status=result['status'], report=str(Path(output)/'report.json'))), flush=True)
