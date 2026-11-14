@@ -3,7 +3,7 @@ from copy import deepcopy
 import numpy as np
 import pytest
 
-from siesta_remag.research.response import coordinates, fit, predict
+from siesta_remag.research.response import coordinates, fit, predict, baseline_predictions
 from test_research_convergence import report
 
 
@@ -46,6 +46,11 @@ def test_controls_identify_response_and_bind_prediction(structures):
     expected = synthetic(ref, [axial[-1]])[0]['anisotropy']['mae_ev_cell']
     assert result['energy_anisotropy_ev'] == pytest.approx(expected, abs=1e-14)
     assert result['uncertainty_ev'] is None and not result['mechanism_verified']
+    baseline = baseline_predictions(model, axial[-1])
+    assert set(baseline) == {'constant','shape_only','volume_only'}
+    for name in baseline:
+        assert baseline[name]['model_sha256'] == model['sha256']
+        assert abs(baseline[name]['energy_anisotropy_ev']-expected) > 1e-5
     model['coefficients'][0][0] += .001
     with pytest.raises(ValueError, match='hash'): predict(model, axial[-1])
 

@@ -1,0 +1,112 @@
+{
+  "format": "REMAG-DESCRIPTOR-SENSITIVITY/1",
+  "sampling": "Existing pristine 6x6x6 training structures, SOC-z",
+  "retrospective": true,
+  "blinded": false,
+  "formula": "Sum over k,n of native normalized k weight times signed orbital Mulliken weight times normalized Gaussian(E_kn-E_F,sigma)",
+  "broadening_sigma_ev": [
+    0.08,
+    0.12,
+    0.2
+  ],
+  "rows": [
+    {
+      "strain": -0.02,
+      "source_sha256": "4eb83ebcd7a9dfda0d4aef6fc186a288da9ad7dbac137a824c34cfd73a4f2880",
+      "mae_ev_cell": 0.002423999999791704,
+      "report_sha256": "a94aa9eb1ce939455bc6dc14bc3e32ab28ab597e76f1fb90ec6c0c8c8a4dc261",
+      "electronic_metadata_sha256": "50e62e27721947fa570524f93248f4493d4520bca38dee570343d28a0264d0a2",
+      "artifact_sha256": "6773fac53771283c8b8452095ee178f5c01e6cb397a51f3977066ae1a6f09a2e",
+      "groups": [
+        {
+          "atom_index": 0,
+          "species": "Fe",
+          "l": 2,
+          "dos_ef_states_per_ev": {
+            "0.08": 1.3764324587451107,
+            "0.12": 1.1657864920488838,
+            "0.2": 1.034864461874203
+          }
+        },
+        {
+          "atom_index": 1,
+          "species": "Pt",
+          "l": 2,
+          "dos_ef_states_per_ev": {
+            "0.08": 0.22105833319421322,
+            "0.12": 0.21249894964524285,
+            "0.2": 0.24091188983053224
+          }
+        }
+      ]
+    },
+    {
+      "strain": 0.0,
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "mae_ev_cell": 0.0013109999999869615,
+      "report_sha256": "4cc6ed1fc2363aa6c39ca6ec7b86c9834296ac6d589d0275ebcab9ba43513caf",
+      "electronic_metadata_sha256": "dedc5958bb9d33841e783eee2234ec17a775debc2cb8cd11af00be5705095c1f",
+      "artifact_sha256": "552f6ed1efaf825d5347053c6a60f733595f573eca273ff0ab4ebc24c37b9160",
+      "groups": [
+        {
+          "atom_index": 0,
+          "species": "Fe",
+          "l": 2,
+          "dos_ef_states_per_ev": {
+            "0.08": 1.4886586864851696,
+            "0.12": 1.2001777168353158,
+            "0.2": 1.021747747843881
+          }
+        },
+        {
+          "atom_index": 1,
+          "species": "Pt",
+          "l": 2,
+          "dos_ef_states_per_ev": {
+            "0.08": 0.24628659149209448,
+            "0.12": 0.22614419761358762,
+            "0.2": 0.23844337866907211
+          }
+        }
+      ]
+    },
+    {
+      "strain": 0.02,
+      "source_sha256": "423ef0317d6b62151c423427da2b8cd76ea7134720057eadea20dda0fb18bb7f",
+      "mae_ev_cell": 0.0007519999999203719,
+      "report_sha256": "75760651d2c4e94035e6083af566ebb5bc4d8e1a463b96eb82b542f8e080201a",
+      "electronic_metadata_sha256": "a128b23ea4bc9fa903dfb1d48633732128bfa2a9a5918dbd09be8af4bef41dcf",
+      "artifact_sha256": "b575a4a1c021d7c34383c2185af85e58ec3a71f9a5e58e5002efb77fe1e0af85",
+      "groups": [
+        {
+          "atom_index": 0,
+          "species": "Fe",
+          "l": 2,
+          "dos_ef_states_per_ev": {
+            "0.08": 1.5354378586757882,
+            "0.12": 1.2081828612580243,
+            "0.2": 1.0078011622711665
+          }
+        },
+        {
+          "atom_index": 1,
+          "species": "Pt",
+          "l": 2,
+          "dos_ef_states_per_ev": {
+            "0.08": 0.2915013247347627,
+            "0.12": 0.24960038570060245,
+            "0.2": 0.24801382453693038
+          }
+        }
+      ]
+    }
+  ],
+  "conclusion": "The Fe d-DOS(E_F) increases with c strain at sigma 0.08/0.12 eV but decreases at 0.20 eV. A DOS-at-Fermi-level correlation is not a robust explanation of the MAE response.",
+  "limits": [
+    "Only three already observed training structures; no independent test of a descriptor model.",
+    "Signed Mulliken projections are basis dependent; native spectral agreement is not MAE or DOS sampling convergence.",
+    "A scalar DOS does not contain SOC transition matrix elements or uniquely identify an orbital mechanism."
+  ],
+  "physical_accuracy_qualified": false,
+  "mechanism_verified": false
+}

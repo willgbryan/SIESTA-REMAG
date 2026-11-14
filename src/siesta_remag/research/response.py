@@ -76,6 +76,7 @@ def fit(reference, reports):
         terms=['1','log(V/V0)','log((c/a)/(c/a)0)','log(V/V0)^2','log((c/a)/(c/a)0)^2'],
         observables=['energy_anisotropy_ev','free_energy_anisotropy_ev'],
         coefficients=coefficients.tolist(), reference=reference, training=sources, coordinates=points,
+        training_observations_ev=y.tolist(),
         training_residual_ev=(y-design@coefficients).tolist(), normalized_condition_number=float(singular[0]/singular[-1]),
         numerical_configuration=configs[0], physical_accuracy_qualified=False, mechanism_verified=False,
         scope='Geometric response hypothesis; mixed volume-shape term is unmeasured; no electronic mechanism or uncertainty inferred')
@@ -93,4 +94,22 @@ def predict(model, structure):
     return dict(format='REMAG-RESPONSE-PREDICTION/1', model_sha256=model['sha256'],
         source_sha256=structure['source']['sha256'], coordinates=point,
         **dict(zip(model['observables'], map(float, values))), uncertainty_ev=None,
+        numerical_configuration=model['numerical_configuration'],
         mechanism_verified=False, physical_accuracy_qualified=False)
+
+
+def baseline_predictions(model, structure):
+    """Constant, shape-only and volume-only fits to exactly the same outcomes."""
+    bound = predict(model, structure)  # verifies model and structural provenance
+    y = np.array(model['training_observations_ev'])
+    values = {'constant': y.mean(axis=0)}
+    for name, key in [('shape_only', 'log_c_over_a_ratio'), ('volume_only', 'log_volume_ratio')]:
+        x = np.array([p[key] for p in model['coordinates']])
+        scale = max(abs(x))
+        matrix = np.column_stack([np.ones(len(x)), x/scale, (x/scale)**2])
+        coef, _, rank, _ = np.linalg.lstsq(matrix, y, rcond=1e-10)
+        if rank != 3: raise ValueError('Baseline quadratic is not identifiable')
+        q = bound['coordinates'][key]/scale
+        values[name] = np.array([1,q,q*q])@coef
+    return {name: dict(model_sha256=model['sha256'], source_sha256=bound['source_sha256'],
+                      **dict(zip(model['observables'], map(float, row)))) for name,row in values.items()}
