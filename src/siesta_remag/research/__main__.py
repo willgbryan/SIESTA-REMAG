@@ -34,6 +34,13 @@ def main(argv=None):
     p = sub.add_parser('snapshot', help='Save a self-contained interactive workspace')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('convergence', help='Compare one numerical control using both E and F anisotropies')
+    p.add_argument('reports', type=Path, nargs='+')
+    p.add_argument('--varied', choices=('kmesh', 'grid', 'scf', 'basis', 'radial_extent', 'smearing'), required=True)
+    p.add_argument('--tolerance-ev', type=float, required=True)
+    p.add_argument('--successive-changes', type=int, default=2)
+    p.add_argument('--transverse-tolerance-ev', type=float)
+    p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
     if args.command == 'serve':
         from .workspace import serve
@@ -61,6 +68,14 @@ def main(argv=None):
         runtime = load(args.runtime)
         result = run_experiment(args.bundle, args.output, runtime['executable'], executable_sha256=runtime['executable_sha256'],
                                 runtime_env=runtime.get('environment', {}), threads=runtime.get('threads', 1))
+    elif args.command == 'convergence':
+        from .convergence import assess
+        if args.output.exists():
+            raise FileExistsError(args.output)
+        result = assess(args.reports, varied=args.varied, tolerance_ev=args.tolerance_ev,
+                        successive_changes=args.successive_changes,
+                        transverse_tolerance_ev=args.transverse_tolerance_ev)
+        save(args.output, result)
     elif args.command == 'snapshot':
         from .workspace import snapshot
         result = snapshot(args.workspace, args.output)
@@ -72,7 +87,8 @@ def main(argv=None):
         sampling = load(args.sampling)
         result = spectrum(args.hsx, sampling['kpoints'], sampling['weights'], args.output)
     print(json.dumps(result, indent=2, allow_nan=False))
-    return 2 if result.get('status', '').startswith('held') else 0
+    return 2 if (result.get('status', '').startswith('held') or
+                 result.get('observed_stability_passed') is False) else 0
 
 
 if __name__ == '__main__':

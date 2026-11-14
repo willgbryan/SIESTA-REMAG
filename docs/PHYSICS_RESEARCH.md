@@ -63,6 +63,23 @@ branches need explicit sensitivity studies and pristine-SIESTA comparison.
 
 ## Electronic diagnostics
 
+`convergence` compares measured reports while rejecting unrelated changes in
+source, executable, pseudopotentials, electronic settings or runtime environment.
+Both E[x]−E[z] and F[x]−F[z] must satisfy the declared tolerance for the required
+number of successive refinements. Runtime ceilings are not scientific settings.
+The output binds each input report hash and retains every observed change; passing
+is a numerical stability observation, not a certificate of physical accuracy.
+
+```sh
+python -m siesta_remag.research convergence k16/report.json k20/report.json k24/report.json \
+  --varied kmesh --tolerance-ev 0.00005 --successive-changes 2 \
+  --transverse-tolerance-ev 0.00001 --output kmesh-stability.json
+```
+
+The command returns status 2 when the declared stability criterion is not met.
+It refuses to overwrite an existing evaluation. Basis, radial extent, smearing,
+grid and SCF checks are separate controls; a k-mesh result cannot qualify them.
+
 `research.electronic` reconstructs Bloch H and S from the existing HSX v2 export
 and solves `H c = E S c`. It supports scalar, collinear and spinor layouts with
 the pinned upstream `diag3kp.F90` spatial/spin index convention. Lattice-gauge
