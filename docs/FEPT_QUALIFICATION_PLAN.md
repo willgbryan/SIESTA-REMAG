@@ -123,6 +123,15 @@ branch and overlap checks before the next app launches. All previous mesh,
 basis and radial outcomes remain unchanged. Dense common-mesh inputs will be
 registered after these timings and agreement results are reviewed.
 
+Two [pristine radial references at the common 24³ mesh](../tests/evidence/research/fept-radial24-reference-plan-r3-2026-11-14.json)
+are registered for the 62-orbital basis at 0.01 and 0.005 Ry. They run locally,
+one thread and one case at a time, with six hours per case and no cloud
+reservation. These references permit direct executable agreement checks for
+the changed radial bases. They are not themselves a complete radial ladder;
+the later REMAG comparison must include 0.0025 Ry at the same mesh and retain
+the original two-successive-refinement E/F criterion. Native or branch failure
+stops the local sequence without a retry or deadline extension.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
