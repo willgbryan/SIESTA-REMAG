@@ -47,18 +47,26 @@ remain explicitly scoped to those numerical settings.
 
 ## Additional local controls
 
-A [separate CPU plan](../tests/evidence/research/fept-local-controls-plan-2026-11-14.json)
-tests TZP versus DZP, radial confinement shift 0.01 versus 0.02 Ry, and electronic
-occupation temperature 150 versus 300 K. Each varies only its named control
-against the pristine 16³ reference, using the same 0.05 meV/cell E/F and
-0.01 meV/cell transverse thresholds. These are single-change sensitivity tests,
-not basis or zero-temperature extrapolations. They run sequentially on the
-existing local CPU and add no GPU reservation. The sealed strain models and
-their evaluations remain unchanged.
+The [separate CPU plan](../tests/evidence/research/fept-local-controls-plan-2026-11-14.json)
+completed all three [one-variable controls](../tests/evidence/research/fept-local-controls-evaluation-2026-11-14.json)
+against the pristine 16³ reference. These use the unchanged 0.05 meV/cell E/F
+and 0.01 meV/cell transverse thresholds. They ran sequentially on the existing
+local CPU and added no GPU reservation.
 
-The [completed TZP control](../tests/evidence/research/fept-basis-control-2026-11-14.json)
-gives E/F anisotropies of 2.735/2.625 meV/cell, changes of
-−0.126/−0.091 meV from DZP. Both exceed the declared threshold. All four native
-stages and the reference magnetic-branch comparison pass; x/y splits are zero
-at printed precision. Basis sensitivity therefore remains unresolved, at a scale
-larger than the 16³ mixed-target prediction errors.
+| Control | E (meV/cell) | F (meV/cell) | ΔE (meV/cell) | ΔF (meV/cell) |
+| --- | ---: | ---: | ---: | ---: |
+| Reference: DZP, 0.02 Ry, 300 K | 2.861 | 2.716 | — | — |
+| TZP | 2.735 | 2.625 | −0.126 | −0.091 |
+| Confinement shift 0.01 Ry | 2.666 | 2.579 | −0.195 | −0.137 |
+| Occupation temperature 150 K | 2.838 | 2.768 | −0.023 | +0.052 |
+
+Basis size and radial extent fail for both observables. The occupation control
+passes for E but misses the F threshold by 0.002 meV/cell; native printed
+precision matters near this boundary. The declared criterion is not adjusted.
+All twelve native stages and all reference magnetic-branch comparisons pass;
+x/y splits are zero at printed precision.
+
+These are finite sensitivity checks, not basis or zero-temperature
+extrapolations. Their changes exceed the 16³ mixed-target prediction errors,
+which cannot be interpreted as physical accuracy bounds. The sealed strain
+models remain unchanged, and the occupation temperature is not a spin temperature.
