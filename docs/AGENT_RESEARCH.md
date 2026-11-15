@@ -15,6 +15,12 @@ Paths are relative to the selected workspace and cannot escape it through
 absolute paths, parent traversal or symlinks. Arrays remain in hashed artifacts.
 The same operations are available through `ResearchTools(workspace).call(...)`.
 
+The [authoring handoff](AUTHORING_HANDOFF.md) adds `inspect_structure`,
+`author_structure` and `register_structure`. These save existing GPAC operations
+as exact candidates and pass their verified lineage into `prepare_query` via
+its optional `candidate` argument. The workspace can enable a small static
+candidate editor with `serve --editable`; it cannot launch calculations.
+
 For example, inspect a selected atom's near-Fermi d states:
 
 ```json

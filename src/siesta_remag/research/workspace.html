@@ -8,6 +8,7 @@
 @media(max-width:850px){header{margin:0 20px;height:85px}header small{display:none}main{padding:20px;grid-template-columns:1fr;gap:20px}.stage{height:55vh;min-height:320px}aside{padding-top:0}.strain{grid-row:2;grid-template-columns:90px 1fr 65px;gap:12px}.foot{margin:10px 20px 20px}.tabs{margin-top:10px}.panel{min-height:200px}h1{font-size:30px}.legend{font-size:12px;gap:16px}}
 .control-select{font-size:13px;padding:5px 0;width:100%;border:0;border-bottom:1px solid var(--line)}.observable{display:flex;justify-content:space-between;align-items:center}.quantity{display:flex;gap:3px}.quantity button{font-size:11px;padding:3px 8px}.ticks{position:relative;height:12px}.ticks span{position:absolute;transform:translateX(-50%)}.ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}
 .site-picker{flex-wrap:wrap;max-height:160px;overflow:auto}#dos-key{flex-wrap:wrap}
+.author-field{display:block;margin:12px 0;font-size:11px;color:var(--muted)}.author-field input,.author-field select{display:block;width:100%;padding:7px;margin-top:5px;color:var(--ink);background:var(--paper);border:1px solid var(--line)}#save-candidate{width:100%;font-size:12px}button:disabled{opacity:.5;cursor:default}
 </style>
 <header><h1>FePt</h1><small>GPAC × REMAG</small><div class="legend"><span><i class="dot"></i>Fe</span><span><i class="dot pt"></i>Pt</span></div><button id="refresh" title="Refresh calculations" aria-label="Refresh calculations">↻</button></header>
 <main>
@@ -26,6 +27,13 @@
 <label class="toggle"><input id="polyhedra" type="checkbox" checked>Coordination shell</label><label class="toggle"><input id="bonds" type="checkbox" checked>Connections</label>
 <details><summary>Distances</summary><div class="neighbor-list" id="neighbors"></div></details>
 <details id="parameter-details" hidden><summary>Parameters</summary><pre id="parameters"></pre></details><details id="feedback-details" hidden><summary>Relaxation changes</summary><pre id="feedback"></pre></details><details><summary>Exact source</summary><pre id="source"></pre></details><button id="download">Export structure ↓</button>
+<details id="author-controls" hidden><summary>New candidate</summary>
+<label class="author-field">Change<select id="author-operation"><option value="apply">Exact parameter</option><option value="physical-tetragonal">Tetragonal scale · fixed volume</option><option value="physical-isotropic">Uniform scale</option><option value="strain-0">a strain</option><option value="strain-1">b strain</option><option value="strain-2">c strain</option></select></label>
+<label class="author-field" id="author-parameter-field">Parameter<select id="author-parameter"></select></label>
+<label class="author-field">Exact value<input id="author-value" type="text" autocomplete="off" placeholder="101/100"></label>
+<label class="author-field">Name<input id="author-label" type="text" maxlength="100" value="New candidate"></label>
+<button id="save-candidate">Save candidate</button><p class="note" id="author-status" role="status">Creates a new authored structure. No calculation.</p>
+</details>
 </section>
 <section class="panel" id="response" role="tabpanel" aria-labelledby="tab-response" hidden>
 <span class="status" id="status">Awaiting DFT</span><select id="calculations" class="calc" aria-label="Calculation" hidden></select>
@@ -47,6 +55,7 @@
 'use strict';
 const $=s=>document.querySelector(s), ink='#25272e', gray='#a4aab4', pink='#ff0860';
 let data=null,index=0,familyId='axial',observable='total_energy_ev',site=1,rx=-.35,ry=.6,selectedCalc=null,drag=null,moved=false,hit=[],orbitSelection=null,spectrumStage=null,selectedK=null,selectedBand=null;
+let authoringBusy=false,authorSource=null;
 const canvas=$('#crystal'),ctx=canvas.getContext('2d');
 const family=()=>data.families?.find(f=>f.id===familyId)||{id:'axial',label:'c strain',hint:'Fixed a, b',rows:data.rows};
 const rows=()=>family().rows,row=()=>rows()[index],geo=()=>$('#observed').checked&&row().relaxation?row().relaxation.feedback.observation.observed:row().structure.geometry;
@@ -125,7 +134,26 @@ function updateStructureControls(){
  $('#observed-toggle').hidden=!r.relaxation;$('#feedback-details').hidden=!r.relaxation;$('#parameter-details').hidden=!r.parameters;$('#parameters').textContent=r.parameters?JSON.stringify(r.parameters.exact_parameters,null,2):'';
  if(r.relaxation){const f=r.relaxation.feedback;$('#feedback').textContent=JSON.stringify({max_displacement_angstrom:f.observation.max_nonaffine_displacement_angstrom,authored_operations_retained:f.symmetry.retained_count,operations_tested:f.symmetry.tested_count,coordination:f.coordination_changes.map(c=>({site:c.site_id.split(':').at(-1),lost:c.lost.length,gained:c.gained.length})),scope:f.symmetry.setting},null,2)}
  $('#selection-orbit').replaceChildren();const single=document.createElement('option');single.value='';single.textContent='Selected site';$('#selection-orbit').append(single);for(const o of r.structure.orbit_members){const option=document.createElement('option');option.value=o.id;option.textContent=o.label+' · '+symbol(o.z);$('#selection-orbit').append(option)}$('#selection-orbit').value=orbitSelection||'';
+ updateAuthoring();
 }
+function authorDefaults(){const op=$('#author-operation').value;$('#author-parameter-field').hidden=op!=='apply';$('#author-value').value=op==='apply'?(row().parameters?.exact_parameters.parameters[$('#author-parameter').value]||''):op.startsWith('strain-')?'1/100':'101/100';}
+function updateAuthoring(){
+ const enabled=data.authoring_enabled===true&&data.mode==='registered'&&!$('#observed').checked&&!$('#saved-state');$('#author-controls').hidden=!enabled;if(!enabled)return;
+ const r=row();if(authorSource!==r.structure.source.sha256){authorSource=r.structure.source.sha256;$('#author-parameter').replaceChildren();for(const [key,value] of Object.entries(r.parameters?.exact_parameters.parameters||{})){const option=document.createElement('option');option.value=key;option.textContent=key+' · '+value;$('#author-parameter').append(option)}authorDefaults();$('#author-status').textContent='Creates a new authored structure. No calculation.';}
+ $('#save-candidate').disabled=authoringBusy;
+}
+async function saveCandidate(){
+ if(authoringBusy||!data.authoring_enabled||$('#saved-state')||$('#observed').checked)return;
+ const value=$('#author-value').value.trim(),op=$('#author-operation').value,label=$('#author-label').value.trim(),r=row();
+ if(!/^[+-]?\d+(\/\d+)?$/.test(value)||!label){$('#author-status').textContent='Enter an exact integer or fraction and a name.';return;}
+ let request;if(op==='apply')request={op,changes:{[$('#author-parameter').value]:value},expected_space_sha256:r.parameters.exact_parameters.space_sha256};
+ else if(op.startsWith('strain-'))request={op:'physical-strain',axis:Number(op.slice(-1)),amount:value};else request={op,scale:value};
+ const payload={source_id:family().id,expected_source_sha256:r.structure.source.sha256,request,label};
+ authoringBusy=true;$('#save-candidate').disabled=true;$('#author-status').textContent='Saving…';
+ try{const response=await fetch('/api/author',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}),reply=await response.json();if(!response.ok||!reply.ok)throw Error(reply.error?.message||'Candidate could not be saved');familyId=reply.result.entry.id;authorSource=null;await load();$('#author-status').textContent='Saved '+reply.result.entry.label;}
+ catch(e){$('#author-status').textContent=e.message;}finally{authoringBusy=false;$('#save-candidate').disabled=false;}
+}
+$('#author-operation').onchange=authorDefaults;$('#author-parameter').onchange=authorDefaults;$('#save-candidate').onclick=saveCandidate;
 function updateStates(){
  const s=spectrum(),states=s?.states||[];$('#state-selection').hidden=!states.length;if(!states.length)return;
  const keys=[...new Set(states.map(r=>String(r.k_index)))];if(!keys.includes(selectedK))selectedK=keys[0];$('#k-select').replaceChildren();for(const key of keys){const r=states.find(v=>String(v.k_index)===key),o=document.createElement('option');o.value=key;o.textContent='k '+key+' · '+r.k_fractional.map(x=>x.toFixed(3)).join(', ');$('#k-select').append(o)}$('#k-select').value=selectedK;

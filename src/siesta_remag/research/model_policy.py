@@ -55,6 +55,14 @@ Electronic selection can use atom_indices, orbital_indices, l, k_indices and
 energy_window_ev; use catalog descriptions and returned metadata for conventions.
 structural_operation wraps a GPAC worker request under request, for example
 {\"request\":{\"op\":\"physical-dofs\",\"program\":\"<exact program text>\"}}.
+inspect_structure reads a saved structure path and returns its exact source and
+parameters. author_structure takes structure (parent export path), output (new
+directory), and request (a static GPAC edit with expected_sha256, no program).
+Its structure_path and candidate_path can feed prepare_query as structure and
+candidate, preserving parent lineage. register_structure takes structure,
+identifier, label and optional candidate to add the result to the local viewer.
+To author a root, author_structure can use an inspect request with exact program
+text, or a construct/assemble request with its validated recipe/document.
 Exact GPAC edits use rational strings and expected source hashes. Do not convert
 floating observations to exact authoring claims without an explicit policy.
 Choose chemistry, order, strain, local coordination, related structures or spin

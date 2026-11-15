@@ -19,11 +19,18 @@ from .queries import validate_query, directions, angular_fit
 
 
 def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
-                       basis_size='DZP', basis_energy_shift_ry=.02, parameter=None, basis_spec=None, query=None, soc_matrix=False):
+                       basis_size='DZP', basis_energy_shift_ry=.02, parameter=None, basis_spec=None, query=None, soc_matrix=False, candidate=None):
     """GPAC is optional at installation and required only at this authoring boundary."""
     from ase import Atoms
     from gpac.physical import verify_export
     verified = verify_export(export)
+    authorship = None
+    if candidate is not None:
+        from .authoring import verify_candidate
+        candidate = Path(candidate)
+        authorship = verify_candidate(candidate)
+        if authorship['source_sha256'] != verified['source']['sha256'] or authorship['export_sha256'] != verified['sha256']:
+            raise ValueError('Candidate lineage belongs to another prepared structure')
     selected_query = validate_query(query) if query is not None else None
     validate_soc_request(soc_matrix,selected_query)
     settings = settings or Settings()
@@ -38,6 +45,11 @@ def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     save(output/'structure.json', verified)
+    if authorship is not None:
+        (output/'authorship').mkdir()
+        for name in [candidate.name, *authorship['files']]:
+            shutil.copyfile(candidate.parent/name, output/'authorship'/name)
+        verify_candidate(output/'authorship/candidate.json')
     (output/'pseudos').mkdir()
     for name in pseudo_hashes:
         shutil.copyfile(Path(pseudos)/name, output/'pseudos'/name)
@@ -53,6 +65,9 @@ def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
     if basis_spec is not None: request['basis_spec'] = basis_spec
     if selected_query is not None: request['query'] = selected_query
     if soc_matrix: request['soc_matrix'] = True
+    if authorship is not None:
+        request['authorship'] = dict(candidate_sha256=sha256(output/'authorship/candidate.json'),
+            source_sha256=authorship['source_sha256'], parent_sha256=authorship['parent_sha256'])
     save(output/'experiment.json', request)
     return request
 
@@ -81,6 +96,16 @@ def verify_experiment(bundle):
     structure = load(bundle/'structure.json')
     if structure['sha256'] != request['export_sha256'] or structure['source']['sha256'] != request['source_sha256']:
         raise ValueError('Experiment source binding differs')
+    if 'authorship' in request:
+        # The prepared inventory binds every copied byte. Native execution
+        # needs no GPAC dependency: exact verification occurred at preparation.
+        author=load(bundle/'authorship/candidate.json')
+        expected=dict(candidate_sha256=sha256(bundle/'authorship/candidate.json'),
+            source_sha256=request['source_sha256'],parent_sha256=author['parent_sha256'])
+        if (request['authorship']!=expected or author['source_sha256']!=request['source_sha256']
+            or author['export_sha256']!=request['export_sha256']
+            or any(request['files'].get('authorship/'+name)!=h for name,h in author['files'].items())):
+            raise ValueError('Prepared candidate provenance differs')
     manifest = load(bundle/'scalar/manifest.json')
     if any(manifest.get(k) != request.get(k) for k in ['basis_spec', 'basis_size', 'basis_energy_shift_ry']):
         raise ValueError('Scalar and requested PAO basis differ')

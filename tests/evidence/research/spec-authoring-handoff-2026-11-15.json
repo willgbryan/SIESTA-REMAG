@@ -1,0 +1,80 @@
+{
+  "format": "REMAG-SPEC-IMPLEMENTATION-EVIDENCE/1",
+  "created_at": "2026-11-15T20:07:01.230230+00:00",
+  "scope": "Spec 4.4/6/8/10: exact structural authoring-to-query handoff and editable local workspace",
+  "implementation": [
+    "Existing GPAC static worker operations persisted as new exact candidate directories with parent snapshots and original lineage",
+    "Source, program, conversion and artifact verification before candidate preparation and registration",
+    "Candidate provenance copied into prepared query inventory; native execution does not require a new GPAC runtime dependency",
+    "Agent tools for inspect/author/register and candidate-aware preparation; scalar and physics authoring parity",
+    "Opt-in local exact parameter/strain/scale editor, registered-source guard and separate candidate results",
+    "Read-only snapshots; loopback Host, same-origin JSON, bounded request and static-operation restrictions"
+  ],
+  "tests": {
+    "broad": "278 passed in 59.24s: research/discovery",
+    "authoring": "17 new authoring/CLI/agent/HTTP/client checks included in the broad suite",
+    "http": "Two actual ephemeral loopback server tests passed with local socket permission; initial sandbox socket denials retained in spec-authoring-tests.log",
+    "client": "Shipped JavaScript executed against DOM/canvas stubs: exact input serialization, parent selection, errors, read-only and relaxed-view behavior"
+  },
+  "demonstration": {
+    "format": "REMAG-AUTHORING-HANDOFF-DEMO/1",
+    "created_at": "2026-11-15T20:06:12.741217+00:00",
+    "kind": "Deterministic engineering policy over actual GPAC and preparation tools; no model inference",
+    "steps": [
+      "inspect_structure",
+      "author_structure",
+      "register_structure",
+      "prepare_query"
+    ],
+    "session_report_sha256": "107c83536ea863af8c6b5fd56dca8bcdf4e5fcfbb0cbeddf1efa112daa73157a",
+    "parent_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+    "child_source_sha256": "81e75f111c7537ad4202f044582d2ebc10a3f9bb4dbf3ae1b475023351def854",
+    "candidate_sha256": "8e3028e5e38d5bf50d1a7ddbc1df27ab8a7469c760dc5b1f9c769b57fa7411b0",
+    "prepared_experiment_sha256": "72ea5e743d5cef46e25f072b71e677d915d4366be32b4ca9d4cfcf0cc37eac0b",
+    "authorship": {
+      "candidate_sha256": "8e3028e5e38d5bf50d1a7ddbc1df27ab8a7469c760dc5b1f9c769b57fa7411b0",
+      "source_sha256": "81e75f111c7537ad4202f044582d2ebc10a3f9bb4dbf3ae1b475023351def854",
+      "parent_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4"
+    },
+    "query": {
+      "kind": "scalar"
+    },
+    "mesh": [
+      6,
+      6,
+      6
+    ],
+    "snapshot_sha256": "287ee2b4913414a7452f1b7769d85ead8713ccb7ac870f09e9462d0735ef11cd",
+    "actual_model_api_calls": 0,
+    "actual_native_solver_calls": 0,
+    "actual_gpu_calls": 0,
+    "new_real_reservations_cents": 0,
+    "visual_rendering_verified": false,
+    "exploratory_default_calibrated": false,
+    "scientific_success_assessed": false
+  },
+  "actual_model_api_calls": 0,
+  "actual_gpu_calls": 0,
+  "actual_native_solver_calls": 0,
+  "new_real_reservations_cents": 0,
+  "qualification_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "gpac_frozen_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+  "limitations": [
+    "Visual browser rendering remains unverified; DOM/HTTP tests do not prove appearance",
+    "Saved example uses deterministic policy decisions, not live model inference",
+    "No native calculation, physical mechanism, exploratory default or latency target established",
+    "Motif selection/editing and query/response UI controls remain separate spec work"
+  ],
+  "implementation_files": {
+    "src/siesta_remag/research/authoring.py": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430",
+    "src/siesta_remag/research/tools.py": "f9fd26d0f7b392e3b0ef43a859512546905af842fd4e0619ca151e3870998d4d",
+    "src/siesta_remag/research/agent.py": "209f0cfbe71034a163250ff0d169f8271ce11c950f70e040145537a350b60bba",
+    "src/siesta_remag/research/catalog.py": "b44bec6b66fa15f0b9f7e41b1f4a03f3074b03fd76898e591340872ca4d9a286",
+    "src/siesta_remag/research/experiments.py": "bf42182a40fce853d34958bd6569f4b97463b19b0acc2a092e1a3eeca5958335",
+    "src/siesta_remag/research/workspace.py": "785814b580cbb741a5466d556e98ac7f48742ce8c7a9c2a3093ad29617965b52",
+    "src/siesta_remag/research/workspace.html": "cb937bcccbb9f6cd6b00774948efc405e154c0f37fcdc2ec75b56a08810d306e",
+    "src/siesta_remag/research/model_policy.py": "0b3629384ae97f0395e06651bd5e8efeeeea3a0098f5ca53cfc42176d67fa9ed",
+    "tests/test_research_authoring.py": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77",
+    "tests/fixtures/workspace_authoring_dom.cjs": "f4f69cd0c804cde6397e0fff79dcdfa302290169aa6df8108766030dc20fdd21"
+  }
+}

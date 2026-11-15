@@ -1,4 +1,4 @@
-"""Loopback-only read-only viewer over exact authored structures and saved results."""
+"""Loopback viewer with optional static authoring; viewing never runs a solver."""
 from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
@@ -114,31 +114,67 @@ def dataset(workspace):
                 element_symbols=chemical_symbols)
 
 
-def serve(workspace, port=8765):
+def make_server(workspace, port=8765, *, editable=False):
     workspace = Path(workspace).resolve()
     if not workspace.is_dir(): raise ValueError('Workspace directory must exist')
+    if editable and not (workspace/'workspace.json').exists():
+        raise ValueError('Editable mode requires an explicitly registered workspace')
     if not (workspace/'workspace.json').exists():authored_family()
     class Handler(BaseHTTPRequestHandler):
+        def local_host(self):
+            if self.headers.get('Host') not in self.server.allowed_hosts:
+                self.send_error(403,'Local workspace host required');return False
+            return True
+
+        def send_body(self,body,kind='application/json',status=200):
+            self.send_response(status)
+            self.send_header('Content-Type',kind)
+            self.send_header('Content-Length',str(len(body)))
+            self.send_header('Cache-Control','no-store')
+            self.send_header('X-Content-Type-Options','nosniff')
+            self.end_headers();self.wfile.write(body)
+
         def do_GET(self):
+            if not self.local_host():return
             if self.path == '/':
                 body, kind = Path(__file__).with_name('workspace.html').read_bytes(), 'text/html; charset=utf-8'
             elif self.path == '/api/state':
                 try:
-                    body = json.dumps(dataset(workspace), allow_nan=False).encode()
+                    body = json.dumps(dataset(workspace) | {'authoring_enabled':editable}, allow_nan=False).encode()
                 except Exception as exc:
                     self.send_error(500, type(exc).__name__); return
                 kind = 'application/json'
             else:
                 self.send_error(404); return
-            self.send_response(200)
-            self.send_header('Content-Type', kind)
-            self.send_header('Content-Length', str(len(body)))
-            self.send_header('Cache-Control', 'no-store')
-            self.send_header('X-Content-Type-Options', 'nosniff')
-            self.end_headers(); self.wfile.write(body)
+            self.send_body(body,kind)
+
+        def do_POST(self):
+            if not self.local_host():return
+            if self.path!='/api/author':self.send_error(404);return
+            if not editable:self.send_error(403,'Workspace is read-only');return
+            if self.headers.get('Origin')!='http://'+self.headers.get('Host',''):
+                self.send_error(403,'Same-origin workspace action required');return
+            length=self.headers.get('Content-Length','')
+            if (self.headers.get('Content-Type','').split(';')[0].strip()!='application/json'
+                or not 1<=len(length)<=5 or not length.isdecimal() or not 0<int(length)<=65536 or self.headers.get('Transfer-Encoding')):
+                self.send_error(400,'Expected bounded JSON request');return
+            try:
+                from .model_policy import loads
+                from .authoring import save_workspace_candidate
+                self.connection.settimeout(10)
+                result=save_workspace_candidate(workspace,loads(self.rfile.read(int(length))))
+                self.send_body(json.dumps(dict(ok=True,result=result),allow_nan=False).encode(),status=201)
+            except Exception as exc:
+                self.send_body(json.dumps(dict(ok=False,error=dict(type=type(exc).__name__,message=str(exc))),allow_nan=False).encode(),status=400)
 
         def log_message(self, *args): pass
     server = ThreadingHTTPServer(('127.0.0.1', port), Handler)
+    server.allowed_hosts={'127.0.0.1:'+str(server.server_port),'localhost:'+str(server.server_port)}
+    return server
+
+
+def serve(workspace, port=8765, *, editable=False):
+    server=make_server(workspace,port,editable=editable)
     print(f'Local: http://127.0.0.1:{server.server_port}', flush=True)
     try: server.serve_forever()
     finally: server.server_close()

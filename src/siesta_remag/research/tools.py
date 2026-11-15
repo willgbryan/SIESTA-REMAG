@@ -17,6 +17,12 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'inspect_structure': {'required':['structure'],'optional':['candidate'],
+        'description':'Read a verified exact physical export, editable parameters, coordination and optional saved candidate lineage; no calculation.'},
+    'author_structure': {'required':['request','output'],'optional':['structure'],
+        'description':'Save a new exact candidate and physical export from a static GPAC worker operation. Edits use a saved parent structure and expected_sha256; returned structure_path can feed prepare_query.'},
+    'register_structure': {'required':['structure','identifier','label'],'optional':['candidate'],
+        'description':'Append a verified exact structure to the local workspace viewer; never replaces existing entries or calculations.'},
     'record_response_prediction': {'required':['experiment_id','observable','target','value'], 'optional':['uncertainty','interval_probability'],
         'description':'Freeze a baseline/intervention anisotropy or signed projected spectral response definition and prediction before any experiment outcome.'},
     'record_response_outcome': {'required':['experiment_id','observable','before','after'], 'optional':[],
@@ -53,7 +59,7 @@ TOOLS = {
     'structural_operation': {'required': ['request'], 'optional': [],
         'description': 'Use the existing GPAC typed JSON worker for exact inspection, authoring and modification.'},
     'prepare_query': {'required': ['structure', 'pseudos', 'output', 'query'],
-        'optional': ['settings', 'mesh', 'basis_size', 'basis_energy_shift_ry', 'basis_spec', 'parameter','soc_matrix'],
+        'optional': ['settings', 'mesh', 'basis_size', 'basis_energy_shift_ry', 'basis_spec', 'parameter','soc_matrix','candidate'],
         'description': 'Prepare scalar, selected-direction or angular work; does not execute or reserve compute.'},
     'record_hypothesis': {'required': ['statement', 'predictions', 'alternatives'], 'optional': [],
         'description': 'Record a testable hypothesis and competing explanations in durable research memory.'},
@@ -245,9 +251,22 @@ class ResearchTools:
         if name == 'structural_operation':
             from gpac.worker import handle_request
             return handle_request(args['request'])
+        if name == 'inspect_structure':
+            from .authoring import inspect_structure
+            return inspect_structure(self.path(args['structure']),candidate=self.path(args['candidate']) if 'candidate' in args else None)
+        if name == 'author_structure':
+            from .authoring import author_candidate
+            output=self.path(args['output'])
+            record=author_candidate(args['request'],output,structure=self.path(args['structure']) if 'structure' in args else None)
+            return dict(candidate=record,candidate_path=str((output/'candidate.json').relative_to(self.root)),
+                        structure_path=str((output/'structure.json').relative_to(self.root)))
+        if name == 'register_structure':
+            from .authoring import register_structure
+            return register_structure(self.root,**args)
         if name == 'prepare_query':
             from ..discovery.config import Settings
             options = {k:v for k,v in args.items() if k not in ('structure','pseudos','output','settings')}
+            if 'candidate' in options:options['candidate']=self.path(options['candidate'])
             options['settings'] = Settings.from_dict(args.get('settings',{}))
             return prepare_experiment(load(self.path(args['structure'])), self.path(args['pseudos']),
                                       self.path(args['output']), **options)

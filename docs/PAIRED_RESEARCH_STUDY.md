@@ -15,8 +15,10 @@ the operator must account for its acquisition cost when designing a real
 equal-compute study.
 
 This is protocol isolation, not an OS sandbox. Policy commands are trusted local
-programs. Their external data access, hidden model context, prior knowledge and
-service use are not audited by this runner. A registration or green test suite
+programs. Their external data access, hidden model context and prior knowledge
+are not audited by this runner. The supplied model adapter records its own
+service requests and usage; arbitrary external policies need their own records.
+A registration or green test suite
 does not prove blinding or empirical equal compute.
 
 ## Register before running either arm

@@ -69,28 +69,40 @@ def electronic_view(path, expected_hsx, atom_count):
         sampling=meta.get('sampling'),occupations_model=meta['occupations_model'],spin_frame=meta['spin_frame'])
 
 
+def load_catalog(root):
+    manifest=load(Path(root)/'workspace.json')
+    if (manifest.get('format')!='REMAG-RESEARCH-WORKSPACE/1' or set(manifest)-{'format','title','structures'} or
+        not isinstance(manifest.get('title'),str) or not 1<=len(manifest['title'])<=100 or
+        not isinstance(manifest.get('structures'),list) or not 1<=len(manifest['structures'])<=64):
+        raise ValueError('Expected a titled workspace with 1..64 registered structures')
+    ids=set()
+    for entry in manifest['structures']:
+        if (not isinstance(entry,dict) or set(entry)-{'id','label','structure','calculations','relaxation','candidate'} or
+            not {'id','label','structure'}<=set(entry) or not all(isinstance(entry[k],str) and 1<=len(entry[k])<=100 for k in ['id','label']) or entry['id'] in ids):
+            raise ValueError('Workspace structures need distinct identifiers, labels and source paths')
+        ids.add(entry['id'])
+    return manifest
+
+
 def registered_dataset(root):
     from ase.data import chemical_symbols
     from gpac.physical import verify_export,coordination,describe_dofs
     from .tools import ResearchTools,_verified_report
     from .workspace import comparison_key
     from .relaxation import inspect_relaxation
+    from .authoring import verify_candidate
     root=Path(root).resolve();resolver=ResearchTools(root)
-    manifest=load(root/'workspace.json')
-    if (manifest.get('format')!='REMAG-RESEARCH-WORKSPACE/1' or set(manifest)-{'format','title','structures'} or
-        not isinstance(manifest.get('title'),str) or not 1<=len(manifest['title'])<=100 or
-        not isinstance(manifest.get('structures'),list) or not 1<=len(manifest['structures'])<=64):
-        raise ValueError('Expected a titled workspace with 1..64 registered structures')
-    families=[];ids=set()
+    manifest=load_catalog(root);families=[]
     for entry in manifest['structures']:
-        if (not isinstance(entry,dict) or set(entry)-{'id','label','structure','calculations','relaxation'} or
-            not {'id','label','structure'}<=set(entry) or not all(isinstance(entry[k],str) and 1<=len(entry[k])<=100 for k in ['id','label']) or entry['id'] in ids):
-            raise ValueError('Workspace structures need distinct identifiers, labels and source paths')
-        ids.add(entry['id']);export=verify_export(load(resolver.path(entry['structure'])))
+        export=verify_export(load(resolver.path(entry['structure'])))
         if len(export['geometry']['site_ids'])>256:raise ValueError('Interactive structures are bounded to 256 sites')
-        row=dict(strain=0,exact_strain='0',label=entry['label'],structure=export,
+        row=dict(strain=0,exact_strain='0',label=entry['label'],structure=export,structure_path=entry['structure'],
             coordination=coordination(export['geometry'],cutoff_angstrom=3.4),
             parameters=describe_dofs(export['source']['program']),calculations=[],result=None)
+        if 'candidate' in entry:
+            row['candidate']=verify_candidate(resolver.path(entry['candidate']))
+            if row['candidate']['source_sha256']!=export['source']['sha256']:
+                raise ValueError('Candidate lineage belongs to another displayed structure')
         calculations=entry.get('calculations',[])
         if not isinstance(calculations,list) or len(calculations)>32:raise ValueError('At most 32 calculations per structure')
         for item in calculations:

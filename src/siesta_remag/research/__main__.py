@@ -91,6 +91,7 @@ def main(argv=None):
     p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
     p.add_argument('--query', type=Path, help='Scalar, selected SOC directions or angular query JSON')
     p = sub.add_parser('prepare', help='Prepare a physical query for any GPAC-PHYSICAL/1 structure')
+    p.add_argument('--candidate',type=Path,help='Verified candidate.json provenance to preserve in the prepared bundle')
     p.add_argument('--soc-matrix', action='store_true', help='Request native off-site SOC operator on SOC stages; host nonlocal H0 required')
     p.add_argument('structure', type=Path)
     p.add_argument('--pseudos', type=Path, required=True)
@@ -108,6 +109,7 @@ def main(argv=None):
     p = sub.add_parser('serve', help='Open local scientific workspace')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--port', type=int, default=8765)
+    p.add_argument('--editable',action='store_true',help='Enable static candidate authoring in a registered local workspace; no calculations')
     p = sub.add_parser('electronic', help='Export orbital-resolved spectra from HSX')
     p.add_argument('hsx', type=Path)
     p.add_argument('--sampling', type=Path, required=True, help='JSON kpoints (reciprocal fractional) and normalized weights')
@@ -169,7 +171,7 @@ def main(argv=None):
         return 0 if result['status']=='measured' else 2
     if args.command == 'serve':
         from .workspace import serve
-        serve(args.workspace, args.port)
+        serve(args.workspace, args.port, editable=args.editable)
         return 0
     if args.command == 'soc-matrices':
         from .soc import export_soc
@@ -189,7 +191,7 @@ def main(argv=None):
         result = prepare_experiment(load(args.structure), args.pseudos, args.output,
             settings=Settings.from_dict(load(args.settings) if args.settings else {}), mesh=args.mesh,
             basis_size=args.basis, basis_spec=load(args.basis_spec) if args.basis_spec else None,
-            basis_energy_shift_ry=args.basis_energy_shift_ry, query=load(args.query),soc_matrix=args.soc_matrix)
+            basis_energy_shift_ry=args.basis_energy_shift_ry, query=load(args.query),soc_matrix=args.soc_matrix,candidate=args.candidate)
     elif args.command == 'fept':
         from gpac.physical import fept_reference, strain, export_geometry
         p = fept_reference()
