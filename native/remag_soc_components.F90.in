@@ -1,0 +1,31 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_soc_components
+  use iso_c_binding, only: c_double
+  use, intrinsic :: ieee_arithmetic, only: ieee_is_finite
+  implicit none
+  private
+  public :: remag_soc_components
+contains
+  subroutine remag_soc_components(off,h,status)
+    ! Pinned setup_hamiltonian.F spin encoding. Remove only the spin trace
+    ! of the NONLOCAL pseudopotential, never the total SCF Hamiltonian.
+    complex(c_double),intent(in) :: off(:,:)
+    real(c_double),intent(out) :: h(:,:)
+    integer,intent(out) :: status
+    complex(c_double) :: z
+    integer :: i
+    status=1
+    if(size(off,2)/=4.or.size(h,2)/=8.or.size(off,1)/=size(h,1))return
+    if(.not.all(ieee_is_finite(real(off,c_double))).or. &
+       .not.all(ieee_is_finite(aimag(off))))return
+    do i=1,size(off,1)
+      z=0.5_c_double*off(i,1)-0.5_c_double*off(i,2)
+      h(i,1)=real(z,c_double); h(i,5)=aimag(z)
+      h(i,2)=-h(i,1); h(i,6)=-h(i,5)
+      h(i,3)=real(off(i,3),c_double); h(i,4)=aimag(off(i,3))
+      h(i,7)=real(off(i,4),c_double); h(i,8)=-aimag(off(i,4))
+    enddo
+    if(.not.all(ieee_is_finite(h)))return
+    status=0
+  end subroutine
+end module

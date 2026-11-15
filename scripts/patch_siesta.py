@@ -1864,6 +1864,7 @@ def patch(source: Path):
     patch_initialization(source)
     patch_density_history(source)
     patch_orientations(source)
+    patch_soc_export(source)
     with (source / "CMakeLists.txt").open("a") as f:
         f.write('''
 # REMAG integration; reference source is built separately and remains unmodified.
@@ -1886,7 +1887,23 @@ target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_po
 target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_history.F90)
 target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_orientations.F90)
 target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_force.F90)
+target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_soc_components.F90)
+target_sources(SIESTA.libsiesta PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Src/remag_soc_export.F90)
 ''')
+
+def patch_soc_export(source):
+    """Opt-in native nonlocal SOC operator; no new SCF or default output."""
+    for name in ('remag_soc_components', 'remag_soc_export'):
+        template=Path(__file__).resolve().parent/'native'/f'{name}.F90.in'
+        if not template.exists():template=Path(__file__).resolve().parent.parent/'native'/f'{name}.F90.in'
+        (source/'Src'/f'{name}.F90').write_text(template.read_text())
+    path=source/'Src/siesta_analysis.F90';text=path.read_text()
+    text=replace_once(text,'      use dm_charge_m, only: dm_charge\n',
+        '      use dm_charge_m, only: dm_charge\n      use m_remag_soc_export, only: remag_write_soc\n')
+    # Geometry has been restored to the final electronic geometry above.
+    anchor='      if (fdf_get("Read-H-from-file", .false.)) then\n'
+    text=replace_once(text,anchor,'      call remag_write_soc()\n\n'+anchor)
+    path.write_text(text)
 
 def patch_density_history(source):
     """Keep converged densities and geometry extrapolation on the device."""

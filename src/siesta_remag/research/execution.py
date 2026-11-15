@@ -156,6 +156,14 @@ def _review(attempt, request, runtime):
                and all(s['accepted'] and s.get('branch',{}).get('passed',True) for s in report['stages']))
     spectra = []
     if healthy:
+        if request.get('soc_matrix',False):
+            expected_soc={s['stage'] for s in report['stages'] if s['stage']!='scalar'}
+            if not expected_soc or report.get('soc_operator_checks')!={s:{'native_pair_verified':True} for s in expected_soc}:
+                raise ValueError('Requested native SOC operator checks are missing')
+            for stage in expected_soc:
+                if any(not re.fullmatch('[0-9a-f]{64}',report['artifacts'].get(stage+'/'+name,''))
+                       for name in ('remag.SOC.HSX','remag.SOC.json')):
+                    raise ValueError('Requested native SOC operator artifacts are missing')
         from .inspection import load_spectrum
         for selected in policy.get('spectra',[]):
             stage,spin=selected['stage'],selected['spin']
@@ -203,6 +211,8 @@ review. Disappearing local sessions never count as allocation release.
     root = Path(workspace).resolve(); plan = read_execution_config(root,execution_config); c = plan['config']
     bundle = _path(root,str(bundle)); output = _path(root,str(output))
     request = verify_experiment(bundle); settings = Settings.from_dict(request['settings'])
+    from .experiments import validate_soc_request
+    validate_soc_request(request.get('soc_matrix',False),request.get('query'),plan['runtime'].get('environment',{}))
     spectra = requested_spectra(request.get('query',{'kind':'anisotropy'}),[] if spectra is None else spectra)
     if settings.total_dft_seconds+60 > c['app_timeout_seconds']:
         raise ValueError('Query native ceiling does not fit the authorized app deadline')

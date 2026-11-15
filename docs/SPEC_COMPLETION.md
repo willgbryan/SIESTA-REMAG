@@ -13,7 +13,7 @@ tests or marked complete merely because the interface exists.
 | §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameters, volume/shape/axial and local coordination/displacement controls, full lineage | Broader coupled constraints and informative proposal assessment |
 | §§4.3, 6 reverse observations | Integrated relaxation preparation/feedback, site/orbit motion, neighbor changes, authored-operation residuals | Broader motif classification and changed-cell/atom-count correspondence; maximal symmetry remains unassessed |
 | §§4.4, 8–9 research tools | Python/worker tools, immutable notebook, bounded policy-driven sessions, operator-enabled single-query execution/collection/shutdown/review | Live authorized execution integration and an actual research-policy demonstration |
-| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selected-k eigenvectors/reconstructed density, native density and onsite orbital moments, Löwdin coupling blocks, same-basis state/subspace correspondence, selectable Mulliken/spin inspection, native moments/forces/stress | Isolated SOC operators; changed-basis correspondence and empirical mechanism tests |
+| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selected-k eigenvectors/reconstructed density, native density and onsite orbital moments, opt-in host nonlocal SOC operator/state projections, Löwdin coupling blocks, same-basis state/subspace correspondence, selectable Mulliken/spin inspection, native moments/forces/stress | Full-application SOC export validation and device-H0 ownership adapter; changed-basis correspondence and empirical mechanism tests |
 | §§5.3–5.4 response/anisotropy | Finite differences, response fits, scalar/selected-direction/angular queries, one-plane K1/K2 and branch checks | Broader structural/electronic response orchestration |
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
 | §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
@@ -96,6 +96,13 @@ approximate-to-exact methods are deferred unless needed for a concrete query.
   separately; shared evidence is graded after both finish. Audits retain costs,
   failures and missing predictions. Equal declared limits do not establish
   measured equal GPU consumption or a scientific advantage.
+
+- 15 November: [native nonlocal SOC diagnostics](NATIVE_SOC.md) add an opt-in
+  producer for retained host H0 and checked selected-state projections. Spin
+  trace removal excludes the scalar nonlocal part without confusing total-H
+  exchange changes with SOC. Compiled component/adapter tests and synthetic
+  query/CLI/agent controls pass. Full-application build and measured production
+  export remain unverified; no saved result or compute authorization changes.
 
 Scientific status remains in `FEPT_QUALIFICATION_PLAN.md`; it is separate from
 this implementation checklist. No claim of verified mechanisms, transferable

@@ -1,0 +1,53 @@
+! SPDX-License-Identifier: GPL-3.0-or-later
+module m_remag_soc_export
+  implicit none
+  private
+  public :: remag_write_soc
+contains
+  subroutine remag_write_soc()
+    use precision, only: dp
+    use fdf, only: fdf_get
+    use parallel, only: Nodes
+    use m_spin, only: spin
+    use sparse_matrices, only: H_2D,S_1D,H_so_off_2D
+    use class_dSpData2D, only: dSpData2D,newdSpData2D,val,spar,dist,delete
+    use class_zSpData2D, only: val
+    use io_hsx_m, only: write_hsx
+    use kpoint_scf_m, only: kpoint_scf
+    use atomlist, only: qtot
+    use siesta_options, only: temp
+    use m_energies, only: ef
+    use files, only: slabel
+    use sys, only: die
+    use m_remag_nonlocal_force, only: remag_nonlocal_h0_enabled,remag_nonlocal_h0_poison_enabled
+    use m_remag_soc_components, only: remag_soc_components
+    type(dSpData2D) :: soc
+    real(dp),pointer :: values(:,:)
+    complex(dp),pointer :: off(:,:)
+    integer :: status,unit
+    if(.not.fdf_get('REMAG.WriteSOCMatrix',.false.))return
+    if(Nodes/=1.or..not.spin%SO_offsite.or.spin%H/=8) &
+      call die('REMAG SOC export requires serial off-site SOC')
+    if(remag_nonlocal_h0_enabled()==1.or.remag_nonlocal_h0_poison_enabled()==1) &
+      call die('REMAG SOC export requires retained host nonlocal H0')
+    if(fdf_get('Read-H-from-file',.false.)) &
+      call die('REMAG SOC export cannot bind an externally supplied H')
+    off=>val(H_so_off_2D)
+    if(.not.associated(off))call die('REMAG SOC export has no native nonlocal matrix')
+    call newdSpData2D(spar(H_2D),8,dist(H_2D),soc,name='REMAG spin-dependent nonlocal operator')
+    values=>val(soc)
+    call remag_soc_components(off,values,status)
+    if(status/=0)call die('REMAG SOC export has invalid native nonlocal components')
+    call write_hsx(soc,S_1D,ef,qtot,temp,kpoint_scf,prec=dp,extension='SOC.HSX')
+    call delete(soc)
+    open(newunit=unit,file=trim(slabel)//'.SOC.json',status='replace',action='write',iostat=status)
+    if(status/=0)call die('REMAG SOC metadata open failed')
+    write(unit,'(a)',iostat=status) &
+      '{"format":"REMAG-NATIVE-SOC/1","operator":"spin-traceless-offsite-nonlocal",'// &
+      '"producer":"pinned-setup_hamiltonian.F","host_nonlocal_h0":true,'// &
+      '"spin_components":8,"unit":"Ry","encoding":"native-HSX-v2"}'
+    if(status/=0)call die('REMAG SOC metadata write failed')
+    close(unit,iostat=status)
+    if(status/=0)call die('REMAG SOC metadata close failed')
+  end subroutine
+end module

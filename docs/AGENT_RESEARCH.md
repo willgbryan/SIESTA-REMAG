@@ -213,3 +213,10 @@ for the bounded query and cleanup, then preserves the same intent/result flow.
 A failed native execution ends the session. The configuration fixes the existing
 budget stage and runtime; the policy cannot supply or enlarge them. See
 [execution configuration, ownership and latency](RESEARCH_EXECUTION.md).
+
+
+The physics profile also exposes `export_soc_matrices` for the separately
+produced [native nonlocal SOC operator](NATIVE_SOC.md). `prepare_query` accepts
+an explicit `soc_matrix: true` option for SOC stages with retained host H0.
+These tools neither grant compute nor fabricate operators from saved total H.
+The scalar comparison profile rejects this diagnostic.

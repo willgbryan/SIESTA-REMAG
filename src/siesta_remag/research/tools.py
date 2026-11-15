@@ -25,6 +25,8 @@ TOOLS = {
         'description':'Score all selected predictions by observable: error, resolved sign and interval coverage; retain failed/pending cases and do not certify blinding or research advantage.'},
     'run_prepared_query': {'required':['bundle','output'],'optional':['spectra'],
         'description':'Execute one prepared REMAG query through the existing single-GPU budget/account guards, collect, stop the owned app and review. Requires operator-enabled execution configuration.'},
+    'export_soc_matrices': {'required':['report','stage','native_directory','output'], 'optional':['collection','k_indices'],
+        'description':'Project a verified native spin-dependent nonlocal SOC operator into selected self-consistent states; not total MAE.'},
     'export_orbital_moments': {'required':['report','stage','native_directory','output'], 'optional':['collection'],
         'description':'Inspect native-density orbital/atom moments using the pinned onsite approximation and final printed-table check; no solver run.'},
     'export_electronic_matrices': {'required':['report','stage','native_directory','output'],
@@ -51,7 +53,7 @@ TOOLS = {
     'structural_operation': {'required': ['request'], 'optional': [],
         'description': 'Use the existing GPAC typed JSON worker for exact inspection, authoring and modification.'},
     'prepare_query': {'required': ['structure', 'pseudos', 'output', 'query'],
-        'optional': ['settings', 'mesh', 'basis_size', 'basis_energy_shift_ry', 'basis_spec', 'parameter'],
+        'optional': ['settings', 'mesh', 'basis_size', 'basis_energy_shift_ry', 'basis_spec', 'parameter','soc_matrix'],
         'description': 'Prepare scalar, selected-direction or angular work; does not execute or reserve compute.'},
     'record_hypothesis': {'required': ['statement', 'predictions', 'alternatives'], 'optional': [],
         'description': 'Record a testable hypothesis and competing explanations in durable research memory.'},
@@ -70,7 +72,7 @@ TOOLS = {
 }
 
 ELECTRONIC_TOOLS=frozenset({'inspect_electronic_structure','projected_dos','compare_electronic_states',
-    'export_electronic_matrices','compare_electronic_matrices','export_orbital_moments'})
+    'export_electronic_matrices','compare_electronic_matrices','export_orbital_moments','export_soc_matrices'})
 STANDARD_OBSERVATIONS=frozenset({'total_energy_ev','free_energy_ev','forces_ev_ang','stress_ev_ang3',
     'atom_moments_muB','total_moment_muB','scf_iterations','spin_components'})
 
@@ -169,6 +171,7 @@ class ResearchTools:
             raise ValueError('Unknown tool or invalid arguments')
         if self.information_profile=='scalar':
             if name in ELECTRONIC_TOOLS:raise ValueError('Electronic diagnostics are unavailable in the scalar profile')
+            if name=='prepare_query' and args.get('soc_matrix',False):raise ValueError('Scalar profile cannot request SOC diagnostics')
             if name=='run_prepared_query' and 'spectra' in args:raise ValueError('Scalar profile cannot request spectra')
             if name=='record_response_outcome' and any(isinstance(args.get(k),dict) and 'spectrum' in args[k] for k in ('before','after')):
                 raise ValueError('Electronic outcomes are unavailable to the scalar policy; use the separate evaluator')
@@ -187,10 +190,16 @@ class ResearchTools:
             if self.execution_config is None:
                 raise ValueError('Native execution is not enabled by the operator')
             from .execution import execute_query
+            if self.information_profile=='scalar' and load(self.path(args['bundle'])/'experiment.json').get('soc_matrix',False):
+                raise ValueError('Scalar profile cannot request SOC diagnostics')
             result=execute_query(self.root,self.execution_config,self.path(args['bundle']),self.path(args['output']),spectra=args.get('spectra'))
             if self.information_profile=='scalar' and 'review' in result:
                 result['review']['observations']=self._observations(result['review']['observations'])
             return result
+        if name == 'export_soc_matrices':
+            from .soc import export_soc
+            return export_soc(self.path(args['report']),args['stage'],self.path(args['native_directory']),self.path(args['output']),
+                collection=self.path(args['collection']) if 'collection' in args else None,k_indices=args.get('k_indices'))
         if name == 'export_orbital_moments':
             from .orbital_moments import export_orbital_moments
             return export_orbital_moments(self.path(args['report']), args['stage'], self.path(args['native_directory']),

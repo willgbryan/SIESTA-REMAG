@@ -97,7 +97,9 @@ agent export/comparison and rejection of changed PAOs, failed branches,
 tampering and native eigenvalue disagreement. A saved 62-orbital FePt example
 uses three of 13,824 SOC k points and both z/x directions, without solver work.
 
-Isolated SOC matrix exports, general nonorthogonal orbital-moment operators,
-changed-basis state correspondence and perturbative/force-theorem comparisons remain separate
-implementation work. No orbital mechanism or empirical research advantage is
+The separate [native SOC adapter](NATIVE_SOC.md) supplies opt-in spin-dependent
+nonlocal operators when retained host H0 is available. Historical total-H
+exports do not contain that isolated operator. Full-application SOC validation,
+general orbital-magnetization operators, changed-basis correspondence and
+perturbative/force-theorem comparisons remain separate work. No orbital mechanism or empirical research advantage is
 established by this diagnostic interface alone.

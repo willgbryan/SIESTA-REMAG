@@ -69,7 +69,9 @@ def pseudos_for(atoms, directory, *, allow_psf=False):
 
 def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=None,
                  spins=None, relax=False, restart=False, allow_psf=False,
-                 basis_size='DZP', basis_energy_shift_ry=0.02, diagnostics=False, basis_spec=None):
+                 basis_size='DZP', basis_energy_shift_ry=0.02, diagnostics=False, basis_spec=None, soc_matrix=False):
+    if type(soc_matrix) is not bool or (soc_matrix and direction is None):
+        raise ValueError('SOC matrix export requires an SOC direction')
     validate_atoms(atoms, settings)
     destination = Path(destination)
     hashes = pseudos_for(atoms, pseudos, allow_psf=allow_psf)
@@ -142,6 +144,8 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
         lines += ['WriteOrbMom true']
     if diagnostics:
         lines += ['WriteKpoints true']
+    if soc_matrix:
+        lines += ['REMAG.WriteSOCMatrix true']
     destination.mkdir(parents=True, exist_ok=False)
     for name in hashes:
         shutil.copyfile(Path(pseudos) / name, destination / name)
@@ -154,5 +158,6 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
                     geometry_sha256=digest(geometry(atoms)), basis_size=basis_size,
                     basis_energy_shift_ry=basis_energy_shift_ry, diagnostics=diagnostics)
     if basis_spec is not None: manifest['basis_spec'] = basis_spec
+    if soc_matrix: manifest['soc_matrix'] = True
     save(destination / 'manifest.json', manifest)
     return destination

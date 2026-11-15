@@ -19,12 +19,13 @@ from .queries import validate_query, directions, angular_fit
 
 
 def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
-                       basis_size='DZP', basis_energy_shift_ry=.02, parameter=None, basis_spec=None, query=None):
+                       basis_size='DZP', basis_energy_shift_ry=.02, parameter=None, basis_spec=None, query=None, soc_matrix=False):
     """GPAC is optional at installation and required only at this authoring boundary."""
     from ase import Atoms
     from gpac.physical import verify_export
     verified = verify_export(export)
     selected_query = validate_query(query) if query is not None else None
+    validate_soc_request(soc_matrix,selected_query)
     settings = settings or Settings()
     g = verified['geometry']
     atoms = Atoms(numbers=g['atomic_numbers'], scaled_positions=g['fractional'], cell=g['cell'], pbc=True)
@@ -51,8 +52,16 @@ def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
         files={str(p.relative_to(output)): sha256(p) for p in sorted(output.rglob('*')) if p.is_file()})
     if basis_spec is not None: request['basis_spec'] = basis_spec
     if selected_query is not None: request['query'] = selected_query
+    if soc_matrix: request['soc_matrix'] = True
     save(output/'experiment.json', request)
     return request
+
+
+def validate_soc_request(enabled,query=None,environment=None):
+    if type(enabled) is not bool or (enabled and query is not None and query['kind']=='scalar'):
+        raise ValueError('SOC matrix export requires a boolean and a query with SOC stages')
+    if enabled and any((environment or {}).get(k)=='1' for k in ('REMAG_NONLOCAL_H0','REMAG_NONLOCAL_H0_POISON_HOST')):
+        raise ValueError('SOC matrix export requires retained host nonlocal H0')
 
 
 def verify_experiment(bundle):
@@ -62,6 +71,7 @@ def verify_experiment(bundle):
         raise ValueError('Expected a fixed-geometry REMAG experiment')
     if 'query' in request:
         validate_query(request['query'])
+    validate_soc_request(request.get('soc_matrix',False),request.get('query'))
     actual = {str(p.relative_to(bundle)) for p in bundle.rglob('*') if p.is_file()} - {'experiment.json'}
     if actual != set(request['files']):
         raise ValueError('Experiment file inventory differs')
@@ -96,6 +106,7 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
         raise ValueError('Executable checksum mismatch')
     settings = Settings.from_dict(request['settings'])
     env = {k: v for k, v in os.environ.items() if k.startswith('REMAG_')} | dict(runtime_env or {})
+    validate_soc_request(request.get('soc_matrix',False),request.get('query'),env)
     code = experiment_code()
     identity = digest(dict(request=request, executable_sha256=executable_sha256, environment=env, threads=threads, code=code))
     started = time.monotonic()
@@ -138,6 +149,10 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
             if not review['accepted']:
                 report['status'] = 'held_'+label
                 return None
+            if axis is not None and request.get('soc_matrix',False):
+                from .soc import validate_native_soc
+                validate_native_soc(output/label)
+                report.setdefault('soc_operator_checks',{})[label]={'native_pair_verified':True}
             if request.get('basis_spec') is not None:
                 from .basis import audit_native_basis
                 audit = audit_native_basis(output/label, request['basis_spec'], atoms.get_chemical_symbols())
@@ -166,7 +181,7 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
                     mesh=request['kmesh'], direction=axis, spins=np.array(scalar['atom_moments_muB'])[:, 2],
                     restart=True, allow_psf=True, basis_size=request['basis_size'],
                     basis_energy_shift_ry=request['basis_energy_shift_ry'], diagnostics=True,
-                    basis_spec=request.get('basis_spec'))
+                    basis_spec=request.get('basis_spec'),soc_matrix=request.get('soc_matrix',False))
                 obs = run('soc-'+label, prepared, axis, dict(path=str(seed), sha256=sha256(seed)))
                 if obs is None: return report
                 branch = branch_check(obs, reference_observation, axis, reference_axis, settings)

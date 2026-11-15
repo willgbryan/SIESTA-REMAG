@@ -31,6 +31,13 @@ def main(argv=None):
     p.add_argument('--experiments', type=Path, required=True, help='JSON array of notebook experiment IDs')
     p.add_argument('--resolutions', type=Path, required=True, help='JSON object of observable resolutions in prediction units')
     p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('soc-matrices', help='Inspect a native spin-dependent nonlocal SOC operator in checked selected-k states')
+    p.add_argument('report', type=Path)
+    p.add_argument('--stage', required=True)
+    p.add_argument('--native-directory', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--collection', type=Path)
+    p.add_argument('--k-indices', type=int, nargs='+', default=[0])
     p = sub.add_parser('orbital-moments', help='Inspect native-density orbital moments from accepted saved SOC evidence')
     p.add_argument('report', type=Path)
     p.add_argument('--stage', required=True)
@@ -84,6 +91,7 @@ def main(argv=None):
     p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
     p.add_argument('--query', type=Path, help='Scalar, selected SOC directions or angular query JSON')
     p = sub.add_parser('prepare', help='Prepare a physical query for any GPAC-PHYSICAL/1 structure')
+    p.add_argument('--soc-matrix', action='store_true', help='Request native off-site SOC operator on SOC stages; host nonlocal H0 required')
     p.add_argument('structure', type=Path)
     p.add_argument('--pseudos', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
@@ -163,7 +171,10 @@ def main(argv=None):
         from .workspace import serve
         serve(args.workspace, args.port)
         return 0
-    if args.command == 'orbital-moments':
+    if args.command == 'soc-matrices':
+        from .soc import export_soc
+        result=export_soc(args.report,args.stage,args.native_directory,args.output,k_indices=args.k_indices,collection=args.collection)
+    elif args.command == 'orbital-moments':
         from .orbital_moments import export_orbital_moments
         result = export_orbital_moments(args.report,args.stage,args.native_directory,args.output,collection=args.collection)
     elif args.command == 'matrices':
@@ -178,7 +189,7 @@ def main(argv=None):
         result = prepare_experiment(load(args.structure), args.pseudos, args.output,
             settings=Settings.from_dict(load(args.settings) if args.settings else {}), mesh=args.mesh,
             basis_size=args.basis, basis_spec=load(args.basis_spec) if args.basis_spec else None,
-            basis_energy_shift_ry=args.basis_energy_shift_ry, query=load(args.query))
+            basis_energy_shift_ry=args.basis_energy_shift_ry, query=load(args.query),soc_matrix=args.soc_matrix)
     elif args.command == 'fept':
         from gpac.physical import fept_reference, strain, export_geometry
         p = fept_reference()
