@@ -10,6 +10,11 @@ from .experiments import prepare_experiment, run_experiment
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
     sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('prediction-scores', help='Score recorded scalar and electronic-response predictions, retaining failed/pending cases')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--experiments', type=Path, required=True, help='JSON array of notebook experiment IDs')
+    p.add_argument('--resolutions', type=Path, required=True, help='JSON object of observable resolutions in prediction units')
+    p.add_argument('--output', type=Path, required=True)
     p = sub.add_parser('orbital-moments', help='Inspect native-density orbital moments from accepted saved SOC evidence')
     p.add_argument('report', type=Path)
     p.add_argument('--stage', required=True)
@@ -105,6 +110,12 @@ def main(argv=None):
     p.add_argument('--structure', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
+    if args.command == 'prediction-scores':
+        from .tools import ResearchTools
+        if args.output.exists():raise ValueError('Prediction score output must be new')
+        result=ResearchTools(args.workspace).call('evaluate_predictions',dict(experiment_ids=load(args.experiments),resolutions=load(args.resolutions)))
+        save(args.output,result)
+        return 0
     if args.command == 'agent':
         from .agent import run_session
         result=run_session(args.workspace,args.output,objective=args.objective,policy_command=load(args.policy_command),

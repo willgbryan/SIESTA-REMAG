@@ -47,20 +47,35 @@ class Notebook:
         with self.db:
             return self._append('experiment', dict(structure_sha256=structure_sha256, action=action, rationale=rationale), hypothesis_id)
 
-    def record_prediction(self, experiment_id, *, observable, value, unit, uncertainty=None):
-        if type(value) not in (int, float) or not np.isfinite(value) or not observable or not unit:
+    def record_prediction(self, experiment_id, *, observable, value, unit, uncertainty=None,
+                          interval_probability=None, target=None):
+        if (type(value) not in (int, float) or not np.isfinite(value) or not isinstance(observable,str)
+                or not 1<=len(observable)<=256 or not isinstance(unit,str) or not 1<=len(unit)<=64):
             raise ValueError('A finite prediction with observable and unit is required')
         if uncertainty is not None and (type(uncertainty) not in (int, float) or not np.isfinite(uncertainty) or uncertainty < 0):
             raise ValueError('Prediction uncertainty must be finite and nonnegative')
+        if interval_probability is not None and (uncertainty is None or type(interval_probability) not in (int,float)
+                or not np.isfinite(interval_probability) or not 0 < interval_probability < 1):
+            raise ValueError('A nominal interval probability requires a finite uncertainty radius')
+        if target is not None:
+            from .evaluation import validate_target
+            target, expected_unit = validate_target(target)
+            if unit != expected_unit:raise ValueError('Prediction unit differs from the response definition')
         # Serialize the read/write so concurrent outcome recording cannot race it.
         with self.db:
             self.db.execute('BEGIN IMMEDIATE')
             if self.get(experiment_id)['kind'] != 'experiment': raise ValueError('Expected an experiment')
-            if self.db.execute("SELECT 1 FROM events WHERE parent=? AND kind IN ('prediction','outcome')", (experiment_id,)).fetchone():
+            existing = [self.get(r[0]) for r in self.db.execute("SELECT id FROM events WHERE parent=? AND kind IN ('prediction','outcome')", (experiment_id,))]
+            if any(e['kind']=='outcome' or e['payload']['observable']==observable for e in existing):
                 raise ValueError('Prediction is already recorded or the outcome is known')
-            return self._append('prediction', dict(observable=observable, value=value, unit=unit, uncertainty=uncertainty), experiment_id)
+            data=dict(observable=observable, value=value, unit=unit, uncertainty=uncertainty)
+            if interval_probability is not None:data['interval_probability']=interval_probability
+            if target is not None:data['target']=target
+            return self._append('prediction', data, experiment_id)
 
-    def record_outcome(self, experiment_id, *, observable, value, unit, report_sha256, status):
+    def record_outcome(self, experiment_id, *, observable, value, unit, report_sha256, status, evidence=None):
+        if not isinstance(observable,str) or not 1<=len(observable)<=256 or not isinstance(unit,str) or not 1<=len(unit)<=64:
+            raise ValueError('Outcome requires an observable and unit')
         if status not in ('measured', 'failed', 'inconclusive'):
             raise ValueError('Retain measured, failed or inconclusive outcomes')
         if value is not None and (type(value) not in (int, float) or not np.isfinite(value)):
@@ -72,19 +87,31 @@ class Notebook:
         with self.db:
             self.db.execute('BEGIN IMMEDIATE')
             if self.get(experiment_id)['kind'] != 'experiment': raise ValueError('Expected an experiment')
-            if self.db.execute("SELECT 1 FROM events WHERE parent=? AND kind='outcome'", (experiment_id,)).fetchone():
+            existing = [self.get(r[0]) for r in self.db.execute("SELECT id FROM events WHERE parent=? AND kind='outcome'", (experiment_id,))]
+            if any(e['payload']['observable']==observable for e in existing):
                 raise ValueError('Outcome is immutable; record a new experiment')
-            return self._append('outcome', dict(observable=observable, value=value, unit=unit, report_sha256=report_sha256, status=status), experiment_id)
+            data=dict(observable=observable, value=value, unit=unit, report_sha256=report_sha256, status=status)
+            if evidence is not None:data['evidence']=evidence
+            return self._append('outcome', data, experiment_id)
 
-    def evaluate(self, experiment_id):
+    def evaluate(self, experiment_id, observable=None):
         events = [self.get(row[0]) for row in self.db.execute('SELECT id FROM events WHERE parent=?', (experiment_id,))]
+        quantities=sorted({e['payload']['observable'] for e in events if e['kind'] in ('prediction','outcome')})
+        if observable is None and len(quantities)>1:
+            rows={q:self.evaluate(experiment_id,q) for q in quantities}
+            return dict(status='evaluated' if all(r['status']=='evaluated' for r in rows.values()) else 'inconclusive',
+                        observables=rows,mechanism_verified=False)
+        if observable is not None:events=[e for e in events if e['kind'] in ('prediction','outcome') and e['payload']['observable']==observable]
         by_kind = {e['kind']: e['payload'] for e in events}
         prediction, outcome = by_kind.get('prediction'), by_kind.get('outcome')
         if not prediction or not outcome or outcome['status'] != 'measured':
             return dict(status='inconclusive', mechanism_verified=False)
         if (prediction['observable'], prediction['unit']) != (outcome['observable'], outcome['unit']):
             raise ValueError('Prediction and observation units/quantities differ')
+        if prediction.get('target') is not None and outcome.get('evidence',{}).get('target') != prediction['target']:
+            raise ValueError('Response outcome differs from its preregistered definition')
         error = outcome['value']-prediction['value']
+        if not np.isfinite(error):raise ValueError('Prediction error is not finite')
         return dict(status='evaluated', error=error, absolute_error=abs(error), unit=outcome['unit'],
             within_predicted_uncertainty=None if prediction['uncertainty'] is None else abs(error) <= prediction['uncertainty'],
             mechanism_verified=False)

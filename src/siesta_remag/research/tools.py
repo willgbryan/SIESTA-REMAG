@@ -16,6 +16,12 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'record_response_prediction': {'required':['experiment_id','observable','target','value'], 'optional':['uncertainty','interval_probability'],
+        'description':'Freeze a baseline/intervention anisotropy or signed projected spectral response definition and prediction before any experiment outcome.'},
+    'record_response_outcome': {'required':['experiment_id','observable','before','after'], 'optional':[],
+        'description':'Measure the preregistered response from source-bound accepted saved reports and spectra; retain failed native endpoints.'},
+    'evaluate_predictions': {'required':['experiment_ids','resolutions'], 'optional':[],
+        'description':'Score all selected predictions by observable: error, resolved sign and interval coverage; retain failed/pending cases and do not certify blinding or research advantage.'},
     'run_prepared_query': {'required':['bundle','output'],'optional':['spectra'],
         'description':'Execute one prepared REMAG query through the existing single-GPU budget/account guards, collect, stop the owned app and review. Requires operator-enabled execution configuration.'},
     'export_orbital_moments': {'required':['report','stage','native_directory','output'], 'optional':['collection'],
@@ -50,11 +56,11 @@ TOOLS = {
         'description': 'Record a testable hypothesis and competing explanations in durable research memory.'},
     'propose_experiment': {'required': ['hypothesis_id', 'structure_sha256', 'action', 'rationale'], 'optional': [],
         'description': 'Record why an inspection or calculation distinguishes the hypothesis.'},
-    'record_prediction': {'required': ['experiment_id', 'observable', 'value', 'unit'], 'optional': ['uncertainty'],
+    'record_prediction': {'required': ['experiment_id', 'observable', 'value', 'unit'], 'optional': ['uncertainty','interval_probability'],
         'description': 'Record a prediction before an outcome exists; later revisions cannot overwrite it.'},
     'record_calculation_outcome': {'required': ['experiment_id', 'report', 'stage', 'observable'], 'optional': ['collection'],
         'description': 'Bind an outcome to an actual saved report; energy observables require accepted native stages.'},
-    'evaluate_hypothesis': {'required': ['experiment_id'], 'optional': [],
+    'evaluate_hypothesis': {'required': ['experiment_id'], 'optional': ['observable'],
         'description': 'Compare a recorded prediction with its measured outcome; agreement is not mechanism proof.'},
     'record_analysis': {'required': ['parent_id', 'conclusion', 'evidence'], 'optional': ['status'],
         'description': 'Append an evidence-bound interpretation without rewriting prior hypotheses or outcomes.'},
@@ -197,6 +203,29 @@ class ResearchTools:
                                       self.path(args['output']), **options)
         notebook = Notebook(self.path('research-memory.sqlite'))
         try:
+            if name == 'record_response_prediction':
+                from .evaluation import validate_target
+                target,unit=validate_target(args['target'])
+                return notebook.record_prediction(**{k:v for k,v in args.items() if k!='target'},target=target,unit=unit)
+            if name == 'record_response_outcome':
+                from .evaluation import response_observation
+                experiment=notebook.get(args['experiment_id'])
+                if experiment['kind']!='experiment':raise ValueError('Expected an experiment')
+                rows=[notebook.get(r[0]) for r in notebook.db.execute("SELECT id FROM events WHERE parent=? AND kind='prediction'",(experiment['id'],))]
+                selected=[r for r in rows if r['payload']['observable']==args['observable']]
+                if len(selected)!=1 or 'target' not in selected[0]['payload']:
+                    raise ValueError('Record a response prediction before ingesting its outcome')
+                endpoints=[]
+                for key in ('before','after'):
+                    e=args[key]
+                    if not isinstance(e,dict):raise ValueError('Expected a response endpoint')
+                    endpoints.append({k:self.path(v) for k,v in e.items()})
+                result=response_observation(selected[0]['payload']['target'],*endpoints,source_sha256=experiment['payload']['structure_sha256'])
+                return notebook.record_outcome(experiment['id'],observable=args['observable'],
+                    report_sha256=result['evidence']['after']['report_sha256'],**result)
+            if name == 'evaluate_predictions':
+                from .evaluation import prediction_scores
+                return prediction_scores(notebook,**args)
             if name == 'record_calculation_outcome':
                 return self._outcome(notebook,args)
             if name == 'record_analysis':

@@ -89,6 +89,14 @@ The adapter is functional plumbing for the agent's scientific choices. It does
 not implement an autonomous selection policy, queue or uncertainty calibration.
 Electronic mechanisms, end-to-end latency and the equivalent-budget comparison
 remain distinct empirical evaluations in the v3 completion checklist.
+
+Several observables can be predicted for one experiment before its first
+outcome. `record_response_prediction` freezes an anisotropy or electronic
+response definition; `record_response_outcome` derives it from verified saved
+endpoints. `evaluate_predictions` retains failures and pending cases while
+reporting per-observable error, sign and stated-interval coverage. See
+[response definitions and scoring](RESEARCH_EVALUATION.md) for conventions,
+examples and the distinction between local ordering and verified blinding.
 # Relaxation feedback
 
 `prepare_relaxation` accepts an exact structure export, local pseudopotentials
