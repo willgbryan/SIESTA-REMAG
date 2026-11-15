@@ -149,7 +149,7 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
         atoms = Atoms(numbers=g['atomic_numbers'], cell=g['cell'], scaled_positions=g['fractional'], pbc=True)
         report = dict(format='REMAG-EXPERIMENT-RESULT/1', status='running', invocation_sha256=identity,
             source_sha256=request['source_sha256'], request=request, structure=structure,
-            executable_sha256=executable_sha256, environment=env, source_code=code,
+            executable_sha256=executable_sha256, environment=env, threads=threads, source_code=code,
             stages=[], observations={}, artifacts={}, anisotropy=None, physical_accuracy_qualified=False,
             started_at=datetime.now(timezone.utc).isoformat())
 

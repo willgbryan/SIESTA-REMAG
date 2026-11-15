@@ -10,6 +10,24 @@ from .experiments import prepare_experiment, run_experiment
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
     sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('prepare-response', help='Prepare independent exact structural-response bundles; never queue calculations')
+    p.add_argument('structure', type=Path)
+    p.add_argument('--pseudos', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--design', type=Path, required=True)
+    p.add_argument('--query', type=Path, required=True)
+    p.add_argument('--mesh', type=int, nargs=3, required=True)
+    p.add_argument('--settings', type=Path)
+    p.add_argument('--basis', default='DZP')
+    p.add_argument('--basis-spec', type=Path)
+    p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
+    p.add_argument('--soc-matrix', action='store_true')
+    p = sub.add_parser('analyze-response', help='Analyze saved structural-response evidence, retaining failed and missing points')
+    p.add_argument('series', type=Path)
+    p.add_argument('--evidence', type=Path, required=True, help='JSON point IDs to saved report, optional collection and spectra paths')
+    p.add_argument('--observables', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--error-bounds', type=Path, help='Optional absolute observable error bounds; omitted means unknown')
     p = sub.add_parser('study-register', help='Register matched scalar/physics sessions without launching either arm')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--definition', type=Path, required=True)
@@ -173,7 +191,16 @@ def main(argv=None):
         from .workspace import serve
         serve(args.workspace, args.port, editable=args.editable)
         return 0
-    if args.command == 'soc-matrices':
+    if args.command == 'prepare-response':
+        from .series import prepare_series
+        result=prepare_series(args.structure,args.pseudos,args.output,design=load(args.design),query=load(args.query),mesh=args.mesh,
+            settings=Settings.from_dict(load(args.settings) if args.settings else {}),basis_size=args.basis,
+            basis_spec=load(args.basis_spec) if args.basis_spec else None,basis_energy_shift_ry=args.basis_energy_shift_ry,soc_matrix=args.soc_matrix)
+    elif args.command == 'analyze-response':
+        from .series import analyze_series
+        result=analyze_series(args.series,load(args.evidence),load(args.observables),args.output,
+            error_bounds=load(args.error_bounds) if args.error_bounds else None)
+    elif args.command == 'soc-matrices':
         from .soc import export_soc
         result=export_soc(args.report,args.stage,args.native_directory,args.output,k_indices=args.k_indices,collection=args.collection)
     elif args.command == 'orbital-moments':

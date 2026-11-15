@@ -235,3 +235,16 @@ Both profiles can call [assess_structure](PROPOSAL_ASSESSMENT.md) with a saved
 exact export, explicit policy and new output directory. GPAC returns advisory
 geometric findings; the agent decides whether they warrant revision or an
 experiment. The evidence path can be retained in the research notebook.
+
+## Controlled structural responses
+
+`prepare_response_series` creates 3–9 independent queries along one declared
+exact strain, displacement, coordination or metric path. Its return value lists
+the individual bundles; it does not execute or queue them. Both profiles have
+the same preparation capability. `analyze_response_series` consumes saved
+point reports and produces E/F, anisotropy, moment, force and stress responses;
+the physics profile additionally admits bound spectral window responses.
+Parent atom indices follow exact correspondence even when GPAC reorders sites.
+Failed, pending and changed-branch samples remain visible, and only consecutive
+eligible triplets produce derivatives. See [design, evidence and uncertainty
+contracts](STRUCTURAL_RESPONSE.md). These tools do not authorize native compute.

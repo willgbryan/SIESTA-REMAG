@@ -73,6 +73,22 @@ max_stretch_deviation requires reference. Optional family has label,
 atomic_ratios (atomic_number and count rows) and allowed_authored_halls.
 Findings are advisory and retain unusual candidates. Record why a chosen rule
 matters to the hypothesis; absence of findings does not establish stability.
+prepare_response_series prepares separate bundles for exact samples of one
+controlled path. Supply structure, pseudos, output, query and explicit mesh;
+design has format REMAG-RESPONSE-DESIGN/1, parameter (short name), values
+(3..9 increasing rational strings in [-1/2,1/2], including 0), and control.
+Control examples: {"kind":"axial_strain","axis":2},
+{"kind":"fixed_volume_tetragonal"}, {"kind":"isotropic_strain"}.
+q is axial/in-plane/uniform fractional strain respectively. No query is queued.
+analyze_response_series takes series path, output, evidence keyed by point ID
+(report, optional collection and spectra keyed by observable), and observables
+keyed by name. Examples: {"kind":"energy","stage":"scalar","quantity":"total_energy_ev"},
+{"kind":"anisotropy","stages":["soc-x","soc-z"],"quantity":"free_energy_ev"},
+{"kind":"moment","stage":"soc-z","site":null,"component":"norm"}.
+Site indices always refer to the original parent. Optional error_bounds map
+observable names to point-ID absolute bounds; do not invent these bounds.
+Missing/failed points and branch changes remain evidence; derivatives require
+three consecutive eligible samples and do not establish a physical mechanism.
 Exact GPAC edits use rational strings and expected source hashes. Do not convert
 floating observations to exact authoring claims without an explicit policy.
 Choose chemistry, order, strain, local coordination, related structures or spin

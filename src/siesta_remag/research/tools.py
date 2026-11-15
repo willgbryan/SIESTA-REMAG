@@ -17,6 +17,11 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'prepare_response_series': {'required':['structure','pseudos','output','design','query','mesh'],
+        'optional':['settings','basis_size','basis_energy_shift_ry','basis_spec','soc_matrix'],
+        'description':'Prepare 3..9 exact samples along one declared GPAC strain, displacement, coordination or coupled metric path. Returns separate query bundles; no execution or queue.'},
+    'analyze_response_series': {'required':['series','evidence','observables','output'],'optional':['error_bounds'],
+        'description':'Analyze saved energy, anisotropy, moment, force, stress or spectral responses with exact parent-site correspondence. Retains missing/failed points and branch changes; neighboring complete samples yield local derivatives with declared errors only.'},
     'assess_structure': {'required':['structure','policy','output'],'optional':['reference'],
         'description':'Save GPAC advisory geometric assessment before DFT: periodic distances, coordination, complexity, exact translations, declared family and optional reference-cell strain. Explicit rational thresholds; findings do not reject novelty or certify stability.'},
     'inspect_structure': {'required':['structure'],'optional':['candidate'],
@@ -177,9 +182,21 @@ class ResearchTools:
     def call(self, name, args):
         if name not in TOOLS or not isinstance(args, dict):
             raise ValueError('Unknown tool or invalid arguments')
+        if name=='analyze_response_series':
+            from .series import validate_observables
+            validate_observables(args.get('observables'))
+            evidence=args.get('evidence')
+            if not isinstance(evidence,dict):raise ValueError('Evidence must name response points')
+            for endpoint in evidence.values():
+                if (not isinstance(endpoint,dict) or 'report' not in endpoint or
+                        set(endpoint)-{'report','collection','spectra'} or
+                        ('spectra' in endpoint and not isinstance(endpoint['spectra'],dict))):
+                    raise ValueError('Invalid response endpoint fields')
         if self.information_profile=='scalar':
             if name in ELECTRONIC_TOOLS:raise ValueError('Electronic diagnostics are unavailable in the scalar profile')
-            if name=='prepare_query' and args.get('soc_matrix',False):raise ValueError('Scalar profile cannot request SOC diagnostics')
+            if name in ('prepare_query','prepare_response_series') and args.get('soc_matrix',False):raise ValueError('Scalar profile cannot request SOC diagnostics')
+            if name=='analyze_response_series' and any(isinstance(o,dict) and o.get('kind')=='spectral' for o in args.get('observables',{}).values()):
+                raise ValueError('Electronic response diagnostics are unavailable in the scalar profile')
             if name=='run_prepared_query' and 'spectra' in args:raise ValueError('Scalar profile cannot request spectra')
             if name=='record_response_outcome' and any(isinstance(args.get(k),dict) and 'spectrum' in args[k] for k in ('before','after')):
                 raise ValueError('Electronic outcomes are unavailable to the scalar policy; use the separate evaluator')
@@ -194,6 +211,8 @@ class ResearchTools:
             if name=='calibrate_exploratory_response':
                 for p in args['exploratory']+args['reference']:self._source_access(load(self.path(p)).get('source_sha256'))
             if name=='inspect_relaxation':self._source_access(load(self.path(args['structure']))['source']['sha256'])
+            if name=='analyze_response_series':
+                for endpoint in args['evidence'].values():self._source_access(load(self.path(endpoint['report']))['source_sha256'])
         if name == 'run_prepared_query':
             if self.execution_config is None:
                 raise ValueError('Native execution is not enabled by the operator')
@@ -253,6 +272,23 @@ class ResearchTools:
         if name == 'structural_operation':
             from gpac.worker import handle_request
             return handle_request(args['request'])
+        if name == 'prepare_response_series':
+            from .series import prepare_series
+            from ..discovery.config import Settings
+            options={k:v for k,v in args.items() if k not in ('structure','pseudos','output','settings')}
+            output=self.path(args['output'])
+            series=prepare_series(self.path(args['structure']),self.path(args['pseudos']),output,
+                settings=Settings.from_dict(args.get('settings',{})),**options)
+            return dict(series=series,series_path=str(output.relative_to(self.root)),
+                bundles={p['id']:str((output/p['bundle']).relative_to(self.root)) for p in series['points']})
+        if name == 'analyze_response_series':
+            from .series import analyze_series
+            if not isinstance(args['evidence'],dict):raise ValueError('Evidence must name response points')
+            endpoints={}
+            for pid,row in args['evidence'].items():
+                if not isinstance(row,dict) or set(row)-{'report','collection','spectra'}:raise ValueError('Unknown response endpoint fields')
+                endpoints[pid]={k:({name:self.path(path) for name,path in value.items()} if k=='spectra' else self.path(value)) for k,value in row.items()}
+            return analyze_series(self.path(args['series']),endpoints,args['observables'],self.path(args['output']),error_bounds=args.get('error_bounds'))
         if name == 'inspect_structure':
             from .authoring import inspect_structure
             return inspect_structure(self.path(args['structure']),candidate=self.path(args['candidate']) if 'candidate' in args else None)
