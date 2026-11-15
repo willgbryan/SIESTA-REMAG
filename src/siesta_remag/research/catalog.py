@@ -8,6 +8,20 @@ from ..corpus import sha256
 from .inspection import load_spectrum
 
 
+def orbital_moment_view(path, report_sha256, stage, expected_hsx, expected_dm, atom_count):
+    from .orbital_moments import load_orbital_moments
+    meta, arrays = load_orbital_moments(path)
+    if (meta['report_sha256'] != report_sha256 or meta['stage'] != stage
+            or meta['evidence']['hsx'] != expected_hsx or meta['evidence']['dm'] != expected_dm):
+        raise ValueError('Orbital moments belong to another displayed calculation/density')
+    if arrays['atom_moments_mu_b'].shape != (atom_count,3):
+        raise ValueError('Orbital moments do not belong to the displayed geometry')
+    return dict(orbitals=meta['orbitals'], atom_moments_mu_b=arrays['atom_moments_mu_b'].tolist(),
+        orbital_moments_mu_b=arrays['orbital_moments_mu_b'].tolist(),
+        total_moment_mu_b=arrays['atom_moments_mu_b'].sum(axis=0).tolist(),
+        artifact_sha256=meta['artifact_sha256'], approximation=meta['approximation'], scope=meta['scope'])
+
+
 def matrix_view(path, report_sha256, stage, expected_hsx, atom_count):
     from .mechanisms import _load_matrices, _groups, coupling_summary
     meta, arrays = _load_matrices(path)
@@ -80,7 +94,7 @@ def registered_dataset(root):
         calculations=entry.get('calculations',[])
         if not isinstance(calculations,list) or len(calculations)>32:raise ValueError('At most 32 calculations per structure')
         for item in calculations:
-            if not isinstance(item,dict) or set(item)-{'report','spectra','matrices','collection'} or 'report' not in item:raise ValueError('Invalid calculation registration')
+            if not isinstance(item,dict) or set(item)-{'report','spectra','matrices','orbital_moments','collection'} or 'report' not in item:raise ValueError('Invalid calculation registration')
             path=resolver.path(item['report']);report=_verified_report(path,resolver.path(item['collection']) if 'collection' in item else None)
             if report['source_sha256']!=export['source']['sha256']:raise ValueError('Calculation belongs to another registered source')
             request=report['request']
@@ -88,7 +102,7 @@ def registered_dataset(root):
             calc.update(path=item['report'],status=report['status'],anisotropy=report.get('anisotropy'),
                 angular_fit=report.get('angular_fit'),stages=report['stages'],comparison_key=comparison_key(report),
                 observations={k:{key:v for key,v in obs.items() if key!='eigenvalues'} for k,obs in report['observations'].items()},
-                executable_sha256=report['executable_sha256'],verification=report['verification'],spectra={},matrices={},electronic=None)
+                executable_sha256=report['executable_sha256'],verification=report['verification'],spectra={},matrices={},orbital_moments={},electronic=None)
             if calc['basis_spec'] is not None:
                 from .basis import orbital_count
                 calc['basis_orbitals']=orbital_count(calc['basis_spec'],[chemical_symbols[z] for z in export['geometry']['atomic_numbers']])
@@ -105,6 +119,12 @@ def registered_dataset(root):
                 hsx=report['artifacts'].get(stage+'/remag.HSX')
                 if stage not in report['observations'] or not hsx:raise ValueError('Matrices require a collected stage Hamiltonian')
                 calc['matrices'][stage]=matrix_view(resolver.path(metadata),sha256(path),stage,hsx,len(export['geometry']['site_ids']))
+            moments=item.get('orbital_moments',{})
+            if not isinstance(moments,dict) or len(moments)>37:raise ValueError('Invalid registered orbital moments')
+            for stage,metadata in moments.items():
+                hsx=report['artifacts'].get(stage+'/remag.HSX');dm=report['artifacts'].get(stage+'/remag.DM')
+                if stage not in report['observations'] or not hsx or not dm:raise ValueError('Orbital moments require native density and Hamiltonian bindings')
+                calc['orbital_moments'][stage]=orbital_moment_view(resolver.path(metadata),sha256(path),stage,hsx,dm,len(export['geometry']['site_ids']))
             row['calculations'].append(calc);row['result']=calc
         if 'relaxation' in entry:
             r=entry['relaxation']

@@ -21,7 +21,7 @@ LOCAL_TOOLS=frozenset({'inspect_calculation','inspect_electronic_structure','pro
     'compare_electronic_states','structural_operation','prepare_query','record_hypothesis',
     'propose_experiment','record_prediction','record_calculation_outcome','evaluate_hypothesis',
     'record_analysis','retrieve_research_history','calibrate_exploratory_response',
-    'inspect_relaxation','prepare_relaxation','export_electronic_matrices','compare_electronic_matrices'})
+    'inspect_relaxation','prepare_relaxation','export_electronic_matrices','compare_electronic_matrices','export_orbital_moments'})
 
 
 def _process(command,payload,deadline,folder,label,*,limit):

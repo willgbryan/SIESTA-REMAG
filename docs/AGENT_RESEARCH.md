@@ -42,6 +42,14 @@ geometry checks before associating endpoint states, including degenerate
 subspace overlap diagnostics. Total self-consistent Hamiltonian changes are
 kept distinct from isolated SOC. See [matrix conventions and runnable examples](ELECTRONIC_MECHANISMS.md).
 
+`export_orbital_moments` exposes native-density orbital/atom moments, their
+Cartesian frame and explicit onsite approximation. It verifies original
+DM/HSX/log hashes and checks every orbital, atom and total against the final
+native printed table. Large density arrays and contraction kernels stay in a
+hashed artifact. [Conventions and examples](ORBITAL_MOMENTS.md) distinguish this
+native density from reconstructed selected-k occupations and this local moment
+from bulk orbital magnetization. The tool performs saved-data analysis only.
+
 `calibrate_exploratory_response` accepts two lists of saved report paths,
 `exploratory` and `reference`, plus `baseline_source_sha256` and a declared
 `resolution_ev`. Each tier must contain the same baseline and at least two

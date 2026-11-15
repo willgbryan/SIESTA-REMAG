@@ -16,6 +16,8 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'export_orbital_moments': {'required':['report','stage','native_directory','output'], 'optional':['collection'],
+        'description':'Inspect native-density orbital/atom moments using the pinned onsite approximation and final printed-table check; no solver run.'},
     'export_electronic_matrices': {'required':['report','stage','native_directory','output'],
         'optional':['k_indices','collinear_spin','collection'],
         'description':'Reconstruct eigenvectors, density and Lowdin orbital-coupling blocks at up to eight saved native k points; no solver run.'},
@@ -130,6 +132,10 @@ class ResearchTools:
         schema = TOOLS[name]
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
+        if name == 'export_orbital_moments':
+            from .orbital_moments import export_orbital_moments
+            return export_orbital_moments(self.path(args['report']), args['stage'], self.path(args['native_directory']),
+                self.path(args['output']), collection=self.path(args['collection']) if 'collection' in args else None)
         if name == 'export_electronic_matrices':
             from .mechanisms import export_matrices
             return export_matrices(self.path(args['report']), args['stage'], self.path(args['native_directory']),

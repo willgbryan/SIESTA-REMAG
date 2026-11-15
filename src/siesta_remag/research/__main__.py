@@ -10,6 +10,12 @@ from .experiments import prepare_experiment, run_experiment
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
     sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('orbital-moments', help='Inspect native-density orbital moments from accepted saved SOC evidence')
+    p.add_argument('report', type=Path)
+    p.add_argument('--stage', required=True)
+    p.add_argument('--native-directory', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--collection', type=Path)
     p = sub.add_parser('matrices', help='Export selected-k eigenvectors, reconstructed density and orbital coupling from saved native evidence')
     p.add_argument('report', type=Path)
     p.add_argument('--stage', required=True)
@@ -105,7 +111,10 @@ def main(argv=None):
         from .workspace import serve
         serve(args.workspace, args.port)
         return 0
-    if args.command == 'matrices':
+    if args.command == 'orbital-moments':
+        from .orbital_moments import export_orbital_moments
+        result = export_orbital_moments(args.report,args.stage,args.native_directory,args.output,collection=args.collection)
+    elif args.command == 'matrices':
         from .mechanisms import export_matrices
         result = export_matrices(args.report,args.stage,args.native_directory,args.output,
             k_indices=args.k_indices,collinear_spin=args.spin,collection=args.collection)

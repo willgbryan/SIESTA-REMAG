@@ -51,8 +51,10 @@ are explicit basis-dependent coupling and level proxies. Symmetric
 orthogonalization delocalizes the coordinates; the blocks are not unique
 hybridization strengths, atomic energies or crystal-field observables. A shift
 `H → H + α S` changes diagonal levels by α and leaves off-group couplings
-unchanged. Real-harmonic m labels and orbital angular-momentum operators are
-not inferred from the HSX n/l/zeta labels.
+unchanged. These matrix exports do not infer real-harmonic m labels or orbital
+angular-momentum operators. The separate [native orbital-moment adapter](ORBITAL_MOMENTS.md)
+uses the pinned producer's complete-shell ordering and native density, with an
+explicit onsite approximation and a final native-table comparison.
 
 ## Endpoint correspondence
 
@@ -95,7 +97,7 @@ agent export/comparison and rejection of changed PAOs, failed branches,
 tampering and native eigenvalue disagreement. A saved 62-orbital FePt example
 uses three of 13,824 SOC k points and both z/x directions, without solver work.
 
-Isolated SOC matrix exports, orbital-moment operators, changed-basis state
-correspondence and perturbative/force-theorem comparisons remain separate
+Isolated SOC matrix exports, general nonorthogonal orbital-moment operators,
+changed-basis state correspondence and perturbative/force-theorem comparisons remain separate
 implementation work. No orbital mechanism or empirical research advantage is
 established by this diagnostic interface alone.
