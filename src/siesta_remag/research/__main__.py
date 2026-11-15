@@ -10,6 +10,8 @@ from .experiments import prepare_experiment, run_experiment
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
     sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('tools', help='Serve the experimental local JSON-lines research tool interface')
+    p.add_argument('--workspace', type=Path, required=True)
     p = sub.add_parser('fept', help='Author exact FePt strain family and prepare fixed-geometry bundles')
     p.add_argument('--pseudos', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
@@ -18,6 +20,17 @@ def main(argv=None):
     p.add_argument('--basis', default='DZP')
     p.add_argument('--basis-spec', type=Path, help='Validated explicit REMAG-PAO-BASIS/1 JSON')
     p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
+    p.add_argument('--query', type=Path, help='Scalar, selected SOC directions or angular query JSON')
+    p = sub.add_parser('prepare', help='Prepare a physical query for any GPAC-PHYSICAL/1 structure')
+    p.add_argument('structure', type=Path)
+    p.add_argument('--pseudos', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--settings', type=Path)
+    p.add_argument('--mesh', type=int, nargs=3)
+    p.add_argument('--basis', default='DZP')
+    p.add_argument('--basis-spec', type=Path)
+    p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
+    p.add_argument('--query', type=Path, required=True)
     p = sub.add_parser('run', help='Run one fixed-geometry experiment with an explicit native runtime')
     p.add_argument('bundle', type=Path)
     p.add_argument('--runtime', type=Path, required=True)
@@ -55,11 +68,20 @@ def main(argv=None):
     p.add_argument('--structure', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
+    if args.command == 'tools':
+        from .tools import serve
+        serve(args.workspace)
+        return 0
     if args.command == 'serve':
         from .workspace import serve
         serve(args.workspace, args.port)
         return 0
-    if args.command == 'fept':
+    if args.command == 'prepare':
+        result = prepare_experiment(load(args.structure), args.pseudos, args.output,
+            settings=Settings.from_dict(load(args.settings) if args.settings else {}), mesh=args.mesh,
+            basis_size=args.basis, basis_spec=load(args.basis_spec) if args.basis_spec else None,
+            basis_energy_shift_ry=args.basis_energy_shift_ry, query=load(args.query))
+    elif args.command == 'fept':
         from gpac.physical import fept_reference, strain, export_geometry
         p = fept_reference()
         settings = Settings.from_dict(load(args.settings) if args.settings else {})
@@ -72,6 +94,7 @@ def main(argv=None):
             prepare_experiment(export, args.pseudos, args.output/label, settings=settings, mesh=args.mesh,
                                basis_size=args.basis, basis_spec=load(args.basis_spec) if args.basis_spec else None,
                                basis_energy_shift_ry=args.basis_energy_shift_ry,
+                               query=load(args.query) if args.query else None,
                                parameter=dict(name='epsilon_c', exact=q, unit='dimensionless'))
             rows.append(dict(id=label, strain=q, parent_sha256=p.sha256, source_sha256=export['source']['sha256'],
                              heldout=label in ('m050', 'p050'), status='prepared'))

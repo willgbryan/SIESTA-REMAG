@@ -1,0 +1,168 @@
+"""Experimental local tool protocol for Astra or another research agent.
+
+The agent supplies the scientific policy. This adapter supplies durable memory,
+bounded data access and prepared physical questions. It neither calls a model
+service nor submits paid work as a side effect of inspection or preparation.
+"""
+import json
+from pathlib import Path
+import sys
+
+from ..corpus import sha256
+from ..discovery.common import load
+from .experiments import prepare_experiment
+from .inspection import inspect_electronic, projected_dos, compare_electronic
+from .memory import Notebook
+
+
+TOOLS = {
+    'inspect_calculation': {'required': ['report'], 'optional': [],
+        'description': 'Verify a saved calculation and inspect measured stages, moments, forces, stress and anisotropy.'},
+    'inspect_electronic_structure': {'required': ['spectrum'], 'optional': ['selection'],
+        'description': 'Select near-Fermi states by atom, orbital, angular momentum and k-point indices.'},
+    'projected_dos': {'required': ['spectrum'], 'optional': ['selection', 'sigma_ev', 'points'],
+        'description': 'Inspect signed orbital projections on a bounded energy grid.'},
+    'compare_electronic_states': {'required': ['before', 'after'], 'optional': ['selection', 'sigma_ev', 'points'],
+        'description': 'Compare matched electronic samplings without assuming band tracking or SOC attribution.'},
+    'structural_operation': {'required': ['request'], 'optional': [],
+        'description': 'Use the existing GPAC typed JSON worker for exact inspection, authoring and modification.'},
+    'prepare_query': {'required': ['structure', 'pseudos', 'output', 'query'],
+        'optional': ['settings', 'mesh', 'basis_size', 'basis_energy_shift_ry', 'basis_spec', 'parameter'],
+        'description': 'Prepare scalar, selected-direction or angular work; does not execute or reserve compute.'},
+    'record_hypothesis': {'required': ['statement', 'predictions', 'alternatives'], 'optional': [],
+        'description': 'Record a testable hypothesis and competing explanations in durable research memory.'},
+    'propose_experiment': {'required': ['hypothesis_id', 'structure_sha256', 'action', 'rationale'], 'optional': [],
+        'description': 'Record why an inspection or calculation distinguishes the hypothesis.'},
+    'record_prediction': {'required': ['experiment_id', 'observable', 'value', 'unit'], 'optional': ['uncertainty'],
+        'description': 'Record a prediction before an outcome exists; later revisions cannot overwrite it.'},
+    'record_calculation_outcome': {'required': ['experiment_id', 'report', 'stage', 'observable'], 'optional': [],
+        'description': 'Bind an outcome to an actual saved report; energy observables require accepted native stages.'},
+    'evaluate_hypothesis': {'required': ['experiment_id'], 'optional': [],
+        'description': 'Compare a recorded prediction with its measured outcome; agreement is not mechanism proof.'},
+    'record_analysis': {'required': ['parent_id', 'conclusion', 'evidence'], 'optional': ['status'],
+        'description': 'Append an evidence-bound interpretation without rewriting prior hypotheses or outcomes.'},
+    'retrieve_research_history': {'required': [], 'optional': ['query', 'limit'],
+        'description': 'Retrieve previous hypotheses, interventions, predictions, failures and interpretations.'},
+}
+
+
+def _verified_report(path):
+    root = path.parent
+    report = load(path)
+    if report.get('format') != 'REMAG-EXPERIMENT-RESULT/1':
+        raise ValueError('Expected a research calculation report')
+    if report['source_sha256'] != report['request']['source_sha256']:
+        raise ValueError('Calculation source binding differs')
+    for name, expected in report['artifacts'].items():
+        artifact = (root/name).resolve()
+        if not artifact.is_relative_to(root) or sha256(artifact) != expected:
+            raise ValueError('Calculation artifact binding differs: '+name)
+    return report
+
+
+class ResearchTools:
+    def __init__(self, workspace):
+        self.root = Path(workspace).resolve()
+        if not self.root.is_dir():
+            raise ValueError('Research workspace must already exist')
+
+    def path(self, value):
+        if not isinstance(value, str) or not value:
+            raise ValueError('Expected a workspace-relative artifact path')
+        path = (self.root/value).resolve()
+        if not path.is_relative_to(self.root):
+            raise ValueError('Artifact path escapes the research workspace')
+        return path
+
+    def call(self, name, args):
+        if name not in TOOLS or not isinstance(args, dict):
+            raise ValueError('Unknown tool or invalid arguments')
+        schema = TOOLS[name]
+        if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
+            raise ValueError('Missing or unknown tool arguments')
+        if name == 'inspect_calculation':
+            path = self.path(args['report']); report = _verified_report(path)
+            observations = {stage: {k:v for k,v in row.items() if k != 'eigenvalues'}
+                            for stage,row in report['observations'].items()}
+            return dict(format='REMAG-CALCULATION-INSPECTION/1', report_sha256=sha256(path),
+                status=report['status'], source_sha256=report['source_sha256'], request=report['request'],
+                executable_sha256=report['executable_sha256'], stages=report['stages'], observations=observations,
+                anisotropy=report.get('anisotropy'), angular_fit=report.get('angular_fit'),
+                wall_seconds=report.get('wall_seconds'), latency_scope=report.get('latency_scope', 'Recorded experiment time only'),
+                physical_accuracy_qualified=False)
+        if name in ('inspect_electronic_structure','projected_dos','compare_electronic_states'):
+            options = {k:v for k,v in args.items() if k in ('selection','sigma_ev','points')}
+            if name == 'compare_electronic_states':
+                return compare_electronic(self.path(args['before']),self.path(args['after']),**options)
+            function = inspect_electronic if name == 'inspect_electronic_structure' else projected_dos
+            return function(self.path(args['spectrum']),**options)
+        if name == 'structural_operation':
+            from gpac.worker import handle_request
+            return handle_request(args['request'])
+        if name == 'prepare_query':
+            from ..discovery.config import Settings
+            options = {k:v for k,v in args.items() if k not in ('structure','pseudos','output','settings')}
+            options['settings'] = Settings.from_dict(args.get('settings',{}))
+            return prepare_experiment(load(self.path(args['structure'])), self.path(args['pseudos']),
+                                      self.path(args['output']), **options)
+        notebook = Notebook(self.path('research-memory.sqlite'))
+        try:
+            if name == 'record_calculation_outcome':
+                return self._outcome(notebook,args)
+            if name == 'record_analysis':
+                return notebook.record_analysis(args['parent_id'], conclusion=args['conclusion'],
+                    report_sha256=sha256(self.path(args['evidence'])), status=args.get('status','inconclusive'))
+            method = {'evaluate_hypothesis':'evaluate','retrieve_research_history':'retrieve'}.get(name,name)
+            return getattr(notebook,method)(**args)
+        finally:
+            notebook.close()
+
+    def _outcome(self, notebook, args):
+        path = self.path(args['report']); report = _verified_report(path)
+        experiment = notebook.get(args['experiment_id'])
+        if experiment['kind'] != 'experiment' or experiment['payload']['structure_sha256'] != report['source_sha256']:
+            raise ValueError('Outcome source differs from the recorded experiment')
+        stage, observable = args['stage'], args['observable']
+        if stage == 'anisotropy':
+            mapping = {'total_energy_ev':'mae_ev_cell','free_energy_ev':'free_energy_ev_cell'}
+            if observable not in mapping or report.get('anisotropy') is None:
+                raise ValueError('Requested anisotropy was not measured')
+            # Compute both observables directly from the stored directional energies.
+            value = report['observations']['soc-x'][observable]-report['observations']['soc-z'][observable]
+            accepted = all(s['accepted'] and s.get('branch',{}).get('passed',True) for s in report['stages'])
+            unit = 'eV/cell'
+        else:
+            if observable not in ('total_energy_ev','free_energy_ev') or stage not in report['observations']:
+                raise ValueError('Select a measured stage E/F observable')
+            value = report['observations'][stage][observable]
+            accepted = any(s['stage']==stage and s['accepted'] and s.get('branch',{}).get('passed',True) for s in report['stages'])
+            unit = 'eV/cell'
+        status = 'measured' if report['status']=='measured' and accepted else 'failed'
+        return notebook.record_outcome(args['experiment_id'], observable=stage+'.'+observable, value=value if status=='measured' else None,
+            unit=unit, report_sha256=sha256(path), status=status)
+
+
+def serve(workspace):
+    """One request per line. Large arrays stay in artifacts, never in tool replies."""
+    tools = ResearchTools(workspace)
+    for line in sys.stdin:
+        try:
+            if len(line.encode()) > 1024*1024:
+                raise ValueError('Request exceeds 1 MiB')
+            request = json.loads(line, parse_constant=lambda x: (_ for _ in ()).throw(ValueError('Nonfinite JSON')))
+            if not isinstance(request,dict): raise ValueError('Expected a tool request object')
+            if request == {'op':'catalog'}:
+                result = dict(format='REMAG-RESEARCH-TOOLS/1', tools=TOOLS,
+                    selections=dict(atom_indices='zero-based atom indices', orbital_indices='zero-based basis indices',
+                        l='angular momentum indices', k_indices='zero-based sampled k indices',
+                        energy_window_ev='[low,high] relative to each spectrum Fermi level', limit='1..200 states'))
+            else:
+                if set(request) != {'op','args'}:raise ValueError('Expected op and args')
+                result = tools.call(request['op'],request['args'])
+            response = dict(ok=True,result=result)
+        except Exception as exc:
+            response = dict(ok=False,error=dict(type=type(exc).__name__,message=str(exc)))
+        encoded = json.dumps(response,allow_nan=False)
+        if len(encoded.encode()) > 8*1024*1024:
+            encoded = json.dumps(dict(ok=False,error=dict(type='ResponseLimit',message='Refine the selection; response exceeds 8 MiB')))
+        print(encoded,flush=True)

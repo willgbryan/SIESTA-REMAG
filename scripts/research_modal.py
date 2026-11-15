@@ -24,9 +24,6 @@ if modal.is_local():
     if budget.remaining_cents(budget_stage) < reserved_cents:
         raise ValueError('Insufficient cumulative budget before image preparation')
     volume_name = policy.get('volume', 'siesta-remag-results')
-    diagnostic_axes = policy.get('diagnostic_axes', ['z', 'x', 'y'])
-    if not isinstance(diagnostic_axes, list) or len(set(diagnostic_axes)) != len(diagnostic_axes) or any(a not in ('x','y','z') for a in diagnostic_axes):
-        raise ValueError('Diagnostic axes must be a unique subset of x,y,z')
     timeout = policy['timeout_seconds']
     # Conservative allocation reservation, not a claim about a billing invoice.
     if any(type(policy[k]) not in (int, float) or not math.isfinite(policy[k]) or policy[k] <= 0
@@ -35,9 +32,11 @@ if modal.is_local():
     if timeout/3600*policy['hourly_reservation_usd'] > policy['budget_usd'] or policy['budget_usd'] > 100:
         raise ValueError('Campaign exceeds its declared allocation budget')
     from siesta_remag.research.experiments import verify_experiment
+    from siesta_remag.research.queries import diagnostic_labels
     for name in policy['experiments']:
         if not (campaign/name).resolve().is_relative_to(campaign): raise ValueError('Unsafe experiment path')
-        verify_experiment(campaign/name)
+        request = verify_experiment(campaign/name)
+        diagnostic_labels(request.get('query', {'kind': 'anisotropy'}), policy.get('diagnostic_axes'))
     image = (modal.Image.from_id(image_id)
         .add_local_dir(ROOT/'src', '/opt/research/src', copy=True, ignore=['__pycache__'])
         .add_local_dir(campaign, '/opt/research/campaign', copy=True)
@@ -87,7 +86,8 @@ def calculate(run_id):
             report['experiments'].append(dict(id=name, status=result['status'], report_sha256=sha256(root/name/'report.json')))
             if result['status'] != 'measured':
                 report['status'] = 'held_experiment'; flush(); break
-            for axis in policy.get('diagnostic_axes', ['z', 'x', 'y']):
+            from siesta_remag.research.queries import diagnostic_labels
+            for axis in diagnostic_labels(request.get('query', {'kind': 'anisotropy'}), policy.get('diagnostic_axes')):
                 try:
                     spectrum_from_run(root/name/('soc-'+axis), root/name/('electronic-'+axis))
                 except Exception as exc:

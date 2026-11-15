@@ -40,6 +40,38 @@ previews also bind their HSX hash to the displayed calculation.
 
 ## Structure and execution
 
+### Select the physical question
+
+`prepare_experiment(..., query=...)` and `research prepare` now select the
+required stages. Historical bundles without a query retain scalar/z/x/y.
+
+| Query | Work |
+| --- | --- |
+| `{"kind":"scalar"}` | One scalar calculation; moments, forces, stress and electronic artifacts; no anisotropy claim |
+| `{"kind":"anisotropy"}` | Scalar plus independent z/x/y SOC, unchanged E/F convention |
+| `{"kind":"directions","directions":[{"label":"diagonal","vector":[1,0,1]}]}` | Scalar plus only the selected Cartesian SOC orientations |
+| `{"kind":"angular","axis":[0,0,1],"tangent":[1,0,0],"angles_deg":[0,30,45,60,90]}` | Independent SOC directions in the declared plane and separate E/F K₁/K₂ fits |
+
+```sh
+python -m siesta_remag.research prepare structure.json --query query.json \
+  --pseudos /path/to/pseudos --settings settings.json --mesh 8 8 8 \
+  --output runs/query
+```
+
+This prepares any verified GPAC physical export, not only FePt. Preparation
+does not submit a calculation. Use the existing guarded execution path for
+paid GPU work. Every requested stage retains native acceptance, fixed-geometry,
+basis and magnetic-branch checks. Failed stages stop without fallback or retry.
+The common total deadline also bounds an angular sweep; adding directions does
+not extend it. Scalar and selected-direction results never fabricate an MAE.
+
+Angular fits use `offset + K1 sin²θ + K2 sin⁴θ` with at least three identifiable
+angles including zero. Coefficients have units eV per cell. Residuals describe
+that one-plane model; they do not estimate SCF uncertainty, establish uniaxial
+symmetry, identify azimuthal terms or qualify physical accuracy. Per-stage wall
+times and local start/end timestamps are recorded; queue/startup/retrieval time
+and the 1–5 minute service target remain separate measurements.
+
 `prepare_experiment` consumes a verified `GPAC-PHYSICAL/1` export, preserving the
 source word, pins, site IDs, numerical geometry and conversion policy. It prepares
 a scalar calculation and records every input hash. FePt uses a=b=2.73 Å and
