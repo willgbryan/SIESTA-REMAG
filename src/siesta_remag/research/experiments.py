@@ -75,8 +75,11 @@ def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
 def validate_soc_request(enabled,query=None,environment=None):
     if type(enabled) is not bool or (enabled and query is not None and query['kind']=='scalar'):
         raise ValueError('SOC matrix export requires a boolean and a query with SOC stages')
-    if enabled and any((environment or {}).get(k)=='1' for k in ('REMAG_NONLOCAL_H0','REMAG_NONLOCAL_H0_POISON_HOST')):
-        raise ValueError('SOC matrix export requires retained host nonlocal H0')
+    env=environment or {}
+    if enabled and any(env.get(k)=='1' for k in ('REMAG_NONLOCAL_H0','REMAG_NONLOCAL_H0_POISON_HOST')):
+        required=('REMAG_NONLOCAL_H0','REMAG_DEVICE_SCF','REMAG_GPU_INITIALIZATION','REMAG_INTEGRAL_FORCE')
+        if any(env.get(k)!='1' for k in required) or env.get('REMAG_NONLOCAL_H0_SHADOW')=='1':
+            raise ValueError('SOC export requires retained host nonlocal H0 or a complete production device owner')
 
 
 def verify_experiment(bundle):

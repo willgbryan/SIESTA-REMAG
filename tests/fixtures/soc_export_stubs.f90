@@ -90,6 +90,7 @@ module sparse_matrices
  type(dSpData2D)::H_2D
  type(zSpData2D)::H_so_off_2D
  integer::S_1D=1
+ integer::maxnh=1,numh(1)=[1],listhptr(1)=[0],listh(1)=[1]
 end module
 module io_hsx_m
 contains
@@ -113,6 +114,12 @@ end module
 module atomlist
  use precision
  real(dp)::qtot=2._dp
+ integer::no_u=1,no_s=1
+end module
+module siesta_geom
+ use precision
+ integer::na_u=1,isa(1)=[1]
+ real(dp)::xa(3,1)=0._dp,ucell(3,3)=0._dp
 end module
 module siesta_options
  use precision
@@ -130,11 +137,32 @@ contains
  integer function remag_nonlocal_h0_enabled()
  use test_mode
  remag_nonlocal_h0_enabled=0
- if(mode=='device')remag_nonlocal_h0_enabled=1
+ if(index(mode,'device')==1)remag_nonlocal_h0_enabled=1
  end function
  integer function remag_nonlocal_h0_poison_enabled()
  use test_mode
  remag_nonlocal_h0_poison_enabled=0
- if(mode=='poison')remag_nonlocal_h0_poison_enabled=1
+ if(mode=='poison'.or.mode=='device_poison')remag_nonlocal_h0_poison_enabled=1
  end function
 end module
+
+integer(c_int64_t) function remag_soc_geometry_epoch() bind(C)
+ use iso_c_binding,only:c_int64_t
+ use test_mode
+ remag_soc_geometry_epoch=2
+ if(mode=='device_epoch')remag_soc_geometry_epoch=3
+end function
+integer(c_int) function remag_nonlocal_h0_soc_export(rows,columns,capacity,num,ptr,list,off,epoch) bind(C)
+ use iso_c_binding,only:c_int,c_int64_t,c_double_complex
+ use test_mode
+ integer(c_int),value::rows,columns,capacity
+ integer(c_int),intent(in)::num(*),ptr(*),list(*)
+ complex(c_double_complex),intent(out)::off(*)
+ integer(c_int64_t),intent(out)::epoch
+ if(rows/=1.or.columns/=1.or.capacity/=1.or.num(1)/=1.or.ptr(1)/=0.or.list(1)/=1)stop 9
+ remag_nonlocal_h0_soc_export=0
+ if(mode=='device_copy_failure')remag_nonlocal_h0_soc_export=-1
+ off(1:4)=[cmplx(3.,4.,c_double_complex),cmplx(1.,2.,c_double_complex), &
+           cmplx(5.,6.,c_double_complex),cmplx(7.,8.,c_double_complex)]
+ epoch=2
+end function

@@ -5,6 +5,7 @@ program check
  use parallel
  use m_spin
  use sparse_matrices
+ use siesta_geom
  use, intrinsic::ieee_arithmetic,only:ieee_value,ieee_quiet_nan
  implicit none
  call get_command_argument(1,mode)
@@ -17,6 +18,12 @@ program check
  if(mode=='onsite')spin%SO_offsite=.false.
  if(mode=='collinear')spin%H=2
  if(mode=='nonfinite')H_so_off_2D%v(1,1)=ieee_value(0._dp,ieee_quiet_nan)
+ if(index(mode,'device')==1)then
+   H_so_off_2D%v=ieee_value(0._dp,ieee_quiet_nan)
+   if(mode/='device_missing')call remag_capture_soc(.true.)
+   if(mode=='device_geometry')xa(1,1)=1._dp
+   if(mode=='device_topology')listh(1)=2
+ endif
  call remag_write_soc()
  if(mode=='disabled'.and.written)stop 5
  if(mode=='valid'.and..not.written)stop 6

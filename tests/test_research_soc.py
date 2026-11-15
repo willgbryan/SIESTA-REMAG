@@ -108,13 +108,35 @@ def test_saved_soc_identity_and_native_health_fail_closed(tmp_path,mutation):
         export_soc(report,'soc-z',native,tmp_path/'inspection')
 
 
-def test_soc_request_remains_explicit_and_rejects_device_h0():
+def test_soc_request_remains_explicit_and_requires_complete_device_h0_owner():
     validate_soc_request(False,{'kind':'scalar'})
     validate_soc_request(True,{'kind':'anisotropy'},{'REMAG_DEVICE_SCF':'1'})
+    owner={k:'1' for k in ('REMAG_NONLOCAL_H0','REMAG_DEVICE_SCF','REMAG_GPU_INITIALIZATION','REMAG_INTEGRAL_FORCE')}
+    validate_soc_request(True,{'kind':'anisotropy'},owner)
+    validate_soc_request(True,{'kind':'anisotropy'},owner|{'REMAG_NONLOCAL_H0_POISON_HOST':'1'})
+    for key in owner:
+        with pytest.raises(ValueError):validate_soc_request(True,None,{k:v for k,v in owner.items() if k!=key}|{'REMAG_NONLOCAL_H0_POISON_HOST':'1'})
     for flag in ('REMAG_NONLOCAL_H0','REMAG_NONLOCAL_H0_POISON_HOST'):
         with pytest.raises(ValueError,match='host nonlocal'):validate_soc_request(True,None,{flag:'1'})
     for enabled,q in [(1,None),('true',None),(True,{'kind':'scalar'})]:
         with pytest.raises(ValueError):validate_soc_request(enabled,q)
+
+
+def test_native_device_snapshot_metadata_and_bound_operator_are_required(tmp_path):
+    report,native,_=soc_fixture(tmp_path/'data');operator=validate_native_soc(native)
+    m=NATIVE_METADATA|dict(format='REMAG-NATIVE-SOC/2',producer='remag-device-nonlocal-h0',host_nonlocal_h0=False,
+        snapshot_epoch=2,snapshot_rows=int(operator['header'][1]),
+        snapshot_columns=int(operator['header'][1]*np.prod(operator['header'][4:])),
+        snapshot_capacity=len(operator['columns']),snapshot_phase='post_scf',snapshot_stage='before_forces')
+    save(native/'remag.SOC.json',m);validate_native_soc(native)
+    r=load(report);r['artifacts']['soc-z/remag.SOC.json']=sha256(native/'remag.SOC.json');save(report,r)
+    result=export_soc(report,'soc-z',native,tmp_path/'device-inspection')
+    assert result['evidence']['metadata']==sha256(native/'remag.SOC.json')
+    assert result['native_ownership']['snapshot_epoch']==2
+    for key,value in [('snapshot_epoch',False),('snapshot_capacity',1),('snapshot_rows',999),
+                      ('snapshot_columns',999),('snapshot_phase','scf'),('host_nonlocal_h0',0),('producer','unknown')]:
+        save(native/'remag.SOC.json',m|{key:value})
+        with pytest.raises(ValueError,match='SOC producer|ownership'):validate_native_soc(native)
 
 
 def test_compiled_native_components_remove_only_nonlocal_spin_trace(tmp_path):
@@ -160,12 +182,16 @@ def compiled_export(tmp_path_factory):
     return build/'export'
 
 
-@pytest.mark.parametrize('mode',['valid','disabled','parallel','onsite','collinear','device','poison','external','missing','nonfinite'])
+@pytest.mark.parametrize('mode',['valid','disabled','parallel','onsite','collinear','device','device_poison',
+    'device_missing','device_epoch','device_geometry','device_topology','device_copy_failure','poison','external','missing','nonfinite'])
 def test_native_export_adapter_ownership_and_component_handoff(tmp_path,compiled_export,mode):
     result=subprocess.run([str(compiled_export),mode],cwd=tmp_path,capture_output=True,text=True)
-    if mode in ('valid','disabled'):
+    if mode in ('valid','disabled','device','device_poison'):
         assert result.returncode==0,result.stdout+result.stderr
         if mode=='valid':assert load(tmp_path/'remag.SOC.json')==NATIVE_METADATA
+        elif mode.startswith('device'):
+            m=load(tmp_path/'remag.SOC.json');assert m['format']=='REMAG-NATIVE-SOC/2'
+            assert m['snapshot_epoch']==2 and not m['host_nonlocal_h0'] and m['snapshot_capacity']==1
         else:assert not (tmp_path/'remag.SOC.json').exists()
     else:
         assert result.returncode!=0

@@ -26,9 +26,20 @@ def validate_native_soc(directory):
         p=root/name
         if not p.resolve().is_relative_to(root) or p.stat().st_size>512*1024*1024:
             raise ValueError('Native SOC artifact escapes its directory or exceeds the bound')
-    if (root/'remag.SOC.json').stat().st_size>4096 or load(root/'remag.SOC.json')!=NATIVE_METADATA:
+    if (root/'remag.SOC.json').stat().st_size>4096:
         raise ValueError('Unsupported native SOC producer or operator definition')
+    metadata=load(root/'remag.SOC.json')
     hsx,operator=read_hsx(root/'remag.HSX'),read_hsx(root/'remag.SOC.HSX')
+    if metadata!=NATIVE_METADATA:
+        fixed=NATIVE_METADATA|dict(format='REMAG-NATIVE-SOC/2',producer='remag-device-nonlocal-h0',host_nonlocal_h0=False,
+            snapshot_phase='post_scf',snapshot_stage='before_forces')
+        dimensions={'snapshot_epoch','snapshot_rows','snapshot_columns','snapshot_capacity'}
+        if (set(metadata)!=set(fixed)|dimensions or any(metadata.get(k)!=v or type(metadata.get(k)) is not type(v) for k,v in fixed.items())
+                or any(type(metadata.get(k)) is not int or metadata[k]<=0 for k in dimensions)
+                or metadata['snapshot_rows']!=int(hsx['header'][1])
+                or metadata['snapshot_columns']!=int(hsx['header'][1]*np.prod(hsx['header'][4:]))
+                or not len(hsx['columns'])<=metadata['snapshot_capacity']<=64*1024*1024):
+            raise ValueError('Unsupported native SOC producer or snapshot ownership')
     if hsx['header'][2]!=8 or operator['precision']!=1:
         raise ValueError('SOC inspection requires a double-precision SOC operator')
     for key in ('header','cell','positions','labels','offsets','counts','columns','overlap'):
@@ -97,6 +108,7 @@ def export_soc(report_path, stage, native_directory, output, *, k_indices=None, 
     result=dict(format='REMAG-SOC-MATRICES/1',artifact='soc.npz',artifact_sha256=sha256(root/'soc.npz'),
         report_sha256=sha256(report_path),source_sha256=report['source_sha256'],stage=stage,
         executable_sha256=report['executable_sha256'],evidence=evidence,
+        native_ownership=load(paths['metadata']),
         implementation_sha256={name:sha256(Path(__file__).parent/name) for name in ('soc.py','mechanisms.py','electronic.py','../hsx.py')},
         states='states/matrices.json',states_sha256=sha256(root/'states/matrices.json'),
         operator=NATIVE_METADATA['operator'],orbitals=states['orbitals'],spin_frame=states['spin_frame'],

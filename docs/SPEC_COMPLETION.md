@@ -13,7 +13,7 @@ tests or marked complete merely because the interface exists.
 | §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameters, volume/shape/axial and local coordination/displacement controls, full lineage; informative geometric proposal assessment with declared family/coordination policies | Broader coupled constraints and empirical chemistry-specific validation of chosen screening policies |
 | §§4.3, 6 reverse observations | Integrated relaxation preparation/feedback, site/orbit motion, neighbor changes, authored-operation residuals | Broader motif classification and changed-cell/atom-count correspondence; maximal symmetry remains unassessed |
 | §§4.4, 8–9 research tools | Python/worker tools, immutable notebook, bounded policy-driven sessions, explicit-model Responses adapter, exact candidate persistence and query-provenance handoff, operator-enabled single-query execution/collection/shutdown/review | Live authorized model/solver demonstration and empirical experiment-selection quality |
-| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selected-k eigenvectors/reconstructed density, native density and onsite orbital moments, opt-in host nonlocal SOC operator/state projections, Löwdin coupling blocks, same-basis state/subspace correspondence, selectable Mulliken/spin inspection, native moments/forces/stress | Full-application SOC export validation and device-H0 ownership adapter; changed-basis correspondence and empirical mechanism tests |
+| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selected-k eigenvectors/reconstructed density, native density and onsite orbital moments, opt-in host/device nonlocal SOC operator/state projections, Löwdin coupling blocks, same-basis state/subspace correspondence, selectable Mulliken/spin inspection, native moments/forces/stress | CUDA-linked application and measured SOC export validation; changed-basis correspondence and empirical mechanism tests |
 | §§5.3–5.4 response/anisotropy | Exact controlled structural families, saved E/F/force/stress/spin/orbital-moment/spectral/coupling/band-sum responses, native printing-interval mesh correspondence, consecutive finite differences, scalar/selected-direction/angular queries, one-plane K1/K2 and branch checks | Empirical uncertainty validation and mechanism-discriminating experiments; cross-geometry band tracking remains unimplemented |
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
 | §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
@@ -30,6 +30,13 @@ by this checklist. Optional force-theorem, automatic-differentiation and
 approximate-to-exact methods are deferred unless needed for a concrete query.
 
 ## Delivered development increments
+
+- 15 November: [device-owned SOC output](NATIVE_SOC.md) captures a checked
+  post-SCF snapshot before forces release H0, accounts for the diagnostic copy,
+  and exports it without reading poisoned host storage. Compiled C++ owner tests
+  with a CPU transport double and Fortran adapter controls pass. The full patched
+  Fortran library and main object compile against real pinned modules; CUDA
+  linking, hardware execution and measured production output remain unverified.
 
 - 15 November: [mechanism responses](MECHANISM_RESPONSES.md) connect saved onsite
   orbital moments, Löwdin coupling norms and partial occupied band sums to exact
@@ -136,8 +143,9 @@ approximate-to-exact methods are deferred unless needed for a concrete query.
   producer for retained host H0 and checked selected-state projections. Spin
   trace removal excludes the scalar nonlocal part without confusing total-H
   exchange changes with SOC. Compiled component/adapter tests and synthetic
-  query/CLI/agent controls pass. Full-application build and measured production
-  export remain unverified; no saved result or compute authorization changes.
+  query/CLI/agent controls pass. The subsequent device-owned increment extends
+  ownership and real-module compilation coverage; measured production export
+  remains unverified. No saved result or compute authorization changes.
 
 - 15 November: the [model research policy](MODEL_RESEARCH_POLICY.md) connects
   an explicitly selected OpenAI model to the existing tool loop, with one

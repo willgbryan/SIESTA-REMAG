@@ -508,7 +508,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         p=destination/'remag-nonlocal-h0.json';report=json.loads(p.read_text()) if p.is_file() else {}
         raw=destination/'remag-residency.json';trace=json.loads(raw.read_text()) if raw.is_file() else {}
         epochs=[c.get('epoch') for c in telemetry.get('gpu_device_cycle',{}).get('cycles',[])]
-        h0_audit=audit_nonlocal_h0(report,destination,epochs,telemetry.get('integral_geometry',{}).get('nonlocal',{}),trace,production=h0_production,cycle_records=telemetry.get('gpu_device_cycle',{}).get('cycles',[]),poisoned=h0_poisoned,compact_queries=h0_production)
+        h0_audit=audit_nonlocal_h0(report,destination,epochs,telemetry.get('integral_geometry',{}).get('nonlocal',{}),trace,production=h0_production,cycle_records=telemetry.get('gpu_device_cycle',{}).get('cycles',[]),poisoned=h0_poisoned,compact_queries=h0_production,soc_export=manifest.get('soc_matrix',False) if h0_production else False)
         parse_errors.extend(h0_audit['errors']);telemetry['nonlocal_h0']=report;telemetry['nonlocal_h0_audit']=h0_audit
         telemetry['gpu_nonlocal_h0']=h0_audit.get('traffic',{})
     if env.get('REMAG_INITIAL_MESH')=='1':

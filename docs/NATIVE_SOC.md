@@ -23,11 +23,33 @@ and k-point descriptor; it does not modify H, S or the nonlocal matrix. The
 hook runs after analysis restores the final electronic geometry and is inert
 unless explicitly requested.
 
-The first producer supports off-site SOC with retained host nonlocal H0. It
-rejects multi-process execution, onsite-only/collinear modes, external
-`Read-H-from-file`, device-owned nonlocal H0 and poisoned host H0. Device SCF
-alone does not invalidate a retained host nonlocal matrix. Device-owned H0
-needs an explicit copy/ownership contract; stale host values are never used.
+The producer supports off-site SOC with retained host nonlocal H0 or the
+production device H0 owner. It rejects multi-process execution,
+onsite-only/collinear modes and external `Read-H-from-file`. Device SCF alone
+does not invalidate a retained host nonlocal matrix.
+
+For device H0, capture runs after converged SCF releases its lease, before
+forces borrow the owner. The C++ owner checks the geometry epoch, dimensions,
+sparse topology and production lifetime, then copies four complex components
+into a separate snapshot. Forces may subsequently release the device owner.
+The analysis writer verifies the snapshot's epoch, restored final geometry,
+species and topology before writing it. Neither capture nor output reads or
+overwrites the poisoned host H0 array. A stale, missing, repeated, nonfinite or
+failed copy is rejected without a host fallback.
+
+This explicit diagnostic costs `64 × sparse capacity` device-to-host bytes
+per electronic cycle. The `soc_operator_output` boundary records it in the
+post-SCF phase, separately from the normal H0 initialization counters; the
+audit includes both in aggregate traffic. This is a requested diagnostic copy,
+not a zero-copy or strict-residency claim. Without the option there is no new
+copy. Device requests require the complete production owner configuration:
+`REMAG_NONLOCAL_H0`, `REMAG_DEVICE_SCF`, `REMAG_GPU_INITIALIZATION` and
+`REMAG_INTEGRAL_FORCE` set to `1`, with H0 shadow mode disabled.
+
+Host outputs retain the `REMAG-NATIVE-SOC/1` metadata format. Device outputs
+use `/2`, recording the snapshot epoch, dimensions and `post_scf` /
+`before_forces` capture point. Python binds these fields to the native owner
+audit and HSX dimensions. Selected-state exports retain this ownership record.
 
 ## Prepare and inspect
 
@@ -76,11 +98,32 @@ SOC energy or isolated operator is inferred from historical total-H exports.
 ## Validation scope
 
 Tests compile the component routine and adapter against small interface
-doubles, checking spin-independent cancellation, native encoding, nonmutation
-and unsupported-owner rejection. Native-format synthetic fixtures exercise
+doubles, checking spin-independent cancellation, native encoding, nonmutation,
+snapshot lifetime and poisoned-host independence. The real C++ ownership/copy
+function is compiled with a CPU transport double, exercising lease rejection,
+transfer accounting and copy failure. These tests do not exercise CUDA hardware.
+Native-format synthetic fixtures exercise
 Python, CLI and agent handoffs, nonorthogonal contractions, phase/subspace
 behavior, evidence tampering, total-H substitution, failed branches and native
 eigenvalue mismatch. The integration patch is checked against pinned source.
-No solver calculation, GPU job or pristine reference is run. A full native
-application build and measured production export remain unverified for this
-increment. Saved scientific results are not rewritten.
+
+The compile-only check below builds all patched Fortran library sources and
+the native main-program object against real pinned modules and dependencies:
+
+```sh
+python scripts/check_native_fortran.py --dependencies /path/to/pinned/External \
+  --output /path/to/new/check-directory --blas /path/to/blas-library
+```
+
+The four dependency repositories must already be clean at their pinned
+revisions. The check fetches nothing, applies the patch in a separate archived
+source tree, and replaces only that tree's C/CUDA link dependency with an
+unresolved interface target. It preserves compiler logs, input hashes and
+library/object hashes. The configured translation-unit count includes optional
+targets; the compiled archive member count describes the built library.
+
+This validates real Fortran module interfaces, including the optional-NetCDF
+guard in the orientation adapter. It does not link a runnable CUDA application
+or execute a solver. Full CUDA linking and a measured production SOC export
+remain unverified. No GPU job or pristine reference calculation is run, and
+saved scientific results are not rewritten.

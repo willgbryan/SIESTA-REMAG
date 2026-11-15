@@ -30,3 +30,7 @@ extern "C" int remag_nonlocal_h0_neighbor(int orbital,const double* xyz);
 extern "C" int remag_nonlocal_h0_projectors(int neighbors,int projectors,const int* registry);
 extern "C" int remag_nonlocal_h0_split_warning();
 extern "C" int remag_nonlocal_h0_matrix(int phase,int capacity,const double*,const remag::H0Complex*);
+// Explicit post-SCF copy into caller-owned diagnostic storage, before forces.
+extern "C" int remag_nonlocal_h0_soc_export(int rows,int columns,int capacity,
+    const int* num,const int* ptr,const int* list,remag::H0Complex* output,uint64_t* epoch);
+extern "C" uint64_t remag_soc_geometry_epoch();

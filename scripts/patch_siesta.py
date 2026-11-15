@@ -1897,6 +1897,12 @@ def patch_soc_export(source):
         template=Path(__file__).resolve().parent/'native'/f'{name}.F90.in'
         if not template.exists():template=Path(__file__).resolve().parent.parent/'native'/f'{name}.F90.in'
         (source/'Src'/f'{name}.F90').write_text(template.read_text())
+    path=source/'Src/siesta_forces.F90';text=path.read_text()
+    anchor='    use m_remag_cycle\n'
+    text=replace_once(text,anchor,anchor+'    use m_remag_soc_export, only: remag_capture_soc\n')
+    anchor='    call remag_dm_check(remag_phase_enter(2,max(0,istep),0))\n'
+    text=replace_once(text,anchor,anchor+'    call remag_capture_soc(SCFconverged)\n')
+    path.write_text(text)
     path=source/'Src/siesta_analysis.F90';text=path.read_text()
     text=replace_once(text,'      use dm_charge_m, only: dm_charge\n',
         '      use dm_charge_m, only: dm_charge\n      use m_remag_soc_export, only: remag_write_soc\n')
