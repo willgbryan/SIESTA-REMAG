@@ -127,3 +127,12 @@ The scalar timing is a cross-allocation observation, not a paired speedup.
 The app stopped at 01:37:50 UTC on 15 November. No retry or follow-on GPU is
 queued. Scientific convergence and observable-specific exploratory calibration
 remain open under the existing budget and criteria.
+
+The [next registered controls](../tests/evidence/research/fept-radial-mesh-plan-r4-2026-11-14.json)
+use the saved host-controlled REMAG runtime for two radial points and one 28³
+mesh recheck. They are bounded background numerical checks, not interactive
+requests or measurements of the 1–5 minute target. Their maximum reservation
+is the remaining $65 basis envelope, with explicit review between cases and
+no automatic queue. The incomplete integrated-path probe cannot supply a SOC
+anchor for mixing runtimes. Existing exploratory calibration evidence and
+scientific failures remain unchanged.

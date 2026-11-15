@@ -27,6 +27,31 @@ remain $231.67, with $65 basis capacity and $50 final-control capacity remaining
 actual invoices are unknown. Further radial/mesh work requires a new bounded
 plan using a consistent runtime. The original numerical gates remain unresolved.
 
+The [remaining radial/mesh plan](../tests/evidence/research/fept-radial-mesh-plan-r4-2026-11-14.json)
+now registers three individual REMAG controls, using the saved host-controlled
+runtime and identical executable. Only confinement or k sampling changes:
+
+| Control | Mesh | Confinement | Native / app limit | Reservation ceiling |
+| --- | ---: | ---: | ---: | ---: |
+| First radial point | 24³ | 0.01 Ry | 6,800 / 7,200 s | $20 |
+| Second radial point | 24³ | 0.005 Ry | 6,800 / 7,200 s | $20 |
+| Mesh recheck | 28³ | 0.0025 Ry | 8,500 / 9,000 s | $25 |
+
+The saved 62-orbital 24³, 0.0025 Ry result completes the radial ladder.
+Deadlines use its measured 4,361.27-second runtime: a 1.4 margin plus 120 seconds
+for radial points, and cubic k scaling with a 1.2 margin plus 120 seconds for
+28³. These are bounds, not promised runtimes. Each case must be collected,
+stopped and reviewed before another is explicitly launched; there is no
+automatic queue, retry, reference run or extension. Registration itself adds
+no reservation or allocation. The [preflight record](../tests/evidence/research/fept-radial-mesh-r4-preflight-2026-11-14.json)
+verifies exact input/configuration changes, hashes, thresholds and budget.
+
+The plan uses at most the remaining $65 basis envelope. The earlier 16→24 mesh
+failure means that even a passing 24→28 step cannot establish two successive
+passing refinements. The failed common-mesh basis gate also remains. At the end
+of this bounded attempt, report the unresolved scope rather than spending the
+separate final-control allocation or extending the campaign implicitly.
+
 Planning estimate, 14 November 2026. Mesh and basis checks take priority over
 new physics-guided predictions. This proposal does not authorize additional
 spending, alter the original $100 ledger, or launch compute.
