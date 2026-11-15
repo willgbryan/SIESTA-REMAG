@@ -1,0 +1,479 @@
+{
+  "format": "REMAG-FEPT-BOUNDED-CAMPAIGN-CLOSEOUT/1",
+  "recorded_at": "2026-11-15T06:55:28.662791+00:00",
+  "bounded_attempt_complete": true,
+  "overall_numerical_qualification_passed": false,
+  "physical_accuracy_qualified": false,
+  "zero_temperature_convergence_qualified": false,
+  "criteria": {
+    "energy_and_free_energy_tolerance_mev": 0.05,
+    "successive_refinements_required": 2,
+    "transverse_tolerance_mev": 0.01,
+    "thresholds_changed": false
+  },
+  "passed": [
+    "Original DZP k-mesh ladder through40 cubed, only for its original basis and confinement.",
+    "REMAG62-orbital24-cubed radial ladder .01/.005/.0025Ry: both successive E/F changes pass at300Ry and300K.",
+    "Final62-orbital24-to-28 mesh step individually passes both E/F changes.",
+    "Final native acceptance, magnetic branches, actual shells, within-case radial identity, radial identity against24 cubed, transverse symmetry and full-native-KP overlap health."
+  ],
+  "failed": [
+    "Common24-cubed42/48/62 basis ladder:42-to-48 fails;48-to-62 passes individually; two-successive-step gate fails.",
+    "62-orbital16/24/28 mesh ladder:16-to-24 fails;24-to-28 passes individually; two-successive-step gate fails.",
+    "Earlier16-cubed basis and radial stability ladders remain failed.",
+    "Integrated execution-path attempt ended in a PAO.Basis audit error after scalar completion; no SOC result. The parser fix and saved-only scalar diagnosis do not convert this attempt into a completed full-path result."
+  ],
+  "pending_or_not_established": [
+    "Final SCF, real-space grid, occupation and combined controls were not run in this bounded attempt because prerequisite gates remain unresolved.",
+    "Observable-specific exploratory response, sign and ranking calibration;1-to-5-minute submission-to-usable-result target.",
+    "Full integrated scalar/SOC agreement and end-to-end exploratory latency; no automatic probe retry authorized.",
+    "New prediction expansion, physical accuracy and zero-temperature convergence."
+  ],
+  "radial_24": {
+    "samples": [
+      {
+        "parameters": {
+          "basis_energy_shift_ry": 0.01
+        },
+        "energy_anisotropy_mev": 2.54557400558042,
+        "free_energy_anisotropy_mev": 2.543004766721424
+      },
+      {
+        "parameters": {
+          "basis_energy_shift_ry": 0.005
+        },
+        "energy_anisotropy_mev": 2.5753065028766287,
+        "free_energy_anisotropy_mev": 2.566789686170523
+      },
+      {
+        "parameters": {
+          "basis_energy_shift_ry": 0.0025
+        },
+        "energy_anisotropy_mev": 2.59515296193058,
+        "free_energy_anisotropy_mev": 2.5854053701550583
+      }
+    ],
+    "changes_mev": [
+      {
+        "energy": 0.02973249729620875,
+        "free_energy": 0.023784919449099107
+      },
+      {
+        "energy": 0.01984645905395155,
+        "free_energy": 0.01861568398453528
+      }
+    ],
+    "observed_stability_passed": true
+  },
+  "basis_24": {
+    "samples": [
+      {
+        "parameters": {
+          "basis_size": "explicit",
+          "basis_spec": {
+            "format": "REMAG-PAO-BASIS/1",
+            "species": {
+              "Fe": [
+                {
+                  "n": 4,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 1,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 3,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 0,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "Pt": [
+                {
+                  "n": 6,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 1,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 5,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 0,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "energy_anisotropy_mev": 2.3232688781718025,
+        "free_energy_anisotropy_mev": 2.317028102424956
+      },
+      {
+        "parameters": {
+          "basis_size": "explicit",
+          "basis_spec": {
+            "format": "REMAG-PAO-BASIS/1",
+            "species": {
+              "Fe": [
+                {
+                  "n": 4,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 2,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 3,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 0,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "Pt": [
+                {
+                  "n": 6,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 2,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 5,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 0,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "energy_anisotropy_mev": 2.6373982791483286,
+        "free_energy_anisotropy_mev": 2.628029776587937
+      },
+      {
+        "parameters": {
+          "basis_size": "explicit",
+          "basis_spec": {
+            "format": "REMAG-PAO-BASIS/1",
+            "species": {
+              "Fe": [
+                {
+                  "n": 4,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 2,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 3,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 1,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "Pt": [
+                {
+                  "n": 6,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 2,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 5,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 1,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "energy_anisotropy_mev": 2.59515296193058,
+        "free_energy_anisotropy_mev": 2.5854053701550583
+      }
+    ],
+    "changes_mev": [
+      {
+        "energy": 0.3141294009765261,
+        "free_energy": 0.31100167416298063
+      },
+      {
+        "energy": -0.04224531721774838,
+        "free_energy": -0.04262440643287846
+      }
+    ],
+    "observed_stability_passed": false
+  },
+  "mesh_62_orbitals": {
+    "samples": [
+      {
+        "parameters": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ]
+        },
+        "energy_anisotropy_mev": 2.9022749763498723,
+        "free_energy_anisotropy_mev": 2.760287780802173
+      },
+      {
+        "parameters": {
+          "kmesh": [
+            24,
+            24,
+            24
+          ]
+        },
+        "energy_anisotropy_mev": 2.59515296193058,
+        "free_energy_anisotropy_mev": 2.5854053701550583
+      },
+      {
+        "parameters": {
+          "kmesh": [
+            28,
+            28,
+            28
+          ]
+        },
+        "energy_anisotropy_mev": 2.606675326660479,
+        "free_energy_anisotropy_mev": 2.5787117406252946
+      }
+    ],
+    "changes_mev": [
+      {
+        "energy": -0.3071220144192921,
+        "free_energy": -0.17488241064711474
+      },
+      {
+        "energy": 0.011522364729898982,
+        "free_energy": -0.006693629529763712
+      }
+    ],
+    "observed_stability_passed": false
+  },
+  "final_case": {
+    "measurement": {
+      "energy_anisotropy_mev": 2.606675326660479,
+      "free_energy_anisotropy_mev": 2.5787117406252946,
+      "wall_seconds": 6982.078475896
+    },
+    "stages": [
+      {
+        "stage": "scalar",
+        "solver_seconds": 1351.121732612,
+        "scf_iterations": 20,
+        "accepted": true,
+        "timed_out": false
+      },
+      {
+        "stage": "soc-z",
+        "solver_seconds": 1943.639534559,
+        "scf_iterations": 13,
+        "accepted": true,
+        "timed_out": false
+      },
+      {
+        "stage": "soc-x",
+        "solver_seconds": 1807.3593507419996,
+        "scf_iterations": 12,
+        "accepted": true,
+        "timed_out": false
+      },
+      {
+        "stage": "soc-y",
+        "solver_seconds": 1799.8183465920001,
+        "scf_iterations": 12,
+        "accepted": true,
+        "timed_out": false
+      }
+    ],
+    "health_gates": {
+      "native": true,
+      "basis": true,
+      "branches": true,
+      "transverse": true,
+      "within_case_radial_identity": true,
+      "mesh_radial_identity": true,
+      "overlap_positive": true
+    },
+    "overlap": {
+      "format": "REMAG-OVERLAP-HEALTH/1",
+      "hsx_sha256": "193e7faca184714f5b41a081195e1c3f581fc2cb94e75b33b82f461a663b3deb",
+      "kp_sha256": "d9e63dfb13d7bb03601583b11a8f8964458fff95c12d8eae92816dd200852a59",
+      "spatial_orbitals": 62,
+      "native_kpoints": 11396,
+      "native_kp_weight_sum": 1.0000002684,
+      "native_kp_weight_rounding_bound": 5.698e-07,
+      "min_eigenvalue": 1.5351543763767103e-05,
+      "max_eigenvalue": 13.220863102461438,
+      "min_eigenvalue_kpoint_index": 10780,
+      "min_eigenvalue_k_fractional": [
+        0.4999996486470242,
+        -0.2857144368294836,
+        0.5000004576894169
+      ],
+      "nonpositive_kpoints": 0,
+      "positive_definite": true,
+      "max_condition_number": 629928.6938353321,
+      "min_relative_eigenvalue": 1.5874812653976472e-06,
+      "max_condition_kpoint_index": 3075,
+      "sampling": "Every native SCF KP point; decimal coordinate rounding retained",
+      "hermitian_policy": "Same bounded Hermitian reconstruction as electronic spectra",
+      "physical_accuracy_qualified": false,
+      "scope": "Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate"
+    },
+    "native_files": 23,
+    "native_bytes": 218895904,
+    "submission_to_collection_seconds": 7240.910487207584,
+    "submission_to_reviewed_result_seconds": 7542.344472125173,
+    "queue_and_startup_separated": false,
+    "paired_speedup_established": false,
+    "app_id": "ap-T9C0JZoJ11UkXI3i85iOIZ",
+    "lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-14 22:43:55-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-15 00:44:33-06:00",
+      "stopped_by": null
+    }
+  },
+  "allocations": {
+    "all_owned_apps_stopped": true,
+    "owned_app_count": 18,
+    "account_containers_empty": true,
+    "verified_at": "2026-11-15T06:53:54.075053+00:00",
+    "evidence": "fept-campaign-closeout-allocations-2026-11-15.json",
+    "sha256": "4d07b7d569c98c077dc5c85a61cb634bab0769c35a0fe9dc15bca99a34af2353"
+  },
+  "budget": {
+    "original_cap_cents": 10000,
+    "append_only_extensions_cents": 25000,
+    "effective_cap_cents": 35000,
+    "cumulative_reserved_cents": 29667,
+    "stage_caps_cents": {
+      "mesh-r3": 5000,
+      "basis-r2": 15000,
+      "final-r2": 5000
+    },
+    "stage_reserved_cents": {
+      "mesh-r3": 5000,
+      "basis-r2": 15000,
+      "final-r2": 0
+    },
+    "cumulative_unreserved_cents": 5333,
+    "final_stage_untouched_cents": 5000,
+    "actual_billed_usd": null,
+    "reservations_refunded": false,
+    "caps_reallocated": false,
+    "ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "distinction": "Reservations are conservative accounting commitments, not invoices. Unused stage capacity does not authorize another case."
+  },
+  "new_pristine_reference_after_owner_stop": false,
+  "gpu_follow_on_authorized": false,
+  "gpac_exact_semantics_pins_frozen_evidence_changed": false,
+  "sealed_models_and_holdouts_changed": false,
+  "evidence": [
+    {
+      "path": "work/fept-radial-mesh-r4-mesh28-checkpoint.json",
+      "sha256": "6d0a4f712bc798313dd3afc29efec9b5728e0e7c1798b4f31fefea83b531812d"
+    },
+    {
+      "path": "work/fept-radial-mesh-r4-radial0005-checkpoint.json",
+      "sha256": "059ea7eb97300bec21c96ad372f90131848e08b2983dd6ac739b63dcbcb8ac56"
+    },
+    {
+      "path": "work/fept-basis24-r3-evaluation.json",
+      "sha256": "0a94b57d51d844173dde870daeb22c4d5b9a83de5d3c4ab9ae0ac6f57f8e1de2"
+    },
+    {
+      "path": "work/fept-mesh-r3-evaluation.json",
+      "sha256": "fc7c9d4cea9ba67bcf5b8de8abf06370321f6359a9f91bec02da183e8a1bff8a"
+    },
+    {
+      "path": "work/fept-radial-r2-evaluation.json",
+      "sha256": "7e35fd06d76d768cffe887f7573292162c26fb149ce8cfbebf176e0254e83857"
+    },
+    {
+      "path": "work/fept-basis-r2-evaluation.json",
+      "sha256": "84dacd52a7a53efb375bde5f8dc57aced6b2ab3d10985832d7c4fe3a3f8218c0"
+    },
+    {
+      "path": "work/fept-basis-accel-r1-evaluation.json",
+      "sha256": "6c943fee937886ef5d3fab9978f11353bbe287bd15622097066eec487c1ba4b7"
+    },
+    {
+      "path": "work/fept-basis-accel-r1-scalar-diagnosis.json",
+      "sha256": "047186d4444343e5061e06c85f9685276c357939e22cbdf535a4ff4a1394233c"
+    },
+    {
+      "path": "work/fept-pristine-user-stop-2026-11-14.json",
+      "sha256": "e0ba48689249f63112ecbf38ea83cd698884573d538c222518613b8719fee84e"
+    },
+    {
+      "path": "work/fept-campaign-closeout-allocations-2026-11-15.json",
+      "sha256": "4d07b7d569c98c077dc5c85a61cb634bab0769c35a0fe9dc15bca99a34af2353"
+    }
+  ],
+  "validation": "Final native, branch, shell/radial, source/input/runtime/invocation and recovered-artifact checks reproduced from saved files; exact-HSX/KP-bound overlap diagnostic reused. Mesh assessment reproduced with original thresholds and all historical failures retained. No DFT rerun.",
+  "closure": "Finish this bounded attempt with no further GPU launch, retry, extension, stage reallocation or prediction expansion. Delete the recurring heartbeat after final publication and CI verification; retain this chat and all dated evidence."
+}

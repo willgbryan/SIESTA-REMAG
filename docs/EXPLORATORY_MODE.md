@@ -6,6 +6,23 @@ This is a product target, not a measured service guarantee or a new numerical
 acceptance threshold. The research loop needs inexpensive observations that
 help choose the next experiment, alongside slower numerical verification.
 
+## Bounded qualification attempt closed
+
+The [15 November closeout](../tests/evidence/research/fept-campaign-closeout-2026-11-15.json)
+ends the funded background controls. The final 62-orbital 28³ experiment took
+6,982.08 seconds, and submission through reviewed result took 7,542.34 seconds
+(125.7 minutes). All campaign-owned GPU apps are stopped. The 24³ radial ladder
+passes, while the basis and enlarged-basis mesh gates remain failed. These
+controls do not demonstrate the exploratory latency target.
+
+The remaining product work is observable-specific response/sign/ranking
+calibration and end-to-end latency measurement for useful exploratory queries.
+The earlier scalar-only integrated-path diagnosis cannot certify SOC or
+anisotropy latency. Existing saved results may inform a new bounded proposal;
+this closeout authorizes no new calculation, automatic retry or use of the
+untouched final-stage funds. Earlier plans and measurements below are retained
+as history, not an active queue.
+
 ## Existing measurements
 
 The [retrospective latency audit](../tests/evidence/research/fept-exploratory-latency-audit-2026-11-14.json)

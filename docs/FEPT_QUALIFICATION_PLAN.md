@@ -15,7 +15,52 @@ verification evidence, and do not depend on completing the cancelled reference.
 The scheduled continuation has been updated accordingly. Budgets are unchanged;
 historical plans and results below remain as provenance.
 
-**Latest measured checkpoint:** the [completed REMAG radial ladder](../tests/evidence/research/fept-radial-mesh-r4-radial0005-review-2026-11-14.json)
+**Bounded attempt closed, 15 November 2026:** the [final mesh control](../tests/evidence/research/fept-radial-mesh-r4-mesh28-review-2026-11-15.json)
+completed with all native, magnetic-branch, actual-shell, radial-identity,
+transverse and overlap health checks passing. The
+[closeout](../tests/evidence/research/fept-campaign-closeout-2026-11-15.json)
+retains the original thresholds and all earlier failures. Full numerical
+qualification has not passed.
+
+| Control at 62 orbitals and 0.0025 Ry | E anisotropy | F anisotropy | E/F change | Step |
+| --- | ---: | ---: | ---: | --- |
+| 16³ | 2.902275 meV | 2.760288 meV | — | Anchor |
+| 24³ | 2.595153 meV | 2.585405 meV | −0.307122 / −0.174882 meV | Fail |
+| 28³ | 2.606675 meV | 2.578712 meV | +0.011522 / −0.006694 meV | Pass |
+
+The final 24→28 step passes individually. The preceding 16→24 failure means
+the two-successive-refinement mesh gate still fails. The common-24³ basis
+gate also fails: 42→48 changes E/F by +0.314129/+0.311002 meV, while 48→62
+passes individually at −0.042245/−0.042624 meV. The completed 24³ radial ladder
+passes within its fixed configuration. The original DZP mesh pass remains
+limited to its original basis and confinement.
+
+At 28³ all 11,396 native scalar overlap matrices are positive, with maximum
+condition number 629,928.69. This diagnostic does not establish basis
+completeness. Within-case radial arrays match exactly; the largest radial
+array difference against the saved 24³ result is about 1.0e-12, below 1e-10.
+All 23 recovered native files (218,895,904 bytes) verify. Saved-only review
+reproduced native acceptance, branches, actual shells, all artifact hashes,
+source/input/runtime identity and the full mesh assessment; no solver reran.
+
+The experiment took 6,982.08 seconds; submission through collection took
+7,240.91 seconds and through review 7,542.34 seconds. Queue/startup are not
+separated. These times establish neither interactive latency nor a paired
+speedup. Final SCF, real-space grid, occupation and combined controls were not
+run because prerequisite convergence gates remain unresolved. New predictions,
+physical accuracy and zero-temperature convergence remain unqualified.
+
+The final app stopped at 06:44:33 UTC. A fresh
+[allocation audit](../tests/evidence/research/fept-campaign-closeout-allocations-2026-11-15.json)
+confirms all 18 campaign-owned apps stopped and the account container list
+empty. Cumulative reservations are $296.67 against the preserved $350 ceiling;
+the basis stage is fully reserved and the separate $50 final stage is untouched.
+Actual invoices are unknown. Reservations are neither refunded nor reallocated.
+No further GPU launch, retry, extension or final-stage spending is authorized
+by this completed attempt. The 1–5 minute exploratory target still needs
+observable-specific calibration and end-to-end measurement.
+
+**Completed radial checkpoint:** the [completed REMAG radial ladder](../tests/evidence/research/fept-radial-mesh-r4-radial0005-review-2026-11-14.json)
 passes both required E/F refinements at fixed 62 orbitals, 24³, 300 Ry and
 300 K, using one executable and the saved host-controlled runtime.
 
