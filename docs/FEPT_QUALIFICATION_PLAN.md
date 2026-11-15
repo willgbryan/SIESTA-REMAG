@@ -1,5 +1,20 @@
 # FePt qualification priorities
 
+**Latest owner direction, 14 November 2026:** stop pristine SIESTA reference
+calculations and rely on REMAG's existing SIESTA verification. The
+[cancellation record](../tests/evidence/research/fept-pristine-user-stop-2026-11-14.json)
+confirms the local reference driver and its native child stopped at
+00:41:52 UTC on 15 November (18:41:52 CST on 14 November). The completed
+0.01 Ry reference and incomplete 0.005 Ry output are preserved. The partial
+case is cancelled, not a measured result or a convergence failure.
+
+No new pristine/upstream reference calculation is authorized by the plans below.
+The active REMAG calculation continues. Subsequent basis/radial/mesh comparisons
+use REMAG consistently, retain the original convergence criteria and existing
+verification evidence, and do not depend on completing the cancelled reference.
+The scheduled continuation has been updated accordingly. Budgets are unchanged;
+historical plans and results below remain as provenance.
+
 Planning estimate, 14 November 2026. Mesh and basis checks take priority over
 new physics-guided predictions. This proposal does not authorize additional
 spending, alter the original $100 ledger, or launch compute.
