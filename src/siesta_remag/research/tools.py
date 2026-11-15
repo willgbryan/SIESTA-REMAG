@@ -16,6 +16,11 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'prepare_relaxation': {'required':['structure','pseudos','weights','output'], 'optional':['settings','orb_threads'],
+        'description':'Bind an exact source and run bounded CPU Orb preparation using supplied weights; no native/GPU submission.'},
+    'inspect_relaxation': {'required':['structure','bundle','report'],
+        'optional':['cutoff_angstrom','position_tolerance_angstrom','metric_relative_tolerance'],
+        'description':'Verify a saved accepted native relaxation and report source-linked site/orbit, neighbor and authored-symmetry changes.'},
     'calibrate_exploratory_response': {'required': ['exploratory','reference','baseline_source_sha256','resolution_ev'], 'optional': [],
         'description': 'Compare response errors, signs and rankings from saved matched structures; selects no universal default.'},
     'inspect_calculation': {'required': ['report'], 'optional': [],
@@ -82,6 +87,16 @@ class ResearchTools:
         schema = TOOLS[name]
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
+        if name == 'prepare_relaxation':
+            from .relaxation import prepare_relaxation
+            from ..discovery.config import Settings
+            return prepare_relaxation(load(self.path(args['structure'])),self.path(args['pseudos']),
+                self.path(args['weights']),self.path(args['output']),settings=Settings.from_dict(args.get('settings',{})),
+                orb_threads=args.get('orb_threads',4))
+        if name == 'inspect_relaxation':
+            from .relaxation import inspect_relaxation
+            return inspect_relaxation(load(self.path(args['structure'])),self.path(args['bundle']),self.path(args['report']),
+                **{k:v for k,v in args.items() if k not in ('structure','bundle','report')})
         if name == 'calibrate_exploratory_response':
             from .calibration import calibrate_response
             return calibrate_response([self.path(p) for p in args['exploratory']], [self.path(p) for p in args['reference']],

@@ -10,11 +10,11 @@ tests or marked complete merely because the interface exists.
 
 | Spec scope | Delivered foundation | Remaining acceptance |
 | --- | --- | --- |
-| §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameter editing, volume/shape/axial controls, geometric neighbors | Targeted local interventions, coupled constraints and informative proposal assessment exposed to the agent |
-| §§4.3, 6 reverse observations | Numeric geometry domain, explicit site IDs, displacement/deformation comparison; existing REMAG relaxation | Integrated relaxation feedback, symmetry/motif/coordination changes and explicit correspondence policies |
+| §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameters, volume/shape/axial and local coordination/displacement controls, full lineage | Broader coupled constraints and informative proposal assessment |
+| §§4.3, 6 reverse observations | Integrated relaxation preparation/feedback, site/orbit motion, neighbor changes, authored-operation residuals | Broader motif classification and changed-cell/atom-count correspondence; maximal symmetry remains unassessed |
 | §§4.4, 8–9 research tools | Python/worker tools, immutable hypothesis/prediction/outcome notebook | A reusable, bounded agent workflow spanning observation, intervention, execution, analysis and revision |
-| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, Mulliken projections, spinor expectations, native moments/forces/stress | Selectable electronic-state inspection and comparisons; documented SOC/orbital mechanism diagnostics |
-| §§5.3–5.4 response/anisotropy | Finite differences, structural response fits, three SOC directions and branch checks | Question-specific calculations, angular sweeps/fits, broader structural/electronic response orchestration |
+| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selectable Mulliken/state/spin inspection and DOS comparison, native moments/forces/stress | Documented SOC/orbital mechanism diagnostics and state correspondence |
+| §§5.3–5.4 response/anisotropy | Finite differences, response fits, scalar/selected-direction/angular queries, one-plane K1/K2 and branch checks | Broader structural/electronic response orchestration |
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
 | §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
 | §§7E–F, 12 evaluation | Prerecorded response predictions, held-out tests against simple fits | Electronic-response predictions, uncertainty assessment and equivalent-budget agent-versus-scalar evaluation |
@@ -40,6 +40,13 @@ approximate-to-exact methods are deferred unless needed for a concrete query.
   worker access and persistent hypothesis/prediction/outcome operations. Actual
   report ingestion binds the recorded experiment source and artifact hashes.
   This delivers tool access, not an autonomous experiment-selection policy.
+- 15 November: exact local displacements and selected periodic coordination
+  scaling are available through GPAC, with explicit symmetry lowering, rational
+  parameters and full parent/child site correspondence.
+- 15 November: CPU relaxation preparation and saved native feedback reuse the
+  existing discovery pipeline. The agent sees source-linked atom/orbit motion,
+  geometric neighbor changes and authored symmetry residuals. Maximal symmetry
+  recognition and changed-cell/atom-count correspondence remain explicit limits.
 - 15 November: a saved-report calibration tool compares matched intervention
   responses, signs and pair rankings separately for E/F. It rejects unmatched
   sources and inconsistent tiers and retains unresolved small signals. Actual

@@ -72,3 +72,20 @@ The adapter is functional plumbing for the agent's scientific choices. It does
 not implement an autonomous selection policy, queue or uncertainty calibration.
 Electronic mechanisms, end-to-end latency and the equivalent-budget comparison
 remain distinct empirical evaluations in the v3 completion checklist.
+# Relaxation feedback
+
+`prepare_relaxation` accepts an exact structure export, local pseudopotentials
+and local Orb weights. It binds the exact source before running the existing
+bounded **CPU** Orb preparation. This operation performs CPU work; it does not
+submit native or GPU work. Its returned bundle uses the existing discovery
+runner and its execution guards. There is no second relaxation implementation.
+
+`inspect_relaxation` accepts `structure`, `bundle` and a collected discovery
+`report`. It verifies the prepared inputs, report binding and accepted artifacts,
+then reads the accepted `STRUCT_OUT`. It reports site/orbit displacement,
+deformation, neighbor changes and fixed-setting authored symmetry residuals
+through GPAC. Saved older bundles are labeled as retrospective geometry matches;
+new bundles verify the pre-preparation source binding. Failed native relaxation
+is rejected, while an accepted relaxation can be inspected even if a later SOC
+stage failed. Changed atom counts, species/order or lattice presentation are not
+silently matched. Numerical observations remain separate from exact sources.
