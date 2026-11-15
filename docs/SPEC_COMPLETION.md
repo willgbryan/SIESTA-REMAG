@@ -18,7 +18,7 @@ tests or marked complete merely because the interface exists.
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
 | §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
 | §§7E–F, 12 evaluation | Prerecorded response predictions, held-out tests against simple fits | Electronic-response predictions, uncertainty assessment and equivalent-budget agent-versus-scalar evaluation |
-| §10 workspace | Project14-style FePt structure/response/projected-DOS viewer | General structures and linked structural/electronic selections, observations and research actions |
+| §10 workspace | General exact-source catalog, atom/orbit/k/state selection, signed DOS/spin, authored/relaxed comparison; original FePt response viewer | Motif selection, editable research actions and richer linked band/response views |
 | §11 / Phase 5 expansion | General GPAC authoring and REMAG discovery screening | Demonstrated workflow for Fe₂B/selected structures, theory-guided candidates and transfer evaluation |
 
 Implementation order: (1) observable-specific queries and reusable electronic
@@ -47,6 +47,12 @@ approximate-to-exact methods are deferred unless needed for a concrete query.
   existing discovery pipeline. The agent sees source-linked atom/orbit motion,
   geometric neighbor changes and authored symmetry residuals. Maximal symmetry
   recognition and changed-cell/atom-count correspondence remain explicit limits.
+- 15 November: the general workspace verifies registered source/calculation and
+  Hamiltonian/spectrum bindings, links atom/orbit selection to sampled states,
+  and compares authored/relaxed geometries. Compact original archives are usable
+  with explicit uncollected-artifact scope. Saved FePt spectra and a separate
+  uncalculated Fe₂B authored example exercise the general catalog; this is not
+  a Fe₂B phase or transfer demonstration.
 - 15 November: a saved-report calibration tool compares matched intervention
   responses, signs and pair rankings separately for E/F. It rejects unmatched
   sources and inconsistent tiers and retains unresolved small signals. Actual

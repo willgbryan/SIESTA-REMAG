@@ -56,3 +56,19 @@ def test_worker_protocol_and_bounded_electronic_selection(tmp_path):
     assert len(replies[1]['result']['states'])==1
     assert not replies[2]['ok'] and 'escapes' in replies[2]['error']['message']
     assert not (tmp_path/'research-memory.sqlite').exists()
+
+
+def test_compact_saved_collection_keeps_omissions_explicit(experiment,tmp_path):
+    from siesta_remag.discovery.collection import pack,unpack
+    binary=tmp_path/'binary';binary.write_text('fixture')
+    run_experiment(experiment,tmp_path/'result',binary,executable_sha256=sha256(binary),runner=backend([]))
+    unpack(pack(tmp_path/'result',include_arrays=True),tmp_path/'collected')
+    t=ResearchTools(tmp_path)
+    with pytest.raises(FileNotFoundError):t.call('inspect_calculation',dict(report='collected/report.json'))
+    value=t.call('inspect_calculation',dict(report='collected/report.json',collection='collected/archive-manifest.json'))
+    assert value['status']=='measured'
+    assert value['verification']['mode']=='compact collection'
+    assert any(name.endswith('.DM') for name in value['verification']['omitted_artifacts'])
+    (tmp_path/'collected/scalar/stdout.log').write_text('changed')
+    with pytest.raises(ValueError,match='Collected artifact binding differs'):
+        t.call('inspect_calculation',dict(report='collected/report.json',collection='collected/archive-manifest.json'))

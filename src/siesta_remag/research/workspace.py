@@ -72,6 +72,9 @@ def comparison_key(report):
 
 def dataset(workspace):
     workspace = Path(workspace)
+    if (workspace/'workspace.json').exists():
+        from .catalog import registered_dataset
+        return registered_dataset(workspace)
     families = [dict(id=kind, label=label, hint=hint,
                      rows=[dict(r, result=None) for r in authored_family(kind)])
                 for kind, label, hint in [('axial', 'c strain', 'Fixed a, b'),
@@ -106,13 +109,15 @@ def dataset(workspace):
             row.setdefault('calculations', []).append(calculation)
             row['result'] = calculation
     # Keep the original rows field for saved-state consumers; new views add families.
-    return dict(format='REMAG-WORKSPACE/1', material='FePt', rows=families[0]['rows'], families=families)
+    from ase.data import chemical_symbols
+    return dict(format='REMAG-WORKSPACE/1', material='FePt', rows=families[0]['rows'], families=families,
+                element_symbols=chemical_symbols)
 
 
 def serve(workspace, port=8765):
     workspace = Path(workspace).resolve()
     if not workspace.is_dir(): raise ValueError('Workspace directory must exist')
-    authored_family()  # initialize before announcing a ready local URL
+    if not (workspace/'workspace.json').exists():authored_family()
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             if self.path == '/':

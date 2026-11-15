@@ -89,3 +89,46 @@ new bundles verify the pre-preparation source binding. Failed native relaxation
 is rejected, while an accepted relaxation can be inspected even if a later SOC
 stage failed. Changed atom counts, species/order or lattice presentation are not
 silently matched. Numerical observations remain separate from exact sources.
+
+## Compact saved collections
+
+`inspect_calculation` and `record_calculation_outcome` accept an optional
+`collection` path to the original `archive-manifest.json`. This verifies the
+bound report, every collected artifact and every locally present artifact named
+by the calculation. Accepted stages require their collected native output,
+effective FDF log, input, result and review. Missing remote binary artifacts
+remain explicitly listed in `verification.omitted_artifacts`; their bytes are
+not claimed to have been reverified. Without a collection manifest, all report
+artifacts must exist locally. This supports the existing compact collection
+format without recreating files or rerunning calculations.
+
+## General workspace
+
+The same local viewer and snapshot command accept a `workspace.json` catalog at
+the workspace root. Paths stay inside that root. Each entry names an exact
+physical export and optional calculations and spectra:
+
+```json
+{
+  "format": "REMAG-RESEARCH-WORKSPACE/1",
+  "title": "Crystal research",
+  "structures": [{
+    "id": "candidate", "label": "Candidate A", "structure": "candidate.json",
+    "calculations": [{
+      "report": "collected/candidate/report.json",
+      "collection": "collected/archive-manifest.json",
+      "spectra": {"soc-z": "collected/candidate/electronic-z/electronic.json"}
+    }]
+  }]
+}
+```
+
+`collection` is optional for a complete local result. The viewer verifies the
+exact source and Hamiltonian bindings, supports atom/orbit selections, signed
+projected DOS, bounded near-Fermi k/state inspection, spin expectations and
+occupations. A per-structure `relaxation: {"bundle": "...", "report": "..."}`
+adds authored/relaxed geometry comparison and feedback. The state preview is
+limited to the nearest 100 states within ±3 eV, with omitted counts visible;
+the agent inspection tool supports other bounded selections. Labels are text,
+never executable markup. The original FePt-family workspace remains available
+when no catalog is present. Viewing never submits calculations.

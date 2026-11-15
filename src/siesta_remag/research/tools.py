@@ -23,7 +23,7 @@ TOOLS = {
         'description':'Verify a saved accepted native relaxation and report source-linked site/orbit, neighbor and authored-symmetry changes.'},
     'calibrate_exploratory_response': {'required': ['exploratory','reference','baseline_source_sha256','resolution_ev'], 'optional': [],
         'description': 'Compare response errors, signs and rankings from saved matched structures; selects no universal default.'},
-    'inspect_calculation': {'required': ['report'], 'optional': [],
+    'inspect_calculation': {'required': ['report'], 'optional': ['collection'],
         'description': 'Verify a saved calculation and inspect measured stages, moments, forces, stress and anisotropy.'},
     'inspect_electronic_structure': {'required': ['spectrum'], 'optional': ['selection'],
         'description': 'Select near-Fermi states by atom, orbital, angular momentum and k-point indices.'},
@@ -42,7 +42,7 @@ TOOLS = {
         'description': 'Record why an inspection or calculation distinguishes the hypothesis.'},
     'record_prediction': {'required': ['experiment_id', 'observable', 'value', 'unit'], 'optional': ['uncertainty'],
         'description': 'Record a prediction before an outcome exists; later revisions cannot overwrite it.'},
-    'record_calculation_outcome': {'required': ['experiment_id', 'report', 'stage', 'observable'], 'optional': [],
+    'record_calculation_outcome': {'required': ['experiment_id', 'report', 'stage', 'observable'], 'optional': ['collection'],
         'description': 'Bind an outcome to an actual saved report; energy observables require accepted native stages.'},
     'evaluate_hypothesis': {'required': ['experiment_id'], 'optional': [],
         'description': 'Compare a recorded prediction with its measured outcome; agreement is not mechanism proof.'},
@@ -53,17 +53,54 @@ TOOLS = {
 }
 
 
-def _verified_report(path):
+def _verified_report(path, collection=None):
     root = path.parent
     report = load(path)
     if report.get('format') != 'REMAG-EXPERIMENT-RESULT/1':
         raise ValueError('Expected a research calculation report')
     if report['source_sha256'] != report['request']['source_sha256']:
         raise ValueError('Calculation source binding differs')
+    collected = None
+    if collection is not None:
+        collection=Path(collection).resolve()
+        manifest=load(collection)
+        if collection.name!='archive-manifest.json' or manifest.get('schema')!=1:
+            raise ValueError('Expected the original compact archive manifest')
+        if not path.is_relative_to(collection.parent):raise ValueError('Report is outside the collection')
+        collected=manifest['files']
+        if 'report.json' not in collected:raise ValueError('Collection lacks its root report binding')
+        key=str(path.relative_to(collection.parent))
+        if collected.get(key)!=sha256(path):raise ValueError('Report is not bound by the collection')
+        top=load(collection.parent/'report.json')
+        if (top['status']=='running' or top['status']!=manifest['status'] or
+            top['invocation_sha256']!=manifest['invocation_sha256']):
+            raise ValueError('Collection invocation differs')
+        for name,expected in collected.items():
+            artifact=(collection.parent/name).resolve()
+            if not artifact.is_relative_to(collection.parent) or sha256(artifact)!=expected:
+                raise ValueError('Collected artifact binding differs: '+name)
+        prefix=path.parent.relative_to(collection.parent)
+        for stage in report['stages']:
+            if stage['accepted']:
+                for filename in ('result.json','stdout.log','input.fdf','review.json'):
+                    if str(prefix/stage['stage']/filename) not in collected:
+                        raise ValueError('Collection lacks accepted stage evidence: '+filename)
+                stage_path=prefix/stage['stage']
+                if not any(Path(name).parent==stage_path and Path(name).match('fdf*.log') for name in collected):
+                    raise ValueError('Collection lacks effective FDF evidence')
+    omitted=[]
     for name, expected in report['artifacts'].items():
         artifact = (root/name).resolve()
-        if not artifact.is_relative_to(root) or sha256(artifact) != expected:
+        if not artifact.is_relative_to(root):raise ValueError('Calculation artifact escapes result directory')
+        if not artifact.exists() and collected is not None:
+            if str(artifact.relative_to(collection.parent)) in collected:
+                raise ValueError('Collected artifact is missing: '+name)
+            omitted.append(name)
+        elif sha256(artifact) != expected:
             raise ValueError('Calculation artifact binding differs: '+name)
+    report=dict(report,verification=dict(mode='compact collection' if collected is not None else 'full local artifacts',
+        omitted_artifacts=omitted,collection_manifest_sha256=sha256(collection) if collection else None,
+        scope='All collected and locally present report artifacts verified; omitted remote bytes are not reverified'))
     return report
 
 
@@ -102,7 +139,7 @@ class ResearchTools:
             return calibrate_response([self.path(p) for p in args['exploratory']], [self.path(p) for p in args['reference']],
                 baseline_source_sha256=args['baseline_source_sha256'],resolution_ev=args['resolution_ev'])
         if name == 'inspect_calculation':
-            path = self.path(args['report']); report = _verified_report(path)
+            path = self.path(args['report']); report = _verified_report(path,self.path(args['collection']) if 'collection' in args else None)
             observations = {stage: {k:v for k,v in row.items() if k != 'eigenvalues'}
                             for stage,row in report['observations'].items()}
             return dict(format='REMAG-CALCULATION-INSPECTION/1', report_sha256=sha256(path),
@@ -110,7 +147,7 @@ class ResearchTools:
                 executable_sha256=report['executable_sha256'], stages=report['stages'], observations=observations,
                 anisotropy=report.get('anisotropy'), angular_fit=report.get('angular_fit'),
                 wall_seconds=report.get('wall_seconds'), latency_scope=report.get('latency_scope', 'Recorded experiment time only'),
-                physical_accuracy_qualified=False)
+                verification=report['verification'],physical_accuracy_qualified=False)
         if name in ('inspect_electronic_structure','projected_dos','compare_electronic_states'):
             options = {k:v for k,v in args.items() if k in ('selection','sigma_ev','points')}
             if name == 'compare_electronic_states':
@@ -139,7 +176,7 @@ class ResearchTools:
             notebook.close()
 
     def _outcome(self, notebook, args):
-        path = self.path(args['report']); report = _verified_report(path)
+        path = self.path(args['report']); report = _verified_report(path,self.path(args['collection']) if 'collection' in args else None)
         experiment = notebook.get(args['experiment_id'])
         if experiment['kind'] != 'experiment' or experiment['payload']['structure_sha256'] != report['source_sha256']:
             raise ValueError('Outcome source differs from the recorded experiment')
