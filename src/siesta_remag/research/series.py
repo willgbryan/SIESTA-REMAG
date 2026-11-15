@@ -282,7 +282,8 @@ def _value(report, point, endpoint, definition, name):
         # Compare per-parent orbital inventories without assuming band tracking.
         import json
         signature=dict(metadata={k:m.get(k) for k in ('spin_components','collinear_spin','spin_frame','projection','temperature_ev','occupations_model')},
-            orbitals=sorted(json.dumps(r,sort_keys=True) for r in orbitals),k_fractional=a['k_fractional'],k_weights=a['k_weights'])
+            orbitals=sorted(json.dumps(r,sort_keys=True) for r in orbitals),k_fractional=a['k_fractional'],k_weights=a['k_weights'],
+            native_context=dict(report_path=endpoint['report'],report=report,metadata=m,stage=o['stage']))
     else:
         row=report['observations'][o['stage']]
         if kind=='stress':
@@ -365,9 +366,9 @@ def analyze_series(directory, evidence, observables, output, *, error_bounds=Non
             if signature is not None:
                 if spectral_reference is not None:
                     if any(signature[k]!=spectral_reference[k] for k in ('metadata','orbitals')):raise ValueError('Response spectral metadata or parent orbital inventory differs')
-                    for key in ('k_fractional','k_weights'):
-                        a,b=signature[key],spectral_reference[key]
-                        if a.shape!=b.shape or not np.allclose(a,b,rtol=0,atol=1e-12):raise ValueError('Response spectral sampling differs')
+                    from .sampling import compare_sampling
+                    detail['sampling_correspondence']=compare_sampling(spectral_reference,signature,
+                        spectral_reference['native_context'],signature['native_context'])
                 spectral_reference=signature
             row.update(value=value,status='measured',evidence=detail)
             base=reports.get(baseline_id)

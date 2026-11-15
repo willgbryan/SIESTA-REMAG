@@ -61,7 +61,7 @@ TOOLS = {
         'description': 'Select near-Fermi states by atom, orbital, angular momentum and k-point indices.'},
     'projected_dos': {'required': ['spectrum'], 'optional': ['selection', 'sigma_ev', 'points'],
         'description': 'Inspect signed orbital projections on a bounded energy grid.'},
-    'compare_electronic_states': {'required': ['before', 'after'], 'optional': ['selection', 'sigma_ev', 'points'],
+    'compare_electronic_states': {'required': ['before', 'after'], 'optional': ['selection', 'sigma_ev', 'points','before_native','after_native'],
         'description': 'Compare matched electronic samplings without assuming band tracking or SOC attribution.'},
     'structural_operation': {'required': ['request'], 'optional': [],
         'description': 'Use the existing GPAC typed JSON worker for exact inspection, authoring and modification.'},
@@ -266,6 +266,13 @@ class ResearchTools:
         if name in ('inspect_electronic_structure','projected_dos','compare_electronic_states'):
             options = {k:v for k,v in args.items() if k in ('selection','sigma_ev','points')}
             if name == 'compare_electronic_states':
+                for key in ('before_native','after_native'):
+                    if key not in args:continue
+                    endpoint=args[key]
+                    if (not isinstance(endpoint,dict) or not {'report','stage'}<=set(endpoint)
+                            or set(endpoint)-{'report','stage','collection'}):raise ValueError('Invalid native comparison endpoint')
+                    options[key]={k:self.path(v) if k in ('report','collection') else v for k,v in endpoint.items()}
+                    self._source_access(load(options[key]['report']).get('source_sha256'))
                 return compare_electronic(self.path(args['before']),self.path(args['after']),**options)
             function = inspect_electronic if name == 'inspect_electronic_structure' else projected_dos
             return function(self.path(args['spectrum']),**options)

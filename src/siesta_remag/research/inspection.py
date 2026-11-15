@@ -119,15 +119,17 @@ def projected_dos(metadata_path, selection=None, *, sigma_ev=.12, points=161):
         scope='Signed Mulliken DOS; selected k weights are not renormalized; single collinear channel unless spin-degenerate')
 
 
-def compare_electronic(before_path, after_path, selection=None, *, sigma_ev=.12, points=161):
+def compare_electronic(before_path, after_path, selection=None, *, sigma_ev=.12, points=161,before_native=None,after_native=None):
     a, da = load_spectrum(before_path)
     b, db = load_spectrum(after_path)
     for key in ('orbitals', 'spin_components', 'collinear_spin', 'spin_frame', 'projection', 'temperature_ev'):
         if a.get(key) != b.get(key):
             raise ValueError('Electronic comparison metadata differs: '+key)
-    for key in ('k_fractional', 'k_weights'):
-        if da[key].shape != db[key].shape or not np.allclose(da[key],db[key],rtol=0,atol=1e-12):
-            raise ValueError('Electronic comparison sampling differs')
+    from .sampling import compare_sampling,native_report_context
+    if (before_native is None)!=(after_native is None):raise ValueError('Supply both native endpoint contexts or neither')
+    ca=native_report_context(before_native,a) if before_native is not None else None
+    cb=native_report_context(after_native,b) if after_native is not None else None
+    sampling=compare_sampling(da,db,ca,cb)
     left = projected_dos(before_path, selection, sigma_ev=sigma_ev, points=points)
     right = projected_dos(after_path, selection, sigma_ev=sigma_ev, points=points)
     return dict(format='REMAG-ELECTRONIC-COMPARISON/1',
@@ -137,5 +139,6 @@ def compare_electronic(before_path, after_path, selection=None, *, sigma_ev=.12,
         after_dos=right['density_states_per_ev'],
         delta_dos=(np.array(right['density_states_per_ev'])-left['density_states_per_ev']).tolist(),
         fermi_shift_ev=b['fermi_ev']-a['fermi_ev'], sigma_ev=sigma_ev, selection={} if selection is None else selection,
+        sampling_correspondence=sampling,native_contexts=dict(before=ca['binding'],after=cb['binding']) if ca else None,
         scope='Each spectrum aligned to its own Fermi level; basis-dependent populations, no band correspondence or SOC attribution',
         mechanism_verified=False, physical_accuracy_qualified=False)

@@ -57,6 +57,13 @@ Failed native endpoints become failed outcomes with unknown values. Invalid or
 tampered evidence is rejected. Both endpoint hashes and the definition are
 retained in the immutable outcome. Compact-archive omissions remain explicit.
 
+If literal fractional k arrays differ across strained cells, the shared
+[native sampling matcher](NATIVE_SAMPLING.md) can verify their ordered mesh
+correspondence from the original input/KP files and decimal printing intervals.
+The result records that mode and its proof separately. Spectral values and
+weights remain untouched; the printing-interval check supplies no energy or
+response uncertainty estimate.
+
 The selection refers to literal ordered indices. Matching orbital labels and
 numerical settings does not prove radial-basis identity, map reordered atoms,
 track crossing bands or isolate SOC. Such stronger interpretations require the

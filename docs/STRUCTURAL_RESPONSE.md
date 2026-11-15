@@ -120,12 +120,13 @@ remain unknown. Three samples do not prove a derivative is physically accurate.
 
 Vectors remain in each authored right-handed Cholesky solver frame; there is
 no hidden rotation or changed-cell correspondence fit. Electronic comparisons
-require matching parent orbital inventories and actual ordered fractional
-k points/weights within `1e-12`. Native KP decimal rounding can differ across
-strained cells even on the same intended mesh; such historical spectra are
-currently rejected rather than silently relabeled. Precision-aware native
-sampling correspondence remains a follow-up. Radial-basis identity, band
-tracking and unique SOC or MAE attribution are not inferred by window integrals.
+require matching parent orbital inventories and either literal ordered sampling
+within `1e-12` or the [native printing-interval correspondence](NATIVE_SAMPLING.md).
+The latter verifies the bound native input/KP files, reproduces the stored
+coordinates and identifies unique declared mesh points and multiplicities.
+It preserves original values and ordering; it does not assign an energy error
+bound to KP rounding. Radial-basis identity, band tracking and unique SOC or MAE
+attribution are not inferred by window integrals.
 
 Engineering tests cover all six paths, reordered atoms, analytic unequal-step
 responses, explicit errors, missing/failed/changed-branch samples, native hash

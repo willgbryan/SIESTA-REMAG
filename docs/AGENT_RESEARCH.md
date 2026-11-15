@@ -248,3 +248,9 @@ Parent atom indices follow exact correspondence even when GPAC reorders sites.
 Failed, pending and changed-branch samples remain visible, and only consecutive
 eligible triplets produce derivatives. See [design, evidence and uncertainty
 contracts](STRUCTURAL_RESPONSE.md). These tools do not authorize native compute.
+
+For a saved DOS comparison across strained cells, `compare_electronic_states`
+accepts `before_native` and `after_native` records (`report`, `stage`, optional
+`collection`). They permit verified [native mesh correspondence](NATIVE_SAMPLING.md)
+when Cartesian KP text rounding changes the fractional arrays. Both records are
+required together; original spectra and their uncertainty scope are preserved.

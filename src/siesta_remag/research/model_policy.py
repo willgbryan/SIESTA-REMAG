@@ -89,6 +89,10 @@ Site indices always refer to the original parent. Optional error_bounds map
 observable names to point-ID absolute bounds; do not invent these bounds.
 Missing/failed points and branch changes remain evidence; derivatives require
 three consecutive eligible samples and do not establish a physical mechanism.
+For compare_electronic_states, optional before_native and after_native each
+contain report, stage and optional collection. Supply both to verify native
+mesh correspondence when strained-cell KP printing changes fractional arrays.
+This preserves original spectra and does not establish an energy error bound.
 Exact GPAC edits use rational strings and expected source hashes. Do not convert
 floating observations to exact authoring claims without an explicit policy.
 Choose chemistry, order, strain, local coordination, related structures or spin

@@ -110,9 +110,10 @@ def response_observation(target, before, after, *, source_sha256):
         va,ma,da,sa=_spectral(before,a,target);vb,mb,db,sb=_spectral(after,b,target)
         for key in ('orbitals','spin_components','collinear_spin','spin_frame','projection','temperature_ev','occupations_model'):
             if ma.get(key)!=mb.get(key):raise ValueError('Response spectral metadata differs: '+key)
-        for key in ('k_fractional','k_weights'):
-            if da[key].shape!=db[key].shape or not np.allclose(da[key],db[key],rtol=0,atol=1e-12):
-                raise ValueError('Response spectral sampling differs')
+        from .sampling import compare_sampling
+        evidence['sampling_correspondence']=compare_sampling(da,db,
+            dict(report_path=before['report'],report=a,metadata=ma,stage=target['stage']),
+            dict(report_path=after['report'],report=b,metadata=mb,stage=target['stage']))
         ea.update(sa);eb.update(sb)
         evidence['scope']='Signed Mulliken window integral on literal ordered atom/orbital indices; no k-weight renormalization, band tracking, radial-basis identity or SOC attribution. Energy moment is not a total energy or MAE.'
     if not all(math.isfinite(v) for v in (va,vb,vb-va)):raise ValueError('Nonfinite response observation')
