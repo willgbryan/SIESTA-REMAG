@@ -63,7 +63,9 @@ def electronic_view(path, expected_hsx, atom_count):
             k_weight=float(data['k_weights'][k]),energy_minus_fermi_ev=float(energies[k,n]),
             occupation=float(data['occupations'][k,n]),orbital_weights=data['orbital_mulliken'][k,:,n].tolist(),
             spin_pauli=data['spin_pauli'][k,n].tolist() if data['spin_pauli'].size else None))
+    from .reciprocal import sampled_view
     return dict(energy_ev=grid.tolist(),groups=groups,gaussian_sigma_ev=sigma,states=states,
+        sampled=sampled_view(meta,data,atom_count),
         orbitals=meta['orbitals'],matching_states=len(candidates),omitted_states=max(0,len(candidates)-len(states)),
         projection=meta['projection'],native_max_abs_error_ev=meta['native_max_abs_error_ev'],
         sampling=meta.get('sampling'),occupations_model=meta['occupations_model'],spin_frame=meta['spin_frame'])

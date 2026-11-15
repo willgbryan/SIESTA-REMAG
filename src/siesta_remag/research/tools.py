@@ -58,7 +58,10 @@ TOOLS = {
     'inspect_calculation': {'required': ['report'], 'optional': ['collection'],
         'description': 'Verify a saved calculation and inspect measured stages, moments, forces, stress and anisotropy.'},
     'inspect_electronic_structure': {'required': ['spectrum'], 'optional': ['selection'],
-        'description': 'Select near-Fermi states by atom, orbital, angular momentum and k-point indices.'},
+        'description': 'Select near-Fermi states by atom, orbital, angular momentum, k-point indices or a periodic fractional k_region (center/half_width).'},
+    'export_band_path': {'required':['report','stage','spectrum','native_hsx','output','k_indices'],
+        'optional':['breaks','selection','collection'],
+        'description':'Export energy-ranked bands along ordered saved k points with native-cell distances; no new solve or band tracking. Arrays stay in a hashed artifact.'},
     'projected_dos': {'required': ['spectrum'], 'optional': ['selection', 'sigma_ev', 'points'],
         'description': 'Inspect signed orbital projections on a bounded energy grid.'},
     'compare_electronic_states': {'required': ['before', 'after'], 'optional': ['selection', 'sigma_ev', 'points','before_native','after_native'],
@@ -85,7 +88,7 @@ TOOLS = {
 }
 
 ELECTRONIC_TOOLS=frozenset({'inspect_electronic_structure','projected_dos','compare_electronic_states',
-    'export_electronic_matrices','compare_electronic_matrices','export_orbital_moments','export_soc_matrices'})
+    'export_electronic_matrices','compare_electronic_matrices','export_orbital_moments','export_soc_matrices','export_band_path'})
 STANDARD_OBSERVATIONS=frozenset({'total_energy_ev','free_energy_ev','forces_ev_ang','stress_ev_ang3',
     'atom_moments_muB','total_moment_muB','scf_iterations','spin_components'})
 
@@ -263,6 +266,12 @@ class ResearchTools:
                 anisotropy=report.get('anisotropy'), angular_fit=report.get('angular_fit'),
                 wall_seconds=report.get('wall_seconds'), latency_scope=report.get('latency_scope', 'Recorded experiment time only'),
                 verification=report['verification'],physical_accuracy_qualified=False)
+        if name=='export_band_path':
+            from .reciprocal import export_band_path
+            return export_band_path(self.path(args['report']),args['stage'],self.path(args['spectrum']),
+                self.path(args['native_hsx']),self.path(args['output']),k_indices=args['k_indices'],
+                **{k:v for k,v in args.items() if k in ('breaks','selection')},
+                collection=self.path(args['collection']) if 'collection' in args else None)
         if name in ('inspect_electronic_structure','projected_dos','compare_electronic_states'):
             options = {k:v for k,v in args.items() if k in ('selection','sigma_ev','points')}
             if name == 'compare_electronic_states':

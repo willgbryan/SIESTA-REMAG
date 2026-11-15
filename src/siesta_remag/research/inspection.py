@@ -49,7 +49,7 @@ def _indices(selection, field, count):
 
 
 def _select(meta, arrays, selection):
-    if not isinstance(selection, dict) or set(selection)-{'atom_indices', 'orbital_indices', 'l', 'k_indices', 'energy_window_ev', 'limit'}:
+    if not isinstance(selection, dict) or set(selection)-{'atom_indices', 'orbital_indices', 'l', 'k_indices', 'k_region', 'energy_window_ev', 'limit'}:
         raise ValueError('Unknown electronic selection fields')
     orbitals = meta['orbitals']
     selected = _indices(selection, 'orbital_indices', len(orbitals))
@@ -64,6 +64,10 @@ def _select(meta, arrays, selection):
     if not selected:
         raise ValueError('Orbital selection is empty')
     ks = _indices(selection, 'k_indices', len(arrays['eigenvalues_ev']))
+    if 'k_region' in selection:
+        if 'k_indices' in selection:raise ValueError('Choose k_indices or k_region, not both')
+        from .reciprocal import region_indices
+        ks=region_indices(arrays['k_fractional'],selection['k_region'])
     window = selection.get('energy_window_ev', [-3,3])
     if (not isinstance(window, list) or len(window) != 2 or any(type(x) not in (int,float) or not np.isfinite(x) for x in window)
             or not -100 <= window[0] < window[1] <= 100):
@@ -130,6 +134,9 @@ def compare_electronic(before_path, after_path, selection=None, *, sigma_ev=.12,
     ca=native_report_context(before_native,a) if before_native is not None else None
     cb=native_report_context(after_native,b) if after_native is not None else None
     sampling=compare_sampling(da,db,ca,cb)
+    if selection is not None and 'k_region' in selection:
+        if _select(a,da,selection)[1]!=_select(b,db,selection)[1]:
+            raise ValueError('Reciprocal region membership differs between the matched samplings')
     left = projected_dos(before_path, selection, sigma_ev=sigma_ev, points=points)
     right = projected_dos(after_path, selection, sigma_ev=sigma_ev, points=points)
     return dict(format='REMAG-ELECTRONIC-COMPARISON/1',

@@ -78,6 +78,10 @@ catalog lock; at most 128 research items are admitted. `register_research` and
 
 ## Coordination selection
 
+The [saved band and reciprocal-region workspace](RECIPROCAL_WORKSPACE.md) links
+this same atom/orbit/motif selection to band points, spin/occupation details and
+regional signed DOS, with original k weights and explicit native provenance.
+
 The site/orbit selector also offers the center's periodic coordination motif at
 the displayed 3.4 Å cutoff. Its unique unit-cell sites feed the existing DOS,
 state-weight, orbital-moment and coupling views. Multiple images of one site do

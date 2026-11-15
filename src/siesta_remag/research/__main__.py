@@ -55,6 +55,16 @@ def main(argv=None):
     p.add_argument('--experiments', type=Path, required=True, help='JSON array of notebook experiment IDs')
     p.add_argument('--resolutions', type=Path, required=True, help='JSON object of observable resolutions in prediction units')
     p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('bands', help='Export a band path over saved checked k points without new calculations')
+    p.add_argument('report', type=Path)
+    p.add_argument('--stage', required=True)
+    p.add_argument('--spectrum', type=Path, required=True)
+    p.add_argument('--native-hsx', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--k-indices', type=int, nargs='+', required=True)
+    p.add_argument('--breaks', type=int, nargs='*')
+    p.add_argument('--selection', type=Path)
+    p.add_argument('--collection', type=Path)
     p = sub.add_parser('soc-matrices', help='Inspect a native spin-dependent nonlocal SOC operator in checked selected-k states')
     p.add_argument('report', type=Path)
     p.add_argument('--stage', required=True)
@@ -209,6 +219,11 @@ def main(argv=None):
         from .series import analyze_series
         result=analyze_series(args.series,load(args.evidence),load(args.observables),args.output,
             error_bounds=load(args.error_bounds) if args.error_bounds else None)
+    elif args.command == 'bands':
+        from .reciprocal import export_band_path
+        result=export_band_path(args.report,args.stage,args.spectrum,args.native_hsx,args.output,
+            k_indices=args.k_indices,breaks=args.breaks,selection=load(args.selection) if args.selection else None,
+            collection=args.collection)
     elif args.command == 'soc-matrices':
         from .soc import export_soc
         result=export_soc(args.report,args.stage,args.native_directory,args.output,k_indices=args.k_indices,collection=args.collection)

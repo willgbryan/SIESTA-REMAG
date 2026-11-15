@@ -18,7 +18,7 @@ tests or marked complete merely because the interface exists.
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
 | §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
 | §§7E–F, 12 evaluation | Prerecorded multi-observable predictions, verified response outcomes, error/sign/interval scores, simple-fit baselines; registered scalar/physics profiles with matched limits, frozen cohorts and shared grading | Empirical equal-compute agent comparison, predictive performance, uncertainty calibration and independent discovery/transfer validation |
-| §10 workspace | General exact-source catalog, atom/orbit/coordination-motif/k/state selection, signed DOS/spin, authored/relaxed comparison, exact candidate editing, saved-settings query/family preparation and source-linked saved responses | Richer linked band/reciprocal-region views, additional GUI query designs and browser visual acceptance |
+| §10 workspace | General exact-source catalog, atom/orbit/coordination-motif/k/state and periodic-region selection, linked saved band paths and signed DOS/spin, authored/relaxed comparison, exact candidate editing, saved-settings query/family preparation and source-linked saved responses | Additional GUI query designs and browser visual acceptance; paths use sampled energy ranks, not tracked band identities |
 | §11 / Phase 5 expansion | General GPAC authoring and REMAG discovery screening | Demonstrated workflow for Fe₂B/selected structures, theory-guided candidates and transfer evaluation |
 
 Implementation order: (1) observable-specific queries and reusable electronic
@@ -30,6 +30,13 @@ by this checklist. Optional force-theorem, automatic-differentiation and
 approximate-to-exact methods are deferred unless needed for a concrete query.
 
 ## Delivered development increments
+
+- 15 November: [bands and reciprocal regions](RECIPROCAL_WORKSPACE.md) link saved
+  k/state selection to periodic-region DOS, signed projections and occupations.
+  Native-bound path exports reproduce KP/EIG acceptance and use the HSX cell;
+  arrays remain artifacts. Analytic, CLI/agent and client-protocol checks pass.
+  Three saved FePt spectra exercise the workspace without a native solve.
+  Band tracking, physical accuracy and browser visual acceptance are not inferred.
 
 - 15 November: [device-owned SOC output](NATIVE_SOC.md) captures a checked
   post-SCF snapshot before forces release H0, accounts for the diagnostic copy,

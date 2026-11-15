@@ -114,6 +114,27 @@ def dataset(workspace):
                 element_symbols=chemical_symbols)
 
 
+def browser_state(state):
+    """Serialize large sampled arrays once despite retained legacy view aliases."""
+    arrays={};seen={}
+    def visit(value):
+        if isinstance(value,dict):
+            result={}
+            for key,item in value.items():
+                if key=='sampled' and isinstance(item,dict) and item.get('available') is True:
+                    identity=id(item)
+                    if identity not in seen:
+                        name='sample-'+str(len(arrays));seen[identity]=name;arrays[name]=item
+                    result[key]={'ref':seen[identity]}
+                else:result[key]=visit(item)
+            return result
+        if isinstance(value,list):return [visit(v) for v in value]
+        return value
+    result=visit(state)
+    if arrays:result['sampled_arrays']=arrays
+    return result
+
+
 def make_server(workspace, port=8765, *, editable=False):
     workspace = Path(workspace).resolve()
     if not workspace.is_dir(): raise ValueError('Workspace directory must exist')
@@ -140,7 +161,7 @@ def make_server(workspace, port=8765, *, editable=False):
                 body, kind = Path(__file__).with_name('workspace.html').read_bytes(), 'text/html; charset=utf-8'
             elif self.path == '/api/state':
                 try:
-                    body = json.dumps(dataset(workspace) | {'authoring_enabled':editable}, allow_nan=False).encode()
+                    body = json.dumps(browser_state(dataset(workspace)) | {'authoring_enabled':editable}, allow_nan=False).encode()
                 except Exception as exc:
                     self.send_error(500, type(exc).__name__); return
                 kind = 'application/json'
@@ -185,7 +206,7 @@ def serve(workspace, port=8765, *, editable=False):
 def snapshot(workspace, output):
     """Self-contained read-only HTML, with the same source/result binding as serve."""
     state = dataset(Path(workspace).resolve())
-    payload = json.dumps(state, allow_nan=False).replace('<', '\\u003c')
+    payload = json.dumps(browser_state(state), allow_nan=False).replace('<', '\\u003c')
     html = Path(__file__).with_name('workspace.html').read_text()
     html = html.replace('<script>', '<script type="application/json" id="saved-state">'+payload+'</script>\n<script>', 1)
     target = Path(output)
