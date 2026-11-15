@@ -234,6 +234,31 @@ the existing single-GPU 62-orbital common-mesh basis case continues. No new
 cloud reservation was added. The unresolved basis, radial and enlarged-basis
 mesh gates continue to prevent qualification and prediction expansion.
 
+## Completed common-mesh basis ladder
+
+The [full 42/48/62 ladder at 24³](../tests/evidence/research/fept-basis24-r3-complete-review-2026-11-14.json)
+finished with 62-orbital E/F anisotropies of 2.595153/2.585405 meV/cell.
+The final 48→62 change is −0.042245/−0.042624 meV, individually passing
+both 0.05 meV limits. The preceding +0.314129/+0.311002 meV failure remains:
+the required two successive passing refinements have **not** been obtained.
+The same-basis 16→24 mesh change is −0.307122/−0.174882 meV and also fails.
+No DZP mesh pass transfers to this enlarged basis.
+
+All four native stages, magnetic branches, transverse symmetry, basis shells
+and shared radial identities pass. The scalar overlap is positive at all 7,224
+native k points, with worst condition number 626,017; this is not basis
+completeness. Independent review reproduced native acceptance and verified the
+collected archive, all 23 recovered native files, source/runtime invocation and
+both comparisons. The calculation took 4,361.27 seconds (72.7 minutes).
+The owned app stopped at 01:19:28 UTC on 15 November; no follow-on GPU is queued.
+
+The next bounded plan must retain the failed basis gate, check radial extent
+and the enlarged-basis mesh using REMAG alone, and assess exploratory latency
+from existing measurements before allocating more compute. Remaining basis
+reservation capacity is $70; the separate $50 final-control cap remains gated.
+Cumulative reservations are $226.67 against $350; actual invoices are unknown.
+Pristine references remain cancelled and no replacement reference is needed.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed

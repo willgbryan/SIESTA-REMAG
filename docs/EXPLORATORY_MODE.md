@@ -59,7 +59,8 @@ default is selected by this audit.
 
 ## Next bounded work
 
-Finish and review the already-running 62-orbital common-mesh REMAG calculation.
+The [completed 62-orbital common-mesh case](../tests/evidence/research/fept-basis24-r3-complete-review-2026-11-14.json)
+took 72.7 minutes and leaves the full basis ladder unqualified. Its app is stopped.
 Use the existing results to preregister an observable-specific exploration
 calibration and a latency comparison of supported REMAG accelerated paths. The
 current host-controlled configuration disables device-SCF, multiple solver lanes
