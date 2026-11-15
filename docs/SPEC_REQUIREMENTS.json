@@ -1,6 +1,6 @@
 {
   "format": "GPAC-REMAG-SPEC-COMPLETION-AUDIT/1",
-  "created_at": "2026-11-15T23:15:28.418432+00:00",
+  "created_at": "2026-11-15T23:43:10.451379+00:00",
   "specification": {
     "title": "GPAC × REMAG: Physics-Guided Autonomous Crystal Discovery — Development Specification v3.0",
     "sha256": "e33e5d1f0894fce48dd1bf25852272f3ede3c83dc69725f7d905e4428b69b0e8",
@@ -8,15 +8,14 @@
     "source": "Owner attachment; line spans are one-based in the original text"
   },
   "reviewed_heads": {
-    "REMAG": "789f64b9d54757d6c67398911eeea18118d8ecac",
+    "REMAG": "65ca0e694bd9784dd72c92531140694512e94555",
     "GPAC": "44f32c28830e5ec9a6cab2731ab8bb8e78adb314"
   },
   "interpretation": {
     "overall_spec_complete": false,
     "software_core_delivered": true,
     "mandatory_reporting_implementation_gaps": [
-      "R35",
-      "R36"
+      "R35"
     ],
     "scope_policy": "Examples are not an exhaustive mandatory feature list. Conditional/optional/long-term work is not silently promoted to an initial success gate. Empirical success remains distinct from software delivery.",
     "historical_prediction_evidence": "Independent prospective REMAG comparisons already exist. They are finite evidence, not a full paired autonomous study or a verified mechanism.",
@@ -1433,7 +1432,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/study.py",
-          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+          "sha256": "8460eb38196617f844453d9360ee28229ed6e135d21d4ae8ffc0bdb313abb4db"
         }
       ],
       "tests": [
@@ -1602,7 +1601,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/__main__.py",
-          "sha256": "3981b2f40f6bbd75f1a2f1d7221849cb446b38481695502e2ddbe97eff21dbe1"
+          "sha256": "3c81e592c04607632a4e78659c20cafdc90680a8b5e63098192cfb9cc180a262"
         },
         {
           "repo": "REMAG",
@@ -1849,7 +1848,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/study.py",
-          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+          "sha256": "8460eb38196617f844453d9360ee28229ed6e135d21d4ae8ffc0bdb313abb4db"
         },
         {
           "repo": "REMAG",
@@ -1909,7 +1908,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/study.py",
-          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+          "sha256": "8460eb38196617f844453d9360ee28229ed6e135d21d4ae8ffc0bdb313abb4db"
         },
         {
           "repo": "REMAG",
@@ -1957,14 +1956,14 @@
       "obligation": "required",
       "requirement": "Best independently validated anisotropy, magnetization, stability, distinct plausible candidates and robustness.",
       "implementation_status": "partial",
-      "acceptance_status": "not_demonstrated",
-      "delivered": "Underlying property, structural assessment and response tools exist.",
-      "outstanding": "Concrete implementation gap: paired-study output has independent_candidate_validation=None and no source-bound candidate validation/cohort scorecard. Candidate quality must not be inferred from a bool or geometry advisory alone.",
+      "acceptance_status": "locally_tested_saved_data_demonstrated",
+      "delivered": "Complete persisted authoring cohort, exact-source duplicate groups, registered geometric screening, saved normalized anisotropy/spin properties, E/F finite controls and post-session timing checks. Pending and failed rows retained; rankings separate numerical configurations.",
+      "outstanding": "Structural-variation robustness, source-bound stability evidence and an explicit distinct-candidate equivalence policy remain implementation work. Saturation/ground-state status is unassessed. Finite numerical controls and recorded chronology do not establish physical stability, provider authenticity or empirical independence.",
       "implementation": [
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/study.py",
-          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+          "sha256": "8460eb38196617f844453d9360ee28229ed6e135d21d4ae8ffc0bdb313abb4db"
         },
         {
           "repo": "REMAG",
@@ -1975,6 +1974,11 @@
           "repo": "REMAG",
           "path": "src/siesta_remag/research/response.py",
           "sha256": "12ce1f617e850ec2793772c0b40f8e7cd1663343025e14a60968876d3bf64ce0"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/discovery_scores.py",
+          "sha256": "9c4c6c27fcde53fabad35217fe19dd584276e51d1bde56a1369be04016cbc626"
         }
       ],
       "tests": [
@@ -1992,9 +1996,20 @@
           "repo": "REMAG",
           "path": "tests/test_research_response.py",
           "sha256": "bcafee61922b252cec63b1360f3d1f26b2d97b5f55f32e2a253de437b761bdc5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_discovery_scores.py",
+          "sha256": "d0ef2c291489f1b99a66e5d693f602d1b7c115b1bc607beeb8de42d72806d323"
         }
       ],
-      "evidence": []
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-discovery-scorecard-2026-11-15.json",
+          "sha256": "1e501044a5d707d60ea9bc991bf3cde161f876cde2c0c9acc306676fbe68e2b5"
+        }
+      ]
     },
     {
       "id": "R36",
@@ -2005,20 +2020,25 @@
       ],
       "obligation": "required",
       "requirement": "GPU-hours, completed/failed experiments, validated candidates per compute and prediction improvement per compute.",
-      "implementation_status": "partial",
-      "acceptance_status": "not_demonstrated",
-      "delivered": "Session attempts/failures/reservations, policy/tool/native wall times and model usage are inventoried.",
-      "outstanding": "Concrete implementation gap: actual_gpu_hours and validated_candidates_per_gpu_hour are always None; no measured allocation-usage ingestion or candidate-rate calculation. Reservations must remain distinct from invoices.",
+      "implementation_status": "implemented",
+      "acceptance_status": "locally_tested_empirical_usage_pending",
+      "delivered": "Imported measured allocation intervals bind to saved reports and native time windows. Known acquisition, search, validation and grading costs are covered; hardware types and shared attribution retained. Candidate and prediction-improvement rates require supported positive denominators. Missing coverage remains unknown.",
+      "outstanding": "No real provider usage was imported for the new paired comparison. Provider authentication, outside-usage completeness, equal empirical compute and invoices remain unverified. Reservations remain separate and unchanged.",
       "implementation": [
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/study.py",
-          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+          "sha256": "8460eb38196617f844453d9360ee28229ed6e135d21d4ae8ffc0bdb313abb4db"
         },
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/execution.py",
           "sha256": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/discovery_scores.py",
+          "sha256": "9c4c6c27fcde53fabad35217fe19dd584276e51d1bde56a1369be04016cbc626"
         }
       ],
       "tests": [
@@ -2031,9 +2051,20 @@
           "repo": "REMAG",
           "path": "tests/test_research_execution.py",
           "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_discovery_scores.py",
+          "sha256": "d0ef2c291489f1b99a66e5d693f602d1b7c115b1bc607beeb8de42d72806d323"
         }
       ],
-      "evidence": []
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-discovery-scorecard-2026-11-15.json",
+          "sha256": "1e501044a5d707d60ea9bc991bf3cde161f876cde2c0c9acc306676fbe68e2b5"
+        }
+      ]
     },
     {
       "id": "R37",
@@ -2062,7 +2093,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/study.py",
-          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+          "sha256": "8460eb38196617f844453d9360ee28229ed6e135d21d4ae8ffc0bdb313abb4db"
         },
         {
           "repo": "GPAC",
@@ -2117,7 +2148,7 @@
       "implementation_status": "implemented",
       "acceptance_status": "tested",
       "delivered": "Implementation increments and their tests/saved demonstrations are linked below; original phase scope now maps to finite acceptance items.",
-      "outstanding": "Finish R35/R36 reporting before requesting live study execution; do not treat optional future features as new completion gates.",
+      "outstanding": "Finish the remaining R35 stability/structural-robustness/distinct-candidate reporting; then prepare concrete live acceptance for owner review. No optional future feature queue or renewed convergence campaign.",
       "implementation": [],
       "tests": [],
       "evidence": []
@@ -2203,7 +2234,7 @@
         "R35",
         "R36"
       ],
-      "status": "Partial: simple-baseline evidence exists; candidate/cost scorecard implementation and actual paired-agent study remain."
+      "status": "Partial: candidate/property cohorts, finite validation and measured compute reporting implemented; stability/robustness/distinct-candidate metrics and actual paired-agent comparison remain."
     },
     {
       "id": "D8",
@@ -2301,10 +2332,9 @@
       "id": "W1",
       "type": "implementation",
       "requirements": [
-        "R35",
-        "R36"
+        "R35"
       ],
-      "action": "Extend saved-evidence paired reporting with source-bound candidate cohorts and explicit measured allocation-usage accounting. Preserve failed/missing candidates and separate geometry plausibility, numerical validation, independence and physical stability. Compute rates only when the numerator and measured denominator are supported.",
+      "action": "Complete source-bound stability and structural-variation robustness reporting and an explicit candidate-equivalence policy. Reuse existing relaxation, response and geometry machinery; do not label SCF acceptance as stability or exact-source hashes as unique crystals.",
       "requires_new_compute": false
     },
     {
@@ -2352,12 +2382,15 @@
     "Cross-material discovery/stability/synthesis programs beyond the expansion foundation"
   ],
   "validation": {
-    "kind": "Read-only source/evidence traceability audit",
-    "latest_REMAG_regression": "546 passed, 4 unchanged loopback HTTP cases deselected",
+    "kind": "Source/evidence traceability audit after candidate/compute reporting implementation",
+    "latest_REMAG_regression": "573 passed, 4 unchanged loopback HTTP cases deselected before legacy timestamp fix; 46 focused checks pass after fix",
     "latest_REMAG_CI": {
-      "id": 43772754892,
+      "id": 43776241367,
+      "head": "65ca0e694bd9784dd72c92531140694512e94555",
+      "status": "completed",
       "conclusion": "success",
-      "tests": "433 passed, 117 skipped"
+      "test_summary": "test\tRun local tests without GPU or cloud credentials\t2026-11-15T23:43:07.2376521Z 445 passed, 133 skipped, 49 warnings in 22.45s",
+      "log_sha256": "b7767f2cbd42a41fac877d4551ca6991acff99e04b2eba39a8cc422a059c58fb"
     },
     "latest_GPAC_CI": {
       "id": 43758843399,
@@ -2366,8 +2399,9 @@
     "new_solver_calls": 0,
     "new_model_service_calls": 0,
     "new_gpu_reservations_cents": 0,
-    "verified_file_count": 93,
-    "requirement_groups": 38
+    "verified_file_count": 96,
+    "requirement_groups": 38,
+    "source_evidence": "tests/evidence/research/spec-discovery-scorecard-2026-11-15.json"
   },
   "preserved": {
     "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
@@ -2376,5 +2410,9 @@
     "reservations_cents": 29667,
     "cumulative_ceiling_cents": 35000,
     "actual_invoices": null
+  },
+  "previous_audit": {
+    "path": "outputs/Spec-completion-audit-2026-11-15.json",
+    "sha256": "ed116c19391069e40789deb00152fa4d221e8b5b479fa4d176d2507e59f838ef"
   }
 }

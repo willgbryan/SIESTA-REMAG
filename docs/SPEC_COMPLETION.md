@@ -4,7 +4,7 @@ The active objective is completion of the owner's **Physics-Guided Autonomous
 Crystal Discovery, Development Specification v3.0**. The core research software
 is delivered; the full specification is not complete. The
 [requirement-by-requirement audit](SPEC_REQUIREMENTS.json) binds 38 functional and
-engineering groups to 93 source, test and evidence files at the reviewed commits.
+engineering groups to 96 source, test and evidence files at the reviewed commits.
 It also maps all nine final deliverables and seven initial success criteria.
 
 The FePt convergence campaign is closed. It is neither a new implementation
