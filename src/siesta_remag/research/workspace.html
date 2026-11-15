@@ -9,6 +9,7 @@
 .control-select{font-size:13px;padding:5px 0;width:100%;border:0;border-bottom:1px solid var(--line)}.observable{display:flex;justify-content:space-between;align-items:center}.quantity{display:flex;gap:3px}.quantity button{font-size:11px;padding:3px 8px}.ticks{position:relative;height:12px}.ticks span{position:absolute;transform:translateX(-50%)}.ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}
 .site-picker{flex-wrap:wrap;max-height:160px;overflow:auto}#dos-key{flex-wrap:wrap}
 .author-field{display:block;margin:12px 0;font-size:11px;color:var(--muted)}.author-field input,.author-field select{display:block;width:100%;padding:7px;margin-top:5px;color:var(--ink);background:var(--paper);border:1px solid var(--line)}#save-candidate{width:100%;font-size:12px}button:disabled{opacity:.5;cursor:default}
+.response-table{width:100%;border-collapse:collapse;font-size:11px}.response-table th,.response-table td{text-align:right;padding:7px 3px;border-bottom:1px solid var(--line)}.response-table th:first-child,.response-table td:first-child{text-align:left}.response-table th{font-weight:400;color:var(--muted)}#prepare-query{width:100%;font-size:12px}.prepared-item{font-size:11px;padding:8px 0;border-bottom:1px solid var(--line)}
 </style>
 <header><h1>FePt</h1><small>GPAC × REMAG</small><div class="legend"><span><i class="dot"></i>Fe</span><span><i class="dot pt"></i>Pt</span></div><button id="refresh" title="Refresh calculations" aria-label="Refresh calculations">↻</button></header>
 <main>
@@ -18,12 +19,12 @@
 <div class="views"><button data-view="perspective" title="Perspective view">3D</button><button data-view="x" title="View along a">a</button><button data-view="y" title="View along b">b</button><button data-view="z" title="View along c">c</button><button id="reset" title="Reset view">↺</button></div><span class="stage-bottom">1 × 1 × 1 · PERIODIC</span>
 </section>
 <aside>
-<nav class="tabs" aria-label="Inspection panels" role="tablist"><button id="tab-structure" role="tab" aria-selected="true" aria-controls="structure" data-tab="structure">Structure</button><button id="tab-response" role="tab" aria-selected="false" aria-controls="response" data-tab="response">MAE</button><button id="tab-electronic" role="tab" aria-selected="false" aria-controls="electronic" data-tab="electronic">Electronic</button></nav>
+<nav class="tabs" aria-label="Inspection panels" role="tablist"><button id="tab-structure" role="tab" aria-selected="true" aria-controls="structure" data-tab="structure">Structure</button><button id="tab-response" role="tab" aria-selected="false" aria-controls="response" data-tab="response">Response</button><button id="tab-electronic" role="tab" aria-selected="false" aria-controls="electronic" data-tab="electronic">Electronic</button></nav>
 <section class="panel" id="structure" role="tabpanel" aria-labelledby="tab-structure">
 <label class="toggle" id="observed-toggle" hidden><input id="observed" type="checkbox">Relaxed geometry</label><div class="kicker">c / a</div><div class="value" id="ratio">—</div>
 <div class="pair"><span>a · b</span><span id="a-value">—</span></div><div class="pair"><span>c</span><span id="c-value">—</span></div><div class="pair"><span>Volume</span><span id="volume">—</span></div>
 <div class="rule"></div><div class="kicker">Site</div><div class="site-picker" id="sites"></div>
-<select id="selection-orbit" class="calc" aria-label="Select an orbit"></select><div class="pair"><span>Orbit</span><span id="orbit">—</span></div><div class="pair"><span>Neighbors · 3.4 Å</span><span id="coordination">—</span></div>
+<select id="selection-orbit" class="calc" aria-label="Select a site, orbit or coordination motif"></select><p class="note" id="motif-scope" hidden>Center and 3.4 Å neighbors. Electronic projections count each unit-cell site once.</p><div class="pair"><span>Orbit</span><span id="orbit">—</span></div><div class="pair"><span>Neighbors · 3.4 Å</span><span id="coordination">—</span></div>
 <label class="toggle"><input id="polyhedra" type="checkbox" checked>Coordination shell</label><label class="toggle"><input id="bonds" type="checkbox" checked>Connections</label>
 <details><summary>Distances</summary><div class="neighbor-list" id="neighbors"></div></details>
 <details id="parameter-details" hidden><summary>Parameters</summary><pre id="parameters"></pre></details><details id="feedback-details" hidden><summary>Relaxation changes</summary><pre id="feedback"></pre></details><details><summary>Exact source</summary><pre id="source"></pre></details><button id="download">Export structure ↓</button>
@@ -34,8 +35,26 @@
 <label class="author-field">Name<input id="author-label" type="text" maxlength="100" value="New candidate"></label>
 <button id="save-candidate">Save candidate</button><p class="note" id="author-status" role="status">Creates a new authored structure. No calculation.</p>
 </details>
+<details id="query-controls" hidden><summary>Prepare experiment</summary>
+<label class="author-field">Saved settings<select id="query-profile"></select></label><p class="note" id="profile-summary"></p>
+<label class="author-field">Calculation<select id="query-kind"><option value="scalar">Scalar ground state</option><option value="anisotropy">Anisotropy · z, x, y</option></select></label>
+<label class="author-field">Scope<select id="query-mode"><option value="query">Selected structure</option><option value="series">Parameter response</option></select></label>
+<div id="series-controls" hidden>
+<label class="author-field">Parameter<select id="series-control"><option value="strain-2">c strain</option><option value="strain-0">a strain</option><option value="strain-1">b strain</option><option value="isotropic_strain">Uniform strain</option><option value="fixed_volume_tetragonal">Tetragonal scale · fixed volume</option><option value="metric_path">Exact metric parameter</option></select></label>
+<div id="series-metric" hidden><label class="author-field">Metric<select id="series-parameter"></select></label><label class="author-field">Exact rate per q<input id="series-rate" placeholder="1" autocomplete="off"></label></div>
+<label class="author-field">Exact samples · q<input id="series-values" placeholder="-1/100, 0, 1/100" autocomplete="off"></label>
+</div>
+<label class="author-field">Name<input id="query-label" maxlength="100" value="New experiment"></label>
+<button id="prepare-query">Prepare</button><p class="note" id="query-status" role="status">Prepares inputs. Calculations require a separate invocation.</p>
+</details>
+<details id="prepared-details" hidden><summary>Prepared experiments</summary><div id="prepared-list"></div></details>
 </section>
 <section class="panel" id="response" role="tabpanel" aria-labelledby="tab-response" hidden>
+<details id="saved-responses" hidden><summary>Parameter response</summary>
+<select id="response-study" class="calc" aria-label="Saved parameter response"></select><select id="response-observable" class="calc" aria-label="Response observable"></select>
+<p class="note" id="response-unit"></p><table class="response-table"><thead><tr><th>q</th><th>Value</th><th>Δ from 0</th><th>State</th></tr></thead><tbody id="response-points"></tbody></table>
+<p class="note" id="response-scope"></p><details><summary>Derivatives</summary><div id="response-derivatives"></div></details><details><summary>Observable definition</summary><pre id="response-definition"></pre></details>
+</details>
 <span class="status" id="status">Awaiting DFT</span><select id="calculations" class="calc" aria-label="Calculation" hidden></select>
 <div class="observable"><div class="kicker" id="observable-label">E[100] − E[001]</div><div class="quantity" aria-label="Energy observable"><button data-quantity="total_energy_ev" title="Total-energy anisotropy" aria-pressed="true">E</button><button data-quantity="free_energy_ev" title="Free-energy anisotropy" aria-pressed="false">F</button></div></div><div class="value"><span id="mae">—</span> <small>meV / cell</small></div>
 <svg id="chart" viewBox="0 0 300 200" aria-label="MAE versus c-axis strain"></svg><div class="note" id="chart-note">No measured response</div>
@@ -55,14 +74,14 @@
 'use strict';
 const $=s=>document.querySelector(s), ink='#25272e', gray='#a4aab4', pink='#ff0860';
 let data=null,index=0,familyId='axial',observable='total_energy_ev',site=1,rx=-.35,ry=.6,selectedCalc=null,drag=null,moved=false,hit=[],orbitSelection=null,spectrumStage=null,selectedK=null,selectedBand=null;
-let authoringBusy=false,authorSource=null;
+let authoringBusy=false,authorSource=null,queryBusy=false,querySource=null;
 const canvas=$('#crystal'),ctx=canvas.getContext('2d');
 const family=()=>data.families?.find(f=>f.id===familyId)||{id:'axial',label:'c strain',hint:'Fixed a, b',rows:data.rows};
 const rows=()=>family().rows,row=()=>rows()[index],geo=()=>$('#observed').checked&&row().relaxation?row().relaxation.feedback.observation.observed:row().structure.geometry;
 const symbol=z=>data.element_symbols?.[z]||'Z'+z;
 const elementColor=z=>z===geo().atomic_numbers[0]?ink:gray;const color=i=>elementColor(geo().atomic_numbers[i]);
 const neighborsOf=i=>($('#observed').checked&&row().observed_coordination?row().observed_coordination:row().coordination).neighbors[i];
-const selectedAtoms=()=>orbitSelection===null?[site]:row().structure.orbit_members.find(o=>o.id===orbitSelection)?.atoms.map(a=>a.site_index)||[site];
+const selectedAtoms=()=>orbitSelection==='@coordination'?[...new Set([site,...neighborsOf(site).map(n=>n.site_index)])]:orbitSelection===null?[site]:row().structure.orbit_members.find(o=>o.id===orbitSelection)?.atoms.map(a=>a.site_index)||[site];
 function spectrum(){const c=current();return c?.spectra?c.spectra[spectrumStage]:c?.electronic;}
 const percent=q=>(q>0?'+':'')+Number((q*100).toFixed(3))+'%';
 const mul=(v,m)=>[0,1,2].map(j=>v.reduce((s,x,i)=>s+x*m[i][j],0));
@@ -133,8 +152,8 @@ function updateStructureControls(){
  $('.legend').replaceChildren();for(const [i,z] of [...new Set(g.atomic_numbers)].entries()){const label=document.createElement('span'),dot=document.createElement('i');dot.className='dot';dot.style.background=elementColor(z);label.append(dot,document.createTextNode(symbol(z)));$('.legend').append(label)}
  $('#observed-toggle').hidden=!r.relaxation;$('#feedback-details').hidden=!r.relaxation;$('#parameter-details').hidden=!r.parameters;$('#parameters').textContent=r.parameters?JSON.stringify(r.parameters.exact_parameters,null,2):'';
  if(r.relaxation){const f=r.relaxation.feedback;$('#feedback').textContent=JSON.stringify({max_displacement_angstrom:f.observation.max_nonaffine_displacement_angstrom,authored_operations_retained:f.symmetry.retained_count,operations_tested:f.symmetry.tested_count,coordination:f.coordination_changes.map(c=>({site:c.site_id.split(':').at(-1),lost:c.lost.length,gained:c.gained.length})),scope:f.symmetry.setting},null,2)}
- $('#selection-orbit').replaceChildren();const single=document.createElement('option');single.value='';single.textContent='Selected site';$('#selection-orbit').append(single);for(const o of r.structure.orbit_members){const option=document.createElement('option');option.value=o.id;option.textContent=o.label+' · '+symbol(o.z);$('#selection-orbit').append(option)}$('#selection-orbit').value=orbitSelection||'';
- updateAuthoring();
+ $('#selection-orbit').replaceChildren();const single=document.createElement('option');single.value='';single.textContent='Selected site';$('#selection-orbit').append(single);const motif=document.createElement('option');motif.value='@coordination';motif.textContent='Coordination motif · 3.4 Å';$('#selection-orbit').append(motif);$('#motif-scope').hidden=orbitSelection!=='@coordination';for(const o of r.structure.orbit_members){const option=document.createElement('option');option.value=o.id;option.textContent=o.label+' · '+symbol(o.z);$('#selection-orbit').append(option)}$('#selection-orbit').value=orbitSelection||'';
+ updateAuthoring();updateResearch();
 }
 function authorDefaults(){const op=$('#author-operation').value;$('#author-parameter-field').hidden=op!=='apply';$('#author-value').value=op==='apply'?(row().parameters?.exact_parameters.parameters[$('#author-parameter').value]||''):op.startsWith('strain-')?'1/100':'101/100';}
 function updateAuthoring(){
@@ -154,6 +173,51 @@ async function saveCandidate(){
  catch(e){$('#author-status').textContent=e.message;}finally{authoringBusy=false;$('#save-candidate').disabled=false;}
 }
 $('#author-operation').onchange=authorDefaults;$('#author-parameter').onchange=authorDefaults;$('#save-candidate').onclick=saveCandidate;
+
+function fillOptions(selector,items){const e=$(selector),previous=e.value;e.replaceChildren();for(const [value,text] of items){const o=document.createElement('option');o.value=value;o.textContent=text;e.append(o)}if(items.some(([value])=>value===previous))e.value=previous;}
+const sourceResearch=()=> (data.research||[]).filter(e=>(e.parent_source_sha256||e.source_sha256)===row().structure.source.sha256);
+function updateResearch(){
+ const profiles=(data.research||[]).filter(e=>e.kind==='profile'),enabled=data.authoring_enabled===true&&data.mode==='registered'&&!$('#observed').checked&&!$('#saved-state');
+ $('#query-controls').hidden=!enabled;fillOptions('#query-profile',profiles.map(p=>[p.id,p.label]));
+ if(querySource!==row().structure.source.sha256){querySource=row().structure.source.sha256;fillOptions('#series-parameter',Object.entries(row().parameters?.exact_parameters.parameters||{}).filter(([k])=>k.startsWith('metric.')).map(([k,v])=>[k,k+' · '+v]));$('#query-status').textContent='Prepares inputs. Calculations require a separate invocation.';}
+ updatePreparation();
+ const prepared=sourceResearch().filter(e=>['query','series'].includes(e.kind));$('#prepared-details').hidden=!prepared.length;$('#prepared-list').replaceChildren();for(const p of prepared){const e=document.createElement('div');e.className='prepared-item';e.textContent=p.label+' · '+(p.kind==='series'?p.point_count+' inputs':'1 input')+' prepared';$('#prepared-list').append(e)}
+ const responses=sourceResearch().filter(e=>e.kind==='response');$('#saved-responses').hidden=!responses.length;fillOptions('#response-study',responses.map(p=>[p.id,p.label]));updateSavedResponse();
+}
+function updatePreparation(){
+ const profile=(data.research||[]).find(p=>p.kind==='profile'&&p.id===$('#query-profile').value);
+ $('#prepare-query').disabled=queryBusy||!profile;$('#series-controls').hidden=$('#query-mode').value!=='series';$('#series-metric').hidden=$('#series-control').value!=='metric_path';
+ if(!profile){$('#profile-summary').textContent='Register saved calculation settings to prepare inputs.';return;}
+ const s=profile.settings;$('#profile-summary').textContent=s.kmesh.join(' × ')+' · '+(profile.basis_spec?'Explicit PAO':s.basis_size)+' · '+s.settings.mesh_ry+' Ry · '+s.settings.smearing_k+' K · PAO '+s.basis_energy_shift_ry+' Ry. Physical accuracy unqualified.';
+}
+async function prepareQuery(){
+ if(queryBusy||!data.authoring_enabled||data.mode!=='registered'||$('#saved-state')||$('#observed').checked)return;
+ const profile=(data.research||[]).find(p=>p.kind==='profile'&&p.id===$('#query-profile').value);if(!profile)return;
+ const label=$('#query-label').value.trim();if(!label){$('#query-status').textContent='Enter an experiment name.';return;}
+ const payload={kind:$('#query-mode').value,source_id:family().id,expected_source_sha256:row().structure.source.sha256,profile_id:profile.id,expected_profile_sha256:profile.sha256,query:{kind:$('#query-kind').value},label};
+ if(payload.kind==='series'){
+  const values=$('#series-values').value.split(',').map(s=>s.trim()),kind=$('#series-control').value;
+  if(values.length<3||values.length>9||!values.every(s=>/^[+-]?\d+(\/\d+)?$/.test(s))){$('#query-status').textContent='Enter 3–9 exact samples, separated by commas, including zero.';return;}
+  let control=kind.startsWith('strain-')?{kind:'axial_strain',axis:Number(kind.slice(-1))}:{kind};
+  if(kind==='metric_path'){const rate=$('#series-rate').value.trim(),parameter=$('#series-parameter').value;if(!parameter||!/^[+-]?\d+(\/\d+)?$/.test(rate)){$('#query-status').textContent='Select a metric parameter and exact rate.';return;}control.rates={[parameter]:rate};}
+  payload.design={format:'REMAG-RESPONSE-DESIGN/1',parameter:'q',values,control};
+ }
+ queryBusy=true;updatePreparation();$('#query-status').textContent='Preparing…';
+ try{const response=await fetch('/api/prepare',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}),reply=await response.json();if(!response.ok||!reply.ok)throw Error(reply.error?.message||'Inputs could not be prepared');await load();$('#query-status').textContent='Prepared '+reply.result.entry.label+'. No calculation started.';}
+ catch(e){$('#query-status').textContent=e.message;}finally{queryBusy=false;updatePreparation();}
+}
+function updateSavedResponse(){
+ const saved=sourceResearch().find(e=>e.kind==='response'&&e.id===$('#response-study').value),observables=saved?.result.observables||{};
+ fillOptions('#response-observable',Object.keys(observables).map(k=>[k,k]));$('#response-points').replaceChildren();$('#response-derivatives').replaceChildren();
+ const o=observables[$('#response-observable').value];if(!o){$('#response-unit').textContent='';$('#response-scope').textContent='';$('#response-definition').textContent='';return;}
+ $('#response-unit').textContent=saved.result.design.control.kind.replaceAll('_',' ')+' · '+o.unit;$('#response-definition').textContent=JSON.stringify(o.definition,null,2);
+ const number=v=>Number.isFinite(v)?Number(v.toPrecision(7)).toString():'—';
+ for(const p of o.points){const tr=document.createElement('tr');for(const text of [p.q_exact,number(p.value),number(p.delta_from_baseline),p.status==='measured'&&!p.derivative_eligible?'Branch held':p.status]){const td=document.createElement('td');td.textContent=text;tr.append(td)}$('#response-points').append(tr)}
+ for(const d of o.derivatives){const el=document.createElement('p');el.className='note';el.textContent='q = '+d.at_exact+' · '+(d.status==='measured'?'slope '+number(d.derivative.first)+' · curvature '+number(d.derivative.second):'Unavailable: '+d.reason);if(d.status==='measured')el.textContent+=' · propagated bounds '+(d.derivative.propagated_error_bound?JSON.stringify(d.derivative.propagated_error_bound):'unknown');$('#response-derivatives').append(el)}
+ $('#response-scope').textContent='Saved analysis · gaps and branch holds retained. Truncation and convergence errors unknown. Physical accuracy unqualified.';
+}
+$('#query-profile').onchange=updatePreparation;$('#query-mode').onchange=updatePreparation;$('#series-control').onchange=updatePreparation;$('#prepare-query').onclick=prepareQuery;$('#response-study').onchange=updateSavedResponse;$('#response-observable').onchange=updateSavedResponse;
+
 function updateStates(){
  const s=spectrum(),states=s?.states||[];$('#state-selection').hidden=!states.length;if(!states.length)return;
  const keys=[...new Set(states.map(r=>String(r.k_index)))];if(!keys.includes(selectedK))selectedK=keys[0];$('#k-select').replaceChildren();for(const key of keys){const r=states.find(v=>String(v.k_index)===key),o=document.createElement('option');o.value=key;o.textContent='k '+key+' · '+r.k_fractional.map(x=>x.toFixed(3)).join(', ');$('#k-select').append(o)}$('#k-select').value=selectedK;

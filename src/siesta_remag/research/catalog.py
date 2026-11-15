@@ -71,7 +71,7 @@ def electronic_view(path, expected_hsx, atom_count):
 
 def load_catalog(root):
     manifest=load(Path(root)/'workspace.json')
-    if (manifest.get('format')!='REMAG-RESEARCH-WORKSPACE/1' or set(manifest)-{'format','title','structures'} or
+    if (manifest.get('format')!='REMAG-RESEARCH-WORKSPACE/1' or set(manifest)-{'format','title','structures','research'} or
         not isinstance(manifest.get('title'),str) or not 1<=len(manifest['title'])<=100 or
         not isinstance(manifest.get('structures'),list) or not 1<=len(manifest['structures'])<=64):
         raise ValueError('Expected a titled workspace with 1..64 registered structures')
@@ -81,6 +81,8 @@ def load_catalog(root):
             not {'id','label','structure'}<=set(entry) or not all(isinstance(entry[k],str) and 1<=len(entry[k])<=100 for k in ['id','label']) or entry['id'] in ids):
             raise ValueError('Workspace structures need distinct identifiers, labels and source paths')
         ids.add(entry['id'])
+    from .workspace_actions import validate_entries
+    validate_entries(manifest.get('research',[]))
     return manifest
 
 
@@ -145,5 +147,7 @@ def registered_dataset(root):
             row['relaxation']=feedback
             row['observed_coordination']=coordination(feedback['feedback']['observation']['observed'],cutoff_angstrom=3.4)
         families.append(dict(id=entry['id'],label=entry['label'],hint='Registered exact source',mode='structure',rows=[row]))
+    from .workspace_actions import research_view
     return dict(format='REMAG-WORKSPACE/1',material=manifest['title'],mode='registered',
-        families=families,rows=families[0]['rows'],element_symbols=chemical_symbols)
+        families=families,rows=families[0]['rows'],element_symbols=chemical_symbols,
+        research=research_view(root,manifest))

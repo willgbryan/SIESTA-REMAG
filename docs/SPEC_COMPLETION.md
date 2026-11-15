@@ -18,7 +18,7 @@ tests or marked complete merely because the interface exists.
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
 | §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
 | §§7E–F, 12 evaluation | Prerecorded multi-observable predictions, verified response outcomes, error/sign/interval scores, simple-fit baselines; registered scalar/physics profiles with matched limits, frozen cohorts and shared grading | Empirical equal-compute agent comparison, predictive performance, uncertainty calibration and independent discovery/transfer validation |
-| §10 workspace | General exact-source catalog, atom/orbit/k/state selection, signed DOS/spin, authored/relaxed comparison, opt-in exact parameter/strain/scale candidate editing; original FePt response viewer | Motif selection, query/response actions and richer linked band/response views |
+| §10 workspace | General exact-source catalog, atom/orbit/coordination-motif/k/state selection, signed DOS/spin, authored/relaxed comparison, exact candidate editing, saved-settings query/family preparation and source-linked saved responses | Richer linked band/reciprocal-region views, additional GUI query designs and browser visual acceptance |
 | §11 / Phase 5 expansion | General GPAC authoring and REMAG discovery screening | Demonstrated workflow for Fe₂B/selected structures, theory-guided candidates and transfer evaluation |
 
 Implementation order: (1) observable-specific queries and reusable electronic
@@ -30,6 +30,13 @@ by this checklist. Optional force-theorem, automatic-differentiation and
 approximate-to-exact methods are deferred unless needed for a concrete query.
 
 ## Delivered development increments
+
+- 15 November: [workspace experiments](WORKSPACE_RESEARCH.md) connect the selected
+  exact source to saved-settings query/family preparation and source-bound saved
+  response inspection. Missing points, branch holds and unknown uncertainty stay
+  visible. Coordination-motif selection feeds existing electronic diagnostics
+  without counting periodic images twice. Real local HTTP and client-protocol
+  tests exercise these paths; browser visual acceptance remains pending.
 
 - 15 November: [native mesh correspondence](NATIVE_SAMPLING.md) resolves historical
   strained-cell KP rounding using original input/KP hashes and printing intervals.

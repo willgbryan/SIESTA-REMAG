@@ -114,3 +114,6 @@ These records establish authored provenance, not physical feasibility, equilibri
 accuracy or a measured response. Root motif construction is supported, while
 interactive motif editing, general response controls and experimental discovery
 validation remain separate items in the spec-completion record.
+
+See [workspace experiments](WORKSPACE_RESEARCH.md) for saved-settings preparation,
+parameter response views and coordination-motif selection in this same interface.

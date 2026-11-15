@@ -10,6 +10,12 @@ from .experiments import prepare_experiment, run_experiment
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
     sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('workspace-register', help='Register saved calculation settings, queries, exact response series or analyses')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--kind', choices=['profile','query','series','response'], required=True)
+    p.add_argument('--path', required=True, help='Existing bundle directory, or response.json, inside the workspace')
+    p.add_argument('--identifier', required=True)
+    p.add_argument('--label', required=True)
     p = sub.add_parser('prepare-response', help='Prepare independent exact structural-response bundles; never queue calculations')
     p.add_argument('structure', type=Path)
     p.add_argument('--pseudos', type=Path, required=True)
@@ -127,7 +133,7 @@ def main(argv=None):
     p = sub.add_parser('serve', help='Open local scientific workspace')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--port', type=int, default=8765)
-    p.add_argument('--editable',action='store_true',help='Enable static candidate authoring in a registered local workspace; no calculations')
+    p.add_argument('--editable',action='store_true',help='Enable exact candidate and query/family preparation in a registered local workspace; no calculations')
     p = sub.add_parser('electronic', help='Export orbital-resolved spectra from HSX')
     p.add_argument('hsx', type=Path)
     p.add_argument('--sampling', type=Path, required=True, help='JSON kpoints (reciprocal fractional) and normalized weights')
@@ -191,7 +197,10 @@ def main(argv=None):
         from .workspace import serve
         serve(args.workspace, args.port, editable=args.editable)
         return 0
-    if args.command == 'prepare-response':
+    if args.command == 'workspace-register':
+        from .workspace_actions import register_research
+        result=register_research(args.workspace,args.kind,args.path,args.identifier,args.label)
+    elif args.command == 'prepare-response':
         from .series import prepare_series
         result=prepare_series(args.structure,args.pseudos,args.output,design=load(args.design),query=load(args.query),mesh=args.mesh,
             settings=Settings.from_dict(load(args.settings) if args.settings else {}),basis_size=args.basis,
