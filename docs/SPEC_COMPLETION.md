@@ -17,7 +17,7 @@ tests or marked complete merely because the interface exists.
 | §§5.3–5.4 response/anisotropy | Finite differences, response fits, scalar/selected-direction/angular queries, one-plane K1/K2 and branch checks | Broader structural/electronic response orchestration |
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
 | §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
-| §§7E–F, 12 evaluation | Prerecorded multi-observable predictions, verified anisotropy/electronic-response outcomes, per-quantity error/sign/interval scores, held-out tests against simple fits | Empirical electronic predictive performance and uncertainty calibration; equivalent-budget agent-versus-scalar evaluation |
+| §§7E–F, 12 evaluation | Prerecorded multi-observable predictions, verified response outcomes, error/sign/interval scores, simple-fit baselines; registered scalar/physics profiles with matched limits, frozen cohorts and shared grading | Empirical equal-compute agent comparison, predictive performance, uncertainty calibration and independent discovery/transfer validation |
 | §10 workspace | General exact-source catalog, atom/orbit/k/state selection, signed DOS/spin, authored/relaxed comparison; original FePt response viewer | Motif selection, editable research actions and richer linked band/response views |
 | §11 / Phase 5 expansion | General GPAC authoring and REMAG discovery screening | Demonstrated workflow for Fe₂B/selected structures, theory-guided candidates and transfer evaluation |
 
@@ -89,6 +89,13 @@ approximate-to-exact methods are deferred unless needed for a concrete query.
   definitions and saved native spectral/anisotropy outcomes. Scorecards retain
   failed/pending cases and report error, resolved sign and stated-interval
   coverage. This delivers evaluation machinery, not a blinded scientific win.
+
+- 15 November: [paired research studies](PAIRED_RESEARCH_STUDY.md) register one
+  policy with identical authoring and session/native ceilings, separate scalar
+  and physics observations, and frozen held-out targets. Each arm is invoked
+  separately; shared evidence is graded after both finish. Audits retain costs,
+  failures and missing predictions. Equal declared limits do not establish
+  measured equal GPU consumption or a scientific advantage.
 
 Scientific status remains in `FEPT_QUALIFICATION_PLAN.md`; it is separate from
 this implementation checklist. No claim of verified mechanisms, transferable

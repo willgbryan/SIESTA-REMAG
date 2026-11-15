@@ -5,6 +5,7 @@ bounded data access and prepared physical questions. It neither calls a model
 service nor submits paid work as a side effect of inspection or preparation.
 """
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -68,6 +69,11 @@ TOOLS = {
         'description': 'Retrieve previous hypotheses, interventions, predictions, failures and interpretations.'},
 }
 
+ELECTRONIC_TOOLS=frozenset({'inspect_electronic_structure','projected_dos','compare_electronic_states',
+    'export_electronic_matrices','compare_electronic_matrices','export_orbital_moments'})
+STANDARD_OBSERVATIONS=frozenset({'total_energy_ev','free_energy_ev','forces_ev_ang','stress_ev_ang3',
+    'atom_moments_muB','total_moment_muB','scf_iterations','spin_components'})
+
 
 def _verified_report(path, collection=None):
     root = path.parent
@@ -121,14 +127,34 @@ def _verified_report(path, collection=None):
 
 
 class ResearchTools:
-    def __init__(self, workspace, *, execution_config=None):
+    def __init__(self, workspace, *, execution_config=None, information_profile='physics', withheld_sources=()):
         self.root = Path(workspace).resolve()
         if not self.root.is_dir():
             raise ValueError('Research workspace must already exist')
         self.execution_config = self.path(str(execution_config)) if execution_config is not None else None
+        if information_profile not in ('scalar','physics'):raise ValueError('Select scalar or physics information profile')
+        self.information_profile=information_profile
+        if (not isinstance(withheld_sources,(list,tuple)) or len(withheld_sources)>128
+                or any(not isinstance(s,str) or not re.fullmatch('[0-9a-f]{64}',s) for s in withheld_sources)):
+            raise ValueError('Withheld sources must be at most 128 exact source hashes')
+        self.withheld_sources=frozenset(withheld_sources)
+
+    def _source_access(self, source):
+        if source in self.withheld_sources:raise ValueError('This source is reserved for the separate held-out evaluator')
 
     def catalog(self):
-        return {k:v for k,v in TOOLS.items() if k != 'run_prepared_query' or self.execution_config is not None}
+        result={k:dict(v) for k,v in TOOLS.items() if (k != 'run_prepared_query' or self.execution_config is not None)
+                and (self.information_profile=='physics' or k not in ELECTRONIC_TOOLS)}
+        if self.information_profile=='scalar':
+            result['record_response_outcome']['description']='Ingest only anisotropy-response outcomes; electronic outcomes are reserved for the separate evaluator.'
+            if 'run_prepared_query' in result:
+                result['run_prepared_query']['optional']=[]
+                result['run_prepared_query']['description']+=' Scalar profile returns standard properties only and cannot request spectra.'
+        return result
+
+    def _observations(self, values):
+        return {stage:{k:v for k,v in row.items() if k!='eigenvalues' and
+                       (self.information_profile=='physics' or k in STANDARD_OBSERVATIONS)} for stage,row in values.items()}
 
     def path(self, value):
         if not isinstance(value, str) or not value:
@@ -141,14 +167,30 @@ class ResearchTools:
     def call(self, name, args):
         if name not in TOOLS or not isinstance(args, dict):
             raise ValueError('Unknown tool or invalid arguments')
+        if self.information_profile=='scalar':
+            if name in ELECTRONIC_TOOLS:raise ValueError('Electronic diagnostics are unavailable in the scalar profile')
+            if name=='run_prepared_query' and 'spectra' in args:raise ValueError('Scalar profile cannot request spectra')
+            if name=='record_response_outcome' and any(isinstance(args.get(k),dict) and 'spectrum' in args[k] for k in ('before','after')):
+                raise ValueError('Electronic outcomes are unavailable to the scalar policy; use the separate evaluator')
         schema = TOOLS[name]
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
+        if self.withheld_sources:
+            if 'report' in args:self._source_access(load(self.path(args['report'])).get('source_sha256'))
+            if name=='run_prepared_query':self._source_access(load(self.path(args['bundle'])/'experiment.json').get('source_sha256'))
+            if name=='record_response_outcome':
+                for k in ('before','after'):self._source_access(load(self.path(args[k]['report'])).get('source_sha256'))
+            if name=='calibrate_exploratory_response':
+                for p in args['exploratory']+args['reference']:self._source_access(load(self.path(p)).get('source_sha256'))
+            if name=='inspect_relaxation':self._source_access(load(self.path(args['structure']))['source']['sha256'])
         if name == 'run_prepared_query':
             if self.execution_config is None:
                 raise ValueError('Native execution is not enabled by the operator')
             from .execution import execute_query
-            return execute_query(self.root,self.execution_config,self.path(args['bundle']),self.path(args['output']),spectra=args.get('spectra'))
+            result=execute_query(self.root,self.execution_config,self.path(args['bundle']),self.path(args['output']),spectra=args.get('spectra'))
+            if self.information_profile=='scalar' and 'review' in result:
+                result['review']['observations']=self._observations(result['review']['observations'])
+            return result
         if name == 'export_orbital_moments':
             from .orbital_moments import export_orbital_moments
             return export_orbital_moments(self.path(args['report']), args['stage'], self.path(args['native_directory']),
@@ -178,8 +220,7 @@ class ResearchTools:
                 baseline_source_sha256=args['baseline_source_sha256'],resolution_ev=args['resolution_ev'])
         if name == 'inspect_calculation':
             path = self.path(args['report']); report = _verified_report(path,self.path(args['collection']) if 'collection' in args else None)
-            observations = {stage: {k:v for k,v in row.items() if k != 'eigenvalues'}
-                            for stage,row in report['observations'].items()}
+            observations = self._observations(report['observations'])
             return dict(format='REMAG-CALCULATION-INSPECTION/1', report_sha256=sha256(path),
                 status=report['status'], source_sha256=report['source_sha256'], request=report['request'],
                 executable_sha256=report['executable_sha256'], stages=report['stages'], observations=observations,
@@ -237,33 +278,49 @@ class ResearchTools:
             notebook.close()
 
     def _outcome(self, notebook, args):
-        path = self.path(args['report']); report = _verified_report(path,self.path(args['collection']) if 'collection' in args else None)
         experiment = notebook.get(args['experiment_id'])
-        if experiment['kind'] != 'experiment' or experiment['payload']['structure_sha256'] != report['source_sha256']:
-            raise ValueError('Outcome source differs from the recorded experiment')
-        stage, observable = args['stage'], args['observable']
-        if stage == 'anisotropy':
-            mapping = {'total_energy_ev':'mae_ev_cell','free_energy_ev':'free_energy_ev_cell'}
-            if observable not in mapping or report.get('anisotropy') is None:
-                raise ValueError('Requested anisotropy was not measured')
-            # Compute both observables directly from the stored directional energies.
-            value = report['observations']['soc-x'][observable]-report['observations']['soc-z'][observable]
-            accepted = all(s['accepted'] and s.get('branch',{}).get('passed',True) for s in report['stages'])
-            unit = 'eV/cell'
-        else:
-            if observable not in ('total_energy_ev','free_energy_ev') or stage not in report['observations']:
-                raise ValueError('Select a measured stage E/F observable')
-            value = report['observations'][stage][observable]
-            accepted = any(s['stage']==stage and s['accepted'] and s.get('branch',{}).get('passed',True) for s in report['stages'])
-            unit = 'eV/cell'
-        status = 'measured' if report['status']=='measured' and accepted else 'failed'
-        return notebook.record_outcome(args['experiment_id'], observable=stage+'.'+observable, value=value if status=='measured' else None,
-            unit=unit, report_sha256=sha256(path), status=status)
+        if experiment['kind'] != 'experiment':raise ValueError('Expected an experiment')
+        result=calculation_observation(self.path(args['report']),experiment['payload']['structure_sha256'],args['stage'],args['observable'],
+            collection=self.path(args['collection']) if 'collection' in args else None)
+        return notebook.record_outcome(args['experiment_id'],**result)
 
 
-def serve(workspace, *, execution_config=None):
+def calculation_observation(path, source_sha256, stage, observable, *, collection=None):
+    """Read-only energy ingestion shared by interactive and held-out evaluation."""
+    path=Path(path).resolve();report=_verified_report(path,collection)
+    if source_sha256 != report['source_sha256']:
+        raise ValueError('Outcome source differs from the recorded experiment')
+    from .queries import directions
+    requested={'scalar'} | {'soc-'+label for label in directions(report['request'].get('query',{'kind':'anisotropy'}),dict(z=[0,0,1],x=[1,0,0],y=[0,1,0]))}
+    needed={'soc-z','soc-x'} if stage=='anisotropy' else {stage}
+    if observable not in ('total_energy_ev','free_energy_ev') or not needed<=requested:
+        raise ValueError('Select an E/F quantity requested by this experiment')
+    accepted=report['status']=='measured' and all(any(s['stage']==name and s['accepted'] and s.get('branch',{}).get('passed',True)
+                                                   for s in report['stages']) for name in needed)
+    if not accepted:
+        return dict(observable=stage+'.'+observable,value=None,unit='eV/cell',report_sha256=sha256(path),status='failed')
+    if stage == 'anisotropy':
+        mapping = {'total_energy_ev':'mae_ev_cell','free_energy_ev':'free_energy_ev_cell'}
+        if observable not in mapping or report.get('anisotropy') is None:
+            raise ValueError('Requested anisotropy was not measured')
+        # Compute both observables directly from the stored directional energies.
+        value = report['observations']['soc-x'][observable]-report['observations']['soc-z'][observable]
+        accepted = all(s['accepted'] and s.get('branch',{}).get('passed',True) for s in report['stages'])
+        unit = 'eV/cell'
+    else:
+        if observable not in ('total_energy_ev','free_energy_ev') or stage not in report['observations']:
+            raise ValueError('Select a measured stage E/F observable')
+        value = report['observations'][stage][observable]
+        accepted = any(s['stage']==stage and s['accepted'] and s.get('branch',{}).get('passed',True) for s in report['stages'])
+        unit = 'eV/cell'
+    status = 'measured' if report['status']=='measured' and accepted else 'failed'
+    return dict(observable=stage+'.'+observable, value=value if status=='measured' else None,
+        unit=unit, report_sha256=sha256(path), status=status)
+
+
+def serve(workspace, *, execution_config=None, information_profile='physics', withheld_sources=()):
     """One request per line. Large arrays stay in artifacts, never in tool replies."""
-    tools = ResearchTools(workspace,execution_config=execution_config)
+    tools = ResearchTools(workspace,execution_config=execution_config,information_profile=information_profile,withheld_sources=withheld_sources)
     for line in sys.stdin:
         try:
             if len(line.encode()) > 1024*1024:

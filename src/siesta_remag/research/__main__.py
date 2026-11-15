@@ -10,6 +10,22 @@ from .experiments import prepare_experiment, run_experiment
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
     sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('study-register', help='Register matched scalar/physics sessions without launching either arm')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--definition', type=Path, required=True)
+    p.add_argument('--output', required=True)
+    p = sub.add_parser('study-run-arm', help='Run one explicitly selected arm of a registered study')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--study', required=True)
+    p.add_argument('--arm', choices=['scalar','physics'], required=True)
+    p = sub.add_parser('study-grade', help='Ingest shared heldout evidence after both arms finish')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--study', required=True)
+    p.add_argument('--outcomes', type=Path, required=True)
+    p = sub.add_parser('study-evaluate', help='Audit registered limits and compare heldout predictions')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--study', required=True)
+    p.add_argument('--output', required=True)
     p = sub.add_parser('prediction-scores', help='Score recorded scalar and electronic-response predictions, retaining failed/pending cases')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--experiments', type=Path, required=True, help='JSON array of notebook experiment IDs')
@@ -37,6 +53,8 @@ def main(argv=None):
     p.add_argument('--degeneracy-tolerance-ev', type=float, default=1e-5)
     p.add_argument('--limit', type=int, default=40)
     p = sub.add_parser('agent', help='Run a bounded research policy over local tools')
+    p.add_argument('--information-profile', choices=['scalar','physics'], default='physics')
+    p.add_argument('--withheld-source', action='append', default=[])
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--output', required=True, help='New session directory inside the workspace')
     p.add_argument('--objective', required=True)
@@ -46,6 +64,8 @@ def main(argv=None):
     p.add_argument('--allow-cpu-relaxation', action='store_true')
     p.add_argument('--execution-config', type=Path, help='Operator-authorized existing budget/runtime; omitted disables native execution')
     p = sub.add_parser('tools', help='Serve the experimental local JSON-lines research tool interface')
+    p.add_argument('--information-profile', choices=['scalar','physics'], default='physics')
+    p.add_argument('--withheld-source', action='append', default=[])
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--execution-config', type=Path)
     p = sub.add_parser('execute-query', help='Execute one query using an explicit operator budget/runtime configuration')
@@ -110,6 +130,14 @@ def main(argv=None):
     p.add_argument('--structure', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
+    if args.command.startswith('study-'):
+        from .study import register_study,run_study_arm,grade_study,evaluate_study
+        if args.command=='study-register':result=register_study(args.workspace,load(args.definition),args.output)
+        elif args.command=='study-run-arm':result=run_study_arm(args.workspace,args.study,args.arm)
+        elif args.command=='study-grade':result=grade_study(args.workspace,args.study,load(args.outcomes))
+        else:result=evaluate_study(args.workspace,args.study,args.output)
+        print(json.dumps(result,indent=2,allow_nan=False))
+        return 2 if args.command=='study-run-arm' and result['status']!='completed' else 0
     if args.command == 'prediction-scores':
         from .tools import ResearchTools
         if args.output.exists():raise ValueError('Prediction score output must be new')
@@ -119,12 +147,12 @@ def main(argv=None):
     if args.command == 'agent':
         from .agent import run_session
         result=run_session(args.workspace,args.output,objective=args.objective,policy_command=load(args.policy_command),
-            max_steps=args.max_steps,max_seconds=args.max_seconds,allow_cpu_relaxation=args.allow_cpu_relaxation,execution_config=args.execution_config)
+            max_steps=args.max_steps,max_seconds=args.max_seconds,allow_cpu_relaxation=args.allow_cpu_relaxation,execution_config=args.execution_config,information_profile=args.information_profile,withheld_sources=args.withheld_source)
         print(json.dumps(result,indent=2,allow_nan=False))
         return 0 if result['status']=='completed' else 2
     if args.command == 'tools':
         from .tools import serve
-        serve(args.workspace,execution_config=args.execution_config)
+        serve(args.workspace,execution_config=args.execution_config,information_profile=args.information_profile,withheld_sources=args.withheld_source)
         return 0
     if args.command == 'execute-query':
         from .execution import execute_query

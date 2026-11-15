@@ -45,14 +45,14 @@ def _process(command,payload,deadline,folder,label,*,limit,stop_grace=1):
     return json.loads(output.read_text(),parse_constant=lambda x:(_ for _ in ()).throw(ValueError('Nonfinite policy/result JSON')))
 
 
-def run_session(workspace,output,*,objective,policy_command,max_steps=24,max_seconds=300,allow_cpu_relaxation=False,execution_config=None):
+def run_session(workspace,output,*,objective,policy_command,max_steps=24,max_seconds=300,allow_cpu_relaxation=False,execution_config=None,information_profile='physics',withheld_sources=()):
     """One policy decision then one tool call; retain intent before side effects.
 
     Every output directory is new. A timed-out tool may have committed notebook
     events: inspect evidence, never replay the action automatically. Native/GPU
     submission is available only with an explicit operator execution config.
     """
-    tools=ResearchTools(workspace,execution_config=execution_config)
+    tools=ResearchTools(workspace,execution_config=execution_config,information_profile=information_profile,withheld_sources=withheld_sources)
     execution=None
     if tools.execution_config is not None:
         from .execution import read_execution_config
@@ -66,10 +66,12 @@ def run_session(workspace,output,*,objective,policy_command,max_steps=24,max_sec
         raise ValueError('Session bounds are 1..128 decisions and 1..3600 seconds')
     if type(allow_cpu_relaxation) is not bool:raise ValueError('CPU relaxation permission must be boolean')
     output.mkdir(parents=True,exist_ok=False)
-    allowed={k:v for k,v in TOOLS.items() if k in LOCAL_TOOLS and (allow_cpu_relaxation or k!='prepare_relaxation')}
-    if execution is not None:allowed['run_prepared_query']=TOOLS['run_prepared_query']
+    allowed={k:v for k,v in tools.catalog().items() if k in LOCAL_TOOLS and (allow_cpu_relaxation or k!='prepare_relaxation')}
+    if execution is not None:allowed['run_prepared_query']=tools.catalog()['run_prepared_query']
     request=dict(format='REMAG-AGENT-SESSION/1',objective=objective,policy_command=policy_command,
         max_steps=max_steps,max_seconds=max_seconds,allow_cpu_relaxation=allow_cpu_relaxation,
+        information_profile=information_profile,
+        withheld_sources=sorted(tools.withheld_sources),
         native_execution_enabled=execution is not None,execution_config_sha256=execution['sha256'] if execution else None,
         tools=allowed,started_at=datetime.now(timezone.utc).isoformat())
     save(output/'request.json',request)
@@ -80,7 +82,8 @@ def run_session(workspace,output,*,objective,policy_command,max_steps=24,max_sec
     try:
         for step in range(max_steps):
             folder=output/f'{step:03d}';folder.mkdir()
-            context=dict(objective=objective,tools=allowed,history=history,
+            context=dict(objective=objective,tools=allowed,history=history,information_profile=information_profile,
+                withheld_sources=sorted(tools.withheld_sources),
                 decisions_remaining=max_steps-step,seconds_remaining=max(0,deadline-time.monotonic()),
                 response_contract='Exactly one {tool,args,rationale} or {finish: conclusion} JSON object. Use only the listed tools; failed native work ends the session.')
             if len(json.dumps(context,allow_nan=False).encode())>1024*1024:
@@ -106,7 +109,9 @@ def run_session(workspace,output,*,objective,policy_command,max_steps=24,max_sec
             # Durable intent exists before launching the tool process.
             save(folder/'action.json',action);save(output/'report.json',report)
             before=time.monotonic()
-            command=[sys.executable,'-m','siesta_remag.research','tools','--workspace',str(tools.root)]
+            command=[sys.executable,'-m','siesta_remag.research','tools','--workspace',str(tools.root),
+                     '--information-profile',information_profile]
+            for source in sorted(tools.withheld_sources):command+=['--withheld-source',source]
             if native:
                 command+=['--execution-config',str(tools.execution_config)]
                 report['native_execution_attempts']+=1;report['native_submissions']=None

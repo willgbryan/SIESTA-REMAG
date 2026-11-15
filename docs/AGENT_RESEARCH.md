@@ -97,6 +97,13 @@ endpoints. `evaluate_predictions` retains failures and pending cases while
 reporting per-observable error, sign and stated-interval coverage. See
 [response definitions and scoring](RESEARCH_EVALUATION.md) for conventions,
 examples and the distinction between local ordering and verified blinding.
+
+For a controlled comparison, [paired research studies](PAIRED_RESEARCH_STUDY.md)
+register scalar/physics information profiles with the same authoring tools,
+common inputs and session/native ceilings. They freeze held-out definitions,
+keep separate histories and grade shared evidence after both policies finish.
+The profiles enforce tool-level visibility; trusted policy commands remain
+outside any OS sandbox and the runner does not certify blinding.
 # Relaxation feedback
 
 `prepare_relaxation` accepts an exact structure export, local pseudopotentials
