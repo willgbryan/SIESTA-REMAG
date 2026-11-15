@@ -81,7 +81,7 @@ Control examples: {"kind":"axial_strain","axis":2},
 {"kind":"fixed_volume_tetragonal"}, {"kind":"isotropic_strain"}.
 q is axial/in-plane/uniform fractional strain respectively. No query is queued.
 analyze_response_series takes series path, output, evidence keyed by point ID
-(report, optional collection and spectra keyed by observable), and observables
+(report, optional collection, spectra and diagnostics keyed by observable), and observables
 keyed by name. Examples: {"kind":"energy","stage":"scalar","quantity":"total_energy_ev"},
 {"kind":"anisotropy","stages":["soc-x","soc-z"],"quantity":"free_energy_ev"},
 {"kind":"moment","stage":"soc-z","site":null,"component":"norm"}.
@@ -89,6 +89,19 @@ Site indices always refer to the original parent. Optional error_bounds map
 observable names to point-ID absolute bounds; do not invent these bounds.
 Missing/failed points and branch changes remain evidence; derivatives require
 three consecutive eligible samples and do not establish a physical mechanism.
+Additional response kinds: orbital_moment (SOC stage, selection with parent sites
+and/or l, component 0/1/2 or norm); coupling (stage, spin, two groups with parent
+site and l, metric frobenius/largest_singular_value, 1..8 native k_indices);
+band_sum (stage, spin, native k_indices, reference absolute/own_fermi).
+Pass saved orbital-moments.json or matrices.json in diagnostics for each named
+observable. Matrix responses retain native weights without renormalizing the
+selected subset, require common actual radial arrays and native mesh identity,
+and never match eigenvectors across deformed geometries. These are basis-dependent
+proxies, not unique hybridization, isolated SOC or total-energy decompositions.
+To prerecord one of these responses, use target kind diagnostic_response with
+baseline_source_sha256 and diagnostic containing the exact observable definition.
+Its before/after outcome endpoints require report, diagnostic and optional
+collection. Changed magnetic branches withhold the response outcome.
 For compare_electronic_states, optional before_native and after_native each
 contain report, stage and optional collection. Supply both to verify native
 mesh correspondence when strained-cell KP printing changes fractional arrays.

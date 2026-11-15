@@ -1,5 +1,10 @@
 # Recorded response predictions
 
+Saved matrix and onsite orbital-moment changes can also be frozen as
+`diagnostic_response` targets. See [MECHANISM_RESPONSES.md](MECHANISM_RESPONSES.md)
+for definitions, endpoint bindings and limits. They use the same immutable
+prediction/outcome lifecycle and scorecards described below.
+
 The notebook supports several distinct observables for one structural
 experiment. Every prediction must be recorded before the first outcome for
 that experiment. A prediction or outcome for the same observable cannot be

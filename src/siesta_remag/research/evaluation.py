@@ -18,6 +18,13 @@ from .inspection import load_spectrum, _select
 
 def validate_target(target):
     if not isinstance(target,dict):raise ValueError('Expected a response target object')
+    if target.get('kind')=='diagnostic_response':
+        from .response_diagnostics import validate_diagnostic
+        if (set(target)!={'kind','baseline_source_sha256','diagnostic'} or not isinstance(target['baseline_source_sha256'],str)
+                or not re.fullmatch('[0-9a-f]{64}',target['baseline_source_sha256'])):
+            raise ValueError('Freeze a diagnostic and exact baseline source hash')
+        diagnostic,unit=validate_diagnostic(target['diagnostic'])
+        return dict(kind='diagnostic_response',baseline_source_sha256=target['baseline_source_sha256'],diagnostic=diagnostic),unit
     common={'kind','baseline_source_sha256','metric'}
     kind=target.get('kind')
     extra={'stage','spin','selection'} if kind=='spectral_response' else set()
@@ -53,12 +60,12 @@ def validate_target(target):
 
 def _endpoint(endpoint, target):
     from .tools import _verified_report
-    required={'report'} | ({'spectrum'} if target['kind']=='spectral_response' else set())
+    required={'report'} | ({'spectrum'} if target['kind']=='spectral_response' else {'diagnostic'} if target['kind']=='diagnostic_response' else set())
     if not isinstance(endpoint,dict) or not required<=set(endpoint) or set(endpoint)-required-{'collection'}:
-        raise ValueError('Response endpoint requires a report and, for electronic response, a spectrum')
+        raise ValueError('Response endpoint requires a report and its target-specific spectrum or diagnostic')
     path=Path(endpoint['report']).resolve()
     r=_verified_report(path,Path(endpoint['collection']).resolve() if 'collection' in endpoint else None)
-    stages=['soc-z','soc-x'] if target['kind']=='anisotropy_response' else [target['stage']]
+    stages=['soc-z','soc-x'] if target['kind']=='anisotropy_response' else [target['diagnostic']['stage'] if target['kind']=='diagnostic_response' else target['stage']]
     healthy=(r['status']=='measured' and all(any(s['stage']==name and s['accepted'] and s.get('branch',{}).get('passed',True)
                                               for s in r['stages']) for name in stages))
     return r,dict(report_sha256=sha256(path),source_sha256=r['source_sha256'],native_status=r['status'],
@@ -106,6 +113,19 @@ def response_observation(target, before, after, *, source_sha256):
         q=target['metric']
         va,vb=[r['observations']['soc-x'][q]-r['observations']['soc-z'][q] for r in (a,b)]
         evidence['scope']='Change in self-consistent E[x]-E[z] or F[x]-F[z]; finite native acceptance, not physical qualification'
+    elif target['kind']=='diagnostic_response':
+        from .response_diagnostics import measure_diagnostic,compare_diagnostics
+        from .series import _branches
+        from ..discovery.config import Settings
+        definition=target['diagnostic']
+        va,sa,ca=measure_diagnostic(a,before['report'],before['diagnostic'],definition)
+        vb,sb,cb=measure_diagnostic(b,after['report'],after['diagnostic'],definition)
+        ea.update(sa);eb.update(sb);evidence['diagnostic_correspondence']=compare_diagnostics(ca,cb)
+        mapping=list(range(len(a['structure']['geometry']['atomic_numbers'])))
+        checks=_branches(b,a,mapping,mapping,[definition['stage']],Settings.from_dict(a['request']['settings']))
+        evidence.update(before_value=va,after_value=vb,branch_checks=checks,
+            scope='Response of a declared onsite moment or partial matrix proxy; no unique SOC/MAE attribution or cross-geometry band tracking')
+        if not all(c['passed'] for c in checks.values()):return dict(status='failed',value=None,unit=unit,evidence=evidence)
     else:
         va,ma,da,sa=_spectral(before,a,target);vb,mb,db,sb=_spectral(after,b,target)
         for key in ('orbitals','spin_components','collinear_spin','spin_frame','projection','temperature_ev','occupations_model'):

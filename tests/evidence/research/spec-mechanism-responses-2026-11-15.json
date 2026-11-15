@@ -1,0 +1,570 @@
+{
+  "format": "REMAG-MECHANISM-RESPONSE-EVIDENCE/1",
+  "date": "2026-11-15",
+  "requirements": [
+    "5.2",
+    "5.3",
+    "8",
+    "9",
+    "12"
+  ],
+  "base_remag_commit": "50ecd60cd667e740c7ec0ac05b775b668239f065",
+  "gpac_commit": "44f32c28830e5ec9a6cab2731ab8bb8e78adb314",
+  "delivered": [
+    "Native onsite orbital-moment responses with parent-site/l selection",
+    "Partial native-weighted Lowdin coupling norms and occupied band sums with explicit energy reference",
+    "Structural family derivatives, immutable diagnostic response targets and local-agent scoring",
+    "Source/runtime/branch/parent-orbital checks and full-native-mesh identity; actual radial comparison for matrix proxies"
+  ],
+  "tests": {
+    "focused": "145 passed in 31.24s",
+    "regression": "378 passed, 4 unchanged loopback HTTP tests deselected in 89.63s",
+    "controls": [
+      "Analytic unequal-step first/second derivatives",
+      "Exact atom reordering",
+      "H + shift*S energy-origin invariance",
+      "Partial k-weight preservation",
+      "Native/hash/radial/sampling/convention rejection",
+      "Missing/failed/branch-held evidence",
+      "Prerecorded immutable targets and actual local-worker scoring",
+      "Scalar-profile and held-out source isolation"
+    ]
+  },
+  "saved_demonstration": {
+    "system": "FePt",
+    "basis": "DZP",
+    "basis_energy_shift_ry": 0.02,
+    "kmesh": [
+      32,
+      32,
+      32
+    ],
+    "mesh_ry": 300,
+    "smearing_k": 300,
+    "q_exact": [
+      "-1/400",
+      "0",
+      "1/400"
+    ],
+    "control": "axial c strain",
+    "stage": "soc-z",
+    "native_k_count": 32768,
+    "selected_native_indices": [
+      0,
+      4000,
+      10000
+    ],
+    "selected_native_weight": 9.1552734375e-05,
+    "weight_renormalized": false,
+    "orbitals_integrated_over_native_density": true,
+    "cases": [
+      {
+        "label": "minus",
+        "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+        "report_sha256": "1e13499cfd730ec1e33370b36480bed722cf9c637e987d5c061a3e8ac6f57fff",
+        "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+        "matrix_sha256": "8321318503ab028a1e24b9bae6c52a00863790ef19ff803056ff10a16ecf2373",
+        "matrix_artifact_sha256": "f72c706bc605e4f59bebe4bf68f81e0a2993abf86f6fbb1fe4d668e7a7ea9279",
+        "moment_sha256": "ce44b96110c038fb7ff90cd1439ac3a8052f947c61527a5b6d8710f4d4c239f9",
+        "moment_artifact_sha256": "a760a8be89de0488f264ab6ca965e549c8d8f4f1db958bae31fb45bd7b6b1d26",
+        "native_bindings": {
+          "hsx": "88e8c94ec5eab841a159eae5ea6c2761b2cb18768e7132b68c90f50f05ec8336",
+          "kp": "26c1ab54f635714a76d78effbdd3601a07160ccb458e1ad7ef3ada9b9b5e1130",
+          "eig": "08953abf0b0caf0804482f7dfdd3f33476b89f8821303775853feecff4bef83d"
+        },
+        "ion_sha256": {
+          "Fe": "6cc0849e17881489c4e5390a6603915b30d55fe1cc1e5d26bdb3effaa853cb04",
+          "Pt": "dd860824839b4429935b146ec58fb675ec0dba1709aa071ddbccab55c20bf62d"
+        },
+        "native_matrix_eigenvalue_max_error_ev": 2.8544431160071326e-05,
+        "native_moment_table_max_residual_mu_b": {
+          "orbital": 0.0004521733456972869,
+          "atom": 0.00033291864478195154,
+          "total": 0.00041400077900941024
+        }
+      },
+      {
+        "label": "zero",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "report_sha256": "6e2e0fa40b198336b7b21653c11afbfe2125ec22a97fa5f09930e817136efcb2",
+        "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+        "matrix_sha256": "cb70330d1cddcd9b60acbef8c9f5ffd5757bc30629dce76393fd01a904117036",
+        "matrix_artifact_sha256": "d9f2e378f09698327cd4419f7a29833ede3f8fab467f584fbcf88b9ebcee8a60",
+        "moment_sha256": "3333d894ef9eb68e355bb6c9962e0f93bbd9f42b07c1184684e988dd8f3e2bf0",
+        "moment_artifact_sha256": "5a1bf19fa09b8e7436d7660967b391487f526736a53e58433ffba1e5c637c96c",
+        "native_bindings": {
+          "hsx": "3d6ecf8d2a027a2fcacb8d0518b51e9f9742f46358e5bdef10ff25be9c8bc25f",
+          "kp": "647aff8129890c98e29ffb0fed80cd41e096e7627d6b56c0513d175d43c7021b",
+          "eig": "d506eb8b1d992332127b06dd00cb59874d8f64d27e2ce96a0c1d2aa2e787d36b"
+        },
+        "ion_sha256": {
+          "Fe": "6cc0849e17881489c4e5390a6603915b30d55fe1cc1e5d26bdb3effaa853cb04",
+          "Pt": "dd860824839b4429935b146ec58fb675ec0dba1709aa071ddbccab55c20bf62d"
+        },
+        "native_matrix_eigenvalue_max_error_ev": 9.442562502215424e-05,
+        "native_moment_table_max_residual_mu_b": {
+          "orbital": 0.00042633497944228466,
+          "atom": 0.0004267458419651565,
+          "total": 0.0004892362414396778
+        }
+      },
+      {
+        "label": "plus",
+        "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+        "report_sha256": "062cc20d27390e9106d2e9e47c2eda43c61709c3756264a83c12495a8b21e64a",
+        "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+        "matrix_sha256": "27da3cf7fba1d1b64eef6cba29ac1fad9201b9b749843885a1736940c26a35e9",
+        "matrix_artifact_sha256": "ffeff317888d3628781ec6b97abdebed5dc1c99f8cb2b3735ec33ede33de952f",
+        "moment_sha256": "adaf9b0e180c2d59be195e1dcacd8ab27ccd9e885f6be342e0a3b991e5236a30",
+        "moment_artifact_sha256": "e54219aac4736452efbb6e43aeaeb53cc65542e08a1829c8204c1edb490ba9f1",
+        "native_bindings": {
+          "hsx": "717e446e708d2f1f360703d7dc39a8cbe8f922ff570425fdf585e9f30f8fec5d",
+          "kp": "9848c5f9f69734b19e02784b74efd1e1e87db708bd193d8a31219ed2d074cd19",
+          "eig": "f46abf5de0a94d3fbdb004f77b795fdfd382a32bad4462d712a04ff5843cab94"
+        },
+        "ion_sha256": {
+          "Fe": "b415c2d86c0a16d8225cc1cf619725ea734fac8ae7a32b91db037e5879674740",
+          "Pt": "e1b82b64a60096c481f53f03ce2a4ab0e24ee345f235e09040103cfad95d2068"
+        },
+        "native_matrix_eigenvalue_max_error_ev": 6.172084312083825e-05,
+        "native_moment_table_max_residual_mu_b": {
+          "orbital": 0.0004443978397961493,
+          "atom": 0.0004519508964396096,
+          "total": 0.0003981722813374555
+        }
+      }
+    ],
+    "observables": {
+      "Fe-d-Pt-d-coupling": {
+        "definition": {
+          "kind": "coupling",
+          "metric": "frobenius",
+          "groups": [
+            {
+              "site": 0,
+              "l": 2
+            },
+            {
+              "site": 1,
+              "l": 2
+            }
+          ],
+          "stage": "soc-z",
+          "spin": 0,
+          "k_indices": [
+            0,
+            4000,
+            10000
+          ]
+        },
+        "unit": "eV",
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/400",
+            "value": 0.0013498029050782324,
+            "status": "measured",
+            "delta_from_baseline": 4.70866150440721e-06,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-001",
+            "q_exact": "0",
+            "value": 0.0013450942435738252,
+            "status": "measured",
+            "delta_from_baseline": 0.0,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-002",
+            "q_exact": "1/400",
+            "value": 0.001340377110899732,
+            "status": "measured",
+            "delta_from_baseline": -4.717132674093285e-06,
+            "derivative_eligible": true
+          }
+        ],
+        "derivatives": [
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": -0.001885158835700099,
+              "second": -0.0013553871497721248,
+              "first_unit": "eV/dimensionless",
+              "second_unit": "eV/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          }
+        ]
+      },
+      "Fe-d-Pt-d-singular": {
+        "definition": {
+          "kind": "coupling",
+          "metric": "largest_singular_value",
+          "groups": [
+            {
+              "site": 0,
+              "l": 2
+            },
+            {
+              "site": 1,
+              "l": 2
+            }
+          ],
+          "stage": "soc-z",
+          "spin": 0,
+          "k_indices": [
+            0,
+            4000,
+            10000
+          ]
+        },
+        "unit": "eV",
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/400",
+            "value": 0.0007471824656067757,
+            "status": "measured",
+            "delta_from_baseline": 2.4747592319263826e-06,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-001",
+            "q_exact": "0",
+            "value": 0.0007447077063748493,
+            "status": "measured",
+            "delta_from_baseline": 0.0,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-002",
+            "q_exact": "1/400",
+            "value": 0.000742226169695295,
+            "status": "measured",
+            "delta_from_baseline": -2.481536679554237e-06,
+            "derivative_eligible": true
+          }
+        ],
+        "derivatives": [
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": -0.000991259182296124,
+              "second": -0.001084391620456704,
+              "first_unit": "eV/dimensionless",
+              "second_unit": "eV/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          }
+        ]
+      },
+      "occupied-band-sum": {
+        "definition": {
+          "kind": "band_sum",
+          "reference": "absolute",
+          "stage": "soc-z",
+          "spin": 0,
+          "k_indices": [
+            0,
+            4000,
+            10000
+          ]
+        },
+        "unit": "eV/cell",
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/400",
+            "value": -0.009350950471884955,
+            "status": "measured",
+            "delta_from_baseline": -4.316368979196891e-06,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-001",
+            "q_exact": "0",
+            "value": -0.009346634102905758,
+            "status": "measured",
+            "delta_from_baseline": 0.0,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-002",
+            "q_exact": "1/400",
+            "value": -0.009342281508336079,
+            "status": "measured",
+            "delta_from_baseline": 4.352594569679083e-06,
+            "derivative_eligible": true
+          }
+        ],
+        "derivatives": [
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": 0.0017337927097751948,
+              "second": 0.005796094477150682,
+              "first_unit": "eV/cell/dimensionless",
+              "second_unit": "eV/cell/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          }
+        ]
+      },
+      "occupied-relative-band-sum": {
+        "definition": {
+          "kind": "band_sum",
+          "reference": "own_fermi",
+          "stage": "soc-z",
+          "spin": 0,
+          "k_indices": [
+            0,
+            4000,
+            10000
+          ]
+        },
+        "unit": "eV/cell",
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/400",
+            "value": -0.00534480228711893,
+            "status": "measured",
+            "delta_from_baseline": -1.6066863936571932e-05,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-001",
+            "q_exact": "0",
+            "value": -0.005328735423182358,
+            "status": "measured",
+            "delta_from_baseline": 0.0,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-002",
+            "q_exact": "1/400",
+            "value": -0.005312648335152052,
+            "status": "measured",
+            "delta_from_baseline": 1.60870880303067e-05,
+            "derivative_eligible": true
+          }
+        ],
+        "derivatives": [
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": 0.0064307903933757266,
+              "second": 0.00323585499756307,
+              "first_unit": "eV/cell/dimensionless",
+              "second_unit": "eV/cell/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          }
+        ]
+      },
+      "Fe-orbital-z": {
+        "definition": {
+          "kind": "orbital_moment",
+          "stage": "soc-z",
+          "component": 2,
+          "selection": {
+            "sites": [
+              0
+            ]
+          }
+        },
+        "unit": "muB",
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/400",
+            "value": 0.08366708135521805,
+            "status": "measured",
+            "delta_from_baseline": -0.0003954090442564867,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-001",
+            "q_exact": "0",
+            "value": 0.08406249039947454,
+            "status": "measured",
+            "delta_from_baseline": 0.0,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-002",
+            "q_exact": "1/400",
+            "value": 0.08445195089643961,
+            "status": "measured",
+            "delta_from_baseline": 0.00038946049696507445,
+            "derivative_eligible": true
+          }
+        ],
+        "derivatives": [
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": 0.15697390824431223,
+              "second": -0.9517675666259606,
+              "first_unit": "muB/dimensionless",
+              "second_unit": "muB/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          }
+        ]
+      },
+      "Pt-orbital-z": {
+        "definition": {
+          "kind": "orbital_moment",
+          "stage": "soc-z",
+          "component": 2,
+          "selection": {
+            "sites": [
+              1
+            ]
+          }
+        },
+        "unit": "muB",
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/400",
+            "value": 0.07791891786577254,
+            "status": "measured",
+            "delta_from_baseline": 0.0004921720238073857,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-001",
+            "q_exact": "0",
+            "value": 0.07742674584196516,
+            "status": "measured",
+            "delta_from_baseline": 0.0,
+            "derivative_eligible": true
+          },
+          {
+            "id": "point-002",
+            "q_exact": "1/400",
+            "value": 0.07694622138489786,
+            "status": "measured",
+            "delta_from_baseline": -0.00048052445706729674,
+            "derivative_eligible": true
+          }
+        ],
+        "derivatives": [
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": -0.19453929617493648,
+              "second": 1.8636106784142186,
+              "first_unit": "muB/dimensionless",
+              "second_unit": "muB/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          }
+        ]
+      }
+    },
+    "pair_checks": 12,
+    "max_pair_series_delta_difference": 0,
+    "original_files_verified_unchanged": 446,
+    "matrix_radial_max_difference": 0,
+    "retrieval": {
+      "files": 6,
+      "bytes": 2202108,
+      "storage_read_only": true,
+      "app_created": false,
+      "manifest_sha256": "c75fe966bbf908c26f1980aa26ee28137e80412f3d1982139be37043564924fe"
+    }
+  },
+  "original_source_manifest_sha256": "295cddce4d91b76b103ace3d2713d395972893e0565d61088c7a2c3597d06a37",
+  "saved_evidence_sha256": {
+    "work/spec-response-diagnostics-demo-r1/series/series.json": "91cec256b17901183c34f6e8d083ab5fc55df4f1a0556222caf93799d54d8e9f",
+    "work/spec-response-diagnostics-demo-r1/analysis/response.json": "eea76a0ca91f424ed5ebe5780ae973aefa604a29684ce81ce8251f3389d26e38",
+    "work/spec-response-diagnostics-demo-r1/pair-responses.json": "41fac5e532d2d7d4cdf24dbd1e127fba65cfaea6cd061627f7df4fd3b9764d22",
+    "work/spec-response-diagnostics-demo-r1/verification.json": "a96b4a40191857dc1020c6cd641c11a1a875015432c5d110e6617a890a1b5537"
+  },
+  "implementation_sha256": {
+    "src/siesta_remag/research/response_diagnostics.py": "730aa9fa4d20b153e6f814fa1c737af59bf9a7fd6a074ea24045ac1a024d4769",
+    "src/siesta_remag/research/series.py": "739e938795efbb9554d959f8498758f78883a12dedd385d19155fe4750803fcd",
+    "src/siesta_remag/research/evaluation.py": "b8662874a4b09aa2d185fff46fc1bb9937960c26c665f94eb70552cfb732f339",
+    "src/siesta_remag/research/tools.py": "dea06d780b0b9a71fb93b263e4e5bb6a02764d228466055ebfb0ad1bfd8598b9",
+    "src/siesta_remag/research/model_policy.py": "fa892a21b495d8f20e0f890fcbecbff96b4363c451842fbff67b41c239f4c27f"
+  },
+  "no_new_native_calculations": true,
+  "new_gpu_reservations_cents": 0,
+  "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "frozen_gpac_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+  "scope": {
+    "mechanism_verified": false,
+    "physical_accuracy_qualified": false,
+    "predictive_performance_established": false,
+    "uncertainty_calibrated": false,
+    "archived_outcomes": "Post hoc integration example, not preregistered predictions or a blinded evaluation",
+    "matrices": "Three native samples only; incomplete occupied band sums and basis-dependent hybridization proxies; no unique SOC/MAE attribution",
+    "moments": "Pinned native onsite approximation; radial identity not verified by moment export itself",
+    "derivatives": "Local three-point differences; measurement and truncation errors unknown",
+    "gui": "Existing generic response display accepts these reports; no new browser visual acceptance"
+  },
+  "remaining": [
+    "Native full-application SOC build/export validation and device-H0 ownership adapter",
+    "Live authorized model/solver and empirical experiment selection",
+    "Uncertainty calibration and independent mechanism/transfer tests",
+    "Richer linked band/reciprocal-region GUI and visual acceptance"
+  ]
+}

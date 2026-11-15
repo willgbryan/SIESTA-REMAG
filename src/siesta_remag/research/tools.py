@@ -21,7 +21,7 @@ TOOLS = {
         'optional':['settings','basis_size','basis_energy_shift_ry','basis_spec','soc_matrix'],
         'description':'Prepare 3..9 exact samples along one declared GPAC strain, displacement, coordination or coupled metric path. Returns separate query bundles; no execution or queue.'},
     'analyze_response_series': {'required':['series','evidence','observables','output'],'optional':['error_bounds'],
-        'description':'Analyze saved energy, anisotropy, moment, force, stress or spectral responses with exact parent-site correspondence. Retains missing/failed points and branch changes; neighboring complete samples yield local derivatives with declared errors only.'},
+        'description':'Analyze saved energy, anisotropy, moment, force, stress, spectral or matrix/orbital-moment responses with exact parent-site correspondence. Retains missing/failed points and branch changes; neighboring complete samples yield local derivatives with declared errors only.'},
     'assess_structure': {'required':['structure','policy','output'],'optional':['reference'],
         'description':'Save GPAC advisory geometric assessment before DFT: periodic distances, coordination, complexity, exact translations, declared family and optional reference-cell strain. Explicit rational thresholds; findings do not reject novelty or certify stability.'},
     'inspect_structure': {'required':['structure'],'optional':['candidate'],
@@ -31,9 +31,9 @@ TOOLS = {
     'register_structure': {'required':['structure','identifier','label'],'optional':['candidate'],
         'description':'Append a verified exact structure to the local workspace viewer; never replaces existing entries or calculations.'},
     'record_response_prediction': {'required':['experiment_id','observable','target','value'], 'optional':['uncertainty','interval_probability'],
-        'description':'Freeze a baseline/intervention anisotropy or signed projected spectral response definition and prediction before any experiment outcome.'},
+        'description':'Freeze a baseline/intervention anisotropy, signed projected spectrum or matrix/orbital-moment response definition and prediction before any experiment outcome.'},
     'record_response_outcome': {'required':['experiment_id','observable','before','after'], 'optional':[],
-        'description':'Measure the preregistered response from source-bound accepted saved reports and spectra; retain failed native endpoints.'},
+        'description':'Measure the preregistered response from source-bound accepted saved reports, spectra and matrix/moment diagnostics; retain failed native endpoints.'},
     'evaluate_predictions': {'required':['experiment_ids','resolutions'], 'optional':[],
         'description':'Score all selected predictions by observable: error, resolved sign and interval coverage; retain failed/pending cases and do not certify blinding or research advantage.'},
     'run_prepared_query': {'required':['bundle','output'],'optional':['spectra'],
@@ -189,16 +189,16 @@ class ResearchTools:
             if not isinstance(evidence,dict):raise ValueError('Evidence must name response points')
             for endpoint in evidence.values():
                 if (not isinstance(endpoint,dict) or 'report' not in endpoint or
-                        set(endpoint)-{'report','collection','spectra'} or
-                        ('spectra' in endpoint and not isinstance(endpoint['spectra'],dict))):
+                        set(endpoint)-{'report','collection','spectra','diagnostics'} or
+                        any(key in endpoint and not isinstance(endpoint[key],dict) for key in ('spectra','diagnostics'))):
                     raise ValueError('Invalid response endpoint fields')
         if self.information_profile=='scalar':
             if name in ELECTRONIC_TOOLS:raise ValueError('Electronic diagnostics are unavailable in the scalar profile')
             if name in ('prepare_query','prepare_response_series') and args.get('soc_matrix',False):raise ValueError('Scalar profile cannot request SOC diagnostics')
-            if name=='analyze_response_series' and any(isinstance(o,dict) and o.get('kind')=='spectral' for o in args.get('observables',{}).values()):
+            if name=='analyze_response_series' and any(isinstance(o,dict) and o.get('kind') in ('spectral','coupling','band_sum','orbital_moment') for o in args.get('observables',{}).values()):
                 raise ValueError('Electronic response diagnostics are unavailable in the scalar profile')
             if name=='run_prepared_query' and 'spectra' in args:raise ValueError('Scalar profile cannot request spectra')
-            if name=='record_response_outcome' and any(isinstance(args.get(k),dict) and 'spectrum' in args[k] for k in ('before','after')):
+            if name=='record_response_outcome' and any(isinstance(args.get(k),dict) and bool({'spectrum','diagnostic'} & set(args[k])) for k in ('before','after')):
                 raise ValueError('Electronic outcomes are unavailable to the scalar policy; use the separate evaluator')
         schema = TOOLS[name]
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
@@ -293,8 +293,8 @@ class ResearchTools:
             if not isinstance(args['evidence'],dict):raise ValueError('Evidence must name response points')
             endpoints={}
             for pid,row in args['evidence'].items():
-                if not isinstance(row,dict) or set(row)-{'report','collection','spectra'}:raise ValueError('Unknown response endpoint fields')
-                endpoints[pid]={k:({name:self.path(path) for name,path in value.items()} if k=='spectra' else self.path(value)) for k,value in row.items()}
+                if not isinstance(row,dict) or set(row)-{'report','collection','spectra','diagnostics'}:raise ValueError('Unknown response endpoint fields')
+                endpoints[pid]={k:({name:self.path(path) for name,path in value.items()} if k in ('spectra','diagnostics') else self.path(value)) for k,value in row.items()}
             return analyze_series(self.path(args['series']),endpoints,args['observables'],self.path(args['output']),error_bounds=args.get('error_bounds'))
         if name == 'inspect_structure':
             from .authoring import inspect_structure

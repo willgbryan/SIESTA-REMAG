@@ -194,6 +194,9 @@ def validate_observables(observables):
     for name,raw in observables.items():
         if not isinstance(name,str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,47}',name): raise ValueError('Observable needs a short identifier')
         kind=raw.get('kind') if isinstance(raw,dict) else None
+        from .response_diagnostics import KINDS, validate_diagnostic
+        if kind in KINDS:
+            o,unit=validate_diagnostic(raw);result[name]=dict(definition=o,unit=unit);continue
         fields={'energy':{'stage','quantity'},'anisotropy':{'stages','quantity'},'force':{'stage','site','component'},
                 'moment':{'stage','site','component'},'stress':{'stage','component'},'spectral':{'stage','spin','metric','selection'}}
         if kind not in fields: raise ValueError('Unknown structural-response observable')
@@ -258,6 +261,11 @@ def _branches(report, baseline, mapping, baseline_mapping, stages, settings):
 
 def _value(report, point, endpoint, definition, name):
     o=definition;kind=o['kind'];mapping=point['parent_to_child'];evidence={};signature=None
+    from .response_diagnostics import KINDS, measure_diagnostic
+    if kind in KINDS:
+        path=endpoint.get('diagnostics',{}).get(name)
+        if path is None:return None,dict(status='pending',reason='Requested saved matrix/moment diagnostic is missing'),None
+        return measure_diagnostic(report,endpoint['report'],path,o,mapping=mapping)
     if kind in ('energy','anisotropy'):
         stages=o['stages'] if kind=='anisotropy' else [o['stage']]
         values=[report['observations'][s][o['quantity']] for s in stages]
@@ -335,9 +343,12 @@ def analyze_series(directory, evidence, observables, output, *, error_bounds=Non
         if planned is not None and config!=planned:raise ValueError('Series queries differ in their scientific settings')
         planned=config
         if pid not in evidence:continue
-        endpoint=evidence[pid];_fields(endpoint,{'report'},{'collection','spectra'})
+        endpoint=evidence[pid];_fields(endpoint,{'report'},{'collection','spectra','diagnostics'})
         if 'spectra' in endpoint and (not isinstance(endpoint['spectra'],dict) or any(k not in definitions or definitions[k]['definition']['kind']!='spectral' for k in endpoint['spectra'])):
             raise ValueError('Spectra must be keyed by selected spectral observables')
+        from .response_diagnostics import KINDS
+        if 'diagnostics' in endpoint and (not isinstance(endpoint['diagnostics'],dict) or any(k not in definitions or definitions[k]['definition']['kind'] not in KINDS for k in endpoint['diagnostics'])):
+            raise ValueError('Diagnostics must be keyed by selected matrix/moment observables')
         path=Path(endpoint['report']).resolve()
         r=_verified_report(path,Path(endpoint['collection']).resolve() if 'collection' in endpoint else None)
         if (r['source_sha256']!=point['source_sha256'] or r['structure']!=load(directory/point['bundle']/'structure.json')
@@ -365,10 +376,14 @@ def analyze_series(directory, evidence, observables, output, *, error_bounds=Non
             if value is None:row.update(detail);continue
             if signature is not None:
                 if spectral_reference is not None:
-                    if any(signature[k]!=spectral_reference[k] for k in ('metadata','orbitals')):raise ValueError('Response spectral metadata or parent orbital inventory differs')
-                    from .sampling import compare_sampling
-                    detail['sampling_correspondence']=compare_sampling(spectral_reference,signature,
-                        spectral_reference['native_context'],signature['native_context'])
+                    if 'kind' in signature:
+                        from .response_diagnostics import compare_diagnostics
+                        detail['diagnostic_correspondence']=compare_diagnostics(spectral_reference,signature)
+                    else:
+                        if any(signature[k]!=spectral_reference[k] for k in ('metadata','orbitals')):raise ValueError('Response spectral metadata or parent orbital inventory differs')
+                        from .sampling import compare_sampling
+                        detail['sampling_correspondence']=compare_sampling(spectral_reference,signature,
+                            spectral_reference['native_context'],signature['native_context'])
                 spectral_reference=signature
             row.update(value=value,status='measured',evidence=detail)
             base=reports.get(baseline_id)
@@ -394,6 +409,7 @@ def analyze_series(directory, evidence, observables, output, *, error_bounds=Non
         scope=dict(geometry='Fixed GPAC-authored geometry; parent atom indices transported by exact lineage',
             vector_frame='Each authored right-handed Cholesky Cartesian frame; no hidden rotation or lattice matching',
             spectral='Signed Mulliken window integrals relative to each Fermi level; no band tracking, radial-basis identity or unique SOC attribution',
+            diagnostics='Native onsite orbital moments and partial native-weighted matrix proxies; no unique hybridization/SOC/MAE decomposition or cross-geometry state matching',
             uncertainty='Supplied absolute observable error bounds propagated conservatively; truncation and convergence errors unknown',
             runtime='Recorded executable/environment/thread count must agree; legacy reports may leave thread count unknown',
             physical_accuracy_qualified=False,mechanism_verified=False,calculation_performed=False))

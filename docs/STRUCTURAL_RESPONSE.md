@@ -87,6 +87,12 @@ ordering. Both profiles can prepare families and analyze standard observables;
 the scalar profile cannot request SOC operator exports or spectral responses.
 Reserved held-out sources remain unavailable to the research policy.
 
+Saved onsite orbital moments, Löwdin coupling norms and partial occupied band
+sums are also supported through endpoint `diagnostics` mappings. Definitions,
+radial/sampling checks and approximation limits are documented in
+[MECHANISM_RESPONSES.md](MECHANISM_RESPONSES.md). The scalar profile cannot access
+these electronic responses.
+
 ```sh
 python -m siesta_remag.research analyze-response response-family \
   --evidence evidence.json --observables observables.json --output response-analysis
