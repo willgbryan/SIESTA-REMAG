@@ -1,0 +1,955 @@
+{
+  "format": "REMAG-FEPT-DENSE-BASIS-CHECKPOINT/1",
+  "recorded_at": "2026-11-15T00:03:54.179488+00:00",
+  "plan_commit": "903dd7f360f988ad5ee4afa6cac2439ea1bca45b",
+  "plan_sha256": "0d656b73354114fd0c1b79465a6a71986c4d3e9a4482e8da9df5cf3c8cb66b48",
+  "report_sha256": "aa8d4aed952381715f1e48b9511e5f06bfd15d4a660f4f37dc7469e4aa46fa85",
+  "health": {
+    "format": "REMAG-FEPT-DENSE-BASIS-HEALTH/1",
+    "passed": true,
+    "gates": {
+      "native": true,
+      "branches": true,
+      "transverse": true,
+      "native_radial_identity": true,
+      "shared_radial_identity": true,
+      "overlap_positive": true
+    },
+    "report_sha256": "aa8d4aed952381715f1e48b9511e5f06bfd15d4a660f4f37dc7469e4aa46fa85",
+    "reference_report_sha256": "f5c1c70934ccc3c5671ff76eb19000584e667ee66176201430d216ac05af5d54",
+    "previous_report_sha256": "bed9c6748db9b1dc26e31afe7b527e4d008170485f32ce31f02757dca3a27552",
+    "branches": {
+      "scalar": {
+        "passed": true,
+        "site_rms_mub": 0.004023054809470057,
+        "net_fractional_change": 0.0014465412595757762,
+        "robust_site_flip": false
+      },
+      "soc-z": {
+        "passed": true,
+        "site_rms_mub": 0.003475625123628897,
+        "net_fractional_change": 0.0002519916448070486,
+        "robust_site_flip": false
+      },
+      "soc-x": {
+        "passed": true,
+        "site_rms_mub": 0.0029478605801495955,
+        "net_fractional_change": 0.0001213187346455843,
+        "robust_site_flip": false
+      },
+      "soc-y": {
+        "passed": true,
+        "site_rms_mub": 0.0029478605801495955,
+        "net_fractional_change": 0.0001213187346455843,
+        "robust_site_flip": false
+      },
+      "previous_scalar": {
+        "passed": true,
+        "site_rms_mub": 0.00888676707245097,
+        "net_fractional_change": 0.0049748836421591456,
+        "robust_site_flip": false
+      },
+      "previous_soc-z": {
+        "passed": true,
+        "site_rms_mub": 0.008164097531264541,
+        "net_fractional_change": 0.00455767101180912,
+        "robust_site_flip": false
+      },
+      "previous_soc-x": {
+        "passed": true,
+        "site_rms_mub": 0.008504991122864295,
+        "net_fractional_change": 0.004932144903856663,
+        "robust_site_flip": false
+      },
+      "previous_soc-y": {
+        "passed": true,
+        "site_rms_mub": 0.008504991122864295,
+        "net_fractional_change": 0.004932144903856663,
+        "robust_site_flip": false
+      }
+    },
+    "transverse_split_ev": 1.5643308870494366e-10,
+    "radial_identity": {
+      "passed": true,
+      "stages": {
+        "scalar": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 8,
+            "max_abs_difference": 1.0000333894311098e-13,
+            "passed": true,
+            "reference_xml_sha256": "06c00ebf9114e1ac1fdc4302b28ea7be8fa9f73d20970300fa8d9b3eeeb60105",
+            "current_xml_sha256": "00167e2e57ab7405ee17fbdb2ce7e9c6debf784556136a786dfed4c4ddc63fa7"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 8,
+            "max_abs_difference": 1.0000056338554941e-12,
+            "passed": true,
+            "reference_xml_sha256": "bf3106f1dab5fe9eb8444e617a64aed79218aa30ff0a23ebeb158bef505357ec",
+            "current_xml_sha256": "2ce07f6aad3d559818dc8674df90e5ba32063e92ef03e5af495c598b393f44db"
+          }
+        ],
+        "soc-z": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 8,
+            "max_abs_difference": 1.0000333894311098e-13,
+            "passed": true,
+            "reference_xml_sha256": "b5e3f918e859bfdb61853961104c6cab875d198e983a86e07e3feacfb0274642",
+            "current_xml_sha256": "830bfe97d8d41675605e70b604e851c52e7099470bc7ba4d46ffa7619502d3b8"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 8,
+            "max_abs_difference": 1.0000056338554941e-12,
+            "passed": true,
+            "reference_xml_sha256": "025376f4eebcb4e72d832d5d755e271b52616bdf81055b2276f9ce392ec7cc03",
+            "current_xml_sha256": "4d418343bec45226e4dde6d8a677564dd2e1e0026f06019e1f9074daaecd7e30"
+          }
+        ],
+        "soc-x": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 8,
+            "max_abs_difference": 1.0000333894311098e-13,
+            "passed": true,
+            "reference_xml_sha256": "b5e3f918e859bfdb61853961104c6cab875d198e983a86e07e3feacfb0274642",
+            "current_xml_sha256": "830bfe97d8d41675605e70b604e851c52e7099470bc7ba4d46ffa7619502d3b8"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 8,
+            "max_abs_difference": 1.0000056338554941e-12,
+            "passed": true,
+            "reference_xml_sha256": "025376f4eebcb4e72d832d5d755e271b52616bdf81055b2276f9ce392ec7cc03",
+            "current_xml_sha256": "4d418343bec45226e4dde6d8a677564dd2e1e0026f06019e1f9074daaecd7e30"
+          }
+        ],
+        "soc-y": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 8,
+            "max_abs_difference": 1.0000333894311098e-13,
+            "passed": true,
+            "reference_xml_sha256": "b5e3f918e859bfdb61853961104c6cab875d198e983a86e07e3feacfb0274642",
+            "current_xml_sha256": "830bfe97d8d41675605e70b604e851c52e7099470bc7ba4d46ffa7619502d3b8"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 8,
+            "max_abs_difference": 1.0000056338554941e-12,
+            "passed": true,
+            "reference_xml_sha256": "025376f4eebcb4e72d832d5d755e271b52616bdf81055b2276f9ce392ec7cc03",
+            "current_xml_sha256": "4d418343bec45226e4dde6d8a677564dd2e1e0026f06019e1f9074daaecd7e30"
+          }
+        ]
+      }
+    },
+    "shared_radial_identity": {
+      "passed": true,
+      "stages": {
+        "scalar": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 0.0,
+            "passed": true,
+            "reference_xml_sha256": "6c2063e77859b303a136280ab2eebf300d5d9e2d968002ff7d1dec3ebc84da1d",
+            "current_xml_sha256": "00167e2e57ab7405ee17fbdb2ce7e9c6debf784556136a786dfed4c4ddc63fa7"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 0.0,
+            "passed": true,
+            "reference_xml_sha256": "9201eb2dec27b967365456be502b9adf82fda21380c0040d03aa6060e853387d",
+            "current_xml_sha256": "2ce07f6aad3d559818dc8674df90e5ba32063e92ef03e5af495c598b393f44db"
+          }
+        ],
+        "soc-z": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 0.0,
+            "passed": true,
+            "reference_xml_sha256": "32bda8d15e60e91e1b8b5a431ed4ef527dd42d687f322361069cbc08393b169c",
+            "current_xml_sha256": "830bfe97d8d41675605e70b604e851c52e7099470bc7ba4d46ffa7619502d3b8"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 0.0,
+            "passed": true,
+            "reference_xml_sha256": "fdded2cd737d9f2d39cb26ef46d6383f4661f700a3f2de93c4ad067c40188077",
+            "current_xml_sha256": "4d418343bec45226e4dde6d8a677564dd2e1e0026f06019e1f9074daaecd7e30"
+          }
+        ],
+        "soc-x": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 0.0,
+            "passed": true,
+            "reference_xml_sha256": "32bda8d15e60e91e1b8b5a431ed4ef527dd42d687f322361069cbc08393b169c",
+            "current_xml_sha256": "830bfe97d8d41675605e70b604e851c52e7099470bc7ba4d46ffa7619502d3b8"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 0.0,
+            "passed": true,
+            "reference_xml_sha256": "fdded2cd737d9f2d39cb26ef46d6383f4661f700a3f2de93c4ad067c40188077",
+            "current_xml_sha256": "4d418343bec45226e4dde6d8a677564dd2e1e0026f06019e1f9074daaecd7e30"
+          }
+        ],
+        "soc-y": [
+          {
+            "species": "Fe",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 0.0,
+            "passed": true,
+            "reference_xml_sha256": "32bda8d15e60e91e1b8b5a431ed4ef527dd42d687f322361069cbc08393b169c",
+            "current_xml_sha256": "830bfe97d8d41675605e70b604e851c52e7099470bc7ba4d46ffa7619502d3b8"
+          },
+          {
+            "species": "Pt",
+            "shared_radial_functions": 7,
+            "max_abs_difference": 0.0,
+            "passed": true,
+            "reference_xml_sha256": "fdded2cd737d9f2d39cb26ef46d6383f4661f700a3f2de93c4ad067c40188077",
+            "current_xml_sha256": "4d418343bec45226e4dde6d8a677564dd2e1e0026f06019e1f9074daaecd7e30"
+          }
+        ]
+      }
+    },
+    "overlap": {
+      "format": "REMAG-OVERLAP-HEALTH/1",
+      "hsx_sha256": "732905b19a52d5e410c5fd00cf94d134211c6432cb1bf21edb2143da7845e903",
+      "kp_sha256": "b5d0336ccb9674b5401116070dd3582ef0ced0f7a24e43e3d07d6817e8779329",
+      "spatial_orbitals": 48,
+      "native_kpoints": 7224,
+      "native_kp_weight_sum": 1.000000512,
+      "native_kp_weight_rounding_bound": 3.3312e-06,
+      "min_eigenvalue": 1.9147398402875643e-05,
+      "max_eigenvalue": 13.213743536813034,
+      "min_eigenvalue_kpoint_index": 5112,
+      "min_eigenvalue_k_fractional": [
+        0.4999996486470242,
+        -0.16666627585808705,
+        0.3750003432670627
+      ],
+      "nonpositive_kpoints": 0,
+      "positive_definite": true,
+      "max_condition_number": 509464.67119143927,
+      "min_relative_eigenvalue": 1.9628446417322516e-06,
+      "max_condition_kpoint_index": 2347,
+      "sampling": "Every native SCF KP point; decimal coordinate rounding retained",
+      "hermitian_policy": "Same bounded Hermitian reconstruction as electronic spectra",
+      "physical_accuracy_qualified": false,
+      "scope": "Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate"
+    },
+    "physical_accuracy_qualified": false,
+    "plan_commit": "903dd7f360f988ad5ee4afa6cac2439ea1bca45b",
+    "plan_sha256": "0d656b73354114fd0c1b79465a6a71986c4d3e9a4482e8da9df5cf3c8cb66b48",
+    "lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-14 17:05:02-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-14 18:00:22-06:00",
+      "stopped_by": null
+    },
+    "recovery_manifest_sha256": "5fcf206190a129070d5e127db7be2630824dbac62c45a82ef7d59b0bf76a883e"
+  },
+  "mesh_comparison": {
+    "format": "REMAG-NUMERICAL-STABILITY/1",
+    "varied": "kmesh",
+    "samples": [
+      {
+        "parameters": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ]
+        },
+        "energy_anisotropy_ev": 0.0029870630564801104,
+        "free_energy_anisotropy_ev": 0.0028344698903310928,
+        "transverse_split_ev": 4.1654857341200113e-10,
+        "report_sha256": "f5c1c70934ccc3c5671ff76eb19000584e667ee66176201430d216ac05af5d54"
+      },
+      {
+        "parameters": {
+          "kmesh": [
+            24,
+            24,
+            24
+          ]
+        },
+        "energy_anisotropy_ev": 0.0026373982791483286,
+        "free_energy_anisotropy_ev": 0.002628029776587937,
+        "transverse_split_ev": 1.5643308870494366e-10,
+        "report_sha256": "aa8d4aed952381715f1e48b9511e5f06bfd15d4a660f4f37dc7469e4aa46fa85"
+      }
+    ],
+    "changes": [
+      {
+        "energy_ev": -0.0003496647773317818,
+        "free_energy_ev": -0.00020644011374315596
+      }
+    ],
+    "tolerance_ev": 5e-05,
+    "successive_changes_required": 2,
+    "transverse_tolerance_ev": 1e-05,
+    "transverse_passed": true,
+    "sufficient_refinements": false,
+    "observed_stability_passed": false,
+    "fixed_configuration": {
+      "basis_size": "explicit",
+      "basis_energy_shift_ry": 0.0025,
+      "pseudopotentials": {
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+      },
+      "basis_spec": {
+        "format": "REMAG-PAO-BASIS/1",
+        "species": {
+          "Fe": [
+            {
+              "n": 4,
+              "l": 0,
+              "zeta": 3,
+              "polarization": 2,
+              "radii_bohr": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "n": 3,
+              "l": 2,
+              "zeta": 3,
+              "polarization": 0,
+              "radii_bohr": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "Pt": [
+            {
+              "n": 6,
+              "l": 0,
+              "zeta": 3,
+              "polarization": 2,
+              "radii_bohr": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "n": 5,
+              "l": 2,
+              "zeta": 3,
+              "polarization": 0,
+              "radii_bohr": [
+                0,
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "mesh_ry": 300,
+      "smearing_k": 300,
+      "dm_tolerance": 1e-05,
+      "h_tolerance_ev": 0.0001,
+      "mixing_weight": 0.03,
+      "mixing_history": 8,
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "environment": {
+        "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+        "REMAG_NONLOCAL_H0": "0",
+        "REMAG_NONLOCAL_H0_SHADOW": "0",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "REMAG_GRID": "1",
+        "REMAG_DM": "1",
+        "REMAG_GRID_EPOCH": "1",
+        "REMAG_GRID_VERIFY_EPOCH": "0",
+        "REMAG_NORMALIZE": "1",
+        "REMAG_OCCUPATIONS": "1",
+        "REMAG_RESIDENT_SPECTRA": "1",
+        "REMAG_HS": "1",
+        "REMAG_HARTREE": "1",
+        "REMAG_RESIDENT_GRID": "1",
+        "REMAG_RESIDENT_SCF": "1",
+        "REMAG_DEVICE_SCF": "0",
+        "REMAG_DEVICE_VECTOR_CACHE": "0",
+        "REMAG_BLOCK_SOLVER": "0",
+        "REMAG_BLOCK_WIDTH": "32",
+        "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+        "REMAG_FORCE_SHADOW": "0",
+        "REMAG_FORCE_SHADOW_RESIDENT": "0",
+        "REMAG_GRID_FORCE": "0",
+        "REMAG_ATOMIC_GRID_FORCE": "0",
+        "REMAG_ATOMIC_FORCE_SHADOW": "0",
+        "REMAG_FINAL_GRID": "0",
+        "REMAG_FINAL_GRID_SHADOW": "0",
+        "REMAG_FINAL_DENSITY": "0",
+        "REMAG_FINAL_DENSITY_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS": "0",
+        "REMAG_ATOMIC_BASIS_SHADOW": "0",
+        "REMAG_ATOMIC_BASIS": "0",
+        "REMAG_TWO_CENTER_SHADOW": "0",
+        "REMAG_PAIR_FORCE_SHADOW": "0",
+        "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+        "REMAG_INTEGRAL_FORCE": "0",
+        "REMAG_POPULATION": "0",
+        "REMAG_TRACE_IO": "0",
+        "REMAG_TRACE_CUDA": "0",
+        "REMAG_GPU_INITIALIZATION": "0",
+        "REMAG_GPU_HISTORY": "0",
+        "REMAG_FINAL_SPECTRA": "0",
+        "REMAG_GATE_H_EXPORT": "0",
+        "REMAG_DEFER_SCF_LOG": "0",
+        "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+        "GFORTRAN_UNBUFFERED_ALL": "0",
+        "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+        "REMAG_BLOCK_SHARED_JACOBI": "1",
+        "REMAG_INITIAL_MESH": "0",
+        "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+        "REMAG_SCF_SOLVER_LANES": "1",
+        "REMAG_SCF_WARM_START": "0",
+        "REMAG_RADIAL_BATCH": "0",
+        "REMAG_GRID_POTENTIAL_SPINS": "1",
+        "REMAG_SCF_STAGE_PROFILE": "0",
+        "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+        "REMAG_BLOCK_FUSED_MATRIX": "0",
+        "REMAG_BLOCK_FP64_VECTORS": "0",
+        "REMAG_BLOCK_FP64_MATRIX": "0",
+        "CUDA_DISABLE_PTX_JIT": "1",
+        "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+        "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+      }
+    },
+    "physical_accuracy_qualified": false,
+    "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+  },
+  "basis_comparison": {
+    "format": "REMAG-NUMERICAL-STABILITY/1",
+    "varied": "basis",
+    "samples": [
+      {
+        "parameters": {
+          "basis_size": "explicit",
+          "basis_spec": {
+            "format": "REMAG-PAO-BASIS/1",
+            "species": {
+              "Fe": [
+                {
+                  "n": 4,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 1,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 3,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 0,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "Pt": [
+                {
+                  "n": 6,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 1,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 5,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 0,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "energy_anisotropy_ev": 0.0023232688781718025,
+        "free_energy_anisotropy_ev": 0.002317028102424956,
+        "transverse_split_ev": 6.411937647499144e-11,
+        "report_sha256": "bed9c6748db9b1dc26e31afe7b527e4d008170485f32ce31f02757dca3a27552"
+      },
+      {
+        "parameters": {
+          "basis_size": "explicit",
+          "basis_spec": {
+            "format": "REMAG-PAO-BASIS/1",
+            "species": {
+              "Fe": [
+                {
+                  "n": 4,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 2,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 3,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 0,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "Pt": [
+                {
+                  "n": 6,
+                  "l": 0,
+                  "zeta": 3,
+                  "polarization": 2,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "n": 5,
+                  "l": 2,
+                  "zeta": 3,
+                  "polarization": 0,
+                  "radii_bohr": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "energy_anisotropy_ev": 0.0026373982791483286,
+        "free_energy_anisotropy_ev": 0.002628029776587937,
+        "transverse_split_ev": 1.5643308870494366e-10,
+        "report_sha256": "aa8d4aed952381715f1e48b9511e5f06bfd15d4a660f4f37dc7469e4aa46fa85"
+      }
+    ],
+    "changes": [
+      {
+        "energy_ev": 0.0003141294009765261,
+        "free_energy_ev": 0.00031100167416298063
+      }
+    ],
+    "tolerance_ev": 5e-05,
+    "successive_changes_required": 2,
+    "transverse_tolerance_ev": 1e-05,
+    "transverse_passed": true,
+    "sufficient_refinements": false,
+    "observed_stability_passed": false,
+    "fixed_configuration": {
+      "kmesh": [
+        24,
+        24,
+        24
+      ],
+      "basis_energy_shift_ry": 0.0025,
+      "pseudopotentials": {
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+      },
+      "mesh_ry": 300,
+      "smearing_k": 300,
+      "dm_tolerance": 1e-05,
+      "h_tolerance_ev": 0.0001,
+      "mixing_weight": 0.03,
+      "mixing_history": 8,
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "environment": {
+        "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+        "REMAG_NONLOCAL_H0": "0",
+        "REMAG_NONLOCAL_H0_SHADOW": "0",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "REMAG_GRID": "1",
+        "REMAG_DM": "1",
+        "REMAG_GRID_EPOCH": "1",
+        "REMAG_GRID_VERIFY_EPOCH": "0",
+        "REMAG_NORMALIZE": "1",
+        "REMAG_OCCUPATIONS": "1",
+        "REMAG_RESIDENT_SPECTRA": "1",
+        "REMAG_HS": "1",
+        "REMAG_HARTREE": "1",
+        "REMAG_RESIDENT_GRID": "1",
+        "REMAG_RESIDENT_SCF": "1",
+        "REMAG_DEVICE_SCF": "0",
+        "REMAG_DEVICE_VECTOR_CACHE": "0",
+        "REMAG_BLOCK_SOLVER": "0",
+        "REMAG_BLOCK_WIDTH": "32",
+        "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+        "REMAG_FORCE_SHADOW": "0",
+        "REMAG_FORCE_SHADOW_RESIDENT": "0",
+        "REMAG_GRID_FORCE": "0",
+        "REMAG_ATOMIC_GRID_FORCE": "0",
+        "REMAG_ATOMIC_FORCE_SHADOW": "0",
+        "REMAG_FINAL_GRID": "0",
+        "REMAG_FINAL_GRID_SHADOW": "0",
+        "REMAG_FINAL_DENSITY": "0",
+        "REMAG_FINAL_DENSITY_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS": "0",
+        "REMAG_ATOMIC_BASIS_SHADOW": "0",
+        "REMAG_ATOMIC_BASIS": "0",
+        "REMAG_TWO_CENTER_SHADOW": "0",
+        "REMAG_PAIR_FORCE_SHADOW": "0",
+        "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+        "REMAG_INTEGRAL_FORCE": "0",
+        "REMAG_POPULATION": "0",
+        "REMAG_TRACE_IO": "0",
+        "REMAG_TRACE_CUDA": "0",
+        "REMAG_GPU_INITIALIZATION": "0",
+        "REMAG_GPU_HISTORY": "0",
+        "REMAG_FINAL_SPECTRA": "0",
+        "REMAG_GATE_H_EXPORT": "0",
+        "REMAG_DEFER_SCF_LOG": "0",
+        "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+        "GFORTRAN_UNBUFFERED_ALL": "0",
+        "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+        "REMAG_BLOCK_SHARED_JACOBI": "1",
+        "REMAG_INITIAL_MESH": "0",
+        "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+        "REMAG_SCF_SOLVER_LANES": "1",
+        "REMAG_SCF_WARM_START": "0",
+        "REMAG_RADIAL_BATCH": "0",
+        "REMAG_GRID_POTENTIAL_SPINS": "1",
+        "REMAG_SCF_STAGE_PROFILE": "0",
+        "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+        "REMAG_BLOCK_FUSED_MATRIX": "0",
+        "REMAG_BLOCK_FP64_VECTORS": "0",
+        "REMAG_BLOCK_FP64_MATRIX": "0",
+        "CUDA_DISABLE_PTX_JIT": "1",
+        "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+        "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+      }
+    },
+    "physical_accuracy_qualified": false,
+    "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+  },
+  "spatial_orbitals": 48,
+  "common_mesh_basis_refinements": 1,
+  "basis_gate_status": "first_step_failed;62pending",
+  "measurement": {
+    "wall_seconds": 3170.65244252,
+    "stages": {
+      "scalar": {
+        "accepted": true,
+        "solver_seconds": 699.590796177
+      },
+      "soc-z": {
+        "accepted": true,
+        "solver_seconds": 855.524831086
+      },
+      "soc-x": {
+        "accepted": true,
+        "solver_seconds": 785.3015398329999
+      },
+      "soc-y": {
+        "accepted": true,
+        "solver_seconds": 789.0533576990001
+      }
+    },
+    "energies_ev": {
+      "scalar": {
+        "total_energy_ev": -2224.5726404567376,
+        "free_energy_ev": -2224.575660487299
+      },
+      "soc-z": {
+        "total_energy_ev": -2224.8768066012526,
+        "free_energy_ev": -2224.8799147473787
+      },
+      "soc-x": {
+        "total_energy_ev": -2224.8741692029735,
+        "free_energy_ev": -2224.877286717602
+      },
+      "soc-y": {
+        "total_energy_ev": -2224.87416920313,
+        "free_energy_ev": -2224.877286717755
+      }
+    }
+  },
+  "native_basis": {
+    "passed": true,
+    "spatial_orbitals": 48,
+    "species": [
+      {
+        "symbol": "Fe",
+        "ion_sha256": "00167e2e57ab7405ee17fbdb2ce7e9c6debf784556136a786dfed4c4ddc63fa7",
+        "orbitals": [
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 1,
+            "cutoff_bohr": 8.16294912714
+          },
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 2,
+            "cutoff_bohr": 4.80545151776
+          },
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 3,
+            "cutoff_bohr": 5.77246356394
+          },
+          {
+            "n": 4,
+            "l": 1,
+            "zeta": 1,
+            "cutoff_bohr": 8.16294912714
+          },
+          {
+            "n": 4,
+            "l": 1,
+            "zeta": 2,
+            "cutoff_bohr": 5.76091019403
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 1,
+            "cutoff_bohr": 4.96701251287
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 2,
+            "cutoff_bohr": 2.23079298417
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 3,
+            "cutoff_bohr": 2.96972142324
+          }
+        ]
+      },
+      {
+        "symbol": "Pt",
+        "ion_sha256": "2ce07f6aad3d559818dc8674df90e5ba32063e92ef03e5af495c598b393f44db",
+        "orbitals": [
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 1,
+            "cutoff_bohr": 7.93728065369
+          },
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 2,
+            "cutoff_bohr": 4.67717386783
+          },
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 3,
+            "cutoff_bohr": 5.61280030103
+          },
+          {
+            "n": 6,
+            "l": 1,
+            "zeta": 1,
+            "cutoff_bohr": 7.93728065369
+          },
+          {
+            "n": 6,
+            "l": 1,
+            "zeta": 2,
+            "cutoff_bohr": 5.78983700176
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 1,
+            "cutoff_bohr": 5.81890880571
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 2,
+            "cutoff_bohr": 2.93417845051
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 3,
+            "cutoff_bohr": 3.71784311858
+          }
+        ]
+      }
+    ],
+    "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+  },
+  "provenance": {
+    "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "0",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "0",
+      "REMAG_DEVICE_VECTOR_CACHE": "0",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "0",
+      "REMAG_ATOMIC_GRID_FORCE": "0",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "0",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "0",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "0",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "0",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "0",
+      "REMAG_POPULATION": "0",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "0",
+      "REMAG_GPU_HISTORY": "0",
+      "REMAG_FINAL_SPECTRA": "0",
+      "REMAG_GATE_H_EXPORT": "0",
+      "REMAG_DEFER_SCF_LOG": "0",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "0",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "1",
+      "REMAG_SCF_WARM_START": "0",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "source_code": {
+      "__init__.py": "24f91aa34873a757427724a85bd052e9e738e000e1e952a42d565f08ad8c168d",
+      "cli.py": "f344fd5a62352591e70079ef413585a23d5bf1b3e6b167aa16be4c7e124b5da2",
+      "collection.py": "01daa11f0ff42a14010b831f6fe11f2aec8f5cccd1cfa99caa3ebd550a708c2f",
+      "common.py": "2c99c1f091bb0af59af5b06de69fe429582a2ec508fa850cb8ae9f5cddbcde8a",
+      "config.py": "76ae475671a6269d9910ccaa592814ff70b57f029a162611e1a8e65a9d53c343",
+      "inputs.py": "7db64d2ee4981ce91afac2beaa7883435036e173714d8ddf150097ef6da54796",
+      "orb.py": "e7daa9465e7ec9f7232bac37e5e9d6a7549b3f6b00dc6f98e5e65bb22088ec4e",
+      "pipeline.py": "f60961203027eea42fd73a9a028180a98f6fd8b023ad07ed38459efe1c20b66e",
+      "review.py": "153652c9cab7194b69bd2b3522246f1e2bb2e518dc642513363820437a24f946",
+      "seed.py": "d25acf7144d32bcbdd44fc27d2615928fe74d2d0a06a9b1a06147aeb57a962e0",
+      "../runner.py": "98d49c6688805c38e8fb115826b031de906abd6b8fc24af26f588dcd4c9d61a2",
+      "../output.py": "83cfe25f907265651237e24b08dd71664e420b670fe357c7aa3d0b8da72cfc71",
+      "research/convergence.py": "2ad2a97f845b6b1fbb424b5f38490773d58870cfc3f834121fa2ce6e71ae9194",
+      "research/electronic.py": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b",
+      "research/budget.py": "3c7991b8f09618661024cb1ac64820ebfc16a2c0625f3a45c77c1b8cb8d44fdd",
+      "research/response.py": "12ce1f617e850ec2793772c0b40f8e7cd1663343025e14a60968876d3bf64ce0",
+      "research/workspace.py": "f785563ffa31c87d3d1396cbc38384cc281e1de2b1159b32b9e017629ae113a9",
+      "research/experiments.py": "93f88c7df3536335eb6fd6d5462a508ef32d09a6957af7f8f7e6a8859dd447a6",
+      "research/memory.py": "0614d683b0908c53933ead96e8b1de2d0cb18d2a9aae2c2e932f843d8bf5517e",
+      "research/__main__.py": "23bee9011dadfb25da9dc32990fe51cd21a010994c34c3e4a5238780a53b75e9",
+      "research/__init__.py": "5d9878d3db7f53bf90f3859797af7c5d587c3ff6700b6822936a74e0a21fb47b",
+      "research/basis.py": "0cefb5469aac12cae67188b918e1f0517fdb79279b52d6472a2c2a016b6c6733"
+    },
+    "input_and_stdout_hashes": {
+      "scalar": {
+        "input.fdf": "fc42c62afef26d56793bef5c41d3b10896809a6753779250091c687db7d0d914",
+        "stdout.log": "c7cca3f7c72d790c3e59f6227424df4f1559d4d36dac385b228ef756e374ba6d"
+      },
+      "soc-z": {
+        "input.fdf": "007ab214fa59d8a28ec5c96764bdf1d5a4f0fe3b1ee9d81687bd96ba348c6d4a",
+        "stdout.log": "d5081afa2400871c42aafc4a801e080f2fd748515a9e6204269f2748951b3a62"
+      },
+      "soc-x": {
+        "input.fdf": "75cf3757e937ab430cede1f359f6225569b777b997760f514fc6482ec8646795",
+        "stdout.log": "3b67f99126c0def06a9a6ec4d8bef1107259cac4a4160605fab254fed2e7334f"
+      },
+      "soc-y": {
+        "input.fdf": "b53510aeac149a5e4a82763e5564da3c1d138bfd07b288b2c02f55a40e7cf4bb",
+        "stdout.log": "53111b8f7dd96bd26d330b0bbed993f3bf5361a4c45b896fc3636c23a6b63720"
+      }
+    },
+    "receipt_sha256": "ed9a444b900471c0454b2422913f8a59c4fcf5a16701c3ada7fcfc13244a0e29",
+    "recovery_manifest_sha256": "5fcf206190a129070d5e127db7be2630824dbac62c45a82ef7d59b0bf76a883e"
+  },
+  "recovered_native_files": 23,
+  "recovered_native_bytes": 130570344,
+  "physical_accuracy_qualified": false,
+  "scope": "First42to48 basis refinement atcommon24 exceeds both originalE/F thresholds;62 remains pending. The separate48-orbital16to24 mesh change also exceeds both thresholds and supplies onlyone mesh refinement. Native health and overlap positivity do not establish basis completeness."
+}

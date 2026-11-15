@@ -190,6 +190,19 @@ The existing driver then started the registered 48-orbital case. This result
 retains the earlier DZP mesh pass within its original scope and leaves enlarged
 basis, mesh and radial qualification unresolved.
 
+The [42→48 enrichment at 24³](../tests/evidence/research/fept-basis24-r3-48-review-2026-11-14.json)
+changes E/F by +0.314129/+0.311002 meV/cell and fails both original thresholds.
+The 48-orbital anisotropies are 2.637398/2.628030 meV/cell; its separate 16→24
+mesh change is −0.349665/−0.206440 meV and also fails. Native, magnetic-branch,
+transverse and radial-identity checks pass; every shared native radial function
+is exactly unchanged across the 42→48 enrichment. The scalar overlap remains
+positive at all 7,224 native k points, with worst condition number 509,465.
+All 23 native files are recovered and verified. Native wall time is 3,170.65
+seconds. The 48-orbital app stopped at 00:00:22 UTC on 15 November before the
+registered 62-orbital app was created at 00:02:54 UTC. The failed first basis
+refinement remains part of the final two-step assessment; reference qualification
+and prediction expansion remain blocked by the unresolved numerical controls.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
