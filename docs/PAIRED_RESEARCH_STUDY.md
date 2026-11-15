@@ -1,5 +1,10 @@
 # Scalar versus physics-guided research
 
+The [candidate and compute scorecard](DISCOVERY_SCORECARD.md) adds optional
+preregistered discovery criteria and measured allocation imports to the same
+paired evaluator. It retains all persisted authoring outputs, failed/pending
+validations and incomplete usage; no calculation or spending is implied.
+
 The paired-study runner implements the comparison structure in spec §12. Both
 arms use the same trusted policy command, GPAC authoring tools, objective,
 session bounds and declared common inputs. The scalar arm sees standard

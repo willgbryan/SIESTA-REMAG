@@ -65,7 +65,11 @@ def register_study(workspace,definition,output):
             or type(limits['max_seconds']) not in (int,float) or not math.isfinite(limits['max_seconds']) or not 1<=limits['max_seconds']<=3600
             or type(limits['allow_cpu_relaxation']) is not bool):raise ValueError('Invalid common session limits')
     evaluation=p['evaluation']
-    if not isinstance(evaluation,dict) or set(evaluation)!={'heldout_sources','observables'}:raise ValueError('Preregister heldout sources and observables')
+    if (not isinstance(evaluation,dict) or not {'heldout_sources','observables'}<=set(evaluation)
+            or set(evaluation)-{'heldout_sources','observables','discovery'}):raise ValueError('Preregister heldout sources and observables')
+    if 'discovery' in evaluation:
+        from .discovery_scores import validate_policy
+        evaluation['discovery']=validate_policy(evaluation['discovery'])
     sources=evaluation['heldout_sources'];observables=evaluation['observables']
     if (not isinstance(sources,list) or not 1<=len(sources)<=128 or any(not isinstance(s,str) or not re.fullmatch('[0-9a-f]{64}',s) for s in sources)
             or len(set(sources))!=len(sources)):raise ValueError('Declare distinct heldout source hashes')
@@ -215,7 +219,7 @@ def _audit_session(root,folder,record,arm):
     from .model_policy import audit_session
     model=audit_session(session)
     if model!=r.get('model_policy'):raise ValueError('Session model policy audit differs')
-    native=[];tool_seconds=policy_seconds=0.
+    native=[];native_windows={};candidates=[];failed_authoring=0;tool_seconds=policy_seconds=0.
     for step in r['steps']:
         path=session/f"{step['index']:03d}";decision=load(path/'decision.json')
         if sha256(path/'decision.json')!=step['decision_sha256']:raise ValueError('Session decision changed')
@@ -225,7 +229,24 @@ def _audit_session(root,folder,record,arm):
         if load(path/'action.json')!=dict(op=decision['tool'],args=decision['args']):raise ValueError('Session action differs from policy decision')
         if decision['tool'] not in request['tools']:raise ValueError('Session used an unavailable tool')
         response=load(path/'response.json');tool_seconds+=step['tool_seconds']
-        if decision['tool']=='run_prepared_query':native.append(response.get('result') if response.get('ok') else None)
+        if decision['tool']=='run_prepared_query':
+            measured=response.get('result') if response.get('ok') else None;native.append(measured)
+            review=(measured or {}).get('review',{})
+            if review.get('report_sha256'):
+                from .discovery_scores import report_interval
+                file=_path(where,review['report'])
+                if sha256(file)!=review['report_sha256']:raise ValueError('Native report changed after session review')
+                native_windows[review['report_sha256']]=report_interval(load(file))
+        if decision['tool']=='author_structure':
+            if not response.get('ok'):failed_authoring+=1
+            else:
+                from .authoring import verify_candidate
+                authored=response['result'];candidate_path=_path(where,authored['candidate_path'])
+                candidate=verify_candidate(candidate_path)
+                if (candidate!=authored['candidate'] or _path(where,authored['structure_path'])!=candidate_path.parent/'structure.json'):
+                    raise ValueError('Session candidate differs from its recorded authoring result')
+                candidates.append(dict(step=step['index'],source_sha256=candidate['source_sha256'],
+                    candidate_path=authored['candidate_path'],candidate_sha256=sha256(candidate_path),structure_path=authored['structure_path']))
     _inputs_unchanged(where,record['arms'][arm])
     events=_events(where);snapshot=receipt.get('notebook_snapshot',{})
     if any(uid not in events or digest(events[uid])!=h for uid,h in snapshot.items()):raise ValueError('Session notebook evidence changed')
@@ -246,6 +267,10 @@ def _audit_session(root,folder,record,arm):
     costs=[x.get('reservation_recorded_cents') if x else None for x in native]
     times=[x.get('review',{}).get('native_wall_seconds') if x else None for x in native]
     return dict(status=r['status'],session_verified=True,session_report_sha256=sha256(session/'report.json'),
+        finished_at=receipt['finished_at'],authored_candidates=candidates,failed_authoring_attempts=failed_authoring,
+        native_app_ids=sorted({x['app_id'] for x in native if x and x.get('app_id')}),
+        native_report_sha256s=sorted({x['review']['report_sha256'] for x in native if x and x.get('review',{}).get('report_sha256')}),
+        native_report_intervals=native_windows,
         native_execution_attempts=r['native_execution_attempts'],native_submissions=r['native_submissions'],
         completed_experiments=len(complete),failed_experiments=len(failed),unresolved_attempts=r['native_execution_attempts']-len(complete)-len(failed),
         reserved_cents=sum(costs) if len(costs)==r['native_execution_attempts'] and all(x is not None for x in costs) else None,
@@ -306,7 +331,10 @@ def grade_study(workspace,study,outcomes):
                         collection=_path(root,observation['collection']) if 'collection' in observation else None)
                     if result['observable']!=q:raise ValueError('Graded quantity differs from the prediction')
                 if result['unit']!=pr['unit']:raise ValueError('Graded unit differs from the prediction')
-                pending.append(dict(arm=arm,experiment_id=experiment['id'],prediction_id=uid,observation=result))
+                from .discovery_scores import report_interval
+                paths=[e['report'] for e in endpoints] if 'target' in pr else [_path(root,observation['report'])]
+                intervals={sha256(path):report_interval(load(path)) for path in paths}
+                pending.append(dict(arm=arm,experiment_id=experiment['id'],prediction_id=uid,observation=result,report_intervals=intervals))
         receipt=dict(format='REMAG-STUDY-GRADING/1',registration_sha256=record['sha256'],outcomes_sha256=digest(outcomes),
             status='recording',records=pending,recorded_outcome_ids=[],blinding_verified=False)
         save(path,receipt)
@@ -324,7 +352,7 @@ def grade_study(workspace,study,outcomes):
         return receipt
 
 
-def evaluate_study(workspace,study,output):
+def evaluate_study(workspace,study,output,*,discovery_evidence=None,usage=None):
     root=Path(workspace).resolve();folder,record=_registered(root,study);p=record['definition'];out=_path(root,str(output))
     if out.exists():raise ValueError('Study score output must be new')
     if any(out.is_relative_to(x) for x in [folder]+[_path(root,p['arms'][arm]['workspace']) for arm in ARMS]):
@@ -368,5 +396,51 @@ def evaluate_study(workspace,study,output):
             empirical_equal_compute_verified=False,blinding_verified=False,scientific_advantage_demonstrated=False,
             independent_candidate_validation=None,validated_candidates_per_gpu_hour=None,
             scope='Protocol comparison and recorded prediction scores; shared declared limits are not measured equal GPU consumption or a proof of independent/blinded science. Discovery validation and transfer remain separate evidence.')
+        required_reports={a:set(arms[a].get('native_report_sha256s',[])) for a in ARMS}
+        report_windows={h:v for a in ARMS for h,v in arms[a].get('native_report_intervals',{}).items()}
+        if discovery_evidence is not None or 'discovery' in p['evaluation']:
+            from .discovery_scores import score_candidates
+            manifest=discovery_evidence if discovery_evidence is not None else dict(format='REMAG-STUDY-CANDIDATE-EVIDENCE/1',arms={a:{} for a in ARMS})
+            candidate_scores=score_candidates(root,record,arms,manifest)
+            result['independent_candidate_validation']=candidate_scores
+            for a in ARMS:required_reports[a].update(candidate_scores['required_usage_reports'][a])
+            report_windows.update(candidate_scores['required_usage_intervals'])
+        if usage is not None:
+            from .discovery_scores import score_usage
+            # Acquisition and grading compute belong in an efficiency denominator
+            # even when the corresponding files were merely inspected by an arm.
+            for a in ARMS:
+                where=_path(root,p['arms'][a]['workspace'])
+                for name,h in record['arms'][a]['initial_files'].items():
+                    file=where/name
+                    if file.suffix=='.json' and file.stat().st_size<=16*1024**2:
+                        initial=load(file)
+                        if isinstance(initial,dict) and initial.get('format') in ('REMAG-EXPERIMENT-RESULT/1','REMAG-DISCOVERY-RESULT/1'):
+                            required_reports[a].add(h)
+                            from .discovery_scores import report_interval
+                            report_windows[h]=report_interval(initial)
+            if (folder/'grading.json').exists():
+                def report_hashes(value):
+                    if isinstance(value,dict):
+                        for key,v in value.items():
+                            if key=='report_sha256' and isinstance(v,str):yield v
+                            else:yield from report_hashes(v)
+                    elif isinstance(value,list):
+                        for v in value:yield from report_hashes(v)
+                for row in load(folder/'grading.json')['records']:
+                    required_reports[row['arm']].update(report_hashes(row['observation']))
+                    report_windows.update(row.get('report_intervals',{}))
+            measurements=score_usage(root,arms,usage,required_reports=required_reports,report_windows=report_windows)
+            result['measured_allocation_usage']=measurements
+            for a in ARMS:arms[a]['actual_gpu_hours']=measurements['arms'][a]['actual_gpu_hours']
+            if result['independent_candidate_validation'] is not None:
+                result['validated_candidates_per_gpu_hour']={a:(
+                    result['independent_candidate_validation']['arms'][a]['validated_exact_sources']/arms[a]['actual_gpu_hours']
+                    if arms[a]['actual_gpu_hours'] is not None and arms[a]['actual_gpu_hours']>0 else None) for a in ARMS}
+                result['candidate_rate_scope']='Exact-source candidates passing the registered finite controls per imported attributed allocation GPU-hour; not distinct crystals or physical stability validation'
+            h=arms['physics']['actual_gpu_hours']
+            result['paired_prediction_improvement_per_gpu_hour']={q:(-row['physics_minus_scalar_mae']/h
+                if h is not None and h>0 and row['physics_minus_scalar_mae'] is not None else None) for q,row in paired.items()}
+            result['prediction_rate_scope']='Scalar MAE minus physics MAE on their shared measured cohort, divided by attributed physics-arm GPU-hours; units are observable units per GPU-hour. Missing/failed predictions remain in the complete scorecard; this rate alone does not demonstrate scientific advantage.'
         save(out,result)
         return result

@@ -50,6 +50,8 @@ def main(argv=None):
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--study', required=True)
     p.add_argument('--output', required=True)
+    p.add_argument('--discovery-evidence', type=Path, help='Saved validation reports for the registered authored-candidate cohort')
+    p.add_argument('--usage', type=Path, help='Imported measured allocation rows; never inferred from reservations')
     p = sub.add_parser('prediction-scores', help='Score recorded scalar and electronic-response predictions, retaining failed/pending cases')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--experiments', type=Path, required=True, help='JSON array of notebook experiment IDs')
@@ -179,7 +181,9 @@ def main(argv=None):
         if args.command=='study-register':result=register_study(args.workspace,load(args.definition),args.output)
         elif args.command=='study-run-arm':result=run_study_arm(args.workspace,args.study,args.arm)
         elif args.command=='study-grade':result=grade_study(args.workspace,args.study,load(args.outcomes))
-        else:result=evaluate_study(args.workspace,args.study,args.output)
+        else:result=evaluate_study(args.workspace,args.study,args.output,
+            discovery_evidence=load(args.discovery_evidence) if args.discovery_evidence else None,
+            usage=load(args.usage) if args.usage else None)
         print(json.dumps(result,indent=2,allow_nan=False))
         return 2 if args.command=='study-run-arm' and result['status']!='completed' else 0
     if args.command == 'prediction-scores':

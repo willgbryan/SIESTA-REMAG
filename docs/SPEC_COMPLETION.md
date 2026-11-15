@@ -19,28 +19,34 @@ no new pristine calculation, GPU launch or spending is authorized here.
 | Structural–physical bridge | Source-bound conversion, correspondence and observations implemented with explicit unsupported cases |
 | FePt dataset | Existing controlled measurements and saved response demonstrations; full numerical qualification and new-SOC coverage are not complete |
 | Autonomous hypothesis testing | Integrated local/injected loop tested; historical predictions/outcomes retained; live external-policy acceptance pending |
-| Evaluation report | Simple-baseline evidence and paired prediction machinery exist; candidate/cost scoring and the actual paired-agent comparison remain |
+| Evaluation report | Candidate/property cohorts, finite-control checks, measured allocation imports and prediction/candidate compute rates implemented; stability/robustness/distinct-crystal metrics and actual paired-agent comparison remain |
 | Expansion pathway | General authoring and screening foundation implemented; cross-material mechanism transfer remains downstream research |
 | Optional interactive workspace | Saved structural/electronic inspection implemented; browser visual acceptance pending |
 
 ## Remaining implementation
 
-The audit identifies two concrete reporting gaps in `research.study`:
+**R35 — candidate evaluation** now reports the full persisted authoring cohort,
+exact-source duplicates, declared geometric plausibility, saved E/F anisotropy
+and native spin polarization. It verifies preregistered numerical controls and
+recorded post-session timing before granting finite validation credit. Rankings
+use energy density within matching numerical configurations. Missing and failed
+cases remain visible. The [scorecard](DISCOVERY_SCORECARD.md) still leaves
+thermodynamic stability, structural robustness, saturation/ground-state status
+and crystallographic uniqueness unassessed. Source-bound stability and
+structural-variation evidence, plus an explicit distinct-candidate policy, remain
+implementation work for the full discovery metrics. A native SCF pass or an
+advisory geometry check cannot substitute for them.
 
-1. **R35 — candidate evaluation:** `independent_candidate_validation` is always
-   `None`. Add source-bound candidate cohorts and saved-evidence reporting for
-   anisotropy, magnetization, declared plausibility, stability and robustness.
-   Distinct exact sources are not automatically distinct crystals. An advisory
-   geometry check or native SCF acceptance cannot certify physical stability or
-   independent numerical validation.
-2. **R36 — measured efficiency:** `actual_gpu_hours` and
-   `validated_candidates_per_gpu_hour` are always `None`. Support explicit
-   measured allocation usage and report rates only with supported numerator and
-   denominator. Preserve failed/missing cases and distinguish native wall time,
-   GPU allocation time, reservation ceilings and invoices.
+**R36 — measured efficiency** reporting is implemented. Explicit normalized
+allocation records bind to saved reports and their recorded time intervals.
+Known acquisition, search, validation and grading costs are included; incomplete
+coverage leaves the total and rates unknown. Device types, imported subtotals,
+failed cases, reservations and invoices remain separate. Provider authenticity,
+complete outside expenses and empirical equal compute still require evidence.
 
-Reuse current report, assessment, response, cohort and runtime machinery. These
-are saved-evidence implementation tasks; they require no new solver calculation.
+Reuse current report, assessment, response, cohort and runtime machinery for the
+remaining candidate metrics. These are saved-evidence implementation tasks;
+they require no new solver calculation.
 They take priority over optional extensions such as more general coupled
 constraints, automatic geometry matching, tracked bands or extra GUI query
 controls. Do not create an indefinite feature queue from examples in the spec.
@@ -74,6 +80,14 @@ longer-term discovery objectives are not silently promoted to initial software
 completion gates.
 
 ## Delivered development increments
+
+- 15 November: [candidate and compute scoring](DISCOVERY_SCORECARD.md) adds
+  complete exact-source cohorts, reproducible finite-control checks, normalized
+  signed properties and imported allocation-time rates to paired studies.
+  Injected local sessions exercise positive, missing, failed and changed-evidence
+  cases. Archived FePt reports remain historical evidence: missing legacy timing
+  cannot earn new post-session validation credit. No solver or model service is
+  invoked by evaluation, and no scientific advantage is inferred.
 
 - 15 November: [bands and reciprocal regions](RECIPROCAL_WORKSPACE.md) link saved
   k/state selection to periodic-region DOS, signed projections and occupations.
