@@ -203,6 +203,22 @@ registered 62-orbital app was created at 00:02:54 UTC. The failed first basis
 refinement remains part of the final two-step assessment; reference qualification
 and prediction expansion remain blocked by the unresolved numerical controls.
 
+The [first pristine radial reference at 24³](../tests/evidence/research/fept-radial24-reference-r3-first-review-2026-11-14.json)
+completed at 00:11:20 UTC on 15 November, using 62 orbitals and 0.01 Ry
+confinement. E/F anisotropies are 2.546/2.543 meV/cell, with zero x/y split
+at printed precision. All four native stages, magnetic branches and native basis
+checks pass. The scalar overlap is positive at all 7,224 native k points,
+with worst condition number 228,395. Independent review reproduced native
+acceptance and verified all 167 recorded artifacts, the exact input, source
+and executable hashes. Native wall time is 10,169.35 seconds.
+
+This is one reference for a later matched REMAG comparison; it supplies no
+radial refinement or executable-agreement result by itself. The registered
+0.005 Ry pristine reference is running sequentially on the local CPU, while
+the existing single-GPU 62-orbital common-mesh basis case continues. No new
+cloud reservation was added. The unresolved basis, radial and enlarged-basis
+mesh gates continue to prevent qualification and prediction expansion.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed
