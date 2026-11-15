@@ -1,0 +1,2380 @@
+{
+  "format": "GPAC-REMAG-SPEC-COMPLETION-AUDIT/1",
+  "created_at": "2026-11-15T23:15:28.418432+00:00",
+  "specification": {
+    "title": "GPAC × REMAG: Physics-Guided Autonomous Crystal Discovery — Development Specification v3.0",
+    "sha256": "e33e5d1f0894fce48dd1bf25852272f3ede3c83dc69725f7d905e4428b69b0e8",
+    "lines": 1031,
+    "source": "Owner attachment; line spans are one-based in the original text"
+  },
+  "reviewed_heads": {
+    "REMAG": "789f64b9d54757d6c67398911eeea18118d8ecac",
+    "GPAC": "44f32c28830e5ec9a6cab2731ab8bb8e78adb314"
+  },
+  "interpretation": {
+    "overall_spec_complete": false,
+    "software_core_delivered": true,
+    "mandatory_reporting_implementation_gaps": [
+      "R35",
+      "R36"
+    ],
+    "scope_policy": "Examples are not an exhaustive mandatory feature list. Conditional/optional/long-term work is not silently promoted to an initial success gate. Empirical success remains distinct from software delivery.",
+    "historical_prediction_evidence": "Independent prospective REMAG comparisons already exist. They are finite evidence, not a full paired autonomous study or a verified mechanism.",
+    "no_completion_percentage": "Requirement groups differ in scope; counts would not measure completion."
+  },
+  "requirements": [
+    {
+      "id": "R01",
+      "spec_section": "1, 3",
+      "spec_lines": [
+        17,
+        171
+      ],
+      "obligation": "required",
+      "requirement": "Unified mechanism-oriented research environment spanning structure, physics and research memory.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Exact authoring, source-bound native queries, saved diagnostics, notebooks and bounded external-policy sessions are integrated.",
+      "outstanding": "Full live-model research quality and scientific advantage are not established.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/agent.py",
+          "sha256": "ec950acbc291b3ad7f6f731cb8de79ebbfaedacfd3cbb3999165c08048d9e87a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/tools.py",
+          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/execution.py",
+          "sha256": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/memory.py",
+          "sha256": "9b470423fcc3ff8e84aa56ee0835df7c0cb292456b296747f7602837a979ba9c"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/worker.py",
+          "sha256": "41152ed116465f97012557eb97fa888d80a93c7113c60efb3de614019332b365"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_agent.py",
+          "sha256": "9b27554594f38d29bf8b51e0f52415551ab110c91ff629186c8491ffc816eec6"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_tools.py",
+          "sha256": "d9868bbc2fc681196be2fb733e92ab4ea847970c392bf851fcf350509f26424b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_execution.py",
+          "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_workflow.py",
+          "sha256": "4c9ba4f7e08c94e7856f416793aadcee428917ac728945ffa90139d367f2066d"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical.py",
+          "sha256": "1c8a88aca5e73ca5d099467e50d4202662959ca505618039d549e88538d99f01"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-controlled-execution-2026-11-15.json",
+          "sha256": "4c8f540fdb46c4ac213a4fb4248a0bc878d96e4750b2f2fcd2bee686ff51f0f5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-model-policy-2026-11-15.json",
+          "sha256": "992bcf340ce9711ebe2f3477cf0aa0962e4c648eb967b723cd04b4fea5fe5a66"
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "spec_section": "2.1–2.3",
+      "spec_lines": [
+        49,
+        97
+      ],
+      "obligation": "engineering_constraint",
+      "requirement": "Develop reusable capabilities in their owning packages while preserving exact semantics and existing scientific evidence.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "GPAC owns geometry/authoring/feedback; REMAG owns electronic/native diagnostics; research owns orchestration. Separate numerical observations retain exact sources.",
+      "outstanding": "No new pristine calculation is required or authorized under the subsequent owner directive.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/experiments.py",
+          "sha256": "aab7bae174f6745cf21bafa876a1a91f97a40d833eaa1a1e11d59689fbf2f0b0"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/orbital_moments.py",
+          "sha256": "dd238c320688c594893976e253a5dad7dacf60202d362d8c24e6f78e7f256423"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/soc.py",
+          "sha256": "c8bc08b7c3a2a5507edc6ed34c9ea2b0187ba4de91edc30e3b0a0b00df4b1765"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/feedback.py",
+          "sha256": "6d1dfa17a88e8084ee68c3b1d32644b036ae16dc6b728e9a74b1e3abfd8624b5"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/proposal.py",
+          "sha256": "ac1f1c4f91eb29da1a981b4f54203174ad6a55b4a82548a0329ec9bc405c817c"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_orbital_moments.py",
+          "sha256": "aface66b0a5d89bb6fcddedaca37eb89d91541a279e5c5a62a9aedefffc6729e"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_soc.py",
+          "sha256": "fa0a35d3f1a9122406c4c973d529f04d6eeb0c3dbd30e65c66cd89db1edfd660"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical_feedback.py",
+          "sha256": "9e9448bef1a91470650ac71be43c4266809a79365f3742ea362cc0688632555a"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_proposal.py",
+          "sha256": "b4601a2865f2a034b54e16dac158240e6086879e0c266dbcb0aaebce6de5cb6c"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R03",
+      "spec_section": "2.4, 14",
+      "spec_lines": [
+        99,
+        109
+      ],
+      "obligation": "engineering_constraint",
+      "requirement": "Avoid unnecessary process; prioritize concrete scientific capabilities.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Current audit separates mandatory implementation from examples, optional analysis paths and empirical outcomes.",
+      "outstanding": "Do not prolong implementation with generic constraint expansion or speculative infrastructure.",
+      "implementation": [],
+      "tests": [],
+      "evidence": []
+    },
+    {
+      "id": "R04",
+      "spec_section": "4.1",
+      "spec_lines": [
+        181,
+        200
+      ],
+      "obligation": "required",
+      "requirement": "Physics-informed structural interventions with parent relationships.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Exact axial, isotropic, fixed-volume tetragonal, site-displacement, selected-bond/coordination, orbit/species and motif operations.",
+      "outstanding": "Local site operations explicitly lower to P1; no automatic maximal-symmetry inference is claimed.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/parametric.py",
+          "sha256": "b56d8d1a5018fe39ae11d666777b6ee33a00a4c0a5eccac0da62b2886cde10a2"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/motifs.py",
+          "sha256": "f7bf0970cef35d9f442fde6c9ea553a27bfe2e3f93c33846934a7273d80d42a9"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/assembly.py",
+          "sha256": "b2816b99acb80e5c4371bd68301744f3383a88e54e85d1ecbc254c82874df2e1"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical_controls.py",
+          "sha256": "095751d5d77ba70119a6731f9cf29ac0df83436ce8a6584eb9761af0b60404c0"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical_local.py",
+          "sha256": "5c109ef30c1de4883d5cd32c696c2e301e61fd7d5501ee50e499e031f546b613"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_parametric.py",
+          "sha256": "4d3b69c02b14a69ba9c9c22fac28908f9a900e4e199ab1dabc669aa861c0f459"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_motifs.py",
+          "sha256": "4338042049fe6ccecb9e867949146315c26ba86699f51dc2f946c80b1120be43"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_assembly.py",
+          "sha256": "a84dd4d912886c757fe7b2f295fcebb7eb9c6a4de9f8c222c54fe7ef14ba9397"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R05",
+      "spec_section": "4.2",
+      "spec_lines": [
+        202,
+        216
+      ],
+      "obligation": "required",
+      "requirement": "Expose physical degrees of freedom, affected sites/orbits, coupled parameters and constraints.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Physical controls and exact parameter descriptions identify affected coordinates, periodic coupling, symmetry policies and admissibility.",
+      "outstanding": "A general symbolic coupled-constraint solver is an extension, not an additional mandatory deliverable.",
+      "implementation": [
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/parametric.py",
+          "sha256": "b56d8d1a5018fe39ae11d666777b6ee33a00a4c0a5eccac0da62b2886cde10a2"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical_controls.py",
+          "sha256": "095751d5d77ba70119a6731f9cf29ac0df83436ce8a6584eb9761af0b60404c0"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_parametric.py",
+          "sha256": "4d3b69c02b14a69ba9c9c22fac28908f9a900e4e199ab1dabc669aa861c0f459"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R06",
+      "spec_section": "4.3, 6.2",
+      "spec_lines": [
+        218,
+        243
+      ],
+      "obligation": "required",
+      "requirement": "Associate relaxed observations with exact sources; compare displacements, symmetry, motifs and coordination.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Source-ID geometry import, atom/orbit motion, gained/lost periodic neighbors, authored Hall-operation residuals and accepted native relaxation feedback.",
+      "outstanding": "Same presentation/origin required. Changed-count/cell matching and maximal symmetry are explicitly unsupported. Geometric motif survival does not imply chemical stability.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/relaxation.py",
+          "sha256": "66afae6878fbb8b80721f142c5d17c455402a0511f6b49a57f653aa34b81d7c9"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/feedback.py",
+          "sha256": "6d1dfa17a88e8084ee68c3b1d32644b036ae16dc6b728e9a74b1e3abfd8624b5"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_relaxation.py",
+          "sha256": "d3c5caff5d43b68ed3b201b3683a9409a2acd5a7cbbc97285905e4981133410a"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical_feedback.py",
+          "sha256": "9e9448bef1a91470650ac71be43c4266809a79365f3742ea362cc0688632555a"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R07",
+      "spec_section": "4.3 optional recovery",
+      "spec_lines": [
+        236,
+        243
+      ],
+      "obligation": "conditional",
+      "requirement": "If approximate-to-exact recovery is implemented, expose its policy and residuals.",
+      "implementation_status": "optional_deferred",
+      "acceptance_status": "deferred",
+      "delivered": "Observed floating geometry never silently replaces an exact program; explicit new exact hypotheses can use the normal authoring interface.",
+      "outstanding": "Automatic rational recovery is not implemented and is conditional in the spec.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/ir.py",
+          "sha256": "7aebaa202f2753ea408bea2ed7f68dfb5369bb9d0206eccc60090726ee9e1375"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical.py",
+          "sha256": "1c8a88aca5e73ca5d099467e50d4202662959ca505618039d549e88538d99f01"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R08",
+      "spec_section": "4.4, 9 structural tools",
+      "spec_lines": [
+        245,
+        264
+      ],
+      "obligation": "required",
+      "requirement": "Experimental agent-native structural inspection, modification, motifs, constraints, comparison, lineage and validation.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Version-pinned GPAC JSON worker and persisted research candidates expose these operations without a public hosted service.",
+      "outstanding": "Public deployment, release and model-service permissions are separate from this internal interface.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/tools.py",
+          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/worker.py",
+          "sha256": "41152ed116465f97012557eb97fa888d80a93c7113c60efb3de614019332b365"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/workflow.py",
+          "sha256": "964e37b9aa6c80f281d6761314a89017eadb8055291349faf8fd65b6d01c303d"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_tools.py",
+          "sha256": "d9868bbc2fc681196be2fb733e92ab4ea847970c392bf851fcf350509f26424b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_workflow.py",
+          "sha256": "4c9ba4f7e08c94e7856f416793aadcee428917ac728945ffa90139d367f2066d"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-authoring-handoff-2026-11-15.json",
+          "sha256": "6348d7ffaf390a9681f2f45bc79802fe2a74b17f2dd128dfe86f874a237b1681"
+        }
+      ]
+    },
+    {
+      "id": "R09",
+      "spec_section": "4.5",
+      "spec_lines": [
+        266,
+        283
+      ],
+      "obligation": "required",
+      "requirement": "Informative geometric screening before DFT without universally rejecting novel structures.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Periodic distances, declared coordination/isolation rules, redundant translations, cell/complexity limits and family/reference-strain assessments.",
+      "outstanding": "Policies are geometric advisories; chemistry-specific stability is not inferred.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/proposals.py",
+          "sha256": "4ac6b772d3c4f669750a30e8ca48fa5d71f40dde473e69a6650d82f88fd79b4d"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/proposal.py",
+          "sha256": "ac1f1c4f91eb29da1a981b4f54203174ad6a55b4a82548a0329ec9bc405c817c"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_proposals.py",
+          "sha256": "59b1e510ec1250b091f2968ace357de69496721cad5b337b9bc4a0ec133a128d"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_proposal.py",
+          "sha256": "b4601a2865f2a034b54e16dac158240e6086879e0c266dbcb0aaebce6de5cb6c"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-proposal-assessment-2026-11-15.json",
+          "sha256": "6f9e9824364fa883b927d19f1471c91505e5d03a96f8640da119c8319d7f2bd6"
+        }
+      ]
+    },
+    {
+      "id": "R10",
+      "spec_section": "4.6, 11 foundation",
+      "spec_lines": [
+        285,
+        303
+      ],
+      "obligation": "required",
+      "requirement": "Support local interventions and theory-guided novel authoring without a tetragonal restriction.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "General Hall/orbit authoring, exact motifs/assembly, substitutions and retained parent/child sources; an uncalculated Fe2B source exercises general catalog handling.",
+      "outstanding": "Realization and transfer of a learned electronic mechanism in new materials remain empirical long-term work.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/catalog.py",
+          "sha256": "f82ae3714c2b0021305a43225dd689b8d90d60dc7217a3c11acd4f092169990b"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/ir.py",
+          "sha256": "7aebaa202f2753ea408bea2ed7f68dfb5369bb9d0206eccc60090726ee9e1375"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/motifs.py",
+          "sha256": "f7bf0970cef35d9f442fde6c9ea553a27bfe2e3f93c33846934a7273d80d42a9"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/assembly.py",
+          "sha256": "b2816b99acb80e5c4371bd68301744f3383a88e54e85d1ecbc254c82874df2e1"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/parametric.py",
+          "sha256": "b56d8d1a5018fe39ae11d666777b6ee33a00a4c0a5eccac0da62b2886cde10a2"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_catalog.py",
+          "sha256": "7aec7c5b901529025c8b4e815032d3750c0ed8b3de8ca25da5162fd95c636b43"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_authoring.py",
+          "sha256": "c7e4163f928700c6efa488e443e4999dba7dc757160c3ae8725b13a60ea27c50"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_motifs.py",
+          "sha256": "4338042049fe6ccecb9e867949146315c26ba86699f51dc2f946c80b1120be43"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_assembly.py",
+          "sha256": "a84dd4d912886c757fe7b2f295fcebb7eb9c6a4de9f8c222c54fe7ef14ba9397"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R11",
+      "spec_section": "5.1 states and matrices",
+      "spec_lines": [
+        311,
+        333
+      ],
+      "obligation": "required",
+      "requirement": "Export k-resolved eigenvalues, eigenvectors/projections, occupations/weights and H/S/density information.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Native-bound H/S, spectra, selected-k eigenvectors and reconstructed density plus native density data; array artifacts retain units, orbital/site metadata, spin and frames.",
+      "outstanding": "Selected-k matrix exports are bounded. Reconstructed density is not silently identified with a native density export.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/electronic.py",
+          "sha256": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/mechanisms.py",
+          "sha256": "f4b5abb720441efb440c3007157508a73cd3031fc31dcf8595dc3ed730782658"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/orbital_moments.py",
+          "sha256": "dd238c320688c594893976e253a5dad7dacf60202d362d8c24e6f78e7f256423"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_mechanisms.py",
+          "sha256": "0a7ec259b582e44ad6489fc944003f87a937ffed83bc64e375d45f730f753c0a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_orbital_moments.py",
+          "sha256": "aface66b0a5d89bb6fcddedaca37eb89d91541a279e5c5a62a9aedefffc6729e"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_inspection.py",
+          "sha256": "6ef92bf703b2c4b0bd3e906a7f156c914aead04e45b027ead8a76daff0d2062d"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-matrix-diagnostics-2026-11-15.json",
+          "sha256": "07b94e7e7793b4e86a68dc0f1400ccdb811bd5e79390fc724b2bbd9da3392a4c"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-orbital-moments-2026-11-15.json",
+          "sha256": "800df6bacdfc60a849265097e20660ce53cf3b24ff37eef688066bb54ae9241d"
+        }
+      ]
+    },
+    {
+      "id": "R12",
+      "spec_section": "5.1 projections and moments",
+      "spec_lines": [
+        311,
+        333
+      ],
+      "obligation": "required",
+      "requirement": "Nonorthogonal atom/orbital DOS, spinor-resolved states and local orbital/spin moments.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Signed Mulliken populations/DOS, native spin moments and onsite orbital-moment contractions preserve overlap and occupation conventions.",
+      "outstanding": "Onsite orbital moments and population partitions are basis/approximation dependent, not unique bulk decompositions.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/inspection.py",
+          "sha256": "2c94073fcde3479c2c090db683583f9bd54d7a41ba64d01c90ed25b3082898c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/orbital_moments.py",
+          "sha256": "dd238c320688c594893976e253a5dad7dacf60202d362d8c24e6f78e7f256423"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_inspection.py",
+          "sha256": "6ef92bf703b2c4b0bd3e906a7f156c914aead04e45b027ead8a76daff0d2062d"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_orbital_moments.py",
+          "sha256": "aface66b0a5d89bb6fcddedaca37eb89d91541a279e5c5a62a9aedefffc6729e"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-orbital-moments-2026-11-15.json",
+          "sha256": "800df6bacdfc60a849265097e20660ce53cf3b24ff37eef688066bb54ae9241d"
+        }
+      ]
+    },
+    {
+      "id": "R13",
+      "spec_section": "5.1 SOC output",
+      "spec_lines": [
+        311,
+        333
+      ],
+      "obligation": "required",
+      "requirement": "Accessible SOC matrix elements and magnetization/convergence metadata.",
+      "implementation_status": "implemented",
+      "acceptance_status": "production_validation_pending",
+      "delivered": "Opt-in host and device-owned nonlocal SOC snapshots, spin-trace removal and checked state projections; native ownership tests and real-module Fortran compilation.",
+      "outstanding": "Full CUDA-linked application and measured production SOC export have not been exercised. Existing scalar-only execution evidence cannot verify this path.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/soc.py",
+          "sha256": "c8bc08b7c3a2a5507edc6ed34c9ea2b0187ba4de91edc30e3b0a0b00df4b1765"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/execution.py",
+          "sha256": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_soc.py",
+          "sha256": "fa0a35d3f1a9122406c4c973d529f04d6eeb0c3dbd30e65c66cd89db1edfd660"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_execution.py",
+          "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-native-soc-2026-11-15.json",
+          "sha256": "e20839c822391d36846682023d8fc8951f385323d3a681803f477887ee6e0e15"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-device-soc-2026-11-15.json",
+          "sha256": "a55366400018195d7748534906fede0df186fb5464e5a84d20e29bc54c0c79d1"
+        }
+      ]
+    },
+    {
+      "id": "R14",
+      "spec_section": "5.2",
+      "spec_lines": [
+        335,
+        353
+      ],
+      "obligation": "required",
+      "requirement": "Inspect near-Fermi character, hybridization, directional spectra, band-energy changes, k contributions and orbital moments with explicit approximations.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Saved spectral comparisons, same-basis state/subspace association, Lowdin coupling blocks, native SOC projections, partial occupied band sums and onsite moment changes.",
+      "outstanding": "No unique atom/orbital MAE attribution or cross-geometry tracked-band identity. Second-order perturbation analysis is conditional, not required for these delivered diagnostics.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/inspection.py",
+          "sha256": "2c94073fcde3479c2c090db683583f9bd54d7a41ba64d01c90ed25b3082898c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/mechanisms.py",
+          "sha256": "f4b5abb720441efb440c3007157508a73cd3031fc31dcf8595dc3ed730782658"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/response_diagnostics.py",
+          "sha256": "730aa9fa4d20b153e6f814fa1c737af59bf9a7fd6a074ea24045ac1a024d4769"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/soc.py",
+          "sha256": "c8bc08b7c3a2a5507edc6ed34c9ea2b0187ba4de91edc30e3b0a0b00df4b1765"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_mechanisms.py",
+          "sha256": "0a7ec259b582e44ad6489fc944003f87a937ffed83bc64e375d45f730f753c0a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_response_diagnostics.py",
+          "sha256": "e8e05b59105d84651915c4aead0dc5ac0607c5650df00c5a40a85bd1d303838a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_soc.py",
+          "sha256": "fa0a35d3f1a9122406c4c973d529f04d6eeb0c3dbd30e65c66cd89db1edfd660"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-mechanism-responses-2026-11-15.json",
+          "sha256": "9e9fd78d0476ff3ed876c3efeb2a1fa8328f3ee1d314de37aeb739708ef4ab6d"
+        }
+      ]
+    },
+    {
+      "id": "R15",
+      "spec_section": "5.3",
+      "spec_lines": [
+        355,
+        382
+      ],
+      "obligation": "required",
+      "requirement": "Controlled finite-difference magnetic, electronic, energy and force responses to structural parameters.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Exact structural families, parent-atom selection transport, first/second derivatives, scalar/magnetic/spectral/moment/coupling/band-sum responses and conservative supplied-error propagation.",
+      "outstanding": "Convergence/truncation uncertainty remains unknown unless measured; analytic/automatic differentiation is optional.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/series.py",
+          "sha256": "739e938795efbb9554d959f8498758f78883a12dedd385d19155fe4750803fcd"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/response_diagnostics.py",
+          "sha256": "730aa9fa4d20b153e6f814fa1c737af59bf9a7fd6a074ea24045ac1a024d4769"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/evaluation.py",
+          "sha256": "b8662874a4b09aa2d185fff46fc1bb9937960c26c665f94eb70552cfb732f339"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_series.py",
+          "sha256": "f858e60a510044ed84871abba096dcf93ba5beb7bc0989d4ee470be06edf4f80"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_response_diagnostics.py",
+          "sha256": "e8e05b59105d84651915c4aead0dc5ac0607c5650df00c5a40a85bd1d303838a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_evaluation.py",
+          "sha256": "415123e9843f3a8f620bdc66e463ac3b6091acfc3484bf0ae71b803e4b8b981b"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical_controls.py",
+          "sha256": "095751d5d77ba70119a6731f9cf29ac0df83436ce8a6584eb9761af0b60404c0"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-structural-response-2026-11-15.json",
+          "sha256": "7e85978285f42e4ad0bc155625c7592403899ecb79fd183ba92c55a88be8e7fd"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-mechanism-responses-2026-11-15.json",
+          "sha256": "9e9fd78d0476ff3ed876c3efeb2a1fa8328f3ee1d314de37aeb739708ef4ab6d"
+        }
+      ]
+    },
+    {
+      "id": "R16",
+      "spec_section": "5.4",
+      "spec_lines": [
+        384,
+        404
+      ],
+      "obligation": "required",
+      "requirement": "Selected orientations, angular anisotropy sweeps, branch tracking and appropriate coefficient fits.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Scalar/selected-direction/angular queries reuse native branch checks; at least three identifiable angles fit separate E/F offset+K1 sin2+K2 sin4 in a declared plane.",
+      "outstanding": "Angular coefficients are one-plane fits. Numerical qualification is evidence-specific; optional force-theorem calculations are deferred.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/queries.py",
+          "sha256": "ca34b8c34d4e81d5c6e2ebf97d371f11b84e51d6aeb2f8d9845d544e4db99a30"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/experiments.py",
+          "sha256": "aab7bae174f6745cf21bafa876a1a91f97a40d833eaa1a1e11d59689fbf2f0b0"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/convergence.py",
+          "sha256": "2ad2a97f845b6b1fbb424b5f38490773d58870cfc3f834121fa2ce6e71ae9194"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_queries.py",
+          "sha256": "15bad49096ad0f5ef22f0b9dd2ab4c6574acb63456aef5facef8600951f990b7"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_convergence.py",
+          "sha256": "f3445e715552b081ef82777fac5f6c2e740e696712439d51038eb8b401fe83ca"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_execution.py",
+          "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R17",
+      "spec_section": "5.5 and owner exploratory target",
+      "spec_lines": [
+        406,
+        425
+      ],
+      "obligation": "required",
+      "requirement": "Optimize useful end-to-end scientific queries; owner target is 1–5 minutes submission to usable result.",
+      "implementation_status": "implemented",
+      "acceptance_status": "not_demonstrated",
+      "delivered": "Query-specific stage selection, cache identity, saved calibration tools and controlled execution phase timings avoid automatically running all directions.",
+      "outstanding": "No calibrated exploratory default or measured full-query target. Allocation startup/queue phases remain incomplete in archived measurements; no speedup is inferred.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/queries.py",
+          "sha256": "ca34b8c34d4e81d5c6e2ebf97d371f11b84e51d6aeb2f8d9845d544e4db99a30"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/execution.py",
+          "sha256": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/calibration.py",
+          "sha256": "121fc90adc4d12cf78856ca5667907ad0ad8202376452634a1556ef17c7b8acb"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_queries.py",
+          "sha256": "15bad49096ad0f5ef22f0b9dd2ab4c6574acb63456aef5facef8600951f990b7"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_execution.py",
+          "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_calibration.py",
+          "sha256": "342942ac494bd5015b0b1b11b9bdd0723aca63494e4b5815272cd20c5923b84e"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-exploratory-latency-audit-2026-11-14.json",
+          "sha256": "65eed5096245b1f6e6050a142551732df40d6c1b0bcbf869f41d10912b487374"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-basis-accel-r1-diagnosis-2026-11-14.json",
+          "sha256": "047186d4444343e5061e06c85f9685276c357939e22cbdf535a4ff4a1394233c"
+        }
+      ]
+    },
+    {
+      "id": "R18",
+      "spec_section": "6.1",
+      "spec_lines": [
+        431,
+        443
+      ],
+      "obligation": "required",
+      "requirement": "Convert exact source, lattice, species/sites/orbits, magnetic annotations and provenance to REMAG input.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Verified physical exports retain source bytes/pins and a documented right-handed frame; prepared inputs bind source, pseudos and settings.",
+      "outstanding": "Numerical conversion is binary64 and distinguished from exact identity.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/experiments.py",
+          "sha256": "aab7bae174f6745cf21bafa876a1a91f97a40d833eaa1a1e11d59689fbf2f0b0"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/annotations.py",
+          "sha256": "df302432ba1828eed05bab0eef56aa8a0e68de17206265c67db7d174be7235a7"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_queries.py",
+          "sha256": "15bad49096ad0f5ef22f0b9dd2ab4c6574acb63456aef5facef8600951f990b7"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical.py",
+          "sha256": "1c8a88aca5e73ca5d099467e50d4202662959ca505618039d549e88538d99f01"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_annotations.py",
+          "sha256": "9d6f88ad0bb8c83c6e02f1fa4425eb9e23e7febf50b4227c7e3bc9fea03370c1"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R19",
+      "spec_section": "6.2–6.3",
+      "spec_lines": [
+        445,
+        469
+      ],
+      "obligation": "required",
+      "requirement": "Preserve authored/observed geometry and transformation/site correspondence, or report ambiguity.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Exact transformation results and source snapshots persist into candidates/queries; relaxation IDs, motion ties and supported presentation policies are explicit.",
+      "outstanding": "Unmapped changed-count/cell observations are refused; no hidden proximity-based identity or maximal symmetry recognition.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/relaxation.py",
+          "sha256": "66afae6878fbb8b80721f142c5d17c455402a0511f6b49a57f653aa34b81d7c9"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/feedback.py",
+          "sha256": "6d1dfa17a88e8084ee68c3b1d32644b036ae16dc6b728e9a74b1e3abfd8624b5"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/parametric.py",
+          "sha256": "b56d8d1a5018fe39ae11d666777b6ee33a00a4c0a5eccac0da62b2886cde10a2"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_relaxation.py",
+          "sha256": "d3c5caff5d43b68ed3b201b3683a9409a2acd5a7cbbc97285905e4981133410a"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical_feedback.py",
+          "sha256": "9e9448bef1a91470650ac71be43c4266809a79365f3742ea362cc0688632555a"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_parametric.py",
+          "sha256": "4d3b69c02b14a69ba9c9c22fac28908f9a900e4e199ab1dabc669aa861c0f459"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R20",
+      "spec_section": "6.4",
+      "spec_lines": [
+        471,
+        486
+      ],
+      "obligation": "required",
+      "requirement": "Record revisions, executable/input/pseudo hashes, conversion policy, transformations, outputs and experiment history for replay.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Source/runtime/artifact verification, deterministic prepared bundles, matching-only cached reuse, immutable notebook history and separate numerical/program identity.",
+      "outstanding": "Replay is supported where runtime/native artifacts are available; bitwise numerical reproduction is not universally guaranteed.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/experiments.py",
+          "sha256": "aab7bae174f6745cf21bafa876a1a91f97a40d833eaa1a1e11d59689fbf2f0b0"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/execution.py",
+          "sha256": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/tools.py",
+          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/memory.py",
+          "sha256": "9b470423fcc3ff8e84aa56ee0835df7c0cb292456b296747f7602837a979ba9c"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_execution.py",
+          "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_tools.py",
+          "sha256": "d9868bbc2fc681196be2fb733e92ab4ea847970c392bf851fcf350509f26424b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-controlled-execution-2026-11-15.json",
+          "sha256": "4c8f540fdb46c4ac213a4fb4248a0bc878d96e4750b2f2fcd2bee686ff51f0f5"
+        }
+      ]
+    },
+    {
+      "id": "R21",
+      "spec_section": "7A",
+      "spec_lines": [
+        492,
+        506
+      ],
+      "obligation": "required",
+      "requirement": "GPAC-authored L10 FePt with z/x/y SOC and E[x]-E[z] convention.",
+      "implementation_status": "implemented",
+      "acceptance_status": "demonstrated_limited",
+      "delivered": "Existing measured FePt reports and archived source-bound directional outputs satisfy this finite demonstration.",
+      "outstanding": "A directional difference is not fitted K1 or a physical-accuracy certificate.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/experiments.py",
+          "sha256": "aab7bae174f6745cf21bafa876a1a91f97a40d833eaa1a1e11d59689fbf2f0b0"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_queries.py",
+          "sha256": "15bad49096ad0f5ef22f0b9dd2ab4c6574acb63456aef5facef8600951f990b7"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical.py",
+          "sha256": "1c8a88aca5e73ca5d099467e50d4202662959ca505618039d549e88538d99f01"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-continuation-final-2026-11-14.json",
+          "sha256": "0948d07bb1575e2f73e654e0110d2b854e5c92c85e530e18891290932c8dbf00"
+        }
+      ]
+    },
+    {
+      "id": "R22",
+      "spec_section": "7B",
+      "spec_lines": [
+        508,
+        521
+      ],
+      "obligation": "required",
+      "requirement": "Numerical qualification in mesh, basis, grid, smearing, SCF and magnetic consistency.",
+      "implementation_status": "implemented",
+      "acceptance_status": "closed_unmet",
+      "delivered": "Finite controls and failures preserved; original DZP mesh and common-24 radial ladders pass only their scopes.",
+      "outstanding": "Full qualification is unmet: common-24 basis and enlarged-basis mesh gates fail; combined/final controls not run. Campaign closed by owner; no restart or new pristine reference.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/convergence.py",
+          "sha256": "2ad2a97f845b6b1fbb424b5f38490773d58870cfc3f834121fa2ce6e71ae9194"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_convergence.py",
+          "sha256": "f3445e715552b081ef82777fac5f6c2e740e696712439d51038eb8b401fe83ca"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-campaign-closeout-2026-11-15.json",
+          "sha256": "294d950e2d0a3d66084c9761571a2ca6fe125aa271fcded9eec6ea77e3ab9636"
+        }
+      ]
+    },
+    {
+      "id": "R23",
+      "spec_section": "7C",
+      "spec_lines": [
+        523,
+        543
+      ],
+      "obligation": "required",
+      "requirement": "Controlled fixed-geometry FePt strain dataset with explicit path.",
+      "implementation_status": "implemented",
+      "acceptance_status": "demonstrated_limited",
+      "delivered": "Fixed in-plane/c-axis strain families and existing measured perturbations; independent volume/shape controls and reusable exact series preparation.",
+      "outstanding": "Suggested seven strain values are an example, not authorization for new computations. Dataset configurations must not be silently mixed.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/experiments.py",
+          "sha256": "aab7bae174f6745cf21bafa876a1a91f97a40d833eaa1a1e11d59689fbf2f0b0"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/series.py",
+          "sha256": "739e938795efbb9554d959f8498758f78883a12dedd385d19155fe4750803fcd"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_series.py",
+          "sha256": "f858e60a510044ed84871abba096dcf93ba5beb7bc0989d4ee470be06edf4f80"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical_controls.py",
+          "sha256": "095751d5d77ba70119a6731f9cf29ac0df83436ce8a6584eb9761af0b60404c0"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-continuation-final-2026-11-14.json",
+          "sha256": "0948d07bb1575e2f73e654e0110d2b854e5c92c85e530e18891290932c8dbf00"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-structural-response-2026-11-15.json",
+          "sha256": "7e85978285f42e4ad0bc155625c7592403899ecb79fd183ba92c55a88be8e7fd"
+        }
+      ]
+    },
+    {
+      "id": "R24",
+      "spec_section": "7D",
+      "spec_lines": [
+        545,
+        559
+      ],
+      "obligation": "required",
+      "requirement": "Collect electronic, magnetic, force and convergence observations for strain configurations and compare responses.",
+      "implementation_status": "implemented",
+      "acceptance_status": "demonstrated_limited",
+      "delivered": "Existing FePt native results plus saved spectral, projection, moment and coupling response demonstrations; six mechanism observables at three archived strain points.",
+      "outstanding": "New isolated native SOC matrices are absent from the old full strain cohort; neither complete new-export coverage nor mechanism discrimination is established.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/series.py",
+          "sha256": "739e938795efbb9554d959f8498758f78883a12dedd385d19155fe4750803fcd"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/response_diagnostics.py",
+          "sha256": "730aa9fa4d20b153e6f814fa1c737af59bf9a7fd6a074ea24045ac1a024d4769"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_series.py",
+          "sha256": "f858e60a510044ed84871abba096dcf93ba5beb7bc0989d4ee470be06edf4f80"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_response_diagnostics.py",
+          "sha256": "e8e05b59105d84651915c4aead0dc5ac0607c5650df00c5a40a85bd1d303838a"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-mechanism-responses-2026-11-15.json",
+          "sha256": "9e9fd78d0476ff3ed876c3efeb2a1fa8328f3ee1d314de37aeb739708ef4ab6d"
+        }
+      ]
+    },
+    {
+      "id": "R25",
+      "spec_section": "7E",
+      "spec_lines": [
+        561,
+        573
+      ],
+      "obligation": "required",
+      "requirement": "Competing physical hypotheses and targeted experiments that distinguish predictions.",
+      "implementation_status": "implemented",
+      "acceptance_status": "demonstrated_limited",
+      "delivered": "Persistent hypotheses/alternatives, experiment rationale, immutable predictions and evidence-bound revisions; archived FePt hypothesis notebook exists.",
+      "outstanding": "A verified discriminating mechanism has not been demonstrated; injected policies test operation, not scientific judgment.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/memory.py",
+          "sha256": "9b470423fcc3ff8e84aa56ee0835df7c0cb292456b296747f7602837a979ba9c"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/agent.py",
+          "sha256": "ec950acbc291b3ad7f6f731cb8de79ebbfaedacfd3cbb3999165c08048d9e87a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/model_policy.py",
+          "sha256": "fa892a21b495d8f20e0f890fcbecbff96b4363c451842fbff67b41c239f4c27f"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_agent.py",
+          "sha256": "9b27554594f38d29bf8b51e0f52415551ab110c91ff629186c8491ffc816eec6"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_model_policy.py",
+          "sha256": "2276ee534b07549d33880bfea635a061d22801a1fa4e61c810c6fe666daf0db7"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-notebook-final-2026-11-13.json",
+          "sha256": "1ed22ce2ad2075e2f5fcf7295aab75f5653c10849edc8725920a3c54231034a5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-model-policy-2026-11-15.json",
+          "sha256": "992bcf340ce9711ebe2f3477cf0aa0962e4c648eb967b723cd04b4fea5fe5a66"
+        }
+      ]
+    },
+    {
+      "id": "R26",
+      "spec_section": "7F",
+      "spec_lines": [
+        575,
+        585
+      ],
+      "obligation": "required",
+      "requirement": "Preregister held-out anisotropy/electronic predictions and compare simple regression/interpolation baselines.",
+      "implementation_status": "implemented",
+      "acceptance_status": "demonstrated_limited",
+      "delivered": "Immutable response definitions, held-out grading and baseline evaluators. Historical prospective FePt controls and unchanged-model k32 transfer were evaluated.",
+      "outstanding": "Original coarse quadratic predictions failed to beat scalar baselines; a later two-case additive model beat simple controls within its finite scope. Neither demonstrates a general autonomous physics advantage.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/memory.py",
+          "sha256": "9b470423fcc3ff8e84aa56ee0835df7c0cb292456b296747f7602837a979ba9c"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/evaluation.py",
+          "sha256": "b8662874a4b09aa2d185fff46fc1bb9937960c26c665f94eb70552cfb732f339"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/study.py",
+          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_evaluation.py",
+          "sha256": "415123e9843f3a8f620bdc66e463ac3b6091acfc3484bf0ae71b803e4b8b981b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_study.py",
+          "sha256": "440a2f0e6a91b875536464c56ec6f4df4fd7b7f7fbd632ab904cce07cf4caec1"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-notebook-final-2026-11-13.json",
+          "sha256": "1ed22ce2ad2075e2f5fcf7295aab75f5653c10849edc8725920a3c54231034a5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-transfer32-evaluation-2026-11-14.json",
+          "sha256": "a4c020ce2c1599803de87248730d7964ddc870d33d90543b4faa960ca6336890"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-response-evaluation-2026-11-15.json",
+          "sha256": "6d0428e2799bc621c8f37563595a8d6d3c92c24dd450b375540de728e5e99fb2"
+        }
+      ]
+    },
+    {
+      "id": "R27",
+      "spec_section": "8 experiment choice and execution",
+      "spec_lines": [
+        587,
+        626
+      ],
+      "obligation": "required",
+      "requirement": "Agent selects inspections or calculations, records predictions first and executes the requested operation.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Bounded external-policy runner and explicit-model adapter choose from GPAC, electronic, query and notebook tools; injected full local sessions and controlled native transport tests pass.",
+      "outstanding": "No live external-model service session or new native query has been run during this development phase. No model is silently selected.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/agent.py",
+          "sha256": "ec950acbc291b3ad7f6f731cb8de79ebbfaedacfd3cbb3999165c08048d9e87a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/model_policy.py",
+          "sha256": "fa892a21b495d8f20e0f890fcbecbff96b4363c451842fbff67b41c239f4c27f"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/tools.py",
+          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/execution.py",
+          "sha256": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_agent.py",
+          "sha256": "9b27554594f38d29bf8b51e0f52415551ab110c91ff629186c8491ffc816eec6"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_model_policy.py",
+          "sha256": "2276ee534b07549d33880bfea635a061d22801a1fa4e61c810c6fe666daf0db7"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_execution.py",
+          "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-model-policy-2026-11-15.json",
+          "sha256": "992bcf340ce9711ebe2f3477cf0aa0962e4c648eb967b723cd04b4fea5fe5a66"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-controlled-execution-2026-11-15.json",
+          "sha256": "4c8f540fdb46c4ac213a4fb4248a0bc878d96e4750b2f2fcd2bee686ff51f0f5"
+        }
+      ]
+    },
+    {
+      "id": "R28",
+      "spec_section": "8 analysis and retention",
+      "spec_lines": [
+        628,
+        650
+      ],
+      "obligation": "required",
+      "requirement": "Evaluate predictions, revise hypotheses and retrieve reusable findings including failures.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Append-only hypotheses/predictions/outcomes/analyses, definition-bound scores, retrieval and failed/pending outcomes.",
+      "outstanding": "Software persistence does not establish physical truth or transferable knowledge.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/memory.py",
+          "sha256": "9b470423fcc3ff8e84aa56ee0835df7c0cb292456b296747f7602837a979ba9c"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/evaluation.py",
+          "sha256": "b8662874a4b09aa2d185fff46fc1bb9937960c26c665f94eb70552cfb732f339"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/tools.py",
+          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_evaluation.py",
+          "sha256": "415123e9843f3a8f620bdc66e463ac3b6091acfc3484bf0ae71b803e4b8b981b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_agent.py",
+          "sha256": "9b27554594f38d29bf8b51e0f52415551ab110c91ff629186c8491ffc816eec6"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_tools.py",
+          "sha256": "d9868bbc2fc681196be2fb733e92ab4ea847970c392bf851fcf350509f26424b"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R29",
+      "spec_section": "9",
+      "spec_lines": [
+        652,
+        708
+      ],
+      "obligation": "required",
+      "requirement": "Structured reusable tool contracts with explicit units/provenance and large arrays retained as artifacts.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Python, JSON worker and CLI interfaces reuse domain modules; bounded summaries reference hashed NPZ/native files.",
+      "outstanding": "Signatures are functional equivalents rather than a collection of trivial aliases.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/tools.py",
+          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/__main__.py",
+          "sha256": "3981b2f40f6bbd75f1a2f1d7221849cb446b38481695502e2ddbe97eff21dbe1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/electronic.py",
+          "sha256": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/mechanisms.py",
+          "sha256": "f4b5abb720441efb440c3007157508a73cd3031fc31dcf8595dc3ed730782658"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/worker.py",
+          "sha256": "41152ed116465f97012557eb97fa888d80a93c7113c60efb3de614019332b365"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_tools.py",
+          "sha256": "d9868bbc2fc681196be2fb733e92ab4ea847970c392bf851fcf350509f26424b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_mechanisms.py",
+          "sha256": "0a7ec259b582e44ad6489fc944003f87a937ffed83bc64e375d45f730f753c0a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_workflow.py",
+          "sha256": "4c9ba4f7e08c94e7856f416793aadcee428917ac728945ffa90139d367f2066d"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R30",
+      "spec_section": "10 crystal visualization",
+      "spec_lines": [
+        710,
+        729
+      ],
+      "obligation": "optional",
+      "requirement": "Optional structure, cell, orbit, coordination, spin, bond, perturbation and authored/relaxed views.",
+      "implementation_status": "implemented",
+      "acceptance_status": "visual_validation_pending",
+      "delivered": "General exact-source workspace and client controls consume structured numerical data while preserving authored source; Project14 styling retained.",
+      "outstanding": "Browser visual acceptance is unverified because the earlier browser route was denied; protocol/DOM tests do not substitute for rendering.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/catalog.py",
+          "sha256": "f82ae3714c2b0021305a43225dd689b8d90d60dc7217a3c11acd4f092169990b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/workspace.py",
+          "sha256": "dfdca6453b470cd4785f7d46b20200a3b61eb13ddf7bf0036bdeea72b1c965c8"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_catalog.py",
+          "sha256": "7aec7c5b901529025c8b4e815032d3750c0ed8b3de8ca25da5162fd95c636b43"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_workspace.py",
+          "sha256": "1a49b848bed4f1108a7b5564fdc1197cf4dc0920520e9284af6717084f14a463"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_workspace_actions.py",
+          "sha256": "f30d9eeddcbab712a3d50e6a34d3fb9211e0a7d6afad640effc64cf6af1712ef"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R31",
+      "spec_section": "10 electronic visualization and selection",
+      "spec_lines": [
+        731,
+        765
+      ],
+      "obligation": "optional",
+      "requirement": "Optional bands/DOS/spin/near-Fermi/SOC-related views and linked atom/orbit/motif/parameter/state/k/region diagnostics.",
+      "implementation_status": "implemented",
+      "acceptance_status": "visual_validation_pending",
+      "delivered": "Saved bands, periodic regions, signed DOS/projections, spin and orbital diagnostics, selected structural families and linked responses.",
+      "outstanding": "Paths follow saved energy ranks, not tracked band identities. Region-based immutable response targets are a useful extension, not required to inspect the selected region.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/reciprocal.py",
+          "sha256": "10b0f84c1ff793a05b9ca080a22ec1f1ad9f92d53cea63ef7faf7648485d6f11"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/inspection.py",
+          "sha256": "2c94073fcde3479c2c090db683583f9bd54d7a41ba64d01c90ed25b3082898c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/workspace_actions.py",
+          "sha256": "5a7626d795cf5aeb534ee6e25c97691331860c774d256dfbf7bdf34cfcc766f5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/catalog.py",
+          "sha256": "f82ae3714c2b0021305a43225dd689b8d90d60dc7217a3c11acd4f092169990b"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_reciprocal.py",
+          "sha256": "ccfce208c6d9e15b81b9c49d0a20d0c1fec8eba0ace84950d1fced8fc735d387"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_workspace_actions.py",
+          "sha256": "f30d9eeddcbab712a3d50e6a34d3fb9211e0a7d6afad640effc64cf6af1712ef"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_catalog.py",
+          "sha256": "7aec7c5b901529025c8b4e815032d3750c0ed8b3de8ca25da5162fd95c636b43"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-reciprocal-workspace-2026-11-15.json",
+          "sha256": "e2d5ef7aced4ec3a194af8877bf531a0bc2c9c5450869a547bb70f7a8fffcd41"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-workspace-experiments-2026-11-15.json",
+          "sha256": "2ccff274f4e42f0c07f285cac21d9834d9050e77093e482f08dd91253302c88e"
+        }
+      ]
+    },
+    {
+      "id": "R32",
+      "spec_section": "11, 13 Phase 5",
+      "spec_lines": [
+        767,
+        808
+      ],
+      "obligation": "long_term",
+      "requirement": "Working expansion foundation, eventually tested design-rule transfer and broader materials objectives.",
+      "implementation_status": "implemented",
+      "acceptance_status": "not_demonstrated",
+      "delivered": "General GPAC authoring, geometry screening, saved diagnostics and prepared REMAG queries support non-FePt structures.",
+      "outstanding": "Fe2B mechanism realization, cross-material transfer, magnetic ordering, thermodynamic/dynamical stability, disorder robustness and synthesis plausibility remain downstream research.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/authoring.py",
+          "sha256": "e8f19b2174c54d4d3018f9d50491e17406f1e475d9d7256fb04c06973a33d430"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/proposals.py",
+          "sha256": "4ac6b772d3c4f669750a30e8ca48fa5d71f40dde473e69a6650d82f88fd79b4d"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/queries.py",
+          "sha256": "ca34b8c34d4e81d5c6e2ebf97d371f11b84e51d6aeb2f8d9845d544e4db99a30"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/ir.py",
+          "sha256": "7aebaa202f2753ea408bea2ed7f68dfb5369bb9d0206eccc60090726ee9e1375"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/motifs.py",
+          "sha256": "f7bf0970cef35d9f442fde6c9ea553a27bfe2e3f93c33846934a7273d80d42a9"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/proposal.py",
+          "sha256": "ac1f1c4f91eb29da1a981b4f54203174ad6a55b4a82548a0329ec9bc405c817c"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_authoring.py",
+          "sha256": "f18479d98473bb076726ba2032d77186c5cf815860d1a25467bf6d6abca2eb77"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_proposals.py",
+          "sha256": "59b1e510ec1250b091f2968ace357de69496721cad5b337b9bc4a0ec133a128d"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_queries.py",
+          "sha256": "15bad49096ad0f5ef22f0b9dd2ab4c6574acb63456aef5facef8600951f990b7"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_authoring.py",
+          "sha256": "c7e4163f928700c6efa488e443e4999dba7dc757160c3ae8725b13a60ea27c50"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_motifs.py",
+          "sha256": "4338042049fe6ccecb9e867949146315c26ba86699f51dc2f946c80b1120be43"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_proposal.py",
+          "sha256": "b4601a2865f2a034b54e16dac158240e6086879e0c266dbcb0aaebce6de5cb6c"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R33",
+      "spec_section": "12 paired comparison",
+      "spec_lines": [
+        810,
+        826
+      ],
+      "obligation": "required",
+      "requirement": "Compare autonomous scalar and physics-guided agents under equivalent compute budgets.",
+      "implementation_status": "implemented",
+      "acceptance_status": "not_demonstrated",
+      "delivered": "Same policy/authoring tools, frozen inputs/held-outs, distinct observation profiles, equal declared ceilings, separate sessions and common grading.",
+      "outstanding": "No actual paired autonomous comparison or measured equal GPU consumption has been demonstrated.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/study.py",
+          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/agent.py",
+          "sha256": "ec950acbc291b3ad7f6f731cb8de79ebbfaedacfd3cbb3999165c08048d9e87a"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/model_policy.py",
+          "sha256": "fa892a21b495d8f20e0f890fcbecbff96b4363c451842fbff67b41c239f4c27f"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_study.py",
+          "sha256": "440a2f0e6a91b875536464c56ec6f4df4fd7b7f7fbd632ab904cce07cf4caec1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_agent.py",
+          "sha256": "9b27554594f38d29bf8b51e0f52415551ab110c91ff629186c8491ffc816eec6"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_model_policy.py",
+          "sha256": "2276ee534b07549d33880bfea635a061d22801a1fa4e61c810c6fe666daf0db7"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-paired-study-2026-11-15.json",
+          "sha256": "3db2eb7c13c0dda1993dfc7a4b34c6907c66640b1d44b5516e66046a576a3f2e"
+        }
+      ]
+    },
+    {
+      "id": "R34",
+      "spec_section": "12 prediction metrics",
+      "spec_lines": [
+        828,
+        837
+      ],
+      "obligation": "required",
+      "requirement": "Error, response direction, electronic prediction quality, uncertainty calibration and transfer.",
+      "implementation_status": "implemented",
+      "acceptance_status": "demonstrated_limited",
+      "delivered": "Definition-bound error/sign/interval scores, full missing/failed cohorts and paired errors; historical finite prediction/transfer evidence retained.",
+      "outstanding": "Uncertainty calibration and broader transfer need independent observations, not additional score formulas.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/evaluation.py",
+          "sha256": "b8662874a4b09aa2d185fff46fc1bb9937960c26c665f94eb70552cfb732f339"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/study.py",
+          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/calibration.py",
+          "sha256": "121fc90adc4d12cf78856ca5667907ad0ad8202376452634a1556ef17c7b8acb"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_evaluation.py",
+          "sha256": "415123e9843f3a8f620bdc66e463ac3b6091acfc3484bf0ae71b803e4b8b981b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_study.py",
+          "sha256": "440a2f0e6a91b875536464c56ec6f4df4fd7b7f7fbd632ab904cce07cf4caec1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_calibration.py",
+          "sha256": "342942ac494bd5015b0b1b11b9bdd0723aca63494e4b5815272cd20c5923b84e"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-response-evaluation-2026-11-15.json",
+          "sha256": "6d0428e2799bc621c8f37563595a8d6d3c92c24dd450b375540de728e5e99fb2"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-transfer32-evaluation-2026-11-14.json",
+          "sha256": "a4c020ce2c1599803de87248730d7964ddc870d33d90543b4faa960ca6336890"
+        }
+      ]
+    },
+    {
+      "id": "R35",
+      "spec_section": "12 discovery metrics",
+      "spec_lines": [
+        839,
+        846
+      ],
+      "obligation": "required",
+      "requirement": "Best independently validated anisotropy, magnetization, stability, distinct plausible candidates and robustness.",
+      "implementation_status": "partial",
+      "acceptance_status": "not_demonstrated",
+      "delivered": "Underlying property, structural assessment and response tools exist.",
+      "outstanding": "Concrete implementation gap: paired-study output has independent_candidate_validation=None and no source-bound candidate validation/cohort scorecard. Candidate quality must not be inferred from a bool or geometry advisory alone.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/study.py",
+          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/proposals.py",
+          "sha256": "4ac6b772d3c4f669750a30e8ca48fa5d71f40dde473e69a6650d82f88fd79b4d"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/response.py",
+          "sha256": "12ce1f617e850ec2793772c0b40f8e7cd1663343025e14a60968876d3bf64ce0"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_study.py",
+          "sha256": "440a2f0e6a91b875536464c56ec6f4df4fd7b7f7fbd632ab904cce07cf4caec1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_proposals.py",
+          "sha256": "59b1e510ec1250b091f2968ace357de69496721cad5b337b9bc4a0ec133a128d"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_response.py",
+          "sha256": "bcafee61922b252cec63b1360f3d1f26b2d97b5f55f32e2a253de437b761bdc5"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R36",
+      "spec_section": "12 efficiency metrics",
+      "spec_lines": [
+        848,
+        852
+      ],
+      "obligation": "required",
+      "requirement": "GPU-hours, completed/failed experiments, validated candidates per compute and prediction improvement per compute.",
+      "implementation_status": "partial",
+      "acceptance_status": "not_demonstrated",
+      "delivered": "Session attempts/failures/reservations, policy/tool/native wall times and model usage are inventoried.",
+      "outstanding": "Concrete implementation gap: actual_gpu_hours and validated_candidates_per_gpu_hour are always None; no measured allocation-usage ingestion or candidate-rate calculation. Reservations must remain distinct from invoices.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/study.py",
+          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/execution.py",
+          "sha256": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_study.py",
+          "sha256": "440a2f0e6a91b875536464c56ec6f4df4fd7b7f7fbd632ab904cce07cf4caec1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_execution.py",
+          "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R37",
+      "spec_section": "12 rigor, 15",
+      "spec_lines": [
+        854,
+        864
+      ],
+      "obligation": "engineering_constraint",
+      "requirement": "Retain failures, numerical scope, correspondence/frames/reproducibility and prerecorded held-out evaluation.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Existing GPAC exact checks, native implementation references, source/runtime bindings, branch controls, evidence hashes and immutable research events.",
+      "outstanding": "Current numerical failures remain failures. Existing verification replaces new pristine work under owner direction. Scientific truth is not inferred from protocol tests.",
+      "implementation": [
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/experiments.py",
+          "sha256": "aab7bae174f6745cf21bafa876a1a91f97a40d833eaa1a1e11d59689fbf2f0b0"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/evaluation.py",
+          "sha256": "b8662874a4b09aa2d185fff46fc1bb9937960c26c665f94eb70552cfb732f339"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/study.py",
+          "sha256": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/exact.py",
+          "sha256": "d32ace0eda5645a49d73e373a0a8228e56753e198e6c9539842b6a1487ad3107"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/physical.py",
+          "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        }
+      ],
+      "tests": [
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_evaluation.py",
+          "sha256": "415123e9843f3a8f620bdc66e463ac3b6091acfc3484bf0ae71b803e4b8b981b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_study.py",
+          "sha256": "440a2f0e6a91b875536464c56ec6f4df4fd7b7f7fbd632ab904cce07cf4caec1"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_exact_input.py",
+          "sha256": "d157e87144889359fe845e39c27874071f63a810976f58bc7e36336e89631805"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_physical.py",
+          "sha256": "1c8a88aca5e73ca5d099467e50d4202662959ca505618039d549e88538d99f01"
+        }
+      ],
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/fept-campaign-closeout-2026-11-15.json",
+          "sha256": "294d950e2d0a3d66084c9761571a2ca6fe125aa271fcded9eec6ea77e3ab9636"
+        }
+      ]
+    },
+    {
+      "id": "R38",
+      "spec_section": "13 Phases 0–6, 14",
+      "spec_lines": [
+        866,
+        951
+      ],
+      "obligation": "engineering_constraint",
+      "requirement": "Audit, bridge, diagnostics, controlled dataset, autonomous testing, expansion foundation and optional interactive environment.",
+      "implementation_status": "implemented",
+      "acceptance_status": "tested",
+      "delivered": "Implementation increments and their tests/saved demonstrations are linked below; original phase scope now maps to finite acceptance items.",
+      "outstanding": "Finish R35/R36 reporting before requesting live study execution; do not treat optional future features as new completion gates.",
+      "implementation": [],
+      "tests": [],
+      "evidence": []
+    }
+  ],
+  "final_deliverables": [
+    {
+      "id": "D1",
+      "requirement": "Unified architecture",
+      "requirements": [
+        "R01",
+        "R18",
+        "R20",
+        "R27"
+      ],
+      "status": "Implemented and locally/injected tested; full live research demonstration pending."
+    },
+    {
+      "id": "D2",
+      "requirement": "Extended GPAC capabilities",
+      "requirements": [
+        "R04",
+        "R05",
+        "R06",
+        "R08",
+        "R09",
+        "R10"
+      ],
+      "status": "Implemented within explicit geometry/symmetry policies."
+    },
+    {
+      "id": "D3",
+      "requirement": "Extended REMAG capabilities",
+      "requirements": [
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16"
+      ],
+      "status": "Implemented; new device SOC production validation pending."
+    },
+    {
+      "id": "D4",
+      "requirement": "Structural–physical bridge",
+      "requirements": [
+        "R18",
+        "R19",
+        "R20"
+      ],
+      "status": "Implemented; unsupported correspondence is explicit."
+    },
+    {
+      "id": "D5",
+      "requirement": "FePt experimental dataset",
+      "requirements": [
+        "R21",
+        "R22",
+        "R23",
+        "R24"
+      ],
+      "status": "Existing controlled dataset delivered with finite scope; full numerical qualification and new-SOC coverage unmet."
+    },
+    {
+      "id": "D6",
+      "requirement": "Autonomous hypothesis-testing loop",
+      "requirements": [
+        "R25",
+        "R26",
+        "R27",
+        "R28"
+      ],
+      "status": "Integrated machinery tested; full live policy research demonstration pending; historical predictions/outcomes preserved."
+    },
+    {
+      "id": "D7",
+      "requirement": "Evaluation report",
+      "requirements": [
+        "R26",
+        "R33",
+        "R34",
+        "R35",
+        "R36"
+      ],
+      "status": "Partial: simple-baseline evidence exists; candidate/cost scorecard implementation and actual paired-agent study remain."
+    },
+    {
+      "id": "D8",
+      "requirement": "Expansion pathway",
+      "requirements": [
+        "R10",
+        "R32"
+      ],
+      "status": "Working general authoring foundation; downstream transfer not demonstrated."
+    },
+    {
+      "id": "D9",
+      "requirement": "Optional interactive workspace",
+      "requirements": [
+        "R30",
+        "R31"
+      ],
+      "status": "Implemented and exercised with saved data; browser visual acceptance pending."
+    }
+  ],
+  "definition_of_success": [
+    {
+      "id": "S1",
+      "requirement": "Physically meaningful GPAC operations",
+      "requirements": [
+        "R04",
+        "R05",
+        "R09"
+      ],
+      "status": "demonstrated"
+    },
+    {
+      "id": "S2",
+      "requirement": "Electronic/magnetic information sufficient to investigate anisotropy",
+      "requirements": [
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "status": "implemented_with_production_validation_limit"
+    },
+    {
+      "id": "S3",
+      "requirement": "Reproducible structure/observation exchange",
+      "requirements": [
+        "R18",
+        "R19",
+        "R20"
+      ],
+      "status": "demonstrated_with_explicit_scope"
+    },
+    {
+      "id": "S4",
+      "requirement": "Agent designs controlled experiments and testable predictions",
+      "requirements": [
+        "R25",
+        "R27",
+        "R28"
+      ],
+      "status": "integrated_tests_and_historical_evidence_live_adapter_pending"
+    },
+    {
+      "id": "S5",
+      "requirement": "Predictions evaluated against independent REMAG calculations",
+      "requirements": [
+        "R26"
+      ],
+      "status": "historical_finite_demonstration_new_integrated_study_pending"
+    },
+    {
+      "id": "S6",
+      "requirement": "Measurable scientific value beyond blind scalar hill climbing",
+      "requirements": [
+        "R33",
+        "R34",
+        "R35",
+        "R36"
+      ],
+      "status": "not_demonstrated"
+    },
+    {
+      "id": "S7",
+      "requirement": "Reusable improvements in both packages",
+      "requirements": [
+        "R02",
+        "R04",
+        "R11"
+      ],
+      "status": "implemented_and_tested"
+    }
+  ],
+  "next_work": [
+    {
+      "id": "W1",
+      "type": "implementation",
+      "requirements": [
+        "R35",
+        "R36"
+      ],
+      "action": "Extend saved-evidence paired reporting with source-bound candidate cohorts and explicit measured allocation-usage accounting. Preserve failed/missing candidates and separate geometry plausibility, numerical validation, independence and physical stability. Compute rates only when the numerator and measured denominator are supported.",
+      "requires_new_compute": false
+    },
+    {
+      "id": "W2",
+      "type": "empirical_acceptance",
+      "requirements": [
+        "R27",
+        "R33",
+        "R34"
+      ],
+      "action": "Run the integrated policy on a genuinely held-out evaluation cohort and compare scalar/physics arms with measured costs. Existing exposed holdouts cannot be relabeled as unseen.",
+      "requires_owner_input": "Explicit available model/account and bounded live execution authorization; no API key or new compute grant is present."
+    },
+    {
+      "id": "W3",
+      "type": "product_acceptance",
+      "requirements": [
+        "R13",
+        "R17"
+      ],
+      "action": "Exercise the complete native SOC export on the target runtime and measure calibrated exploratory queries from submission through usable result.",
+      "requires_owner_input": "Separately scoped runtime access and compute authorization; the closed campaign is not reopened."
+    },
+    {
+      "id": "W4",
+      "type": "optional_acceptance",
+      "requirements": [
+        "R30",
+        "R31"
+      ],
+      "action": "Verify rendered browser interaction when an allowed browser route is available.",
+      "requires_owner_input": "Existing browser URL-policy denial must not be bypassed."
+    }
+  ],
+  "optional_extensions_not_blocking_initial_software": [
+    "General coupled constraint solver",
+    "Automatic approximate-to-exact recovery",
+    "Changed-cell or atom-count automatic matching",
+    "Maximal symmetry recognition",
+    "Cross-geometry tracked bands",
+    "Regional immutable response targets beyond existing k-index targets",
+    "Second-order SOC perturbation analysis",
+    "Magnetic force theorem",
+    "Automatic differentiation",
+    "Cross-material discovery/stability/synthesis programs beyond the expansion foundation"
+  ],
+  "validation": {
+    "kind": "Read-only source/evidence traceability audit",
+    "latest_REMAG_regression": "546 passed, 4 unchanged loopback HTTP cases deselected",
+    "latest_REMAG_CI": {
+      "id": 43772754892,
+      "conclusion": "success",
+      "tests": "433 passed, 117 skipped"
+    },
+    "latest_GPAC_CI": {
+      "id": 43758843399,
+      "conclusion": "success"
+    },
+    "new_solver_calls": 0,
+    "new_model_service_calls": 0,
+    "new_gpu_reservations_cents": 0,
+    "verified_file_count": 93,
+    "requirement_groups": 38
+  },
+  "preserved": {
+    "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "gpac_frozen_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+    "campaign": "closed; no automatic launch, retries or pristine calculations",
+    "reservations_cents": 29667,
+    "cumulative_ceiling_cents": 35000,
+    "actual_invoices": null
+  }
+}

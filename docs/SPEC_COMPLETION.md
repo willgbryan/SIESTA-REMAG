@@ -1,33 +1,77 @@
 # GPAC × REMAG v3 implementation completion
 
-The owner directed completion of the original **Physics-Guided Autonomous
-Crystal Discovery, Development Specification v3.0** on 15 November 2026.
-This is the active development objective. The FePt convergence campaign is
-closed and is not an implementation prerequisite or an active work queue.
-Existing SIESTA implementation comparisons remain evidence; no new pristine
-reference is requested. Empirical outcomes must not be inferred from software
-tests or marked complete merely because the interface exists.
+The active objective is completion of the owner's **Physics-Guided Autonomous
+Crystal Discovery, Development Specification v3.0**. The core research software
+is delivered; the full specification is not complete. The
+[requirement-by-requirement audit](SPEC_REQUIREMENTS.json) binds 38 functional and
+engineering groups to 93 source, test and evidence files at the reviewed commits.
+It also maps all nine final deliverables and seven initial success criteria.
 
-| Spec scope | Delivered foundation | Remaining acceptance |
-| --- | --- | --- |
-| §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameters, volume/shape/axial and local coordination/displacement controls, full lineage; informative geometric proposal assessment with declared family/coordination policies | Broader coupled constraints and empirical chemistry-specific validation of chosen screening policies |
-| §§4.3, 6 reverse observations | Integrated relaxation preparation/feedback, site/orbit motion, neighbor changes, authored-operation residuals | Broader motif classification and changed-cell/atom-count correspondence; maximal symmetry remains unassessed |
-| §§4.4, 8–9 research tools | Python/worker tools, immutable notebook, bounded policy-driven sessions, explicit-model Responses adapter, exact candidate persistence and query-provenance handoff, operator-enabled single-query execution/collection/shutdown/review | Live authorized model/solver demonstration and empirical experiment-selection quality |
-| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selected-k eigenvectors/reconstructed density, native density and onsite orbital moments, opt-in host/device nonlocal SOC operator/state projections, Löwdin coupling blocks, same-basis state/subspace correspondence, selectable Mulliken/spin inspection, native moments/forces/stress | CUDA-linked application and measured SOC export validation; changed-basis correspondence and empirical mechanism tests |
-| §§5.3–5.4 response/anisotropy | Exact controlled structural families, saved E/F/force/stress/spin/orbital-moment/spectral/coupling/band-sum responses, native printing-interval mesh correspondence, consecutive finite differences, scalar/selected-direction/angular queries, one-plane K1/K2 and branch checks | Empirical uncertainty validation and mechanism-discriminating experiments; cross-geometry band tracking remains unimplemented |
-| §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
-| §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
-| §§7E–F, 12 evaluation | Prerecorded multi-observable predictions, verified response outcomes, error/sign/interval scores, simple-fit baselines; registered scalar/physics profiles with matched limits, frozen cohorts and shared grading | Empirical equal-compute agent comparison, predictive performance, uncertainty calibration and independent discovery/transfer validation |
-| §10 workspace | General exact-source catalog, atom/orbit/coordination-motif/k/state and periodic-region selection, linked saved band paths and signed DOS/spin, authored/relaxed comparison, exact candidate editing, saved-settings query/family preparation and source-linked saved responses | Additional GUI query designs and browser visual acceptance; paths use sampled energy ranks, not tracked band identities |
-| §11 / Phase 5 expansion | General GPAC authoring and REMAG discovery screening | Demonstrated workflow for Fe₂B/selected structures, theory-guided candidates and transfer evaluation |
+The FePt convergence campaign is closed. It is neither a new implementation
+prerequisite nor an active queue. Existing SIESTA comparisons remain evidence;
+no new pristine calculation, GPU launch or spending is authorized here.
 
-Implementation order: (1) observable-specific queries and reusable electronic
-inspection; (2) integrated agent workflow; (3) local authoring and relaxation
-feedback; (4) linked workspace; (5) comparative evaluation and expansion.
-Each delivery includes existing-package checks and a runnable example. Reuse
-saved native results for local analysis. New compute is not silently authorized
-by this checklist. Optional force-theorem, automatic-differentiation and
-approximate-to-exact methods are deferred unless needed for a concrete query.
+| Final deliverable (§16) | Current state |
+| --- | --- |
+| Unified architecture | Integrated authoring, queries, diagnostics, memory and bounded policy sessions; live research demonstration pending |
+| Extended GPAC | Physical controls, experimental agent interfaces, proposal assessment and explicit relaxation feedback implemented |
+| Extended REMAG | Electronic/magnetic diagnostics implemented; new device SOC export still needs full target-runtime production validation |
+| Structural–physical bridge | Source-bound conversion, correspondence and observations implemented with explicit unsupported cases |
+| FePt dataset | Existing controlled measurements and saved response demonstrations; full numerical qualification and new-SOC coverage are not complete |
+| Autonomous hypothesis testing | Integrated local/injected loop tested; historical predictions/outcomes retained; live external-policy acceptance pending |
+| Evaluation report | Simple-baseline evidence and paired prediction machinery exist; candidate/cost scoring and the actual paired-agent comparison remain |
+| Expansion pathway | General authoring and screening foundation implemented; cross-material mechanism transfer remains downstream research |
+| Optional interactive workspace | Saved structural/electronic inspection implemented; browser visual acceptance pending |
+
+## Remaining implementation
+
+The audit identifies two concrete reporting gaps in `research.study`:
+
+1. **R35 — candidate evaluation:** `independent_candidate_validation` is always
+   `None`. Add source-bound candidate cohorts and saved-evidence reporting for
+   anisotropy, magnetization, declared plausibility, stability and robustness.
+   Distinct exact sources are not automatically distinct crystals. An advisory
+   geometry check or native SCF acceptance cannot certify physical stability or
+   independent numerical validation.
+2. **R36 — measured efficiency:** `actual_gpu_hours` and
+   `validated_candidates_per_gpu_hour` are always `None`. Support explicit
+   measured allocation usage and report rates only with supported numerator and
+   denominator. Preserve failed/missing cases and distinguish native wall time,
+   GPU allocation time, reservation ceilings and invoices.
+
+Reuse current report, assessment, response, cohort and runtime machinery. These
+are saved-evidence implementation tasks; they require no new solver calculation.
+They take priority over optional extensions such as more general coupled
+constraints, automatic geometry matching, tracked bands or extra GUI query
+controls. Do not create an indefinite feature queue from examples in the spec.
+
+## Remaining empirical acceptance
+
+- The integrated policy needs an authorized model/account and a genuinely
+  held-out scalar-versus-physics evaluation with measured compute. No live
+  external-model service run occurred during the development increments.
+- Independent prospective FePt comparisons **already exist**. The initial
+  coarse quadratic predictions failed to outperform scalar baselines; a later
+  two-case additive response/transfer model beat simple controls within its
+  recorded scope. These results do not establish the full §12 autonomous
+  comparison or §17 scientific advantage beyond scalar hill climbing.
+- The new native SOC producer compiles against real pinned Fortran modules and
+  passes CPU transport/ownership controls. A full CUDA-linked application and
+  measured production export remain unverified.
+- The owner-selected 1–5 minute submission-to-usable-result target remains
+  unproven, with no calibrated exploratory default. Fast saved coarse calculations
+  do not establish response/sign/ranking accuracy or full-query latency.
+- Optional browser visual acceptance remains unverified. DOM/canvas doubles do
+  not replace rendering, and the previous browser URL-policy denial must not be
+  bypassed.
+
+The original numerical qualification failures remain in the
+[closed scientific record](FEPT_QUALIFICATION_PLAN.md). Full qualification,
+mechanism validation, uncertainty calibration and cross-material transfer must
+not be inferred from implemented interfaces. Optional force-theorem,
+second-order SOC perturbation, automatic differentiation, rational recovery and
+longer-term discovery objectives are not silently promoted to initial software
+completion gates.
 
 ## Delivered development increments
 
