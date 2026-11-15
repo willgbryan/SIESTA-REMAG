@@ -82,6 +82,10 @@ def verify_experiment(bundle):
     return request
 
 
+def experiment_code():
+    return source_identity() | {f'research/{p.name}': sha256(p) for p in Path(__file__).parent.glob('*.py')}
+
+
 def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env=None,
                    threads=1, checkpoint=None, runner=run_case):
     """Run the selected bounded jobs; historical requests retain scalar/z/x/y."""
@@ -92,7 +96,7 @@ def run_experiment(bundle, output, executable, *, executable_sha256, runtime_env
         raise ValueError('Executable checksum mismatch')
     settings = Settings.from_dict(request['settings'])
     env = {k: v for k, v in os.environ.items() if k.startswith('REMAG_')} | dict(runtime_env or {})
-    code = source_identity() | {f'research/{p.name}': sha256(p) for p in Path(__file__).parent.glob('*.py')}
+    code = experiment_code()
     identity = digest(dict(request=request, executable_sha256=executable_sha256, environment=env, threads=threads, code=code))
     started = time.monotonic()
     with lock(output.with_name(output.name+'.lock')):

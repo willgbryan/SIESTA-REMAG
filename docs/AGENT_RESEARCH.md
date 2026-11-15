@@ -72,8 +72,10 @@ The research loop uses existing implementations, rather than separate copies:
    in `eV/cell`.
 5. Inspect saved evidence, or `prepare_query` using a verified structure export,
    explicit query and numerical settings. Preparation neither executes a solver
-   nor reserves compute. Paid execution continues through the existing guarded
-   `scripts/run_modal.py` path and the owner's compute authorization.
+   nor reserves compute. When explicitly enabled by an operator configuration,
+   `run_prepared_query` executes through the existing guarded `scripts/run_modal.py`
+   path, collects, stops the owned app and reviews the result. See
+   [controlled execution](RESEARCH_EXECUTION.md) for authorization, limits and timing.
 6. `record_calculation_outcome` verifies saved artifact hashes, native acceptance
    and matching experiment source before ingesting a stage energy or E/F
    anisotropy. `evaluate_hypothesis` reports prediction error without certifying
@@ -182,10 +184,17 @@ folder. Step/time/context limits, tool failures and policy failures stop the
 session; there are no automatic retries or replay of interrupted actions.
 Notebook events may have committed before a timeout, so inspect the retained
 history before starting a separate session. CPU Orb preparation is unavailable
-unless `--allow-cpu-relaxation` is explicit. A fixed allowlist excludes native/GPU
+unless `--allow-cpu-relaxation` is explicit. The default allowlist excludes native/GPU
 submission; preparing a query leaves execution to the existing separately
 controlled runtime. The trusted policy command itself is not a filesystem or
 network sandbox, and must not perform unrecorded calculations or use hidden
 holdout information. A completed policy session certifies neither its scientific
 conclusion nor a model's research quality. No live model or new DFT run is needed
 to test the policy/tool plumbing.
+
+An explicit operator `--execution-config` enables the single additional
+`run_prepared_query` action. The session checks that sufficient deadline remains
+for the bounded query and cleanup, then preserves the same intent/result flow.
+A failed native execution ends the session. The configuration fixes the existing
+budget stage and runtime; the policy cannot supply or enlarge them. See
+[execution configuration, ownership and latency](RESEARCH_EXECUTION.md).

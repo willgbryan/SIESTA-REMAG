@@ -16,6 +16,8 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'run_prepared_query': {'required':['bundle','output'],'optional':['spectra'],
+        'description':'Execute one prepared REMAG query through the existing single-GPU budget/account guards, collect, stop the owned app and review. Requires operator-enabled execution configuration.'},
     'export_orbital_moments': {'required':['report','stage','native_directory','output'], 'optional':['collection'],
         'description':'Inspect native-density orbital/atom moments using the pinned onsite approximation and final printed-table check; no solver run.'},
     'export_electronic_matrices': {'required':['report','stage','native_directory','output'],
@@ -113,10 +115,14 @@ def _verified_report(path, collection=None):
 
 
 class ResearchTools:
-    def __init__(self, workspace):
+    def __init__(self, workspace, *, execution_config=None):
         self.root = Path(workspace).resolve()
         if not self.root.is_dir():
             raise ValueError('Research workspace must already exist')
+        self.execution_config = self.path(str(execution_config)) if execution_config is not None else None
+
+    def catalog(self):
+        return {k:v for k,v in TOOLS.items() if k != 'run_prepared_query' or self.execution_config is not None}
 
     def path(self, value):
         if not isinstance(value, str) or not value:
@@ -132,6 +138,11 @@ class ResearchTools:
         schema = TOOLS[name]
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
+        if name == 'run_prepared_query':
+            if self.execution_config is None:
+                raise ValueError('Native execution is not enabled by the operator')
+            from .execution import execute_query
+            return execute_query(self.root,self.execution_config,self.path(args['bundle']),self.path(args['output']),spectra=args.get('spectra'))
         if name == 'export_orbital_moments':
             from .orbital_moments import export_orbital_moments
             return export_orbital_moments(self.path(args['report']), args['stage'], self.path(args['native_directory']),
@@ -221,9 +232,9 @@ class ResearchTools:
             unit=unit, report_sha256=sha256(path), status=status)
 
 
-def serve(workspace):
+def serve(workspace, *, execution_config=None):
     """One request per line. Large arrays stay in artifacts, never in tool replies."""
-    tools = ResearchTools(workspace)
+    tools = ResearchTools(workspace,execution_config=execution_config)
     for line in sys.stdin:
         try:
             if len(line.encode()) > 1024*1024:
@@ -231,7 +242,7 @@ def serve(workspace):
             request = json.loads(line, parse_constant=lambda x: (_ for _ in ()).throw(ValueError('Nonfinite JSON')))
             if not isinstance(request,dict): raise ValueError('Expected a tool request object')
             if request == {'op':'catalog'}:
-                result = dict(format='REMAG-RESEARCH-TOOLS/1', tools=TOOLS,
+                result = dict(format='REMAG-RESEARCH-TOOLS/1', tools=tools.catalog(),
                     selections=dict(atom_indices='zero-based atom indices', orbital_indices='zero-based basis indices',
                         l='angular momentum indices', k_indices='zero-based sampled k indices',
                         energy_window_ev='[low,high] relative to each spectrum Fermi level', limit='1..200 states'))

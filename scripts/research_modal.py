@@ -31,12 +31,17 @@ if modal.is_local():
         raise ValueError('Positive finite allocation rate and budget required')
     if timeout/3600*policy['hourly_reservation_usd'] > policy['budget_usd'] or policy['budget_usd'] > 100:
         raise ValueError('Campaign exceeds its declared allocation budget')
-    from siesta_remag.research.experiments import verify_experiment
-    from siesta_remag.research.queries import diagnostic_labels
+    from siesta_remag.research.experiments import verify_experiment, experiment_code
+    if 'expected_source_code' in policy and policy['expected_source_code'] != experiment_code():
+        raise ValueError('Prepared execution code changed before image preparation')
+    from siesta_remag.research.queries import diagnostic_labels, requested_spectra
     for name in policy['experiments']:
         if not (campaign/name).resolve().is_relative_to(campaign): raise ValueError('Unsafe experiment path')
         request = verify_experiment(campaign/name)
-        diagnostic_labels(request.get('query', {'kind': 'anisotropy'}), policy.get('diagnostic_axes'))
+        if 'spectra' in policy:
+            requested_spectra(request.get('query', {'kind': 'anisotropy'}), policy['spectra'])
+        else:
+            diagnostic_labels(request.get('query', {'kind': 'anisotropy'}), policy.get('diagnostic_axes'))
     image = (modal.Image.from_id(image_id)
         .add_local_dir(ROOT/'src', '/opt/research/src', copy=True, ignore=['__pycache__'])
         .add_local_dir(campaign, '/opt/research/campaign', copy=True)
@@ -55,9 +60,11 @@ volume = modal.Volume.from_name(volume_name, create_if_missing=True)
               retries=0, volumes={'/results': volume})
 def calculate(run_id):
     import time
+    from datetime import datetime, timezone
+    entered_at = datetime.now(timezone.utc).isoformat()
     for key in ['OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS']:
         os.environ[key] = '1'
-    from siesta_remag.research.experiments import run_experiment
+    from siesta_remag.research.experiments import run_experiment, experiment_code
     from siesta_remag.research.electronic import spectrum_from_run
     from siesta_remag.discovery.collection import pack
     from siesta_remag.corpus import sha256
@@ -69,35 +76,50 @@ def calculate(run_id):
         if key.startswith('REMAG_'): os.environ.pop(key)
     started = time.monotonic()
     report = dict(status='running', invocation_sha256=digest(policy), policy=policy, experiments=[],
-                  physical_accuracy_qualified=False, billed_cost_usd=None)
+                  physical_accuracy_qualified=False, billed_cost_usd=None,
+                  timing=dict(function_entered_at=entered_at,native_seconds=0.,diagnostics_seconds=0.,
+                              queue_seconds=None,startup_seconds=None,packaging_seconds=None))
     def flush():
         report['allocation_elapsed_seconds'] = time.monotonic()-started
         report['reserved_cost_bound_usd'] = policy['timeout_seconds']/3600*policy['hourly_reservation_usd']
         save(root/'report.json', report); volume.commit()
     flush()
     try:
+        if 'expected_source_code' in policy and policy['expected_source_code'] != experiment_code():
+            raise ValueError('Uploaded experiment code differs from the prepared execution')
         for name in policy['experiments']:
             request = load(Path('/opt/research/campaign')/name/'experiment.json')
             if time.monotonic()-started + request['settings']['total_dft_seconds'] + 60 > policy['timeout_seconds']:
                 report['status'] = 'held_budget'; break
+            before_native = time.monotonic()
             result = run_experiment(Path('/opt/research/campaign')/name, root/name, runtime['executable'],
                 executable_sha256=runtime['executable_sha256'], runtime_env=runtime.get('environment', {}),
                 threads=runtime.get('threads', 1), checkpoint=volume.commit)
+            report['timing']['native_seconds'] += time.monotonic()-before_native
             report['experiments'].append(dict(id=name, status=result['status'], report_sha256=sha256(root/name/'report.json')))
             if result['status'] != 'measured':
                 report['status'] = 'held_experiment'; flush(); break
-            from siesta_remag.research.queries import diagnostic_labels
-            for axis in diagnostic_labels(request.get('query', {'kind': 'anisotropy'}), policy.get('diagnostic_axes')):
+            from siesta_remag.research.queries import diagnostic_labels, requested_spectra
+            query = request.get('query', {'kind': 'anisotropy'})
+            if 'spectra' in policy:
+                selections = [(r['stage'],r['spin'],'electronic-'+r['stage']+'-spin'+str(r['spin']))
+                              for r in requested_spectra(query,policy['spectra'])]
+            else:
+                selections = [('soc-'+axis,0,'electronic-'+axis) for axis in diagnostic_labels(query,policy.get('diagnostic_axes'))]
+            before_diagnostics = time.monotonic()
+            for stage,spin,folder in selections:
                 try:
-                    spectrum_from_run(root/name/('soc-'+axis), root/name/('electronic-'+axis))
+                    spectrum_from_run(root/name/stage, root/name/folder,collinear_spin=spin)
                 except Exception as exc:
-                    save(root/name/('electronic-'+axis+'-error.json'), dict(status='held_diagnostic', reason=str(exc)))
+                    save(root/name/(folder+'-error.json'), dict(status='held_diagnostic', reason=str(exc)))
+            report['timing']['diagnostics_seconds'] += time.monotonic()-before_diagnostics
             flush()
         else:
             report['status'] = 'measured'
     except Exception as exc:
         report.update(status='held_error', reason=str(exc))
     finally:
+        report['timing']['function_calculations_finished_at'] = datetime.now(timezone.utc).isoformat()
         flush()
     return pack(root, include_arrays=True)
 

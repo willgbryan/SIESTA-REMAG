@@ -1,0 +1,56 @@
+{
+  "format": "REMAG-SPEC-CONTROLLED-EXECUTION-DELIVERY/1",
+  "recorded_at": "2026-11-15T18:34:56.199311+00:00",
+  "scope": "Spec 8/9 agent-controlled single-query execution through existing Modal account/ledger guards",
+  "implementation": [
+    "operator-enabled fixed runtime/image/budget configuration",
+    "persistent single-owner and authorization attempt bounds",
+    "one submission followed by collection, owned-app authoritative stop and hash/native review",
+    "explicit scalar/SOC spectrum requests",
+    "request-through-usable-result and available phase timing",
+    "agent prediction/execution/outcome/evaluation handoff"
+  ],
+  "tests": {
+    "research_discovery": "161 passed in 16.38s",
+    "failure_controls": [
+      "failed native health",
+      "interrupted submission",
+      "unknown app owner",
+      "shutdown observation failure",
+      "runtime mismatch",
+      "missing requested spectrum",
+      "changed authorization",
+      "exhausted stage",
+      "insufficient session deadline",
+      "no automatic retry or reservation refund"
+    ]
+  },
+  "synthetic_demonstration": {
+    "status": "completed",
+    "decisions": 7,
+    "execution_attempts": 1,
+    "query_status": "measured",
+    "allocation_stopped": true,
+    "session_report_sha256": "c9171e7d77f0eaec5253ecd87e28f5881e7c48c5da73a25b715ea04716579bb8",
+    "execution_report_sha256": "19426039ff335f2c6ab2ca4f68f58cc6ac584d074f43f786f0d82473c896ffc9",
+    "scope": "Actual agent/notebook/collection code with injected synthetic cloud transport and native backend; all app IDs and lifecycle records in this fixture are synthetic"
+  },
+  "implementation_sha256": {
+    "src/siesta_remag/research/execution.py": "2af3a9a7401a1bcba57b8e21c0ef445fb4d818078a983023996f61f6089ddf2f",
+    "src/siesta_remag/research/agent.py": "b9e05c41f4863e0bec44857a8f490bf52e7994b9bf4b21a9aedf19cb08b0f3a4",
+    "scripts/research_modal.py": "8e598144ed8ceee4470bfd7b78c42a6a8b26ee1c437bfbac29e975d937600ce9",
+    "tests/test_research_execution.py": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+  },
+  "actual_cloud_calls": 0,
+  "actual_native_calculations": 0,
+  "new_gpu_reservations_cents": 0,
+  "closed_campaign_budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "actual_billing_unknown": true,
+  "scientific_advantage_demonstrated": false,
+  "exploratory_latency_target_demonstrated": false,
+  "remaining": [
+    "live explicitly authorized execution integration",
+    "actual research-policy demonstration",
+    "equivalent-budget empirical comparison"
+  ]
+}

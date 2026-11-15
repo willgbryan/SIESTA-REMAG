@@ -137,6 +137,11 @@ class BudgetLedger:
             s = self._read()
             return self._remaining(s, stage)
 
+    def snapshot(self):
+        """Read a consistent reservation history without changing it."""
+        with self._lock():
+            return self._read()
+
     def reserve(self, reservation_id, cents, *, metadata, stage=None):
         if not isinstance(reservation_id, str) or not reservation_id or type(cents) is not int or cents <= 0:
             raise ValueError('Named positive whole-cent reservation required')

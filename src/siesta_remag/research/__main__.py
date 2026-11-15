@@ -39,8 +39,16 @@ def main(argv=None):
     p.add_argument('--max-steps', type=int, default=24)
     p.add_argument('--max-seconds', type=float, default=300)
     p.add_argument('--allow-cpu-relaxation', action='store_true')
+    p.add_argument('--execution-config', type=Path, help='Operator-authorized existing budget/runtime; omitted disables native execution')
     p = sub.add_parser('tools', help='Serve the experimental local JSON-lines research tool interface')
     p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--execution-config', type=Path)
+    p = sub.add_parser('execute-query', help='Execute one query using an explicit operator budget/runtime configuration')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--execution-config', type=Path, required=True)
+    p.add_argument('--bundle', required=True)
+    p.add_argument('--output', required=True)
+    p.add_argument('--spectra', type=Path, help='JSON list of requested stage/spin spectra')
     p = sub.add_parser('fept', help='Author exact FePt strain family and prepare fixed-geometry bundles')
     p.add_argument('--pseudos', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
@@ -100,13 +108,18 @@ def main(argv=None):
     if args.command == 'agent':
         from .agent import run_session
         result=run_session(args.workspace,args.output,objective=args.objective,policy_command=load(args.policy_command),
-            max_steps=args.max_steps,max_seconds=args.max_seconds,allow_cpu_relaxation=args.allow_cpu_relaxation)
+            max_steps=args.max_steps,max_seconds=args.max_seconds,allow_cpu_relaxation=args.allow_cpu_relaxation,execution_config=args.execution_config)
         print(json.dumps(result,indent=2,allow_nan=False))
         return 0 if result['status']=='completed' else 2
     if args.command == 'tools':
         from .tools import serve
-        serve(args.workspace)
+        serve(args.workspace,execution_config=args.execution_config)
         return 0
+    if args.command == 'execute-query':
+        from .execution import execute_query
+        result=execute_query(args.workspace,args.execution_config,args.bundle,args.output,spectra=load(args.spectra) if args.spectra else None)
+        print(json.dumps(result,indent=2,allow_nan=False))
+        return 0 if result['status']=='measured' else 2
     if args.command == 'serve':
         from .workspace import serve
         serve(args.workspace, args.port)

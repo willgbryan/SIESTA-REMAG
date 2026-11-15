@@ -82,6 +82,22 @@ def diagnostic_labels(query, requested=None):
     return selected
 
 
+def requested_spectra(query, requested):
+    """Explicit scalar channels or SOC spectra; no implicit extra directions."""
+    available = {'scalar':(0,1)} | {'soc-'+label:(0,) for label in
+        directions(query,dict(z=[0,0,1],x=[1,0,0],y=[0,1,0]))}
+    if not isinstance(requested,list) or len(requested) > 39:
+        raise ValueError('Select at most 39 stage/channel spectra')
+    seen = set()
+    for row in requested:
+        if (not isinstance(row,dict) or set(row) != {'stage','spin'} or not isinstance(row['stage'],str)
+                or row['stage'] not in available or type(row['spin']) is not int
+                or row['spin'] not in available[row['stage']] or (row['stage'],row['spin']) in seen):
+            raise ValueError('Spectrum requires a distinct requested stage and valid spin channel')
+        seen.add((row['stage'],row['spin']))
+    return requested
+
+
 def angular_fit(query, observations):
     """Fit E and F separately along one declared plane, with a free offset.
 

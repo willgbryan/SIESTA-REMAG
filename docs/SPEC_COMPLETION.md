@@ -12,7 +12,7 @@ tests or marked complete merely because the interface exists.
 | --- | --- | --- |
 | §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameters, volume/shape/axial and local coordination/displacement controls, full lineage | Broader coupled constraints and informative proposal assessment |
 | §§4.3, 6 reverse observations | Integrated relaxation preparation/feedback, site/orbit motion, neighbor changes, authored-operation residuals | Broader motif classification and changed-cell/atom-count correspondence; maximal symmetry remains unassessed |
-| §§4.4, 8–9 research tools | Python/worker tools, immutable notebook, bounded policy-driven inspection/authoring/prediction/outcome/revision sessions | Connect controlled new-calculation execution and demonstrate an actual research policy |
+| §§4.4, 8–9 research tools | Python/worker tools, immutable notebook, bounded policy-driven sessions, operator-enabled single-query execution/collection/shutdown/review | Live authorized execution integration and an actual research-policy demonstration |
 | §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selected-k eigenvectors/reconstructed density, native density and onsite orbital moments, Löwdin coupling blocks, same-basis state/subspace correspondence, selectable Mulliken/spin inspection, native moments/forces/stress | Isolated SOC operators; changed-basis correspondence and empirical mechanism tests |
 | §§5.3–5.4 response/anisotropy | Finite differences, response fits, scalar/selected-direction/angular queries, one-plane K1/K2 and branch checks | Broader structural/electronic response orchestration |
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
@@ -76,6 +76,13 @@ approximate-to-exact methods are deferred unless needed for a concrete query.
   selection. Analytic angular checks and saved FePt z/x/y tables reproduce the
   pinned onsite approximation. Isolated SOC and bulk orbital magnetization
   remain outside this delivered capability.
+
+- 15 November: [controlled query execution](RESEARCH_EXECUTION.md) connects
+  prepared agent queries to the existing single-GPU account/ledger guards,
+  collection, authoritative owned-app shutdown and source/runtime/native review.
+  Explicit stage/channel spectra and phase timing are supported. Synthetic
+  prediction→execution→outcome tests verify the handoff and failure behavior;
+  no live job or new spending authorization is implied by this implementation.
 
 Scientific status remains in `FEPT_QUALIFICATION_PLAN.md`; it is separate from
 this implementation checklist. No claim of verified mechanisms, transferable
