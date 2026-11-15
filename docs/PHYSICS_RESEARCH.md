@@ -5,6 +5,11 @@ authoring to fixed-geometry REMAG measurements. It reuses the existing discovery
 input generator, execution harness, density rotation, SCF review and magnetic
 branch checks. The existing Orb/relaxation screening workflow remains available.
 
+The [exploratory-mode plan](EXPLORATORY_MODE.md) records the owner's 1–5 minute
+target, existing REMAG timing/accuracy trade-offs and the distinction between
+provisional exploration and numerical verification. The target is not yet a
+qualified operating mode.
+
 Install REMAG with `.[research]` and install the GPAC checkout in the same Python
 environment. GPAC is required for authoring and the local viewer, not for remote
 execution of prepared numerical bundles. Versions and frozen GPAC semantics are
