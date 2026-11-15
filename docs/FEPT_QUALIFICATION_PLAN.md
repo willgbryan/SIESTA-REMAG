@@ -45,6 +45,13 @@ stopped and reviewed before another is explicitly launched; there is no
 automatic queue, retry, reference run or extension. Registration itself adds
 no reservation or allocation. The [preflight record](../tests/evidence/research/fept-radial-mesh-r4-preflight-2026-11-14.json)
 verifies exact input/configuration changes, hashes, thresholds and budget.
+The [execution readiness record](../tests/evidence/research/fept-radial-mesh-r4-readiness-2026-11-14.json)
+binds the single-case runner and recovery/review helpers before outcomes. It
+reproduces saved four-stage native health and rejects changed source, executable,
+runtime, request, stage inventory, unrelated numerical settings and radial
+shape/shell controls. The runner refuses any existing attempt and requires
+authoritative shutdown plus successful health review before a later case can
+be explicitly launched. It does not start a subsequent case automatically.
 
 The plan uses at most the remaining $65 basis envelope. The earlier 16→24 mesh
 failure means that even a passing 24→28 step cannot establish two successive

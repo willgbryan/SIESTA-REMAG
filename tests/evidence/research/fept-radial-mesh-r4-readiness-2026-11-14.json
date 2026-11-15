@@ -1,0 +1,43 @@
+{
+  "format": "REMAG-FEPT-CONTROL-EXECUTION-READINESS/1",
+  "recorded_at": "2026-11-15T02:06:18.708024+00:00",
+  "plan_commit": "9f4df6ea9d6772d82f2bf83ececd5e5e80195b16",
+  "plan_sha256": "def1db43e57bb43601084a510d377f0dcc09bb604d06c49aa80e8314821379c6",
+  "helpers_sha256": {
+    "run-fept-radial-mesh-r4.py": "2f7516b22377d89a4ba722685e71f625edc07ec3df0e4c3b3b2c113adba55bdf",
+    "recover-fept-control-native.py": "261d7cdc2703ee521709f27a264fc3f951ab74ac1d328a2db8ec2dae04b6ac32",
+    "fept_control_review.py": "42c7b0c614819fd9f6dfcc43735b3e2ebb9f9e3683eaec3416c6debe54e2a4de",
+    "fept_basis24_review.py": "c57b2a46b5ebd417c16067b41088a4d496565bdd4faeed1e6130c204d8e45967",
+    "test-fept-control-readiness.py": "a48e26e0bd2c44ec163f978964a75b6d511cac1af841d1d2bc39e34ce49df6b8"
+  },
+  "launcher": "work/fept-radial-mesh-r4-launcher",
+  "launcher_commit": "9f4df6ea9d6772d82f2bf83ececd5e5e80195b16",
+  "launcher_sha256": {
+    "scripts/run_modal.py": "9e5ad29976e9d18ba1b4dba4ef4061db1940f51acd24ed3246b2afcbfa7ebf5d",
+    "scripts/research_modal.py": "2be6ce1c599468791d299f77d0ac464bf42b8dc6cfbaf90b20af4716862ead95",
+    "examples/discovery/a100-host-runtime.json": "542e96ed0c123d27e9f209138a3a668459855b3b1d50e303eab34a388127618f"
+  },
+  "validation": {
+    "targeted_pytest_passed": 29,
+    "targeted_pytest_skipped": 2,
+    "saved_native_health_replication_passed": true,
+    "baseline_report_sha256": "efdf4264cad8d7d6ff159c505f7031a77778f608c62db3396b17c4216992c7c8",
+    "negative_controls_rejected": 8,
+    "radial_array_perturbation_detected": true,
+    "standalone_input_preflight_passed": true,
+    "all_helpers_parse": true
+  },
+  "first_case": "radial001",
+  "execution": "Exactly one registered case per explicit invocation. Refuse existing receipt/output/progress/evaluation. Require preceding health review and authoritative STOPPED state. Use shared Modal account guard,lock,ledger. Collect and stop before native recovery and local review. Never queue another case.",
+  "health_policy": "Original native,branch,basis,transverse and positive full-native-KP overlap checks. Native shell/radial audit reproduced independently; arrays match within each scalar/SOC case and across mesh controls. Radial changes across confinement values are intentional.",
+  "review_preserves_thresholds": {
+    "tolerance_ev": 5e-05,
+    "successive_changes": 2,
+    "transverse_tolerance_ev": 1e-05
+  },
+  "automatic_retries": 0,
+  "automatic_follow_on": false,
+  "new_pristine_reference": false,
+  "new_reservations_at_readiness_cents": 0,
+  "scope": "Readiness and saved-data tests only; no new scientific result or latency claim."
+}
