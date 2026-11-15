@@ -85,8 +85,9 @@ The research loop uses existing implementations, rather than separate copies:
    `retrieve_research_history`. SQLite transactions preserve prediction/outcome
    ordering across processes.
 
-The adapter is functional plumbing for the agent's scientific choices. It does
-not implement an autonomous selection policy, queue or uncertainty calibration.
+The tools provide the operations used by the agent's scientific choices. The
+opt-in [model policy](MODEL_RESEARCH_POLICY.md) now supplies the service-backed
+decision adapter; it does not add a queue or uncertainty calibration.
 Electronic mechanisms, end-to-end latency and the equivalent-budget comparison
 remain distinct empirical evaluations in the v3 completion checklist.
 
@@ -174,8 +175,9 @@ coupling convention. Matrix-only stages do not inherit another direction's DOS.
 ## Bounded policy sessions
 
 `agent` runs a trusted operator-supplied policy bridge over these tools. The
-bridge can connect an external Astra session or another research policy; no
-model API, credentials or model selection is embedded in this package. A bridge
+bridge can connect an external Astra session or another research policy. The
+package includes an opt-in [OpenAI Responses bridge](MODEL_RESEARCH_POLICY.md)
+with explicit model selection and environment-only credentials. A bridge
 reads one JSON context from stdin and returns one decision on stdout:
 
 ```json

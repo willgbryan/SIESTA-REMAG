@@ -30,6 +30,8 @@ def _process(command,payload,deadline,folder,label,*,limit,stop_grace=1):
     if remaining<=0:raise TimeoutError('Research session time limit reached')
     env=dict(os.environ)
     env['PYTHONPATH']=str(Path(__file__).resolve().parents[2])+os.pathsep+env.get('PYTHONPATH','')
+    if label=='policy':env['REMAG_RESEARCH_POLICY_STEP']=str(folder.resolve())
+    else:env.pop('REMAG_RESEARCH_POLICY_STEP',None)
     with (folder/(label+'.stdout')).open('xb') as stdout,(folder/(label+'.stderr')).open('xb') as stderr:
         proc=subprocess.Popen(command,stdin=subprocess.PIPE,stdout=stdout,stderr=stderr,env=env,start_new_session=True)
         try:
@@ -136,6 +138,12 @@ def run_session(workspace,output,*,objective,policy_command,max_steps=24,max_sec
         report.update(status='held_interrupted',retry_authorized=False)
         raise
     finally:
+        from .model_policy import audit_session
+        try:
+            model=audit_session(output)
+            if model is not None:report['model_policy']=model
+        except Exception as exc:
+            report.update(status='held_model_audit',model_audit_error=type(exc).__name__,retry_authorized=False)
         report.update(wall_seconds=time.monotonic()-started,finished_at=datetime.now(timezone.utc).isoformat(),
             scope='Policy/tool execution record; conclusions are not automatic scientific verification; native execution requires a separate operator configuration')
         save(output/'report.json',report)

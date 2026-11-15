@@ -212,6 +212,9 @@ def _audit_session(root,folder,record,arm):
     expected=p['limits'] | dict(objective=p['objective'],policy_command=p['policy_command'],information_profile=arm,
         withheld_sources=sorted(p['evaluation']['heldout_sources']),execution_config_sha256=record['arms'][arm]['execution_config_sha256'])
     if any(request.get(k)!=v for k,v in expected.items()):raise ValueError('Session limits, policy or information profile differs')
+    from .model_policy import audit_session
+    model=audit_session(session)
+    if model!=r.get('model_policy'):raise ValueError('Session model policy audit differs')
     native=[];tool_seconds=policy_seconds=0.
     for step in r['steps']:
         path=session/f"{step['index']:03d}";decision=load(path/'decision.json')
@@ -248,6 +251,7 @@ def _audit_session(root,folder,record,arm):
         reserved_cents=sum(costs) if len(costs)==r['native_execution_attempts'] and all(x is not None for x in costs) else None,
         native_pipeline_seconds=sum(times) if len(times)==r['native_execution_attempts'] and all(x is not None for x in times) else None,
         policy_wall_seconds=policy_seconds,tool_wall_seconds=tool_seconds,session_wall_seconds=r['wall_seconds'],
+        model_policy=model,
         actual_gpu_hours=None,actual_billed_usd=None,scope='Counts cover session execution actions, not cached inspections; native pipeline time excludes allocation overhead and is not GPU-hours')
 
 
