@@ -74,3 +74,32 @@ authorized by this document. Remaining basis-stage funds and existing numerical
 priorities still bound new convergence/calibration work. Preserve sealed models,
 holdouts and failures. Native and magnetic-branch acceptance remain required for
 any result represented as a completed measurement.
+
+## First bounded execution-path check
+
+The [registered REMAG-only check](../tests/evidence/research/fept-basis-accel-plan-r1-2026-11-14.json)
+reuses the completed 62-orbital, 24³, 0.0025 Ry result as its saved baseline.
+The scalar input bytes, executable, geometry, pseudopotentials and numerical
+stopping criteria remain identical. It selects the integrated device-SCF,
+vector cache, eight solver workspaces, warm starts and final-observable path
+already documented in [Running](RUNNING.md). GPU radial-table generation stays
+disabled, as required by the stronger-basis limitation recorded there.
+Historical portability evidence supplies the configuration, not a speedup or
+agreement claim for this different executable and dense input.
+
+This single attempt has a $5 reservation ceiling inside the basis stage,
+a 30-minute app deadline and 25-minute native deadline. The bound is a deliberate
+feasibility cutoff, not an estimated runtime. It has no fallback, retry or
+pristine reference. Native acceptance, branches, actual basis/radial identity,
+transverse symmetry and overlap health are required. All eight scalar/SOC E/F
+values and both anisotropies must agree with saved REMAG results within
+0.0010001 meV; this is separate from the unchanged convergence criteria.
+
+The check records submission-to-collection and submission-to-reviewed-result,
+including recovery and review overhead. Individual queue/startup phases remain
+unseparated. A passing result supports planning consistent-runtime radial/mesh
+comparisons; it cannot qualify their numerical stability, transfer the failed
+basis ladder, calibrate structural response accuracy or establish a universal
+exploratory default. An unsuccessful run is retained and diagnosed before
+any further attempt. After its reservation, $65 remains in the basis subcap;
+the separate $50 final-control cap cannot fund this work.

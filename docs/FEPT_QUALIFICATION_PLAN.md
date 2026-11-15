@@ -259,6 +259,16 @@ reservation capacity is $70; the separate $50 final-control cap remains gated.
 Cumulative reservations are $226.67 against $350; actual invoices are unknown.
 Pristine references remain cancelled and no replacement reference is needed.
 
+A [single $5 execution-path check](../tests/evidence/research/fept-basis-accel-plan-r1-2026-11-14.json)
+is registered before further long allocations. It tests the documented integrated
+REMAG path against the saved 62-orbital 24³ REMAG result, with identical scalar
+input bytes and strict E/F agreement. It launches no pristine reference.
+The [exploration plan](EXPLORATORY_MODE.md#first-bounded-execution-path-check)
+records its finite deadlines, latency scope and failure policy. Subsequent radial
+and enlarged-basis mesh inputs must use one consistent runtime and remain within
+the remaining basis allocation; neither runtime agreement nor a latency target
+changes any convergence result.
+
 ## Qualification target
 
 Qualify numerical stability of E[100]−E[001] and F[100]−F[001] for the fixed

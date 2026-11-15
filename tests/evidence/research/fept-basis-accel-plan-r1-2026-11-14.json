@@ -1,0 +1,391 @@
+{
+  "format": "REMAG-FEPT-EXECUTION-PATH-PLAN/1",
+  "recorded_at": "2026-11-15T01:32:38.421691+00:00",
+  "authorization": "Existing$250 extension: one GPU, basis/radial before predictions; latest priority exploratory1\u20135minute target. No new pristine references.",
+  "id": "tzp2-f1-k24-device",
+  "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "baseline_report": "remag-basis24-r3-62/tzp2-f1-k24/report.json",
+  "baseline_report_sha256": "efdf4264cad8d7d6ff159c505f7031a77778f608c62db3396b17c4216992c7c8",
+  "baseline_native": "remag-basis24-r3-62-native/tzp2-f1-k24",
+  "baseline_runtime": {
+    "executable": "/opt/remag-candidate/Src/siesta",
+    "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "0",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "0",
+      "REMAG_DEVICE_VECTOR_CACHE": "0",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "0",
+      "REMAG_ATOMIC_GRID_FORCE": "0",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "0",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "0",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "0",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "0",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "0",
+      "REMAG_POPULATION": "0",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "0",
+      "REMAG_GPU_HISTORY": "0",
+      "REMAG_FINAL_SPECTRA": "0",
+      "REMAG_GATE_H_EXPORT": "0",
+      "REMAG_DEFER_SCF_LOG": "0",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "0",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "1",
+      "REMAG_SCF_WARM_START": "0",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "threads": 1
+  },
+  "baseline_wall_seconds": 4361.268914161999,
+  "baseline_checkpoint_sha256": "014a58bf3433c16e485092cdeae8f8ff704f4cc20999e22c64a617fb75ee2f6f",
+  "runtime": {
+    "executable": "/opt/remag-candidate/Src/siesta",
+    "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "1",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "1",
+      "REMAG_DEVICE_VECTOR_CACHE": "1",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "1",
+      "REMAG_ATOMIC_GRID_FORCE": "1",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "1",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "1",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "1",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "1",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "1",
+      "REMAG_POPULATION": "1",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "1",
+      "REMAG_GPU_HISTORY": "1",
+      "REMAG_FINAL_SPECTRA": "1",
+      "REMAG_GATE_H_EXPORT": "1",
+      "REMAG_DEFER_SCF_LOG": "1",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "0",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "1",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "8",
+      "REMAG_SCF_WARM_START": "1",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "threads": 1
+  },
+  "runtime_sha256": "ec678ec0c4e23b00ec0e29be7df96e178bf5adb76711a0a047ff7dd59ff6b8e9",
+  "runtime_changes": {
+    "REMAG_NONLOCAL_H0": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_DEVICE_SCF": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_DEVICE_VECTOR_CACHE": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_GRID_FORCE": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_ATOMIC_GRID_FORCE": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_FINAL_GRID": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_FINAL_DENSITY": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_ORBITAL_BASIS": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_ATOMIC_BASIS": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_INTEGRAL_FORCE": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_POPULATION": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_GPU_INITIALIZATION": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_GPU_HISTORY": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_FINAL_SPECTRA": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_GATE_H_EXPORT": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_DEFER_SCF_LOG": {
+      "before": "0",
+      "after": "1"
+    },
+    "GFORTRAN_UNBUFFERED_PRECONNECTED": {
+      "before": "1",
+      "after": "0"
+    },
+    "REMAG_INITIAL_MESH": {
+      "before": "0",
+      "after": "1"
+    },
+    "REMAG_SCF_SOLVER_LANES": {
+      "before": "1",
+      "after": "8"
+    },
+    "REMAG_SCF_WARM_START": {
+      "before": "0",
+      "after": "1"
+    }
+  },
+  "image": "im-6tiYD2gedKlcxnGESfzwHd",
+  "previous_app_id": "ap-R8sy6pUCWDyTBsUNCR9Gja",
+  "request": {
+    "format": "REMAG-EXPERIMENT/1",
+    "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+    "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+    "parameter": {
+      "name": "REMAG_execution_path",
+      "purpose": "bounded latency and numerical-agreement check"
+    },
+    "fixed_geometry": true,
+    "settings": {
+      "orb_fmax_ev_ang": 0.02,
+      "orb_stress_gpa": 0.1,
+      "orb_steps": 400,
+      "orb_seconds": 300,
+      "dft_fmax_ev_ang": 0.04,
+      "dft_stress_gpa": 0.5,
+      "dft_steps": 30,
+      "dft_seconds": 1800,
+      "soc_seconds": 700,
+      "total_dft_seconds": 1500,
+      "max_scf": 150,
+      "dm_tolerance": 1e-05,
+      "h_tolerance_ev": 0.0001,
+      "mixing_weight": 0.03,
+      "mixing_history": 8,
+      "mesh_ry": 300,
+      "smearing_k": 300,
+      "k_spacing_inv_ang": 0.35,
+      "max_kpoints": 13824,
+      "max_atoms": 200,
+      "minimum_js_t": 0.4,
+      "axis_tolerance_deg": 1.0,
+      "branch_rms_mub": 0.2,
+      "branch_net_fraction": 0.05
+    },
+    "kmesh": [
+      24,
+      24,
+      24
+    ],
+    "basis_size": "explicit",
+    "basis_energy_shift_ry": 0.0025,
+    "pseudopotentials": {
+      "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+      "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+    },
+    "files": {
+      "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+      "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+      "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+      "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+      "scalar/input.fdf": "8cd7f9cec3c5c45c3fa3fc2faa95192aa0927caaba53293077b6f66603f9d398",
+      "scalar/manifest.json": "6f7f9da8a7cb93e5c0b800b7985c680bf1848dbff876463317c1cbbf6e0af59d",
+      "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+    },
+    "basis_spec": {
+      "format": "REMAG-PAO-BASIS/1",
+      "species": {
+        "Fe": [
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 3,
+            "polarization": 2,
+            "radii_bohr": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 3,
+            "polarization": 1,
+            "radii_bohr": [
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "Pt": [
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 3,
+            "polarization": 2,
+            "radii_bohr": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 3,
+            "polarization": 1,
+            "radii_bohr": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "request_sha256": "6289a234979a430d24b1db6183ae46d5c45d2f599ca94920acff8d70dffd41dd",
+  "agreement_criteria": {
+    "spatial_orbitals": 62,
+    "all_scalar_soc_E_F_absolute_tolerance_ev": 1.0001e-06,
+    "E_F_anisotropy_tolerance_ev": 1.0001e-06,
+    "transverse_tolerance_ev": 1e-05,
+    "native_radial_absolute_tolerance": 1e-10
+  },
+  "unchanged_convergence_criterion": {
+    "tolerance_ev": 5e-05,
+    "successive_changes": 2,
+    "transverse_tolerance_ev": 1e-05
+  },
+  "reserved_cents": 500,
+  "budget_stage": "basis-r2",
+  "stage_cap_cents": 15000,
+  "native_total_seconds": 1500,
+  "native_stage_seconds": 700,
+  "app_timeout_seconds": 1800,
+  "deadline_rationale": "A finite acceleration feasibility probe, not a prediction from the72.7minute host runtime. Stop if the integrated path cannot finish in25native minutes/30app minutes. No retry, fallback or extension; the1\u20135minute product target remains an independent measured outcome.",
+  "support": {
+    "document": "docs/RUNNING.md",
+    "document_sha256": "0b10b1192b5a24183373c39a158395d8002baafe5bb62f955d9facb2a415b8a5",
+    "metadata": "benchmarks/evidence/hopper-qualification-v187-20261012T214738Z/metadata.json",
+    "metadata_sha256": "94935b6ae43001ca3772e959bb08460483afdb1cf2f74041e878003c869d3e11",
+    "historical_executable_sha256": "e9c444827228c6b680dc5f9a62bf54f422a0220e5a6add27766ecbc0a2da40d1",
+    "applicability": "Existing integrated device-SCF,vector-cache,8lanes,warm-start and observable path; documented radial-table path staysCPU. Historical inputs/hardware/binary differ; no transferred speedup or present agreement assumed."
+  },
+  "helpers_sha256": {
+    "fept_basis24_review.py": "c57b2a46b5ebd417c16067b41088a4d496565bdd4faeed1e6130c204d8e45967",
+    "fept_runtime_review.py": "b3744f5e2b31ec835e8cd4b457f1c47729b8c73aad85e7353a790702ed94cb12",
+    "recover-fept-accel-native.py": "c684009b3aff5a10d5f6055d7483eea811476e04cab8a1f8f8fdd988375f7791",
+    "run-fept-basis-accel-r1.py": "563380090ebe35dc997f47ca5e539c9a5900f632d51f79fbfaac67dfacee3b7a"
+  },
+  "execution": "Exactlyone GPU via scripts/run_modal.py with shared account guard/lock/ledger. Confirm priorSTOPPED; collect,stop,recover and review. No upstream/native reference process is launched. A failed result stops this route with no automatic retry.",
+  "timing": "Measure submission-to-collection and submission-to-reviewed-result, native stages and overhead. Cross-allocation saved baseline is not a paired speedup comparison; record unmet latency honestly.",
+  "follow_on": "After review,preregister REMAG-only.01/.005Ry atcommon24 and62-orbitalmesh20 withinremaining$65basis. If the changed path passes,it requires a consistent new runtime for the entire new radial/mesh comparison; use this.0025Ry24 result as its baseline and register any additional matched mesh anchor. Prior failed host-runtimebasis gates remain. If it fails,diagnose without rerunning and retain existinghost evidence. No final controls or predictions until their gates support them.",
+  "new_pristine_reference": false,
+  "predictions_expansion_allowed": false,
+  "physical_accuracy_qualified": false,
+  "scope": "Single source-bound execution-path agreement and latency feasibility check supporting the enlarged-basis campaign; not basis completeness, physical accuracy, a generally calibrated exploratory default or guaranteed1\u20135minute service."
+}
