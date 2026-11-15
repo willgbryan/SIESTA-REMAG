@@ -103,3 +103,27 @@ basis ladder, calibrate structural response accuracy or establish a universal
 exploratory default. An unsuccessful run is retained and diagnosed before
 any further attempt. After its reservation, $65 remains in the basis subcap;
 the separate $50 final-control cap cannot fund this work.
+
+## Execution-path attempt: scalar recovered, SOC unmeasured
+
+The [saved-data diagnosis](../tests/evidence/research/fept-basis-accel-r1-diagnosis-2026-11-14.json)
+records a harness failure after the scalar stage completed in 122.24 seconds.
+The Hamiltonian-export audit misclassified `%block PAO.Basis` as an additional
+analysis request. The corrected policy recognizes this basis-definition block
+while continuing to reject unqualified analysis blocks and consumers.
+Reprocessing the saved files locally passes the runtime and native scalar
+checks; E/F differ from the saved host-controlled REMAG scalar by only
+−0.000008332/−0.000008291 meV. The scalar input bytes and executable are identical.
+The 62-orbital shell identity and magnetic branch pass; native radial arrays
+differ by at most 1.01e-12. Scalar overlap is positive at all 7,224 native k
+points, with maximum condition number 626,017. These are scalar health checks,
+not basis completeness or anisotropy validation.
+
+No SOC stage ran, and no completed scalar calculation was rerun. The original
+failed report and evaluation are retained. Its 190.02-second
+submission-to-reviewed-result field measures return of a failed attempt; it is
+not a usable four-stage result or demonstration of the exploratory target.
+The scalar timing is a cross-allocation observation, not a paired speedup.
+The app stopped at 01:37:50 UTC on 15 November. No retry or follow-on GPU is
+queued. Scientific convergence and observable-specific exploratory calibration
+remain open under the existing budget and criteria.

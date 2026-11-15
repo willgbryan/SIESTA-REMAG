@@ -19,3 +19,15 @@ def test_unqualified_hamiltonian_consumers_cannot_certify_zero_exports():
                     '%include other.fdf','MD.TypeOfRun FC'):
         with pytest.raises(ValueError):
             requested_hamiltonian_exports('SaveHS false\n'+setting,True)
+
+
+@pytest.mark.parametrize('label', ['PAO.Basis', 'pao_basis', 'PAO-BASIS'])
+def test_explicit_basis_does_not_add_a_hamiltonian_consumer(label):
+    basis = f'%block {label}\nFe 1\n n=4 0 2\n 0.0 0.0\n%endblock {label}\n'
+    assert requested_hamiltonian_exports(basis+'SaveHS true', True) == 4
+    assert requested_hamiltonian_exports(basis+'SaveHS false', True) == 0
+    for analysis in ('%block ProjectedDensityOfStates\n0 1\n%endblock',
+                     '%block UnqualifiedAnalysis\n1\n%endblock',
+                     'OpticalCalculation true'):
+        with pytest.raises(ValueError):
+            requested_hamiltonian_exports(basis+'SaveHS false\n'+analysis, True)

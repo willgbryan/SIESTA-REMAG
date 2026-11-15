@@ -19,7 +19,8 @@ def requested_hamiltonian_exports(input_text, gated):
         raise ValueError('Hamiltonian audit requires per-iteration H writes disabled')
     blocks={re.sub(r'[._-]','',m.group(1)).lower() for m in
             re.finditer(r'^\s*%block\s+(\S+)',input_text,re.I|re.M)}
-    if blocks-{'chemicalspecieslabel','latticevectors','atomiccoordinatesandatomicspecies','kgridmonkhorstpack','dminitspin'}:
+    # Explicit PAO shells define the basis; they do not consume a terminal H.
+    if blocks-{'chemicalspecieslabel','latticevectors','atomiccoordinatesandatomicspecies','kgridmonkhorstpack','dminitspin','paobasis'}:
         raise ValueError('Hamiltonian audit has no qualified additional analysis block')
     analysis=('coopwrite','borncharge','opticalcalculation','tdedwfinitialize',
               'siesta2wannier90writemmn','siesta2wannier90writeunk','siesta2wannier90writeamn','siesta2wannier90writeeig')

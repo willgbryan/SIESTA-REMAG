@@ -9,11 +9,23 @@ confirms the local reference driver and its native child stopped at
 case is cancelled, not a measured result or a convergence failure.
 
 No new pristine/upstream reference calculation is authorized by the plans below.
-The active REMAG calculation continues. Subsequent basis/radial/mesh comparisons
+Subsequent basis/radial/mesh comparisons
 use REMAG consistently, retain the original convergence criteria and existing
 verification evidence, and do not depend on completing the cancelled reference.
 The scheduled continuation has been updated accordingly. Budgets are unchanged;
 historical plans and results below remain as provenance.
+
+**Latest execution checkpoint:** the bounded integrated-path attempt stopped
+after its scalar calculation completed. A Python Hamiltonian-export audit
+incorrectly rejected the explicit `PAO.Basis` definition before saving the scalar
+result or starting SOC. The [saved-data diagnosis](../tests/evidence/research/fept-basis-accel-r1-diagnosis-2026-11-14.json)
+retains the failed attempt and applies a narrowly corrected block policy to the
+existing scalar files, without rerunning the solver. Scalar runtime/native checks
+pass; no complete execution-path agreement or usable four-stage latency is
+established. The app is stopped, and no follow-on GPU is queued. Reservations
+remain $231.67, with $65 basis capacity and $50 final-control capacity remaining;
+actual invoices are unknown. Further radial/mesh work requires a new bounded
+plan using a consistent runtime. The original numerical gates remain unresolved.
 
 Planning estimate, 14 November 2026. Mesh and basis checks take priority over
 new physics-guided predictions. This proposal does not authorize additional
