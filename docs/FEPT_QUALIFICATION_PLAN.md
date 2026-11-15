@@ -15,7 +15,40 @@ verification evidence, and do not depend on completing the cancelled reference.
 The scheduled continuation has been updated accordingly. Budgets are unchanged;
 historical plans and results below remain as provenance.
 
-**Latest measured checkpoint:** the [first REMAG radial control](../tests/evidence/research/fept-radial-mesh-r4-radial001-review-2026-11-14.json)
+**Latest measured checkpoint:** the [completed REMAG radial ladder](../tests/evidence/research/fept-radial-mesh-r4-radial0005-review-2026-11-14.json)
+passes both required E/F refinements at fixed 62 orbitals, 24³, 300 Ry and
+300 K, using one executable and the saved host-controlled runtime.
+
+| Confinement | E anisotropy | F anisotropy | E/F change from prior point |
+| --- | ---: | ---: | ---: |
+| 0.01 Ry | 2.545574 meV | 2.543005 meV | — |
+| 0.005 Ry | 2.575307 meV | 2.566790 meV | +0.029732 / +0.023785 meV |
+| 0.0025 Ry | 2.595153 meV | 2.585405 meV | +0.019846 / +0.018616 meV |
+
+Both successive changes meet the unchanged 0.05 meV criterion; transverse
+splitting meets 0.01 meV. This is a finite radial-control pass for this
+configuration. The earlier 16³ radial failure, common-mesh basis failure and
+62-orbital 16→24 mesh failure remain recorded. Full qualification, final
+controls and prediction expansion remain blocked by unresolved gates.
+
+The 0.005 Ry case passes all native, magnetic-branch, actual-shell and
+within-case radial checks. Its 7,224 scalar overlap matrices are positive;
+the maximum condition number is 348,044.94, between the 0.01 and 0.0025 Ry
+values of 228,395.30 and 626,016.84. Radial arrays intentionally change between
+confinement settings. Overlap health does not establish basis completeness.
+All 23 recovered native files (180,244,864 bytes) were verified. Experiment
+time was 4,074.73 seconds; submission through collection was 4,240.34 seconds
+and through review was 4,423.33 seconds. Queue/startup remain unseparated,
+and this is neither an exploratory-latency demonstration nor a paired speedup.
+
+The app stopped at 04:34:37 UTC on 15 November. At this checkpoint, $271.67
+is reserved, $25 remains for the registered 28³ mesh control, and the separate
+$50 final stage is untouched; invoices are unknown. The 28³ control requires
+a fresh authoritative allocation check. Even if 24→28 passes, the earlier
+16→24 failure prevents a two-successive-step mesh pass. Close the bounded
+attempt after this final registered control; do not extend it with final funds.
+
+**First radial checkpoint:** the [first REMAG radial control](../tests/evidence/research/fept-radial-mesh-r4-radial001-review-2026-11-14.json)
 completed at 62 orbitals, 24³ and 0.01 Ry. E/F anisotropies are
 2.545574/2.543005 meV/cell. The nonadjacent 0.01→0.0025 Ry endpoint changes
 E/F by +0.049579/+0.042401 meV, within 0.05 meV, but cannot establish the

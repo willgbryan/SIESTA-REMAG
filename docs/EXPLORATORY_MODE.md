@@ -145,3 +145,12 @@ through native recovery and review. These intervals are for this background
 It does not demonstrate the 1–5 minute target or a paired speedup. The endpoint
 comparison is within tolerance, but the intermediate radial point and existing
 basis/mesh failures still prevent qualification.
+
+The [completed host-runtime radial ladder](../tests/evidence/research/fept-radial-mesh-r4-radial0005-review-2026-11-14.json)
+now passes the two successive E/F radial refinements at 62 orbitals and 24³.
+The intermediate 0.005 Ry case took 4,074.73 seconds of experiment time,
+4,240.34 seconds from submission through collection, and 4,423.33 seconds
+through review. Native, branch, actual-basis and overlap health pass.
+These background timings do not demonstrate the exploratory target, a paired
+speedup or calibrated response accuracy. Basis-size and enlarged-basis mesh
+qualification remain unresolved; no exploratory default is selected.
