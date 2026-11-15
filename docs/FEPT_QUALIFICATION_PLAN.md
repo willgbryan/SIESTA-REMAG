@@ -15,7 +15,30 @@ verification evidence, and do not depend on completing the cancelled reference.
 The scheduled continuation has been updated accordingly. Budgets are unchanged;
 historical plans and results below remain as provenance.
 
-**Latest execution checkpoint:** the bounded integrated-path attempt stopped
+**Latest measured checkpoint:** the [first REMAG radial control](../tests/evidence/research/fept-radial-mesh-r4-radial001-review-2026-11-14.json)
+completed at 62 orbitals, 24³ and 0.01 Ry. E/F anisotropies are
+2.545574/2.543005 meV/cell. The nonadjacent 0.01→0.0025 Ry endpoint changes
+E/F by +0.049579/+0.042401 meV, within 0.05 meV, but cannot establish the
+required two successive refinements: the registered 0.005 Ry point is pending.
+Prior common-mesh basis and enlarged-basis mesh failures remain unchanged.
+
+All four native stages, magnetic branches, actual shell identity, within-case
+radial identity and transverse checks pass. All 7,224 native scalar overlap
+matrices are positive; the maximum condition number is 228,395.30, compared
+with 626,016.84 at the saved 0.0025 Ry endpoint. The radial arrays intentionally
+change between confinement settings; this conditioning diagnostic does not
+establish basis completeness. All 23 recovered native files (131,966,776 bytes)
+were verified. Native experiment time was 3,621.50 seconds; submission through
+collection was 3,805.44 seconds and through review was 3,954.02 seconds. Queue
+and startup times remain unseparated. This background control does not meet
+the exploratory latency target or establish a speedup.
+
+The app stopped at 03:10:59 UTC on 15 November. At this checkpoint, reservations
+are $251.67, with $45 remaining in the basis stage and the $50 final stage
+untouched; invoices are unknown. The existing plan permits the 0.005 Ry case
+only after this health review and a fresh authoritative allocation check.
+
+**Earlier execution-path checkpoint:** the bounded integrated-path attempt stopped
 after its scalar calculation completed. A Python Hamiltonian-export audit
 incorrectly rejected the explicit `PAO.Basis` definition before saving the scalar
 result or starting SOC. The [saved-data diagnosis](../tests/evidence/research/fept-basis-accel-r1-diagnosis-2026-11-14.json)
@@ -23,9 +46,9 @@ retains the failed attempt and applies a narrowly corrected block policy to the
 existing scalar files, without rerunning the solver. Scalar runtime/native checks
 pass; no complete execution-path agreement or usable four-stage latency is
 established. The app is stopped, and no follow-on GPU is queued. Reservations
-remain $231.67, with $65 basis capacity and $50 final-control capacity remaining;
-actual invoices are unknown. Further radial/mesh work requires a new bounded
-plan using a consistent runtime. The original numerical gates remain unresolved.
+were $231.67, with $65 basis capacity and $50 final-control capacity remaining;
+actual invoices were unknown. The subsequent plan below uses a consistent
+runtime. The original numerical gates remain unresolved.
 
 The [remaining radial/mesh plan](../tests/evidence/research/fept-radial-mesh-plan-r4-2026-11-14.json)
 now registers three individual REMAG controls, using the saved host-controlled

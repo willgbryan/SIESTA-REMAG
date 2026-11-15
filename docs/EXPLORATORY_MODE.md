@@ -136,3 +136,12 @@ is the remaining $65 basis envelope, with explicit review between cases and
 no automatic queue. The incomplete integrated-path probe cannot supply a SOC
 anchor for mixing runtimes. Existing exploratory calibration evidence and
 scientific failures remain unchanged.
+
+The [first host-controlled radial case](../tests/evidence/research/fept-radial-mesh-r4-radial001-review-2026-11-14.json)
+completed with all health checks passing: 3,621.50 seconds of experiment time,
+3,805.44 seconds from submission through collection, and 3,954.02 seconds
+through native recovery and review. These intervals are for this background
+62-orbital, 24³, 0.01 Ry control; queue and startup remain unseparated.
+It does not demonstrate the 1–5 minute target or a paired speedup. The endpoint
+comparison is within tolerance, but the intermediate radial point and existing
+basis/mesh failures still prevent qualification.
