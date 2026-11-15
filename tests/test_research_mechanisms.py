@@ -27,8 +27,11 @@ def test_nonorthogonal_density_trace_and_lowdin_energy_gauge():
     shifted = decompose(h+3*s, s, 3., .025, degeneracy=2)
     assert np.allclose(d['density'], shifted['density'])
     groups = [dict(indices=[0]), dict(indices=[1])]
-    assert coupling_summary(d['lowdin_hamiltonian_ev'], groups)['strongest_couplings'] == pytest.approx(
-        coupling_summary(shifted['lowdin_hamiltonian_ev'], groups)['strongest_couplings'])
+    for result in (d, shifted):
+        coupling = coupling_summary(result['lowdin_hamiltonian_ev'], groups)['strongest_couplings'][0]
+        assert (coupling['left'], coupling['right']) == (0, 1)
+        assert coupling['frobenius_ev'] == pytest.approx(.2, rel=0, abs=1e-12)
+        assert coupling['largest_singular_value_ev'] == pytest.approx(.2, rel=0, abs=1e-12)
 
 
 def test_degenerate_projectors_survive_arbitrary_complex_rotation():
