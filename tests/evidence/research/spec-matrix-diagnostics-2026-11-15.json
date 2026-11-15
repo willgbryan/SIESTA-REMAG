@@ -1,0 +1,69 @@
+{
+  "format": "REMAG-SPEC-MATRIX-DELIVERY/1",
+  "spec_sections": [
+    "5.1",
+    "5.2",
+    "5.3",
+    "9",
+    "10"
+  ],
+  "tests": {
+    "research_discovery": "110 passed in 13.22s",
+    "final_mechanism_controls": "11 passed in 0.44s",
+    "javascript": "node --check passed; DOM/canvas stub exercised atom/k/direction, DOS and structure transitions",
+    "visual_render_verified": false
+  },
+  "saved_example": {
+    "source": "saved 62-orbital FePt / 24-cubed / 0.0025 Ry",
+    "matrix_cases": {
+      "soc-z": {
+        "artifact_sha256": "af9856bf9c1c1579b729bdbcbf8cc8ebeea3e5e2cb4dacdc753d3715b3824aff",
+        "native_max_abs_error_ev": 0.0009098792795043664,
+        "reconstruction_max_residual_ev": 1.770899561969398e-11,
+        "selected_k_weight": 0.00021701388888888888,
+        "k_indices": [
+          0,
+          4000,
+          10000
+        ],
+        "native_k_count": 13824
+      },
+      "soc-x": {
+        "artifact_sha256": "1063270cd4b422b4de8618fe2e0d739d7bbe4608eb2ff5c74ca169039ac75959",
+        "native_max_abs_error_ev": 0.0009103852404450663,
+        "reconstruction_max_residual_ev": 1.1926564309825119e-11,
+        "selected_k_weight": 0.00021701388888888888,
+        "k_indices": [
+          0,
+          4000,
+          10000
+        ],
+        "native_k_count": 13824
+      }
+    },
+    "native_k_points_selected": 3,
+    "native_k_points_total": 13824,
+    "displayed_endpoint_associations": 35,
+    "ambiguous_associations": 8,
+    "common_basis_max_abs_differences": {
+      "cell_bohr": 0.0,
+      "positions_bohr": 0.0,
+      "radial_functions": 0.0,
+      "k_fractional": 0.0,
+      "k_weights": 0.0,
+      "overlap": 0.0
+    },
+    "comparison_artifact_sha256": "0d69c0cf8aaa59a9c4e3147571fc15dccb2262533b458641966d02c0b0d5a97a",
+    "matrix_export_and_first_comparison_seconds": 5.10907479096204
+  },
+  "new_native_calculations": 0,
+  "new_gpu_reservations_cents": 0,
+  "scope": "Local saved-data postprocessing; not new DFT latency, full-k anisotropy, isolated SOC, orbital moments or a demonstrated mechanism.",
+  "remaining": [
+    "isolated SOC and orbital-moment operators",
+    "cross-basis correspondence for changed geometry/radials",
+    "actual research-policy demonstration and equal-budget comparison",
+    "controlled execution integration",
+    "interactive authoring and transfer workflows"
+  ]
+}

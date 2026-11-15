@@ -10,6 +10,21 @@ from .experiments import prepare_experiment, run_experiment
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
     sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('matrices', help='Export selected-k eigenvectors, reconstructed density and orbital coupling from saved native evidence')
+    p.add_argument('report', type=Path)
+    p.add_argument('--stage', required=True)
+    p.add_argument('--native-directory', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--k-indices', type=int, nargs='+', default=[0])
+    p.add_argument('--spin', type=int, default=0)
+    p.add_argument('--collection', type=Path)
+    p = sub.add_parser('compare-matrices', help='Compare same-basis endpoint states and total Hamiltonian changes')
+    p.add_argument('before', type=Path)
+    p.add_argument('after', type=Path)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--energy-window-ev', type=float, nargs=2, default=[-3, 3])
+    p.add_argument('--degeneracy-tolerance-ev', type=float, default=1e-5)
+    p.add_argument('--limit', type=int, default=40)
     p = sub.add_parser('agent', help='Run a bounded research policy over local tools')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--output', required=True, help='New session directory inside the workspace')
@@ -90,7 +105,15 @@ def main(argv=None):
         from .workspace import serve
         serve(args.workspace, args.port)
         return 0
-    if args.command == 'prepare':
+    if args.command == 'matrices':
+        from .mechanisms import export_matrices
+        result = export_matrices(args.report,args.stage,args.native_directory,args.output,
+            k_indices=args.k_indices,collinear_spin=args.spin,collection=args.collection)
+    elif args.command == 'compare-matrices':
+        from .mechanisms import compare_matrices
+        result = compare_matrices(args.before,args.after,args.output,energy_window_ev=args.energy_window_ev,
+            degeneracy_tolerance_ev=args.degeneracy_tolerance_ev,limit=args.limit)
+    elif args.command == 'prepare':
         result = prepare_experiment(load(args.structure), args.pseudos, args.output,
             settings=Settings.from_dict(load(args.settings) if args.settings else {}), mesh=args.mesh,
             basis_size=args.basis, basis_spec=load(args.basis_spec) if args.basis_spec else None,

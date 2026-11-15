@@ -13,7 +13,7 @@ tests or marked complete merely because the interface exists.
 | §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameters, volume/shape/axial and local coordination/displacement controls, full lineage | Broader coupled constraints and informative proposal assessment |
 | §§4.3, 6 reverse observations | Integrated relaxation preparation/feedback, site/orbit motion, neighbor changes, authored-operation residuals | Broader motif classification and changed-cell/atom-count correspondence; maximal symmetry remains unassessed |
 | §§4.4, 8–9 research tools | Python/worker tools, immutable notebook, bounded policy-driven inspection/authoring/prediction/outcome/revision sessions | Connect controlled new-calculation execution and demonstrate an actual research policy |
-| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selectable Mulliken/state/spin inspection and DOS comparison, native moments/forces/stress | Documented SOC/orbital mechanism diagnostics and state correspondence |
+| §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selected-k eigenvectors/reconstructed density, Löwdin coupling blocks, same-basis state/subspace correspondence, selectable Mulliken/spin inspection, native moments/forces/stress | Isolated SOC and orbital-moment operators; changed-basis correspondence and empirical mechanism tests |
 | §§5.3–5.4 response/anisotropy | Finite differences, response fits, scalar/selected-direction/angular queries, one-plane K1/K2 and branch checks | Broader structural/electronic response orchestration |
 | §5.5 and exploratory target | Existing GPU execution paths and saved timing evidence | Full query latency accounting and observable-specific calibration; 1–5 minutes remains a product target |
 | §§6, 7 FePt integration | Reproducible fixed-geometry dataset, source/input/runtime hashes, independent response controls | Connect new tools to saved data and complete mechanism-oriented experiment capabilities |
@@ -62,6 +62,13 @@ approximate-to-exact methods are deferred unless needed for a concrete query.
   persist intent/results, and stop on limits or failure. A synthetic full
   hypothesis→prediction→outcome→revision loop passes. Native execution remains
   separately controlled; no live-model research quality is inferred.
+
+- 15 November: [selected-k matrix diagnostics](ELECTRONIC_MECHANISMS.md) export
+  eigenvectors, reconstructed density and explicit orbital-coupling blocks.
+  Same-basis endpoint association handles energy-order changes and degenerate
+  subspaces. Analytic tests and saved FePt z/x postprocessing exercise the agent
+  interface; no native solver runs. Self-consistent Hamiltonian differences
+  remain distinct from isolated SOC, and partial band sums from total MAE.
 
 Scientific status remains in `FEPT_QUALIFICATION_PLAN.md`; it is separate from
 this implementation checklist. No claim of verified mechanisms, transferable

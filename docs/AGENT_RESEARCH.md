@@ -35,6 +35,13 @@ Fermi level. It reports the Fermi shift separately. Matching orbital labels
 does not establish identical radial functions, band identity through crossings,
 SOC attribution, a unique partition or a verified mechanism.
 
+`export_electronic_matrices` reconstructs selected-k H/S, eigenvectors, density
+and explicit Löwdin orbital-coupling blocks from accepted, hash-bound native
+evidence. `compare_electronic_matrices` requires actual same-radial-basis and
+geometry checks before associating endpoint states, including degenerate
+subspace overlap diagnostics. Total self-consistent Hamiltonian changes are
+kept distinct from isolated SOC. See [matrix conventions and runnable examples](ELECTRONIC_MECHANISMS.md).
+
 `calibrate_exploratory_response` accepts two lists of saved report paths,
 `exploratory` and `reference`, plus `baseline_source_sha256` and a declared
 `resolution_ev`. Each tier must contain the same baseline and at least two
@@ -132,6 +139,12 @@ limited to the nearest 100 states within ±3 eV, with omitted counts visible;
 the agent inspection tool supports other bounded selections. Labels are text,
 never executable markup. The original FePt-family workspace remains available
 when no catalog is present. Viewing never submits calculations.
+
+A calculation can also register `matrices: {"soc-z": "inspection/z/matrices.json"}`.
+The viewer checks the report, stage and HSX bindings and shows the strongest
+Löwdin atom/l coupling blocks touching the selected atom or orbit, with a
+selected-k picker. It displays sampling coverage and the basis-dependent
+coupling convention. Matrix-only stages do not inherit another direction's DOS.
 
 ## Bounded policy sessions
 

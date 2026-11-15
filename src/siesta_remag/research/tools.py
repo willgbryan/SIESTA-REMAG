@@ -16,6 +16,12 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'export_electronic_matrices': {'required':['report','stage','native_directory','output'],
+        'optional':['k_indices','collinear_spin','collection'],
+        'description':'Reconstruct eigenvectors, density and Lowdin orbital-coupling blocks at up to eight saved native k points; no solver run.'},
+    'compare_electronic_matrices': {'required':['before','after','output'],
+        'optional':['energy_window_ev','degeneracy_tolerance_ev','limit'],
+        'description':'Associate same-basis endpoint states with overlap/subspace diagnostics and total Hamiltonian changes; does not isolate SOC or compute MAE.'},
     'prepare_relaxation': {'required':['structure','pseudos','weights','output'], 'optional':['settings','orb_threads'],
         'description':'Bind an exact source and run bounded CPU Orb preparation using supplied weights; no native/GPU submission.'},
     'inspect_relaxation': {'required':['structure','bundle','report'],
@@ -124,6 +130,15 @@ class ResearchTools:
         schema = TOOLS[name]
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
+        if name == 'export_electronic_matrices':
+            from .mechanisms import export_matrices
+            return export_matrices(self.path(args['report']), args['stage'], self.path(args['native_directory']),
+                self.path(args['output']), collection=self.path(args['collection']) if 'collection' in args else None,
+                **{k:v for k,v in args.items() if k in ('k_indices','collinear_spin')})
+        if name == 'compare_electronic_matrices':
+            from .mechanisms import compare_matrices
+            return compare_matrices(self.path(args['before']),self.path(args['after']),self.path(args['output']),
+                **{k:v for k,v in args.items() if k in ('energy_window_ev','degeneracy_tolerance_ev','limit')})
         if name == 'prepare_relaxation':
             from .relaxation import prepare_relaxation
             from ..discovery.config import Settings
