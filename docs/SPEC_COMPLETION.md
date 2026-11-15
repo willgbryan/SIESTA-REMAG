@@ -40,6 +40,10 @@ approximate-to-exact methods are deferred unless needed for a concrete query.
   worker access and persistent hypothesis/prediction/outcome operations. Actual
   report ingestion binds the recorded experiment source and artifact hashes.
   This delivers tool access, not an autonomous experiment-selection policy.
+- 15 November: a saved-report calibration tool compares matched intervention
+  responses, signs and pair rankings separately for E/F. It rejects unmatched
+  sources and inconsistent tiers and retains unresolved small signals. Actual
+  calibration coverage and new-calculation latency remain empirical work.
 
 Scientific status remains in `FEPT_QUALIFICATION_PLAN.md`; it is separate from
 this implementation checklist. No claim of verified mechanisms, transferable

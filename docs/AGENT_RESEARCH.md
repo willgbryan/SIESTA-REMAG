@@ -35,6 +35,17 @@ Fermi level. It reports the Fermi shift separately. Matching orbital labels
 does not establish identical radial functions, band identity through crossings,
 SOC attribution, a unique partition or a verified mechanism.
 
+`calibrate_exploratory_response` accepts two lists of saved report paths,
+`exploratory` and `reference`, plus `baseline_source_sha256` and a declared
+`resolution_ev`. Each tier must contain the same baseline and at least two
+matched structural interventions, with one numerical configuration per tier.
+It verifies the native stages and artifacts, reports E/F response discrepancies,
+response signs and pair rankings, and exposes every changed setting between
+tiers. Near-zero responses and ties remain unresolved. These observed errors
+do not become uncertainty bounds or a universal default, and the reference
+tier does not acquire a physical-accuracy certificate from its name. This is
+saved-data analysis; no convergence campaign or calculation is started.
+
 The research loop uses existing implementations, rather than separate copies:
 
 1. Use `structural_operation` with a GPAC worker request to inspect, author,

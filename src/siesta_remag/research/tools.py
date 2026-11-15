@@ -16,6 +16,8 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'calibrate_exploratory_response': {'required': ['exploratory','reference','baseline_source_sha256','resolution_ev'], 'optional': [],
+        'description': 'Compare response errors, signs and rankings from saved matched structures; selects no universal default.'},
     'inspect_calculation': {'required': ['report'], 'optional': [],
         'description': 'Verify a saved calculation and inspect measured stages, moments, forces, stress and anisotropy.'},
     'inspect_electronic_structure': {'required': ['spectrum'], 'optional': ['selection'],
@@ -80,6 +82,10 @@ class ResearchTools:
         schema = TOOLS[name]
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
+        if name == 'calibrate_exploratory_response':
+            from .calibration import calibrate_response
+            return calibrate_response([self.path(p) for p in args['exploratory']], [self.path(p) for p in args['reference']],
+                baseline_source_sha256=args['baseline_source_sha256'],resolution_ev=args['resolution_ev'])
         if name == 'inspect_calculation':
             path = self.path(args['report']); report = _verified_report(path)
             observations = {stage: {k:v for k,v in row.items() if k != 'eigenvalues'}
