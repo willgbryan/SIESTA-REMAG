@@ -10,6 +10,14 @@ from .experiments import prepare_experiment, run_experiment
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
     sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('agent', help='Run a bounded research policy over local tools')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--output', required=True, help='New session directory inside the workspace')
+    p.add_argument('--objective', required=True)
+    p.add_argument('--policy-command', type=Path, required=True, help='JSON array naming a trusted policy command and its arguments')
+    p.add_argument('--max-steps', type=int, default=24)
+    p.add_argument('--max-seconds', type=float, default=300)
+    p.add_argument('--allow-cpu-relaxation', action='store_true')
     p = sub.add_parser('tools', help='Serve the experimental local JSON-lines research tool interface')
     p.add_argument('--workspace', type=Path, required=True)
     p = sub.add_parser('fept', help='Author exact FePt strain family and prepare fixed-geometry bundles')
@@ -68,6 +76,12 @@ def main(argv=None):
     p.add_argument('--structure', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
+    if args.command == 'agent':
+        from .agent import run_session
+        result=run_session(args.workspace,args.output,objective=args.objective,policy_command=load(args.policy_command),
+            max_steps=args.max_steps,max_seconds=args.max_seconds,allow_cpu_relaxation=args.allow_cpu_relaxation)
+        print(json.dumps(result,indent=2,allow_nan=False))
+        return 0 if result['status']=='completed' else 2
     if args.command == 'tools':
         from .tools import serve
         serve(args.workspace)

@@ -132,3 +132,39 @@ limited to the nearest 100 states within ±3 eV, with omitted counts visible;
 the agent inspection tool supports other bounded selections. Labels are text,
 never executable markup. The original FePt-family workspace remains available
 when no catalog is present. Viewing never submits calculations.
+
+## Bounded policy sessions
+
+`agent` runs a trusted operator-supplied policy bridge over these tools. The
+bridge can connect an external Astra session or another research policy; no
+model API, credentials or model selection is embedded in this package. A bridge
+reads one JSON context from stdin and returns one decision on stdout:
+
+```json
+{"tool":"inspect_electronic_structure","args":{"spectrum":"run/electronic-z/electronic.json","selection":{"atom_indices":[1],"limit":10}},"rationale":"Test whether the selected atom dominates the near-Fermi states"}
+```
+
+It receives the objective, available tools, prior decisions/results and remaining
+limits on every invocation. It ends with `{"finish":"Evidence-based conclusion"}`.
+The operator stores its command as a JSON argument array, for example
+`["python", "/absolute/path/to/policy_bridge.py"]`, and runs:
+
+```sh
+python -m siesta_remag.research agent --workspace /path/to/research \
+  --output sessions/question-001 --objective "Distinguish the competing mechanisms" \
+  --policy-command /path/to/policy-command.json --max-steps 24 --max-seconds 300
+```
+
+Each decision and action is saved before the tool runs. Responses, process
+streams, phase timings and the terminal reason remain in the new session
+folder. Step/time/context limits, tool failures and policy failures stop the
+session; there are no automatic retries or replay of interrupted actions.
+Notebook events may have committed before a timeout, so inspect the retained
+history before starting a separate session. CPU Orb preparation is unavailable
+unless `--allow-cpu-relaxation` is explicit. A fixed allowlist excludes native/GPU
+submission; preparing a query leaves execution to the existing separately
+controlled runtime. The trusted policy command itself is not a filesystem or
+network sandbox, and must not perform unrecorded calculations or use hidden
+holdout information. A completed policy session certifies neither its scientific
+conclusion nor a model's research quality. No live model or new DFT run is needed
+to test the policy/tool plumbing.
