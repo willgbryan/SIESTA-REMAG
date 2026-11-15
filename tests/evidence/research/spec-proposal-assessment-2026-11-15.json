@@ -1,0 +1,358 @@
+{
+  "format": "REMAG-SPEC-IMPLEMENTATION-EVIDENCE/1",
+  "created_at": "2026-11-15T20:29:58.185972+00:00",
+  "scope": "Spec 4.5/8/9: GPAC-owned informative proposal assessment available to both research profiles",
+  "implementation": [
+    "Periodic distances, geometric coordination and same-species isolation under explicit rational thresholds",
+    "Exact species-preserving translations and declared cell/orbit complexity preferences",
+    "Optional literal reference-cell principal stretches and declared family composition/authored-Hall rules",
+    "Source/reference/policy/report hashes with saved exact input reproduction",
+    "Agent assessment and notebook evidence handoff; advisory findings do not block query preparation"
+  ],
+  "tests": {
+    "gpac_focused": "16 passed in 5.57s",
+    "gpac_boundary": "322 passed in 7.85s",
+    "remag_broad": "283 passed; two initial sandbox loopback denials retained",
+    "remag_http": "2 passed, 15 deselected in 6.20s with socket permission",
+    "remag_final_proposal": "7 passed in 11.00s; includes both information profiles and real local policy/tool subprocess"
+  },
+  "demonstration": {
+    "format": "REMAG-SPEC-PROPOSAL-DEMO/1",
+    "purpose": "Saved exact candidates assessed through the real local research tool; illustrative policies, not calibrated chemistry",
+    "cases": [
+      {
+        "case": "fept",
+        "source_file": "work/spec-authoring-demo-r1/baseline/structure.json",
+        "source_file_sha256": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "policy_sha256": "5f544152629cc3c38acafec46fe60d836f70ba3bfab1cbafdc7c9b016b976786",
+        "assessment_sha256": "92941000db2530787830d61bb41cde849a8902d58ee5c31cdb36527a36a4a3f9",
+        "measurements": {
+          "site_count": 2,
+          "orbit_count": 2,
+          "authored_hall": 400,
+          "composition": [
+            {
+              "atomic_number": 26,
+              "count": 1
+            },
+            {
+              "atomic_number": 78,
+              "count": 1
+            }
+          ],
+          "volume_angstrom3": 28.246491,
+          "volume_per_site_angstrom3": 14.1232455,
+          "minimum_distance_within_cutoff_angstrom": 2.705083178018746,
+          "coordination": [
+            {
+              "site_index": 0,
+              "site_id": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4:site.0000",
+              "atomic_number": 26,
+              "neighbors": 12,
+              "same_species_neighbors": 4,
+              "counts_by_species": [
+                {
+                  "atomic_number": 26,
+                  "count": 4
+                },
+                {
+                  "atomic_number": 78,
+                  "count": 8
+                }
+              ]
+            },
+            {
+              "site_index": 1,
+              "site_id": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4:site.0001",
+              "atomic_number": 78,
+              "neighbors": 12,
+              "same_species_neighbors": 4,
+              "counts_by_species": [
+                {
+                  "atomic_number": 26,
+                  "count": 8
+                },
+                {
+                  "atomic_number": 78,
+                  "count": 4
+                }
+              ]
+            }
+          ],
+          "nonzero_species_preserving_translations_fractional": [],
+          "reference_cell_strain": null
+        },
+        "findings": [],
+        "scope": {
+          "neighbor_cutoff_angstrom": 3.0,
+          "cutoff_boundary_tolerance_angstrom": 1e-09,
+          "periodic_self_images_included": true,
+          "neighbors_are_chemical_bonds": false,
+          "coordination_species_without_rules": [
+            26,
+            78
+          ],
+          "policy_species_absent_from_candidate": [],
+          "declared_family_rules_assessed": false,
+          "geometric_translation_check_ignores_magnetic_annotations": true,
+          "exact_source_modified": false,
+          "static_program_validation_passed": true,
+          "chemical_stability_assessed": false,
+          "synthesizability_assessed": false,
+          "maximal_symmetry_assessed": false,
+          "magnetic_order_assessed": false,
+          "no_findings_means": "No declared rule triggered; not a feasibility or completeness certificate"
+        }
+      },
+      {
+        "case": "shape",
+        "source_file": "work/spec-authoring-demo-r1/candidate/structure.json",
+        "source_file_sha256": "846b3f3b1f473cf7f2eb550adaad732cbdaa0b5a727eacd9a1c2f2acbb9f5632",
+        "source_sha256": "81e75f111c7537ad4202f044582d2ebc10a3f9bb4dbf3ae1b475023351def854",
+        "policy_sha256": "88d9e6329dcf618925bace49e2f549d1ce70823b7953fb764dc4a27baf191615",
+        "assessment_sha256": "8f3c8583d7d0d352e1c755ad8c2a892e746fafa51c910568be200b483a7056d8",
+        "measurements": {
+          "site_count": 2,
+          "orbit_count": 2,
+          "authored_hall": 400,
+          "composition": [
+            {
+              "atomic_number": 26,
+              "count": 1
+            },
+            {
+              "atomic_number": 78,
+              "count": 1
+            }
+          ],
+          "volume_angstrom3": 28.246491,
+          "volume_per_site_angstrom3": 14.1232455,
+          "minimum_distance_within_cutoff_angstrom": 2.6930013157342505,
+          "coordination": [
+            {
+              "site_index": 0,
+              "site_id": "81e75f111c7537ad4202f044582d2ebc10a3f9bb4dbf3ae1b475023351def854:site.0000",
+              "atomic_number": 26,
+              "neighbors": 12,
+              "same_species_neighbors": 4,
+              "counts_by_species": [
+                {
+                  "atomic_number": 26,
+                  "count": 4
+                },
+                {
+                  "atomic_number": 78,
+                  "count": 8
+                }
+              ]
+            },
+            {
+              "site_index": 1,
+              "site_id": "81e75f111c7537ad4202f044582d2ebc10a3f9bb4dbf3ae1b475023351def854:site.0001",
+              "atomic_number": 78,
+              "neighbors": 12,
+              "same_species_neighbors": 4,
+              "counts_by_species": [
+                {
+                  "atomic_number": 26,
+                  "count": 8
+                },
+                {
+                  "atomic_number": 78,
+                  "count": 4
+                }
+              ]
+            }
+          ],
+          "nonzero_species_preserving_translations_fractional": [],
+          "reference_cell_strain": {
+            "row_vector_map": [
+              [
+                1.0099999999999998,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0099999999999998,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.9802960494069209
+              ]
+            ],
+            "principal_stretches": [
+              1.0099999999999998,
+              1.0099999999999998,
+              0.9802960494069209
+            ],
+            "max_absolute_stretch_deviation": 0.019703950593079056,
+            "volume_ratio": 0.9999999999999997,
+            "convention": "L_reference @ row_vector_map = L_candidate; literal authored cell presentations",
+            "site_correspondence_assumed": false,
+            "basis_or_origin_matching": false
+          }
+        },
+        "findings": [
+          {
+            "code": "reference_cell_strain",
+            "severity": "review",
+            "message": "Principal stretch deviation exceeds the declared threshold",
+            "measured": 0.019703950593079056,
+            "threshold": 0.01
+          }
+        ],
+        "scope": {
+          "neighbor_cutoff_angstrom": 3.0,
+          "cutoff_boundary_tolerance_angstrom": 1e-09,
+          "periodic_self_images_included": true,
+          "neighbors_are_chemical_bonds": false,
+          "coordination_species_without_rules": [
+            26,
+            78
+          ],
+          "policy_species_absent_from_candidate": [],
+          "declared_family_rules_assessed": false,
+          "geometric_translation_check_ignores_magnetic_annotations": true,
+          "exact_source_modified": false,
+          "static_program_validation_passed": true,
+          "chemical_stability_assessed": false,
+          "synthesizability_assessed": false,
+          "maximal_symmetry_assessed": false,
+          "magnetic_order_assessed": false,
+          "no_findings_means": "No declared rule triggered; not a feasibility or completeness certificate"
+        }
+      },
+      {
+        "case": "fe2b",
+        "source_file": "work/spec-workspace/fe2b-example.json",
+        "source_file_sha256": "871a0dd8321c5b27a24ef73d6d88decd39185c3f4d2f7360a6af8e0f5722a424",
+        "source_sha256": "6ba2e57098d82054e33b375039d4becf3f1e5401bec2cbc6651d9abf8866faad",
+        "policy_sha256": "5f544152629cc3c38acafec46fe60d836f70ba3bfab1cbafdc7c9b016b976786",
+        "assessment_sha256": "121cb6123f532750bc65401b597756c3baea0b6f6348785092baa68cc55315c1",
+        "measurements": {
+          "site_count": 3,
+          "orbit_count": 3,
+          "authored_hall": 1,
+          "composition": [
+            {
+              "atomic_number": 5,
+              "count": 1
+            },
+            {
+              "atomic_number": 26,
+              "count": 2
+            }
+          ],
+          "volume_angstrom3": 79.99999999999997,
+          "volume_per_site_angstrom3": 26.666666666666657,
+          "minimum_distance_within_cutoff_angstrom": 1.8874586088176875,
+          "coordination": [
+            {
+              "site_index": 0,
+              "site_id": "6ba2e57098d82054e33b375039d4becf3f1e5401bec2cbc6651d9abf8866faad:site.0000",
+              "atomic_number": 5,
+              "neighbors": 2,
+              "same_species_neighbors": 0,
+              "counts_by_species": [
+                {
+                  "atomic_number": 26,
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "site_index": 1,
+              "site_id": "6ba2e57098d82054e33b375039d4becf3f1e5401bec2cbc6651d9abf8866faad:site.0001",
+              "atomic_number": 26,
+              "neighbors": 1,
+              "same_species_neighbors": 0,
+              "counts_by_species": [
+                {
+                  "atomic_number": 5,
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "site_index": 2,
+              "site_id": "6ba2e57098d82054e33b375039d4becf3f1e5401bec2cbc6651d9abf8866faad:site.0002",
+              "atomic_number": 26,
+              "neighbors": 1,
+              "same_species_neighbors": 0,
+              "counts_by_species": [
+                {
+                  "atomic_number": 5,
+                  "count": 1
+                }
+              ]
+            }
+          ],
+          "nonzero_species_preserving_translations_fractional": [],
+          "reference_cell_strain": null
+        },
+        "findings": [],
+        "scope": {
+          "neighbor_cutoff_angstrom": 3.0,
+          "cutoff_boundary_tolerance_angstrom": 1e-09,
+          "periodic_self_images_included": true,
+          "neighbors_are_chemical_bonds": false,
+          "coordination_species_without_rules": [
+            5,
+            26
+          ],
+          "policy_species_absent_from_candidate": [],
+          "declared_family_rules_assessed": false,
+          "geometric_translation_check_ignores_magnetic_annotations": true,
+          "exact_source_modified": false,
+          "static_program_validation_passed": true,
+          "chemical_stability_assessed": false,
+          "synthesizability_assessed": false,
+          "maximal_symmetry_assessed": false,
+          "magnetic_order_assessed": false,
+          "no_findings_means": "No declared rule triggered; not a feasibility or completeness certificate"
+        }
+      }
+    ],
+    "native_calculations": 0,
+    "model_api_calls": 0,
+    "gpu_reservations_cents": 0,
+    "ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7"
+  },
+  "implementation_files": {
+    "src/siesta_remag/research/proposals.py": "4ac6b772d3c4f669750a30e8ca48fa5d71f40dde473e69a6650d82f88fd79b4d",
+    "src/siesta_remag/research/tools.py": "970e33da6597b0346886e28841a90ef3356e77efff1f8ec6ebd47e8fd070416f",
+    "src/siesta_remag/research/agent.py": "c69ba349beab60fd323c51b7b3f8b5e32afe031efc9a6996c61cd1eeb47177a6",
+    "src/siesta_remag/research/model_policy.py": "eb14b0a22b4c88baf8a67f74456ba289e15b102116504083d5ea14f0e6e113a2",
+    "tests/test_research_proposals.py": "59b1e510ec1250b091f2968ace357de69496721cad5b337b9bc4a0ec133a128d"
+  },
+  "actual_model_api_calls": 0,
+  "actual_native_solver_calls": 0,
+  "actual_gpu_calls": 0,
+  "new_real_reservations_cents": 0,
+  "qualification_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "gpac_frozen_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+  "limitations": [
+    "Policies are researcher-declared and not calibrated chemical screening models.",
+    "No stability, synthesizability, magnetic-order or maximal-symmetry inference.",
+    "Literal cell-presentation comparison does not align different bases or correspond atoms.",
+    "Saved Fe2B geometry is an authored example, not a validated phase or transfer result."
+  ],
+  "local_check_logs": {
+    "spec-proposal-gpac-boundary.log": "57a63153e0ebead908eea004e60004e7aff653fcf66c13c6bc13c3775fdf56e7",
+    "spec-proposal-gpac-migration.log": "3713c7ca9f02a640d6626bfbe158687de9400adf2bbb76531e2fc231285201c1",
+    "spec-proposal-gpac-roadmap-active.log": "6919f45e2faf1181e1e83cc27980ccbe3b49e47a2e1bff1ecf6324c3793d3f80",
+    "spec-proposal-gpac-targeted-r2.log": "0993ac04ecb7720b2c89d5988efe123c1633ca1cf8e0ec2d7dc02cb0dcf3b7a4",
+    "spec-proposal-gpac-targeted-r3.log": "4f47cd501a5ba9a7d5c0b96f895980d95eaddd2d4b888fb87faea66a2ec9abbe",
+    "spec-proposal-gpac-targeted-r4.log": "d987aee0d0585ec088e2b432bef54483394190224c9397573d6a8a18edc0052b",
+    "spec-proposal-gpac-targeted.log": "f5a250c64b9677acfd9c0ebe2cd7555fa91cff2ef9f65a0ff98eede6bc9a2367",
+    "spec-proposal-remag-http.log": "298bb3e82467be47db358a769815954af6c85d39f87ea37578b9eee554679cac",
+    "spec-proposal-remag-suite.log": "7a1f670f681d773989477930cd8829fc6ac4d0e2d08050bc2f2f11855f913f3b",
+    "spec-proposal-remag-targeted-r2.log": "11fcd29481c86409611a379c1756fd84877fddec1f32d41d05013c525645207c",
+    "spec-proposal-remag-targeted-r3.log": "6219116547b3a42528f209b3e15ef884ce9f276dcabf8502f1cf1a0ad10c0e84",
+    "spec-proposal-remag-targeted.log": "8d9f3483e7241326519afa4735b0f95dec7ce7c1b132b25db1e98962db02bc3c"
+  }
+}

@@ -228,3 +228,10 @@ produced [native nonlocal SOC operator](NATIVE_SOC.md). `prepare_query` accepts
 an explicit `soc_matrix: true` option for SOC stages with retained host H0.
 These tools neither grant compute nor fabricate operators from saved total H.
 The scalar comparison profile rejects this diagnostic.
+
+## Proposal screening
+
+Both profiles can call [assess_structure](PROPOSAL_ASSESSMENT.md) with a saved
+exact export, explicit policy and new output directory. GPAC returns advisory
+geometric findings; the agent decides whether they warrant revision or an
+experiment. The evidence path can be retained in the research notebook.

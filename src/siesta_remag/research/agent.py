@@ -17,7 +17,7 @@ from ..corpus import sha256
 from ..discovery.common import save
 from .tools import TOOLS,ResearchTools
 
-LOCAL_TOOLS=frozenset({'inspect_structure','author_structure','register_structure','inspect_calculation','inspect_electronic_structure','projected_dos',
+LOCAL_TOOLS=frozenset({'assess_structure','inspect_structure','author_structure','register_structure','inspect_calculation','inspect_electronic_structure','projected_dos',
     'compare_electronic_states','structural_operation','prepare_query','record_hypothesis',
     'propose_experiment','record_prediction','record_calculation_outcome','evaluate_hypothesis',
     'record_analysis','retrieve_research_history','calibrate_exploratory_response',

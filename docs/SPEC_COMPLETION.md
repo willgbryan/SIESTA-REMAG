@@ -10,7 +10,7 @@ tests or marked complete merely because the interface exists.
 
 | Spec scope | Delivered foundation | Remaining acceptance |
 | --- | --- | --- |
-| §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameters, volume/shape/axial and local coordination/displacement controls, full lineage | Broader coupled constraints and informative proposal assessment |
+| §§4.1–4.2, 4.5–4.6 physical authoring | Exact facade, motifs, parameters, volume/shape/axial and local coordination/displacement controls, full lineage; informative geometric proposal assessment with declared family/coordination policies | Broader coupled constraints and empirical chemistry-specific validation of chosen screening policies |
 | §§4.3, 6 reverse observations | Integrated relaxation preparation/feedback, site/orbit motion, neighbor changes, authored-operation residuals | Broader motif classification and changed-cell/atom-count correspondence; maximal symmetry remains unassessed |
 | §§4.4, 8–9 research tools | Python/worker tools, immutable notebook, bounded policy-driven sessions, explicit-model Responses adapter, exact candidate persistence and query-provenance handoff, operator-enabled single-query execution/collection/shutdown/review | Live authorized model/solver demonstration and empirical experiment-selection quality |
 | §§5.1–5.2 electronic diagnostics | H/S, checked spectra, selected-k eigenvectors/reconstructed density, native density and onsite orbital moments, opt-in host nonlocal SOC operator/state projections, Löwdin coupling blocks, same-basis state/subspace correspondence, selectable Mulliken/spin inspection, native moments/forces/stress | Full-application SOC export validation and device-H0 ownership adapter; changed-basis correspondence and empirical mechanism tests |
@@ -30,6 +30,12 @@ by this checklist. Optional force-theorem, automatic-differentiation and
 approximate-to-exact methods are deferred unless needed for a concrete query.
 
 ## Delivered development increments
+
+- 15 November: [proposal assessment](PROPOSAL_ASSESSMENT.md) delegates periodic
+  distances, coordination/isolation, exact translation redundancy, complexity,
+  declared family rules and reference-cell strain to GPAC. Both agent profiles
+  can persist and cite assessments before preparing a query. Advisory findings
+  preserve unusual candidates; no chemical stability is inferred.
 
 - 15 November: scalar-only, selected-direction and angular queries reuse native
   execution/branch checks. Angular E/F fits retain one-plane scope. Generic

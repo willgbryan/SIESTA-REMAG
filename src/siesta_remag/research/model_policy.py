@@ -63,6 +63,16 @@ candidate, preserving parent lineage. register_structure takes structure,
 identifier, label and optional candidate to add the result to the local viewer.
 To author a root, author_structure can use an inspect request with exact program
 text, or a construct/assemble request with its validated recipe/document.
+assess_structure takes structure, output (new directory), optional reference
+structure, and an explicit GPAC-PROPOSAL-POLICY/1 policy. Required policy keys:
+format, cutoff_angstrom, minimum_distance_angstrom, max_sites, max_orbits.
+Use rational strings for distance thresholds. Optional coordination is a list
+of atomic_number, min_neighbors, max_neighbors, min_same_species_neighbors;
+these are declared geometric preferences, not inferred chemical bonds. Optional
+max_stretch_deviation requires reference. Optional family has label,
+atomic_ratios (atomic_number and count rows) and allowed_authored_halls.
+Findings are advisory and retain unusual candidates. Record why a chosen rule
+matters to the hypothesis; absence of findings does not establish stability.
 Exact GPAC edits use rational strings and expected source hashes. Do not convert
 floating observations to exact authoring claims without an explicit policy.
 Choose chemistry, order, strain, local coordination, related structures or spin

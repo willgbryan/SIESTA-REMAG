@@ -17,6 +17,8 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'assess_structure': {'required':['structure','policy','output'],'optional':['reference'],
+        'description':'Save GPAC advisory geometric assessment before DFT: periodic distances, coordination, complexity, exact translations, declared family and optional reference-cell strain. Explicit rational thresholds; findings do not reject novelty or certify stability.'},
     'inspect_structure': {'required':['structure'],'optional':['candidate'],
         'description':'Read a verified exact physical export, editable parameters, coordination and optional saved candidate lineage; no calculation.'},
     'author_structure': {'required':['request','output'],'optional':['structure'],
@@ -254,6 +256,14 @@ class ResearchTools:
         if name == 'inspect_structure':
             from .authoring import inspect_structure
             return inspect_structure(self.path(args['structure']),candidate=self.path(args['candidate']) if 'candidate' in args else None)
+        if name == 'assess_structure':
+            from .proposals import assess_structure
+            output = self.path(args['output'])
+            result, record = assess_structure(self.path(args['structure']), args['policy'], output,
+                reference=self.path(args['reference']) if 'reference' in args else None)
+            return dict(assessment=result, record=record,
+                        evidence_path=str((output/'assessment.json').relative_to(self.root)),
+                        record_path=str((output/'record.json').relative_to(self.root)))
         if name == 'author_structure':
             from .authoring import author_candidate
             output=self.path(args['output'])
