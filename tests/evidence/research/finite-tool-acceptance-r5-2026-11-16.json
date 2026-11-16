@@ -1,0 +1,212 @@
+{
+  "format": "REMAG-TWO-OUTCOME-ACCEPTANCE-RESULT/1",
+  "recorded_at": "2026-11-16T21:24:06.871655+00:00",
+  "status": "closed_after_failed_policy_context_prerequisite",
+  "authorization": "Approved. Run the two-outcome plan with clean policy contexts and a $1.55 cap. One GPU at a time, no rebuilds, retries or extensions. Keep the old campaign closed and report pass/fail results.",
+  "results": [
+    {
+      "check": "Saved build and compiled capacity preflight",
+      "result": "passed",
+      "detail": "CPU metadata inspection verified saved executable/library hashes and 4096-k-point capacity; no rebuild or native solve."
+    },
+    {
+      "check": "Policy startup",
+      "result": "failed",
+      "detail": "Missing exact import guidance; scalar context attempted import remag and stopped before ToolHost call 1."
+    },
+    {
+      "check": "Clean policy information contexts",
+      "result": "failed",
+      "detail": "Physics context accessed the shared agent list and received an older policy prediction summary; context invalidated before sealing."
+    },
+    {
+      "check": "Two new native outcomes",
+      "result": "not_run",
+      "detail": "Prerequisite failed before either GPU reservation or launch."
+    },
+    {
+      "check": "Prediction scoring and policy revisions",
+      "result": "not_run",
+      "detail": "No predictions were sealed and no new outcomes exist."
+    },
+    {
+      "check": "Allocation shutdown",
+      "result": "passed",
+      "detail": "Only the new CPU preflight app existed; authoritative STOPPED with empty account container list."
+    }
+  ],
+  "bundles": [
+    {
+      "key": "fresh-minus-k12",
+      "source_sha256": "d79f12edad7922290b78d0a41a5e666191312bfa50606158d5d44c5444e89ec2",
+      "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+      "result": "not_run"
+    },
+    {
+      "key": "fresh-plus-k12",
+      "source_sha256": "e754efbac55612ff16c285623ed74b5e7bee1d33b45e9f743c5b17f21ab5a719",
+      "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+      "result": "not_run"
+    }
+  ],
+  "execution": {
+    "CPU_metadata_apps": 1,
+    "CPU_builds": 0,
+    "GPU_launches": 0,
+    "native_stage_executions": 0,
+    "policy_contexts_started": 2,
+    "policy_ToolHost_calls": 0,
+    "operator_evaluation_calls": 0,
+    "sealed_predictions": 0,
+    "rebuilds": 0,
+    "retries": 0,
+    "extensions": 0,
+    "automatic_follow_on": false
+  },
+  "budget": {
+    "cap_cents": 155,
+    "reserved_cents": 5,
+    "unreserved_cents": 150,
+    "query_reservations_cents": 0,
+    "actual_billed_usd": null,
+    "reservations_are_invoices": false,
+    "model_cost": "Existing Codex quota; actual model token usage/billing unknown and separate from Modal reservation ledger.",
+    "refunds_or_reallocations": 0,
+    "old_ledgers_unchanged": {
+      "fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+      "acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8"
+    }
+  },
+  "policy_context_failure": {
+    "format": "REMAG-POLICY-CONTEXT-FAILURE/1",
+    "recorded_at": "2026-11-16T21:24:06.871655+00:00",
+    "source": "Policy-context messages received by the operator; failures are self-reported, with workspace absence of receipts/notebooks independently checked.",
+    "scalar": {
+      "agent": "/root/policy_scalar_r5",
+      "status": "stopped_before_tool_call_1",
+      "error_type": "ModuleNotFoundError",
+      "import_attempt": "import remag",
+      "disclosure": "Read permitted protocol.json, parent.json, packet.json and catalog.json. Trusted-code import probe failed. No forbidden information accessed, no ToolHost call attempted, no receipt/notebook/candidate created.",
+      "setup_cause": "Operator assignment did not provide the exact ToolHost module import. The attempted top-level remag package is incorrect.",
+      "ToolHost_calls": 0,
+      "restarted": false
+    },
+    "physics": {
+      "agent": "/root/policy_physics_r5",
+      "status": "invalid_context_stopped_before_tool_call_1",
+      "exposure_route": "collaboration.list_agents",
+      "disclosure": "While waiting for the import path, agent listing exposed an older physics policy prediction summary and the current scalar policy setup status. No heldout outcomes were observed. Only the four permitted filesystem inputs were read; phase-start.json was written. No ToolHost calls or notebook records were created.",
+      "clean_information_context": false,
+      "ToolHost_calls": 0,
+      "restarted": false
+    },
+    "model": "gpt-6-astra",
+    "reasoning_effort": "xhigh",
+    "fork_turns": "none",
+    "protocol_boundary": "Trusted prompt and staged files did not restrict the ambient collaboration tool. New context creation alone did not enforce information isolation.",
+    "closure_reason": "A new clean context would repeat the failed prerequisite; no retries or extensions were authorized. Neither heldout was launched.",
+    "workspace_audit": {
+      "scalar": {
+        "original_files_unchanged": true,
+        "files_sha256": {
+          "catalog.json": "e8b7a6571afe5dfaa75eeddb6738c098516748455552405f43437cd2b635f538",
+          "packet.json": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+          "parent.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12",
+          "protocol.json": "00a4443af416fdcb80383a3459dc5e037623e0431cc555f75791b284ff32e10f"
+        },
+        "additional_files": [],
+        "tool_receipts": 0,
+        "notebook_created": false,
+        "preregistration_sealed": false
+      },
+      "physics": {
+        "original_files_unchanged": true,
+        "files_sha256": {
+          "catalog.json": "14b262cdeadeeaa0f37d728e27931ae6b43ac5de6860ade1de2080efc2d507c4",
+          "electronic/soc-x/electronic.json": "01744691dacd70c89e2cf3e8e5245baef51b70b153c65438778305aa6b91e9ba",
+          "electronic/soc-x/spectrum.npz": "cc182321df11705357221a289b91e2813617c759ebcaab53cc3917ec0a5440d2",
+          "electronic/soc-z/electronic.json": "6161a5ddb295edf3ac6a4ae97b9a9bcf4422d09afe07b2047de12ef62d524892",
+          "electronic/soc-z/spectrum.npz": "fb2a7216decbe41ed084203fd882ad6a1e3a9f06e2525192d43f2d14890cf39e",
+          "packet.json": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+          "parent.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12",
+          "phase-start.json": "4396df6102fadfbf2e7a73bc318ced9bf4af890e3bf65a180e55cf819b124a31",
+          "protocol.json": "f846d0e640a6693ca150582e15654164357460aeb321cb01dfbb29e26592af69"
+        },
+        "additional_files": [
+          "phase-start.json"
+        ],
+        "tool_receipts": 0,
+        "notebook_created": false,
+        "preregistration_sealed": false
+      }
+    },
+    "policy_contexts_started": 2,
+    "policy_contexts_replaced": 0,
+    "heldout_outcomes_exposed": false
+  },
+  "allocations": {
+    "recorded_at": "2026-11-16T21:22:53.343290+00:00",
+    "app": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-R0aJIDlnJTw67SOcAGlTYL",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 15:17:04-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 15:17:30-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "inspect_saved": {
+          "id": "fu-6Nbkdq8h0IVLa1TKL4xsSF",
+          "summary": {}
+        }
+      },
+      "servers": {}
+    },
+    "account_containers": [],
+    "owned_local_drivers": [],
+    "read_only_observations": true,
+    "new_launches": 0
+  },
+  "preservation": {
+    "old_campaign_closed": true,
+    "old_heartbeat_deleted": true,
+    "prior_evidence_preserved": true,
+    "registered_input_bytes_unchanged": true,
+    "no_further_execution_authorized": true
+  },
+  "retained_acceptance": {
+    "native_SOC": "passed in six-bundle r4 scope",
+    "fast_usable_latency": "passed in three r4 6-cubed bundles",
+    "response_consistency": "failed; r4 maximum E/F discrepancies 0.305/0.153 meV/cell versus fixed 12-cubed comparator",
+    "strict_information_comparison": "unproven; r4 contaminated at scalar-data staging and r5 contaminated through ambient agent listing",
+    "new_scientific_result": false
+  },
+  "evidence_sha256": {
+    "acceptance-two-r5/registration.json": "103376c93b82c7fa750d6d47ea94f79a1369b3b3d64d927b52d192a1ed44742d",
+    "acceptance-two-r5/approved-proposal.json": "b389e13c98d477f85d2cd9c0824f5a5f5c4d11f91d08f61af9fb01a056b1ebe5",
+    "acceptance-two-r5/budget-final.json": "23ff5527719205f30c643ff5745ce13eac24dcc8a27b0b1e83c29db3c84c7573",
+    "acceptance-two-r5/preflight.json": "c025e65ec78d1bc9e8a3e7403e7438e616c7cfbf74ec13f228f8c1b0c90d937d",
+    "acceptance-two-r5/preflight-manifest.json": "79e97da432f3bdcc56d8aeb59af70c0f10c60734b65735cdb7f6e055c97898ed",
+    "acceptance-two-r5/preflight-result.json": "e9426a210215face2045beb91755fee6b5e4e1b9a95485247a51c4f45b17872c",
+    "acceptance-two-r5/preflight-driver.json": "6e703198471f220c82a7adcfdca842b2e86fdb8ce3cb712f70d72f67a8423f99",
+    "acceptance-two-r5/preflight-receipt.json": "da4533fada0a528e7a6102335f6f9a37df71513835bf8b11c8eb289cca2b5666",
+    "acceptance-two-r5/preflight-app-stopped.json": "93622e8eb6c1c2041cddb3b7751e3c565c2b0aae876a5237b726a2290156fa55",
+    "acceptance-two-r5/preflight-launch.stdout": "04bcaa7c0852fe61f7d5811eaa6ae330d4ddbf1a972c1a32604740d4bfcea5ef",
+    "acceptance-two-r5/preflight-launch.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "acceptance-two-r5/closeout-allocation-observation.json": "7d89a251b51278d54bae45a520aa372bae10d30e23428a9ceb59f47944204f77",
+    "acceptance-two-r5/initial-staging-audit.json": "0e46ee11e9c2d641fbf40653f34dc7a6fac523b819a1125b1864b1de5c1b90c8",
+    "acceptance-two-r5/policy-context-failures.json": "0eb98c835c0bbd60ffcb1ad86befb88f9c32fb23cfb51e4aae34edaa29275a40",
+    "acceptance-two-r5/query-readiness.json": "46663894ddc914f4f9e751bb1f75a110c7b59ebee4552ddc40fd75be55e85b30",
+    "acceptance-two-r5/execution-config.json": "631e075412570f2ed9821543e03d5f533b90a064f89fbc2703204b27b336e936",
+    "acceptance-two-r5/source-census-before.json": "fc727e4c7c71ed3d2b4ef966f86b38aafa2db30d69c5b3ade225974a1f472fa4"
+  },
+  "frozen_preflight_launcher": {
+    "path": "SIESTA-REMAG/tests/evidence/research/acceptance-two-r5-preflight-launcher-2026-11-16.py.txt",
+    "sha256": "fedf5776af6697c58afaf63cec53cfe4ca6293e3a4a759a0e401ae207e797d63"
+  }
+}

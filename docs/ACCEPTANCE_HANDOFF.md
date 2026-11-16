@@ -97,20 +97,31 @@ contribution to the discrepancy is +0.152/−0.167 meV, while F still fails by
 numerical response, not a report/unit conversion error; it does not uniquely
 separate k-integration, occupation and residual-SCF effects or qualify 12³.
 
-The smallest proposed remaining live test needs only two fresh ±1/320 12³
-outcomes, shared by two clean policy contexts with predictions sealed first.
-It reuses the build and saved 12³ baseline. Native/SOC and fast latency passes
+The subsequent authorized live test registered two fresh ±1/320 12³
+outcomes, intended to be shared by two clean policy contexts after sealing their
+predictions. It reused the build and saved 12³ baseline. Native/SOC and fast latency passes
 are retained, and the completed response-consistency failure remains failed.
 No replacement fast tier is part of this plan. A preliminary five-bundle
 suggestion included extra calibration development and has been superseded.
 
-The proposal reserves at most $1.55 ($0.05 metadata preflight plus two $0.75
-bundles), with one GPU, no rebuild, retry, extension or old-campaign restart.
-It requires new authorization; the existing $0.20 remainder and all historical
-reservations are unchanged. This can finish the pending clean workflow test,
-not deliver all-green numerical acceptance or full-spec scientific advantage.
-Saved-only replay would cost no GPU time but would not replace the required
-independent new outcomes or undo the contaminated contexts.
+The [two-outcome attempt](../tests/evidence/research/finite-tool-acceptance-r5-2026-11-16.json)
+is now closed after a failed policy-context prerequisite. Saved-build CPU
+preflight passed. The scalar policy stopped before its first ToolHost call
+because the assignment omitted the exact import path and it attempted the
+incorrect `import remag`. While awaiting that path, the physics policy called
+the ambient agent-list tool and received an older policy's prediction summary
+and the current scalar policy's setup status. It disclosed the exposure and
+stopped. No predictions were sealed, no policy ToolHost calls occurred, and
+neither GPU outcome ran. Fresh conversation history and filtered files did not
+enforce isolation from the shared collaboration interface.
+
+The no-retry authorization was not extended or repeated. Only $0.05 of its
+separate $1.55 cap was reserved; $1.50 remains unreserved and actual billing is
+unknown. The sole CPU app is authoritatively stopped, and the account container
+list was empty at closeout. Both exact inputs, the existing $0.20 historical
+acceptance remainder and all old ledgers/evidence remain unchanged. The clean
+workflow remains unproven. No follow-on is authorized; the old convergence
+campaign remains closed.
 
 The full scalar-versus-physics comparison needs a genuinely new held-out cohort,
 matching declared budgets, frozen predictions/targets and measured allocation

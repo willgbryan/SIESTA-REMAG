@@ -60,6 +60,16 @@ preflight regression coverage. Saved native energies independently reproduce
 the mesh-dependent response failure; neither historical acceptance result is
 reclassified. No new compute or campaign restart was performed or authorized.
 
+The later [authorized two-outcome attempt](../tests/evidence/research/finite-tool-acceptance-r5-2026-11-16.json)
+passed saved-build CPU preflight but failed policy setup and information isolation
+before either measurement. Missing import guidance stopped the scalar context;
+the physics context exposed itself to an older policy summary through the ambient
+agent-list tool and stopped. Neither context made a ToolHost call or sealed a
+prediction. Both GPU outcomes remain unrun. The attempt is closed without retry,
+with $0.05 reserved out of its separate $1.55 cap, unknown invoices, and the sole
+CPU app stopped. The clean workflow remains unproven; historical numerical
+failures and the closed convergence campaign are unchanged.
+
 - A clean scalar-versus-physics evaluation with measured equal compute remains.
   Two fresh Astra extra-high contexts completed the prospective tool workflow
   on new prescribed heldouts, but operator staging exposed extra electronic

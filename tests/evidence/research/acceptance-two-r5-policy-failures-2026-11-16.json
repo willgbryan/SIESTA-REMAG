@@ -1,0 +1,67 @@
+{
+  "format": "REMAG-POLICY-CONTEXT-FAILURE/1",
+  "recorded_at": "2026-11-16T21:24:06.871655+00:00",
+  "source": "Policy-context messages received by the operator; failures are self-reported, with workspace absence of receipts/notebooks independently checked.",
+  "scalar": {
+    "agent": "/root/policy_scalar_r5",
+    "status": "stopped_before_tool_call_1",
+    "error_type": "ModuleNotFoundError",
+    "import_attempt": "import remag",
+    "disclosure": "Read permitted protocol.json, parent.json, packet.json and catalog.json. Trusted-code import probe failed. No forbidden information accessed, no ToolHost call attempted, no receipt/notebook/candidate created.",
+    "setup_cause": "Operator assignment did not provide the exact ToolHost module import. The attempted top-level remag package is incorrect.",
+    "ToolHost_calls": 0,
+    "restarted": false
+  },
+  "physics": {
+    "agent": "/root/policy_physics_r5",
+    "status": "invalid_context_stopped_before_tool_call_1",
+    "exposure_route": "collaboration.list_agents",
+    "disclosure": "While waiting for the import path, agent listing exposed an older physics policy prediction summary and the current scalar policy setup status. No heldout outcomes were observed. Only the four permitted filesystem inputs were read; phase-start.json was written. No ToolHost calls or notebook records were created.",
+    "clean_information_context": false,
+    "ToolHost_calls": 0,
+    "restarted": false
+  },
+  "model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "fork_turns": "none",
+  "protocol_boundary": "Trusted prompt and staged files did not restrict the ambient collaboration tool. New context creation alone did not enforce information isolation.",
+  "closure_reason": "A new clean context would repeat the failed prerequisite; no retries or extensions were authorized. Neither heldout was launched.",
+  "workspace_audit": {
+    "scalar": {
+      "original_files_unchanged": true,
+      "files_sha256": {
+        "catalog.json": "e8b7a6571afe5dfaa75eeddb6738c098516748455552405f43437cd2b635f538",
+        "packet.json": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+        "parent.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12",
+        "protocol.json": "00a4443af416fdcb80383a3459dc5e037623e0431cc555f75791b284ff32e10f"
+      },
+      "additional_files": [],
+      "tool_receipts": 0,
+      "notebook_created": false,
+      "preregistration_sealed": false
+    },
+    "physics": {
+      "original_files_unchanged": true,
+      "files_sha256": {
+        "catalog.json": "14b262cdeadeeaa0f37d728e27931ae6b43ac5de6860ade1de2080efc2d507c4",
+        "electronic/soc-x/electronic.json": "01744691dacd70c89e2cf3e8e5245baef51b70b153c65438778305aa6b91e9ba",
+        "electronic/soc-x/spectrum.npz": "cc182321df11705357221a289b91e2813617c759ebcaab53cc3917ec0a5440d2",
+        "electronic/soc-z/electronic.json": "6161a5ddb295edf3ac6a4ae97b9a9bcf4422d09afe07b2047de12ef62d524892",
+        "electronic/soc-z/spectrum.npz": "fb2a7216decbe41ed084203fd882ad6a1e3a9f06e2525192d43f2d14890cf39e",
+        "packet.json": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+        "parent.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12",
+        "phase-start.json": "4396df6102fadfbf2e7a73bc318ced9bf4af890e3bf65a180e55cf819b124a31",
+        "protocol.json": "f846d0e640a6693ca150582e15654164357460aeb321cb01dfbb29e26592af69"
+      },
+      "additional_files": [
+        "phase-start.json"
+      ],
+      "tool_receipts": 0,
+      "notebook_created": false,
+      "preregistration_sealed": false
+    }
+  },
+  "policy_contexts_started": 2,
+  "policy_contexts_replaced": 0,
+  "heldout_outcomes_exposed": false
+}
