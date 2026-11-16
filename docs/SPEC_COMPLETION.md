@@ -237,6 +237,19 @@ completion gates.
   child sources. Agent-process, HTTP and DOM protocol tests exercise this path;
   no model inference, solver run or visual rendering is inferred from them.
 
+- 16 November: the separately authorized single build retry used ephemeral
+  scratch and successfully linked the candidate. The first of six registered
+  tool-acceptance bundles then failed before its first SCF iteration: its 132
+  native k-points exceed this pinned device-cycle implementation's limit of
+  128. The preflight should have caught that capability mismatch. The
+  [retained attempt](../tests/evidence/research/finite-tool-acceptance-retry-2026-11-16.json)
+  records one failed scalar stage, zero SOC stages, five unrun bundles and no
+  policy contexts. All owned apps are stopped. Reservations total $5 of the
+  original $10 cap, including both build attempts; billing is unknown. The
+  no-further-retry boundary closes this attempt. Measured production SOC,
+  usable-result latency, response calibration and prospective policy acceptance
+  remain unproven. The old convergence campaign remains closed.
+
 Scientific status remains in `FEPT_QUALIFICATION_PLAN.md`; it is separate from
 this implementation checklist. No claim of verified mechanisms, transferable
 predictions, physical accuracy or the latency target follows from code delivery.

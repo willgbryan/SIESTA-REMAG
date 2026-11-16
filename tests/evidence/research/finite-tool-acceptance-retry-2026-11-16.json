@@ -1,0 +1,219 @@
+{
+  "format": "REMAG-FINITE-TOOL-ACCEPTANCE-RESULT/2",
+  "date": "2026-11-16",
+  "recorded_at": "2026-11-16T16:46:35.720022+00:00",
+  "status": "closed_after_failed_native_prerequisite",
+  "authorization": "Move build scratch to ephemeral storage and preserve the old evidence. Retry the build once, then run the six bundles within the remaining $8, one GPU at a time. No further retries or extensions.",
+  "old_campaign": "closed; untouched",
+  "results": [
+    {
+      "check": "Ephemeral candidate build and linkage",
+      "result": "passed",
+      "details": "One authorized CPU retry; ephemeral /tmp compilation; eight bounded result files on a separate acceptance volume; executable/library hashes verified after shutdown."
+    },
+    {
+      "check": "Production native SOC acceptance",
+      "result": "failed_prerequisite",
+      "details": "Scalar device SCF rejected 132 native k-points against its 128 limit before any SCF iteration; SOC exporter not reached."
+    },
+    {
+      "check": "Exploratory usable latency and response consistency",
+      "result": "not_established",
+      "details": "No usable result; remaining five bundles were not run under the native-failure stop rule. Failure-return time is not usable-result latency."
+    },
+    {
+      "check": "Independent scalar/physics predictive workflow",
+      "result": "not_run",
+      "details": "Neither Astra context started; baseline prerequisite failed."
+    }
+  ],
+  "bundles": [
+    {
+      "key": "baseline-k6",
+      "result": "failed_native_scalar"
+    },
+    {
+      "key": "baseline-k12",
+      "result": "not_run_after_native_failure"
+    },
+    {
+      "key": "minus-k6",
+      "result": "not_run_after_native_failure"
+    },
+    {
+      "key": "minus-k12",
+      "result": "not_run_after_native_failure"
+    },
+    {
+      "key": "plus-k6",
+      "result": "not_run_after_native_failure"
+    },
+    {
+      "key": "plus-k12",
+      "result": "not_run_after_native_failure"
+    }
+  ],
+  "execution": {
+    "CPU_build_attempts_total": 2,
+    "CPU_build_retries_this_authorization": 1,
+    "additional_build_retries": 0,
+    "GPU_launches": 1,
+    "query_bundles_prepared": 6,
+    "query_bundles_attempted": 1,
+    "query_bundles_completed": 0,
+    "native_stage_attempts": 1,
+    "SOC_stages": 0,
+    "model_contexts": 0,
+    "automatic_retries": 0,
+    "extensions": 0,
+    "build_seconds": 51.165326992000004,
+    "native_failed_stage_seconds": 4.452323868,
+    "submission_through_failure_review_seconds": 55.02485187444836,
+    "usable_result_seconds": null
+  },
+  "failure": {
+    "status": "diagnosed_from_saved_evidence",
+    "native_message": "REMAG device SCF prepare: Invalid cycle dimensions/options",
+    "error_code": -220,
+    "returncode": -6,
+    "first_native_kpoints": 132,
+    "pinned_device_cycle_limit": 128,
+    "condition_violated": "132 > 128",
+    "pinned_guard_member": "native/scf_cycle_state.cpp",
+    "pinned_guard_sha256": "c91d91dacaa6dd77bc463456857c1b88ff03c8f846b617ee764443c1087c0db8",
+    "pinned_fortran_member": "native/remag_cycle.F90.in",
+    "pinned_fortran_sha256": "2fe89a0621ea88ca9770baf4714c039958cdc32c4c46ce17f9f14b743ed6d423",
+    "completed_scf_iterations": 0,
+    "SOC_stages_executed": 0,
+    "root_cause": "The newly built production device-SCF implementation rejects the registered native mesh before iteration.",
+    "responsibility": "The finite-plan preflight should have checked this build capability against the exact native k-point count before spending.",
+    "source_or_threshold_changed_after_failure": false,
+    "solver_reruns": 0
+  },
+  "ownership": {
+    "all_owned_apps_stopped": true,
+    "observed_at": "2026-11-16T16:44:02.934109+00:00",
+    "account_containers": [],
+    "apps": [
+      {
+        "app_id": "ap-dtocyT3LdAV46PcwKBp8l4",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-16 10:04:30-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-16 10:05:51-06:00",
+          "stopped_by": "will-bryan421"
+        }
+      },
+      {
+        "app_id": "ap-MTrMDpLSxSk2YL2bpQfKii",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-16 10:38:07-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-16 10:39:13-06:00",
+          "stopped_by": null
+        }
+      },
+      {
+        "app_id": "ap-8xkt2QwlHN9AGD6ygr9oou",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-16 10:42:34-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-16 10:43:21-06:00",
+          "stopped_by": null
+        }
+      }
+    ],
+    "follow_on_queued": false
+  },
+  "budget": {
+    "currency": "USD",
+    "overall_cap_cents": 1000,
+    "previous_failed_build_reservation_cents": 200,
+    "retry_build_reservation_cents": 200,
+    "first_query_reservation_cents": 100,
+    "new_reservations_this_authorization_cents": 300,
+    "total_reserved_cents": 500,
+    "unreserved_cents": 500,
+    "reservations_refunded": 0,
+    "actual_billed_usd": null,
+    "reservations_are_invoices": false,
+    "remaining_funds_do_not_authorize_retry_or_extension": true,
+    "old_campaign_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7"
+  },
+  "evidence_sha256": {
+    "work/acceptance-six-r1/build-retry/manifest.json": "271ed1901814a18f8304471dab0c959dc8dbe60e84aa2da1b87e87d8536353d2",
+    "work/acceptance-six-r1/build-retry/preflight.json": "f7aad0864e7a4e2d16d3b7dbb9b57d1378fb2b24da29ff182a1886b43d005cb7",
+    "work/acceptance-six-r1/build-retry/build-driver.json": "f5e7902247cafed3c5945c24d14992ba3c70f269ba2838679709812821e692a5",
+    "work/acceptance-six-r1/build-retry/build-receipt.json": "fb3fff859cca77f2a8f17218650b8f4293f451207b0419c5f62c076a74c77169",
+    "work/acceptance-six-r1/build-retry/build-collected/build-result.json": "e1075477522c3a1cb3067d0c8faa68cfa323710fbbc3f6fff41fc224a5d10f60",
+    "work/acceptance-six-r1/build-retry/artifact-verification.json": "9a1d98a6fab14e097189d6b8e7f7082c4d6032a4fec78cf8b11b30be7552686e",
+    "work/acceptance-six-r1/build-retry/closeout-allocation.json": "cbb3441122360db123240e671e2550e36e10278ac586c7b27e8211603d6eab2f",
+    "work/acceptance-six-r1/build-retry/native-failure-diagnosis.json": "83a8175a7be0c55465433c6fc79be7fa661605bc075ebfc601421713a64cca81",
+    "work/acceptance-six-r1/build-retry/budget-final.json": "fe655a72098324424a807a4182737092b5727749c9b38f88e7a9130b69b5ce2f",
+    "work/acceptance-six-r1/registration.json": "7359bec854bc24a634dc08dd407e58457ce90f2b19af140e64b6e2718ff133c0",
+    "work/acceptance-six-r1/query-readiness.json": "82b5a97957dc5381ceacd9de9e1f11d383c9ad41aac5cbdb348f1faf7d677ef5",
+    "work/acceptance-six-r1/execution-config.json": "516d8132d27cba35b6e504f4d34cdfc009a3f05994cb293efda83f0e1a8727f6",
+    "work/acceptance-six-r1/runtime-built.json": "60a85c27e261b3b712dec22d29e57204cc9d569d75b79e1632156b49c8519eae",
+    "work/acceptance-six-r1/case-reviews/baseline-k6.json": "20c8298b6e8894c856ebd9084c807dd912f7b1658258ac0104a309656cc3f5a6",
+    "work/acceptance-six-r1/runs/baseline-k6/execution.json": "39371c619cf628fce03e0c440055a5d33e2c1e7542fb099276c2bfb5405301db",
+    "work/acceptance-six-r1/runs/baseline-k6/receipt.json": "a969b434c6a7247276e1358232d0fff0d461edce1a42d7908264b5a800713531",
+    "work/acceptance-six-r1/runs/baseline-k6/collected/query/report.json": "ca2a94a5b57dc2e6377a4684a30723d392cd97578cfc5190fd7ca609bb9ca8ca",
+    "work/acceptance-six-r1/native/baseline-k6/recovery-manifest.json": "d9fadd49dc14b8cedb5442a1c3af5f64677c571830acabf6d688d5fbaa299ff3",
+    "work/acceptance-six-r1/native/baseline-k6/scalar/stdout.log": "fc0d1788a453d9d8e00cebfe0f4dd5490212ea88f8830f012d5a1f540470caef",
+    "work/acceptance-six-r1/native/baseline-k6/scalar/stderr.log": "4098fd27f7e4d189561b6ca9de16d7cd37c8f2b45ed9460ade91ac0cb768c678",
+    "work/acceptance-six-r1/build-retry/build-collected/linkage.log": "6c2556e22fde81f4074e660c94fc7eefeea5075d4a2e041176923e7038ec69f1",
+    "work/acceptance-six-r1/build-retry/build-collected/configure.log": "4b5f0051b172fd4346474c47980d60a667302e03698c197b13b2c9792f298ca0",
+    "work/acceptance-six-r1/build-retry/build-collected/patch.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/acceptance-six-r1/build-retry/build-collected/compile.log": "c5ee65693a8695041e8e14ab59504b8baec1088f03f14411eaeacb0d765fb107",
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-build-launcher-2026-11-16.py.txt": "cc6759fc4a8be005b18118efd03d8e54bac7fc277b00d3d538112e1a64e1f551",
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-build-driver-2026-11-16.py.txt": "72d682ede537b1be977e0c2f2ab522696b56005ceae7c84d246070a7ece2fb6b",
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-case-driver-2026-11-16.py.txt": "3b589e14b71687716998545858833b209a6233627f448b1726d216da498f1641",
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-review-2026-11-16.py.txt": "b360a208d90456f6a8eb8753f0626d3cf81d4a59b934dc7d160f03ba56412629",
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-native-failure-2026-11-16.log": "4098fd27f7e4d189561b6ca9de16d7cd37c8f2b45ed9460ade91ac0cb768c678"
+  },
+  "frozen_helper_locations": {
+    "work/SIESTA-REMAG/scripts/acceptance_build_retry_modal.py": "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-build-launcher-2026-11-16.py.txt",
+    "work/run-acceptance-build-r2.py": "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-build-driver-2026-11-16.py.txt",
+    "work/run-acceptance-six-case.py": "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-case-driver-2026-11-16.py.txt",
+    "work/acceptance_six_review.py": "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r2-review-2026-11-16.py.txt"
+  },
+  "preservation": {
+    "original_failed_attempt_evidence_hashes_reverified": true,
+    "old_campaign_ledger_unchanged": true,
+    "registered_six_inputs_unchanged": true,
+    "no_pristine_reference_run": true,
+    "thresholds_unchanged": true
+  },
+  "validation": {
+    "storage_controller_tests": "35 passed",
+    "storage_controller_commit": "93c838bb4f9e73158b6f1a2641bcdab4fcd6b40f",
+    "storage_controller_CI": {
+      "databaseId": 43909755948,
+      "conclusion": "success",
+      "url": "https://github.com/willgbryan/SIESTA-REMAG/actions/runs/43909755948"
+    },
+    "native_recovered_file_count": 28,
+    "native_recovered_bytes": 2477503,
+    "final_local_controls": "88 passed in 11.45s: execution controller, SOC diagnostics and device-owner component checks. Engineering checks do not override the native failure."
+  },
+  "claims": {
+    "full_spec_acceptance_complete": false,
+    "physical_accuracy_qualified": false,
+    "zero_temperature_convergence": false,
+    "latency_target_established": false,
+    "speedup_established": false,
+    "predictive_advantage_established": false
+  }
+}

@@ -17,7 +17,7 @@ grant; this feature does not reopen it or authorize its remaining funds.
 
 ## Operator configuration
 
-`REMAG-RESEARCH-EXECUTION/1` has these exact fields. Values below are illustrative
+`REMAG-RESEARCH-EXECUTION/1` requires these fields. Values below are illustrative
 placeholders, not an executable authorization:
 
 ```json
@@ -37,6 +37,12 @@ placeholders, not an executable authorization:
   "max_reserved_cents": 400
 }
 ```
+
+An optional `volume` field selects a separate result volume by name. It is
+operator configuration, bound to both the immutable authorization and execution
+policy; the model cannot change it through tool arguments. Omitting it preserves
+the existing `siesta-remag-results` default. Put compilation scratch on ephemeral
+disk and publish only required build artifacts to a result volume.
 
 The ledger and stage must already exist with sufficient authorized capacity;
 this controller cannot create, extend, refund or reallocate them. Each query
