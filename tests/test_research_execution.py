@@ -129,6 +129,28 @@ def test_operator_configuration_cannot_be_reset(prepared,tmp_path):
         execute_query(tmp_path,'execution-config.json','bundle','second',transport=transport)
 
 
+def test_operator_volume_is_bound_to_policy_and_immutable_authorization(prepared,tmp_path):
+    config=load(tmp_path/'execution-config.json');config['volume']='acceptance-isolated'
+    save(tmp_path/'execution-config.json',config)
+    result=execute_query(tmp_path,'execution-config.json','bundle','first',transport=SyntheticTransport())
+    assert result['status']=='measured'
+    policy=load(tmp_path/'first/campaign/execution.json')
+    assert policy['volume']=='acceptance-isolated'
+    reservation=BudgetLedger(tmp_path/'budget.json').snapshot()['reservations'][0]
+    assert reservation['metadata']['policy_sha256']==digest(policy)
+    config['volume']='another-volume';save(tmp_path/'execution-config.json',config)
+    with pytest.raises(ValueError,match='cannot be edited or reset'):
+        execute_query(tmp_path,'execution-config.json','bundle','second',transport=SyntheticTransport())
+
+
+@pytest.mark.parametrize('volume',[None,False,'','../results','/results','bad volume','a'*65])
+def test_invalid_operator_volume_prevents_launch(prepared,tmp_path,volume):
+    config=load(tmp_path/'execution-config.json');config['volume']=volume
+    save(tmp_path/'execution-config.json',config)
+    with pytest.raises(ValueError,match='operator-selected result volume'):
+        read_execution_config(tmp_path,'execution-config.json')
+
+
 def test_requested_spectrum_missing_is_a_failed_query(prepared,tmp_path):
     r=execute_query(tmp_path,'execution-config.json','bundle','attempt',spectra=[dict(stage='soc-z',spin=0)],transport=SyntheticTransport())
     assert r['status']=='held_review' and r['allocation_stopped']

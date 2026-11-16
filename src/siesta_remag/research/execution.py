@@ -45,8 +45,12 @@ def read_execution_config(workspace, path):
     required = {'format','authorization_id','authorization','budget_ledger','budget_stage','runtime',
                 'runtime_sha256','image','previous_app_id','app_timeout_seconds',
                 'hourly_reservation_usd','max_queries','max_reserved_cents'}
-    if not isinstance(c,dict) or set(c) != required or c['format'] != 'REMAG-RESEARCH-EXECUTION/1':
+    if (not isinstance(c,dict) or not required <= set(c) or set(c)-required-{'volume'}
+            or c['format'] != 'REMAG-RESEARCH-EXECUTION/1'):
         raise ValueError('Expected explicit REMAG research execution configuration')
+    if 'volume' in c and (not isinstance(c['volume'],str)
+            or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,63}',c['volume'])):
+        raise ValueError('Expected a named operator-selected result volume')
     if (not isinstance(c['authorization_id'],str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,64}',c['authorization_id'])
             or not isinstance(c['authorization'],str) or not c['authorization'].strip()
             or not isinstance(c['budget_stage'],str) or not c['budget_stage']):
@@ -248,6 +252,7 @@ review. Disappearing local sessions never count as allocation release.
         policy = dict(experiments=['query'],timeout_seconds=c['app_timeout_seconds'],
             hourly_reservation_usd=c['hourly_reservation_usd'],budget_usd=plan['reserved_cents']/100,
             budget_stage=c['budget_stage'],spectra=spectra,expected_source_code=experiment_code())
+        if 'volume' in c:policy['volume'] = c['volume']
         save(output/'campaign/execution.json',policy)
         save(output/'authorization.json',dict(config=c,config_sha256=plan['sha256'],prior_app=prior))
         started = time.monotonic()
