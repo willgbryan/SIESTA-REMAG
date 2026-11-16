@@ -7,14 +7,35 @@ from pathlib import Path
 import math
 
 from ..corpus import sha256
-from ..discovery.common import load
 from .convergence import numerical_configuration
 
 
+def report_endpoints(values, resolve=Path):
+    """Accept full reports or explicit compact-collection endpoints.
+
+    A collection is never guessed from neighboring files. The tool adapter
+    supplies its workspace resolver; the Python API accepts ordinary paths.
+    """
+    if not isinstance(values, (list, tuple)) or not 3 <= len(values) <= 100:
+        raise ValueError('Calibration needs 3..100 structures per tier')
+    endpoints = []
+    for value in values:
+        if isinstance(value, (str, Path)):
+            value = {'report': value}
+        if (not isinstance(value, dict) or 'report' not in value
+                or set(value)-{'report', 'collection'}
+                or any(not isinstance(p, (str, Path)) or not str(p) for p in value.values())):
+            raise ValueError('Expected a report path or report/collection endpoint')
+        endpoints.append({key: resolve(str(path)) for key, path in value.items()})
+    return endpoints
+
+
 def _series(paths):
+    from .tools import _verified_report
     rows, fixed = {}, None
-    for value in paths:
-        path=Path(value); report=load(path)
+    for endpoint in report_endpoints(paths):
+        path=endpoint['report'].resolve()
+        report=_verified_report(path, endpoint.get('collection'))
         if report.get('format')!='REMAG-EXPERIMENT-RESULT/1' or report.get('status')!='measured':
             raise ValueError('Calibration requires completed research reports')
         stages=report['stages']
@@ -28,14 +49,11 @@ def _series(paths):
         config.pop('source_sha256')
         if fixed is None:fixed=config
         elif config!=fixed:raise ValueError('Each calibration tier must have one numerical configuration')
-        for name,h in report['artifacts'].items():
-            artifact=(path.parent/name).resolve()
-            if not artifact.is_relative_to(path.parent.resolve()) or sha256(artifact)!=h:
-                raise ValueError('Calibration artifact binding differs')
         obs=report['observations']
         values={q:obs['soc-x'][q]-obs['soc-z'][q] for q in ('total_energy_ev','free_energy_ev')}
         if not all(math.isfinite(v) for v in values.values()):raise ValueError('Nonfinite calibration energies')
-        rows[source]=dict(values=values,report_sha256=sha256(path),wall_seconds=report.get('wall_seconds'))
+        rows[source]=dict(values=values,report_sha256=sha256(path),wall_seconds=report.get('wall_seconds'),
+                          verification=report['verification'])
     return rows,fixed
 
 
@@ -47,8 +65,6 @@ def calibrate_response(exploratory, reference, *, baseline_source_sha256, resolu
     """
     if type(resolution_ev) not in (int,float) or not math.isfinite(resolution_ev) or resolution_ev<=0:
         raise ValueError('Declare a positive finite response resolution in eV/cell')
-    if not 3<=len(exploratory)<=100 or not 3<=len(reference)<=100:
-        raise ValueError('Calibration needs 3..100 structures per tier')
     cheap,cheap_config=_series(exploratory);dense,dense_config=_series(reference)
     if set(cheap)!=set(dense) or baseline_source_sha256 not in cheap:
         raise ValueError('Calibration requires matching structures and baseline in both tiers')

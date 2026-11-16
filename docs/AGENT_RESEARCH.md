@@ -56,16 +56,26 @@ hashed artifact. [Conventions and examples](ORBITAL_MOMENTS.md) distinguish this
 native density from reconstructed selected-k occupations and this local moment
 from bulk orbital magnetization. The tool performs saved-data analysis only.
 
-`calibrate_exploratory_response` accepts two lists of saved report paths,
+`calibrate_exploratory_response` accepts two lists of saved report endpoints,
 `exploratory` and `reference`, plus `baseline_source_sha256` and a declared
 `resolution_ev`. Each tier must contain the same baseline and at least two
 matched structural interventions, with one numerical configuration per tier.
+An endpoint is either a report-path string for a complete local result or
+`{"report":"collected/case/report.json","collection":"collected/archive-manifest.json"}`
+for an explicitly supplied original compact archive. The tool never guesses a
+manifest or excuses a missing full-result artifact. Mixed full/collected
+endpoints are supported; all paths still obey workspace and held-out gates.
 It verifies the native stages and artifacts, reports E/F response discrepancies,
 response signs and pair rankings, and exposes every changed setting between
 tiers. Near-zero responses and ties remain unresolved. These observed errors
 do not become uncertainty bounds or a universal default, and the reference
 tier does not acquire a physical-accuracy certificate from its name. This is
 saved-data analysis; no convergence campaign or calculation is started.
+Each returned source row includes the verification mode, original collection
+manifest hash and any omitted remote artifacts. Changed collected bytes,
+incorrect report/manifest bindings and failed branches stop analysis. A
+same-tier identity comparison is a useful tool check but cannot calibrate a
+faster setting, select an exploratory default or establish a latency target.
 
 The research loop uses existing implementations, rather than separate copies:
 

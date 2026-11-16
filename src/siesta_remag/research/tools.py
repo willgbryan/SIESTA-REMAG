@@ -54,7 +54,7 @@ TOOLS = {
         'optional':['cutoff_angstrom','position_tolerance_angstrom','metric_relative_tolerance'],
         'description':'Verify a saved accepted native relaxation and report source-linked site/orbit, neighbor and authored-symmetry changes.'},
     'calibrate_exploratory_response': {'required': ['exploratory','reference','baseline_source_sha256','resolution_ev'], 'optional': [],
-        'description': 'Compare response errors, signs and rankings from saved matched structures; selects no universal default.'},
+        'description': 'Compare E/F response errors, signs and rankings from saved matched structures. Each tier lists report paths or {report, collection} endpoints for original compact archives; selects no universal default.'},
     'inspect_calculation': {'required': ['report'], 'optional': ['collection'],
         'description': 'Verify a saved calculation and inspect measured stages, moments, forces, stress and anisotropy.'},
     'inspect_electronic_structure': {'required': ['spectrum'], 'optional': ['selection'],
@@ -211,8 +211,6 @@ class ResearchTools:
             if name=='run_prepared_query':self._source_access(load(self.path(args['bundle'])/'experiment.json').get('source_sha256'))
             if name=='record_response_outcome':
                 for k in ('before','after'):self._source_access(load(self.path(args[k]['report'])).get('source_sha256'))
-            if name=='calibrate_exploratory_response':
-                for p in args['exploratory']+args['reference']:self._source_access(load(self.path(p)).get('source_sha256'))
             if name=='inspect_relaxation':self._source_access(load(self.path(args['structure']))['source']['sha256'])
             if name=='analyze_response_series':
                 for endpoint in args['evidence'].values():self._source_access(load(self.path(endpoint['report']))['source_sha256'])
@@ -254,8 +252,12 @@ class ResearchTools:
             return inspect_relaxation(load(self.path(args['structure'])),self.path(args['bundle']),self.path(args['report']),
                 **{k:v for k,v in args.items() if k not in ('structure','bundle','report')})
         if name == 'calibrate_exploratory_response':
-            from .calibration import calibrate_response
-            return calibrate_response([self.path(p) for p in args['exploratory']], [self.path(p) for p in args['reference']],
+            from .calibration import calibrate_response, report_endpoints
+            tiers = {key: report_endpoints(args[key], self.path) for key in ('exploratory', 'reference')}
+            for endpoints in tiers.values():
+                for endpoint in endpoints:
+                    self._source_access(load(endpoint['report']).get('source_sha256'))
+            return calibrate_response(tiers['exploratory'], tiers['reference'],
                 baseline_source_sha256=args['baseline_source_sha256'],resolution_ev=args['resolution_ev'])
         if name == 'inspect_calculation':
             path = self.path(args['report']); report = _verified_report(path,self.path(args['collection']) if 'collection' in args else None)

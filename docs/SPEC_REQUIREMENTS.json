@@ -1,6 +1,6 @@
 {
   "format": "GPAC-REMAG-SPEC-COMPLETION-AUDIT/1",
-  "created_at": "2026-11-16T02:52:13.057000+00:00",
+  "created_at": "2026-11-16T03:15:12.270465+00:00",
   "specification": {
     "title": "GPAC × REMAG: Physics-Guided Autonomous Crystal Discovery — Development Specification v3.0",
     "sha256": "e33e5d1f0894fce48dd1bf25852272f3ede3c83dc69725f7d905e4428b69b0e8",
@@ -8,7 +8,7 @@
     "source": "Owner attachment; line spans are one-based in the original text"
   },
   "reviewed_heads": {
-    "REMAG": "8fca8fd3e681178ba6e08e391f80065184d5d8e4",
+    "REMAG": "92872cfe05939ee5cbd164e8248100dc01887c55",
     "GPAC": "b8d94281bdf285d66ddcb1d31e9d2cb1d6d8838d"
   },
   "interpretation": {
@@ -43,7 +43,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/tools.py",
-          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+          "sha256": "b01c77375ca77f001f25ac98e83de6190834a350c967b21d9f6463e09c4ef8c7"
         },
         {
           "repo": "REMAG",
@@ -430,7 +430,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/tools.py",
-          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+          "sha256": "b01c77375ca77f001f25ac98e83de6190834a350c967b21d9f6463e09c4ef8c7"
         },
         {
           "repo": "REMAG",
@@ -937,7 +937,7 @@
       "requirement": "Optimize useful end-to-end scientific queries; owner target is 1–5 minutes submission to usable result.",
       "implementation_status": "implemented",
       "acceptance_status": "not_demonstrated",
-      "delivered": "Query-specific stage selection, cache identity, saved calibration tools and controlled execution phase timings avoid automatically running all directions.",
+      "delivered": "Query-specific stage selection, cache identity, saved calibration tools and controlled execution phase timings avoid automatically running all directions. Response calibration now accepts explicit original compact-archive manifests, retaining omitted bytes and source/workspace restrictions; saved same-tier identity control passes.",
       "outstanding": "No calibrated exploratory default or measured full-query target. Allocation startup/queue phases remain incomplete in archived measurements; no speedup is inferred.",
       "implementation": [
         {
@@ -953,7 +953,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/calibration.py",
-          "sha256": "121fc90adc4d12cf78856ca5667907ad0ad8202376452634a1556ef17c7b8acb"
+          "sha256": "5949bace92ab7c16434302ce67bbd58d04ef7b2cff8a4200b5fafd652c566901"
         }
       ],
       "tests": [
@@ -970,7 +970,7 @@
         {
           "repo": "REMAG",
           "path": "tests/test_research_calibration.py",
-          "sha256": "342942ac494bd5015b0b1b11b9bdd0723aca63494e4b5815272cd20c5923b84e"
+          "sha256": "5945b6a5f8e62f4ce84f919661025dae430af335dabc7b7c4c3cc8c678fe5ad5"
         }
       ],
       "evidence": [
@@ -983,6 +983,11 @@
           "repo": "REMAG",
           "path": "tests/evidence/research/fept-basis-accel-r1-diagnosis-2026-11-14.json",
           "sha256": "047186d4444343e5061e06c85f9685276c357939e22cbdf535a4ff4a1394233c"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-calibration-archives-2026-11-15.json",
+          "sha256": "a43f2198a4e4369c721379cb4169039d3c54b3a6f9fdaef0bb335fd4bb4aa502"
         }
       ]
     },
@@ -1136,7 +1141,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/tools.py",
-          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+          "sha256": "b01c77375ca77f001f25ac98e83de6190834a350c967b21d9f6463e09c4ef8c7"
         },
         {
           "repo": "REMAG",
@@ -1491,7 +1496,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/tools.py",
-          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+          "sha256": "b01c77375ca77f001f25ac98e83de6190834a350c967b21d9f6463e09c4ef8c7"
         },
         {
           "repo": "REMAG",
@@ -1571,7 +1576,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/tools.py",
-          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+          "sha256": "b01c77375ca77f001f25ac98e83de6190834a350c967b21d9f6463e09c4ef8c7"
         },
         {
           "repo": "REMAG",
@@ -1620,13 +1625,13 @@
       "requirement": "Structured reusable tool contracts with explicit units/provenance and large arrays retained as artifacts.",
       "implementation_status": "implemented",
       "acceptance_status": "locally_tested_direct_chat_replay",
-      "delivered": "Python, JSON worker and CLI interfaces reuse domain modules; bounded summaries reference hashed NPZ/native files. Direct single-call CLI, discoverable schemas, source-linked intent/result receipts and explicitly registered trusted extensions are now available.",
+      "delivered": "Python, JSON worker and CLI interfaces reuse domain modules; bounded summaries reference hashed NPZ/native files. Direct single-call CLI, discoverable schemas, source-linked intent/result receipts and explicitly registered trusted extensions are now available. Response calibration now accepts explicit original compact-archive manifests, retaining omitted bytes and source/workspace restrictions; saved same-tier identity control passes.",
       "outstanding": "Native MCP installation is not required for shell-tool use and was not performed. Extension code is trusted, not sandboxed; scientific value validation stays in handlers.",
       "implementation": [
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/tools.py",
-          "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+          "sha256": "b01c77375ca77f001f25ac98e83de6190834a350c967b21d9f6463e09c4ef8c7"
         },
         {
           "repo": "REMAG",
@@ -1652,6 +1657,11 @@
           "repo": "REMAG",
           "path": "src/siesta_remag/research/toolhost.py",
           "sha256": "7fbe74c9f843d8a18c4c5d9a5e1d3656028768e88fe9900ffcd99f5b1f681a04"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/calibration.py",
+          "sha256": "5949bace92ab7c16434302ce67bbd58d04ef7b2cff8a4200b5fafd652c566901"
         }
       ],
       "tests": [
@@ -1679,6 +1689,11 @@
           "repo": "REMAG",
           "path": "tests/test_research_toolhost.py",
           "sha256": "64be9a7383a1ec89ce26dc201da56aefc910950dc953309ed8f47ea594e9f10b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_calibration.py",
+          "sha256": "5945b6a5f8e62f4ce84f919661025dae430af335dabc7b7c4c3cc8c678fe5ad5"
         }
       ],
       "evidence": [
@@ -1686,6 +1701,11 @@
           "repo": "REMAG",
           "path": "tests/evidence/research/spec-direct-tools-2026-11-15.json",
           "sha256": "14c9cc1daf4a385dadfe97727c8815a1eadb0df0b2106bec3d6d23b66b0a6aec"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-calibration-archives-2026-11-15.json",
+          "sha256": "a43f2198a4e4369c721379cb4169039d3c54b3a6f9fdaef0bb335fd4bb4aa502"
         }
       ]
     },
@@ -1959,7 +1979,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/calibration.py",
-          "sha256": "121fc90adc4d12cf78856ca5667907ad0ad8202376452634a1556ef17c7b8acb"
+          "sha256": "5949bace92ab7c16434302ce67bbd58d04ef7b2cff8a4200b5fafd652c566901"
         }
       ],
       "tests": [
@@ -1976,7 +1996,7 @@
         {
           "repo": "REMAG",
           "path": "tests/test_research_calibration.py",
-          "sha256": "342942ac494bd5015b0b1b11b9bdd0723aca63494e4b5815272cd20c5923b84e"
+          "sha256": "5945b6a5f8e62f4ce84f919661025dae430af335dabc7b7c4c3cc8c678fe5ad5"
         }
       ],
       "evidence": [
@@ -2476,53 +2496,28 @@
     "new_solver_calls": 0,
     "new_model_service_calls": 0,
     "new_gpu_reservations_cents": 0,
-    "verified_file_count": 105,
+    "verified_file_count": 106,
     "requirement_groups": 38,
     "source_evidence": "tests/evidence/research/spec-candidate-metrics-2026-11-15.json",
     "latest_increment_tests": {
-      "tests": "83 passed, 3 deselected in 42.03s",
-      "test_log_sha256": "a26ef594ee3e86ce05cbf9346f0c0a980174eb640f23af40bccec85d5153019e",
+      "tests": "35 passed in 16.16s",
+      "test_log_sha256": "22bd08f234bf7ff2883bc82f410185f113f716079186da720dfc5875f5327fe0",
       "controls": [
-        "Fresh-process notebook persistence",
-        "Duplicate receipt rejects before a second effect",
-        "Scalar profile and compute tools rejected",
-        "Escaping workspace paths rejected",
-        "Trusted extension discovery and actual CLI invocation",
-        "Extension stdout separated from JSON replies",
-        "Request retained before partial failure; no automatic retry",
-        "Existing report/hash/source and prediction-order checks reused"
-      ],
-      "earlier_checks": [
-        {
-          "result": "16 passed in 9.44s",
-          "scope": "Initial host/tool/agent regression"
-        },
-        {
-          "result": "83 passed, 2 failed, 1 deselected",
-          "reason": "Two unchanged loopback HTTP authoring tests failed because this sandbox forbids socket bind; retained log work/spec-direct-tools-final-tests.log"
-        },
-        {
-          "result": "Initial invocation could not import source package",
-          "reason": "Source-checkout PYTHONPATH was omitted; corrected before any demo action. The documented commands specify both sources."
-        }
+        "Full versus collected results and mixed endpoints agree",
+        "No implicit manifest or missing-file exemption",
+        "Changed collected artifact, wrong manifest and failed magnetic branch rejected",
+        "Held-out source and escaping workspace path rejected through the tool",
+        "Unknown endpoint field rejected"
       ],
       "implementation_sha256": {
-        "src/siesta_remag/research/toolhost.py": "7fbe74c9f843d8a18c4c5d9a5e1d3656028768e88fe9900ffcd99f5b1f681a04",
-        "src/siesta_remag/research/__main__.py": "8f799223ea2b6376d076260654fab0771ec2dbb13213669a2f8e6fc69936f907",
-        "tests/test_research_toolhost.py": "64be9a7383a1ec89ce26dc201da56aefc910950dc953309ed8f47ea594e9f10b"
+        "src/siesta_remag/research/calibration.py": "5949bace92ab7c16434302ce67bbd58d04ef7b2cff8a4200b5fafd652c566901",
+        "src/siesta_remag/research/tools.py": "b01c77375ca77f001f25ac98e83de6190834a350c967b21d9f6463e09c4ef8c7",
+        "tests/test_research_calibration.py": "5945b6a5f8e62f4ce84f919661025dae430af335dabc7b7c4c3cc8c678fe5ad5"
       },
       "original_source_files_unchanged": 405,
-      "staged_files_unchanged": {
-        "scalar": 405,
-        "physics": 409
-      },
-      "pre_hardening_adapter": {
-        "path": "tests/evidence/research/direct-tools-adapter-pre-hardening-2026-11-15.py.txt",
-        "sha256": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
-        "scope": "Adapter used by first ten replay calls; final history retrieval and scoped tests use current adapter."
-      }
+      "staged_input_files_unchanged": 409
     },
-    "latest_increment_ci": "Pending publication; prior implementation CI retained separately"
+    "latest_increment_ci": "Pending publication; prior tested implementation remains recorded separately"
   },
   "preserved": {
     "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
@@ -2533,8 +2528,8 @@
     "actual_invoices": null
   },
   "previous_audit": {
-    "path": "outputs/Spec-completion-audit-2026-11-15-r3.json",
-    "sha256": "f1cb61de461b6683ababc2aa8a985f8a8f9d3de3f241d5544baa923a1d83a92b"
+    "path": "outputs/Spec-completion-audit-2026-11-15-r4.json",
+    "sha256": "36c56ca8fcd2b4ce434595df8cb766c0b7df38f95844430f8ae14d4cff28c8b1"
   },
   "acceptance_handoff": {
     "document": "docs/DIRECT_RESEARCH_TOOLS.md",
@@ -2550,5 +2545,5 @@
     "automatic_retries": false,
     "separate_policy_plan": "Previous r3 audit and staged configurations retained; no external-policy sessions executed"
   },
-  "reviewed_snapshot": "Direct-tool increment on the listed base heads; referenced file hashes identify the working-tree content. Publication commit/CI are recorded in the progress receipt."
+  "reviewed_snapshot": "Archive-calibration increment on the listed base heads; referenced hashes identify reviewed working-tree bytes. Final publication is recorded in the progress receipt."
 }

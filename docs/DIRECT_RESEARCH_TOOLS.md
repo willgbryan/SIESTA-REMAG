@@ -125,3 +125,10 @@ saved report. The resulting −0.029816 meV/cell error is retained with an
 evidence-linked revision. All five notebook event kinds survive fresh processes.
 No separate model-service call or solver is used. See the
 [receipt summary](../tests/evidence/research/spec-direct-tools-2026-11-15.json).
+
+The response-calibration tool also accepts explicit `{report, collection}`
+endpoints, so the chat can use compact saved archives without recreating remote
+native binaries. It reuses the same report verifier as calculation inspection
+and preserves omitted-byte disclosures. The saved identity control is recorded
+in [archive-input evidence](../tests/evidence/research/spec-calibration-archives-2026-11-15.json);
+that control does not validate a faster numerical setting.
