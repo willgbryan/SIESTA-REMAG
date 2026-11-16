@@ -1,0 +1,49 @@
+{
+  "format": "REMAG-LIVE-ACCEPTANCE-INPUT-EVIDENCE/1",
+  "created_at": "2026-11-16T00:31:58.001413+00:00",
+  "scope": "This live workflow replay is separate from the still-required genuinely held-out scalar-versus-physics comparison. It establishes no scientific advantage.",
+  "software_heads": {
+    "REMAG": "2be71ee40daf18a2b36f1773d6fdb58a3af53d14",
+    "GPAC": "b8d94281bdf285d66ddcb1d31e9d2cb1d6d8838d"
+  },
+  "source_sha256s": {
+    "point-000": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+    "point-001": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+    "point-002": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a"
+  },
+  "original_files_verified_unchanged": 405,
+  "initial_file_counts": {
+    "scalar": 405,
+    "physics": 409
+  },
+  "source_inventory_sha256": "afbe6d9c7b2d9a55f7ed76aaae34c0d9c76411a3ae8d7efff2d032bbc239907b",
+  "initial_inventories_sha256": "7dbe1da1edc95f371b0675d00bfc1244128b6994480a3452a1cb4b2d1d596743",
+  "staged_policy_hashes": {
+    "scalar": "cb06cc4886ca15a7041c475194ffe501d89ace655891861372bbf2591c65d633",
+    "physics": "83bcbe9e08589d05cc4bba73cac164d1616c87cda7bc8d0b3298a715125bdec8"
+  },
+  "preflight_sha256": "511437930d12dbe8928d8f1f11a3a8db9315acd0a2a6bc1a62e7f52a515e6c08",
+  "plan_sha256": "696615fa91eabd4d3b210a966706372ce2665c209f4b8e79bed3ae96d724a85a",
+  "local_preparation_script_sha256": "300f1c9b4502c4a385b2cb2655049404f99e695b12abf7e820680600ec534ded",
+  "checks": [
+    "All original compact-collection reports and copied artifacts pass the existing report verifier.",
+    "Existing GPAC axial strain reproduces both exact saved intervention source hashes.",
+    "Saved baseline matrices and orbital moments pass existing loaders and source/report binding checks.",
+    "Common profile briefs match after removing profile identity and physics-only electronic fields.",
+    "Both null-model configurations reject locally before any service request; configuration-only checks admit an explicit fixture identifier.",
+    "No session directory or research notebook exists; native execution and CPU relaxation are disabled."
+  ],
+  "first_preparation_failure": {
+    "error": "KeyError: 'after'",
+    "reason": "Local staging script used the wrong existing GPAC return field; corrected to child.sha256 in a new staging directory. No calculation or service call occurred.",
+    "log_sha256": "7027a93fb4c7ab444098da92c35e35169acdfc2117643b4cc024f4579483ae84"
+  },
+  "execution_counts": {
+    "model_calls": 0,
+    "agent_sessions": 0,
+    "native_calculations": 0,
+    "new_gpu_reservations_cents": 0
+  },
+  "remaining_input": "Authorized model identifier and service credential configured outside chat.",
+  "protocol_scope": "The model receives its selected brief and filtered tool catalog. Raw archived binaries remain verification inputs; this is trusted-command protocol isolation, not an OS sandbox."
+}

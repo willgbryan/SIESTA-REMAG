@@ -7,13 +7,20 @@ remain unchanged. No new compute is queued by this document.
 
 ## Next runnable scope: a live agent using existing results
 
-Use the existing model adapter and paired-study commands, with the same
-explicitly selected model and configuration for both arms. Provision two clean
+Use the existing model adapter and two separate `agent` sessions, with the same
+explicitly selected model and limits for both profiles. Provision two clean
 workspaces from the existing three-point, 32-cubed DZP FePt strain example:
 axial strains −1/400, 0 and +1/400. Their exact source, native report and artifact
 hashes are recorded in the candidate-metrics evidence. Provide matching exact
 structures and standard properties to both arms; electronic observations go
-only to the physics arm. Use separate notebooks and invoke each arm separately.
+only to the physics profile through its brief and permitted tool responses. Use
+separate notebooks and invoke each session separately. The initial briefs differ
+only in that electronic evidence. Raw archives support report verification;
+this is trusted-command protocol isolation, not an OS sandbox.
+
+This replay uses no invented held-out hash and no `study-register` call. The
+paired-study runner requires a real held-out cohort and remains reserved for the
+separate comparison described below. Exposed-data replay cannot fill that role.
 
 Bound this first service acceptance run to **eight model calls per arm**, at
 most **2,048 output tokens per call**, **16,384 reserved output tokens per arm**,
@@ -34,9 +41,15 @@ tokens or monetary billing; reported service usage must be retained separately.
 **Missing configuration:** the owner's authorized model identifier and service
 account/key. Supply a key through the process environment or normal secret
 manager, never in chat or a committed file. No credential is searched for or
-service request sent by this handoff. Once those are provided, the existing
-registration binds the concrete configuration and initial file inventories
-before the first model call.
+service request sent by this handoff. The local input preflight copies and
+verifies saved reports, exact parent and intervention sources, profile-specific
+evidence and initial file inventories. After the model/account is supplied,
+configure the model and freeze the actual policy bytes
+before the first call. The existing agent records its request, configuration
+and complete decision history; staging inputs does not create a session.
+[Input-preparation evidence](../tests/evidence/research/spec-live-acceptance-inputs-2026-11-15.json)
+records 405 unchanged source files, matching common briefs, native report and
+diagnostic validation, and the unset-model rejection before any request.
 
 ## Acceptance that requires separate compute scope
 
