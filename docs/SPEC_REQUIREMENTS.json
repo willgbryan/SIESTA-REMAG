@@ -2391,7 +2391,12 @@
         "R27",
         "R28"
       ],
-      "status": "integrated_tests_and_historical_evidence_live_adapter_pending"
+      "status": "direct_chat_saved_data_workflow_demonstrated_independent_evaluation_pending",
+      "scope": "The current chat designed and recorded an exact intervention, prediction, saved outcome evaluation and hypothesis revision through the delivered tools. This known-data replay establishes live workflow operation; it does not establish unseen predictive quality or a discriminating physical mechanism.",
+      "evidence_requirements": [
+        "R27",
+        "R28"
+      ]
     },
     {
       "id": "S5",
