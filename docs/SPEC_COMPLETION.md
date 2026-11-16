@@ -70,6 +70,13 @@ with $0.05 reserved out of its separate $1.55 cap, unknown invoices, and the sol
 CPU app stopped. The clean workflow remains unproven; historical numerical
 failures and the closed convergence campaign are unchanged.
 
+The [local policy-isolation repair](ISOLATED_POLICY_ACCEPTANCE.md) fixes the import
+and replaces ambient desktop policy tools with a decision-only broker for the
+controlled comparison. Local two-arm regressions and actual-input preflights
+pass without paid calls. Live Astra service access and measured clean acceptance
+remain pending; the remaining $1.50 covers the two GPU reservations only. This
+repair does not reclassify the closed r5 attempt or restart any campaign.
+
 - A clean scalar-versus-physics evaluation with measured equal compute remains.
   Two fresh Astra extra-high contexts completed the prospective tool workflow
   on new prescribed heldouts, but operator staging exposed extra electronic

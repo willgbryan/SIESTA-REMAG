@@ -123,6 +123,15 @@ acceptance remainder and all old ledgers/evidence remain unchanged. The clean
 workflow remains unproven. No follow-on is authorized; the old convergence
 campaign remains closed.
 
+The subsequent [local isolation repair](ISOLATED_POLICY_ACCEPTANCE.md) moves the
+canonical ToolHost import into a fixed broker and removes the desktop agent
+harness from controlled policy requests. Both independent histories pass local
+synthetic regression tests, and copied actual inputs pass fresh-process
+preflight. Live Astra access and the clean scientific workflow remain untested.
+This opt-in comparison route needs funded model access; it does not change this
+chat's direct-tool interface. The two remaining GPU reservations fit $1.50, but
+new model API charges are not included or authorized. No allocations were made.
+
 The full scalar-versus-physics comparison needs a genuinely new held-out cohort,
 matching declared budgets, frozen predictions/targets and measured allocation
 costs. Existing exposed reports cannot be relabeled unseen. That run must have
