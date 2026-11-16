@@ -97,18 +97,20 @@ contribution to the discrepancy is +0.152/−0.167 meV, while F still fails by
 numerical response, not a report/unit conversion error; it does not uniquely
 separate k-integration, occupation and residual-SCF effects or qualify 12³.
 
-The smallest proposed remaining live test reuses all six results and the build:
-three 8³ bundles on the existing baseline/±3/800 sources, then, only if every
-300-second latency and 0.05 meV E/F response gate passes, two fresh ±1/320
-12³ outcomes shared by two clean policy contexts with predictions sealed first.
-This tests one replacement tier; failure closes the attempt without another
-mesh. Existing SOC acceptance is retained. The proposal reserves at most $3.80
-($0.05 metadata preflight plus five $0.75 bundles), with no rebuild, retry,
-extension or old-campaign restart. It is a new-authorization proposal only;
-the existing $0.20 remainder and all historical reservations are unchanged.
-It can finish a bounded pass/fail test, not guarantee all passes or full-spec
-scientific advantage. Saved-only replay would cost no GPU time but would not
-replace the required independent new outcomes or repair the failed response gate.
+The smallest proposed remaining live test needs only two fresh ±1/320 12³
+outcomes, shared by two clean policy contexts with predictions sealed first.
+It reuses the build and saved 12³ baseline. Native/SOC and fast latency passes
+are retained, and the completed response-consistency failure remains failed.
+No replacement fast tier is part of this plan. A preliminary five-bundle
+suggestion included extra calibration development and has been superseded.
+
+The proposal reserves at most $1.55 ($0.05 metadata preflight plus two $0.75
+bundles), with one GPU, no rebuild, retry, extension or old-campaign restart.
+It requires new authorization; the existing $0.20 remainder and all historical
+reservations are unchanged. This can finish the pending clean workflow test,
+not deliver all-green numerical acceptance or full-spec scientific advantage.
+Saved-only replay would cost no GPU time but would not replace the required
+independent new outcomes or undo the contaminated contexts.
 
 The full scalar-versus-physics comparison needs a genuinely new held-out cohort,
 matching declared budgets, frozen predictions/targets and measured allocation

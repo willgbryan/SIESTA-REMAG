@@ -327,9 +327,9 @@
     "actual_billed_usd": null
   },
   "minimal_plan": {
-    "format": "REMAG-MINIMAL-ACCEPTANCE-FOLLOWUP-PROPOSAL/1",
+    "format": "REMAG-MINIMAL-ACCEPTANCE-FOLLOWUP-PROPOSAL/2",
     "status": "proposal_only_no_execution_authorized",
-    "objective": "Finish the remaining bounded tool acceptance with recorded pass/fail results; no guaranteed scientific advantage or all-pass result.",
+    "objective": "Finish the only invalid tool-acceptance exercise with two new shared outcomes; preserve the completed response-consistency failure. This does not deliver an all-green acceptance or a calibrated fast default.",
     "reuse": [
       "Existing executable, library, image and frozen runtime",
       "Six completed native/SOC results",
@@ -339,7 +339,7 @@
     "finite_sequence": [
       {
         "step": 1,
-        "action": "Already completed offline: regression tests, original-leak rejection, verified safe packets, exact five inputs, source census and mesh-capacity checks",
+        "action": "Completed offline: staging fix, regression tests, saved-response diagnosis, safe packets, exact \u00b11/320 inputs, source census and capacity checks. Preserve native/SOC and latency passes, response failure and original contaminated-context evidence.",
         "GPU_queries": 0,
         "reservation_cents": 0
       },
@@ -351,15 +351,7 @@
       },
       {
         "step": 3,
-        "action": "One candidate fast tier only: 8-cubed baseline and existing minus/plus 3/800 sources, separately reviewed after each stopped app",
-        "GPU_queries": 3,
-        "reservation_cents": 225,
-        "criteria": "All three submission-through-required-review latencies <=300 seconds; both E and F response discrepancies <=0.05 meV/cell versus saved matched 12-cubed comparators; unchanged native/branch/identity/overlap and 0.01 meV transverse checks",
-        "failure_action": "Close the bounded attempt with failures; do not run further meshes or either new heldout; no retry."
-      },
-      {
-        "step": 4,
-        "action": "Only after step 3 passes: two fresh Astra extra-high policy contexts; stage identical verified scalar packets and structural/protocol inputs, electronic diagnostic access only for physics, withhold all outcome paths. Seal both sets of E/F response predictions on the authored \u00b11/320 sources before either measurement.",
+        "action": "After new authorization and preflight: two fresh Astra extra-high policy contexts, identical verified scalar packets and structural/protocol inputs, separate electronic diagnostics for physics only. Seal both E/F response predictions for the exact \u00b11/320 sources before either measurement.",
         "max_tool_calls_per_policy": 12,
         "pre_outcome_tool_calls": 10,
         "post_score_revision_calls": 2,
@@ -368,7 +360,7 @@
         "usage": "Record available model tokens, context time, tool time and allocation durations separately; matched limits are not proof of equal actual compute. Use existing Codex quota, no separate API purchase."
       },
       {
-        "step": 5,
+        "step": 4,
         "action": "Measure exactly two new 12-cubed \u00b11/320 bundles once each; share identical outcomes with both arms, score every sealed prediction and have each context append two evidence-linked revisions. Use saved 12-cubed baseline.",
         "GPU_queries": 2,
         "reservation_cents": 150,
@@ -376,85 +368,15 @@
         "context": "No policy may read raw archives, operator receipts, sibling history or withheld outcome files before sealing. Re-census exact source hashes before spending; any previous outcome stops this proposal."
       },
       {
-        "step": 6,
+        "step": 5,
         "action": "Collect and verify shutdown, preserve all failed/partial cases, publish pass/fail/pending, close. No automatic continuation.",
         "GPU_queries": 0,
         "reservation_cents": 0
       }
     ],
-    "why_five": "Three new fast-tier points are the minimum for this baseline-plus-two-response check; two genuinely new outcomes are required to replace the contaminated two-case policy exercise. Existing 12-cubed baseline and old calibration outcomes need no rerun.",
     "input_definition": {
       "status": "prepared_only_no_execution_authorized",
       "bundles": [
-        {
-          "case": "baseline-k8",
-          "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
-          "request_sha256": "4f83b797f39f98a5811c9d0e964f6aa5b95fa65cf7c62e19efd54368cc3f5599",
-          "bundle": "work/acceptance-staging-repair/proposed-bundles/baseline-k8",
-          "preflight": {
-            "format": "REMAG-QUERY-PREFLIGHT/1",
-            "request_sha256": "4f83b797f39f98a5811c9d0e964f6aa5b95fa65cf7c62e19efd54368cc3f5599",
-            "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
-            "device_scf_enabled": true,
-            "paid_actions": 0,
-            "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
-            "kmesh": [
-              8,
-              8,
-              8
-            ],
-            "native_kpoints_upper_bound": 512,
-            "compiled_max_kpoints": 4096,
-            "reduction_assumed": false,
-            "mesh_capacity_passed": true
-          }
-        },
-        {
-          "case": "minus-k8",
-          "source_sha256": "89d05c4a121fd97ebfa53e12389f2f5b724d9e9c6eccd9b45b68c47ed2ccdc7b",
-          "request_sha256": "958e970c3b81370d34f31145dda25bc1bf195e537b89c27c4273a750a8e315fe",
-          "bundle": "work/acceptance-staging-repair/proposed-bundles/minus-k8",
-          "preflight": {
-            "format": "REMAG-QUERY-PREFLIGHT/1",
-            "request_sha256": "958e970c3b81370d34f31145dda25bc1bf195e537b89c27c4273a750a8e315fe",
-            "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
-            "device_scf_enabled": true,
-            "paid_actions": 0,
-            "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
-            "kmesh": [
-              8,
-              8,
-              8
-            ],
-            "native_kpoints_upper_bound": 512,
-            "compiled_max_kpoints": 4096,
-            "reduction_assumed": false,
-            "mesh_capacity_passed": true
-          }
-        },
-        {
-          "case": "plus-k8",
-          "source_sha256": "c0dc783dfd451b0630045dd6271a554994944d92fd86108ed59974d649daeb7d",
-          "request_sha256": "59eac5ae45f598ce42d74d52aaed2f6e478d5c9da06ed078d8ed4536650a13e0",
-          "bundle": "work/acceptance-staging-repair/proposed-bundles/plus-k8",
-          "preflight": {
-            "format": "REMAG-QUERY-PREFLIGHT/1",
-            "request_sha256": "59eac5ae45f598ce42d74d52aaed2f6e478d5c9da06ed078d8ed4536650a13e0",
-            "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
-            "device_scf_enabled": true,
-            "paid_actions": 0,
-            "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
-            "kmesh": [
-              8,
-              8,
-              8
-            ],
-            "native_kpoints_upper_bound": 512,
-            "compiled_max_kpoints": 4096,
-            "reduction_assumed": false,
-            "mesh_capacity_passed": true
-          }
-        },
         {
           "case": "fresh-minus-k12",
           "source_sha256": "d79f12edad7922290b78d0a41a5e666191312bfa50606158d5d44c5444e89ec2",
@@ -504,7 +426,8 @@
       ],
       "solver_executions": 0,
       "paid_actions": 0,
-      "build_reused": true
+      "build_reused": true,
+      "other_prepared_bundles": "The three 8-cubed inputs were prepared offline for the superseded proposal. They are unmeasured, unqueued and excluded from this plan."
     },
     "source_census": {
       "searched_reports": 108,
@@ -515,10 +438,10 @@
       "matches": [],
       "scope": "Current workspace saved report census only; repeat before any future execution"
     },
-    "numerical_scope": "DZP/0.02 Ry, 300 Ry grid, 300 K occupations; same exact REMAG executable/environment. 12-cubed remains the fixed finite comparator, not a qualified physical reference. Testing 8-cubed is a single proposed replacement-tier test, not a convergence ladder.",
+    "numerical_scope": "Two exact \u00b11/320 axial strains at 12-cubed; existing DZP/0.02 Ry, 300 Ry grid, 300 K occupations and same REMAG executable/environment. Saved 12-cubed baseline is reused as a fixed finite comparator, not a qualified physical reference. Original 6-versus-12 response discrepancy remains failed.",
     "limits": {
-      "GPU_queries": 5,
-      "native_stage_executions": 20,
+      "GPU_queries": 2,
+      "native_stage_executions": 8,
       "max_simultaneous_GPUs": 1,
       "app_seconds_each": 600,
       "native_seconds_each": 480,
@@ -531,11 +454,10 @@
     "costs": {
       "currency": "USD",
       "this_turn_new_reservations_cents": 0,
-      "proposed_new_reservation_ceiling_cents": 380,
+      "proposed_new_reservation_ceiling_cents": 155,
       "CPU_preflight_cents": 5,
       "GPU_each_cents": 75,
-      "GPU_total_cents": 375,
-      "stop_after_failed_fast_tier_max_cents": 230,
+      "GPU_total_cents": 150,
       "existing_acceptance_reserved_cents": 980,
       "existing_unreserved_cents": 20,
       "existing_remainder_used_by_proposal": false,
@@ -552,16 +474,24 @@
         "memory_GiB": 96
       },
       "resource_estimate_per_600_second_query_usd": 0.607152,
-      "five_queries_plus_120_second_CPU_2_core_16_GiB_estimate_usd": 3.0431664,
       "scope": "Reservation ceiling is not an invoice or provider-enforced spending cap. Published-resource estimate excludes startup/image work, retained storage and egress; margin permits no extra query, build or retry. Standard Functions/default-region pricing; no premium multiplier. Existing Codex quota and model usage are separate. Actual bills unknown.",
-      "accounting": "A separately authorized acceptance allowance is required; no reservation, refund, stage reallocation or ledger mutation now. Leave both historical ledgers and the old campaign closed."
+      "accounting": "A separately authorized acceptance allowance is required; no reservation, refund, stage reallocation or ledger mutation now. Leave both historical ledgers and the old campaign closed.",
+      "two_queries_plus_120_second_CPU_2_core_16_GiB_estimate_usd": 1.2217104
     },
     "alternatives": {
       "saved_only": "Zero new GPU spending can demonstrate the corrected staging and replay software. It cannot create independent new outcomes, undo the old information exposure, or turn the failed 6-versus-12 response calibration into a pass.",
-      "all_green": "No evidence supports a fixed-price guarantee of passing. If the single 8-cubed candidate fails, stop and retain the tool limitation rather than extend the test."
+      "all_green": "No fixed-cost all-green plan is supported: the 6-cubed response calibration failed. Developing and testing a replacement fast tier is a separate task, excluded here. This two-query plan completes the pending clean workflow test, not numerical qualification or full spec completion."
     },
     "authorization": "Not requested or assumed by these prepared inputs. Current instruction forbids new GPU spending or campaign restart.",
-    "operational_guards": "Existing scripts/run_modal.py shared ownership locks, ledger and account guards; authoritative prior STOPPED and empty account availability before each launch; one separately invoked case after prior health review; no automatic queue or retry."
+    "operational_guards": "Existing scripts/run_modal.py shared ownership locks, ledger and account guards; authoritative prior STOPPED and empty account availability before each launch; one separately invoked case after prior health review; no automatic queue or retry.",
+    "why_two": "The native/SOC and latency checks already passed; the response-consistency test already failed and is not inconclusive. Only the contaminated two-arm exercise needs replacement. Two fresh 12-cubed outcomes preserve its original two-intervention scope, sharing the saved 12-cubed baseline. No fast-tier rerun is needed to report honest pass/fail acceptance.",
+    "retained_acceptance_results": {
+      "native_SOC": "passed",
+      "fast_6_latency": "passed",
+      "fast_6_response_consistency": "failed",
+      "original_strict_information_comparison": "invalid",
+      "replacement_clean_workflow": "pending new authorization"
+    }
   },
   "preserved": {
     "old_staging_failure": true,
@@ -593,5 +523,6 @@
     "src/siesta_remag/research/study.py": "133e9babfae2591e7515474531d4f3d0f1a2e286d506c0f13e8c21d83a61e903",
     "tests/test_research_staging.py": "741e96bd1810aee2822f51f3e77154a160d0309bb326068f0a784bf64f572c8a",
     "tests/test_research_discovery_scores.py": "831035b03b3bd60a4a591af0d5b2f4a799ebc95cbec05871533fe4cf3a93569b"
-  }
+  },
+  "proposal_revision": "Five-bundle suggestion reduced to two: a replacement fast-tier calibration is outside the smallest remaining workflow acceptance. Original response failure remains explicit."
 }
