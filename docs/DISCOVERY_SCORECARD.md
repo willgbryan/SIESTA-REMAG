@@ -92,8 +92,10 @@ more atoms. Rankings are grouped by recorded numerical settings, pseudo hashes,
 executable and runtime; unlike configurations are not silently ranked together.
 Neither the directional energy difference nor the spin moment is
 automatically fitted K1, a saturation value or a magnetic ground-state result.
-Thermodynamic stability, structural robustness and crystallographic uniqueness
-remain explicit unassessed fields unless supported by separate scientific work.
+Optional preregistered [candidate metrics](CANDIDATE_METRICS.md) add finite
+reference-phase stability screens, structural-variation robustness and exact
+geometry groups under a declared GPAC equivalence policy. Omitted metrics stay
+unassessed; global crystal uniqueness and physical stability are not inferred.
 The numerical protocol is finite and does not establish physical accuracy.
 
 ## Import allocation measurements

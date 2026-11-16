@@ -26,9 +26,7 @@ def policy():
         controls=[dict(varied='kmesh',tolerance_ev=5e-5,successive_changes=2,transverse_tolerance_ev=1e-5)])
 
 
-@pytest.fixture(scope='module')
-def candidate_snapshot(tmp_path_factory):
-    tmp_path=tmp_path_factory.mktemp('candidate-study')
+def make_candidate_snapshot(tmp_path, discovery=None):
     bundle=experiment.__wrapped__(tmp_path)
     for arm in ('scalar','physics'):
         save(tmp_path/('arm-'+arm)/'common.json',load(bundle/'structure.json'))
@@ -47,7 +45,7 @@ print(json.dumps(a))
         policy_command=[sys.executable,str(script)],policy_artifacts=['policy.py'],common_inputs=['common.json'],
         limits=dict(max_steps=8,max_seconds=30,allow_cpu_relaxation=False),
         arms={a:dict(workspace='arm-'+a,execution_config=None) for a in ('scalar','physics')},
-        evaluation=dict(heldout_sources=['c'*64],observables={'anisotropy.total_energy_ev':dict(unit='eV/cell',resolution=5e-5)},discovery=policy()))
+        evaluation=dict(heldout_sources=['c'*64],observables={'anisotropy.total_energy_ev':dict(unit='eV/cell',resolution=5e-5)},discovery=discovery or policy()))
     register_study(tmp_path,d,'study')
     for arm in ('scalar','physics'):
         result=run_study_arm(tmp_path,'study',arm)
@@ -63,6 +61,10 @@ print(json.dumps(a))
     evidence=dict(format='REMAG-STUDY-CANDIDATE-EVIDENCE/1',arms={a:{source:dict(report=reports[-1]['report'],controls=dict(kmesh=reports))} for a in ('scalar','physics')})
     return tmp_path,dict(definition=d,evidence=evidence,source=source,reports=reports)
 
+
+@pytest.fixture(scope='module')
+def candidate_snapshot(tmp_path_factory):
+    return make_candidate_snapshot(tmp_path_factory.mktemp('candidate-study'))
 
 @pytest.fixture
 def candidate_study(candidate_snapshot,tmp_path):

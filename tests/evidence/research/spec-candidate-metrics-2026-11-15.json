@@ -1,0 +1,174 @@
+{
+  "format": "REMAG-SPEC-CANDIDATE-METRICS-EVIDENCE/1",
+  "created_at": "2026-11-16T00:08:23.675747+00:00",
+  "requirements": [
+    "12 discovery metrics",
+    "16 evaluation report"
+  ],
+  "delivered": [
+    "GPAC exact geometric grouping under a declared periodic-origin/proper-axis policy",
+    "Finite composition-conserving reference-phase energy comparisons with residual force/stress screens",
+    "Registered exact structural-variation responses with E/F anisotropy density and spin polarization thresholds",
+    "Full candidate cohort and all supplied validation/reference/variation cost coverage, including failed candidates"
+  ],
+  "inputs": {
+    "src/siesta_remag/research/candidate_metrics.py": "36aa4dcc55d45360a4b6ff16f02dcc833ac881ac7f12d67520bcf3a8f5f31671",
+    "src/siesta_remag/research/discovery_scores.py": "a7ce684bac8c7f0792d93db6a6afd2fdb13a439374ef1a8d0f506fc60b2ff1fe",
+    "tests/test_research_candidate_metrics.py": "1327659a22808977c96657f8cc5e215d2adcad6a79fcaceb0d5ff2f6a11f5f00",
+    "tests/test_research_discovery_scores.py": "2f3f147ec92c927e6123c1bdb29e9b87ad38ae8c3c8f6c479fbb093c1cce3a72",
+    "docs/CANDIDATE_METRICS.md": "d406839a7e5d871e6160f2e8d132df319a7ca5a4292a7a7bc86680ef3de65e5e"
+  },
+  "tests": {
+    "full_regression": "592 passed, 4 unchanged loopback HTTP tests deselected in 174.64s before final refinement-cost retention fix",
+    "final_focused": "64 passed in 97.93s (0:01:37)",
+    "gpac": "162 passed in 7.38s; migration PASS: 144 files, 10 runtime pins",
+    "scope": "Actual local policy/worker processes with injected native transports; analytic phase mixtures and response controls. No solver or model service."
+  },
+  "logs": {
+    "spec-candidate-metrics-focused-r1.log": {
+      "sha256": "864857857596939d7284508c5a7b1821553e6d0c8ba73c8c7e9b123e8a08f63d",
+      "last_line": "1 failed, 44 passed in 87.95s (0:01:27)"
+    },
+    "spec-candidate-metrics-focused-r2.log": {
+      "sha256": "9c8dacad4b5f498cf8f6573d9eb2c2f28f61ca497238e8c128efe008357d1511",
+      "last_line": "45 passed in 87.56s (0:01:27)"
+    },
+    "spec-candidate-metrics-regression.log": {
+      "sha256": "598a006e692c2e437269c2ae893da4585cdc6539dd0830bef23c45e96925d538",
+      "last_line": "592 passed, 4 deselected in 174.64s (0:02:54)"
+    },
+    "spec-candidate-metrics-final-focused.log": {
+      "sha256": "8c9acbbc04a96eb53e64fd01d04ff9f5a79d750767a03a95df15b49bfbe7f079",
+      "last_line": "64 passed in 97.93s (0:01:37)"
+    },
+    "spec-candidate-identity-regression.log": {
+      "sha256": "c2a4506174abef53b0bd57ee32a67bb8052665be7403acf7fecd8369bf897e37",
+      "last_line": "162 passed in 7.38s"
+    }
+  },
+  "negative_controls": [
+    "Missing/failed reference or variation evidence; failed baseline candidate; energy/force/stress thresholds; response amplitude and magnetic branch changes",
+    "Source, numerical runtime, artifact, unknown point and unregistered policy changes",
+    "No credit for missing samples; known costs retained after main-candidate failure; grouped counts separated from ranking groups"
+  ],
+  "failures_retained": [
+    "Initial integration test found ranking groups overwrote candidate-equivalence groups; fixed with separate variables.",
+    "Review found failed-candidate refinement costs were omitted; verified supplied endpoints before granting or rejecting validation credit."
+  ],
+  "saved_native_example": {
+    "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+    "original_files_verified_unchanged": 446,
+    "full_local_evidence_sha256": "8a3407a27ed0cebccc49e1342c2c32c9b6cf2cc0dd66f12810b84b84bb037198",
+    "original_hash_manifest_sha256": "295cddce4d91b76b103ace3d2713d395972893e0565d61088c7a2c3597d06a37",
+    "policy_preregistered_before_measurements": false,
+    "retrospective_example_policy": {
+      "designs": [
+        {
+          "format": "REMAG-RESPONSE-DESIGN/1",
+          "parameter": "epsilon_c",
+          "values": [
+            "-1/400",
+            "0",
+            "1/400"
+          ],
+          "control": {
+            "kind": "axial_strain",
+            "axis": 2
+          }
+        }
+      ],
+      "maximum_anisotropy_change_MJ_m3": 1.0,
+      "maximum_spin_polarization_change_tesla": 0.1
+    },
+    "points": [
+      {
+        "id": "point-000",
+        "q_exact": "-1/400",
+        "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+        "properties": {
+          "E_anisotropy_ev_cell": 0.002439251333271386,
+          "E_anisotropy_ev_atom": 0.001219625666635693,
+          "E_anisotropy_MJ_m3": 13.870417590140363,
+          "F_anisotropy_ev_cell": 0.0024564516088503296,
+          "F_anisotropy_ev_atom": 0.0012282258044251648,
+          "F_anisotropy_MJ_m3": 13.968224241587583,
+          "volume_angstrom3": 28.175874772500002,
+          "site_count": 2,
+          "spin_moment_muB": 3.34583,
+          "spin_polarization_tesla": 1.3838973892883712,
+          "moment_scope": "Native soc-z total spin moment; not a proven saturation or magnetic-ground-state value"
+        },
+        "changes": {
+          "E_anisotropy_MJ_m3": -0.13444310695204464,
+          "F_anisotropy_MJ_m3": -0.10152974295203876,
+          "spin_polarization_tesla": 0.0036660357304205693
+        },
+        "within_thresholds": true
+      },
+      {
+        "id": "point-001",
+        "q_exact": "0",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "properties": {
+          "E_anisotropy_ev_cell": 0.002469067163019645,
+          "E_anisotropy_ev_atom": 0.0012345335815098224,
+          "E_anisotropy_MJ_m3": 14.004860697092408,
+          "F_anisotropy_ev_cell": 0.002480507896962081,
+          "F_anisotropy_ev_atom": 0.0012402539484810404,
+          "F_anisotropy_MJ_m3": 14.069753984539622,
+          "volume_angstrom3": 28.246491,
+          "site_count": 2,
+          "spin_moment_muB": 3.34533,
+          "spin_polarization_tesla": 1.3802313535579507,
+          "moment_scope": "Native soc-z total spin moment; not a proven saturation or magnetic-ground-state value"
+        },
+        "changes": {
+          "E_anisotropy_MJ_m3": 0.0,
+          "F_anisotropy_MJ_m3": 0.0,
+          "spin_polarization_tesla": 0.0
+        },
+        "within_thresholds": true
+      },
+      {
+        "id": "point-002",
+        "q_exact": "1/400",
+        "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+        "properties": {
+          "E_anisotropy_ev_cell": 0.0024841135350470722,
+          "E_anisotropy_ev_atom": 0.0012420567675235361,
+          "E_anisotropy_MJ_m3": 14.055067949138587,
+          "F_anisotropy_ev_cell": 0.0024914773066484486,
+          "F_anisotropy_ev_atom": 0.0012457386533242243,
+          "F_anisotropy_MJ_m3": 14.096732031218203,
+          "volume_angstrom3": 28.3171072275,
+          "site_count": 2,
+          "spin_moment_muB": 3.3448,
+          "spin_polarization_tesla": 1.376571255626253,
+          "moment_scope": "Native soc-z total spin moment; not a proven saturation or magnetic-ground-state value"
+        },
+        "changes": {
+          "E_anisotropy_MJ_m3": 0.05020725204617982,
+          "F_anisotropy_MJ_m3": 0.026978046678580725,
+          "spin_polarization_tesla": -0.0036600979316976368
+        },
+        "within_thresholds": true
+      }
+    ],
+    "distinct_under_declared_policy": 3,
+    "global_crystallographic_uniqueness": null,
+    "static_reference_phase_assessment": null,
+    "scope": "Retrospective engineering example on the existing three native 32-cubed DZP FePt strain points. Thresholds illustrate reporting only. No new independently validated candidate, qualification, unseen holdout or autonomous scientific advantage."
+  },
+  "limits": [
+    "Finite phase sets and structural paths do not certify full thermodynamic or dynamical stability, saturation or magnetic ground states.",
+    "Candidate keys do not perform general unimodular/supercell canonicalization or certify novelty.",
+    "Saved demonstration thresholds are retrospective; no new independently validated candidate or held-out study.",
+    "Live autonomous advantage, full production SOC and calibrated exploratory latency remain unverified."
+  ],
+  "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "gpac_frozen_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+  "new_native_calculations": 0,
+  "new_gpu_reservations_cents": 0,
+  "model_service_calls": 0,
+  "actual_billing": null
+}

@@ -8,8 +8,6 @@ import json
 import math
 import re
 
-import numpy as np
-
 from ..corpus import sha256
 from ..discovery.common import load, digest
 from .convergence import VARIABLES, assess, numerical_configuration
@@ -42,7 +40,8 @@ def report_interval(report):
 def validate_policy(value):
     """Freeze comparable scoring rules before either policy arm runs."""
     from gpac.exact import validate_proposal_policy
-    _fields(value, {'assessment_policy', 'excluded_findings', 'controls'})
+    _fields(value, {'assessment_policy', 'excluded_findings', 'controls'},
+        {'candidate_equivalence','stability','robustness'})
     p = json.loads(json.dumps(value, allow_nan=False))
     p['assessment_policy'] = validate_proposal_policy(p['assessment_policy'])
     if 'max_stretch_deviation' in p['assessment_policy']:
@@ -65,6 +64,8 @@ def validate_policy(value):
         for k in ('tolerance_ev', 'transverse_tolerance_ev'):
             if type(c[k]) not in (int, float) or not math.isfinite(c[k]) or c[k] <= 0:
                 raise ValueError('Require positive finite validation tolerances')
+    from .candidate_metrics import validate_metrics
+    validate_metrics(p)
     return p
 
 
@@ -98,10 +99,18 @@ def score_candidates(root, registration, arms, manifest):
     policy = registration['definition']['evaluation'].get('discovery')
     if policy is None: raise ValueError('Discovery criteria were not registered before the sessions')
     policy = validate_policy(policy)
-    _fields(manifest, {'format', 'arms'})
+    _fields(manifest, {'format', 'arms'}, {'reference_phases'})
     if manifest['format'] != 'REMAG-STUDY-CANDIDATE-EVIDENCE/1' or set(manifest['arms']) != set(ARMS):
         raise ValueError('Expected candidate evidence for both arms')
+    if 'reference_phases' in manifest and 'stability' not in policy:
+        raise ValueError('Reference stability criteria were not registered')
     results = {}; expected_reports = {a:set() for a in ARMS}; windows = {}
+    phases=None
+    if 'stability' in policy:
+        from .candidate_metrics import load_reference_phases
+        phases=load_reference_phases(root,policy['stability'],manifest.get('reference_phases',{}))
+        for arm in ARMS:expected_reports[arm].update(phases[2])
+        windows.update(phases[3])
     for arm in ARMS:
         where = _path(root, registration['definition']['arms'][arm]['workspace'])
         inventory = arms[arm].get('authored_candidates')
@@ -123,11 +132,16 @@ def score_candidates(root, registration, arms, manifest):
                 properties=None, thermodynamic_stability=None, magnetic_ground_state=None,
                 structural_robustness=None, physical_accuracy_qualified=False)
             rows.append(row)
+            if 'candidate_equivalence' in policy:
+                from gpac.candidate_identity import candidate_key
+                row['candidate_equivalence']=candidate_key(export['source']['program'],length_unit='angstrom')
             if source not in supplied: continue
-            sample = supplied[source]; _fields(sample, {'report', 'controls'}, {'collection'})
+            sample = supplied[source]; _fields(sample, {'report', 'controls'}, {'collection','robustness'})
+            if 'robustness' in sample and 'robustness' not in policy:
+                raise ValueError('Structural robustness criteria were not registered')
             if not isinstance(sample['controls'], dict) or set(sample['controls'])-{c['varied'] for c in policy['controls']}:
                 raise ValueError('Unregistered candidate validation control')
-            r, bound = _endpoint(root, {k:v for k,v in sample.items() if k != 'controls'}, source, export)
+            r, bound = _endpoint(root, {k:v for k,v in sample.items() if k in ('report','collection')}, source, export)
             expected_reports[arm].add(bound['report_sha256']); row['validation_report'] = bound
             windows[bound['report_sha256']] = bound['interval']
             # Distinct timestamps/hashes are an auditable post-session condition,
@@ -135,30 +149,17 @@ def score_candidates(root, registration, arms, manifest):
             after_session = (None if r.get('started_at') is None else
                 _time(r['started_at']) >= _time(arms[arm]['finished_at']))
             row['post_session_run_recorded'] = after_session
-            if not bound['accepted']:
-                row.update(status='failed_native'); continue
-            obs = r['observations']; cell = np.asarray(export['geometry']['cell'], float)
-            volume = float(np.linalg.det(cell)); n = len(export['geometry']['atomic_numbers'])
-            if not math.isfinite(volume) or volume <= 0 or n < 1: raise ValueError('Invalid physical cell')
-            moment = np.asarray(obs['soc-z']['total_moment_muB'], float)
-            if moment.shape != (3,) or not np.isfinite(moment).all(): raise ValueError('Invalid native moment vector')
-            props = {}
-            for key, label in (('total_energy_ev', 'E'), ('free_energy_ev', 'F')):
-                v = float(obs['soc-x'][key]-obs['soc-z'][key])
-                if not math.isfinite(v): raise ValueError('Nonfinite directional energy')
-                props[label+'_anisotropy_ev_cell'] = v
-                props[label+'_anisotropy_ev_atom'] = v/n
-                props[label+'_anisotropy_MJ_m3'] = v/volume*160217.6634
-            props.update(volume_angstrom3=volume, site_count=n, spin_moment_muB=float(np.linalg.norm(moment)),
-                spin_polarization_tesla=float(np.linalg.norm(moment))*9.2740100783e6/volume*1.25663706212e-6,
-                moment_scope='Native soc-z total spin moment; not a proven saturation or magnetic-ground-state value')
-            row['properties'] = props
-            row['comparison_configuration'] = {k:v for k,v in numerical_configuration(r).items() if k!='source_sha256'}
-            identity = list(range(n)); checks = []
+            from .candidate_metrics import properties,assess_stability,assess_robustness
+            if 'robustness' in policy:
+                metric, hashes, times=assess_robustness(root,r,policy['robustness'],sample.get('robustness',{}),baseline_accepted=bound['accepted'])
+                row['structural_robustness']=metric;expected_reports[arm].update(hashes);windows.update(times)
+            # Retain every supplied refinement in cost coverage even when the
+            # candidate's final calculation failed. A failed result earns no
+            # validation credit, but its preceding calculations still cost time.
+            control_reports = {}
             for c in policy['controls']:
                 name = c['varied']; endpoints = sample['controls'].get(name)
-                if endpoints is None:
-                    row['controls'][name] = dict(status='pending'); checks.append(False); continue
+                if endpoints is None: continue
                 if not isinstance(endpoints, list) or not 2 <= len(endpoints) <= 16:
                     raise ValueError('Each numerical control needs 2..16 ordered saved reports')
                 reports = []; bindings = []
@@ -170,6 +171,21 @@ def score_candidates(root, registration, arms, manifest):
                     raise ValueError('Each validation ladder must end at the scored candidate report')
                 if len({b['report_sha256'] for b in bindings}) != len(bindings):
                     raise ValueError('Repeated reports are not independent refinements')
+                control_reports[name] = (reports, bindings)
+            if not bound['accepted']:
+                row.update(status='failed_native'); continue
+            props=properties(r);n=props['site_count']
+            row['properties'] = props
+            if 'stability' in policy:
+                metric, hashes, times=assess_stability(root,r,policy['stability'],manifest.get('reference_phases',{}),prepared=phases)
+                row['thermodynamic_stability']=metric;expected_reports[arm].update(hashes);windows.update(times)
+            row['comparison_configuration'] = {k:v for k,v in numerical_configuration(r).items() if k!='source_sha256'}
+            identity = list(range(n)); checks = []
+            for c in policy['controls']:
+                name = c['varied']; endpoints = sample['controls'].get(name)
+                if endpoints is None:
+                    row['controls'][name] = dict(status='pending'); checks.append(False); continue
+                reports, bindings = control_reports[name]
                 if not all(b['accepted'] for b in bindings):
                     row['controls'][name] = dict(status='failed_native', reports=bindings); checks.append(False); continue
                 stability = assess(reports, **c)
@@ -183,6 +199,13 @@ def score_candidates(root, registration, arms, manifest):
                 checks.append(passed)
             row['validated_under_declared_controls'] = after_session is True and all(checks)
             row['status'] = 'validated' if row['validated_under_declared_controls'] else 'unvalidated'
+        equivalence_groups={}
+        if 'candidate_equivalence' in policy:
+            for row in rows:
+                equivalence_groups.setdefault(row['candidate_equivalence']['key_sha256'],[]).append(row['source_sha256'])
+        screened=[r for r in rows if r['validated_under_declared_controls'] and r['plausible_under_declared_geometry_policy']
+            and ('stability' not in policy or (r['thermodynamic_stability'] or {}).get('observed_static_screen_passed') is True)
+            and ('robustness' not in policy or (r['structural_robustness'] or {}).get('observed_robustness_passed') is True)]
         qualified = [r for r in rows if r['validated_under_declared_controls']]
         eligible = [r for r in qualified if r['plausible_under_declared_geometry_policy']]
         best = {}
@@ -202,6 +225,11 @@ def score_candidates(root, registration, arms, manifest):
             validated_exact_sources=len(qualified), validated_plausible_exact_sources=len(eligible),
             pending_validation=sum(r['status']=='pending' for r in rows),
             validated_density_rankings=best, crystallographically_distinct_count=None,
+            candidate_equivalence_policy=policy.get('candidate_equivalence'),candidate_equivalence_groups=equivalence_groups,
+            distinct_under_declared_policy=len(equivalence_groups) if 'candidate_equivalence' in policy else None,
+            plausible_groups_under_declared_policy=len({r['candidate_equivalence']['key_sha256'] for r in rows if r['plausible_under_declared_geometry_policy']}) if 'candidate_equivalence' in policy else None,
+            screened_exact_sources=[r['source_sha256'] for r in screened],
+            screened_groups_under_declared_policy=len({r['candidate_equivalence']['key_sha256'] for r in screened}) if 'candidate_equivalence' in policy else None,
             validation_controls=policy['controls'])
     return dict(format='REMAG-STUDY-CANDIDATE-SCORES/1', arms=results, evidence_sha256=digest(manifest),
         required_usage_reports={a:sorted(v) for a,v in expected_reports.items()},
