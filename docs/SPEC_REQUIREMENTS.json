@@ -1,6 +1,6 @@
 {
   "format": "GPAC-REMAG-SPEC-COMPLETION-AUDIT/1",
-  "created_at": "2026-11-15T23:43:10.451379+00:00",
+  "created_at": "2026-11-16T00:23:56.068470+00:00",
   "specification": {
     "title": "GPAC × REMAG: Physics-Guided Autonomous Crystal Discovery — Development Specification v3.0",
     "sha256": "e33e5d1f0894fce48dd1bf25852272f3ede3c83dc69725f7d905e4428b69b0e8",
@@ -8,18 +8,17 @@
     "source": "Owner attachment; line spans are one-based in the original text"
   },
   "reviewed_heads": {
-    "REMAG": "65ca0e694bd9784dd72c92531140694512e94555",
-    "GPAC": "44f32c28830e5ec9a6cab2731ab8bb8e78adb314"
+    "REMAG": "2be71ee40daf18a2b36f1773d6fdb58a3af53d14",
+    "GPAC": "b8d94281bdf285d66ddcb1d31e9d2cb1d6d8838d"
   },
   "interpretation": {
     "overall_spec_complete": false,
     "software_core_delivered": true,
-    "mandatory_reporting_implementation_gaps": [
-      "R35"
-    ],
+    "mandatory_reporting_implementation_gaps": [],
     "scope_policy": "Examples are not an exhaustive mandatory feature list. Conditional/optional/long-term work is not silently promoted to an initial success gate. Empirical success remains distinct from software delivery.",
     "historical_prediction_evidence": "Independent prospective REMAG comparisons already exist. They are finite evidence, not a full paired autonomous study or a verified mechanism.",
-    "no_completion_percentage": "Requirement groups differ in scope; counts would not measure completion."
+    "no_completion_percentage": "Requirement groups differ in scope; counts would not measure completion.",
+    "initial_software_implementation_delivered": true
   },
   "requirements": [
     {
@@ -446,7 +445,7 @@
         {
           "repo": "GPAC",
           "path": "src/gpac/workflow.py",
-          "sha256": "964e37b9aa6c80f281d6761314a89017eadb8055291349faf8fd65b6d01c303d"
+          "sha256": "5062e8d2cf8a2ec41488851a5fbbcf91e25677dc68e75652b4050b081584a9c5"
         }
       ],
       "tests": [
@@ -1955,10 +1954,10 @@
       ],
       "obligation": "required",
       "requirement": "Best independently validated anisotropy, magnetization, stability, distinct plausible candidates and robustness.",
-      "implementation_status": "partial",
+      "implementation_status": "implemented",
       "acceptance_status": "locally_tested_saved_data_demonstrated",
-      "delivered": "Complete persisted authoring cohort, exact-source duplicate groups, registered geometric screening, saved normalized anisotropy/spin properties, E/F finite controls and post-session timing checks. Pending and failed rows retained; rankings separate numerical configurations.",
-      "outstanding": "Structural-variation robustness, source-bound stability evidence and an explicit distinct-candidate equivalence policy remain implementation work. Saturation/ground-state status is unassessed. Finite numerical controls and recorded chronology do not establish physical stability, provider authenticity or empirical independence.",
+      "delivered": "Complete authored cohorts and source-bound E/F/spin properties; exact candidate grouping under a declared origin/proper-axis policy; finite composition-conserving phase-energy and force/stress screens; preregistered structural-variation responses and magnetic branches. Missing/failed cases and their costs retained.",
+      "outstanding": "Empirical independent discovery, complete thermodynamic/dynamical stability, saturation/ground-state status and global crystal canonicality are not established. The saved FePt robustness example uses retrospective thresholds. Finite reporting is implemented; scientific outcomes still need appropriate evidence.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -1978,7 +1977,17 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/discovery_scores.py",
-          "sha256": "9c4c6c27fcde53fabad35217fe19dd584276e51d1bde56a1369be04016cbc626"
+          "sha256": "a7ce684bac8c7f0792d93db6a6afd2fdb13a439374ef1a8d0f506fc60b2ff1fe"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/candidate_metrics.py",
+          "sha256": "36aa4dcc55d45360a4b6ff16f02dcc833ac881ac7f12d67520bcf3a8f5f31671"
+        },
+        {
+          "repo": "GPAC",
+          "path": "src/gpac/candidate_identity.py",
+          "sha256": "b22feabd067b45010927fcddbaba17445212efa4e04ff10ae64609e6cecdd7e8"
         }
       ],
       "tests": [
@@ -2000,7 +2009,17 @@
         {
           "repo": "REMAG",
           "path": "tests/test_research_discovery_scores.py",
-          "sha256": "d0ef2c291489f1b99a66e5d693f602d1b7c115b1bc607beeb8de42d72806d323"
+          "sha256": "2f3f147ec92c927e6123c1bdb29e9b87ad38ae8c3c8f6c479fbb093c1cce3a72"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_candidate_metrics.py",
+          "sha256": "1327659a22808977c96657f8cc5e215d2adcad6a79fcaceb0d5ff2f6a11f5f00"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/test_candidate_identity.py",
+          "sha256": "8d28e1147aed977cc0e971f976e6f5252435cc280928750a8591825c0fc122f6"
         }
       ],
       "evidence": [
@@ -2008,6 +2027,16 @@
           "repo": "REMAG",
           "path": "tests/evidence/research/spec-discovery-scorecard-2026-11-15.json",
           "sha256": "1e501044a5d707d60ea9bc991bf3cde161f876cde2c0c9acc306676fbe68e2b5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-candidate-metrics-2026-11-15.json",
+          "sha256": "2147488e8cb8c3afae82f4316ebc13c819f916649b9cfa62c894e9d1e4b4f826"
+        },
+        {
+          "repo": "GPAC",
+          "path": "tests/evidence/GPAC-DFT-009/2026-11-15.json",
+          "sha256": "5a574f66060b99d1cfb26b18ed67a36dcd7a171ec08e6b565d3151667ff512fe"
         }
       ]
     },
@@ -2022,7 +2051,7 @@
       "requirement": "GPU-hours, completed/failed experiments, validated candidates per compute and prediction improvement per compute.",
       "implementation_status": "implemented",
       "acceptance_status": "locally_tested_empirical_usage_pending",
-      "delivered": "Imported measured allocation intervals bind to saved reports and native time windows. Known acquisition, search, validation and grading costs are covered; hardware types and shared attribution retained. Candidate and prediction-improvement rates require supported positive denominators. Missing coverage remains unknown.",
+      "delivered": "Imported measured allocation intervals bind to saved reports and native time windows. Known acquisition, search, validation and grading costs are covered; hardware types and shared attribution retained. Candidate and prediction-improvement rates require supported positive denominators. Missing coverage remains unknown. Supplied phase, variation and numerical-refinement costs remain required when the candidate itself fails.",
       "outstanding": "No real provider usage was imported for the new paired comparison. Provider authentication, outside-usage completeness, equal empirical compute and invoices remain unverified. Reservations remain separate and unchanged.",
       "implementation": [
         {
@@ -2038,7 +2067,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/discovery_scores.py",
-          "sha256": "9c4c6c27fcde53fabad35217fe19dd584276e51d1bde56a1369be04016cbc626"
+          "sha256": "a7ce684bac8c7f0792d93db6a6afd2fdb13a439374ef1a8d0f506fc60b2ff1fe"
         }
       ],
       "tests": [
@@ -2055,7 +2084,7 @@
         {
           "repo": "REMAG",
           "path": "tests/test_research_discovery_scores.py",
-          "sha256": "d0ef2c291489f1b99a66e5d693f602d1b7c115b1bc607beeb8de42d72806d323"
+          "sha256": "2f3f147ec92c927e6123c1bdb29e9b87ad38ae8c3c8f6c479fbb093c1cce3a72"
         }
       ],
       "evidence": [
@@ -2148,7 +2177,7 @@
       "implementation_status": "implemented",
       "acceptance_status": "tested",
       "delivered": "Implementation increments and their tests/saved demonstrations are linked below; original phase scope now maps to finite acceptance items.",
-      "outstanding": "Finish the remaining R35 stability/structural-robustness/distinct-candidate reporting; then prepare concrete live acceptance for owner review. No optional future feature queue or renewed convergence campaign.",
+      "outstanding": "Mandatory initial reporting implementation is delivered. Execute the concrete live acceptance handoff once the missing model/account and any separate compute authorization are provided; do not create an optional feature queue or reopen the closed campaign.",
       "implementation": [],
       "tests": [],
       "evidence": []
@@ -2234,7 +2263,7 @@
         "R35",
         "R36"
       ],
-      "status": "Partial: candidate/property cohorts, finite validation and measured compute reporting implemented; stability/robustness/distinct-candidate metrics and actual paired-agent comparison remain."
+      "status": "Software implemented: prediction/candidate/finite-stability/robustness and measured compute reports. Actual matched autonomous comparison and scientific advantage remain unproven."
     },
     {
       "id": "D8",
@@ -2329,15 +2358,6 @@
   ],
   "next_work": [
     {
-      "id": "W1",
-      "type": "implementation",
-      "requirements": [
-        "R35"
-      ],
-      "action": "Complete source-bound stability and structural-variation robustness reporting and an explicit candidate-equivalence policy. Reuse existing relaxation, response and geometry machinery; do not label SCF acceptance as stability or exact-source hashes as unique crystals.",
-      "requires_new_compute": false
-    },
-    {
       "id": "W2",
       "type": "empirical_acceptance",
       "requirements": [
@@ -2382,26 +2402,36 @@
     "Cross-material discovery/stability/synthesis programs beyond the expansion foundation"
   ],
   "validation": {
-    "kind": "Source/evidence traceability audit after candidate/compute reporting implementation",
-    "latest_REMAG_regression": "573 passed, 4 unchanged loopback HTTP cases deselected before legacy timestamp fix; 46 focused checks pass after fix",
+    "kind": "Source/evidence traceability after completing finite candidate metrics",
+    "latest_REMAG_regression": "592 passed, 4 unchanged loopback HTTP tests deselected; final 64 focused checks pass after refinement-cost retention fix",
     "latest_REMAG_CI": {
-      "id": 43776241367,
-      "head": "65ca0e694bd9784dd72c92531140694512e94555",
-      "status": "completed",
       "conclusion": "success",
-      "test_summary": "test\tRun local tests without GPU or cloud credentials\t2026-11-15T23:43:07.2376521Z 445 passed, 133 skipped, 49 warnings in 22.45s",
-      "log_sha256": "b7767f2cbd42a41fac877d4551ca6991acff99e04b2eba39a8cc422a059c58fb"
+      "databaseId": 43778676289,
+      "headSha": "2be71ee40daf18a2b36f1773d6fdb58a3af53d14",
+      "status": "completed",
+      "url": "https://github.com/willgbryan/SIESTA-REMAG/actions/runs/43778676289"
     },
     "latest_GPAC_CI": {
-      "id": 43758843399,
-      "conclusion": "success"
+      "conclusion": "success",
+      "databaseId": 43778862912,
+      "headSha": "b8d94281bdf285d66ddcb1d31e9d2cb1d6d8838d",
+      "jobs": [
+        {
+          "conclusion": "success",
+          "name": "test-and-package",
+          "status": "completed",
+          "steps": []
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/willgbryan/GPAC/actions/runs/43778862912"
     },
     "new_solver_calls": 0,
     "new_model_service_calls": 0,
     "new_gpu_reservations_cents": 0,
-    "verified_file_count": 96,
+    "verified_file_count": 102,
     "requirement_groups": 38,
-    "source_evidence": "tests/evidence/research/spec-discovery-scorecard-2026-11-15.json"
+    "source_evidence": "tests/evidence/research/spec-candidate-metrics-2026-11-15.json"
   },
   "preserved": {
     "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
@@ -2412,7 +2442,28 @@
     "actual_invoices": null
   },
   "previous_audit": {
-    "path": "outputs/Spec-completion-audit-2026-11-15.json",
-    "sha256": "ed116c19391069e40789deb00152fa4d221e8b5b479fa4d176d2507e59f838ef"
+    "path": "outputs/Spec-completion-audit-2026-11-15-r2.json",
+    "sha256": "d664e515357ca40b10d74654a52e606bbbafba466a3da21fbef7e6c2b160a157"
+  },
+  "acceptance_handoff": {
+    "document": "docs/ACCEPTANCE_HANDOFF.md",
+    "next_scope": "Live replay on the existing three-point 32-cubed DZP FePt strain example; exposed data, not unseen evaluation.",
+    "per_arm": {
+      "max_model_calls": 8,
+      "max_output_tokens_per_call": 2048,
+      "max_reserved_output_tokens": 16384,
+      "request_timeout_seconds": 45,
+      "session_limit_seconds": 300
+    },
+    "new_gpu_launches": 0,
+    "new_gpu_reservations_cents": 0,
+    "cpu_relaxation": false,
+    "automatic_retries": false,
+    "missing_configuration": [
+      "Owner-authorized model identifier",
+      "Model service account/key supplied outside chat"
+    ],
+    "cost_scope": "Output-token reservations do not cap input tokens or monetary billing; retain actual service-reported usage.",
+    "further_acceptance": "A genuinely held-out scalar-versus-physics study and production SOC/latency measurement require a separately bounded compute scope; no current GPU grant."
   }
 }

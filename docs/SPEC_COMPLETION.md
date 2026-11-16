@@ -4,7 +4,7 @@ The active objective is completion of the owner's **Physics-Guided Autonomous
 Crystal Discovery, Development Specification v3.0**. The core research software
 is delivered; the full specification is not complete. The
 [requirement-by-requirement audit](SPEC_REQUIREMENTS.json) binds 38 functional and
-engineering groups to 96 source, test and evidence files at the reviewed commits.
+engineering groups to 102 source, test and evidence files at the reviewed commits.
 It also maps all nine final deliverables and seven initial success criteria.
 
 The FePt convergence campaign is closed. It is neither a new implementation
@@ -19,37 +19,33 @@ no new pristine calculation, GPU launch or spending is authorized here.
 | Structural–physical bridge | Source-bound conversion, correspondence and observations implemented with explicit unsupported cases |
 | FePt dataset | Existing controlled measurements and saved response demonstrations; full numerical qualification and new-SOC coverage are not complete |
 | Autonomous hypothesis testing | Integrated local/injected loop tested; historical predictions/outcomes retained; live external-policy acceptance pending |
-| Evaluation report | Candidate/property cohorts, finite-control checks, measured allocation imports and prediction/candidate compute rates implemented; stability/robustness/distinct-crystal metrics and actual paired-agent comparison remain |
+| Evaluation report | Candidate/property cohorts, finite-control checks, measured allocation imports and prediction/candidate compute rates implemented; finite stability/robustness and declared candidate groups implemented; actual paired-agent comparison remains |
 | Expansion pathway | General authoring and screening foundation implemented; cross-material mechanism transfer remains downstream research |
 | Optional interactive workspace | Saved structural/electronic inspection implemented; browser visual acceptance pending |
 
-## Remaining implementation
+## Software implementation status
 
-**R35 — candidate evaluation** now reports the full persisted authoring cohort,
-exact-source duplicates, declared geometric plausibility, saved E/F anisotropy
-and native spin polarization. It verifies preregistered numerical controls and
-recorded post-session timing before granting finite validation credit. Rankings
-use energy density within matching numerical configurations. Missing and failed
-cases remain visible. The [scorecard](DISCOVERY_SCORECARD.md) still leaves
-thermodynamic stability, structural robustness, saturation/ground-state status
-and crystallographic uniqueness unassessed. Source-bound stability and
-structural-variation evidence, plus an explicit distinct-candidate policy, remain
-implementation work for the full discovery metrics. A native SCF pass or an
-advisory geometry check cannot substitute for them.
+The mandatory reporting gap **R35** is implemented. The
+[candidate metrics](CANDIDATE_METRICS.md) extend the complete persisted authoring
+cohort with source-bound reference-phase comparisons, residual force/stress
+checks, and exact structural-variation responses. Both E/F values, failed or
+missing samples and magnetic branches remain visible. GPAC supplies an explicit
+candidate-equivalence policy for periodic origins and proper signed-axis
+presentations; counts retain that finite scope. General crystal canonicality,
+saturation and magnetic-ground-state certification are not inferred.
 
-**R36 — measured efficiency** reporting is implemented. Explicit normalized
-allocation records bind to saved reports and their recorded time intervals.
-Known acquisition, search, validation and grading costs are included; incomplete
-coverage leaves the total and rates unknown. Device types, imported subtotals,
-failed cases, reservations and invoices remain separate. Provider authenticity,
-complete outside expenses and empirical equal compute still require evidence.
+**R36 — measured efficiency** reporting includes every supplied candidate,
+refinement, phase and variation report even when the candidate fails. Explicit
+allocation records must cover known acquisition, search, validation and grading
+costs. Missing coverage leaves totals and rates unknown; reservations and
+invoices remain separate.
 
-Reuse current report, assessment, response, cohort and runtime machinery for the
-remaining candidate metrics. These are saved-evidence implementation tasks;
-they require no new solver calculation.
-They take priority over optional extensions such as more general coupled
-constraints, automatic geometry matching, tracked bands or extra GUI query
-controls. Do not create an indefinite feature queue from examples in the spec.
+No mandatory software reporting gap remains in the reviewed initial scope.
+The remaining work is the empirical acceptance below. Optional extensions such
+as automatic rational recovery or a general symbolic constraint solver do not
+create an indefinite feature queue. The concrete next live workflow is described
+in [acceptance handoff](ACCEPTANCE_HANDOFF.md); it does not launch a service or
+reopen the closed campaign.
 
 ## Remaining empirical acceptance
 
@@ -80,6 +76,14 @@ longer-term discovery objectives are not silently promoted to initial software
 completion gates.
 
 ## Delivered development increments
+
+- 15 November: [candidate metrics](CANDIDATE_METRICS.md) complete declared
+  geometric grouping, finite reference-phase/static-force screens and registered
+  structural robustness reporting. The full regression passed 592 tests; 64
+  targeted tests pass after the final failed-candidate cost-retention fix.
+  Three archived FePt strain points reproduce the reporting flow with 446
+  original files unchanged. That example is retrospective, not a new discovery
+  or held-out acceptance result.
 
 - 15 November: [candidate and compute scoring](DISCOVERY_SCORECARD.md) adds
   complete exact-source cohorts, reproducible finite-control checks, normalized
