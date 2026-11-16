@@ -1,0 +1,393 @@
+{
+  "format": "REMAG-DIRECT-TOOLS-EVIDENCE/1",
+  "created_at": "2026-11-16T02:50:22.370499+00:00",
+  "user_direction": "Extensible tools directly usable in this chat; Astra extra-high requested",
+  "model_selection": {
+    "requested": "Astra",
+    "reasoning_effort": "extra high",
+    "source": "owner",
+    "setting_changed_by_tool": false,
+    "chat_model_identity_attested": false
+  },
+  "interface": {
+    "kind": "local single-call CLI through this chat shell tool",
+    "catalog": "tool-catalog",
+    "call": "tool-call",
+    "extensions": "Explicit trusted Python modules with register_tools(host)",
+    "mcp_server_installed": false,
+    "separate_model_service_requests": 0,
+    "api_credential_required": false,
+    "native_submissions": 0,
+    "cpu_relaxations": 0
+  },
+  "demonstration": {
+    "status": "completed",
+    "scope": "Known-data replay, not a blind or paired-arm study",
+    "primary_calls": 10,
+    "post_hardening_history_checks": 1,
+    "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+    "prediction_ev_cell": 0.002469067163019645,
+    "outcome_ev_cell": 0.002439251333271386,
+    "evaluation": {
+      "status": "evaluated",
+      "error": -2.9815829748258693e-05,
+      "absolute_error": 2.9815829748258693e-05,
+      "unit": "eV/cell",
+      "within_predicted_uncertainty": null,
+      "mechanism_verified": false
+    },
+    "notebook_events": [
+      {
+        "id": "b31e3dc2e9fc444ab4863ed844e89866",
+        "kind": "analysis",
+        "parent": "19183287015b49489f06c56c9ef5d796",
+        "recorded_at": "2026-11-16T02:46:33.840178+00:00",
+        "payload": {
+          "conclusion": "Saved-data replay: the -1/400 axial-strain candidate retains positive E[x]-E[z] = 2.439251333271386 meV/cell. The parent-value prediction 2.469067163019645 meV/cell overestimates it by 0.029815829748259 meV/cell. Retain the sign hypothesis for this finite configuration but revise the no-change value. This exposed-data workflow establishes tool/notebook operation only; neither an independent prediction nor a verified microscopic mechanism, calibrated uncertainty, convergence or scientific advantage follows.",
+          "mechanism_verified": false,
+          "report_sha256": "2c6e6a6441628b284c7f2bc5a8206e780ffeedbc4a8f2ba96fe1738f91a59342",
+          "status": "evaluated"
+        }
+      },
+      {
+        "id": "dc20eba3bafe497dbad178ec4b92c716",
+        "kind": "outcome",
+        "parent": "19183287015b49489f06c56c9ef5d796",
+        "recorded_at": "2026-11-16T02:45:31.799430+00:00",
+        "payload": {
+          "observable": "anisotropy.total_energy_ev",
+          "report_sha256": "1e13499cfd730ec1e33370b36480bed722cf9c637e987d5c061a3e8ac6f57fff",
+          "status": "measured",
+          "unit": "eV/cell",
+          "value": 0.002439251333271386
+        }
+      },
+      {
+        "id": "b0b91deca3754840b11c85ff441abb7c",
+        "kind": "prediction",
+        "parent": "19183287015b49489f06c56c9ef5d796",
+        "recorded_at": "2026-11-16T02:45:29.925793+00:00",
+        "payload": {
+          "observable": "anisotropy.total_energy_ev",
+          "uncertainty": null,
+          "unit": "eV/cell",
+          "value": 0.002469067163019645
+        }
+      },
+      {
+        "id": "19183287015b49489f06c56c9ef5d796",
+        "kind": "experiment",
+        "parent": "a87c701d31ab462ca0463e919c7b8296",
+        "recorded_at": "2026-11-16T02:45:04.665712+00:00",
+        "payload": {
+          "action": "Inspect saved E[x]-E[z] anisotropy for the authored -1/400 axial-strain candidate",
+          "rationale": "Compare a recorded positive-anisotropy prediction with source-matched saved results; exposed-data replay, not unseen acceptance.",
+          "structure_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942"
+        }
+      },
+      {
+        "id": "a87c701d31ab462ca0463e919c7b8296",
+        "kind": "hypothesis",
+        "parent": null,
+        "recorded_at": "2026-11-16T02:44:20.614076+00:00",
+        "payload": {
+          "alternatives": [
+            "The anisotropy changes sign under compression.",
+            "Finite basis or mesh error masks the physical strain response."
+          ],
+          "predictions": [
+            "At axial strain -1/400, anisotropy E[x]-E[z] remains positive."
+          ],
+          "statement": "Replay hypothesis: small axial compression of tetragonal FePt retains positive E[x]-E[z] anisotropy at the saved 32-cubed DZP settings."
+        }
+      }
+    ],
+    "receipts": [
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/00-parent",
+        "request": {
+          "tool": "inspect_structure",
+          "args": {
+            "structure": "structures/point-001.json"
+          },
+          "rationale": "Inspect the exact parent before authoring a saved-data replay intervention from this chat."
+        },
+        "request_sha256": "8f1ad278bd6c631df5bd8a7383abdf46ed0e5dd17d592b70378086497e34e691",
+        "response_sha256": "dd68abfadc88b2b22d0632ccc86a88a3c13141ea8dc6b3a896cc8819f837d8f8",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 4.803864791058004
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/01-hypothesis",
+        "request": {
+          "tool": "record_hypothesis",
+          "args": {
+            "statement": "Replay hypothesis: small axial compression of tetragonal FePt retains positive E[x]-E[z] anisotropy at the saved 32-cubed DZP settings.",
+            "predictions": [
+              "At axial strain -1/400, anisotropy E[x]-E[z] remains positive."
+            ],
+            "alternatives": [
+              "The anisotropy changes sign under compression.",
+              "Finite basis or mesh error masks the physical strain response."
+            ]
+          },
+          "rationale": "Exercise this chat's hypothesis-to-evidence tools on previously exposed data; this is a replay, not a blind prediction or a mechanism proof."
+        },
+        "request_sha256": "64cda0d315a2e4c7e02676e1182ee47d4a73c9e879ff780d7f6f9272123a800d",
+        "response_sha256": "d41c106d891f673b805a56f07c467a3932c6047002abd054b5da4197b5ec7407",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 0.0017208335921168327
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/02-author",
+        "request": {
+          "tool": "author_structure",
+          "args": {
+            "structure": "structures/point-001.json",
+            "output": "direct-chat-r1/candidate",
+            "request": {
+              "op": "physical-strain",
+              "axis": 2,
+              "amount": "-1/400",
+              "expected_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4"
+            }
+          },
+          "rationale": "Author the exact -1/400 axial strain intervention using GPAC; preserve parent identity and match an existing saved calculation without executing a solver."
+        },
+        "request_sha256": "0624544eea13b1e1fd1486924edc0a6b1cd5e2ea54c936682efb37644d23e2a8",
+        "response_sha256": "c4e3c0b4561e0911b536418f6df77a8e37ee1954f016fda8ca5b3f940375f2e7",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 4.736878000199795
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/03-experiment",
+        "request": {
+          "tool": "propose_experiment",
+          "args": {
+            "hypothesis_id": "a87c701d31ab462ca0463e919c7b8296",
+            "structure_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+            "action": "Inspect saved E[x]-E[z] anisotropy for the authored -1/400 axial-strain candidate",
+            "rationale": "Compare a recorded positive-anisotropy prediction with source-matched saved results; exposed-data replay, not unseen acceptance."
+          },
+          "rationale": "Bind the proposed test to the actual GPAC child source and existing hypothesis."
+        },
+        "request_sha256": "0ad4e2ff7f6726fabdb5406202923d8325e016ede08c0e8f43a9f138fbb12390",
+        "response_sha256": "f9776d9fd2b7afb9b9bec25f27ad8b3b1075aacb2e9a367f906102ad2df5ddda",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 0.003733084537088871
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/04-baseline",
+        "request": {
+          "tool": "inspect_calculation",
+          "args": {
+            "report": "remag-convergence-r2/k32/report.json",
+            "collection": "remag-convergence-r2/archive-manifest.json"
+          },
+          "rationale": "Obtain the verified baseline to define a no-change comparison prediction before ingesting the saved intervention outcome."
+        },
+        "request_sha256": "0d26a67ed105af9544ba9c8b820676198af7946007449c0f20bea9daab0b686a",
+        "response_sha256": "d7bb16d03d8074a4483e17c315dc8613544a86cedc6de54c9598436a9ca3081c",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 2.0330856665968895
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/05-prediction",
+        "request": {
+          "tool": "record_prediction",
+          "args": {
+            "experiment_id": "19183287015b49489f06c56c9ef5d796",
+            "observable": "anisotropy.total_energy_ev",
+            "value": 0.002469067163019645,
+            "unit": "eV/cell"
+          },
+          "rationale": "Freeze the measured parent anisotropy as an explicit no-change baseline prediction for this replay. No calibrated uncertainty or unseen-prediction claim."
+        },
+        "request_sha256": "ff4d5f33eed4a66e7a3dea76a1c1a0967534ab92110f1b045e897006463abd8a",
+        "response_sha256": "9be53e04625059f6928f6d30d8379c4ccdc2cdb1d8e5480c3a0e4de8cf242ee2",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 0.001787666231393814
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/06-outcome",
+        "request": {
+          "tool": "record_calculation_outcome",
+          "args": {
+            "experiment_id": "19183287015b49489f06c56c9ef5d796",
+            "report": "remag-transfer32-minus/mixed-minus/report.json",
+            "collection": "remag-transfer32-minus/archive-manifest.json",
+            "stage": "anisotropy",
+            "observable": "total_energy_ev"
+          },
+          "rationale": "Ingest the accepted saved directional energies only after the replay prediction is recorded; verify collection hashes and the exact authored source."
+        },
+        "request_sha256": "5efa1f1060029cd5a5498707ba82583f0e4717a0af1a4909a6daaf1e51bf193f",
+        "response_sha256": "0de7cc7ef61d51ee9a2147657d9e311bb0f97727094de1070a2715a2ff208bc7",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 1.707373833283782
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/07-evaluation",
+        "request": {
+          "tool": "evaluate_hypothesis",
+          "args": {
+            "experiment_id": "19183287015b49489f06c56c9ef5d796"
+          },
+          "rationale": "Compare the frozen replay prediction with the source-bound saved outcome without modifying either event."
+        },
+        "request_sha256": "aacfd04a4a47936d16ea6e2a72a399ecf7841704ec7e3af0d2b5db5d9e9b4f9c",
+        "response_sha256": "2c6e6a6441628b284c7f2bc5a8206e780ffeedbc4a8f2ba96fe1738f91a59342",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 0.0005988329648971558
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/08-revision",
+        "request": {
+          "tool": "record_analysis",
+          "args": {
+            "parent_id": "19183287015b49489f06c56c9ef5d796",
+            "conclusion": "Saved-data replay: the -1/400 axial-strain candidate retains positive E[x]-E[z] = 2.439251333271386 meV/cell. The parent-value prediction 2.469067163019645 meV/cell overestimates it by 0.029815829748259 meV/cell. Retain the sign hypothesis for this finite configuration but revise the no-change value. This exposed-data workflow establishes tool/notebook operation only; neither an independent prediction nor a verified microscopic mechanism, calibrated uncertainty, convergence or scientific advantage follows.",
+            "evidence": "direct-chat-r1/07-evaluation/response.json",
+            "status": "evaluated"
+          },
+          "rationale": "Append an evidence-linked revision while preserving the original hypothesis, immutable prediction and measured outcome."
+        },
+        "request_sha256": "8526c3655b17927207de422f89e6477dd95d243e68021b63dcefbc7faff87805",
+        "response_sha256": "c14cce7e7f812ddb029237a60eb37cf41f045563baf40ad2d5e3a5617c2ff51d",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 0.0012617502361536026
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/09-history",
+        "request": {
+          "tool": "retrieve_research_history",
+          "args": {
+            "limit": 10
+          },
+          "rationale": "Confirm that a fresh tool process can retrieve the complete hypothesis, experiment, prediction, outcome and revision chain created by this chat."
+        },
+        "request_sha256": "cb3974adb18f1760593d5a3d5e329f9eb9d825eea3c416beb89d7598b7a830bd",
+        "response_sha256": "b1af244e47881660fca7979ebbb3ade773e1f8907921d5d048d7713b379ae546",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 0.001046917401254177
+      },
+      {
+        "receipt": "work/spec-live-acceptance-inputs-r2/physics/direct-chat-r1/10-final-host-history",
+        "request": {
+          "tool": "retrieve_research_history",
+          "args": {
+            "limit": 10
+          },
+          "rationale": "Verify the persisted notebook after final extension-output and request-size hardening; do not repeat any scientific operation."
+        },
+        "request_sha256": "0b932957d58ca5a28f77f3984112eb1080528d1790a8e6c0dd8d218515c3c73d",
+        "response_sha256": "0b35d3ad5e87ab252d23de7a479e0dd3e7acb6c60838f0970365278d13779094",
+        "implementation_sha256": {
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/toolhost.py": "7fbe74c9f843d8a18c4c5d9a5e1d3656028768e88fe9900ffcd99f5b1f681a04",
+          "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/SIESTA-REMAG/src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        "ok": true,
+        "elapsed_seconds": 0.0012081246823072433
+      }
+    ],
+    "mechanism_verified": false,
+    "scientific_advantage_assessed": false
+  },
+  "validation": {
+    "tests": "83 passed, 3 deselected in 42.03s",
+    "test_log_sha256": "a26ef594ee3e86ce05cbf9346f0c0a980174eb640f23af40bccec85d5153019e",
+    "controls": [
+      "Fresh-process notebook persistence",
+      "Duplicate receipt rejects before a second effect",
+      "Scalar profile and compute tools rejected",
+      "Escaping workspace paths rejected",
+      "Trusted extension discovery and actual CLI invocation",
+      "Extension stdout separated from JSON replies",
+      "Request retained before partial failure; no automatic retry",
+      "Existing report/hash/source and prediction-order checks reused"
+    ],
+    "earlier_checks": [
+      {
+        "result": "16 passed in 9.44s",
+        "scope": "Initial host/tool/agent regression"
+      },
+      {
+        "result": "83 passed, 2 failed, 1 deselected",
+        "reason": "Two unchanged loopback HTTP authoring tests failed because this sandbox forbids socket bind; retained log work/spec-direct-tools-final-tests.log"
+      },
+      {
+        "result": "Initial invocation could not import source package",
+        "reason": "Source-checkout PYTHONPATH was omitted; corrected before any demo action. The documented commands specify both sources."
+      }
+    ],
+    "implementation_sha256": {
+      "src/siesta_remag/research/toolhost.py": "7fbe74c9f843d8a18c4c5d9a5e1d3656028768e88fe9900ffcd99f5b1f681a04",
+      "src/siesta_remag/research/__main__.py": "8f799223ea2b6376d076260654fab0771ec2dbb13213669a2f8e6fc69936f907",
+      "tests/test_research_toolhost.py": "64be9a7383a1ec89ce26dc201da56aefc910950dc953309ed8f47ea594e9f10b"
+    },
+    "original_source_files_unchanged": 405,
+    "staged_files_unchanged": {
+      "scalar": 405,
+      "physics": 409
+    },
+    "pre_hardening_adapter": {
+      "path": "tests/evidence/research/direct-tools-adapter-pre-hardening-2026-11-15.py.txt",
+      "sha256": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+      "scope": "Adapter used by first ten replay calls; final history retrieval and scoped tests use current adapter."
+    }
+  },
+  "preserved": {
+    "budget_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "reservation_cents": 29667,
+    "invoices": "unknown",
+    "gpac_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+    "campaign": "closed",
+    "heartbeat": "previously deleted"
+  },
+  "limits": [
+    "The CLI is usable now; no native MCP namespace was installed.",
+    "Trusted extension code has process privileges; metadata is not an OS sandbox.",
+    "Known-data replay proves workflow operation, not independent prediction quality.",
+    "Paired heldout comparison, production SOC and calibrated 1–5 minute latency remain unverified."
+  ]
+}

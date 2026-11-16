@@ -4,7 +4,7 @@ The active objective is completion of the owner's **Physics-Guided Autonomous
 Crystal Discovery, Development Specification v3.0**. The core research software
 is delivered; the full specification is not complete. The
 [requirement-by-requirement audit](SPEC_REQUIREMENTS.json) binds 38 functional and
-engineering groups to 102 source, test and evidence files at the reviewed commits.
+engineering groups to 105 source, test and evidence files at the reviewed commits.
 It also maps all nine final deliverables and seven initial success criteria.
 
 The FePt convergence campaign is closed. It is neither a new implementation
@@ -13,12 +13,12 @@ no new pristine calculation, GPU launch or spending is authorized here.
 
 | Final deliverable (§16) | Current state |
 | --- | --- |
-| Unified architecture | Integrated authoring, queries, diagnostics, memory and bounded policy sessions; live research demonstration pending |
+| Unified architecture | Integrated authoring, queries, diagnostics, memory and bounded policy sessions; direct-chat tool replay demonstrated |
 | Extended GPAC | Physical controls, experimental agent interfaces, proposal assessment and explicit relaxation feedback implemented |
 | Extended REMAG | Electronic/magnetic diagnostics implemented; new device SOC export still needs full target-runtime production validation |
 | Structural–physical bridge | Source-bound conversion, correspondence and observations implemented with explicit unsupported cases |
 | FePt dataset | Existing controlled measurements and saved response demonstrations; full numerical qualification and new-SOC coverage are not complete |
-| Autonomous hypothesis testing | Integrated local/injected loop tested; historical predictions/outcomes retained; live external-policy acceptance pending |
+| Autonomous hypothesis testing | Direct chat selected and completed a receipted saved-data hypothesis loop; independent paired-agent acceptance remains |
 | Evaluation report | Candidate/property cohorts, finite-control checks, measured allocation imports and prediction/candidate compute rates implemented; finite stability/robustness and declared candidate groups implemented; actual paired-agent comparison remains |
 | Expansion pathway | General authoring and screening foundation implemented; cross-material mechanism transfer remains downstream research |
 | Optional interactive workspace | Saved structural/electronic inspection implemented; browser visual acceptance pending |
@@ -41,7 +41,12 @@ costs. Missing coverage leaves totals and rates unknown; reservations and
 invoices remain separate.
 
 No mandatory software reporting gap remains in the reviewed initial scope.
-The remaining work is the empirical acceptance below. Optional extensions such
+The [extensible direct tool host](DIRECT_RESEARCH_TOOLS.md) lets the current chat
+use the implementation with its selected model, without a separate API account.
+It retains a declaration, rationale and receipt for each operation, reuses the
+source-bound handlers, and accepts explicitly reviewed extensions. The chat's
+saved-data replay completed exact authoring, prediction, outcome and revision.
+The remaining acceptance is listed below. Optional extensions such
 as automatic rational recovery or a general symbolic constraint solver do not
 create an indefinite feature queue. The concrete next live workflow is described
 in [acceptance handoff](ACCEPTANCE_HANDOFF.md); it does not launch a service or
@@ -49,9 +54,11 @@ reopen the closed campaign.
 
 ## Remaining empirical acceptance
 
-- The integrated policy needs an authorized model/account and a genuinely
-  held-out scalar-versus-physics evaluation with measured compute. No live
-  external-model service run occurred during the development increments.
+- A genuinely held-out scalar-versus-physics evaluation with measured compute
+  remains. The owner selected Astra with extra-high reasoning and direct use
+  from this chat; a separate API account is not required for that architecture.
+  The demonstrated replay uses previously exposed data and cannot fill the
+  independent comparison requirement.
 - Independent prospective FePt comparisons **already exist**. The initial
   coarse quadratic predictions failed to outperform scalar baselines; a later
   two-case additive response/transfer model beat simple controls within its

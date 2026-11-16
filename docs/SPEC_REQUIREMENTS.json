@@ -1,6 +1,6 @@
 {
   "format": "GPAC-REMAG-SPEC-COMPLETION-AUDIT/1",
-  "created_at": "2026-11-16T00:23:56.068470+00:00",
+  "created_at": "2026-11-16T02:52:13.057000+00:00",
   "specification": {
     "title": "GPAC × REMAG: Physics-Guided Autonomous Crystal Discovery — Development Specification v3.0",
     "sha256": "e33e5d1f0894fce48dd1bf25852272f3ede3c83dc69725f7d905e4428b69b0e8",
@@ -8,7 +8,7 @@
     "source": "Owner attachment; line spans are one-based in the original text"
   },
   "reviewed_heads": {
-    "REMAG": "2be71ee40daf18a2b36f1773d6fdb58a3af53d14",
+    "REMAG": "8fca8fd3e681178ba6e08e391f80065184d5d8e4",
     "GPAC": "b8d94281bdf285d66ddcb1d31e9d2cb1d6d8838d"
   },
   "interpretation": {
@@ -32,7 +32,7 @@
       "requirement": "Unified mechanism-oriented research environment spanning structure, physics and research memory.",
       "implementation_status": "implemented",
       "acceptance_status": "tested",
-      "delivered": "Exact authoring, source-bound native queries, saved diagnostics, notebooks and bounded external-policy sessions are integrated.",
+      "delivered": "Exact authoring, source-bound native queries, saved diagnostics, notebooks and bounded external-policy sessions are integrated. The current chat also directly invokes the extensible tool host without a separate policy service.",
       "outstanding": "Full live-model research quality and scientific advantage are not established.",
       "implementation": [
         {
@@ -1474,9 +1474,9 @@
       "obligation": "required",
       "requirement": "Agent selects inspections or calculations, records predictions first and executes the requested operation.",
       "implementation_status": "implemented",
-      "acceptance_status": "tested",
-      "delivered": "Bounded external-policy runner and explicit-model adapter choose from GPAC, electronic, query and notebook tools; injected full local sessions and controlled native transport tests pass.",
-      "outstanding": "No live external-model service session or new native query has been run during this development phase. No model is silently selected.",
+      "acceptance_status": "locally_tested_direct_chat_replay",
+      "delivered": "Existing policy runner retained. The current chat now discovers and invokes extensible local tools, selects an exact intervention, freezes a prediction and ingests source-bound saved evidence through durable call receipts.",
+      "outstanding": "A known-data replay completed; independent matched scalar/physics study and production native acceptance remain. The user selected Astra extra-high; tool code does not change or attest chat model settings.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -1497,6 +1497,11 @@
           "repo": "REMAG",
           "path": "src/siesta_remag/research/execution.py",
           "sha256": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/toolhost.py",
+          "sha256": "7fbe74c9f843d8a18c4c5d9a5e1d3656028768e88fe9900ffcd99f5b1f681a04"
         }
       ],
       "tests": [
@@ -1514,6 +1519,11 @@
           "repo": "REMAG",
           "path": "tests/test_research_execution.py",
           "sha256": "17c5baab786a1f021d0101ae430348cfda42850b6706b4908fd9acb9258c18b1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_toolhost.py",
+          "sha256": "64be9a7383a1ec89ce26dc201da56aefc910950dc953309ed8f47ea594e9f10b"
         }
       ],
       "evidence": [
@@ -1526,6 +1536,11 @@
           "repo": "REMAG",
           "path": "tests/evidence/research/spec-controlled-execution-2026-11-15.json",
           "sha256": "4c8f540fdb46c4ac213a4fb4248a0bc878d96e4750b2f2fcd2bee686ff51f0f5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-direct-tools-2026-11-15.json",
+          "sha256": "14c9cc1daf4a385dadfe97727c8815a1eadb0df0b2106bec3d6d23b66b0a6aec"
         }
       ]
     },
@@ -1539,8 +1554,8 @@
       "obligation": "required",
       "requirement": "Evaluate predictions, revise hypotheses and retrieve reusable findings including failures.",
       "implementation_status": "implemented",
-      "acceptance_status": "tested",
-      "delivered": "Append-only hypotheses/predictions/outcomes/analyses, definition-bound scores, retrieval and failed/pending outcomes.",
+      "acceptance_status": "locally_tested_direct_chat_replay",
+      "delivered": "Append-only hypotheses/predictions/outcomes/analyses, definition-bound scores, retrieval and failed/pending outcomes. A real chat-driven saved-data workflow persisted all five notebook event kinds and retrieved them across fresh processes.",
       "outstanding": "Software persistence does not establish physical truth or transferable knowledge.",
       "implementation": [
         {
@@ -1557,6 +1572,11 @@
           "repo": "REMAG",
           "path": "src/siesta_remag/research/tools.py",
           "sha256": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/toolhost.py",
+          "sha256": "7fbe74c9f843d8a18c4c5d9a5e1d3656028768e88fe9900ffcd99f5b1f681a04"
         }
       ],
       "tests": [
@@ -1574,9 +1594,20 @@
           "repo": "REMAG",
           "path": "tests/test_research_tools.py",
           "sha256": "d9868bbc2fc681196be2fb733e92ab4ea847970c392bf851fcf350509f26424b"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_toolhost.py",
+          "sha256": "64be9a7383a1ec89ce26dc201da56aefc910950dc953309ed8f47ea594e9f10b"
         }
       ],
-      "evidence": []
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-direct-tools-2026-11-15.json",
+          "sha256": "14c9cc1daf4a385dadfe97727c8815a1eadb0df0b2106bec3d6d23b66b0a6aec"
+        }
+      ]
     },
     {
       "id": "R29",
@@ -1588,9 +1619,9 @@
       "obligation": "required",
       "requirement": "Structured reusable tool contracts with explicit units/provenance and large arrays retained as artifacts.",
       "implementation_status": "implemented",
-      "acceptance_status": "tested",
-      "delivered": "Python, JSON worker and CLI interfaces reuse domain modules; bounded summaries reference hashed NPZ/native files.",
-      "outstanding": "Signatures are functional equivalents rather than a collection of trivial aliases.",
+      "acceptance_status": "locally_tested_direct_chat_replay",
+      "delivered": "Python, JSON worker and CLI interfaces reuse domain modules; bounded summaries reference hashed NPZ/native files. Direct single-call CLI, discoverable schemas, source-linked intent/result receipts and explicitly registered trusted extensions are now available.",
+      "outstanding": "Native MCP installation is not required for shell-tool use and was not performed. Extension code is trusted, not sandboxed; scientific value validation stays in handlers.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -1600,7 +1631,7 @@
         {
           "repo": "REMAG",
           "path": "src/siesta_remag/research/__main__.py",
-          "sha256": "3c81e592c04607632a4e78659c20cafdc90680a8b5e63098192cfb9cc180a262"
+          "sha256": "8f799223ea2b6376d076260654fab0771ec2dbb13213669a2f8e6fc69936f907"
         },
         {
           "repo": "REMAG",
@@ -1616,6 +1647,11 @@
           "repo": "GPAC",
           "path": "src/gpac/worker.py",
           "sha256": "41152ed116465f97012557eb97fa888d80a93c7113c60efb3de614019332b365"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/research/toolhost.py",
+          "sha256": "7fbe74c9f843d8a18c4c5d9a5e1d3656028768e88fe9900ffcd99f5b1f681a04"
         }
       ],
       "tests": [
@@ -1638,9 +1674,20 @@
           "repo": "GPAC",
           "path": "tests/test_workflow.py",
           "sha256": "4c9ba4f7e08c94e7856f416793aadcee428917ac728945ffa90139d367f2066d"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_research_toolhost.py",
+          "sha256": "64be9a7383a1ec89ce26dc201da56aefc910950dc953309ed8f47ea594e9f10b"
         }
       ],
-      "evidence": []
+      "evidence": [
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/spec-direct-tools-2026-11-15.json",
+          "sha256": "14c9cc1daf4a385dadfe97727c8815a1eadb0df0b2106bec3d6d23b66b0a6aec"
+        }
+      ]
     },
     {
       "id": "R30",
@@ -2177,7 +2224,7 @@
       "implementation_status": "implemented",
       "acceptance_status": "tested",
       "delivered": "Implementation increments and their tests/saved demonstrations are linked below; original phase scope now maps to finite acceptance items.",
-      "outstanding": "Mandatory initial reporting implementation is delivered. Execute the concrete live acceptance handoff once the missing model/account and any separate compute authorization are provided; do not create an optional feature queue or reopen the closed campaign.",
+      "outstanding": "Direct chat tool use supersedes the separate API-account requirement. Independent empirical acceptance still needs its own finite evaluation/runtime scope; keep the convergence campaign closed.",
       "implementation": [],
       "tests": [],
       "evidence": []
@@ -2193,7 +2240,7 @@
         "R20",
         "R27"
       ],
-      "status": "Implemented and locally/injected tested; full live research demonstration pending."
+      "status": "Integrated software and direct chat tool workflow demonstrated with saved evidence; scientific research quality remains empirical."
     },
     {
       "id": "D2",
@@ -2251,7 +2298,7 @@
         "R27",
         "R28"
       ],
-      "status": "Integrated machinery tested; full live policy research demonstration pending; historical predictions/outcomes preserved."
+      "status": "Chat-driven exact intervention, prediction, saved outcome and revision demonstrated with persistent receipts; independent paired study remains."
     },
     {
       "id": "D7",
@@ -2366,7 +2413,7 @@
         "R34"
       ],
       "action": "Run the integrated policy on a genuinely held-out evaluation cohort and compare scalar/physics arms with measured costs. Existing exposed holdouts cannot be relabeled as unseen.",
-      "requires_owner_input": "Explicit available model/account and bounded live execution authorization; no API key or new compute grant is present."
+      "requires_owner_input": "A genuine unexposed cohort and finite evaluation/runtime scope with measurable costs; this chat can provide decisions using the owner-selected model without a separate API account."
     },
     {
       "id": "W3",
@@ -2402,7 +2449,7 @@
     "Cross-material discovery/stability/synthesis programs beyond the expansion foundation"
   ],
   "validation": {
-    "kind": "Source/evidence traceability after completing finite candidate metrics",
+    "kind": "Direct chat tool integration with saved-data workflow",
     "latest_REMAG_regression": "592 passed, 4 unchanged loopback HTTP tests deselected; final 64 focused checks pass after refinement-cost retention fix",
     "latest_REMAG_CI": {
       "conclusion": "success",
@@ -2429,9 +2476,53 @@
     "new_solver_calls": 0,
     "new_model_service_calls": 0,
     "new_gpu_reservations_cents": 0,
-    "verified_file_count": 102,
+    "verified_file_count": 105,
     "requirement_groups": 38,
-    "source_evidence": "tests/evidence/research/spec-candidate-metrics-2026-11-15.json"
+    "source_evidence": "tests/evidence/research/spec-candidate-metrics-2026-11-15.json",
+    "latest_increment_tests": {
+      "tests": "83 passed, 3 deselected in 42.03s",
+      "test_log_sha256": "a26ef594ee3e86ce05cbf9346f0c0a980174eb640f23af40bccec85d5153019e",
+      "controls": [
+        "Fresh-process notebook persistence",
+        "Duplicate receipt rejects before a second effect",
+        "Scalar profile and compute tools rejected",
+        "Escaping workspace paths rejected",
+        "Trusted extension discovery and actual CLI invocation",
+        "Extension stdout separated from JSON replies",
+        "Request retained before partial failure; no automatic retry",
+        "Existing report/hash/source and prediction-order checks reused"
+      ],
+      "earlier_checks": [
+        {
+          "result": "16 passed in 9.44s",
+          "scope": "Initial host/tool/agent regression"
+        },
+        {
+          "result": "83 passed, 2 failed, 1 deselected",
+          "reason": "Two unchanged loopback HTTP authoring tests failed because this sandbox forbids socket bind; retained log work/spec-direct-tools-final-tests.log"
+        },
+        {
+          "result": "Initial invocation could not import source package",
+          "reason": "Source-checkout PYTHONPATH was omitted; corrected before any demo action. The documented commands specify both sources."
+        }
+      ],
+      "implementation_sha256": {
+        "src/siesta_remag/research/toolhost.py": "7fbe74c9f843d8a18c4c5d9a5e1d3656028768e88fe9900ffcd99f5b1f681a04",
+        "src/siesta_remag/research/__main__.py": "8f799223ea2b6376d076260654fab0771ec2dbb13213669a2f8e6fc69936f907",
+        "tests/test_research_toolhost.py": "64be9a7383a1ec89ce26dc201da56aefc910950dc953309ed8f47ea594e9f10b"
+      },
+      "original_source_files_unchanged": 405,
+      "staged_files_unchanged": {
+        "scalar": 405,
+        "physics": 409
+      },
+      "pre_hardening_adapter": {
+        "path": "tests/evidence/research/direct-tools-adapter-pre-hardening-2026-11-15.py.txt",
+        "sha256": "48f510e5ce6a308d0fa2dfb455a26fc04ef3a4bea16d2ebd521d851e01b32bd3",
+        "scope": "Adapter used by first ten replay calls; final history retrieval and scoped tests use current adapter."
+      }
+    },
+    "latest_increment_ci": "Pending publication; prior implementation CI retained separately"
   },
   "preserved": {
     "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
@@ -2442,28 +2533,22 @@
     "actual_invoices": null
   },
   "previous_audit": {
-    "path": "outputs/Spec-completion-audit-2026-11-15-r2.json",
-    "sha256": "d664e515357ca40b10d74654a52e606bbbafba466a3da21fbef7e6c2b160a157"
+    "path": "outputs/Spec-completion-audit-2026-11-15-r3.json",
+    "sha256": "f1cb61de461b6683ababc2aa8a985f8a8f9d3de3f241d5544baa923a1d83a92b"
   },
   "acceptance_handoff": {
-    "document": "docs/ACCEPTANCE_HANDOFF.md",
-    "next_scope": "Live replay on the existing three-point 32-cubed DZP FePt strain example; exposed data, not unseen evaluation.",
-    "per_arm": {
-      "max_model_calls": 8,
-      "max_output_tokens_per_call": 2048,
-      "max_reserved_output_tokens": 16384,
-      "request_timeout_seconds": 45,
-      "session_limit_seconds": 300
-    },
+    "document": "docs/DIRECT_RESEARCH_TOOLS.md",
+    "mode": "Current chat directly calls local extensible tools",
+    "requested_model": "Astra",
+    "requested_reasoning_effort": "extra high",
+    "model_setting_changed_or_attested": false,
+    "api_account_required": false,
+    "completed": "Ten direct workflow calls and one post-hardening history check on exposed saved data",
     "new_gpu_launches": 0,
     "new_gpu_reservations_cents": 0,
     "cpu_relaxation": false,
     "automatic_retries": false,
-    "missing_configuration": [
-      "Owner-authorized model identifier",
-      "Model service account/key supplied outside chat"
-    ],
-    "cost_scope": "Output-token reservations do not cap input tokens or monetary billing; retain actual service-reported usage.",
-    "further_acceptance": "A genuinely held-out scalar-versus-physics study and production SOC/latency measurement require a separately bounded compute scope; no current GPU grant."
-  }
+    "separate_policy_plan": "Previous r3 audit and staged configurations retained; no external-policy sessions executed"
+  },
+  "reviewed_snapshot": "Direct-tool increment on the listed base heads; referenced file hashes identify the working-tree content. Publication commit/CI are recorded in the progress receipt."
 }

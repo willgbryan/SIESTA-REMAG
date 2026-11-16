@@ -38,6 +38,10 @@ The [physics research workspace](docs/PHYSICS_RESEARCH.md) adds GPAC exact strai
 interventions, fixed-geometry SOC measurements, checked orbital diagnostics and
 a local interactive FePt viewer.
 
+[Direct research tools](docs/DIRECT_RESEARCH_TOOLS.md) let an existing chat
+discover and call these operations, retain call receipts and research memory,
+and add reviewed Python extensions without a separate model-service process.
+
 ## Benchmarks
 
 The latest repeated comparisons use the same A100-SXM4-80GB allocation and

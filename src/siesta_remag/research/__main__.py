@@ -106,6 +106,17 @@ def main(argv=None):
     p.add_argument('--max-seconds', type=float, default=300)
     p.add_argument('--allow-cpu-relaxation', action='store_true')
     p.add_argument('--execution-config', type=Path, help='Operator-authorized existing budget/runtime; omitted disables native execution')
+    for command in ('tool-catalog', 'tool-call'):
+        p = sub.add_parser(command, help='Direct chat tools: discover operations or execute one receipted call; no model service')
+        p.add_argument('--workspace', type=Path, required=True)
+        p.add_argument('--information-profile', choices=['scalar', 'physics'], default='physics')
+        p.add_argument('--withheld-source', action='append', default=[])
+        p.add_argument('--extension', action='append', default=[], help='Explicit trusted Python module exporting register_tools(host)')
+        if command == 'tool-catalog':
+            p.add_argument('--name', help='Describe one tool instead of the full catalog')
+        else:
+            p.add_argument('--request', required=True, help='JSON file containing tool, args and rationale; - reads stdin')
+            p.add_argument('--receipt', required=True, help='New receipt directory inside the workspace; never reused')
     p = sub.add_parser('tools', help='Serve the experimental local JSON-lines research tool interface')
     p.add_argument('--information-profile', choices=['scalar','physics'], default='physics')
     p.add_argument('--withheld-source', action='append', default=[])
@@ -176,6 +187,22 @@ def main(argv=None):
     p.add_argument('--structure', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
+    if args.command in ('tool-catalog', 'tool-call'):
+        from .toolhost import create_host, read_request
+        try:
+            host = create_host(args.workspace, information_profile=args.information_profile,
+                               withheld_sources=args.withheld_source, extensions=args.extension)
+            if args.command == 'tool-catalog':
+                result = host.catalog()
+                if args.name:
+                    result['tools'] = {args.name: result['tools'][args.name]}
+                result = dict(ok=True, result=result)
+            else:
+                result = host.call(read_request(args.request), args.receipt)
+        except Exception as exc:
+            result = dict(ok=False, error=dict(type=type(exc).__name__, message=str(exc)), retry_safe=False)
+        print(json.dumps(result, allow_nan=False))
+        return 0 if result['ok'] else 2
     if args.command.startswith('study-'):
         from .study import register_study,run_study_arm,grade_study,evaluate_study
         if args.command=='study-register':result=register_study(args.workspace,load(args.definition),args.output)
