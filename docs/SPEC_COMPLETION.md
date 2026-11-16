@@ -54,6 +54,12 @@ reopen the closed campaign.
 
 ## Remaining empirical acceptance
 
+The [scalar-staging repair](../tests/evidence/research/acceptance-staging-repair-2026-11-16.json)
+closes the demonstrated software leak with verified allowlisted packets and
+preflight regression coverage. Saved native energies independently reproduce
+the mesh-dependent response failure; neither historical acceptance result is
+reclassified. No new compute or campaign restart was performed or authorized.
+
 - A clean scalar-versus-physics evaluation with measured equal compute remains.
   Two fresh Astra extra-high contexts completed the prospective tool workflow
   on new prescribed heldouts, but operator staging exposed extra electronic

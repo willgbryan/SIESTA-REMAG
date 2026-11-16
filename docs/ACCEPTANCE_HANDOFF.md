@@ -79,6 +79,37 @@ authorized; the historical convergence campaign and ledger remain closed.
 
 ## Acceptance still unproven
 
+The subsequent [saved-only repair and diagnosis](../tests/evidence/research/acceptance-staging-repair-2026-11-16.json)
+adds verified scalar packet staging and a study preflight guard. The original
+leaked packet is rejected by the new guard; regression tests cover unknown
+electronic fields, nested payloads, tampering, withheld sources and original
+archive binding. Fresh safe baseline packets are byte-identical across arms.
+No policy contexts or native calculations were rerun, so the original invalid
+comparison remains invalid.
+
+Independent decimal arithmetic from all 24 native stage outputs reproduces
+the response mismatch. All 1,710 native files (400,236,858 bytes) were rehashed.
+Only kmesh differs in the matched numerical configurations. The 6³ bias changes
+with strain; subtracting a constant baseline offset cannot fix it. The E−F
+contribution to the discrepancy is +0.152/−0.167 meV, while F still fails by
+0.153/0.100 meV. The maximum eight-energy print-rounding contribution is
+0.004 meV, far below these discrepancies. This identifies a mesh-dependent
+numerical response, not a report/unit conversion error; it does not uniquely
+separate k-integration, occupation and residual-SCF effects or qualify 12³.
+
+The smallest proposed remaining live test reuses all six results and the build:
+three 8³ bundles on the existing baseline/±3/800 sources, then, only if every
+300-second latency and 0.05 meV E/F response gate passes, two fresh ±1/320
+12³ outcomes shared by two clean policy contexts with predictions sealed first.
+This tests one replacement tier; failure closes the attempt without another
+mesh. Existing SOC acceptance is retained. The proposal reserves at most $3.80
+($0.05 metadata preflight plus five $0.75 bundles), with no rebuild, retry,
+extension or old-campaign restart. It is a new-authorization proposal only;
+the existing $0.20 remainder and all historical reservations are unchanged.
+It can finish a bounded pass/fail test, not guarantee all passes or full-spec
+scientific advantage. Saved-only replay would cost no GPU time but would not
+replace the required independent new outcomes or repair the failed response gate.
+
 The full scalar-versus-physics comparison needs a genuinely new held-out cohort,
 matching declared budgets, frozen predictions/targets and measured allocation
 costs. Existing exposed reports cannot be relabeled unseen. That run must have

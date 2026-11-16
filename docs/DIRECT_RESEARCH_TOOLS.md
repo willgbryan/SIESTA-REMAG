@@ -64,9 +64,27 @@ observation restrictions; `--withheld-source HASH` retains held-out source gates
 These are trusted-command protocol controls, not filesystem isolation from a
 chat that also has shell access.
 
-When staging a scalar-versus-physics exercise, obtain the common observation
-packet through the scalar profile before either context sees it. A raw report
-contains additional electronic fields and is not a scalar packet. The
+For scalar-versus-physics exercises, use `stage_scalar_data` from an operator
+workspace containing the original verified reports. Its `calculations` argument
+maps case identifiers to `{ "report": "...", "collection": "..." }` endpoints
+(omit `collection` for full local artifacts); `output` must name a new JSON file.
+It writes a `REMAG-SCALAR-DATA/1` packet containing provenance hashes and only
+standard numeric E/F, moment, force, stress, iteration and spin-component values.
+Arbitrary request/stage metadata, eigenvalues, Fermi energies, charges, SOC
+energies and future unknown observation fields are excluded. No raw files are
+copied. Both profiles produce the same packet.
+
+Copy only that packet and reviewed structural/protocol inputs into each fresh
+arm workspace. Keep the full reports, native archives and staging-call receipts
+in the operator workspace; grant electronic inputs separately to the physics
+arm. Call `inspect_scalar_data` with `{ "packet": "..." }` before either policy
+context reads it. Validation rejects unknown fields, nested nonnumeric payloads,
+changed digests and withheld sources. `study-register` also rejects raw reports,
+unsealed nested observation packets and oversized JSON in scalar initial inputs.
+This catches the demonstrated staging error; it cannot certify arbitrary prose,
+policy code or information already present in a model context.
+
+A raw report contains additional electronic fields and is not a scalar packet. The
 [six-bundle acceptance](ACCEPTANCE_HANDOFF.md#six-bundle-acceptance-completed-on-16-november)
 exercised prospective authoring, prediction, scoring and revision, but its
 operator-created common packet violated this boundary. That exposure is

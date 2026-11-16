@@ -1,0 +1,568 @@
+{
+  "format": "REMAG-ACCEPTANCE-STAGING-REPAIR/1",
+  "recorded_at": "2026-11-16T20:57:30.830214+00:00",
+  "status": "software_fixed_saved_diagnosis_complete_future_plan_only",
+  "fix": {
+    "tools": [
+      "stage_scalar_data",
+      "inspect_scalar_data"
+    ],
+    "common_input": "REMAG-SCALAR-DATA/1",
+    "scope": "Verified standard numeric observations only; provenance hashes; no raw report/archive copies; schema/digest/withheld-source checks; study-register rejects original staging pattern before policy start.",
+    "original_leak_rejected": "Scalar initial data must use a verified scalar packet; raw observations are forbidden",
+    "safe_packet_sha256": "339b9e420eee44eefdee296a8709d798044047f84b06bae5b267351b721ab1e2",
+    "arm_packet_hashes": {
+      "scalar": "339b9e420eee44eefdee296a8709d798044047f84b06bae5b267351b721ab1e2",
+      "physics": "339b9e420eee44eefdee296a8709d798044047f84b06bae5b267351b721ab1e2"
+    },
+    "regression_tests": "71 passed in 12.31s",
+    "test_log_sha256": "688c15bdf17f3b627f5897141f39049330b836705cdec194838cfba846df8029",
+    "limits": "Trusted staging protocol, not OS sandboxing or a claim of model blinding. Original contaminated contexts remain invalid and are not resumed."
+  },
+  "diagnosis": {
+    "format": "REMAG-SAVED-ACCEPTANCE-DIAGNOSIS/1",
+    "recorded_at": "2026-11-16T20:51:59.182101+00:00",
+    "native_files_rehashed": 1710,
+    "native_bytes_rehashed": 400236858,
+    "all_24_native_stage_E_F_match_saved_results": true,
+    "saved_calibration_reproduced": true,
+    "changed_numerical_settings": {
+      "kmesh": {
+        "exploratory": [
+          6,
+          6,
+          6
+        ],
+        "reference": [
+          12,
+          12,
+          12
+        ]
+      }
+    },
+    "cases": {
+      "baseline-k6": {
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "anisotropy_mev": {
+          "E": 1.311,
+          "F": 1.285
+        },
+        "anisotropy_E_minus_F_mev": 0.026,
+        "native_seconds": 46.349852487,
+        "usable_seconds": 125.17001925036311,
+        "other_elapsed_seconds": 78.82016676336312,
+        "scf_iterations": {
+          "scalar": 31,
+          "soc-z": 15,
+          "soc-x": 15,
+          "soc-y": 15
+        },
+        "health_passed": true,
+        "baseline_execution_agreement": {
+          "saved_report_sha256": "930f1ef54165c6ab59f5b66c38918974f19f7d9c7fc3c64a84884d76ce76481a",
+          "stage_differences_mev": {
+            "scalar": {
+              "total_energy_ev": 0.00034167305784649216,
+              "free_energy_ev": 0.00013837461665389128
+            },
+            "soc-z": {
+              "total_energy_ev": 0.00012067994248354807,
+              "free_energy_ev": 0.00020727020455524325
+            },
+            "soc-x": {
+              "total_energy_ev": 0.0003506074790493585,
+              "free_energy_ev": -0.00020624838725780137
+            },
+            "soc-y": {
+              "total_energy_ev": 0.00035040193324675784,
+              "free_energy_ev": -0.0002062470230157487
+            }
+          },
+          "anisotropy_differences_mev": {
+            "total_energy_ev": 0.00022992753656581044,
+            "free_energy_ev": -0.0004135185918130446
+          },
+          "tolerance_mev": 0.0010001,
+          "passed": true
+        }
+      },
+      "baseline-k12": {
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "anisotropy_mev": {
+          "E": 2.405,
+          "F": 2.542
+        },
+        "anisotropy_E_minus_F_mev": -0.137,
+        "native_seconds": 170.461954923,
+        "usable_seconds": 371.6897500846535,
+        "other_elapsed_seconds": 201.2277951616535,
+        "scf_iterations": {
+          "scalar": 19,
+          "soc-z": 13,
+          "soc-x": 11,
+          "soc-y": 11
+        },
+        "health_passed": true,
+        "baseline_execution_agreement": {
+          "saved_report_sha256": "0fee1557e57bd5d6e89e72ddd503954f74c8692687b6a184e24b2969eaa0b6b5",
+          "stage_differences_mev": {
+            "scalar": {
+              "total_energy_ev": 5.379115464165807e-05,
+              "free_energy_ev": -0.00033100059226853773
+            },
+            "soc-z": {
+              "total_energy_ev": 9.40244717639871e-05,
+              "free_energy_ev": -0.00047406774683622643
+            },
+            "soc-x": {
+              "total_energy_ev": -0.0004800217539013829,
+              "free_energy_ev": 0.00012057080311933532
+            },
+            "soc-y": {
+              "total_energy_ev": -0.0004798471309186425,
+              "free_energy_ev": 0.00012078908184776083
+            }
+          },
+          "anisotropy_differences_mev": {
+            "total_energy_ev": -0.00057404622566537,
+            "free_energy_ev": 0.0005946385499555618
+          },
+          "tolerance_mev": 0.0010001,
+          "passed": true
+        }
+      },
+      "minus-k6": {
+        "source_sha256": "89d05c4a121fd97ebfa53e12389f2f5b724d9e9c6eccd9b45b68c47ed2ccdc7b",
+        "anisotropy_mev": {
+          "E": 1.614,
+          "F": 1.404
+        },
+        "anisotropy_E_minus_F_mev": 0.21,
+        "native_seconds": 44.4283438,
+        "usable_seconds": 113.41266995854676,
+        "other_elapsed_seconds": 68.98432615854676,
+        "scf_iterations": {
+          "scalar": 32,
+          "soc-z": 15,
+          "soc-x": 15,
+          "soc-y": 15
+        },
+        "health_passed": true,
+        "baseline_execution_agreement": null
+      },
+      "minus-k12": {
+        "source_sha256": "89d05c4a121fd97ebfa53e12389f2f5b724d9e9c6eccd9b45b68c47ed2ccdc7b",
+        "anisotropy_mev": {
+          "E": 2.403,
+          "F": 2.508
+        },
+        "anisotropy_E_minus_F_mev": -0.105,
+        "native_seconds": 73.190128698,
+        "usable_seconds": 151.20106537546962,
+        "other_elapsed_seconds": 78.01093667746963,
+        "scf_iterations": {
+          "scalar": 20,
+          "soc-z": 12,
+          "soc-x": 11,
+          "soc-y": 11
+        },
+        "health_passed": true,
+        "baseline_execution_agreement": null
+      },
+      "plus-k6": {
+        "source_sha256": "c0dc783dfd451b0630045dd6271a554994944d92fd86108ed59974d649daeb7d",
+        "anisotropy_mev": {
+          "E": 1.018,
+          "F": 1.179
+        },
+        "anisotropy_E_minus_F_mev": -0.161,
+        "native_seconds": 41.169111603999994,
+        "usable_seconds": 115.46185979153961,
+        "other_elapsed_seconds": 74.29274818753962,
+        "scf_iterations": {
+          "scalar": 34,
+          "soc-z": 15,
+          "soc-x": 15,
+          "soc-y": 15
+        },
+        "health_passed": true,
+        "baseline_execution_agreement": null
+      },
+      "plus-k12": {
+        "source_sha256": "c0dc783dfd451b0630045dd6271a554994944d92fd86108ed59974d649daeb7d",
+        "anisotropy_mev": {
+          "E": 2.379,
+          "F": 2.536
+        },
+        "anisotropy_E_minus_F_mev": -0.157,
+        "native_seconds": 63.185167965999995,
+        "usable_seconds": 144.3808359997347,
+        "other_elapsed_seconds": 81.1956680337347,
+        "scf_iterations": {
+          "scalar": 20,
+          "soc-z": 12,
+          "soc-x": 11,
+          "soc-y": 11
+        },
+        "health_passed": true,
+        "baseline_execution_agreement": null
+      }
+    },
+    "responses": {
+      "minus": {
+        "E": {
+          "k6_mev": 0.303,
+          "k12_mev": -0.002,
+          "discrepancy_mev": 0.305
+        },
+        "F": {
+          "k6_mev": 0.119,
+          "k12_mev": -0.034,
+          "discrepancy_mev": 0.153
+        },
+        "E_minus_F_discrepancy_mev": 0.152
+      },
+      "plus": {
+        "E": {
+          "k6_mev": -0.293,
+          "k12_mev": -0.026,
+          "discrepancy_mev": -0.267
+        },
+        "F": {
+          "k6_mev": -0.106,
+          "k12_mev": -0.006,
+          "discrepancy_mev": -0.1
+        },
+        "E_minus_F_discrepancy_mev": -0.167
+      }
+    },
+    "hashes": {
+      "baseline-k6": {
+        "report_sha256": "01e4b75194aeaf147c45c6044a15611041b52b69908535cc838030cc674e3710",
+        "collection_sha256": "5fc0003d58bc83788e871f57e7c6eca6a1b42dcda836d4156521555e37202547",
+        "recovery_sha256": "b164d7a0f467c3ae98fb1f88dd30fbe31b681a729129e5aa6411269fbabfccde",
+        "health_sha256": "3cd9a76b3545af2ab476820665e8f6f3fe66a57473b9bf2ea99037dbaa1756ec"
+      },
+      "baseline-k12": {
+        "report_sha256": "4440edb7fdf38b58f70d3808644b6258290993509d98eec89bab6259b3f4b7a7",
+        "collection_sha256": "b7f262d04b9bdf0786ae705b7af20c12da54256dc9af68197db5270a4440448f",
+        "recovery_sha256": "7892b03f318dcea18b0a1a48813249ec64ed4b6203f06092e5e36cf84f00b990",
+        "health_sha256": "7c58d0109a9ffa62cd3a0871baacd2be277c5689ea56b7ee27823575fe8f0262"
+      },
+      "minus-k6": {
+        "report_sha256": "aae66d0d238d10f9e1d58581fa93a18d3acbff3ec047875a638e5fd647112609",
+        "collection_sha256": "25b3837cca8d6365da93a2a21b0bb5b7a9a536e252c30f35f270c1c24b703b26",
+        "recovery_sha256": "dd38c729c49a709517ca4a81be8e7a68a5ffccd764f6900af657308a353ad692",
+        "health_sha256": "62723f281c21b9931990095074c9a13a374ca5f79a2f7d7406aead696d640a30"
+      },
+      "minus-k12": {
+        "report_sha256": "dba7bc646d14453e3e36cd50d6a2f3678c7675fddeb1ec5c114f456f3e85ec10",
+        "collection_sha256": "42388c8d19a2331940a3b307552b2916881edac3aeebf661d9e6da0670b424a0",
+        "recovery_sha256": "bc2fe4d62ea975dd6544e8cc221477c395230ece4f13ae721bdc55c9069ece80",
+        "health_sha256": "9e99493b923566a34d7348bbf412437f764b886cc295ee4005eb4710b9a9285a"
+      },
+      "plus-k6": {
+        "report_sha256": "f119468a0ad7ec13fe1b29b21246d4336a6d0fdb9474a272672dfd99b495ae76",
+        "collection_sha256": "47800e5d7495b0351c5f1e973d475145edaa34908d99ce104cfa925e4f457ee8",
+        "recovery_sha256": "1b86228e0ce167753f8c4ead9e6064eac34ef9dfc697ef0265f14793ce71fe37",
+        "health_sha256": "035bdc5beed2ae4ecd29ca1b50370453aab9a184d9fd4a6cba7588d4dc8de3fc"
+      },
+      "plus-k12": {
+        "report_sha256": "ca0cacd1f71e36b7e4be4713fe19cf3c98d9807574b598c1487bd4ba40f2876f",
+        "collection_sha256": "7e48879d488683fda9519351dc0c683f57b03c5736ed0e8d39a61da38333bdc9",
+        "recovery_sha256": "a1259086626edc87821ca46a93ffd41858e4045a17f59f29e76ffbe380638947",
+        "health_sha256": "be92788b51497c83679b1c51d7d797ce4329d98124611cf004f6e3e0ae935226"
+      }
+    },
+    "maximum_print_rounding_error_in_eight_energy_discrepancy_mev": 0.004,
+    "diagnosis": [
+      "The response discrepancy exists in native stdout before policy staging. Independent decimal subtraction reproduces it; no units, report-copy or response-subtraction bug is indicated.",
+      "Within these matched inputs the numerical configuration differs only in kmesh. The 6-cubed bias changes with strain; a constant baseline correction cannot remove the response error.",
+      "The discrepancy in E minus F is +0.152 meV for compression and -0.167 meV for expansion. Finite-temperature occupation/entropy terms contribute, but F itself still fails by 0.153/0.100 meV.",
+      "All 12-cubed responses are below the declared 0.05 meV sign resolution. Their numerical signs/rankings are not resolved reference labels.",
+      "Health, branch, radial and executable/runtime checks passed; both baseline executions agree with saved host REMAG within 0.0010001 meV. This does not prove SCF residual errors negligible or establish kmesh convergence.",
+      "The 0.004 meV bound concerns decimal printing only, not solver or physical uncertainty. Saved data cannot uniquely separate k-integration, self-consistent occupation and residual-SCF contributions.",
+      "No fixed-cost all-pass guarantee follows. A changed exploratory tier needs its own finite response and end-to-end timing test; 12-cubed baseline took 371.69 seconds and is not an already demonstrated universal sub-five-minute replacement."
+    ],
+    "original_staging_failure_retained": true,
+    "old_campaign_closed": true,
+    "solver_executions": 0,
+    "new_reservations_cents": 0,
+    "budgets_before": {
+      "work/fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+      "work/acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8"
+    },
+    "budgets_after": {
+      "work/fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+      "work/acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8"
+    },
+    "old_evidence_modified": false,
+    "actual_billed_usd": null
+  },
+  "minimal_plan": {
+    "format": "REMAG-MINIMAL-ACCEPTANCE-FOLLOWUP-PROPOSAL/1",
+    "status": "proposal_only_no_execution_authorized",
+    "objective": "Finish the remaining bounded tool acceptance with recorded pass/fail results; no guaranteed scientific advantage or all-pass result.",
+    "reuse": [
+      "Existing executable, library, image and frozen runtime",
+      "Six completed native/SOC results",
+      "Saved 12-cubed baseline and both \u00b13/800 comparators",
+      "Passed production SOC tool acceptance"
+    ],
+    "finite_sequence": [
+      {
+        "step": 1,
+        "action": "Already completed offline: regression tests, original-leak rejection, verified safe packets, exact five inputs, source census and mesh-capacity checks",
+        "GPU_queries": 0,
+        "reservation_cents": 0
+      },
+      {
+        "step": 2,
+        "action": "Only after new authorization: one CPU-only actual-library metadata/hash check; no build or solver",
+        "app_seconds": 120,
+        "reservation_cents": 5
+      },
+      {
+        "step": 3,
+        "action": "One candidate fast tier only: 8-cubed baseline and existing minus/plus 3/800 sources, separately reviewed after each stopped app",
+        "GPU_queries": 3,
+        "reservation_cents": 225,
+        "criteria": "All three submission-through-required-review latencies <=300 seconds; both E and F response discrepancies <=0.05 meV/cell versus saved matched 12-cubed comparators; unchanged native/branch/identity/overlap and 0.01 meV transverse checks",
+        "failure_action": "Close the bounded attempt with failures; do not run further meshes or either new heldout; no retry."
+      },
+      {
+        "step": 4,
+        "action": "Only after step 3 passes: two fresh Astra extra-high policy contexts; stage identical verified scalar packets and structural/protocol inputs, electronic diagnostic access only for physics, withhold all outcome paths. Seal both sets of E/F response predictions on the authored \u00b11/320 sources before either measurement.",
+        "max_tool_calls_per_policy": 12,
+        "pre_outcome_tool_calls": 10,
+        "post_score_revision_calls": 2,
+        "context_retries": 0,
+        "GPU_queries": 0,
+        "usage": "Record available model tokens, context time, tool time and allocation durations separately; matched limits are not proof of equal actual compute. Use existing Codex quota, no separate API purchase."
+      },
+      {
+        "step": 5,
+        "action": "Measure exactly two new 12-cubed \u00b11/320 bundles once each; share identical outcomes with both arms, score every sealed prediction and have each context append two evidence-linked revisions. Use saved 12-cubed baseline.",
+        "GPU_queries": 2,
+        "reservation_cents": 150,
+        "evaluator_calls": 10,
+        "context": "No policy may read raw archives, operator receipts, sibling history or withheld outcome files before sealing. Re-census exact source hashes before spending; any previous outcome stops this proposal."
+      },
+      {
+        "step": 6,
+        "action": "Collect and verify shutdown, preserve all failed/partial cases, publish pass/fail/pending, close. No automatic continuation.",
+        "GPU_queries": 0,
+        "reservation_cents": 0
+      }
+    ],
+    "why_five": "Three new fast-tier points are the minimum for this baseline-plus-two-response check; two genuinely new outcomes are required to replace the contaminated two-case policy exercise. Existing 12-cubed baseline and old calibration outcomes need no rerun.",
+    "input_definition": {
+      "status": "prepared_only_no_execution_authorized",
+      "bundles": [
+        {
+          "case": "baseline-k8",
+          "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "request_sha256": "4f83b797f39f98a5811c9d0e964f6aa5b95fa65cf7c62e19efd54368cc3f5599",
+          "bundle": "work/acceptance-staging-repair/proposed-bundles/baseline-k8",
+          "preflight": {
+            "format": "REMAG-QUERY-PREFLIGHT/1",
+            "request_sha256": "4f83b797f39f98a5811c9d0e964f6aa5b95fa65cf7c62e19efd54368cc3f5599",
+            "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+            "device_scf_enabled": true,
+            "paid_actions": 0,
+            "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+            "kmesh": [
+              8,
+              8,
+              8
+            ],
+            "native_kpoints_upper_bound": 512,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          }
+        },
+        {
+          "case": "minus-k8",
+          "source_sha256": "89d05c4a121fd97ebfa53e12389f2f5b724d9e9c6eccd9b45b68c47ed2ccdc7b",
+          "request_sha256": "958e970c3b81370d34f31145dda25bc1bf195e537b89c27c4273a750a8e315fe",
+          "bundle": "work/acceptance-staging-repair/proposed-bundles/minus-k8",
+          "preflight": {
+            "format": "REMAG-QUERY-PREFLIGHT/1",
+            "request_sha256": "958e970c3b81370d34f31145dda25bc1bf195e537b89c27c4273a750a8e315fe",
+            "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+            "device_scf_enabled": true,
+            "paid_actions": 0,
+            "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+            "kmesh": [
+              8,
+              8,
+              8
+            ],
+            "native_kpoints_upper_bound": 512,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          }
+        },
+        {
+          "case": "plus-k8",
+          "source_sha256": "c0dc783dfd451b0630045dd6271a554994944d92fd86108ed59974d649daeb7d",
+          "request_sha256": "59eac5ae45f598ce42d74d52aaed2f6e478d5c9da06ed078d8ed4536650a13e0",
+          "bundle": "work/acceptance-staging-repair/proposed-bundles/plus-k8",
+          "preflight": {
+            "format": "REMAG-QUERY-PREFLIGHT/1",
+            "request_sha256": "59eac5ae45f598ce42d74d52aaed2f6e478d5c9da06ed078d8ed4536650a13e0",
+            "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+            "device_scf_enabled": true,
+            "paid_actions": 0,
+            "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+            "kmesh": [
+              8,
+              8,
+              8
+            ],
+            "native_kpoints_upper_bound": 512,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          }
+        },
+        {
+          "case": "fresh-minus-k12",
+          "source_sha256": "d79f12edad7922290b78d0a41a5e666191312bfa50606158d5d44c5444e89ec2",
+          "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+          "bundle": "work/acceptance-staging-repair/proposed-bundles/fresh-minus-k12",
+          "preflight": {
+            "format": "REMAG-QUERY-PREFLIGHT/1",
+            "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+            "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+            "device_scf_enabled": true,
+            "paid_actions": 0,
+            "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+            "kmesh": [
+              12,
+              12,
+              12
+            ],
+            "native_kpoints_upper_bound": 1728,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          }
+        },
+        {
+          "case": "fresh-plus-k12",
+          "source_sha256": "e754efbac55612ff16c285623ed74b5e7bee1d33b45e9f743c5b17f21ab5a719",
+          "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+          "bundle": "work/acceptance-staging-repair/proposed-bundles/fresh-plus-k12",
+          "preflight": {
+            "format": "REMAG-QUERY-PREFLIGHT/1",
+            "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+            "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+            "device_scf_enabled": true,
+            "paid_actions": 0,
+            "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+            "kmesh": [
+              12,
+              12,
+              12
+            ],
+            "native_kpoints_upper_bound": 1728,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          }
+        }
+      ],
+      "solver_executions": 0,
+      "paid_actions": 0,
+      "build_reused": true
+    },
+    "source_census": {
+      "searched_reports": 108,
+      "proposed_sources": [
+        "d79f12edad7922290b78d0a41a5e666191312bfa50606158d5d44c5444e89ec2",
+        "e754efbac55612ff16c285623ed74b5e7bee1d33b45e9f743c5b17f21ab5a719"
+      ],
+      "matches": [],
+      "scope": "Current workspace saved report census only; repeat before any future execution"
+    },
+    "numerical_scope": "DZP/0.02 Ry, 300 Ry grid, 300 K occupations; same exact REMAG executable/environment. 12-cubed remains the fixed finite comparator, not a qualified physical reference. Testing 8-cubed is a single proposed replacement-tier test, not a convergence ladder.",
+    "limits": {
+      "GPU_queries": 5,
+      "native_stage_executions": 20,
+      "max_simultaneous_GPUs": 1,
+      "app_seconds_each": 600,
+      "native_seconds_each": 480,
+      "SOC_stage_seconds": 180,
+      "rebuilds": 0,
+      "retries": 0,
+      "extensions": 0,
+      "automatic_queue": false
+    },
+    "costs": {
+      "currency": "USD",
+      "this_turn_new_reservations_cents": 0,
+      "proposed_new_reservation_ceiling_cents": 380,
+      "CPU_preflight_cents": 5,
+      "GPU_each_cents": 75,
+      "GPU_total_cents": 375,
+      "stop_after_failed_fast_tier_max_cents": 230,
+      "existing_acceptance_reserved_cents": 980,
+      "existing_unreserved_cents": 20,
+      "existing_remainder_used_by_proposal": false,
+      "published_rates_source": "https://modal.com/pricing",
+      "rates_checked_date": "2026-11-16",
+      "rates_usd_per_second": {
+        "A100_80GB": 0.000694,
+        "physical_CPU_core": 1.31e-05,
+        "GiB_memory": 2.22e-06
+      },
+      "query_resources": {
+        "GPUs": 1,
+        "physical_CPU_cores": 8,
+        "memory_GiB": 96
+      },
+      "resource_estimate_per_600_second_query_usd": 0.607152,
+      "five_queries_plus_120_second_CPU_2_core_16_GiB_estimate_usd": 3.0431664,
+      "scope": "Reservation ceiling is not an invoice or provider-enforced spending cap. Published-resource estimate excludes startup/image work, retained storage and egress; margin permits no extra query, build or retry. Standard Functions/default-region pricing; no premium multiplier. Existing Codex quota and model usage are separate. Actual bills unknown.",
+      "accounting": "A separately authorized acceptance allowance is required; no reservation, refund, stage reallocation or ledger mutation now. Leave both historical ledgers and the old campaign closed."
+    },
+    "alternatives": {
+      "saved_only": "Zero new GPU spending can demonstrate the corrected staging and replay software. It cannot create independent new outcomes, undo the old information exposure, or turn the failed 6-versus-12 response calibration into a pass.",
+      "all_green": "No evidence supports a fixed-price guarantee of passing. If the single 8-cubed candidate fails, stop and retain the tool limitation rather than extend the test."
+    },
+    "authorization": "Not requested or assumed by these prepared inputs. Current instruction forbids new GPU spending or campaign restart."
+  },
+  "preserved": {
+    "old_staging_failure": true,
+    "old_response_failure": true,
+    "old_campaign_closed": true,
+    "old_convergence_budget_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "acceptance_budget_sha256": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8",
+    "no_new_paid_calls": true,
+    "new_GPU_launches": 0,
+    "new_CPU_cloud_launches": 0,
+    "new_model_contexts": 0,
+    "new_reservations_cents": 0,
+    "allocations": "No new allocations. All eleven prior acceptance apps authoritatively STOPPED in the retained r4 closeout; no new remote lifecycle observation claimed.",
+    "prior_allocation_evidence_sha256": "d54e65284901494d7274298f03370a09002964ff700ce6f81078068e9477a6a5",
+    "actual_invoices_known": false
+  },
+  "acceptance": {
+    "native_SOC": "passed, retained",
+    "fast_6_latency": "passed, retained",
+    "fast_6_response_consistency": "failed, retained",
+    "prospective_tools_workflow": "passed, retained",
+    "strict_information_comparison": "invalid, retained; replacement pending new authorization",
+    "full_spec_complete": false
+  },
+  "source_files": {
+    "src/siesta_remag/research/staging.py": "fb326775b35a3ec23469f7862813eda3b1ce20475ed9fb960177a3bd5d5f8014",
+    "src/siesta_remag/research/tools.py": "5088a50ef4b31962e90b577c8a960a09618c68294c0dbf9b096062c21585b7cd",
+    "src/siesta_remag/research/toolhost.py": "4edf3563379c1960c6e268077fe569281e7885e834eb73044c33fc6c41d58efa",
+    "src/siesta_remag/research/study.py": "4336c594e2fd082f66a3771c9de67e6adc5faf025ba7dde7e6f7f82ff85ce7a5",
+    "tests/test_research_staging.py": "409826a1045827371c1e842e88418f2b71aae7658277903733ac03cffb57eced"
+  }
+}

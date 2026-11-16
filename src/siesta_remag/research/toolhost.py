@@ -23,13 +23,13 @@ from .tools import ResearchTools
 PREPARATION = frozenset({'author_structure', 'register_structure', 'assess_structure',
     'prepare_query', 'prepare_response_series', 'analyze_response_series',
     'export_band_path', 'export_electronic_matrices', 'compare_electronic_matrices',
-    'export_orbital_moments', 'export_soc_matrices'})
+    'export_orbital_moments', 'export_soc_matrices', 'stage_scalar_data'})
 MEMORY = frozenset({'record_hypothesis', 'propose_experiment', 'record_prediction',
     'record_response_prediction', 'record_calculation_outcome', 'record_response_outcome',
     'record_analysis', 'retrieve_research_history', 'evaluate_hypothesis', 'evaluate_predictions'})
 INSPECTION = frozenset({'inspect_structure', 'inspect_calculation', 'inspect_electronic_structure',
     'projected_dos', 'compare_electronic_states', 'structural_operation',
-    'inspect_relaxation', 'calibrate_exploratory_response'})
+    'inspect_relaxation', 'calibrate_exploratory_response', 'inspect_scalar_data'})
 DISABLED = frozenset({'run_prepared_query', 'prepare_relaxation'})
 
 

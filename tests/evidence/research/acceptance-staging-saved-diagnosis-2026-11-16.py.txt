@@ -1,0 +1,93 @@
+"""Read-only native/result diagnosis; writes only a new repair evidence folder."""
+from pathlib import Path
+from decimal import Decimal
+import json
+import re
+from datetime import datetime, timezone
+
+from siesta_remag.corpus import sha256
+from siesta_remag.discovery.common import load, save
+from siesta_remag.research.tools import _verified_report
+from siesta_remag.research.calibration import calibrate_response
+
+ROOT=Path(__file__).resolve().parent.parent
+OLD=ROOT/'work/acceptance-six-r4'
+OUT=ROOT/'work/acceptance-staging-repair'
+OUT.mkdir(exist_ok=False)
+evidence={};rows={};endpoints={6:[],12:[]};count=0;size=0
+budget_paths=[ROOT/'work/fept-total-budget.json',ROOT/'work/acceptance-six-r1/budget.json']
+budgets={str(p.relative_to(ROOT)):sha256(p) for p in budget_paths}
+for case in ('baseline-k6','baseline-k12','minus-k6','minus-k12','plus-k6','plus-k12'):
+    path=OLD/'runs'/case/'collected/query/report.json'
+    collection=path.parent.parent/'archive-manifest.json'
+    report=_verified_report(path,collection)
+    endpoints[int(case.split('-k')[1])].append(dict(report=path,collection=collection))
+    review=load(OLD/'case-reviews'/f'{case}.json')
+    assert review['health']['report_sha256']==sha256(path) and review['health']['health_passed']
+    assert review['status']=='reviewed' and review['allocation_stopped']
+    manifest=load(OLD/'native'/case/'recovery-manifest.json')
+    assert manifest['report_sha256']==sha256(path)
+    for name,expected in manifest['files'].items():
+        p=OLD/'native'/case/name
+        assert sha256(p)==expected, (case,name)
+        count+=1;size+=p.stat().st_size
+    evidence[case]=dict(report_sha256=sha256(path),collection_sha256=sha256(collection),
+        recovery_sha256=sha256(OLD/'native'/case/'recovery-manifest.json'),
+        health_sha256=sha256(OLD/'case-reviews'/f'{case}.json'))
+    energies={}
+    for stage in ('scalar','soc-z','soc-x','soc-y'):
+        native=OLD/'native'/case/stage
+        result=load(native/'result.json');text=(native/'stdout.log').read_text()
+        assert result['valid'] and result['returncode']==0 and not result['timed_out']
+        energies[stage]={}
+        for metric,label in [('E','Etot'),('F','FreeEng')]:
+            hits=re.findall(r'^siesta:\s+'+label+r'\s*=\s+(-?\d+\.\d+)\s*$',text,re.M)
+            assert hits and len(hits[-1].split('.')[1])==6
+            value=Decimal(hits[-1]);field={'E':'total_energy_ev','F':'free_energy_ev'}[metric]
+            assert value==Decimal(str(result['observables'][field]))==Decimal(str(report['observations'][stage][field]))
+            energies[stage][metric]=value
+    anis={q:(energies['soc-x'][q]-energies['soc-z'][q])*1000 for q in ('E','F')}
+    assert all(energies['soc-x'][q]==energies['soc-y'][q] for q in ('E','F'))
+    rows[case]=dict(source_sha256=report['source_sha256'],
+        anisotropy_mev={q:float(v) for q,v in anis.items()},
+        anisotropy_E_minus_F_mev=float(anis['E']-anis['F']),
+        native_seconds=report['wall_seconds'],usable_seconds=review['usable_result_seconds'],
+        other_elapsed_seconds=review['usable_result_seconds']-report['wall_seconds'],
+        scf_iterations={s:report['observations'][s]['scf_iterations'] for s in energies},
+        health_passed=True,baseline_execution_agreement=review['health']['baseline_execution_agreement'])
+responses={}
+for intervention in ('minus','plus'):
+    r={}
+    for q in ('E','F'):
+        delta={k:Decimal(str(rows[f'{intervention}-k{k}']['anisotropy_mev'][q]))-
+                 Decimal(str(rows[f'baseline-k{k}']['anisotropy_mev'][q])) for k in (6,12)}
+        r[q]=dict(k6_mev=float(delta[6]),k12_mev=float(delta[12]),discrepancy_mev=float(delta[6]-delta[12]))
+    r['E_minus_F_discrepancy_mev']=float(Decimal(str(r['E']['discrepancy_mev']))-Decimal(str(r['F']['discrepancy_mev'])))
+    responses[intervention]=r
+calibration=calibrate_response(endpoints[6],endpoints[12],baseline_source_sha256=rows['baseline-k6']['source_sha256'],resolution_ev=.00005)
+assert set(calibration['changed_settings'])=={'kmesh'}
+original=load(OLD/'response-calibration.json')
+assert calibration==original
+audit=load(OLD/'policy-staging-audit.json')
+scalar=OLD/'policy-arms/scalar/baseline-scalar-data.json'
+assert sha256(scalar)==audit['original_scalar_data_sha256']
+report=dict(format='REMAG-SAVED-ACCEPTANCE-DIAGNOSIS/1',recorded_at=datetime.now(timezone.utc).isoformat(),
+    native_files_rehashed=count,native_bytes_rehashed=size,all_24_native_stage_E_F_match_saved_results=True,
+    saved_calibration_reproduced=True,changed_numerical_settings=calibration['changed_settings'],
+    cases=rows,responses=responses,hashes=evidence,
+    maximum_print_rounding_error_in_eight_energy_discrepancy_mev=.004,
+    diagnosis=[
+        'The response discrepancy exists in native stdout before policy staging. Independent decimal subtraction reproduces it; no units, report-copy or response-subtraction bug is indicated.',
+        'Within these matched inputs the numerical configuration differs only in kmesh. The 6-cubed bias changes with strain; a constant baseline correction cannot remove the response error.',
+        'The discrepancy in E minus F is +0.152 meV for compression and -0.167 meV for expansion. Finite-temperature occupation/entropy terms contribute, but F itself still fails by 0.153/0.100 meV.',
+        'All 12-cubed responses are below the declared 0.05 meV sign resolution. Their numerical signs/rankings are not resolved reference labels.',
+        'Health, branch, radial and executable/runtime checks passed; both baseline executions agree with saved host REMAG within 0.0010001 meV. This does not prove SCF residual errors negligible or establish kmesh convergence.',
+        'The 0.004 meV bound concerns decimal printing only, not solver or physical uncertainty. Saved data cannot uniquely separate k-integration, self-consistent occupation and residual-SCF contributions.',
+        'No fixed-cost all-pass guarantee follows. A changed exploratory tier needs its own finite response and end-to-end timing test; 12-cubed baseline took 371.69 seconds and is not an already demonstrated universal sub-five-minute replacement.'
+    ],
+    original_staging_failure_retained=True,old_campaign_closed=True,solver_executions=0,new_reservations_cents=0,
+    budgets_before=budgets,budgets_after={str(p.relative_to(ROOT)):sha256(p) for p in budget_paths},
+    old_evidence_modified=False,actual_billed_usd=None)
+assert report['budgets_before']==report['budgets_after']
+save(OUT/'saved-diagnosis.json',report)
+print(json.dumps(dict(native_files=count,native_bytes=size,responses=responses,changed_settings=calibration['changed_settings']),indent=2))

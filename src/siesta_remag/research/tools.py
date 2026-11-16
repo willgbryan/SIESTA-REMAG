@@ -55,6 +55,10 @@ TOOLS = {
         'description':'Verify a saved accepted native relaxation and report source-linked site/orbit, neighbor and authored-symmetry changes.'},
     'calibrate_exploratory_response': {'required': ['exploratory','reference','baseline_source_sha256','resolution_ev'], 'optional': [],
         'description': 'Compare E/F response errors, signs and rankings from saved matched structures. Each tier lists report paths or {report, collection} endpoints for original compact archives; selects no universal default.'},
+    'stage_scalar_data': {'required': ['calculations', 'output'], 'optional': [],
+        'description': 'Verify named report/collection endpoints and write a new scalar-only initial packet. Copies no raw archives; both policy arms receive the same packet.'},
+    'inspect_scalar_data': {'required': ['packet'], 'optional': [],
+        'description': 'Validate a sealed scalar-only packet before exposing its standard numeric observations.'},
     'inspect_calculation': {'required': ['report'], 'optional': ['collection'],
         'description': 'Verify a saved calculation and inspect measured stages, moments, forces, stress and anisotropy.'},
     'inspect_electronic_structure': {'required': ['spectrum'], 'optional': ['selection'],
@@ -259,6 +263,15 @@ class ResearchTools:
                     self._source_access(load(endpoint['report']).get('source_sha256'))
             return calibrate_response(tiers['exploratory'], tiers['reference'],
                 baseline_source_sha256=args['baseline_source_sha256'],resolution_ev=args['resolution_ev'])
+        if name == 'stage_scalar_data':
+            from .staging import stage_scalar_data
+            return stage_scalar_data(self, args['calculations'], args['output'])
+        if name == 'inspect_scalar_data':
+            from .staging import validate_scalar_data
+            packet = validate_scalar_data(load(self.path(args['packet'])))
+            for row in packet['cases'].values():
+                self._source_access(row['source_sha256'])
+            return packet
         if name == 'inspect_calculation':
             path = self.path(args['report']); report = _verified_report(path,self.path(args['collection']) if 'collection' in args else None)
             observations = self._observations(report['observations'])

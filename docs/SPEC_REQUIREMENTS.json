@@ -2597,5 +2597,14 @@
     "full_spec_complete": false,
     "attempt_closed": true,
     "new_compute_authorized": false
+  },
+  "acceptance_staging_repair": {
+    "date": "2026-11-16",
+    "evidence": "tests/evidence/research/acceptance-staging-repair-2026-11-16.json",
+    "software_staging_fixed": true,
+    "strict_information_comparison_validated": false,
+    "response_consistency_passed": false,
+    "new_GPU_launches": 0,
+    "full_spec_complete": false
   }
 }

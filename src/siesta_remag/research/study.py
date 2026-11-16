@@ -104,10 +104,20 @@ def register_study(workspace,definition,output):
             if str(path.relative_to(folder)) not in files:raise ValueError('Common inputs must be immutable files in each arm')
         for name in files:
             path=folder/name
+            if arm == 'scalar' and path.suffix == '.json' and path.stat().st_size > 16*1024**2:
+                raise ValueError('Scalar initial JSON exceeds the staging audit bound')
             if path.suffix=='.json' and path.stat().st_size<=16*1024**2:
                 data=load(path)
                 if isinstance(data,dict) and data.get('format') in ('REMAG-EXPERIMENT-RESULT/1','REMAG-DISCOVERY-RESULT/1') and data.get('source_sha256') in sources:
                     raise ValueError('Do not seed an arm with heldout calculation results')
+                if arm == 'scalar':
+                    from .staging import check_scalar_input
+                    check_scalar_input(data, sources)
+                if isinstance(data,dict) and data.get('format') == 'REMAG-SCALAR-DATA/1':
+                    from .staging import validate_scalar_data
+                    validate_scalar_data(data)
+                    if any(row['source_sha256'] in sources for row in data['cases'].values()):
+                        raise ValueError('Do not seed an arm with heldout calculation results')
         records[arm]=dict(initial_files=files,mutable_budget_files=excluded,
             execution_config_sha256=execution['sha256'] if execution else None,
             initial_ledger=execution['ledger'].snapshot() if execution else None)
