@@ -82,6 +82,53 @@ channel (argument 0). Legacy campaigns retain their existing `diagnostic_axes`
 behavior. A missing or rejected requested spectrum makes the new query unusable
 even when its directional energies were collected successfully.
 
+## Offline capability preflight
+
+Device-SCF execution now requires metadata from the **actual linked build**.
+The adapter and graph planner share a 4,096-k-point ceiling (previously 128).
+The 2,048 spatial-orbital / 4,096 spinor-dimension bounds remain unchanged.
+Sampling storage and spectral jobs are dynamic; this ceiling does not establish
+memory fit, native acceptance or usable-result latency for every supported shape.
+
+In a trusted CPU builder, after linking and publishing the candidate, generate
+its runtime manifest without invoking the solver:
+
+```sh
+python -m siesta_remag.research runtime-manifest \
+  --executable /results/new-build/siesta \
+  --library /results/new-build/libremag_gpu.so \
+  --environment runtime-environment.json --threads 1 \
+  --output new-runtime.json
+```
+
+The command reads the library's pure `remag_device_scf_capabilities` symbol and
+binds the returned limits to executable and library SHA-256 hashes. The runtime
+environment must select that library directory first in `LD_LIBRARY_PATH`.
+The output must be new; old manifests and failed-attempt evidence stay intact.
+Source-only metadata and component test libraries are planning evidence, not a
+substitute for this fully linked candidate manifest.
+
+Before authorizing GPU submission, run this entirely local check on every bundle:
+
+```sh
+python -m siesta_remag.research preflight-query --runtime new-runtime.json \
+  --bundle prepared-baseline-k6 --bundle prepared-baseline-k12
+```
+
+It verifies the frozen input inventory, request/manifest/native mesh agreement,
+SOC runtime requirements and build-specific mesh limit. It uses the full mesh
+product, never an assumed scalar symmetry reduction: 6³ requires capacity 216;
+12³ requires 1,728. Missing capability metadata, stale executable bindings and
+unsupported meshes fail closed. Legacy host-controlled manifests remain valid.
+
+The same check is mandatory in the controlled executor before account access,
+durable intent, image preparation or reservation, and in the low-level Modal
+entry before any Image/App/Volume API. Successful execution retains
+`preflight.json`. The remote worker also checks actual executable/library bytes
+and compiled metadata before native work. These checks use operator-trusted
+build metadata; they do not independently attest remote files before allocation.
+The commands themselves make no cloud calls or budget reservations.
+
 ## Lifecycle and failure behavior
 
 Before each launch, the controller checks the previous owned app's authoritative

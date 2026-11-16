@@ -250,6 +250,20 @@ completion gates.
   usable-result latency, response calibration and prospective policy acceptance
   remain unproven. The old convergence campaign remains closed.
 
+- 16 November: the 128-k-point prototype ceiling is replaced by a shared
+  4,096-point adapter/planner contract. An offline preflight checks prepared
+  mesh bytes against capabilities exported by the actual linked library and
+  bound to executable/library hashes. Unsupported or unbound device runtimes
+  are rejected before cloud image preparation or reservations. Collected results
+  require matching runtime verification evidence. Local capacity/indexing and
+  metadata component compilation, no-spend rejection controls and saved-input
+  checks pass; full CUDA linking and live native acceptance remain pending.
+  The [repair evidence and finite plan](../tests/evidence/research/acceptance-capability-repair-2026-11-16.json)
+  proposes one CPU rebuild plus the same six bundles within the unreserved $5,
+  with unchanged deadlines/gates, one GPU and no automatic retries/extensions.
+  No cloud work or reservation was created for this repair. Prior failed attempts
+  and the closed convergence campaign remain unchanged.
+
 Scientific status remains in `FEPT_QUALIFICATION_PLAN.md`; it is separate from
 this implementation checklist. No claim of verified mechanisms, transferable
 predictions, physical accuracy or the latency target follows from code delivery.

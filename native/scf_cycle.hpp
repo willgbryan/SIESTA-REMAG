@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
+#include "scf_capacity.hpp"
 #include "hamiltonian.hpp"
 #include "density_matrix.hpp"
 #include "grid.hpp"

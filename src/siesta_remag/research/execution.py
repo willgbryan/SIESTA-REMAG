@@ -25,6 +25,7 @@ from ..discovery.pipeline import lock
 from .budget import BudgetLedger, reservation_cents
 from .experiments import verify_experiment, experiment_code
 from .queries import requested_spectra
+from .preflight import validate_runtime, preflight_query
 
 
 def _path(root, value):
@@ -66,13 +67,7 @@ def read_execution_config(workspace, path):
     runtime_path = _path(root,c['runtime']); runtime = load(runtime_path)
     if sha256(runtime_path) != c['runtime_sha256']:
         raise ValueError('Authorized REMAG runtime changed')
-    if (set(runtime)-{'executable','executable_sha256','environment','threads'}
-            or not isinstance(runtime.get('executable'),str) or not runtime['executable'].startswith('/')
-            or not re.fullmatch(r'[0-9a-f]{64}',runtime.get('executable_sha256',''))
-            or type(runtime.get('threads',1)) is not int or not 1 <= runtime.get('threads',1) <= 8
-            or not isinstance(runtime.get('environment',{}),dict)
-            or any(not isinstance(k,str) or not isinstance(v,str) for k,v in runtime.get('environment',{}).items())):
-        raise ValueError('Expected a pinned REMAG runtime manifest')
+    validate_runtime(runtime)
     ledger_path = _path(root,c['budget_ledger'])
     if not ledger_path.is_file():
         raise ValueError('An existing authorized budget ledger is required')
@@ -145,6 +140,9 @@ def _review(attempt, request, runtime):
     top = load(root/'report.json'); policy = load(attempt/'campaign/execution.json')
     if top['invocation_sha256'] != digest(policy) or top.get('policy') != policy:
         raise ValueError('Collected allocation belongs to another execution policy')
+    if runtime.get('capabilities') is not None and top.get('runtime_verification') != dict(
+            executable_sha256=runtime['executable_sha256'],capabilities=runtime['capabilities'],actual_files_verified=True):
+        raise ValueError('Collected native library/capability verification differs or is missing')
     report = _verified_report(root/'query/report.json',root/'archive-manifest.json')
     if (report['request'] != request or report['source_sha256'] != request['source_sha256']
             or report['executable_sha256'] != runtime['executable_sha256']
@@ -183,7 +181,8 @@ def _review(attempt, request, runtime):
         report_sha256=sha256(root/'query/report.json'), collection='collected/archive-manifest.json',
         observations={stage:{k:v for k,v in row.items() if k != 'eigenvalues'} for stage,row in report['observations'].items()},
         anisotropy=report.get('anisotropy'), angular_fit=report.get('angular_fit'),
-        native_wall_seconds=report.get('wall_seconds'), remote_timing=top.get('timing'), spectra=spectra,verification=report['verification'])
+        native_wall_seconds=report.get('wall_seconds'), remote_timing=top.get('timing'), spectra=spectra,verification=report['verification'],
+        runtime_verification=top.get('runtime_verification'))
 
 
 @contextmanager
@@ -215,6 +214,7 @@ review. Disappearing local sessions never count as allocation release.
     root = Path(workspace).resolve(); plan = read_execution_config(root,execution_config); c = plan['config']
     bundle = _path(root,str(bundle)); output = _path(root,str(output))
     request = verify_experiment(bundle); settings = Settings.from_dict(request['settings'])
+    preflight = preflight_query(bundle,plan['runtime'])
     from .experiments import validate_soc_request
     validate_soc_request(request.get('soc_matrix',False),request.get('query'),plan['runtime'].get('environment',{}))
     spectra = requested_spectra(request.get('query',{'kind':'anisotropy'}),[] if spectra is None else spectra)
@@ -254,6 +254,7 @@ review. Disappearing local sessions never count as allocation release.
             budget_stage=c['budget_stage'],spectra=spectra,expected_source_code=experiment_code())
         if 'volume' in c:policy['volume'] = c['volume']
         save(output/'campaign/execution.json',policy)
+        save(output/'preflight.json',preflight)
         save(output/'authorization.json',dict(config=c,config_sha256=plan['sha256'],prior_app=prior))
         started = time.monotonic()
         result = dict(format='REMAG-QUERY-EXECUTION/1',status='submitting',config_sha256=plan['sha256'],

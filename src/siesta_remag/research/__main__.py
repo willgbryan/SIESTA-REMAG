@@ -122,6 +122,15 @@ def main(argv=None):
     p.add_argument('--withheld-source', action='append', default=[])
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--execution-config', type=Path)
+    p = sub.add_parser('runtime-manifest', help='Bind executable/library hashes to compiled metadata in a trusted CPU builder; no solver')
+    p.add_argument('--executable', type=Path, required=True)
+    p.add_argument('--library', type=Path, required=True)
+    p.add_argument('--environment', type=Path, required=True)
+    p.add_argument('--threads', type=int, default=1)
+    p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('preflight-query', help='Offline input/build-capability check; no cloud calls or reservations')
+    p.add_argument('--runtime', type=Path, required=True)
+    p.add_argument('--bundle', type=Path, action='append', required=True)
     p = sub.add_parser('execute-query', help='Execute one query using an explicit operator budget/runtime configuration')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--execution-config', type=Path, required=True)
@@ -228,6 +237,17 @@ def main(argv=None):
     if args.command == 'tools':
         from .tools import serve
         serve(args.workspace,execution_config=args.execution_config,information_profile=args.information_profile,withheld_sources=args.withheld_source)
+        return 0
+    if args.command == 'runtime-manifest':
+        from .preflight import build_runtime
+        if args.output.exists():raise ValueError('Runtime manifest output must be new')
+        result=build_runtime(args.executable,args.library,load(args.environment),args.threads)
+        save(args.output,result)
+        return 0
+    if args.command == 'preflight-query':
+        from .preflight import preflight_query
+        runtime=load(args.runtime)
+        print(json.dumps([preflight_query(bundle,runtime) for bundle in args.bundle],indent=2,allow_nan=False))
         return 0
     if args.command == 'execute-query':
         from .execution import execute_query

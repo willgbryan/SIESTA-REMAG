@@ -1,0 +1,320 @@
+{
+  "format": "REMAG-FINITE-TOOL-ACCEPTANCE-REPAIR-PLAN/1",
+  "recorded_at": "2026-11-16T17:28:58.518568+00:00",
+  "status": "proposal_only_no_paid_execution_authorized",
+  "objective": "Finish the existing three tool-acceptance checks with measured pass/fail/pending results, using exactly six bundles. The convergence campaign remains closed.",
+  "software_fix": {
+    "shared_native_max_kpoints": 4096,
+    "old_limit": 128,
+    "scalar_failure_kpoints": 132,
+    "full_acceptance_mesh_upper_bounds": [
+      216,
+      1728
+    ],
+    "input_preflight": {
+      "format": "REMAG-ACCEPTANCE-CAPACITY-LOCAL/1",
+      "recorded_at": "2026-11-16T17:26:57.757327+00:00",
+      "status": "source_capacity_passed_full_linked_runtime_pending",
+      "cases": [
+        {
+          "case": "baseline-k6",
+          "request_sha256": "c7f38c9540c77e59d3d011376dfbb0a247f2d89207f0f9623543b8c783ccfe68",
+          "source_capacity": {
+            "kmesh": [
+              6,
+              6,
+              6
+            ],
+            "native_kpoints_upper_bound": 216,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          },
+          "old_runtime_rejection": "Device-SCF execution requires build-specific capabilities before spending"
+        },
+        {
+          "case": "baseline-k12",
+          "request_sha256": "66189ba4d6d3d9563d9e1176239b189db8c4fcdcd30f3868053a244a3eccd136",
+          "source_capacity": {
+            "kmesh": [
+              12,
+              12,
+              12
+            ],
+            "native_kpoints_upper_bound": 1728,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          },
+          "old_runtime_rejection": "Device-SCF execution requires build-specific capabilities before spending"
+        },
+        {
+          "case": "minus-k6",
+          "request_sha256": "1ada591e7af8ac7f4d1598a8256e7562ead3e30cf62856baaa42dc025e7a1a63",
+          "source_capacity": {
+            "kmesh": [
+              6,
+              6,
+              6
+            ],
+            "native_kpoints_upper_bound": 216,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          },
+          "old_runtime_rejection": "Device-SCF execution requires build-specific capabilities before spending"
+        },
+        {
+          "case": "minus-k12",
+          "request_sha256": "1575131e1edf755118b243da2e9b6195b54d7b617dc2fffca2da774a1e449276",
+          "source_capacity": {
+            "kmesh": [
+              12,
+              12,
+              12
+            ],
+            "native_kpoints_upper_bound": 1728,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          },
+          "old_runtime_rejection": "Device-SCF execution requires build-specific capabilities before spending"
+        },
+        {
+          "case": "plus-k6",
+          "request_sha256": "40e158787c39407838f6ff3564b46b4ad10ad6c883b1a37ec6db7a7c0806dae9",
+          "source_capacity": {
+            "kmesh": [
+              6,
+              6,
+              6
+            ],
+            "native_kpoints_upper_bound": 216,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          },
+          "old_runtime_rejection": "Device-SCF execution requires build-specific capabilities before spending"
+        },
+        {
+          "case": "plus-k12",
+          "request_sha256": "cd6a328cca88bcf93273fed59ebb775a89b1b8c6c290fe40329997f5e794a1d7",
+          "source_capacity": {
+            "kmesh": [
+              12,
+              12,
+              12
+            ],
+            "native_kpoints_upper_bound": 1728,
+            "compiled_max_kpoints": 4096,
+            "reduction_assumed": false,
+            "mesh_capacity_passed": true
+          },
+          "old_runtime_rejection": "Device-SCF execution requires build-specific capabilities before spending"
+        }
+      ],
+      "compiled_component_caps": {
+        "format": "REMAG-DEVICE-SCF-CAPABILITIES/1",
+        "max_kpoints": 4096,
+        "max_spatial_orbitals": 2048,
+        "max_spinor_dimension": 4096
+      },
+      "component_library_sha256": "8d49e5471abfe0244ddece4d2a0c5032e2ea2c1a198ca536daadf099e8ff86cd",
+      "scope": "The pure metadata component compiled locally; no full CUDA build or solver execution. A new fully linked runtime manifest is required before GPU acceptance.",
+      "budgets": {
+        "acceptance_sha256": "fe655a72098324424a807a4182737092b5727749c9b38f88e7a9130b69b5ce2f",
+        "acceptance_cap_cents": 1000,
+        "acceptance_reserved_cents": 500,
+        "old_convergence_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7"
+      },
+      "new_paid_actions": 0,
+      "new_reservations_cents": 0,
+      "old_campaign": "closed"
+    },
+    "mandatory_local_preflight": "Both the controlled executor and low-level Modal entry reject unsupported meshes or missing/stale build metadata before cloud image preparation or reservations.",
+    "runtime_binding": "CPU builder probes a pure metadata symbol in the actual fully linked library and binds it to executable/library SHA-256; remote worker verifies actual bytes and compiled metadata before native execution.",
+    "validation_scope": "Local C++ capacity/indexing and metadata component compile plus Python tests. Full CUDA build and live acceptance remain pending."
+  },
+  "prior_attempt": {
+    "status": "closed_failed_native_prerequisite",
+    "successful_usable_bundles": 0,
+    "failed_partial_bundles": 1,
+    "never_run_bundles": 5,
+    "all_owned_apps_stopped_at_last_observation": true,
+    "allocation_evidence": "work/acceptance-six-r1/build-retry/closeout-allocation.json",
+    "allocation_observed_at": "2026-11-16T16:44:02.934109+00:00",
+    "old_executable_not_usable_for_this_plan": true,
+    "all_failed_evidence_preserved": true
+  },
+  "scope": {
+    "material": "Existing two-atom tetragonal FePt source; fixed geometry",
+    "settings_shared": "Existing DZP, 0.02 Ry confinement, 300 Ry real-space grid, 300 K occupation settings and native acceptance tolerances; CPU radial setup retained",
+    "fast_kmesh": [
+      6,
+      6,
+      6
+    ],
+    "comparison_kmesh": [
+      12,
+      12,
+      12
+    ],
+    "comparison_scope": "One fixed numerical comparator; not a converged or physically qualified reference",
+    "structures": [
+      "baseline",
+      "new axial c strain -3/800",
+      "new axial c strain +3/800"
+    ],
+    "source_preflight": "Compute exact GPAC source hashes and census saved reports before registration; if either proposed heldout was already calculated, stop before spending and revise the proposal. Do not expose prior outcomes to either policy arm.",
+    "query_bundles": 6,
+    "stages_per_bundle": [
+      "scalar",
+      "soc-z",
+      "soc-x",
+      "soc-y"
+    ],
+    "maximum_native_stage_executions": 24,
+    "new_pristine_reference_calculations": 0
+  },
+  "acceptance": {
+    "native_SOC": "A measured production device-owned export passes existing native/branch/identity checks and operator invariants. A failure remains a failure; no fallback is silently substituted.",
+    "latency": "All three fast submissions must produce the requested verified usable result within 300 seconds each, including startup, collection and required review. Record every latency and maximum; no percentile or universal service claim from three samples.",
+    "response_consistency": "Compare fast and fixed-comparator E/F anisotropy responses on both interventions at the unchanged 0.05 meV/cell threshold. Only resolve response sign/ranking above the declared sensitivity. A mismatch fails this local calibration; a pass covers only this three-structure family and comparator.",
+    "prediction_workflow": "Both arms successfully author, preregister, measure, score and revise using independent newly generated outcomes. Report absolute E/F response errors, sign correctness or unresolved status, intervals if supplied, and actual resource usage. No requirement to manufacture a physics-arm win.",
+    "scientific_advantage": "Two heldouts cannot establish general superiority, uncertainty calibration, cross-material transfer or full spec completion; these claims remain unproven even if the tool checks pass."
+  },
+  "finite_limits": {
+    "one_gpu_total": true,
+    "GPU": "A100-80GB",
+    "cpu_request": 8,
+    "memory_request_mib": 98304,
+    "per_query_app_seconds": 600,
+    "per_query_native_seconds": 480,
+    "per_native_stage_seconds": 180,
+    "maximum_GPU_function_seconds": 3600,
+    "maximum_CPU_builder_seconds": 1200,
+    "no_warm_pool": true,
+    "automatic_retries": 0,
+    "case_or_mesh_extensions": 0,
+    "follow_on_queued": false,
+    "launch_guard": "Existing scripts/run_modal.py shared locks/account guard and controlled query executor; freshly authoritative previous-app STOPPED before every new launch.",
+    "stop_policy": "Build/native/branch/hash/ownership failure stops the remaining sequence. A healthy latency or numerical-consistency failure is recorded; only the already-listed finite cases may continue after review. Never add or replace a case to obtain a pass.",
+    "elapsed_planning_allowance": "About 1\u20132 hours including preparation/review; not a provider queue or completion guarantee."
+  },
+  "sequence": [
+    {
+      "step": 1,
+      "action": "One CPU-only full rebuild/link of the repaired candidate, scratch under /tmp, published artifacts in the dedicated acceptance volume with new immutable names. Export build-bound capabilities. Run all six offline preflights with that actual manifest before any GPU launch.",
+      "max_seconds": 1200,
+      "cap_cents": 25,
+      "failure": "Stop; no build retry or GPU submission."
+    },
+    {
+      "step": 2,
+      "action": "Run baseline-k6 and baseline-k12 once each, separately. Review native/branch/SOC/identity gates and confirm authoritative shutdown after each.",
+      "bundles": 2
+    },
+    {
+      "step": 3,
+      "action": "Two fresh Astra extra-high contexts use the delivered tools on the same baseline scalar data; the physics profile additionally receives electronic diagnostics. Author the frozen exact +/-3/800 c-strain interventions and preregister response predictions before observing any heldout.",
+      "tool_calls_per_arm": 10,
+      "context_seconds_per_arm": 600,
+      "external_model_API_purchases": 0
+    },
+    {
+      "step": 4,
+      "action": "Run minus-k6, minus-k12, plus-k6 and plus-k12 once each. One GPU total, separate reviewed invocations, prior app STOPPED and account-wide availability checked every time.",
+      "bundles": 4
+    },
+    {
+      "step": 5,
+      "action": "Locally score SOC export, usable latency/response consistency and prospective prediction workflow; record revisions, hashes, all outcomes and stopped allocations. Close regardless of numerical outcome."
+    }
+  ],
+  "cost": {
+    "currency": "USD",
+    "published_rate_source": "https://modal.com/pricing",
+    "verified_date": "2026-11-16",
+    "rates_usd_per_second": {
+      "A100_80GB": 0.000694,
+      "physical_CPU_core": 1.31e-05,
+      "GiB_memory": 2.22e-06
+    },
+    "requested_resource_estimate_at_all_time_limits_usd": 3.811296,
+    "GPU_bundle_resource_estimate_usd": 0.607152,
+    "CPU_build_resource_estimate_usd": 0.168384,
+    "proposed_remaining_cap_cents": 500,
+    "reservation_plan": {
+      "CPU_build": 25,
+      "six_GPU_queries": 450,
+      "query_each": 75,
+      "overhead_contingency": 25
+    },
+    "proposed_query_hourly_reservation_usd": 4.5,
+    "unchanged_query_timeout_seconds": 600,
+    "historical_acceptance_reserved_cents": 500,
+    "current_acceptance_unreserved_cents": 500,
+    "original_acceptance_cap_cents": 1000,
+    "extra_budget_extension_cents": 0,
+    "requires_fresh_execution_approval": true,
+    "accounting": "Keep all existing reservations, stages and failed attempts. Upon approval, add one separately named 25-cent build stage, use 450 cents of the existing query stage and retain 25 cents for overhead. Overall cap stays 1000 cents. No current ledger changes.",
+    "comparison": "Prior $1/query reservations used $6/hour. Proposed new attempts use $0.75/query at $4.50/hour, above the current $3.642912/hour requested-resource estimate. This changes the proposed allowance only, never historical reservations, physical settings, deadlines or numerical gates.",
+    "assumptions": [
+      "Standard Functions pricing and default region; no premium multiplier or new subscription.",
+      "Published compute estimate excludes startup/image work, transfers and retained storage; $1.188704 of the $5 envelope remains above the requested-resource estimate.",
+      "Billing uses actual resource consumption; reservations are not invoices and are not a provider-enforced billing guarantee. No extra compute or retry may use the contingency.",
+      "Existing Codex quota is outside the Modal estimate; no separate model API purchase."
+    ],
+    "actual_billed_usd": null
+  },
+  "boundaries": {
+    "new_cloud_actions_this_turn": 0,
+    "new_reservations_this_turn": 0,
+    "one_GPU_total": true,
+    "automatic_retries": 0,
+    "extensions": 0,
+    "new_pristine_reference_runs": 0,
+    "old_campaign": "closed",
+    "old_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "new_plan_does_not_reopen_prior_authorization": true
+  },
+  "required_before_execution": "Explicit approval of this revised one-build/six-query plan, reservation rate and $5 remaining envelope. Then freeze new source/build/authorization hashes; keep registered input bytes unchanged. No old driver restart.",
+  "validation": {
+    "targeted": "119 passed in 11.61s",
+    "broad_suite": "618 passed; 4 local HTTP socket tests blocked by sandbox; those same four passed with loopback access in 7.33s",
+    "broad_suite_snapshot": "Started before three final collected-proof regression cases were added; final targeted suite includes them. CI will test the final commit.",
+    "full_CUDA_compilation": false,
+    "live_solver_execution": false,
+    "logs": {
+      "targeted-tests.log": {
+        "path": "work/acceptance-six-r3-preflight/targeted-tests.log",
+        "sha256": "dc7798261bbd35f3039e74ce13994f48bf617dc62dab211916989b0d15ae1cb9"
+      },
+      "full-tests.log": {
+        "path": "work/acceptance-six-r3-preflight/full-tests.log",
+        "sha256": "e8e8f971bcfd55215a73c32aef11dea405b705edcad40825baf8169c13e4f57d"
+      },
+      "loopback-tests.log": {
+        "path": "work/acceptance-six-r3-preflight/loopback-tests.log",
+        "sha256": "8fffa9ada947560515c42751ac5b45bbfa0997c1300412a6b1aecdf3c3c1623b"
+      }
+    },
+    "changed_source_sha256": {
+      "native/scf_capacity.hpp": "e1b281a2f33ecd4003ab0c2e335fc1a2ea610ba769572e4873ca4a73fa6b87b7",
+      "native/capabilities.cpp": "e5a9860abbf7fca537d2aa1224ea5097e89bbb2e2e1e0755b342cdd83c9a5bd4",
+      "native/CMakeLists.txt": "d53f46a80e8a8952af65dbd632917a35ff7a529e621760e1c192b99b0dbda2c0",
+      "native/scf_cycle.hpp": "6ea8e22b3815eed48ec595f0344885792bdab70522ec6dbc693239156a904ea0",
+      "native/scf_cycle_state.cpp": "6bc660d1c7a4eb4b784bde3b98cf00f8692707814b7cd86eae7f45d5190d582d",
+      "native/scf_cycle.cu": "ffff2fa5a8356407cc9c015431e9b9cb25d1dbf270dfd80b169d4bcd6d4e1cfe",
+      "src/siesta_remag/research/preflight.py": "58ac1bbd8d329ebd0a7ea6a143f39e166f64815ff7d75116403a32c7bbb7ef4c",
+      "src/siesta_remag/research/execution.py": "7e5369cc45ba874f2e1b960a047bf3edb9b49a5ccb86186b95ee22713490387c",
+      "src/siesta_remag/research/__main__.py": "3b8d06b1fbbb332d4cf747ebd16b6a318a54317a003349331cc331c8b47704c6",
+      "scripts/research_modal.py": "1a871dc898923b1dde4c26a8e97fc1c343a43f2b63035b4f7b35a885dd8576d3",
+      "tests/fixtures/scf_capacity_driver.cpp": "57988fa5cdadf8851b4dbf40c74a8704d24d29a1b9a59cc752510f472fa271b4",
+      "tests/test_research_preflight.py": "1b916200e852ecebd904d2e1d0b2e80cad2f03e7ff1e5d762a790214bb9944ac"
+    },
+    "six_frozen_inputs_reverified": true,
+    "acceptance_budget_unchanged": true,
+    "old_convergence_budget_unchanged": true
+  }
+}

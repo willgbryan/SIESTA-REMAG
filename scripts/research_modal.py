@@ -35,9 +35,12 @@ if modal.is_local():
     if 'expected_source_code' in policy and policy['expected_source_code'] != experiment_code():
         raise ValueError('Prepared execution code changed before image preparation')
     from siesta_remag.research.queries import diagnostic_labels, requested_spectra
+    from siesta_remag.research.preflight import preflight_query
+    runtime = load(runtime_path)
     for name in policy['experiments']:
         if not (campaign/name).resolve().is_relative_to(campaign): raise ValueError('Unsafe experiment path')
         request = verify_experiment(campaign/name)
+        preflight_query(campaign/name,runtime)
         if 'spectra' in policy:
             requested_spectra(request.get('query', {'kind': 'anisotropy'}), policy['spectra'])
         else:
@@ -85,6 +88,8 @@ def calculate(run_id):
         save(root/'report.json', report); volume.commit()
     flush()
     try:
+        from siesta_remag.research.preflight import verify_runtime_files
+        report['runtime_verification'] = verify_runtime_files(runtime)
         if 'expected_source_code' in policy and policy['expected_source_code'] != experiment_code():
             raise ValueError('Uploaded experiment code differs from the prepared execution')
         for name in policy['experiments']:
