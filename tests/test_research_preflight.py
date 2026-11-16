@@ -90,6 +90,19 @@ def test_build_binding_library_bytes_and_probe_are_checked(prepared,tmp_path,com
     with pytest.raises(ValueError,match='pinned native library'):validate_runtime(changed)
 
 
+def test_builder_preserves_runtime_mount_alias_and_still_verifies_bytes(tmp_path,compiled):
+    # A volume mount may resolve to a provider-internal directory. Its public
+    # alias is the portable runtime path and already leads LD_LIBRARY_PATH.
+    alias=tmp_path/'results';alias.symlink_to(compiled[1].parent,target_is_directory=True)
+    exe=alias/compiled[0].name;lib=alias/compiled[1].name
+    runtime=build_runtime(exe,lib,{'REMAG_DEVICE_SCF':'1','LD_LIBRARY_PATH':str(alias)})
+    assert runtime['executable']==str(exe)
+    assert runtime['capabilities']['library']==str(lib)
+    assert verify_runtime_files(runtime)['actual_files_verified']
+    runtime['capabilities']['library_sha256']='0'*64
+    with pytest.raises(ValueError,match='bytes/capabilities differ'):verify_runtime_files(runtime)
+
+
 def test_prepared_mesh_and_input_cannot_disagree(prepared,tmp_path,compiled):
     r=pin_runtime(tmp_path,compiled);remesh(prepared,6)
     assert preflight_query(prepared,r)['native_kpoints_upper_bound']==216

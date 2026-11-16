@@ -7,6 +7,7 @@ evidence, never a replacement for a build-specific runtime manifest.
 import ctypes
 import json
 import math
+import os
 from pathlib import Path
 import re
 
@@ -61,7 +62,11 @@ def validate_runtime(runtime):
 
 
 def build_runtime(executable, library, environment, threads=1):
-    executable,library=Path(executable).resolve(),Path(library).resolve()
+    # Preserve public mount aliases such as /results. resolve() can replace
+    # them with provider-internal paths that differ from LD_LIBRARY_PATH and
+    # need not exist in the next container. Hash/probe the same actual bytes
+    # through the alias; verify_runtime_files repeats this in the worker.
+    executable,library=Path(os.path.abspath(executable)),Path(os.path.abspath(library))
     h=sha256(executable);lh=sha256(library)
     c=probe_library(library)
     if sha256(library)!=lh:raise ValueError('Library changed during capability probe')

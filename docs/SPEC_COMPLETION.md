@@ -264,6 +264,19 @@ completion gates.
   No cloud work or reservation was created for this repair. Prior failed attempts
   and the closed convergence campaign remain unchanged.
 
+- 16 November: the approved repaired build compiled and linked the full CUDA
+  candidate, but its runtime-manifest preflight rejected a public mount alias
+  after resolving it to a different path. The original failure is retained in
+  the [repaired-attempt closeout](../tests/evidence/research/finite-tool-acceptance-r3-2026-11-16.json).
+  A local symlink regression reproduces the error; preserving public runtime
+  paths fixes it while retaining hash/capability checks. 120 targeted tests pass.
+  The no-retry boundary stopped this attempt before any GPU launch: all six
+  bundles and both policy contexts are unrun. All four owned acceptance apps
+  are authoritatively stopped; the account container list is empty. The new
+  reservation is $0.25, cumulative acceptance reservations $5.25 of $10;
+  invoices remain unknown. No further build, native retry or extension ran,
+  and the old convergence campaign stays closed.
+
 Scientific status remains in `FEPT_QUALIFICATION_PLAN.md`; it is separate from
 this implementation checklist. No claim of verified mechanisms, transferable
 predictions, physical accuracy or the latency target follows from code delivery.

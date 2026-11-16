@@ -1,0 +1,44 @@
+"""One explicitly selected registered case. Never launches a following case."""
+from pathlib import Path
+from datetime import datetime,timezone
+import asyncio,hashlib,json,os,sys,time,traceback
+from siesta_remag.discovery.common import load,save
+from siesta_remag.corpus import sha256
+from siesta_remag.research.execution import execute_query
+from siesta_remag.research.experiments import verify_experiment
+from acceptance_six_review import recover,review
+W=Path(__file__).resolve().parent;A=W/'acceptance-six-r3'
+sequence=['baseline-k6','baseline-k12','minus-k6','minus-k12','plus-k6','plus-k12']
+if len(sys.argv)!=2 or sys.argv[1] not in sequence:raise ValueError('Expected exactly one registered case')
+key=sys.argv[1];index=sequence.index(key);plan=load(A/'registration.json')
+assert sha256(W/'fept-total-budget.json')==plan['old_ledger_sha256']
+for path,digest in load(A/'query-readiness.json')['helpers'].items():assert sha256(W/path)==digest,path
+case=next(r for r in plan['bundles'] if r['key']==key)
+assert sha256(A/'bundles'/key/'experiment.json')==case['request_sha256'];verify_experiment(A/'bundles'/key)
+if index:
+ previous=load(A/'case-reviews'/f'{sequence[index-1]}.json')
+ assert previous['status']=='reviewed' and previous['health']['health_passed'] and previous['allocation_stopped']
+if index>=2:
+ seal=load(A/'policy-predictions-sealed.json')
+ assert seal['status']=='sealed' and seal['heldouts_executed']==0
+ for path,digest in seal['files'].items():assert sha256(A/path)==digest
+summary=A/'case-reviews'/f'{key}.json';summary.parent.mkdir(exist_ok=True)
+assert not summary.exists(),'Existing case intent: do not resubmit'
+row=dict(case=key,status='starting',started_at=datetime.now(timezone.utc).isoformat(),pid=os.getpid(),allocation_stopped=False,automatic_follow_on=False)
+save(summary,row);start=time.monotonic()
+try:
+ result=execute_query(W,'acceptance-six-r3/execution-config.json',f'acceptance-six-r3/bundles/{key}',f'acceptance-six-r3/runs/{key}',spectra=[dict(stage='soc-z',spin=0),dict(stage='soc-x',spin=0)] if key.startswith('baseline') else [])
+ row.update(execution_status=result['status'],allocation_stopped=result['allocation_stopped'],app_id=result['app_id'])
+ save(summary,row)
+ if (A/'runs'/key/'collected/query/report.json').exists():row['recovery']=asyncio.run(recover(A/'runs'/key,A/'native'/key))
+ if result['status']!='measured' or not result['allocation_stopped']:raise ValueError('Controlled execution did not yield an accepted stopped result')
+ row['health']=review(A,key);row['status']='reviewed'
+except BaseException as exc:
+ row.update(status='held',error=dict(type=type(exc).__name__,message=str(exc)));traceback.print_exc()
+finally:
+ row['submission_through_full_review_seconds']=time.monotonic()-start
+ row['usable_result_seconds']=row['submission_through_full_review_seconds'] if row['status']=='reviewed' else None
+ row['fast_latency_passed']=row['usable_result_seconds'] is not None and row['usable_result_seconds']<=300 if key.endswith('k6') else None
+ row['finished_at']=datetime.now(timezone.utc).isoformat();save(summary,row)
+ print(json.dumps({k:v for k,v in row.items() if k not in ('health','recovery')}),flush=True)
+if row['status']!='reviewed':raise SystemExit(2)

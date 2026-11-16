@@ -104,6 +104,9 @@ python -m siesta_remag.research runtime-manifest \
 The command reads the library's pure `remag_device_scf_capabilities` symbol and
 binds the returned limits to executable and library SHA-256 hashes. The runtime
 environment must select that library directory first in `LD_LIBRARY_PATH`.
+Manifest paths preserve public mount aliases such as `/results`; they must not
+be replaced with a provider-internal symlink target. Hashing and probing still
+check the actual bytes through those aliases, both in the builder and worker.
 The output must be new; old manifests and failed-attempt evidence stay intact.
 Source-only metadata and component test libraries are planning evidence, not a
 substitute for this fully linked candidate manifest.

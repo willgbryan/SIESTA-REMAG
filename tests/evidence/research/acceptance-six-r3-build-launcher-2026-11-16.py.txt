@@ -1,0 +1,151 @@
+"""One explicitly authorized candidate-only CPU capability-repair build; invoke through scripts/run_modal.py.
+
+No solver invocation, reference build, GPU allocation or automatic retry.
+The owner-authorized input snapshot and append-only ledger live outside the repo.
+"""
+from pathlib import Path
+import hashlib
+import json
+import os
+import sys
+import modal
+
+ROOT=Path(__file__).resolve().parents[1]
+def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+def load(path):return json.loads(path.read_text())
+def save(path,value):path.write_text(json.dumps(value,indent=2)+'\n')
+
+if modal.is_local():
+    sys.path.insert(0,str(ROOT/'src'))
+    from siesta_remag.research.budget import BudgetLedger
+    acceptance=Path(os.environ['REMAG_ACCEPTANCE_ROOT']).resolve()
+    inputs=acceptance/'build-input'
+    attempt=acceptance
+    manifest=load(attempt/'build-manifest.json')
+    registration=load(acceptance/'registration.json')
+    if sha(attempt/'build-manifest.json')!=registration['build_manifest_sha256']:
+        raise ValueError('Registered repaired build input changed')
+    for name,digest in manifest['files'].items():
+        if sha(inputs/name)!=digest:raise ValueError('Build input changed: '+name)
+    if manifest['timeout_seconds']!=1200 or manifest['reserved_cents']!=25:
+        raise ValueError('Build limits differ from the approved finite plan')
+    ledger=BudgetLedger(acceptance.parent/'acceptance-six-r1/budget.json')
+    if ledger.remaining_cents('build-capability-repair-once')<25:raise ValueError('Build allowance unavailable; no retry')
+    if (attempt/'build-receipt.json').exists():raise ValueError('Build already attempted; collect existing evidence')
+    image=(modal.Image.from_id(manifest['base_image']).add_local_dir(inputs,'/opt/acceptance-input',copy=True)
+           .add_local_file(attempt/'build-manifest.json','/opt/acceptance-repaired.json',copy=True))
+else:
+    manifest=load(Path('/opt/acceptance-repaired.json'))
+    image=None
+
+app=modal.App('siesta-remag-single-gpu')
+volume=modal.Volume.from_name(manifest['volume'],create_if_missing=True)
+
+
+@app.function(image=image,cpu=(8,8),memory=(16384,16384),timeout=1200,startup_timeout=120,
+              max_containers=1,min_containers=0,buffer_containers=0,scaledown_window=2,
+              retries=0,volumes={'/results':volume})
+def build_candidate(run_id):
+    import subprocess
+    import tarfile
+    import time
+    from datetime import datetime,timezone
+    import tempfile,shutil
+    if run_id!=manifest['run_id']:raise ValueError('Unregistered build run')
+    root=Path(tempfile.mkdtemp(prefix=run_id+'-',dir='/tmp'))
+    published=Path('/results')/run_id
+    published.mkdir(exist_ok=False)
+    started=time.monotonic()
+    result={'format':'REMAG-CANDIDATE-BUILD/1','status':'running',
+            'started_at':datetime.now(timezone.utc).isoformat(),'manifest':manifest,
+            'native_solver_execution':False,'GPU_allocation':False,'commands':[],
+            'scratch':str(root),'published_directory':str(published),'scratch_on_result_volume':False}
+    def flush():
+        result['elapsed_seconds']=time.monotonic()-started
+        result['logs']={p.name:sha(p) for p in root.glob('*.log')}
+        save(root/'build-result.json',result)
+    def command(name,args):
+        remaining=1160-(time.monotonic()-started)
+        if remaining<=0:raise TimeoutError('Finite CPU build deadline reached')
+        result['commands'].append({'name':name,'argv':args})
+        with (root/(name+'.log')).open('x') as out:
+            subprocess.run(args,stdout=out,stderr=subprocess.STDOUT,check=True,timeout=remaining,
+                           env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1'))
+        flush()
+    try:
+        inputs=Path('/opt/acceptance-input')
+        for name,digest in manifest['files'].items():
+            if sha(inputs/name)!=digest:raise ValueError('Uploaded build bytes differ: '+name)
+        for name in ('source.tar.gz','native.tar.gz','python.tar.gz'):
+            with tarfile.open(inputs/name) as bundle:bundle.extractall(root,filter='data')
+        (root/'scripts').mkdir()
+        import shutil
+        shutil.copyfile(inputs/'patch_siesta.py',root/'scripts/patch_siesta.py')
+        command('patch',['python',str(root/'scripts/patch_siesta.py'),str(root/'source')])
+        flags=['-DCMAKE_BUILD_TYPE=Release','-DCMAKE_CUDA_ARCHITECTURES=80',
+               '-DFETCHCONTENT_FULLY_DISCONNECTED=ON','-DSIESTA_FIND_METHOD=source',
+               '-DREMAG_NATIVE_DIR='+str(root/'native')]
+        flags += ['-DSIESTA_WITH_'+f+'=OFF' for f in ('MPI','ELSI','DFTD3','FLOOK','OPENMP','FFTW','HOST_OPTIMIZATION')]
+        flags += ['-DSIESTA_WITH_NETCDF=ON','-DSIESTA_WITH_NCDF=ON']
+        command('configure',['cmake','-S',str(root/'source'),'-B',str(root/'build'),*flags])
+        command('compile',['cmake','--build',str(root/'build'),'--target','SIESTA.siesta','--parallel','8'])
+        executable=root/'build/Src/siesta'
+        library=root/'build/remag-native/libremag_gpu.so'
+        if not executable.is_file() or not library.is_file():raise ValueError('Complete executable/library missing')
+        for artifact in (executable,library):
+            if artifact.stat().st_size>256*1024*1024:raise ValueError('Published artifact exceeds finite size limit')
+            shutil.copy2(artifact,published/artifact.name)
+        executable=published/'siesta';library=published/'libremag_gpu.so'
+        os.environ['LD_LIBRARY_PATH']=str(published)+':'+os.environ.get('LD_LIBRARY_PATH','')
+        command('linkage',['ldd',str(executable)])
+        if 'not found' in (root/'linkage.log').read_text():raise ValueError('Unresolved runtime dependency')
+        sys.path.insert(0,str(root/'python'))
+        from siesta_remag.research.preflight import build_runtime,verify_runtime_files
+        runtime=build_runtime(executable,library,load(inputs/'runtime-environment.json'),threads=1)
+        if runtime['capabilities']['device_scf']['max_kpoints']!=4096:raise ValueError('Linked mesh capability differs')
+        verified=verify_runtime_files(runtime)
+        save(root/'runtime.json',runtime)
+        result.update(runtime=runtime,runtime_sha256=sha(root/'runtime.json'),runtime_verification=verified)
+        result.update(status='built',executable=str(executable),executable_sha256=sha(executable),
+                      library=str(library),library_sha256=sha(library),
+                      cmake_cache_sha256=sha(root/'build/CMakeCache.txt'))
+    except Exception as exc:
+        result.update(status='failed',error={'type':type(exc).__name__,'message':str(exc)})
+    finally:
+        result['finished_at']=datetime.now(timezone.utc).isoformat();flush()
+        # Only bounded logs, provenance and the linked executable/library persist.
+        try:
+            for p in list(root.glob('*.log'))+[root/'build-result.json']+([root/'runtime.json'] if (root/'runtime.json').exists() else []):
+                if p.stat().st_size>4*1024*1024:raise ValueError('Diagnostic exceeds finite publication limit')
+                shutil.copy2(p,published/p.name)
+            if (root/'build/CMakeCache.txt').exists():shutil.copy2(root/'build/CMakeCache.txt',published/'CMakeCache.txt')
+            volume.commit()
+            result['publication_complete']=True
+            flush();shutil.copy2(root/'build-result.json',published/'build-result.json');volume.commit()
+        except Exception as exc:
+            result.update(status='failed',publication_complete=False,publication_error=str(exc))
+        flush()
+    # Small logs are returned with their hashes; compiled artifacts remain on the volume.
+    return {'result':result,'logs':{p.name:p.read_text(errors='replace') for p in root.glob('*.log')}}
+
+
+@app.local_entrypoint()
+def main():
+    run_id=manifest['run_id'];receipt=attempt/'build-receipt.json'
+    if receipt.exists():raise ValueError('Existing build receipt: never resubmit')
+    ledger.reserve(run_id,25,stage='build-capability-repair-once',metadata={'app_id':app.app_id,'receipt':str(receipt),
+                  'manifest_sha256':sha(attempt/'build-manifest.json')})
+    save(receipt,{'status':'submitting','app_id':app.app_id,'run_id':run_id,'volume':manifest['volume'],'reserved_cents':25})
+    call=build_candidate.spawn(run_id)
+    row=load(receipt)|{'status':'running','function_call_id':call.object_id};save(receipt,row);ledger.record(run_id,row)
+    print(json.dumps(row),flush=True)
+    answer=call.get(timeout=1260)
+    dest=attempt/'build-collected';dest.mkdir(exist_ok=False)
+    save(dest/'build-result.json',answer['result'])
+    for name,content in answer['logs'].items():
+        if Path(name).name!=name or not name.endswith('.log'):raise ValueError('Unsafe log name')
+        p=dest/name;p.write_text(content)
+        if sha(p)!=answer['result']['logs'][name]:raise ValueError('Build log hash changed')
+    save(receipt,load(receipt)|{'status':'collected','build_status':answer['result']['status']})
+    ledger.record(run_id,load(receipt))
+    print(json.dumps({'status':answer['result']['status'],'elapsed_seconds':answer['result']['elapsed_seconds']}),flush=True)

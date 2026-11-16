@@ -1,0 +1,292 @@
+{
+  "format": "REMAG-FINITE-TOOL-ACCEPTANCE-RESULT/3",
+  "recorded_at": "2026-11-16T19:47:55.012064+00:00",
+  "status": "closed_after_failed_runtime_manifest_preflight",
+  "authorization": "Approved. Run the revised six-bundle acceptance plan within the remaining $5, one GPU at a time, with no retries or extensions. Keep the old campaign closed and report the pass/fail results.",
+  "old_campaign": "closed; untouched",
+  "results": [
+    {
+      "check": "Full repaired CUDA compilation and linkage",
+      "result": "passed",
+      "details": "One CPU build using ephemeral scratch; new adapter/planner/capability code compiled and linked. Saved shared-library metadata declares 4096 k-points."
+    },
+    {
+      "check": "Build runtime-manifest preflight",
+      "result": "failed",
+      "details": "Public library mount path resolved before comparison with the literal LD_LIBRARY_PATH entry. Original rejection retained; local alias regression reproduced and fixed without another allocation."
+    },
+    {
+      "check": "Production native SOC acceptance",
+      "result": "not_run",
+      "details": "Build preflight prerequisite failed. No scalar or SOC calculation ran."
+    },
+    {
+      "check": "Exploratory usable latency and response consistency",
+      "result": "not_established",
+      "details": "All six bundles remain unrun; CPU failure-return timing is not usable-result latency."
+    },
+    {
+      "check": "Independent scalar/physics predictive workflow",
+      "result": "not_run",
+      "details": "Neither Astra context started; baseline prerequisite was not met."
+    }
+  ],
+  "bundles": [
+    {
+      "key": "baseline-k6",
+      "result": "not_run_after_build_preflight_failure",
+      "request_sha256": "c7f38c9540c77e59d3d011376dfbb0a247f2d89207f0f9623543b8c783ccfe68"
+    },
+    {
+      "key": "baseline-k12",
+      "result": "not_run_after_build_preflight_failure",
+      "request_sha256": "66189ba4d6d3d9563d9e1176239b189db8c4fcdcd30f3868053a244a3eccd136"
+    },
+    {
+      "key": "minus-k6",
+      "result": "not_run_after_build_preflight_failure",
+      "request_sha256": "1ada591e7af8ac7f4d1598a8256e7562ead3e30cf62856baaa42dc025e7a1a63"
+    },
+    {
+      "key": "minus-k12",
+      "result": "not_run_after_build_preflight_failure",
+      "request_sha256": "1575131e1edf755118b243da2e9b6195b54d7b617dc2fffca2da774a1e449276"
+    },
+    {
+      "key": "plus-k6",
+      "result": "not_run_after_build_preflight_failure",
+      "request_sha256": "40e158787c39407838f6ff3564b46b4ad10ad6c883b1a37ec6db7a7c0806dae9"
+    },
+    {
+      "key": "plus-k12",
+      "result": "not_run_after_build_preflight_failure",
+      "request_sha256": "cd6a328cca88bcf93273fed59ebb775a89b1b8c6c290fe40329997f5e794a1d7"
+    }
+  ],
+  "execution": {
+    "CPU_builds": 1,
+    "GPU_launches": 0,
+    "native_stages": 0,
+    "policy_contexts": 0,
+    "retries": 0,
+    "extensions": 0,
+    "automatic_follow_on": false,
+    "build_app_id": "ap-u3oL6R45MBftzHIMHUjaN3",
+    "build_elapsed_seconds": 90.212803746,
+    "submission_through_failure_shutdown_seconds": 115.92366525065154,
+    "failure_return_is_usable_latency": false
+  },
+  "budget": {
+    "original_acceptance_cap_cents": 1000,
+    "historical_reservations_retained_cents": 500,
+    "new_reservation_cents": 25,
+    "cumulative_reservations_cents": 525,
+    "unreserved_cents": 475,
+    "overhead_reservation_created": false,
+    "actual_billed_usd": null,
+    "ledger": "work/acceptance-six-r1/budget.json",
+    "ledger_sha256": "10d2f005d072b183fb0fee1890d248542c607da5a07b85919184a4387221ac48",
+    "reservations_are_invoices": false,
+    "refunds_or_reallocations": 0
+  },
+  "allocations": {
+    "observed_at": "2026-11-16T19:44:36.576980+00:00",
+    "owned_apps": [
+      {
+        "description": "siesta-remag-single-gpu",
+        "app_id": "ap-dtocyT3LdAV46PcwKBp8l4",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-16 10:04:30-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-16 10:05:51-06:00",
+          "stopped_by": "will-bryan421"
+        },
+        "functions": {
+          "build_candidate": {
+            "id": "fu-i4b7eoFcSPFf2jRDiGbniB",
+            "summary": {}
+          }
+        },
+        "servers": {}
+      },
+      {
+        "description": "siesta-remag-single-gpu",
+        "app_id": "ap-MTrMDpLSxSk2YL2bpQfKii",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-16 10:38:07-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-16 10:39:13-06:00",
+          "stopped_by": null
+        },
+        "functions": {
+          "build_candidate": {
+            "id": "fu-fOi4o0wlODfsJN74vTzQB3",
+            "summary": {}
+          }
+        },
+        "servers": {}
+      },
+      {
+        "description": "siesta-remag-single-gpu",
+        "app_id": "ap-8xkt2QwlHN9AGD6ygr9oou",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-16 10:42:34-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-16 10:43:21-06:00",
+          "stopped_by": null
+        },
+        "functions": {
+          "calculate": {
+            "id": "fu-fgyI2RzmvJoiUVO0Tm60II",
+            "summary": {
+              "gpu_config": [
+                {
+                  "count": 1,
+                  "gpu_type": "A100-80GB"
+                }
+              ]
+            }
+          }
+        },
+        "servers": {}
+      },
+      {
+        "description": "siesta-remag-single-gpu",
+        "app_id": "ap-u3oL6R45MBftzHIMHUjaN3",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-16 13:41:20-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-16 13:43:12-06:00",
+          "stopped_by": null
+        },
+        "functions": {
+          "build_candidate": {
+            "id": "fu-u7TvnZLtiwOEmoIOyiIn8u",
+            "summary": {}
+          }
+        },
+        "servers": {}
+      }
+    ],
+    "all_owned_apps_stopped": true,
+    "account_containers": []
+  },
+  "diagnosis": {
+    "format": "REMAG-ACCEPTANCE-BUILD-DIAGNOSIS/1",
+    "recorded_at": "2026-11-16T19:46:13.532769+00:00",
+    "build_compile_and_link": "passed",
+    "compiled_metadata_payload": {
+      "format": "REMAG-DEVICE-SCF-CAPABILITIES/1",
+      "max_kpoints": 4096,
+      "max_spatial_orbitals": 2048,
+      "max_spinor_dimension": 4096
+    },
+    "compiled_metadata_scope": "Static inspection of the saved linked library; no solver or library execution on the local host.",
+    "failure": "build_runtime resolved the library mount alias before comparing its directory to the literal first LD_LIBRARY_PATH entry; this caused a false capability-binding rejection.",
+    "evidence": [
+      "The ldd log resolves libremag_gpu.so from /results/acceptance-six-r3-build and contains no missing dependency.",
+      "The retained compile log builds the new capacity adapter, CUDA planner and capability symbol.",
+      "The exact error was reproduced locally with a symlinked public mount alias before the local fix."
+    ],
+    "local_fix": "Preserve absolute public executable/library mount paths in manifests; keep file hashes, actual metadata probes and runtime verification mandatory.",
+    "remote_internal_resolved_path": null,
+    "scope": "The provider-internal canonical path was not captured in the failed receipt. No completed build or native calculation was rerun.",
+    "original_failure_preserved": true,
+    "new_solver_executions": 0,
+    "new_cloud_allocations": 0,
+    "retries": 0,
+    "binary_sha256": "8594a158fbacef1adb7a5a175ffad3f76ddd4f0c8cd1fce76e6b253d27956534",
+    "native_symbol_name_present": true
+  },
+  "artifact_recovery": {
+    "status": "recovered",
+    "files": {
+      "siesta": {
+        "sha256": "afeabb67ad88ed8ab5735970b3e43008b800755c5ba28f2d2db66db02d2f9604",
+        "bytes": 8720928
+      },
+      "libremag_gpu.so": {
+        "sha256": "8594a158fbacef1adb7a5a175ffad3f76ddd4f0c8cd1fce76e6b253d27956534",
+        "bytes": 4183032
+      },
+      "CMakeCache.txt": {
+        "sha256": "18d4954857fb8eb63c0461d654684c56047658e2a6fb21969864fc44b5e469e6",
+        "bytes": 67595
+      },
+      "build-result.json": {
+        "sha256": "9af5ca1b6e38e7fe0683dc20258a43b9dcce65fd41b72a20e4d05051f0054b8d",
+        "bytes": 4141
+      },
+      "patch.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "configure.log": {
+        "sha256": "9b76716fdeae8062273ec67b214ad8213f818214597f7ebe0ae70fc2c6a93120",
+        "bytes": 27986
+      },
+      "compile.log": {
+        "sha256": "0640384545ac8fe0abe26242159f33e85c24c84b240db15eb67ceb116721c376",
+        "bytes": 63797
+      },
+      "linkage.log": {
+        "sha256": "4498ffc5c2a253a8b57a3270fbc001a6a78641cb656d3a28e333cd7403a702d6",
+        "bytes": 4540
+      }
+    },
+    "file_count": 8,
+    "bytes": 13072019,
+    "original_expected_log_hashes_verified": true,
+    "first_recorded_binary_hashes": true,
+    "scope": "Build failure occurred before binary hashes entered the returned manifest. These are collected byte hashes, not an independently pre-recorded binary-hash comparison.",
+    "new_solver_executions": 0,
+    "new_cloud_allocations": 0
+  },
+  "preservation": {
+    "old_convergence_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "old_campaign_closed": true,
+    "old_heartbeat_deleted": true,
+    "prior_acceptance_records_preserved": true,
+    "registered_six_input_bytes_unchanged": true,
+    "no_further_execution_authorized": true
+  },
+  "local_repair": {
+    "tests": "120 passed in 14.18s",
+    "regression_before": "1 failed with the identical runtime-library-directory rejection",
+    "fix": "Preserve public absolute mount aliases while checking the same file bytes and capabilities.",
+    "remote_rebuilds_after_fix": 0,
+    "live_acceptance_after_fix": false
+  },
+  "evidence_sha256": {
+    "acceptance-six-r3/registration.json": "515ff96f1d099fc7800cbf4cb888751e5cfde0287f12f543a4d7f7e151b3ae85",
+    "acceptance-six-r3/preflight.json": "c2ea6672f273b5f88b830cdab03fa3d51983f962deba1058335f6fd2d1336d85",
+    "acceptance-six-r3/build-manifest.json": "8963f5c9606d7b31c416d1070b5cb17300d76ef139807c609ce0693396dfd4b5",
+    "acceptance-six-r3/build-driver.json": "d813b426f4c05e39db246ce18dc8b9b13df6fb919ac9e28c934fe186f55c057d",
+    "acceptance-six-r3/build-receipt.json": "2f444c927fe0d64cf94ada75d1197dd13af5bffc9487dfe9694fa7ef50dcdce5",
+    "acceptance-six-r3/build-app-stopped.json": "c405aad1ff53f957205f3d4be188780568d721c38547d538acf2cc607f8d824d",
+    "acceptance-six-r3/build-collected/build-result.json": "dc981d11c6888821b45b3ab14a7f1ec58e67bc987a68f867101d5448cfe9148e",
+    "acceptance-six-r3/published-build-recovery.json": "37b659bb8139b814c563952af98a859c59678786c2cd81df206a2fe469468768",
+    "acceptance-six-r3/build-diagnosis.json": "7bdd7f9456cf725086de63631055667c45686e413fd0979004e9fa5cee86cc8f",
+    "acceptance-six-r3/closeout-allocations.json": "5ea38e4b350d3ec46798788e7b122ee3af0581cb8f42e65b459d2739b4957a4c",
+    "acceptance-six-r3/budget-before.json": "fe655a72098324424a807a4182737092b5727749c9b38f88e7a9130b69b5ce2f",
+    "acceptance-six-r3/budget-final.json": "10d2f005d072b183fb0fee1890d248542c607da5a07b85919184a4387221ac48",
+    "acceptance-six-r3/mount-alias-regression-before.log": "7531d26bbabcb80b3e2c08b528fb78395d536c4283d6d59b15302fecc2b06d76",
+    "acceptance-six-r3/local-regression-after.log": "58117f9ae88b80a64a4a6b505255ff076a86a43b20febb85efdc29552b45411f"
+  }
+}
