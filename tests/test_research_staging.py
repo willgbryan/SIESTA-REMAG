@@ -54,12 +54,13 @@ def test_operator_staging_regression_never_copies_electronic_or_unknown_fields(r
     with pytest.raises(ValueError, match='must be new'):stage(tmp_path, 'scalar/packet.json')
 
 
-@pytest.mark.parametrize('mutation', ['extra_observable','nested_payload','extra_metadata','digest'])
+@pytest.mark.parametrize('mutation', ['extra_observable','nested_payload','extra_metadata','interval_payload','digest'])
 def test_packet_preflight_rejects_extra_fields_and_payloads_even_when_rehashed(raw, tmp_path, mutation):
     stage(tmp_path); packet=load(tmp_path/'safe/packet.json'); row=packet['cases']['baseline']
     if mutation=='extra_observable':row['observations']['soc-x']['eigenvalues']=[99]
     elif mutation=='nested_payload':row['observations']['soc-x']['total_moment_muB']=[{'bands':[99]},0,0]
     elif mutation=='extra_metadata':row['request']={'bands':[99]}
+    elif mutation=='interval_payload':row['report_interval']={'started_at':'2026-11-16T00:00:00Z','wall_seconds':1,'bands':[99]}
     else:row['observations']['soc-x']['total_energy_ev']=123
     if mutation!='digest':packet['sha256']=digest({k:v for k,v in packet.items() if k!='sha256'})
     with pytest.raises(ValueError):validate_scalar_data(packet)
@@ -106,3 +107,11 @@ def test_nested_scalar_values_and_workspace_escapes_fail_before_output(raw,tmp_p
     with pytest.raises(ValueError,match='scalar observation'):stage(tmp_path)
     assert not (tmp_path/'safe/packet.json').exists()
     with pytest.raises(ValueError,match='escapes'):stage(tmp_path,'../escape.json')
+
+
+def test_missing_acquisition_timing_retains_original_report_cost_requirement(raw,tmp_path):
+    from siesta_remag.research.staging import scalar_data_provenance
+    from siesta_remag.corpus import sha256
+    stage(tmp_path)
+    packet=load(tmp_path/'safe/packet.json')
+    assert list(scalar_data_provenance({'nested':[packet]}))==[(sha256(tmp_path/'raw/report.json'),None)]

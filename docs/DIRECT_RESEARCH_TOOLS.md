@@ -72,7 +72,9 @@ It writes a `REMAG-SCALAR-DATA/1` packet containing provenance hashes and only
 standard numeric E/F, moment, force, stress, iteration and spin-component values.
 Arbitrary request/stage metadata, eigenvalues, Fermi energies, charges, SOC
 energies and future unknown observation fields are excluded. No raw files are
-copied. Both profiles produce the same packet.
+copied. Both profiles produce the same packet. A typed acquisition interval
+preserves the original report's allocation-cost coverage requirements without
+copying its raw metadata; missing legacy timing leaves measured costs unknown.
 
 Copy only that packet and reviewed structural/protocol inputs into each fresh
 arm workspace. Keep the full reports, native archives and staging-call receipts

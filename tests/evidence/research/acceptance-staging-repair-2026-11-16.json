@@ -15,9 +15,36 @@
       "scalar": "339b9e420eee44eefdee296a8709d798044047f84b06bae5b267351b721ab1e2",
       "physics": "339b9e420eee44eefdee296a8709d798044047f84b06bae5b267351b721ab1e2"
     },
-    "regression_tests": "71 passed in 12.31s",
-    "test_log_sha256": "688c15bdf17f3b627f5897141f39049330b836705cdec194838cfba846df8029",
-    "limits": "Trusted staging protocol, not OS sandboxing or a claim of model blinding. Original contaminated contexts remain invalid and are not resumed."
+    "regression_tests": "101 passed in 60.72s",
+    "test_log_sha256": "9a03b5b23e6b47a94f2f20b8fadd6d313f080136cc2c8a90decd658e28a64168",
+    "limits": "Trusted staging protocol, not OS sandboxing or a claim of model blinding. Original contaminated contexts remain invalid and are not resumed.",
+    "initial_validation": "71 passed in 12.31s; preserved initial test log",
+    "acquisition_cost_binding": {
+      "packet_sha256": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+      "arm_packet_hashes": {
+        "scalar": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+        "physics": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb"
+      },
+      "intervals": {
+        "baseline-k6": {
+          "started_at": "2026-11-16T19:57:15.222634+00:00",
+          "wall_seconds": 46.349852487
+        },
+        "baseline-k12": {
+          "started_at": "2026-11-16T20:00:05.475634+00:00",
+          "wall_seconds": 170.461954923
+        }
+      },
+      "raw_artifacts_copied": 0,
+      "solver_executions": 0,
+      "new_policy_contexts": 0
+    },
+    "CI_followup": {
+      "initial_run": 43955248298,
+      "initial_head": "dd5b8d7d5eff242f8c6f3afc61260aad82fe2cda",
+      "result": "1 failed, 489 passed, 149 skipped",
+      "diagnosis": "Existing acquisition-cost fixture copied a raw report into the scalar arm; migrated fixture to safe staging and retained original report hashes/time intervals in study usage accounting. Missing timing still produces unknown usage, never zero cost."
+    }
   },
   "diagnosis": {
     "format": "REMAG-SAVED-ACCEPTANCE-DIAGNOSIS/1",
@@ -533,7 +560,8 @@
       "saved_only": "Zero new GPU spending can demonstrate the corrected staging and replay software. It cannot create independent new outcomes, undo the old information exposure, or turn the failed 6-versus-12 response calibration into a pass.",
       "all_green": "No evidence supports a fixed-price guarantee of passing. If the single 8-cubed candidate fails, stop and retain the tool limitation rather than extend the test."
     },
-    "authorization": "Not requested or assumed by these prepared inputs. Current instruction forbids new GPU spending or campaign restart."
+    "authorization": "Not requested or assumed by these prepared inputs. Current instruction forbids new GPU spending or campaign restart.",
+    "operational_guards": "Existing scripts/run_modal.py shared ownership locks, ledger and account guards; authoritative prior STOPPED and empty account availability before each launch; one separately invoked case after prior health review; no automatic queue or retry."
   },
   "preserved": {
     "old_staging_failure": true,
@@ -559,10 +587,11 @@
     "full_spec_complete": false
   },
   "source_files": {
-    "src/siesta_remag/research/staging.py": "fb326775b35a3ec23469f7862813eda3b1ce20475ed9fb960177a3bd5d5f8014",
+    "src/siesta_remag/research/staging.py": "23e27175c8644a02582558a99ab5676c03a3a8c2da5f8c7254efb9ed8823efba",
     "src/siesta_remag/research/tools.py": "5088a50ef4b31962e90b577c8a960a09618c68294c0dbf9b096062c21585b7cd",
     "src/siesta_remag/research/toolhost.py": "4edf3563379c1960c6e268077fe569281e7885e834eb73044c33fc6c41d58efa",
-    "src/siesta_remag/research/study.py": "4336c594e2fd082f66a3771c9de67e6adc5faf025ba7dde7e6f7f82ff85ce7a5",
-    "tests/test_research_staging.py": "409826a1045827371c1e842e88418f2b71aae7658277903733ac03cffb57eced"
+    "src/siesta_remag/research/study.py": "133e9babfae2591e7515474531d4f3d0f1a2e286d506c0f13e8c21d83a61e903",
+    "tests/test_research_staging.py": "741e96bd1810aee2822f51f3e77154a160d0309bb326068f0a784bf64f572c8a",
+    "tests/test_research_discovery_scores.py": "831035b03b3bd60a4a591af0d5b2f4a799ebc95cbec05871533fe4cf3a93569b"
   }
 }

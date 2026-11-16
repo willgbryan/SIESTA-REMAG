@@ -56,7 +56,8 @@ def validate_scalar_data(packet):
     for name, row in cases.items():
         if not isinstance(name, str) or not re.fullmatch('[a-zA-Z0-9_-]{1,64}', name):
             raise ValueError('Invalid scalar case identifier')
-        if not isinstance(row, dict) or set(row) != HASH_FIELDS | {'observations'}:
+        required = HASH_FIELDS | {'observations'}
+        if not isinstance(row, dict) or not required <= set(row) or set(row)-required-{'report_interval'}:
             raise ValueError('Unexpected scalar case fields')
         for key in HASH_FIELDS:
             value = row[key]
@@ -65,6 +66,13 @@ def validate_scalar_data(packet):
             if not isinstance(value, str) or not re.fullmatch('[0-9a-f]{64}', value):
                 raise ValueError('Invalid scalar provenance hash')
         _observations(row['observations'])
+        interval = row.get('report_interval')
+        if interval is not None:
+            from .discovery_scores import report_interval
+            if not isinstance(interval, dict) or set(interval) != {'started_at', 'wall_seconds'}:
+                raise ValueError('Invalid scalar acquisition interval')
+            if report_interval(interval) is None:
+                raise ValueError('Scalar acquisition interval cannot have missing values')
     if packet['sha256'] != digest({k: v for k, v in packet.items() if k != 'sha256'}):
         raise ValueError('Scalar packet digest differs')
     return packet
@@ -96,9 +104,11 @@ def stage_scalar_data(context, calculations, output):
             raise ValueError('Stage only measured calculations with accepted branches')
         observations = {stage: {key: value for key, value in row.items() if key in STANDARD_OBSERVATIONS}
                         for stage, row in report['observations'].items()}
+        from .discovery_scores import report_interval
         cases[name] = dict(source_sha256=report['source_sha256'], report_sha256=sha256(path),
             executable_sha256=report['executable_sha256'],
-            collection_sha256=sha256(collection) if collection else None, observations=observations)
+            collection_sha256=sha256(collection) if collection else None, observations=observations,
+            report_interval=report_interval(report))
     packet = dict(format=FORMAT, cases=cases)
     packet['sha256'] = digest(packet)
     validate_scalar_data(packet)
@@ -106,6 +116,25 @@ def stage_scalar_data(context, calculations, output):
     with target.open('x') as stream:
         stream.write(json.dumps(packet, indent=2, allow_nan=False)+'\n')
     return dict(packet=output, sha256=sha256(target), cases=list(cases), raw_artifacts_copied=0)
+
+
+def scalar_data_provenance(data):
+    """Keep original acquisition costs in study accounting without raw reports.
+
+    Legacy packets without timing still require their report's cost coverage;
+    missing time bindings remain unknown rather than silently implying zero.
+    """
+    if isinstance(data, dict):
+        if data.get('format') == FORMAT:
+            validate_scalar_data(data)
+            for row in data['cases'].values():
+                yield row['report_sha256'], row.get('report_interval')
+        else:
+            for value in data.values():
+                yield from scalar_data_provenance(value)
+    elif isinstance(data, list):
+        for value in data:
+            yield from scalar_data_provenance(value)
 
 
 def check_scalar_input(data, withheld_sources=()):

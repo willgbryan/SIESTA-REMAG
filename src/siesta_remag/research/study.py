@@ -429,6 +429,10 @@ def evaluate_study(workspace,study,output,*,discovery_evidence=None,usage=None):
                             required_reports[a].add(h)
                             from .discovery_scores import report_interval
                             report_windows[h]=report_interval(initial)
+                        from .staging import scalar_data_provenance
+                        for report_hash,interval in scalar_data_provenance(initial):
+                            required_reports[a].add(report_hash)
+                            report_windows[report_hash]=interval
             if (folder/'grading.json').exists():
                 def report_hashes(value):
                     if isinstance(value,dict):

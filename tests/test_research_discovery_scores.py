@@ -236,10 +236,13 @@ def test_validation_policy_is_finite_and_does_not_accept_boolean_pass():
 def test_shared_initial_and_grading_costs_are_required_before_reporting_efficiency(endpoints,tmp_path):
     from test_research_study import study_fixture
     from siesta_remag.research.study import grade_study
+    from siesta_remag.research.tools import ResearchTools
     d=study_fixture(tmp_path)
+    ResearchTools(tmp_path).call('stage_scalar_data',dict(
+        calculations={'baseline':{'report':'before/report.json'}},output='initial-scalar.json'))
     for a in ('scalar','physics'):
-        shutil.copyfile(tmp_path/'before/report.json',tmp_path/('arm-'+a)/'initial-report.json')
-    d['common_inputs'].append('initial-report.json')
+        shutil.copyfile(tmp_path/'initial-scalar.json',tmp_path/('arm-'+a)/'initial-scalar.json')
+    d['common_inputs'].append('initial-scalar.json')
     register_study(tmp_path,d,'study')
     for a in ('scalar','physics'):assert run_study_arm(tmp_path,'study',a)['status']=='completed'
     outcomes=dict(format='REMAG-STUDY-OUTCOMES/1',cases={'c'*64:{'anisotropy.total_energy_ev':
