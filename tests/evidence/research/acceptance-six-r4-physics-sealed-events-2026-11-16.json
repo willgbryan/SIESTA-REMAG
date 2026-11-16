@@ -1,0 +1,112 @@
+[
+  {
+    "id": "e66b57fdcf3a48c5b031d943aa03fd01",
+    "kind": "hypothesis",
+    "parent": null,
+    "recorded_at": "2026-11-16T20:11:11.967245+00:00",
+    "payload": {
+      "alternatives": [
+        "Narrow near-Fermi crossings hidden by the 0.12 eV spectral broadening can produce a sizeable strain response or curvature.",
+        "A nonzero first-order magnetoelastic response can have opposite signs for the two strains; these baseline spectra do not identify its sign.",
+        "Finite-temperature occupancy changes can make E and F response slopes differ materially, despite their similar baseline scales.",
+        "Finite-mesh integration and basis effects may dominate response details; matching the fixed 12^3 comparator does not establish converged physical anisotropy."
+      ],
+      "predictions": [
+        "At minus strain, E_response is centered at 0 eV/cell with radius 0.00025 eV/cell; F_response is centered at 0 with radius 0.00020.",
+        "At plus strain, E_response is centered at 0 eV/cell with radius 0.00025 eV/cell; F_response is centered at 0 with radius 0.00020.",
+        "The intervals remain far below the positive baseline anisotropies; no easy-axis reversal is forecast. These are heuristic ranges, without assigned coverage probability."
+      ],
+      "statement": "The prescribed +/-3/800 c-axis strains will leave the baseline z easy-axis preference intact and produce relatively small E and F anisotropy responses. Baseline electronic similarity gives no justified resolved sign for either response, so all predictive means are zero with explicitly uncalibrated finite uncertainty."
+    }
+  },
+  {
+    "id": "fd1f23b2ac5341e886dc783770b96846",
+    "kind": "experiment",
+    "parent": "e66b57fdcf3a48c5b031d943aa03fd01",
+    "recorded_at": "2026-11-16T20:11:11.969405+00:00",
+    "payload": {
+      "action": "Evaluate the exact authored c-axis strain -3/800 at the fixed 12^3 comparator with matched soc-x and soc-z stages; compute separately [(E_x-E_z)_strained-(E_x-E_z)_baseline] and the corresponding F response. This record authorizes no execution in this arm.",
+      "rationale": "This endpoint tests the preregistered small-response forecast. Together the two symmetric strains can distinguish an odd linear response from curvature; agreement alone cannot verify an electronic mechanism.",
+      "structure_sha256": "89d05c4a121fd97ebfa53e12389f2f5b724d9e9c6eccd9b45b68c47ed2ccdc7b"
+    }
+  },
+  {
+    "id": "c6991c5d26284e74884b943fb622fa41",
+    "kind": "experiment",
+    "parent": "e66b57fdcf3a48c5b031d943aa03fd01",
+    "recorded_at": "2026-11-16T20:11:11.971244+00:00",
+    "payload": {
+      "action": "Evaluate the exact authored c-axis strain 3/800 at the fixed 12^3 comparator with matched soc-x and soc-z stages; compute separately [(E_x-E_z)_strained-(E_x-E_z)_baseline] and the corresponding F response. This record authorizes no execution in this arm.",
+      "rationale": "This endpoint tests the preregistered small-response forecast. Together the two symmetric strains can distinguish an odd linear response from curvature; agreement alone cannot verify an electronic mechanism.",
+      "structure_sha256": "c0dc783dfd451b0630045dd6271a554994944d92fd86108ed59974d649daeb7d"
+    }
+  },
+  {
+    "id": "60e4eeab05474e7d9984daa7436b188d",
+    "kind": "prediction",
+    "parent": "fd1f23b2ac5341e886dc783770b96846",
+    "recorded_at": "2026-11-16T20:11:11.973431+00:00",
+    "payload": {
+      "observable": "E_response",
+      "target": {
+        "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "kind": "anisotropy_response",
+        "metric": "total_energy_ev"
+      },
+      "uncertainty": 0.00025,
+      "unit": "eV/cell",
+      "value": 0.0
+    }
+  },
+  {
+    "id": "87bfd081c85c49ae9c3b14cfd40355be",
+    "kind": "prediction",
+    "parent": "fd1f23b2ac5341e886dc783770b96846",
+    "recorded_at": "2026-11-16T20:11:11.975170+00:00",
+    "payload": {
+      "observable": "F_response",
+      "target": {
+        "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "kind": "anisotropy_response",
+        "metric": "free_energy_ev"
+      },
+      "uncertainty": 0.0002,
+      "unit": "eV/cell",
+      "value": 0.0
+    }
+  },
+  {
+    "id": "812a1f1cf37c42acbaecfb4c17ce4763",
+    "kind": "prediction",
+    "parent": "c6991c5d26284e74884b943fb622fa41",
+    "recorded_at": "2026-11-16T20:11:11.976833+00:00",
+    "payload": {
+      "observable": "E_response",
+      "target": {
+        "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "kind": "anisotropy_response",
+        "metric": "total_energy_ev"
+      },
+      "uncertainty": 0.00025,
+      "unit": "eV/cell",
+      "value": 0.0
+    }
+  },
+  {
+    "id": "61039022fbc34e3b8c2760ce72b840af",
+    "kind": "prediction",
+    "parent": "c6991c5d26284e74884b943fb622fa41",
+    "recorded_at": "2026-11-16T20:11:11.978485+00:00",
+    "payload": {
+      "observable": "F_response",
+      "target": {
+        "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "kind": "anisotropy_response",
+        "metric": "free_energy_ev"
+      },
+      "uncertainty": 0.0002,
+      "unit": "eV/cell",
+      "value": 0.0
+    }
+  }
+]

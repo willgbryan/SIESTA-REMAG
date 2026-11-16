@@ -6,6 +6,26 @@ This is a product target, not a measured service guarantee or a new numerical
 acceptance threshold. The research loop needs inexpensive observations that
 help choose the next experiment, alongside slower numerical verification.
 
+## Finite product acceptance: latency passes, response calibration fails
+
+The [16 November six-bundle acceptance](../tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json)
+reused one CUDA-linked runtime for the baseline and exact ±3/800 axial strains,
+at 6³ and 12³, DZP/0.02 Ry/300 Ry/300 K. All six bundles passed native and
+magnetic health, artifact/runtime identity, positive scalar overlap and
+production device-owned SOC export checks. The 6³ baseline/minus/plus usable
+latencies, including collection and required review, were 125.17/113.41/115.46
+seconds. This demonstrates the five-minute check on these three submissions,
+not a service guarantee or a paired speedup.
+
+The same run failed response calibration. Maximum E/F response discrepancies
+against 12³ were 0.305/0.153 meV/cell, beyond the unchanged 0.05 meV criterion.
+All four comparator responses were smaller than the declared sign resolution;
+sign agreement is unresolved. A fast accepted calculation is therefore not a
+calibrated prediction setting. No exploratory default is selected.
+
+The attempt is closed, all owned allocations are stopped, and no extension or
+retry is authorized. The prior convergence failures below remain unchanged.
+
 ## Bounded qualification attempt closed
 
 The [15 November closeout](../tests/evidence/research/fept-campaign-closeout-2026-11-15.json)

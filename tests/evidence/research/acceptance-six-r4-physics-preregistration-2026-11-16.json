@@ -1,0 +1,133 @@
+{
+  "format": "REMAG-FINITE-PHYSICS-PREREGISTRATION/1",
+  "status": "sealed",
+  "started_at": "2026-11-16T20:07:52+00:00",
+  "sealed_at": "2026-11-16T20:11:11.980295+00:00",
+  "information_profile": "physics",
+  "hypothesis_id": "e66b57fdcf3a48c5b031d943aa03fd01",
+  "experiment_ids": {
+    "minus": "fd1f23b2ac5341e886dc783770b96846",
+    "plus": "c6991c5d26284e74884b943fb622fa41"
+  },
+  "prediction_ids": {
+    "minus": {
+      "E_response": "60e4eeab05474e7d9984daa7436b188d",
+      "F_response": "87bfd081c85c49ae9c3b14cfd40355be"
+    },
+    "plus": {
+      "E_response": "812a1f1cf37c42acbaecfb4c17ce4763",
+      "F_response": "61039022fbc34e3b8c2760ce72b840af"
+    }
+  },
+  "predictions": {
+    "minus": {
+      "E_response": {
+        "experiment_id": "fd1f23b2ac5341e886dc783770b96846",
+        "observable": "E_response",
+        "target": {
+          "kind": "anisotropy_response",
+          "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "metric": "total_energy_ev"
+        },
+        "value": 0.0,
+        "uncertainty": 0.00025,
+        "prediction_id": "60e4eeab05474e7d9984daa7436b188d",
+        "unit": "eV/cell",
+        "resolution_ev": 5e-05,
+        "point_prediction_resolved_sign": "unresolved"
+      },
+      "F_response": {
+        "experiment_id": "fd1f23b2ac5341e886dc783770b96846",
+        "observable": "F_response",
+        "target": {
+          "kind": "anisotropy_response",
+          "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "metric": "free_energy_ev"
+        },
+        "value": 0.0,
+        "uncertainty": 0.0002,
+        "prediction_id": "87bfd081c85c49ae9c3b14cfd40355be",
+        "unit": "eV/cell",
+        "resolution_ev": 5e-05,
+        "point_prediction_resolved_sign": "unresolved"
+      }
+    },
+    "plus": {
+      "E_response": {
+        "experiment_id": "c6991c5d26284e74884b943fb622fa41",
+        "observable": "E_response",
+        "target": {
+          "kind": "anisotropy_response",
+          "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "metric": "total_energy_ev"
+        },
+        "value": 0.0,
+        "uncertainty": 0.00025,
+        "prediction_id": "812a1f1cf37c42acbaecfb4c17ce4763",
+        "unit": "eV/cell",
+        "resolution_ev": 5e-05,
+        "point_prediction_resolved_sign": "unresolved"
+      },
+      "F_response": {
+        "experiment_id": "c6991c5d26284e74884b943fb622fa41",
+        "observable": "F_response",
+        "target": {
+          "kind": "anisotropy_response",
+          "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "metric": "free_energy_ev"
+        },
+        "value": 0.0,
+        "uncertainty": 0.0002,
+        "prediction_id": "61039022fbc34e3b8c2760ce72b840af",
+        "unit": "eV/cell",
+        "resolution_ev": 5e-05,
+        "point_prediction_resolved_sign": "unresolved"
+      }
+    }
+  },
+  "hypothesis_statement": "The prescribed +/-3/800 c-axis strains will leave the baseline z easy-axis preference intact and produce relatively small E and F anisotropy responses. Baseline electronic similarity gives no justified resolved sign for either response, so all predictive means are zero with explicitly uncalibrated finite uncertainty.",
+  "scientific_rationale": {
+    "electronic_observation": "At baseline 12^3 sampling, the authorized z-to-x comparison reports own-Fermi-aligned broadened DOS of 1.445462310176008 and 1.4487004718534355 at the Fermi level, a 0.224% difference, and an absolute Fermi shift of -0.004713076310209452 eV. The DOS rearrangement across +/-0.5 eV is modest and smooth at sigma=0.12 eV. This supports only a weak prior against an obvious broad spectral reconstruction, not a strain derivative or absence of narrow crossings.",
+    "scalar_observation": "The fixed 12^3 baseline anisotropies are 0.002405 eV/cell in total energy and 0.002542 eV/cell in free energy. Their difference is 0.000137 eV/cell. The z-normal stress difference (x minus z) is 0.000720 eV/angstrom^3. Multiplying its magnitude by cell volume 28.246491 angstrom^3 and strain magnitude 0.00375 gives a heuristic local response scale of 0.0000762655257 eV/cell, without assuming a validated stress-to-response sign convention or an observed finite-strain derivative.",
+    "forecast_decision": "No permitted observation determines the strain-response sign. I therefore shrink all four predictive centers to zero instead of assigning a directional derivative. This does not assert an exactly zero physical derivative. The working hypothesis is that these small symmetric strains produce small anisotropy responses without reversing the baseline easy z axis. The total-energy radius 0.00025 eV/cell and free-energy radius 0.00020 eV/cell are deliberately broad heuristic allowances compared with the stress scale; total energy has extra allowance for occupancy/entropy sensitivity. They are not calibrated confidence intervals and no interval probability is asserted.",
+    "mesh_caution": "The baseline E anisotropy changes by 0.001094 eV/cell between 6^3 and 12^3, while the E/F discrepancy changes sign. The target is the fixed 12^3 comparator, so this mesh discrepancy is a warning about transferability and cannot serve as a measured heldout response or a rigorous response error bound."
+  },
+  "candidate_source_sha256": {
+    "minus": "89d05c4a121fd97ebfa53e12389f2f5b724d9e9c6eccd9b45b68c47ed2ccdc7b",
+    "plus": "c0dc783dfd451b0630045dd6271a554994944d92fd86108ed59974d649daeb7d"
+  },
+  "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "prediction_comparator_mesh": [
+    12,
+    12,
+    12
+  ],
+  "actual_scientific_tool_call_count": 10,
+  "scientific_tool_calls": 10,
+  "call_receipts": [
+    "calls/01_electronic_comparison",
+    "calls/02_author_minus",
+    "calls/03_author_plus",
+    "calls/04_hypothesis",
+    "calls/05_experiment_minus",
+    "calls/06_experiment_plus",
+    "calls/07_prediction_minus_E_response",
+    "calls/08_prediction_minus_F_response",
+    "calls/09_prediction_plus_E_response",
+    "calls/10_prediction_plus_F_response"
+  ],
+  "elapsed_seconds": 199.980295,
+  "model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "scope_limitations": [
+    "No heldout calculation, heldout outcome, prior experiment, sibling-arm evidence, solver/GPU/build/network/model API action, retry, extension, or subagent was used.",
+    "One authorized saved baseline electronic comparison was used; it is own-Fermi-aligned and basis-dependent, with no band tracking, SOC attribution, or MAE calculation from signed projections.",
+    "Baseline diagnostics cannot establish a finite-strain derivative or mechanism. Stress supplied a heuristic magnitude only, not a validated response sign.",
+    "The uncertainty radii are subjective scale allowances, without asserted probability coverage. All central response signs are unresolved at 0.00005 eV/cell.",
+    "The common baseline-scalar-data.json accidentally contained extra electronic metadata. An initial display exposed unprojected eigenvalue rows, Fermi energies, charge and spin metadata. None of these extra common fields was used in prediction reasoning. The Fermi shift and DOS used here came only from the authorized electronic comparison. This exposure precludes claiming strict information isolation solely from supplied file naming.",
+    "No physical accuracy qualification or converged-mesh claim is made; predictions concern the stipulated fixed 12^3 comparator."
+  ],
+  "common_extra_metadata_used_in_reasoning": [],
+  "heldout_outcomes_observed": false,
+  "outcomes_or_revisions_recorded": false
+}

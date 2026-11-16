@@ -2,7 +2,7 @@
   "format": "GPAC-REMAG-SPEC-COMPLETION-AUDIT/1",
   "created_at": "2026-11-16T03:15:12.270465+00:00",
   "specification": {
-    "title": "GPAC × REMAG: Physics-Guided Autonomous Crystal Discovery — Development Specification v3.0",
+    "title": "GPAC \u00d7 REMAG: Physics-Guided Autonomous Crystal Discovery \u2014 Development Specification v3.0",
     "sha256": "e33e5d1f0894fce48dd1bf25852272f3ede3c83dc69725f7d905e4428b69b0e8",
     "lines": 1031,
     "source": "Owner attachment; line spans are one-based in the original text"
@@ -118,7 +118,7 @@
     },
     {
       "id": "R02",
-      "spec_section": "2.1–2.3",
+      "spec_section": "2.1\u20132.3",
       "spec_lines": [
         49,
         97
@@ -707,9 +707,9 @@
       "obligation": "required",
       "requirement": "Accessible SOC matrix elements and magnetization/convergence metadata.",
       "implementation_status": "implemented",
-      "acceptance_status": "production_validation_pending",
-      "delivered": "Opt-in host and device-owned nonlocal SOC snapshots, spin-trace removal and checked state projections; native ownership tests and real-module Fortran compilation.",
-      "outstanding": "Full CUDA-linked application and measured production SOC export have not been exercised. Existing scalar-only execution evidence cannot verify this path.",
+      "acceptance_status": "production_demonstrated_finite",
+      "delivered": "Full CUDA-linked saved runtime reused after actual-library metadata/hash preflight. Six accepted four-stage bundles yielded eighteen production device-owned SOC exports with selected-k matrix checks; all native/branch/identity/radial/overlap/transverse health gates passed.",
+      "outstanding": "Finite FePt runtime coverage only; no total-MAE decomposition, general physical accuracy or cross-material claim.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -745,7 +745,12 @@
           "path": "tests/evidence/research/spec-device-soc-2026-11-15.json",
           "sha256": "a55366400018195d7748534906fede0df186fb5464e5a84d20e29bc54c0c79d1"
         }
-      ]
+      ],
+      "latest_acceptance_evidence": {
+        "repo": "REMAG",
+        "path": "tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json",
+        "sha256": "76c5c9e96a119cae7c6ede14a820697cc457cec2f34a669730950d3a7047c8fa"
+      }
     },
     {
       "id": "R14",
@@ -934,11 +939,11 @@
         425
       ],
       "obligation": "required",
-      "requirement": "Optimize useful end-to-end scientific queries; owner target is 1–5 minutes submission to usable result.",
+      "requirement": "Optimize useful end-to-end scientific queries; owner target is 1\u20135 minutes submission to usable result.",
       "implementation_status": "implemented",
-      "acceptance_status": "not_demonstrated",
+      "acceptance_status": "latency_passed_response_calibration_failed",
       "delivered": "Query-specific stage selection, cache identity, saved calibration tools and controlled execution phase timings avoid automatically running all directions. Response calibration now accepts explicit original compact-archive manifests, retaining omitted bytes and source/workspace restrictions; saved same-tier identity control passes.",
-      "outstanding": "No calibrated exploratory default or measured full-query target. Allocation startup/queue phases remain incomplete in archived measurements; no speedup is inferred.",
+      "outstanding": "Three fast full-review latencies passed at 125.17/113.41/115.46 seconds. E/F response discrepancies against the fixed 12\u00b3 comparator reached 0.305/0.153 meV, exceeding 0.05. No calibrated exploratory default, universal latency or speedup is established; queue/startup remain unseparated.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -989,7 +994,12 @@
           "path": "tests/evidence/research/spec-calibration-archives-2026-11-15.json",
           "sha256": "a43f2198a4e4369c721379cb4169039d3c54b3a6f9fdaef0bb335fd4bb4aa502"
         }
-      ]
+      ],
+      "latest_acceptance_evidence": {
+        "repo": "REMAG",
+        "path": "tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json",
+        "sha256": "76c5c9e96a119cae7c6ede14a820697cc457cec2f34a669730950d3a7047c8fa"
+      }
     },
     {
       "id": "R18",
@@ -1052,7 +1062,7 @@
     },
     {
       "id": "R19",
-      "spec_section": "6.2–6.3",
+      "spec_section": "6.2\u20136.3",
       "spec_lines": [
         445,
         469
@@ -1479,9 +1489,9 @@
       "obligation": "required",
       "requirement": "Agent selects inspections or calculations, records predictions first and executes the requested operation.",
       "implementation_status": "implemented",
-      "acceptance_status": "locally_tested_direct_chat_replay",
-      "delivered": "Existing policy runner retained. The current chat now discovers and invokes extensible local tools, selects an exact intervention, freezes a prediction and ingests source-bound saved evidence through durable call receipts.",
-      "outstanding": "A known-data replay completed; independent matched scalar/physics study and production native acceptance remain. The user selected Astra extra-high; tool code does not change or attest chat model settings.",
+      "acceptance_status": "prospective_tools_demonstrated_limited",
+      "delivered": "Two explicitly selected fresh Astra extra-high contexts each completed ten successful direct-tool calls on prescribed \u00b13/800 strain interventions, sealing eight E/F response predictions before new heldout calculations. All six single-GPU bundles then completed.",
+      "outstanding": "Strict scalar/physics information comparison failed at operator staging; fixed interventions do not establish autonomous experiment-selection advantage or general discovery.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -1547,7 +1557,12 @@
           "path": "tests/evidence/research/spec-direct-tools-2026-11-15.json",
           "sha256": "14c9cc1daf4a385dadfe97727c8815a1eadb0df0b2106bec3d6d23b66b0a6aec"
         }
-      ]
+      ],
+      "latest_acceptance_evidence": {
+        "repo": "REMAG",
+        "path": "tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json",
+        "sha256": "76c5c9e96a119cae7c6ede14a820697cc457cec2f34a669730950d3a7047c8fa"
+      }
     },
     {
       "id": "R28",
@@ -1559,9 +1574,9 @@
       "obligation": "required",
       "requirement": "Evaluate predictions, revise hypotheses and retrieve reusable findings including failures.",
       "implementation_status": "implemented",
-      "acceptance_status": "locally_tested_direct_chat_replay",
-      "delivered": "Append-only hypotheses/predictions/outcomes/analyses, definition-bound scores, retrieval and failed/pending outcomes. A real chat-driven saved-data workflow persisted all five notebook event kinds and retrieved them across fresh processes.",
-      "outstanding": "Software persistence does not establish physical truth or transferable knowledge.",
+      "acceptance_status": "prospective_saved_outcome_evaluation_demonstrated",
+      "delivered": "Original sealed predictions remained immutable. A separate evaluator ingested eight source-bound heldout responses, scored all predictions and appended four evidence-bound revisions in notebook copies, retaining original event IDs and all prior events.",
+      "outstanding": "Revisions were separate evaluator interpretations, not additional policy-model turns. Persistence does not establish physical truth, transferable knowledge or a discriminating mechanism.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -1612,7 +1627,12 @@
           "path": "tests/evidence/research/spec-direct-tools-2026-11-15.json",
           "sha256": "14c9cc1daf4a385dadfe97727c8815a1eadb0df0b2106bec3d6d23b66b0a6aec"
         }
-      ]
+      ],
+      "latest_acceptance_evidence": {
+        "repo": "REMAG",
+        "path": "tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json",
+        "sha256": "76c5c9e96a119cae7c6ede14a820697cc457cec2f34a669730950d3a7047c8fa"
+      }
     },
     {
       "id": "R29",
@@ -1907,9 +1927,9 @@
       "obligation": "required",
       "requirement": "Compare autonomous scalar and physics-guided agents under equivalent compute budgets.",
       "implementation_status": "implemented",
-      "acceptance_status": "not_demonstrated",
+      "acceptance_status": "strict_information_comparison_failed",
       "delivered": "Same policy/authoring tools, frozen inputs/held-outs, distinct observation profiles, equal declared ceilings, separate sessions and common grading.",
-      "outstanding": "No actual paired autonomous comparison or measured equal GPU consumption has been demonstrated.",
+      "outstanding": "The finite prospective exercise used equal ten-call context ceilings and shared six measurement bundles, but operator staging exposed extra electronic baseline fields to the scalar context. Both policies reported the exposure and predicted zero response. No clean ablation advantage, independent search comparison or measured equal empirical policy compute is established.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -1950,7 +1970,12 @@
           "path": "tests/evidence/research/spec-paired-study-2026-11-15.json",
           "sha256": "3db2eb7c13c0dda1993dfc7a4b34c6907c66640b1d44b5516e66046a576a3f2e"
         }
-      ]
+      ],
+      "latest_acceptance_evidence": {
+        "repo": "REMAG",
+        "path": "tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json",
+        "sha256": "76c5c9e96a119cae7c6ede14a820697cc457cec2f34a669730950d3a7047c8fa"
+      }
     },
     {
       "id": "R34",
@@ -1964,7 +1989,7 @@
       "implementation_status": "implemented",
       "acceptance_status": "demonstrated_limited",
       "delivered": "Definition-bound error/sign/interval scores, full missing/failed cohorts and paired errors; historical finite prediction/transfer evidence retained.",
-      "outstanding": "Uncertainty calibration and broader transfer need independent observations, not additional score formulas.",
+      "outstanding": "Both no-change policies had E/F MAE 0.014/0.020 meV on two new heldouts. Every comparator response was below the declared 0.05 meV sign resolution; direction remained unresolved. Heuristic radii had no stated coverage probability. General uncertainty calibration, transfer and scientific superiority remain unproven.",
       "implementation": [
         {
           "repo": "REMAG",
@@ -2010,7 +2035,12 @@
           "path": "tests/evidence/research/fept-transfer32-evaluation-2026-11-14.json",
           "sha256": "a4c020ce2c1599803de87248730d7964ddc870d33d90543b4faa960ca6336890"
         }
-      ]
+      ],
+      "latest_acceptance_evidence": {
+        "repo": "REMAG",
+        "path": "tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json",
+        "sha256": "76c5c9e96a119cae7c6ede14a820697cc457cec2f34a669730950d3a7047c8fa"
+      }
     },
     {
       "id": "R35",
@@ -2234,7 +2264,7 @@
     },
     {
       "id": "R38",
-      "spec_section": "13 Phases 0–6, 14",
+      "spec_section": "13 Phases 0\u20136, 14",
       "spec_lines": [
         866,
         951
@@ -2286,11 +2316,11 @@
         "R15",
         "R16"
       ],
-      "status": "Implemented; new device SOC production validation pending."
+      "status": "Implemented; production device SOC measured in the finite six-bundle acceptance."
     },
     {
       "id": "D4",
-      "requirement": "Structural–physical bridge",
+      "requirement": "Structural\u2013physical bridge",
       "requirements": [
         "R18",
         "R19",
@@ -2307,7 +2337,7 @@
         "R23",
         "R24"
       ],
-      "status": "Existing controlled dataset delivered with finite scope; full numerical qualification and new-SOC coverage unmet."
+      "status": "Controlled dataset includes six new device-SOC bundles; original numerical qualification failures remain."
     },
     {
       "id": "D6",
@@ -2318,7 +2348,7 @@
         "R27",
         "R28"
       ],
-      "status": "Chat-driven exact intervention, prediction, saved outcome and revision demonstrated with persistent receipts; independent paired study remains."
+      "status": "Prospective authoring and predictions plus separately evaluated new outcomes/revisions demonstrated; strict paired comparison failed operator staging."
     },
     {
       "id": "D7",
@@ -2391,8 +2421,8 @@
         "R27",
         "R28"
       ],
-      "status": "direct_chat_saved_data_workflow_demonstrated_independent_evaluation_pending",
-      "scope": "The current chat designed and recorded an exact intervention, prediction, saved outcome evaluation and hypothesis revision through the delivered tools. This known-data replay establishes live workflow operation; it does not establish unseen predictive quality or a discriminating physical mechanism.",
+      "status": "prospective_tools_demonstrated_limited",
+      "scope": "Two fresh Astra extra-high contexts authored prescribed interventions and sealed predictions before new outcomes. Separate evaluator scoring/revisions passed. Strict scalar information isolation failed at staging; autonomous design advantage and verified mechanism remain unproven.",
       "evidence_requirements": [
         "R27",
         "R28"
@@ -2437,7 +2467,7 @@
         "R33",
         "R34"
       ],
-      "action": "Run the integrated policy on a genuinely held-out evaluation cohort and compare scalar/physics arms with measured costs. Existing exposed holdouts cannot be relabeled as unseen.",
+      "action": "Clean information-controlled comparison and measured equal policy compute remain unproven after the retained staging failure. No additional execution is authorized by this closed attempt.",
       "requires_owner_input": "A genuine unexposed cohort and finite evaluation/runtime scope with measurable costs; this chat can provide decisions using the owner-selected model without a separate API account."
     },
     {
@@ -2447,7 +2477,7 @@
         "R13",
         "R17"
       ],
-      "action": "Exercise the complete native SOC export on the target runtime and measure calibrated exploratory queries from submission through usable result.",
+      "action": "Production SOC operation and three fast latencies passed the finite check; response calibration failed. No calibrated exploratory default is selected and no follow-on is authorized.",
       "requires_owner_input": "Separately scoped runtime access and compute authorization; the closed campaign is not reopened."
     },
     {
@@ -2550,5 +2580,22 @@
     "automatic_retries": false,
     "separate_policy_plan": "Previous r3 audit and staged configurations retained; no external-policy sessions executed"
   },
-  "reviewed_snapshot": "Archive-calibration increment on the listed base heads; referenced hashes identify reviewed working-tree bytes. Final publication is recorded in the progress receipt."
+  "reviewed_snapshot": "Archive-calibration increment on the listed base heads; referenced hashes identify reviewed working-tree bytes. Final publication is recorded in the progress receipt.",
+  "latest_acceptance_update": {
+    "recorded_at": "2026-11-16T20:27:28.822403+00:00",
+    "evidence": "tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json",
+    "sha256": "76c5c9e96a119cae7c6ede14a820697cc457cec2f34a669730950d3a7047c8fa",
+    "updated_requirements": [
+      "R13",
+      "R17",
+      "R27",
+      "R28",
+      "R33",
+      "R34"
+    ],
+    "software_snapshot": "Existing implementation references retain their original reviewed snapshot. This addendum records live acceptance on compiled b382f5e and Python 8ef0ae2 without claiming a fresh full-source audit.",
+    "full_spec_complete": false,
+    "attempt_closed": true,
+    "new_compute_authorized": false
+  }
 }

@@ -64,6 +64,14 @@ observation restrictions; `--withheld-source HASH` retains held-out source gates
 These are trusted-command protocol controls, not filesystem isolation from a
 chat that also has shell access.
 
+When staging a scalar-versus-physics exercise, obtain the common observation
+packet through the scalar profile before either context sees it. A raw report
+contains additional electronic fields and is not a scalar packet. The
+[six-bundle acceptance](ACCEPTANCE_HANDOFF.md#six-bundle-acceptance-completed-on-16-november)
+exercised prospective authoring, prediction, scoring and revision, but its
+operator-created common packet violated this boundary. That exposure is
+retained as a failed comparison control; filtering later cannot undo it.
+
 ## Receipts and continuation
 
 Every call records `request.json` before dispatch, then `response.json` with

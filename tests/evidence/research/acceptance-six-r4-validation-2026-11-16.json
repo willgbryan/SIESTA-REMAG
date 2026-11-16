@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-11-16T20:29:03.175254+00:00",
+  "targeted_tests": "40 passed in 3.44s",
+  "test_files": [
+    "tests/test_research_toolhost.py",
+    "tests/test_research_evaluation.py",
+    "tests/test_research_calibration.py"
+  ],
+  "test_log_sha256": "ac1f60430a11a64d0084b8d9686dc53e87686a78bdffb6734e65fcb56aa10259",
+  "live_acceptance_bundles": 6,
+  "native_artifacts_reverified": 1710,
+  "native_bytes_reverified": 400236858,
+  "retained_evidence_manifest_files_verified": 50,
+  "frozen_helpers_verified": 4,
+  "sealed_policy_originals_unchanged": true,
+  "old_campaign_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "old_heartbeat_deleted": true,
+  "all_11_owned_apps_authoritatively_stopped": true,
+  "account_containers_empty_at_closeout": true,
+  "GPAC_unchanged": true,
+  "no_native_rebuilds": true,
+  "no_native_or_context_retries": true,
+  "no_extensions": true,
+  "scientific_advantage_established": false,
+  "strict_scalar_information_ablation_passed": false
+}

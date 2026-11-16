@@ -38,7 +38,46 @@ requirement is not a blocker for this chat's selected architecture. The original
 scalar and physics input staging remains available, with the demonstrated
 physics arm now containing its direct-call notebook and receipts.
 
-## Acceptance that requires separate compute scope
+## Six-bundle acceptance completed on 16 November
+
+The [bounded tool acceptance](../tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json)
+reused the saved CUDA executable and library. The corrected metadata preflight
+and all six bundles passed their native, branch, identity, radial, overlap and
+transverse checks. Eighteen production device-owned SOC exports passed the
+selected-k matrix checks. Both baseline meshes agreed with saved REMAG values
+within the registered 0.0010001 meV criterion.
+
+The three fast bundles produced reviewed usable results in 125.17, 113.41 and
+115.46 seconds, passing the five-minute latency check. Response calibration
+failed: maximum 6³-versus-12³ response discrepancies were 0.305 meV/cell for E
+and 0.153 meV/cell for F, exceeding the unchanged 0.05 meV limit. No calibrated
+exploratory default follows. The 12³ tier is a finite comparator, not a
+physically qualified reference.
+
+Two fresh Astra extra-high contexts each completed ten tool calls to author
+the prescribed ±3/800 strain sources and seal E/F response predictions before
+the heldouts ran. A separate evaluator then ingested outcomes, scored every
+prediction and appended evidence-bound revisions to notebook copies, preserving
+the sealed originals. Both arms predicted zero response and had E/F mean
+absolute errors of 0.014/0.020 meV; all four reference responses were unresolved
+at the declared 0.05 meV sign threshold. No scientific advantage was shown.
+
+The prospective tool workflow passed, but the strict information comparison
+failed at operator staging: the common baseline file exposed extra electronic
+fields to the scalar context. Both agents disclosed the exposure. Their claim
+not to have used those fields does not restore a clean control. No heldout
+outcome was exposed before sealing, and no context was restarted. The
+[staging audit](../tests/evidence/research/acceptance-six-r4-policy-staging-2026-11-16.json)
+retains the deviation.
+
+All eleven acceptance-owned apps are authoritatively stopped and the account
+container list is empty. This authorization added $4.55 in reservations
+($0.05 preflight plus six $0.75 queries), bringing cumulative reservations to
+$9.80 of $10; invoices remain unknown. There were no rebuilds, retries,
+extensions or pristine calculations. This attempt is closed with no follow-on
+authorized; the historical convergence campaign and ledger remain closed.
+
+## Acceptance still unproven
 
 The full scalar-versus-physics comparison needs a genuinely new held-out cohort,
 matching declared budgets, frozen predictions/targets and measured allocation
@@ -46,11 +85,11 @@ costs. Existing exposed reports cannot be relabeled unseen. That run must have
 its own exact inputs and finite compute authorization; the historical ledger
 and untouched final-stage reservation capacity do not authorize it.
 
-Production SOC acceptance needs a full CUDA-linked build and a measured export
-from the target runtime. Exploratory product acceptance measures submission
-through usable result and observable-specific accuracy against saved evidence.
-The 1–5 minute target remains unproven. Neither item justifies another open-ended
-convergence campaign or a new pristine reference calculation.
+Production SOC operation and the three measured fast latencies now have finite
+live evidence. Useful exploratory response calibration, a clean information
+comparison, measured equal policy compute and broader scientific advantage
+remain unproven. These gaps authorize no additional calculation or restart of
+the closed convergence campaign.
 
 Optional visual acceptance needs a permitted browser route. The prior browser
 URL-policy denial must not be bypassed; DOM/canvas doubles establish protocol

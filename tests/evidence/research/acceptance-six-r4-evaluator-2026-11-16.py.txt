@@ -1,0 +1,76 @@
+"""Saved-results-only evaluator. Never submits, rebuilds or retries anything."""
+from pathlib import Path
+from datetime import datetime,timezone
+import json,shutil,sqlite3
+from siesta_remag.discovery.common import load,save
+from siesta_remag.corpus import sha256
+from siesta_remag.research.toolhost import ToolHost
+
+W=Path(__file__).resolve().parent;A=W/'acceptance-six-r4'
+plan=load(A/'registration.json');seal=load(A/'policy-predictions-sealed.json')
+assert not (A/'acceptance-evaluation.json').exists(),'Preserve existing evaluation; never repeat side effects'
+for path,h in seal['files'].items():assert sha256(A/path)==h,path
+reviews={r['key']:load(A/'case-reviews'/f"{r['key']}.json") for r in plan['bundles']}
+assert all(r['status']=='reviewed' and r['health']['health_passed'] and r['allocation_stopped'] for r in reviews.values())
+assert sha256(W/'fept-total-budget.json')==plan['old_ledger_sha256']
+host=ToolHost(A)
+def call(host,name,args,receipt,rationale):
+    response=host.call(dict(tool=name,args=args,rationale=rationale),receipt)
+    if not response['ok']:raise ValueError(f"{name} failed; preserve without retry: {response['error']}")
+    return response['result']
+def endpoint(key,prefix='runs'):
+    return dict(report=f'{prefix}/{key}/collected/query/report.json',collection=f'{prefix}/{key}/collected/archive-manifest.json')
+baseline=plan['bundles'][0]['source_sha256']
+calibration=call(host,'calibrate_exploratory_response',dict(
+    exploratory=[endpoint(f'{s}-k6') for s in ('baseline','minus','plus')],
+    reference=[endpoint(f'{s}-k12') for s in ('baseline','minus','plus')],
+    baseline_source_sha256=baseline,resolution_ev=.00005),'evaluation-calls/response-calibration',
+    'Measure the frozen fast/comparator response criterion on all three registered structures, retaining failures.')
+save(A/'response-calibration.json',calibration)
+arms={}
+for profile in ('scalar','physics'):
+    original=A/'policy-arms'/profile;arm=A/'evaluated-arms'/profile
+    shutil.copytree(original,arm)
+    prereg=load(arm/'preregistration.json');prior=load(arm/'sealed-events.json')
+    original_notebook=sha256(arm/'research-memory.sqlite')
+    evaluator=ToolHost(arm,information_profile=profile)
+    for label in ('minus','plus'):
+        shutil.copytree(A/'runs'/f'{label}-k12'/'collected',arm/'heldouts'/label)
+        for observable in ('E_response','F_response'):
+            call(evaluator,'record_response_outcome',dict(experiment_id=prereg['experiment_ids'][label],observable=observable,
+                before=dict(report='baseline/baseline-k12/query/report.json',collection='baseline/baseline-k12/archive-manifest.json'),
+                after=dict(report=f'heldouts/{label}/query/report.json',collection=f'heldouts/{label}/archive-manifest.json')),
+                f'evaluation-calls/{label}-{observable}',
+                'Separate evaluator ingests a newly measured heldout only after the immutable prediction seal and all six executions.')
+    scores=call(evaluator,'evaluate_predictions',dict(experiment_ids=list(prereg['experiment_ids'].values()),
+        resolutions={'E_response':.00005,'F_response':.00005}),'evaluation-calls/scores',
+        'Score every preregistered response, including unresolved signs; no favorable selection or superiority claim.')
+    save(arm/'scores.json',scores)
+    for label,eid in prereg['experiment_ids'].items():
+        rows=[r for r in scores['rows'] if r['experiment_id']==eid]
+        conclusion='Separate evaluator revision, not an additional policy-model turn: '+json.dumps([
+            dict(observable=r['observable'],predicted_ev_cell=r['predicted'],observed_ev_cell=r['observed'],
+                 absolute_error_ev_cell=r['evaluation'].get('absolute_error'),within_heuristic_radius=r['evaluation'].get('within_predicted_uncertainty'))
+            for r in rows],sort_keys=True)+'. Retain the original predictions. Baseline-only no-change forecasts do not establish a mechanism or a calibrated derivative. The common-data staging exposure invalidates strict information-ablation claims; two outcomes cannot establish scientific superiority or uncertainty coverage.'
+        call(evaluator,'record_analysis',dict(parent_id=eid,conclusion=conclusion,evidence='scores.json',status='evaluated'),
+             f'evaluation-calls/revision-{label}','Append an evidence-bound interpretation without modifying any prediction.')
+    db=sqlite3.connect(arm/'research-memory.sqlite')
+    events=[dict(id=r[0],kind=r[1],parent=r[2],recorded_at=r[3],payload=json.loads(r[4])) for r in db.execute('SELECT * FROM events ORDER BY rowid')];db.close()
+    assert events[:len(prior)]==prior and len(events)==13
+    save(arm/'evaluated-events.json',events)
+    arms[profile]=dict(prediction_context_calls=10,separate_evaluator_calls=7,scores=scores,
+        original_notebook_sha256=original_notebook,evaluated_notebook_sha256=sha256(arm/'research-memory.sqlite'),
+        original_events_unchanged=True,workflow_passed=all(r['status']=='measured' and r['evaluation']['status']=='evaluated' for r in scores['rows']))
+for path,h in seal['files'].items():assert sha256(A/path)==h,path
+fast={k:r['usable_result_seconds'] for k,r in reviews.items() if k.endswith('k6')}
+result=dict(format='REMAG-SIX-ACCEPTANCE-EVALUATION/1',recorded_at=datetime.now(timezone.utc).isoformat(),
+    completed_bundles=list(reviews),native_SOC_passed=all(len(r['health']['production_SOC_tools'])==3 for r in reviews.values()),
+    baseline_execution_agreement_passed=all(reviews[k]['health']['baseline_execution_agreement']['passed'] for k in ('baseline-k6','baseline-k12')),
+    fast_usable_seconds=fast,fast_latency_passed=all(t<=300 for t in fast.values()),
+    response_consistency_passed=all(o['max_abs_response_error_ev']<=.00005 for o in calibration['observables'].values()),
+    response_calibration=calibration,policy_arms=arms,prospective_tool_workflow_passed=all(a['workflow_passed'] for a in arms.values()),
+    strict_scalar_information_ablation_passed=False,staging_audit=load(A/'policy-staging-audit.json'),
+    scientific_advantage_established=False,physical_accuracy_qualified=False,old_campaign_closed=True,
+    source_build_reused=True,rebuilds=0,retries=0,extensions=0,actual_billed_usd=None)
+save(A/'acceptance-evaluation.json',result)
+print(json.dumps({k:v for k,v in result.items() if not isinstance(v,(dict,list))},indent=2))

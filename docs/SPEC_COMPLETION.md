@@ -15,11 +15,11 @@ no new pristine calculation, GPU launch or spending is authorized here.
 | --- | --- |
 | Unified architecture | Integrated authoring, queries, diagnostics, memory and bounded policy sessions; direct-chat tool replay demonstrated |
 | Extended GPAC | Physical controls, experimental agent interfaces, proposal assessment and explicit relaxation feedback implemented |
-| Extended REMAG | Electronic/magnetic diagnostics implemented; new device SOC export still needs full target-runtime production validation |
+| Extended REMAG | Electronic/magnetic diagnostics implemented; production device SOC measured in six accepted live bundles |
 | Structural–physical bridge | Source-bound conversion, correspondence and observations implemented with explicit unsupported cases |
-| FePt dataset | Existing controlled measurements and saved response demonstrations; full numerical qualification and new-SOC coverage are not complete |
-| Autonomous hypothesis testing | Direct chat selected and completed a receipted saved-data hypothesis loop; independent paired-agent acceptance remains |
-| Evaluation report | Candidate/property cohorts, finite-control checks, measured allocation imports and prediction/candidate compute rates implemented; finite stability/robustness and declared candidate groups implemented; actual paired-agent comparison remains |
+| FePt dataset | Controlled measurements plus six new device-SOC bundles; original numerical qualification failures remain |
+| Autonomous hypothesis testing | Prospective tools exercised by two Astra contexts on prescribed heldouts; strict arm comparison failed operator staging |
+| Evaluation report | Finite prediction errors and response calibration measured; clean information comparison, scientific advantage and invoices remain unproven |
 | Expansion pathway | General authoring and screening foundation implemented; cross-material mechanism transfer remains downstream research |
 | Optional interactive workspace | Saved structural/electronic inspection implemented; browser visual acceptance pending |
 
@@ -54,22 +54,25 @@ reopen the closed campaign.
 
 ## Remaining empirical acceptance
 
-- A genuinely held-out scalar-versus-physics evaluation with measured compute
-  remains. The owner selected Astra with extra-high reasoning and direct use
-  from this chat; a separate API account is not required for that architecture.
-  The demonstrated replay uses previously exposed data and cannot fill the
-  independent comparison requirement.
+- A clean scalar-versus-physics evaluation with measured equal compute remains.
+  Two fresh Astra extra-high contexts completed the prospective tool workflow
+  on new prescribed heldouts, but operator staging exposed extra electronic
+  fields to the scalar arm. The exposure invalidates a strict information
+  comparison; disclosure or later filtering does not repair that control.
 - Independent prospective FePt comparisons **already exist**. The initial
   coarse quadratic predictions failed to outperform scalar baselines; a later
   two-case additive response/transfer model beat simple controls within its
   recorded scope. These results do not establish the full §12 autonomous
   comparison or §17 scientific advantage beyond scalar hill climbing.
-- The new native SOC producer compiles against real pinned Fortran modules and
-  passes CPU transport/ownership controls. A full CUDA-linked application and
-  measured production export remain unverified.
-- The owner-selected 1–5 minute submission-to-usable-result target remains
-  unproven, with no calibrated exploratory default. Fast saved coarse calculations
-  do not establish response/sign/ranking accuracy or full-query latency.
+- Production device-owned SOC operation is now verified within the six-bundle
+  scope: eighteen exports passed selected-k matrix checks, and all native,
+  branch, identity, radial, overlap and transverse health checks passed.
+  This does not establish total-MAE attribution or general physical accuracy.
+- Three fast usable results passed the five-minute latency check at
+  125.17/113.41/115.46 seconds. Response calibration failed: maximum E/F
+  discrepancies were 0.305/0.153 meV/cell against the fixed 12³ comparator,
+  above the 0.05 meV limit. No calibrated default, universal latency or speedup
+  is established.
 - Optional browser visual acceptance remains unverified. DOM/canvas doubles do
   not replace rendering, and the previous browser URL-policy denial must not be
   bypassed.
@@ -83,6 +86,19 @@ longer-term discovery objectives are not silently promoted to initial software
 completion gates.
 
 ## Delivered development increments
+
+- 16 November: [six-bundle tool acceptance](../tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json)
+  reused the existing build after the corrected actual-library preflight.
+  All six bundles and the prospective author/predict/measure/score/revise tool
+  path completed. Latency and native SOC passed; response consistency failed,
+  and the operator's common-packet exposure invalidated strict arm comparison.
+  Both policies forecast zero response, with E/F MAE 0.014/0.020 meV and no
+  resolved reference signs. The separate evaluator appended revisions while
+  preserving both sealed notebooks. All eleven acceptance-owned apps are
+  stopped, with no active account containers at closeout. New reservations are
+  $4.55, cumulative $9.80/$10; actual billing is unknown. No rebuild, retry,
+  extension, pristine run or old-campaign reopening occurred. This bounded
+  attempt is closed; no follow-on is authorized.
 
 - 15 November: [candidate metrics](CANDIDATE_METRICS.md) complete declared
   geometric grouping, finite reference-phase/static-force screens and registered

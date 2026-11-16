@@ -1,0 +1,224 @@
+{
+  "format": "REMAG-ACCEPTANCE-EVIDENCE-MANIFEST/1",
+  "files": {
+    "work/acceptance-six-r4/registration.json": {
+      "sha256": "e12b9b7d37926ba0da5d321cd1f826f48953621ceb25b8b0917622e28f49d769",
+      "bytes": 3248
+    },
+    "work/acceptance-six-r4/preflight-manifest.json": {
+      "sha256": "da1f310c75695a38f51e35405eba733025d922f9fe1dcd1498818648a8cc551f",
+      "bytes": 11069
+    },
+    "work/acceptance-six-r4/preflight-result.json": {
+      "sha256": "12e2611b850cc72b47244c62235a069f5a801077b4054e9c0e01809aabd49c48",
+      "bytes": 15504
+    },
+    "work/acceptance-six-r4/preflight-driver.json": {
+      "sha256": "58bd9beb7427fea02a7d63c1de3efe60c4c4bb0957faed03e7bee025b09e9f0c",
+      "bytes": 610
+    },
+    "work/acceptance-six-r4/runtime-built.json": {
+      "sha256": "fc1667997927562a4b90f6c1eca1ecf05ea08690205d0b1f20c3796860e6cb19",
+      "bytes": 2951
+    },
+    "work/acceptance-six-r4/six-bundle-preflight.json": {
+      "sha256": "5664a17a1732fa92610eb905ffb970648eb0cdead3607ec1b3d2f08bfa733224",
+      "bytes": 3969
+    },
+    "work/acceptance-six-r4/query-readiness.json": {
+      "sha256": "78f11ae550d320331a46d78a62eb5f1fd635125d6230e363119089cb2be1653d",
+      "bytes": 1264
+    },
+    "work/acceptance-six-r4/execution-config.json": {
+      "sha256": "3909d805d3f6b320eac42065639047eaa9139ca4d67bae8e275a40cd19ff9a6d",
+      "bytes": 778
+    },
+    "work/acceptance-six-r4/policy-predictions-sealed.json": {
+      "sha256": "4b77d1a5dd0f48a5fb65b564115cb0d4ee20a3a849ab241f8a40f029c14f3922",
+      "bytes": 11547
+    },
+    "work/acceptance-six-r4/heldout-source-census-before.json": {
+      "sha256": "b8087aa0389e89e5d9096e57bb53af515f062b343a184f5d978b0f2d218bdf17",
+      "bytes": 379
+    },
+    "work/acceptance-six-r4/acceptance-evaluation.json": {
+      "sha256": "1da4f3381ff1b86afdf6fac017bee5fdb0b33e4dde839d0579172b321bf437a5",
+      "bytes": 58194
+    },
+    "work/acceptance-six-r4/response-calibration.json": {
+      "sha256": "249d7c21c866f0410107c157e806716db645855cc6547b5995941595629e4de6",
+      "bytes": 36547
+    },
+    "work/acceptance-six-r4/closeout-allocations.json": {
+      "sha256": "d54e65284901494d7274298f03370a09002964ff700ce6f81078068e9477a6a5",
+      "bytes": 7839
+    },
+    "work/acceptance-six-r1/budget.json": {
+      "sha256": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8",
+      "bytes": 29157
+    },
+    "work/acceptance-six-r4/case-reviews/baseline-k6.json": {
+      "sha256": "3cd9a76b3545af2ab476820665e8f6f3fe66a57473b9bf2ea99037dbaa1756ec",
+      "bytes": 75252
+    },
+    "work/acceptance-six-r4/runs/baseline-k6/receipt.json": {
+      "sha256": "5bc22c929987cd0d9bfea69cde70a3ee33b19a5d9ba6649b80fc8a2d15af35dd",
+      "bytes": 666
+    },
+    "work/acceptance-six-r4/runs/baseline-k6/execution.json": {
+      "sha256": "b632e6e220cd97007c4781b01e1e01363674c8b6f6d18ad54aa80a93222c1958",
+      "bytes": 15917
+    },
+    "work/acceptance-six-r4/runs/baseline-k6/collected/query/report.json": {
+      "sha256": "01e4b75194aeaf147c45c6044a15611041b52b69908535cc838030cc674e3710",
+      "bytes": 1212815
+    },
+    "work/acceptance-six-r4/runs/baseline-k6/collected/archive-manifest.json": {
+      "sha256": "5fc0003d58bc83788e871f57e7c6eca6a1b42dcda836d4156521555e37202547",
+      "bytes": 18425
+    },
+    "work/acceptance-six-r4/native/baseline-k6/recovery-manifest.json": {
+      "sha256": "b164d7a0f467c3ae98fb1f88dd30fbe31b681a729129e5aa6411269fbabfccde",
+      "bytes": 28161
+    },
+    "work/acceptance-six-r4/case-reviews/baseline-k12.json": {
+      "sha256": "7c58d0109a9ffa62cd3a0871baacd2be277c5689ea56b7ee27823575fe8f0262",
+      "bytes": 75405
+    },
+    "work/acceptance-six-r4/runs/baseline-k12/receipt.json": {
+      "sha256": "8f3b91809d5011b95af75deb8c4954d4d5346bdb5602461e2dce069ce7ac9489",
+      "bytes": 667
+    },
+    "work/acceptance-six-r4/runs/baseline-k12/execution.json": {
+      "sha256": "f9d6b4dbb5a6fb1e344d6619327a2a302b409acd0bb345e5bf4c90babe5d9628",
+      "bytes": 15934
+    },
+    "work/acceptance-six-r4/runs/baseline-k12/collected/query/report.json": {
+      "sha256": "4440edb7fdf38b58f70d3808644b6258290993509d98eec89bab6259b3f4b7a7",
+      "bytes": 9141212
+    },
+    "work/acceptance-six-r4/runs/baseline-k12/collected/archive-manifest.json": {
+      "sha256": "b7f262d04b9bdf0786ae705b7af20c12da54256dc9af68197db5270a4440448f",
+      "bytes": 18425
+    },
+    "work/acceptance-six-r4/native/baseline-k12/recovery-manifest.json": {
+      "sha256": "7892b03f318dcea18b0a1a48813249ec64ed4b6203f06092e5e36cf84f00b990",
+      "bytes": 28161
+    },
+    "work/acceptance-six-r4/case-reviews/minus-k6.json": {
+      "sha256": "62723f281c21b9931990095074c9a13a374ca5f79a2f7d7406aead696d640a30",
+      "bytes": 74514
+    },
+    "work/acceptance-six-r4/runs/minus-k6/receipt.json": {
+      "sha256": "d91132bd2e4531a7e8e2364ad9e3d2e04553c2349468cd6e98bc7bd2f71970ce",
+      "bytes": 664
+    },
+    "work/acceptance-six-r4/runs/minus-k6/execution.json": {
+      "sha256": "2975447b1af7d6e7425b9a6e6afc741129ee7076e5db13b942236c5742e9e44b",
+      "bytes": 15397
+    },
+    "work/acceptance-six-r4/runs/minus-k6/collected/query/report.json": {
+      "sha256": "aae66d0d238d10f9e1d58581fa93a18d3acbff3ec047875a638e5fd647112609",
+      "bytes": 1213652
+    },
+    "work/acceptance-six-r4/runs/minus-k6/collected/archive-manifest.json": {
+      "sha256": "25b3837cca8d6365da93a2a21b0bb5b7a9a536e252c30f35f270c1c24b703b26",
+      "bytes": 17951
+    },
+    "work/acceptance-six-r4/native/minus-k6/recovery-manifest.json": {
+      "sha256": "dd38c729c49a709517ca4a81be8e7a68a5ffccd764f6900af657308a353ad692",
+      "bytes": 28161
+    },
+    "work/acceptance-six-r4/case-reviews/minus-k12.json": {
+      "sha256": "9e99493b923566a34d7348bbf412437f764b886cc295ee4005eb4710b9a9285a",
+      "bytes": 74518
+    },
+    "work/acceptance-six-r4/runs/minus-k12/receipt.json": {
+      "sha256": "649d432f9ef73401d0f97a46abf485192beb4d18ef75bea3d9443e435ebfe5ae",
+      "bytes": 665
+    },
+    "work/acceptance-six-r4/runs/minus-k12/execution.json": {
+      "sha256": "e4aba6dd068a2a99c2957fcb8ca38efea36cae68955efe3ea2d1d168c8e1331f",
+      "bytes": 15390
+    },
+    "work/acceptance-six-r4/runs/minus-k12/collected/query/report.json": {
+      "sha256": "dba7bc646d14453e3e36cd50d6a2f3678c7675fddeb1ec5c114f456f3e85ec10",
+      "bytes": 9142622
+    },
+    "work/acceptance-six-r4/runs/minus-k12/collected/archive-manifest.json": {
+      "sha256": "42388c8d19a2331940a3b307552b2916881edac3aeebf661d9e6da0670b424a0",
+      "bytes": 17951
+    },
+    "work/acceptance-six-r4/native/minus-k12/recovery-manifest.json": {
+      "sha256": "bc2fe4d62ea975dd6544e8cc221477c395230ece4f13ae721bdc55c9069ece80",
+      "bytes": 28161
+    },
+    "work/acceptance-six-r4/case-reviews/plus-k6.json": {
+      "sha256": "035bdc5beed2ae4ecd29ca1b50370453aab9a184d9fd4a6cba7588d4dc8de3fc",
+      "bytes": 74353
+    },
+    "work/acceptance-six-r4/runs/plus-k6/receipt.json": {
+      "sha256": "83d21fc45e6bb0d914f73dc25d09673533cd835b327f22363af0b32f82367046",
+      "bytes": 662
+    },
+    "work/acceptance-six-r4/runs/plus-k6/execution.json": {
+      "sha256": "84b81a053658afdbebf86616a103416ebbf96899ec90c48932a9a2cbc4a0c05f",
+      "bytes": 15410
+    },
+    "work/acceptance-six-r4/runs/plus-k6/collected/query/report.json": {
+      "sha256": "f119468a0ad7ec13fe1b29b21246d4336a6d0fdb9474a272672dfd99b495ae76",
+      "bytes": 1214130
+    },
+    "work/acceptance-six-r4/runs/plus-k6/collected/archive-manifest.json": {
+      "sha256": "47800e5d7495b0351c5f1e973d475145edaa34908d99ce104cfa925e4f457ee8",
+      "bytes": 17951
+    },
+    "work/acceptance-six-r4/native/plus-k6/recovery-manifest.json": {
+      "sha256": "1b86228e0ce167753f8c4ead9e6064eac34ef9dfc697ef0265f14793ce71fe37",
+      "bytes": 28161
+    },
+    "work/acceptance-six-r4/case-reviews/plus-k12.json": {
+      "sha256": "be92788b51497c83679b1c51d7d797ce4329d98124611cf004f6e3e0ae935226",
+      "bytes": 74360
+    },
+    "work/acceptance-six-r4/runs/plus-k12/receipt.json": {
+      "sha256": "67bad4310b1b64e36307d06da8ff694242a44367b3d6e3afa87378a13ee1371c",
+      "bytes": 663
+    },
+    "work/acceptance-six-r4/runs/plus-k12/execution.json": {
+      "sha256": "cc079b1f12a119f2b4a8793c9f7b3d2471807d95c1f19e908f347277a7a84efa",
+      "bytes": 15411
+    },
+    "work/acceptance-six-r4/runs/plus-k12/collected/query/report.json": {
+      "sha256": "ca0cacd1f71e36b7e4be4713fe19cf3c98d9807574b598c1487bd4ba40f2876f",
+      "bytes": 9143335
+    },
+    "work/acceptance-six-r4/runs/plus-k12/collected/archive-manifest.json": {
+      "sha256": "7e48879d488683fda9519351dc0c683f57b03c5736ed0e8d39a61da38333bdc9",
+      "bytes": 17951
+    },
+    "work/acceptance-six-r4/native/plus-k12/recovery-manifest.json": {
+      "sha256": "a1259086626edc87821ca46a93ffd41858e4045a17f59f29e76ffbe380638947",
+      "bytes": 28161
+    }
+  },
+  "frozen_helpers": {
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r4-preflight-launcher-2026-11-16.py.txt": {
+      "original_path": "SIESTA-REMAG/scripts/acceptance_reuse_preflight_modal.py",
+      "sha256": "0ac06ee6c2fb05b0d8b17cce74107c0fcae305113e0605c4d596acc5ec144bee"
+    },
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r4-preflight-driver-2026-11-16.py.txt": {
+      "original_path": "run-acceptance-preflight-r4.py",
+      "sha256": "52d185bf5d2a137b656e3c51fa00c6a6d3bf73bbd202a9214d7531f136a26cc8"
+    },
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r4-case-driver-2026-11-16.py.txt": {
+      "original_path": "run-acceptance-six-r4-case.py",
+      "sha256": "dc89bb384f5a13596f5b609c584e2588aa9e90bf9565629801fd57a3024167c6"
+    },
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r4-evaluator-2026-11-16.py.txt": {
+      "original_path": "evaluate-acceptance-six-r4.py",
+      "sha256": "4f477d9960fc7f901149622d22683fdd732cebdef1945a5f6c13a12d3e9f9ce0"
+    }
+  },
+  "large_native_files": "Retained locally and on the original volume; every native artifact reverified in closeout."
+}

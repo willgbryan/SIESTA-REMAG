@@ -1,0 +1,112 @@
+[
+  {
+    "id": "20306fbec23f45bebdef0849062b88b5",
+    "kind": "hypothesis",
+    "parent": null,
+    "recorded_at": "2026-11-16T20:10:57.818074+00:00",
+    "payload": {
+      "alternatives": [
+        "A substantial magnetoelastic derivative produces opposite resolved signs at the two strains.",
+        "A nearby electronic rearrangement, magnetic branch change, or curvature produces a large or asymmetric response.",
+        "Strain-dependent occupation entropy makes E and F responses substantially different.",
+        "Finite sampling and convergence effects cause matched responses outside the subjective ranges."
+      ],
+      "predictions": [
+        "For epsilon_c=-3/800: E_response=0.0 and F_response=0.0 eV/cell, each with subjective radius 0.00025 eV/cell.",
+        "For epsilon_c=3/800: E_response=0.0 and F_response=0.0 eV/cell, each with subjective radius 0.00025 eV/cell.",
+        "The predicted point response has no resolved sign at 0.00005 eV/cell; signed and larger responses remain genuine ways this forecast can fail."
+      ],
+      "statement": "At the fixed 12x12x12 comparator and unchanged numerical settings, either prescribed axial strain of magnitude 3/800 will retain a weak anisotropy response: both (E_x-E_z) and (F_x-F_z) changes are expected to remain within 0.00025 eV/cell of zero. With no measured strain derivative, the point forecast is zero for all four responses and no resolved response sign is asserted."
+    }
+  },
+  {
+    "id": "4caf79c5b8d84e9cacf44354e7384147",
+    "kind": "experiment",
+    "parent": "20306fbec23f45bebdef0849062b88b5",
+    "recorded_at": "2026-11-16T20:10:57.819938+00:00",
+    "payload": {
+      "action": "Measure the fixed-geometry SOC x/z anisotropy of the exact authored axis-2 physical strain -3/800 using the unchanged baseline pseudopotentials, DZP basis, basis energy shift, smearing, convergence controls, grid and 12x12x12 mesh; compare E and F anisotropy changes to the fixed 12x12x12 baseline. This proposal does not execute the calculation.",
+      "rationale": "This prescribed minus intervention tests the zero-centered weak-response forecast. Its paired opposite strain can expose signed linear behavior, curvature, or a branch change. The absolute strained anisotropy is not the prediction target.",
+      "structure_sha256": "89d05c4a121fd97ebfa53e12389f2f5b724d9e9c6eccd9b45b68c47ed2ccdc7b"
+    }
+  },
+  {
+    "id": "6808dbfd3d0f4aa6b24e426b51fec987",
+    "kind": "experiment",
+    "parent": "20306fbec23f45bebdef0849062b88b5",
+    "recorded_at": "2026-11-16T20:10:57.822223+00:00",
+    "payload": {
+      "action": "Measure the fixed-geometry SOC x/z anisotropy of the exact authored axis-2 physical strain 3/800 using the unchanged baseline pseudopotentials, DZP basis, basis energy shift, smearing, convergence controls, grid and 12x12x12 mesh; compare E and F anisotropy changes to the fixed 12x12x12 baseline. This proposal does not execute the calculation.",
+      "rationale": "This prescribed plus intervention tests the zero-centered weak-response forecast. Its paired opposite strain can expose signed linear behavior, curvature, or a branch change. The absolute strained anisotropy is not the prediction target.",
+      "structure_sha256": "c0dc783dfd451b0630045dd6271a554994944d92fd86108ed59974d649daeb7d"
+    }
+  },
+  {
+    "id": "3d9ad687d2834fa08f0466224f064026",
+    "kind": "prediction",
+    "parent": "4caf79c5b8d84e9cacf44354e7384147",
+    "recorded_at": "2026-11-16T20:10:57.825084+00:00",
+    "payload": {
+      "observable": "E_response",
+      "target": {
+        "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "kind": "anisotropy_response",
+        "metric": "total_energy_ev"
+      },
+      "uncertainty": 0.00025,
+      "unit": "eV/cell",
+      "value": 0.0
+    }
+  },
+  {
+    "id": "7010671d8f3246f2b8e27d0876f84c3d",
+    "kind": "prediction",
+    "parent": "4caf79c5b8d84e9cacf44354e7384147",
+    "recorded_at": "2026-11-16T20:10:57.826982+00:00",
+    "payload": {
+      "observable": "F_response",
+      "target": {
+        "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "kind": "anisotropy_response",
+        "metric": "free_energy_ev"
+      },
+      "uncertainty": 0.00025,
+      "unit": "eV/cell",
+      "value": 0.0
+    }
+  },
+  {
+    "id": "52765d9c9c304195a626baa370c8590a",
+    "kind": "prediction",
+    "parent": "6808dbfd3d0f4aa6b24e426b51fec987",
+    "recorded_at": "2026-11-16T20:10:57.828743+00:00",
+    "payload": {
+      "observable": "E_response",
+      "target": {
+        "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "kind": "anisotropy_response",
+        "metric": "total_energy_ev"
+      },
+      "uncertainty": 0.00025,
+      "unit": "eV/cell",
+      "value": 0.0
+    }
+  },
+  {
+    "id": "6fa055902fde44a78ef9a554a0c8d54d",
+    "kind": "prediction",
+    "parent": "6808dbfd3d0f4aa6b24e426b51fec987",
+    "recorded_at": "2026-11-16T20:10:57.830502+00:00",
+    "payload": {
+      "observable": "F_response",
+      "target": {
+        "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "kind": "anisotropy_response",
+        "metric": "free_energy_ev"
+      },
+      "uncertainty": 0.00025,
+      "unit": "eV/cell",
+      "value": 0.0
+    }
+  }
+]

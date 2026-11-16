@@ -1,0 +1,141 @@
+{
+  "format": "REMAG-FINITE-POLICY-PREREGISTRATION/1",
+  "status": "sealed",
+  "sealed_at": "2026-11-16T20:10:57.831295+00:00",
+  "information_profile": "scalar",
+  "hypothesis_id": "20306fbec23f45bebdef0849062b88b5",
+  "experiment_ids": {
+    "minus": "4caf79c5b8d84e9cacf44354e7384147",
+    "plus": "6808dbfd3d0f4aa6b24e426b51fec987"
+  },
+  "prediction_ids": {
+    "minus": {
+      "E_response": "3d9ad687d2834fa08f0466224f064026",
+      "F_response": "7010671d8f3246f2b8e27d0876f84c3d"
+    },
+    "plus": {
+      "E_response": "52765d9c9c304195a626baa370c8590a",
+      "F_response": "6fa055902fde44a78ef9a554a0c8d54d"
+    }
+  },
+  "predictions": {
+    "minus": {
+      "E_response": {
+        "value": 0.0,
+        "uncertainty": 0.00025,
+        "target": {
+          "kind": "anisotropy_response",
+          "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "metric": "total_energy_ev"
+        },
+        "unit": "eV/cell",
+        "uncertainty_interpretation": "Subjective symmetric radius; no calibrated coverage probability."
+      },
+      "F_response": {
+        "value": 0.0,
+        "uncertainty": 0.00025,
+        "target": {
+          "kind": "anisotropy_response",
+          "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "metric": "free_energy_ev"
+        },
+        "unit": "eV/cell",
+        "uncertainty_interpretation": "Subjective symmetric radius; no calibrated coverage probability."
+      }
+    },
+    "plus": {
+      "E_response": {
+        "value": 0.0,
+        "uncertainty": 0.00025,
+        "target": {
+          "kind": "anisotropy_response",
+          "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "metric": "total_energy_ev"
+        },
+        "unit": "eV/cell",
+        "uncertainty_interpretation": "Subjective symmetric radius; no calibrated coverage probability."
+      },
+      "F_response": {
+        "value": 0.0,
+        "uncertainty": 0.00025,
+        "target": {
+          "kind": "anisotropy_response",
+          "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "metric": "free_energy_ev"
+        },
+        "unit": "eV/cell",
+        "uncertainty_interpretation": "Subjective symmetric radius; no calibrated coverage probability."
+      }
+    }
+  },
+  "hypothesis_statement": "At the fixed 12x12x12 comparator and unchanged numerical settings, either prescribed axial strain of magnitude 3/800 will retain a weak anisotropy response: both (E_x-E_z) and (F_x-F_z) changes are expected to remain within 0.00025 eV/cell of zero. With no measured strain derivative, the point forecast is zero for all four responses and no resolved response sign is asserted.",
+  "scientific_rationale": [
+    "The verified baseline has E_x-E_z=0.002405 eV/cell and F_x-F_z=0.002542 eV/cell, accepted SOC stages, equal x/y anisotropies, and closely matched x/z moment magnitudes. These observations support a locally continuous magnetic branch as a working hypothesis, not a demonstrated strained result.",
+    "The permitted baseline anisotropy values change from 0.001311/0.001285 eV/cell on 6x6x6 to 0.002405/0.002542 eV/cell on 12x12x12 for E/F. This numerical sensitivity cautions against assigning a reliable response direction from a single geometry. It is not used as a statistical estimate of matched-response error.",
+    "In the verified 12x12x12 scalar inspection the axial x-minus-z stress difference is 0.000720 eV/angstrom^3. The parent cell volume is 2.73*2.73*3.79=28.246491 angstrom^3. Multiplying their absolute product by 3/800 gives a provisional strain-energy scale of about 0.0000763 eV/cell. This is only a scale check: it does not validate a strain derivative, a stress-sign convention, the entropy derivative, or finite-strain linearity.",
+    "I choose zero-centered forecasts because one baseline geometry cannot identify the strained anisotropy derivative or justify a reliable signed prediction. The symmetric 0.00025 eV/cell radius is a subjective working range of a few times the provisional scale, not a calibrated confidence interval or a guaranteed bound. E and F share a center because no strain-dependent entropy information is available; equal predictions do not assert equal measured responses."
+  ],
+  "scientific_tool_call_count": 10,
+  "actual_scientific_tool_call_count": 10,
+  "elapsed_seconds": 202.44382166862488,
+  "model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "candidate_source_sha256": {
+    "minus": "89d05c4a121fd97ebfa53e12389f2f5b724d9e9c6eccd9b45b68c47ed2ccdc7b",
+    "plus": "c0dc783dfd451b0630045dd6271a554994944d92fd86108ed59974d649daeb7d"
+  },
+  "comparator_mesh": [
+    12,
+    12,
+    12
+  ],
+  "resolution_ev_cell": 5e-05,
+  "receipts": [
+    "calls/01_inspect_baseline",
+    "calls/02_author_minus",
+    "calls/03_author_plus",
+    "calls/04_record_hypothesis",
+    "calls/05_propose_minus",
+    "calls/06_propose_plus",
+    "calls/07_predict_minus_E",
+    "calls/08_predict_minus_F",
+    "calls/09_predict_plus_E",
+    "calls/10_predict_plus_F"
+  ],
+  "scope_limitations": [
+    "Only a finite two-intervention forecast, not an identified magnetoelastic derivative or evidence of general scientific advantage.",
+    "The predictions concern [(E_x-E_z)_strained-(E_x-E_z)_baseline] and the corresponding F quantity, not absolute anisotropy or total strain energy.",
+    "One baseline geometry cannot establish strain linearity, response sign, entropy derivative, or absence of branch changes.",
+    "Uncertainty radii are subjective and have no assigned coverage probability.",
+    "No heldout computation, outcome ingestion, outcome revision, solver, GPU, build, network, external model API, retry, extension, or subagent was used.",
+    "No sibling-arm evidence or previous experiment outcomes were accessed.",
+    "Scalar information purity is compromised by the supplied baseline file exposure described below; it must not be presented as a clean information-boundary control."
+  ],
+  "staging_exposure": {
+    "supplied_file": "baseline-scalar-data.json",
+    "full_file_loaded_by_local_reader": true,
+    "broad_print_was_truncated": true,
+    "visible_extra_observation_fields": [
+      "fermi_energy_ev",
+      "soc_energy_ev",
+      "soc_energy_representation",
+      "atom_net_charges_e",
+      "spin_degenerate",
+      "eigenvalues.fermi_ev",
+      "eigenvalues.nbands",
+      "eigenvalues.nspin",
+      "eigenvalues.nk",
+      "eigenvalues.values_ev (partial visible arrays)",
+      "converged",
+      "completed",
+      "geometry.cell_bohr",
+      "geometry.atomic_numbers",
+      "geometry.positions_bohr"
+    ],
+    "use_of_extra_fields_for_forecast": "No extra electronic fields were used to choose the forecast. Parent geometry supplied volume. Final rationale uses only scalar-profile inspection and permitted anisotropy values.",
+    "earlier_reasoning_before_audit": "The initial reasoning also noted the k6/k12 axial differential-stress sign reversal from the supplied file; stress is a STANDARD_OBSERVATIONS field. That comparison is not used in the final scientific rationale.",
+    "post_audit_action": "Did not reread baseline-scalar-data.json; preserved the original file and continued with verified scalar inspection, allowed anisotropy values, and parent geometry.",
+    "status": "Exposure disclosed; no claim of clean scalar-only blinding."
+  }
+}

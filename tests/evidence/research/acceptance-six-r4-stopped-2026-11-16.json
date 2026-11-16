@@ -1,0 +1,288 @@
+{
+  "recorded_at": "2026-11-16T20:23:34.837982+00:00",
+  "all_owned_apps_authoritatively_stopped": true,
+  "apps": {
+    "ap-dtocyT3LdAV46PcwKBp8l4": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-dtocyT3LdAV46PcwKBp8l4",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 10:04:30-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 10:05:51-06:00",
+        "stopped_by": "will-bryan421"
+      },
+      "functions": {
+        "build_candidate": {
+          "id": "fu-i4b7eoFcSPFf2jRDiGbniB",
+          "summary": {}
+        }
+      },
+      "servers": {}
+    },
+    "ap-MTrMDpLSxSk2YL2bpQfKii": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-MTrMDpLSxSk2YL2bpQfKii",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 10:38:07-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 10:39:13-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "build_candidate": {
+          "id": "fu-fOi4o0wlODfsJN74vTzQB3",
+          "summary": {}
+        }
+      },
+      "servers": {}
+    },
+    "ap-8xkt2QwlHN9AGD6ygr9oou": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-8xkt2QwlHN9AGD6ygr9oou",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 10:42:34-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 10:43:21-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-fgyI2RzmvJoiUVO0Tm60II",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "ap-u3oL6R45MBftzHIMHUjaN3": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-u3oL6R45MBftzHIMHUjaN3",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 13:41:20-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 13:43:12-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "build_candidate": {
+          "id": "fu-u7TvnZLtiwOEmoIOyiIn8u",
+          "summary": {}
+        }
+      },
+      "servers": {}
+    },
+    "ap-WWrPwxltKDiCiMviH7FXE7": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-WWrPwxltKDiCiMviH7FXE7",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 13:55:41-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 13:56:05-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "inspect_saved": {
+          "id": "fu-z2wuyzr8fWmVWelTZmwgvV",
+          "summary": {}
+        }
+      },
+      "servers": {}
+    },
+    "ap-KcrgjBIPBUbP08Dv8zINaj": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-KcrgjBIPBUbP08Dv8zINaj",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 13:56:44-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 13:58:17-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-iNnBFr7WITsUgjmVl4je8E",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "ap-j4kvPB3mNVAD03Ty83pGVd": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-j4kvPB3mNVAD03Ty83pGVd",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 13:59:43-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 14:05:18-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-gUTxnCUE1JRw7apARGzqYo",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "ap-tDeboIGeypbVlNgGcjrpji": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-tDeboIGeypbVlNgGcjrpji",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 14:12:52-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 14:14:10-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-7uDwdzyB2oX8qU8tCTN0qj",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "ap-5si0VBrAzZ1oScFUemRAt4": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-5si0VBrAzZ1oScFUemRAt4",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 14:14:59-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 14:16:55-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-cbOwbzOVmBnC4yaznJCKly",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "ap-7yjMpUazBoDqXHHfUKiGix": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-7yjMpUazBoDqXHHfUKiGix",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 14:18:08-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 14:19:23-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-qntN5uAatwbJLuRn4FsDrG",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "ap-BGBA74zQCoPbFe7NQUdJTB": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-BGBA74zQCoPbFe7NQUdJTB",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 14:20:34-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 14:22:26-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-muCmFL5Ala1pw5AtGA66K7",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    }
+  },
+  "account_containers": [],
+  "follow_on_queued": false
+}
