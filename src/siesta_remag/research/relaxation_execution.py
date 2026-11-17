@@ -5,6 +5,7 @@ launch work. A completed negative magnetic screen is a usable observation,
 not a claim of stability or synthesis feasibility.
 """
 from pathlib import Path
+import math
 import re
 from tempfile import TemporaryDirectory
 
@@ -18,6 +19,39 @@ from ..discovery.inputs import axes, pseudos_for, prepare_case, starting_moments
 from ..discovery.pipeline import source_identity, verify_bundle
 from ..discovery.review import branch_check, directional_result, evaluated_structure, native_review
 from .preflight import check_execution_hold, check_mesh_capacity, validate_runtime, preflight_input_audits
+
+
+def verify_native_reproduction(saved, replayed, settings):
+    """Compare the derived axis angle in cosine space; keep all gates exact.
+
+    Near alignment, acos magnifies one-ULP dot-product differences. Comparing
+    degrees at a fixed relative tolerance would therefore be ill-conditioned.
+    Only this derived angle permits eight binary64 epsilons in cosine space;
+    a threshold crossing, changed acceptance/error list or other field fails.
+    Original native results, hashes and measured angle are retained verbatim.
+    """
+    key = 'axis_deviation_deg'
+    if any(k not in saved or saved[k] != v for k, v in replayed.items() if k != key):
+        raise ValueError('Saved native review does not reproduce')
+    if key not in saved:
+        raise ValueError('Saved native review has no axis deviation')
+    a, b = saved[key], replayed[key]
+    if a is None or b is None:
+        if a is not b: raise ValueError('Saved native axis presence differs')
+        return dict(exact=True, axis_cosine_delta=None, axis_cosine_roundoff_bound=None,
+                    native_thresholds_unchanged=True)
+    if any(type(x) not in (int, float) or not math.isfinite(x) or not 0 <= x <= 90 for x in (a, b)):
+        raise ValueError('Invalid saved native axis deviation')
+    for row in (saved, replayed):
+        if ((row[key] > settings.axis_tolerance_deg) !=
+                ('Final moment left the requested axis' in row['errors'])):
+            raise ValueError('Saved native axis decision contradicts its metric')
+    delta = abs(math.cos(math.radians(a)) - math.cos(math.radians(b)))
+    bound = float(8 * np.finfo(float).eps)
+    if delta > bound:
+        raise ValueError('Saved native axis exceeds dot-product roundoff')
+    return dict(exact=a == b, axis_cosine_delta=delta, axis_cosine_roundoff_bound=bound,
+                native_thresholds_unchanged=True)
 
 
 def verify_branch_reproduction(saved, replayed, current, reference, settings):
@@ -172,7 +206,7 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
     ordered = ['dft-relax', 'soc-z', 'soc-x', 'soc-y']
     if names != ordered[:len(names)] or not names:
         raise ValueError('Unexpected discovery stage sequence')
-    observations, rows, input_reproduction, branch_reproduction = {}, {}, {}, {}
+    observations, rows, input_reproduction, branch_reproduction, native_reproduction = {}, {}, {}, {}, {}
     relaxed = None
     for saved in report['stages']:
         name = saved['stage']; folder = report_path.parent/name
@@ -192,8 +226,7 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
             from .input_reproduction import verify_prepared_input
             input_reproduction[name] = verify_prepared_input(expected, folder)
         review = native_review(folder, result, settings, relaxation=name == 'dft-relax', axis=axis)
-        if any(saved.get(k) != v for k, v in review.items()):
-            raise ValueError('Saved native review does not reproduce')
+        native_reproduction[name] = verify_native_reproduction(saved, review, settings)
         observations[name] = result['observables']
         if not review['accepted']:
             if name != names[-1]: raise ValueError('Execution continued after native failure')
@@ -229,5 +262,6 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
         source_binding=binding, feedback=feedback, physical_stability_qualified=False,
         native_wall_seconds=report.get('whole_pipeline_dft_seconds'), remote_timing=top.get('timing'),
         verification=dict(native_reviews_reproduced=True, accepted_artifact_hashes_verified=True,
-                          input_reproduction=input_reproduction, branch_reproduction=branch_reproduction),
+                          input_reproduction=input_reproduction, branch_reproduction=branch_reproduction,
+                          native_reproduction=native_reproduction),
         runtime_verification=top['runtime_verification'])

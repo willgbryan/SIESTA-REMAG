@@ -1,0 +1,649 @@
+{
+  "format": "GPAC-REMAG-THREE-CASE-FEEDBACK/1",
+  "recorded_at": "2026-11-17T18:03:09.495076+00:00",
+  "status": "finite_demonstration_complete_with_operator_recoveries",
+  "cases": [
+    {
+      "iteration": 1,
+      "label": "fcc Ni",
+      "source_sha256": "97ab01f3a57f96b64484eb022e51767928fcc31e911ee65cd39f0319c0472e92",
+      "export_sha256": "b613c6c12db0572877f11de9b5d3d31079bbdcacb8f66fb96dd5674ab6bb8846",
+      "observations": {
+        "relaxation": {
+          "volume_a3": 41.66960198336292,
+          "Js_T": 0.7989388859114136,
+          "max_force_ev_ang": 0.02164409547659592,
+          "max_stress_gpa": 0.37923520614336004
+        },
+        "E_x_minus_z_ev": -5.999998393235728e-06,
+        "F_x_minus_z_ev": -3.999997716164216e-06
+      },
+      "predictions": [
+        {
+          "experiment_id": "db7a222e937c454bae7a636a14d8b84e",
+          "observable": "relaxation.Js_T",
+          "value": 0.6,
+          "unit": "T",
+          "uncertainty": 0.3,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "db7a222e937c454bae7a636a14d8b84e",
+          "observable": "relaxation.volume_a3",
+          "value": 44,
+          "unit": "angstrom^3",
+          "uncertainty": 5,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "db7a222e937c454bae7a636a14d8b84e",
+          "observable": "anisotropy.total_energy_ev",
+          "value": 0.0,
+          "unit": "eV/cell",
+          "uncertainty": 0.001,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "db7a222e937c454bae7a636a14d8b84e",
+          "observable": "anisotropy.free_energy_ev",
+          "value": 0.0,
+          "unit": "eV/cell",
+          "uncertainty": 0.001,
+          "interval_probability": 0.8
+        }
+      ],
+      "evaluation": {
+        "status": "evaluated",
+        "observables": {
+          "anisotropy.free_energy_ev": {
+            "status": "evaluated",
+            "error": -3.999997716164216e-06,
+            "absolute_error": 3.999997716164216e-06,
+            "unit": "eV/cell",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "anisotropy.total_energy_ev": {
+            "status": "evaluated",
+            "error": -5.999998393235728e-06,
+            "absolute_error": 5.999998393235728e-06,
+            "unit": "eV/cell",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "relaxation.Js_T": {
+            "status": "evaluated",
+            "error": 0.19893888591141362,
+            "absolute_error": 0.19893888591141362,
+            "unit": "T",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "relaxation.volume_a3": {
+            "status": "evaluated",
+            "error": -2.3303980166370835,
+            "absolute_error": 2.3303980166370835,
+            "unit": "angstrom^3",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          }
+        },
+        "mechanism_verified": false
+      },
+      "prospective_seal": {
+        "notebook_sha256": "2e7af174fd009d958aba0d480f2c324ac1a123f6895616dbb7abdd145464a450",
+        "candidate_sha256": "427e57377b4655b2a99932d7b2b808cf0533cfa1e4a1dce1cc16bbbe922d6e46",
+        "sealed_at": "2026-11-17T08:31:09.381284+00:00",
+        "predictions": 4,
+        "candidate_measurements_seen": false
+      },
+      "native_stage_count": 4,
+      "original_status": "held_review",
+      "original_error": {
+        "type": "ValueError",
+        "message": "Native input does not reproduce from the source-bound preparation"
+      },
+      "saved_review_recovered": true,
+      "native_pipeline_seconds": 47.475631684999996,
+      "request_through_recovered_result_seconds": 791.277849,
+      "submission_through_recovered_result_seconds": 790.216608,
+      "submission_target_60_to_300_seconds_met": false,
+      "automatic_full_cycle": false,
+      "mechanism_verified": false,
+      "allocation_stopped": true,
+      "files_sha256": {
+        "execution.json": "81b067a7d360faec914094c574bf64857d9d6ecae13587debede337e975b0c7f",
+        "review-recovery.json": "14e258015f064b24fb83c4f06a689352757e3f6578b3a47c7a3c589a91c223f1",
+        "collected/query/report.json": "8f5a6c2024b3cd7a3d720d9867959baae0f1f28e740bfafbf985ccce89ef95be",
+        "collected/archive-manifest.json": "c3201da656ce3ce6a126f9b5a15eb420a3697d1819033767f7d43717b19d5311",
+        "research-observation/report.json": "b74550a89415c9477ef1cf9b51a7a7aa94a00204a739ae073c041e6fd578e975"
+      },
+      "score_sha256": "daa14d6e8d665ae65fcef6fb097cdbd52bb280a752cdb386dbf3dfeb835c4104"
+    },
+    {
+      "iteration": 2,
+      "label": "hcp Co",
+      "source_sha256": "93daca3772e1d7629b7d16c1a3a20806f356397babb6ee2b41375d123e926329",
+      "export_sha256": "7d4da801c6bd637b8bf9295f22a7423edbfbe6924c827e5206e9892a007c9432",
+      "observations": {
+        "relaxation": {
+          "volume_a3": 21.34389277418607,
+          "Js_T": 1.6976393888851777,
+          "max_force_ev_ang": 0.004303389594261714,
+          "max_stress_gpa": 0.42714028710527996
+        },
+        "E_x_minus_z_ev": 0.0002229999990959186,
+        "F_x_minus_z_ev": 0.0001449999999749707
+      },
+      "predictions": [
+        {
+          "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+          "observable": "relaxation.Js_T",
+          "value": 1.8,
+          "unit": "T",
+          "uncertainty": 0.6,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+          "observable": "relaxation.volume_a3",
+          "value": 21.5,
+          "unit": "angstrom^3",
+          "uncertainty": 3.0,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+          "observable": "anisotropy.total_energy_ev",
+          "value": 6e-05,
+          "unit": "eV/cell",
+          "uncertainty": 0.001,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+          "observable": "anisotropy.free_energy_ev",
+          "value": 6e-05,
+          "unit": "eV/cell",
+          "uncertainty": 0.001,
+          "interval_probability": 0.8
+        }
+      ],
+      "evaluation": {
+        "status": "evaluated",
+        "observables": {
+          "anisotropy.free_energy_ev": {
+            "status": "evaluated",
+            "error": 8.499999997497071e-05,
+            "absolute_error": 8.499999997497071e-05,
+            "unit": "eV/cell",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "anisotropy.total_energy_ev": {
+            "status": "evaluated",
+            "error": 0.00016299999909591862,
+            "absolute_error": 0.00016299999909591862,
+            "unit": "eV/cell",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "relaxation.Js_T": {
+            "status": "evaluated",
+            "error": -0.10236061111482231,
+            "absolute_error": 0.10236061111482231,
+            "unit": "T",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "relaxation.volume_a3": {
+            "status": "evaluated",
+            "error": -0.15610722581392977,
+            "absolute_error": 0.15610722581392977,
+            "unit": "angstrom^3",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          }
+        },
+        "mechanism_verified": false
+      },
+      "prospective_seal": {
+        "notebook_sha256": "5e75cd2d4c6285a1c82a40f547fb36221103fcc90b2e5ce607bd33c804aca214",
+        "candidate_sha256": "aa6dc8f48fef4fd0039240a67a7a93bba52b104f0c5edf755dfc629d8771128e",
+        "sealed_at": "2026-11-17T17:08:52.204270+00:00",
+        "predictions": 4,
+        "candidate_measurements_seen": false
+      },
+      "native_stage_count": 4,
+      "original_status": "held_review",
+      "original_error": {
+        "type": "ValueError",
+        "message": "Saved magnetic branch does not reproduce"
+      },
+      "saved_review_recovered": true,
+      "native_pipeline_seconds": 57.841536273,
+      "request_through_recovered_result_seconds": 452.036822,
+      "submission_through_recovered_result_seconds": 445.814209,
+      "submission_target_60_to_300_seconds_met": false,
+      "automatic_full_cycle": false,
+      "mechanism_verified": false,
+      "allocation_stopped": true,
+      "files_sha256": {
+        "execution.json": "b406d869967de1db1d531696e0f7a4e4eb7d8c763b71e0dc802056aeed5418a3",
+        "review-recovery.json": "c2f3ab33d2bf520b043daaf47702956ba241ba6dbdf9811f5fc1957d94760fe3",
+        "collected/query/report.json": "af8920ef5d2013deacad2a4efe708a54411a5e8893b59c5b50c706baf53eff96",
+        "collected/archive-manifest.json": "c60eef0f2ebce3e26558de55d2afd7a0a0b390481a337daa52a65c7251f26b8d",
+        "research-observation/report.json": "2856a844f17d85a4bd643d31a9a26783a8ed4de0a730aa3549222b285f5a1eb7"
+      },
+      "score_sha256": "a794efd3c295134787477670459fdb10d5d2ed221d769249d49013a515d60342"
+    },
+    {
+      "iteration": 3,
+      "label": "fcc Co",
+      "source_sha256": "1c4a77552105afe38ed617c2dfc2389363dfea5a6077e190b0bab63010641b4e",
+      "export_sha256": "b682b0eb042dfc658ab00216a386513a1339e6a0ee461f0d62979204689af540",
+      "observations": {
+        "relaxation": {
+          "volume_a3": 43.324325629055245,
+          "Js_T": 1.8455697989633917,
+          "max_force_ev_ang": 0.025704619370844606,
+          "max_stress_gpa": 0.27413241981888
+        },
+        "E_x_minus_z_ev": 1.7000002117129043e-05,
+        "F_x_minus_z_ev": 1.599999814061448e-05
+      },
+      "predictions": [
+        {
+          "experiment_id": "83093002f79848b4ba63f58d13b0d0f9",
+          "observable": "relaxation.Js_T",
+          "value": 1.7,
+          "unit": "T",
+          "uncertainty": 0.6,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "83093002f79848b4ba63f58d13b0d0f9",
+          "observable": "relaxation.volume_a3",
+          "value": 42.7,
+          "unit": "angstrom^3",
+          "uncertainty": 5.0,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "83093002f79848b4ba63f58d13b0d0f9",
+          "observable": "anisotropy.total_energy_ev",
+          "value": 0.0,
+          "unit": "eV/cell",
+          "uncertainty": 0.001,
+          "interval_probability": 0.8
+        },
+        {
+          "experiment_id": "83093002f79848b4ba63f58d13b0d0f9",
+          "observable": "anisotropy.free_energy_ev",
+          "value": 0.0,
+          "unit": "eV/cell",
+          "uncertainty": 0.001,
+          "interval_probability": 0.8
+        }
+      ],
+      "evaluation": {
+        "status": "evaluated",
+        "observables": {
+          "anisotropy.free_energy_ev": {
+            "status": "evaluated",
+            "error": 1.599999814061448e-05,
+            "absolute_error": 1.599999814061448e-05,
+            "unit": "eV/cell",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "anisotropy.total_energy_ev": {
+            "status": "evaluated",
+            "error": 1.7000002117129043e-05,
+            "absolute_error": 1.7000002117129043e-05,
+            "unit": "eV/cell",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "relaxation.Js_T": {
+            "status": "evaluated",
+            "error": 0.14556979896339173,
+            "absolute_error": 0.14556979896339173,
+            "unit": "T",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          },
+          "relaxation.volume_a3": {
+            "status": "evaluated",
+            "error": 0.6243256290552424,
+            "absolute_error": 0.6243256290552424,
+            "unit": "angstrom^3",
+            "within_predicted_uncertainty": true,
+            "mechanism_verified": false
+          }
+        },
+        "mechanism_verified": false
+      },
+      "prospective_seal": {
+        "notebook_sha256": "8ff64594edf9296a4fd14323ddb353e21f669e786324108e436589d1d5e4c01a",
+        "candidate_sha256": "8cdc0a558b4a9e7cd5d63dbb53554d36df5ff88b5383a845b10b0630a093b476",
+        "sealed_at": "2026-11-17T17:48:50.098844+00:00",
+        "predictions": 4,
+        "candidate_measurements_seen": false
+      },
+      "native_stage_count": 4,
+      "original_status": "held_review",
+      "original_error": {
+        "type": "ValueError",
+        "message": "Saved native review does not reproduce"
+      },
+      "saved_review_recovered": true,
+      "native_pipeline_seconds": 39.496437961,
+      "request_through_recovered_result_seconds": 304.47767,
+      "submission_through_recovered_result_seconds": 298.253221,
+      "submission_target_60_to_300_seconds_met": true,
+      "automatic_full_cycle": false,
+      "mechanism_verified": false,
+      "allocation_stopped": true,
+      "files_sha256": {
+        "execution.json": "b83162dbf51f78200aa58b17ae884b60b00ab6a30123a257bd36ab61f80f0849",
+        "review-recovery.json": "b6b01f8278acca6ebcd3fbc98e24da52130b0f27087bd373d7bcaffe6c8cccac",
+        "collected/query/report.json": "4a7169b99c1e3529e3ee346e016acf70b34926f7f747df8386dda3411ff06d39",
+        "collected/archive-manifest.json": "31f949d936336487d5008cb6c5d01a78a8eee93af719b503f2a1b0560a76e39d",
+        "research-observation/report.json": "5b11c4b161d1cb3e97c2533036a548fbaba9699241be9196b11edd9427c7279c"
+      },
+      "score_sha256": "466ae84fa47ed3e098810261062e7dc064621c444094fc600d7cc7b11ac85857"
+    }
+  ],
+  "final_revision": {
+    "action": {
+      "tool": "record_analysis",
+      "args": {
+        "parent_id": "83093002f79848b4ba63f58d13b0d0f9",
+        "evidence": "scores/iteration-3.json",
+        "conclusion": "Iteration-3 score-bound revision: relaxed fcc Co Js_T=1.8455698 T, with observed-minus-predicted error +0.1455698 T; relaxed total four-atom volume=43.3243256 angstrom^3, with error +0.6243256 angstrom^3. These support the magnetic-screening and modest-volume-change expectations. E[x]-E[z]=+0.000017 eV/cell, with error +0.000017 eV/cell. Separately, F[x]-F[z]=+0.000016 eV/cell at 300 K electronic smearing, with error +0.000016 eV/cell. All four observations fall within their prospective subjective 80% intervals. Coverage across three cases with broad intervals and correlated observables does not establish calibration or physical accuracy; prediction intervals are not numerical error bounds.\n\nRevise the cubic-control hypothesis to compatibility with small directional splitting, not confirmation of exact degeneracy or a physical easy axis. Although the native screen labels the result axial, its transverse E splitting is approximately -0.000015 eV/cell, comparable in magnitude to E[x]-E[z]. No energy uncertainty bound is supplied, and precision and physical-anisotropy qualification remain false. Numerical splitting and small symmetry-breaking distortions remain competing explanations; the positive output alone does not resolve them or verify a mechanism.\n\nThe separately released iteration-3 geometry diagnostic reports nearly equal cell lengths, maximum relative length spread 0.0001228427, and nearly right angles. This supports approximately cubic cell shape, not certified cubic maximal symmetry: retention of the single authored P1 operation cannot establish that. Its SOC branch checks passed without robust site flips, and reported axis deviations are below 0.0013 degrees, offering evidence against gross branch or axis failures. However, its report hash differs from the scored report hash; same-report provenance remains unresolved. Treat these diagnostics as supplementary, not as a verified symmetry certificate for the scored artifact.\n\nThe scored relaxation maximum force=0.0257046 eV/angstrom and stress=0.2741324 GPa satisfy the declared DFT thresholds of 0.04 eV/angstrom and 0.5 GPa. This establishes local numerical acceptance only. Finite-perturbation, dynamical and thermodynamic stability, magnetic ground state and synthesizability remain unqualified.\n\nPreserve prior measured feedback: four-atom fcc Ni had relaxed Js_T=0.7989389 T and volume=41.669602 angstrom^3, with unresolved E[x]-E[z] approximately -0.000006 eV/cell and separately F[x]-F[z] approximately -0.000004 eV/cell. Two-atom hcp Co had Js_T=1.6976394 T and volume=21.3438928 angstrom^3, with provisional E[x]-E[z]=+0.000223 eV/cell and separately F[x]-F[z]=+0.000145 eV/cell. The smaller raw splitting for fcc Co is qualitatively compatible with the intended structural-family control. Unequal cell sizes, uncertified relaxed symmetry and unqualified energy precision prevent a reliable material ranking or causal structural-family attribution.\n\nRetain all original review failures: Ni, 'Native input does not reproduce from the source-bound preparation'; hcp Co, 'Saved magnetic branch does not reproduce'; fcc Co, 'Saved native review does not reproduce'. Each score reports four accepted native stages and successful saved-only review recovery. Preserve Ni's operator recovery and the later recoveries alongside these failures; recovery does not erase them or demonstrate unattended reproducibility.\n\nThree exact source-bound designs across Ni and Co have scored outcomes following four ordered prospective predictions each. This final revision closes the bounded demonstration without another design or calculation. It demonstrates the author-predict-measure-score-revise sequence with recovery limitations, not scientific qualification, calibrated response/sign/ranking, or research advantage."
+      },
+      "rationale": "Record the final score-bound revision, distinguish numerical acceptance from physical claims, preserve measured feedback and recovery failures, and end the three-case demonstration without follow-on execution."
+    },
+    "response": {
+      "ok": true,
+      "result": "f1c25864c11041d0b187266081dfe87a",
+      "format": "REMAG-DIRECT-TOOL-RESULT/1",
+      "request_sha256": "d9ffcd85e7dd3b19d1b3c6036b5223e36a14b88a76ebeec3789266cce95bef84",
+      "elapsed_seconds": 0.002915250137448311,
+      "finished_at": "2026-11-17T18:00:00.771382+00:00",
+      "receipt": "calls/r4-03-1-00"
+    },
+    "phase_sha256": "00e05b70c6b79e51527dc82b0f76a66805bcbc547c3974b7a19c3c85dd0b0054",
+    "wall_seconds": 109.59811762534082,
+    "model_process_stopped": true
+  },
+  "geometry_diagnostic": {
+    "format": "REMAG-RELEASED-GEOMETRY-DIAGNOSTIC/1",
+    "iteration": 3,
+    "source_sha256": "1c4a77552105afe38ed617c2dfc2389363dfea5a6077e190b0bab63010641b4e",
+    "report_sha256": "4a7169b99c1e3529e3ee346e016acf70b34926f7f747df8386dda3411ff06d39",
+    "cell_lengths_angstrom": [
+      3.511912550948586,
+      3.512343997149609,
+      3.512295722936742
+    ],
+    "inter_vector_angles_degrees": [
+      89.9992248468857,
+      90.00254737038004,
+      90.00071997413818
+    ],
+    "max_relative_length_spread": 0.00012284270696662455,
+    "fractional_positions": [
+      [
+        0.002618688,
+        0.0011157690000000002,
+        0.0005786569999999999
+      ],
+      [
+        0.002641215,
+        0.5010788449999999,
+        0.500679554
+      ],
+      [
+        0.502760826,
+        0.0010963919999999999,
+        0.5007221589999999
+      ],
+      [
+        0.502725725,
+        0.5010128,
+        0.0005971559999999999
+      ]
+    ],
+    "authored_hall": "P1",
+    "authored_operations_tested": 1,
+    "authored_operations_retained": 1,
+    "scope": "Numerical cell-shape diagnostics only. Authored P1 operation retention cannot certify cubic maximal symmetry. No new symmetry tolerance or scientific error bound is inferred.",
+    "branches": {
+      "dft-relax": null,
+      "soc-z": {
+        "passed": true,
+        "site_rms_mub": 0.0023372504219512876,
+        "net_fractional_change": 0.0013627828582506256,
+        "robust_site_flip": false
+      },
+      "soc-x": {
+        "passed": true,
+        "site_rms_mub": 7.07418750354977e-07,
+        "net_fractional_change": 3.8343050783275064e-11,
+        "robust_site_flip": false
+      },
+      "soc-y": {
+        "passed": true,
+        "site_rms_mub": 8.659090482934351e-07,
+        "net_fractional_change": 9.79879116733609e-11,
+        "robust_site_flip": false
+      }
+    },
+    "native_review": [
+      {
+        "stage": "dft-relax",
+        "accepted": true,
+        "axis_deviation_deg": null,
+        "max_force_ev_ang": 0.025704619370844606,
+        "max_stress_gpa": 0.27413241981888
+      },
+      {
+        "stage": "soc-z",
+        "accepted": true,
+        "axis_deviation_deg": 0.000587612154263165,
+        "max_force_ev_ang": 0.025754751289810585,
+        "max_stress_gpa": 0.36097039266624
+      },
+      {
+        "stage": "soc-x",
+        "accepted": true,
+        "axis_deviation_deg": 0.0012906471106288646,
+        "max_force_ev_ang": 0.02577541117033829,
+        "max_stress_gpa": 0.43130594631936
+      },
+      {
+        "stage": "soc-y",
+        "accepted": true,
+        "axis_deviation_deg": 0.0010583670282510356,
+        "max_force_ev_ang": 0.02577061545636813,
+        "max_stress_gpa": 0.44412335928576
+      }
+    ],
+    "saved_review_sha256": "d1f5ddc64648f194c9b4216dc76d8f2e141350aa22f96dba17290d0c4a01ddaf",
+    "solver_executed": false
+  },
+  "geometry_provenance_resolution": {
+    "status": "verified_same_native_calculation",
+    "recorded_at": "2026-11-17T18:03:09.495076+00:00",
+    "score_report_sha256": "5b11c4b161d1cb3e97c2533036a548fbaba9699241be9196b11edd9427c7279c",
+    "raw_native_report_sha256": "4a7169b99c1e3529e3ee346e016acf70b34926f7f747df8386dda3411ff06d39",
+    "link": "Imported report provenance.attempt_files[collected/query/report.json] and relaxation_feedback.report_sha256",
+    "geometry_diagnostic_sha256": "9edb22643ccd6b6bb5666d71a3f6ec7ac53b375573c4cf7a8d7d93e442bc6030",
+    "model_context_limitation": "The supplemental geometry record omitted the imported-to-native report link; Astra conservatively left that relation unresolved.",
+    "original_model_decision_unchanged": true,
+    "physical_symmetry_certificate": false
+  },
+  "review_fix": {
+    "metric": "axis_deviation_deg",
+    "comparison": "cosine-space difference <= 8 binary64 epsilons",
+    "observed_cosine_delta": 1.1102230246251565e-16,
+    "physical_thresholds_unchanged": true,
+    "original_native_values_unchanged": true,
+    "solver_rerun": false
+  },
+  "validation": {
+    "full": "988 passed, 4 skipped",
+    "focused": "108 passed",
+    "policy_driver": "6 passed",
+    "saved_all_three_case_review": "passed"
+  },
+  "allocation": {
+    "observed_at": "2026-11-17T18:02:54.579343+00:00",
+    "owned_apps": [
+      {
+        "description": "siesta-remag-single-gpu",
+        "app_id": "ap-Hd50LF1JTeblMEzDcxMMwL",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-17 02:32:55-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-17 02:33:33-06:00",
+          "stopped_by": null
+        },
+        "functions": {
+          "calculate": {
+            "id": "fu-mpikCMWbvqIpGTXnU2fMBS",
+            "summary": {
+              "gpu_config": [
+                {
+                  "count": 1,
+                  "gpu_type": "A100-80GB"
+                }
+              ]
+            }
+          }
+        },
+        "servers": {}
+      },
+      {
+        "description": "siesta-remag-single-gpu",
+        "app_id": "ap-JaXyrBQ1kfUOvQnwoemuUF",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-17 04:22:23-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-17 04:24:10-06:00",
+          "stopped_by": null
+        },
+        "functions": {
+          "calculate": {
+            "id": "fu-yLP8iDDgh3luIaV5meDX0z",
+            "summary": {
+              "gpu_config": [
+                {
+                  "count": 1,
+                  "gpu_type": "A100-80GB"
+                }
+              ]
+            }
+          }
+        },
+        "servers": {}
+      },
+      {
+        "description": "siesta-remag-single-gpu",
+        "app_id": "ap-NK15ybeom49HZMv78djXaG",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-17 11:25:46-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-17 11:27:37-06:00",
+          "stopped_by": null
+        },
+        "functions": {
+          "calculate": {
+            "id": "fu-gOG3opGPl5hSuAx0j5SYEN",
+            "summary": {
+              "gpu_config": [
+                {
+                  "count": 1,
+                  "gpu_type": "A100-80GB"
+                }
+              ]
+            }
+          }
+        },
+        "servers": {}
+      },
+      {
+        "description": "siesta-remag-single-gpu",
+        "app_id": "ap-9o5rNFZc7KGmQvPMzywG4s",
+        "lifecycle": {
+          "state": "stopped",
+          "created_at": "2026-11-17 11:51:24-06:00",
+          "created_by": "will-bryan421",
+          "deployed_at": null,
+          "deployed_by": null,
+          "version": null,
+          "stopped_at": "2026-11-17 11:52:49-06:00",
+          "stopped_by": null
+        },
+        "functions": {
+          "calculate": {
+            "id": "fu-OPcARKIa7F7ruB2WZEC9ST",
+            "summary": {
+              "gpu_config": [
+                {
+                  "count": 1,
+                  "gpu_type": "A100-80GB"
+                }
+              ]
+            }
+          }
+        },
+        "servers": {}
+      }
+    ],
+    "account_containers": []
+  },
+  "reservations": {
+    "general_material_ledger_cents": 1395,
+    "ledger_cap_cents": 1395,
+    "ledger_sha256": "bd6889745296574ebb1964026e9d20cd9c9413ca8fd9f0156c7c25a9c75e3eec",
+    "successful_Ni_separate_ledger_reservation_cents": 465,
+    "includes_original_failed_Ni": true,
+    "actual_billing_unknown": true,
+    "old_ledgers_unchanged": true
+  },
+  "acceptance": {
+    "three_sequential_sources_across_two_non_FePt_materials": true,
+    "prospective_predictions_scored": 12,
+    "completed_feedback_cycles_with_recovery": 3,
+    "unattended_full_cycles": 0,
+    "scientific_advantage_demonstrated": false,
+    "uncertainty_calibrated": false,
+    "transfer_mechanism_verified": false,
+    "physical_stability_qualified": false,
+    "full_spec_complete": false
+  },
+  "remaining": [
+    "Reusable source-bound Ouro hull ingestion and separate stability dimensions",
+    "Original paired scalar-versus-physics and simple-baseline empirical evaluation",
+    "Reliable unattended full-loop and exploratory-latency acceptance",
+    "Requirement-by-requirement final completion audit"
+  ],
+  "next_native_calculation_queued": false,
+  "old_convergence_campaign_closed": true,
+  "screenshot": "outputs/IDE-fcc-Co-relaxed-unit-cell-2026-11-17.png"
+}

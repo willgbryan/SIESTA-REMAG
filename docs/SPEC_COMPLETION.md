@@ -39,16 +39,19 @@ The owner accepted five targets for the remaining integrated build:
 Prescribed strains are electronic-response probes. A relaxed or physically
 supported constrained structure needs separate stability/synthesis assessment
 before candidate promotion; relaxation alone does not prove synthesizability.
-The initial integrated demonstration is planned as three sequential iterations
-spanning at least two non-FePt systems. The live general-material loop remains
-unfinished; the existing authored Fe₂B example is not a validated phase.
+The initial integrated demonstration now has three sequential iterations
+spanning Ni and Co, with explicit saved-data recovery in each cycle. Repeated
+unattended operation remains unproven; the authored Fe₂B example is not a
+validated phase.
 
 Current live checkpoint: Ni and Co relaxation and three magnetic stages passed
 on the explicitly admitted driver-610 runtime. Four prospective predictions per
 material were scored, and Astra revised both from the measured results. These
-are two feedback cycles with operator recovery, zero accepted unattended full
-cycles, and two measured non-FePt systems. Astra selected four-atom fcc Co as the
-third structural control; the three-iteration demonstration remains open.
+are three feedback cycles with operator recovery, zero accepted unattended full
+cycles, and two measured non-FePt systems. Astra selected, measured and revised
+four-atom fcc Co as the third structural control. The
+[three-case record](../tests/evidence/research/general-material-three-case-feedback-2026-11-17.json)
+closes this finite demonstration; the full original specification remains open.
 See the [measured checkpoint](../tests/evidence/research/general-material-Ni-feedback-recovery-2026-11-17.json).
 
 Two local review problems remain explicit in that record. Cross-platform
@@ -137,12 +140,32 @@ An append-only recovery preserved the failed receipt and all original bytes.
 There was no native rerun. The app is stopped. Native pipeline time was 57.84 s;
 request through usable recovery was 452.04 s, outside the 1–5 minute target.
 
-Astra's Co revision completed in one bounded call using existing Codex access.
+Astra's hcp Co revision completed in one bounded call using existing Codex access.
 It kept the axial signal provisional and proposed fcc Co to distinguish crystal
 family from composition, conditional on the final relaxed geometry and magnetic
 branches. The source-bound measured Ni/Co geometries can now be selected in the
 IDE, which displays one fitted unit cell. The full local suite passed 972 tests
 with four skipped; 92 review checks and five policy-driver checks passed.
+
+The third fcc Co case measured Js = 1.845570 T, volume = 43.324326 Å³ and
+E/F directional differences of 0.017/0.016 meV per cell. Its saved native review
+initially rejected an axis-angle difference of 3.44e-10 degrees, equal to one
+1.11e-16 difference in cosine space. The saved reviewer now compares that
+derived angle in cosine space while keeping other fields, error lists and
+physical threshold decisions exact. Recovery used only saved data. The full
+suite passed 988 tests with four skipped; 108 focused checks and six policy
+checks passed. All four material-run allocations, including the first failed
+Ni attempt, are authoritatively stopped; no following calculation is queued.
+
+The third usable result took 298.25 seconds from submission, or 304.48 seconds
+including pre-submission handling. This single recovered observation meets the
+submission-based target but does not establish a calibrated exploratory default.
+Astra's final revision retained all three failures and left the small directional
+splitting unresolved. A supplemental geometry diagnostic had shown the raw
+native report hash while the score named the imported report hash. An append-only
+operator review verified the existing imported-to-native provenance link; the
+model's original uncertainty and its input context remain unchanged. The nearly
+cubic metric and retained P1 operation do not certify maximal cubic symmetry.
 
 The viewport implementation and bounded browser checks are recorded in
 [the IDE evidence](../tests/evidence/research/ide-viewport-2026-11-17.json).
