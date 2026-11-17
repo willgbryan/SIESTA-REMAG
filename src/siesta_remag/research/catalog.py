@@ -105,6 +105,8 @@ def registered_dataset(root, *, include_sampling=True):
     manifest=load_catalog(root);families=[]
     for entry in manifest['structures']:
         export=verify_export(load(resolver.path(entry['structure'])))
+        from .material_scope import check_scope
+        check_scope(export,resolver.material_scope)
         if len(export['geometry']['site_ids'])>256:raise ValueError('Interactive structures are bounded to 256 sites')
         row=dict(strain=0,exact_strain='0',label=entry['label'],structure=export,structure_path=entry['structure'],
             coordination=coordination(export['geometry'],cutoff_angstrom=3.4),

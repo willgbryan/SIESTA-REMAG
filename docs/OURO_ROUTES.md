@@ -8,6 +8,52 @@ input/result bindings and the original upload-only failure. The generic adapter
 does not turn a successful action into a scientifically qualified observation.
 Each route still requires explicit admission and result interpretation.
 
+## Saved hull inspection
+
+`inspect_ouro_hull` makes a collected crystal-db/ehull screen available to the
+research agent without a network call. It verifies the request and input bytes,
+submission/action identities, organization, complete collection and every listed
+artifact. It validates the response against the captured route schema and checks
+the energy surface, input model, composition, finite eV/atom values and counts.
+
+```json
+{"tool":"inspect_ouro_hull","args":{
+  "attempt":"ouro/attempt-Ni",
+  "collection":"ouro/collected-Ni",
+  "structure":"prepared/Ni/structure.json",
+  "geometry":{"kind":"local_orb","bundle":"prepared/Ni/bundle"}
+},"rationale":"Inspect the saved hull screen for this locally relaxed geometry."}
+```
+
+Geometry is an explicit choice: `{"kind":"authored"}`, `local_orb` with a
+verified preparation `bundle`, or `native_relaxed` with `bundle` and accepted
+native `report`. The tool verifies the exact source against the original input
+and the submitted CIF against the selected geometry. Species/order must match;
+cell metrics and periodic fractional sites use an absolute `1e-8` tolerance.
+Cartesian rotation and periodic wrapping in CIF serialization are permitted.
+Multiple CIF structures, partial occupancies and provider-side relaxation are
+rejected. A matching source hash alone cannot transfer a hull screen between
+the authored, locally relaxed and native-relaxed cells.
+
+The result contains the provider's classification, energy above hull,
+decomposition, reference counts and effective request settings. It keeps
+mechanical/dynamical stability and synthesizability separate and unestablished.
+Provider weight and database-snapshot hashes are unknown; matching model names
+do not certify identical weights. The PBE option is explicitly labeled as
+mixing an Orb input energy with PBE reference energies. Neither a successful
+action nor a hull value proves physical stability or provider GPU release.
+The metadata quote remains separate from unknown billing.
+
+Both scalar and physics profiles can inspect the same source-bound scalar hull
+screen. Withheld sources and escaping nested paths remain rejected. The earlier
+restriction on arbitrary external-file **preparation** still applies. Raw
+actions, upload handles and signed URLs are not returned to the agent.
+
+The saved live Ni call reproduces `0.000004 eV/atom` for its **local Orb** cell;
+the authored and DFT-relaxed Ni geometry selections must reject that same CIF.
+This is an evidence-ingestion capability, not a new hull calculation or a
+calibrated thermodynamic acceptance gate.
+
 The [Ouro guide](https://ouro.foundation/guides/route-input-output-assets#file-inputs-that-dont-need-to-be-assets)
 describes temporary uploads: bytes still leave the machine, but no persistent
 input asset is created. Scratch uploads expire after seven days. Outputs can

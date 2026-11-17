@@ -138,6 +138,14 @@ def verified_observation(path):
 def metric_observation(report, stage, observable):
     """Metrics with distinct units; no missing/failed result is a numeric zero."""
     units = {'Js_T': 'T', 'volume_a3': 'angstrom^3', 'max_force_ev_ang': 'eV/angstrom', 'max_stress_gpa': 'GPa'}
+    if stage == 'relaxation' and observable == 'net_moment_per_atom':
+        value = None
+        if report['status'] == 'measured':
+            net = report['observations']['scalar']['total_moment_muB']
+            site_count = len(report['evaluated_geometry']['atomic_numbers'])
+            value = float(np.linalg.norm(net) / site_count)
+        return dict(observable=stage+'.'+observable, unit='μB/atom', value=value,
+                    status='measured' if value is not None else 'failed')
     if stage != 'relaxation' or observable not in units:
         raise ValueError('Select a measured relaxation metric')
     accepted = report['status'] == 'measured' and observable in report['relaxation_metrics']

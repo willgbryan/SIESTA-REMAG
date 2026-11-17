@@ -16,6 +16,8 @@ remain unchanged. This document does not itself authorize a launch.
 
 ## Current direction — 17 November
 
+The Fe–Co campaign uses a fresh notebook and catalog. Its composition scope requires both Fe and Co and allows up to eight sites. The current chat pilots the IDE. B2 FeCo and an ordered Fe₃Co trial passed local Orb relaxation, and the Fe₅Co₃ trial was validated and saved through the IDE. Native magnetization, hull screening and novelty review are pending.
+
 The saved discovery-observation bridge now connects controlled relaxation to
 research inspection, electronic-spectrum export, prospective prediction scores
 and evidence-bound notebook revisions. Exact sources and measured relaxed
@@ -120,6 +122,15 @@ qualification. The terminal action was collected in 25.00 seconds; provider
 hardware/allocation release and actual invoices are not exposed. The original
 upload-only failure and pre-submission account hold remain retained. See the
 [live hull record](../tests/evidence/research/ouro-ghost-Ni-hull-2026-11-17.json).
+The reusable `inspect_ouro_hull` tool now validates this saved transport/source/
+geometry chain and exposes the typed provider result to both research profiles.
+Authored, local Orb and native-relaxed geometry selections are explicit; a hull
+screen for one cannot silently qualify another. Mechanical, dynamical and
+synthesis stability remain separate untested dimensions. See
+[saved hull inspection](OURO_ROUTES.md#saved-hull-inspection).
+`inspect_calculation` also exposes the verified imported-to-native report hashes
+to resolve provenance across scores and relaxation feedback without changing
+the original reports, predictions or decisions.
 This is an extension of the original spec
 completion work, not a replacement for the clean paired-study and empirical
 acceptance requirements below.
@@ -179,7 +190,8 @@ shutdown and independent native/branch/source review. Explicit magnetic starts
 survive preparation; a completed low-moment screen is retained as a negative
 result. Live Ni and Co measurement, import, scoring and revisions now pass with
 the explicit recoveries above. Repeated unattended multi-material execution,
-broader stability coverage and route-specific reusable hull ingestion remain open.
+broader stability coverage, the clean paired scientific comparison and the final
+full-specification audit remain open.
 
 | Final deliverable (§16) | Current state |
 | --- | --- |

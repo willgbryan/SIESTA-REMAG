@@ -29,7 +29,7 @@ MEMORY = frozenset({'record_hypothesis', 'propose_experiment', 'record_predictio
     'record_analysis', 'retrieve_research_history', 'evaluate_hypothesis', 'evaluate_predictions'})
 INSPECTION = frozenset({'inspect_structure', 'inspect_calculation', 'inspect_electronic_structure',
     'projected_dos', 'compare_electronic_states', 'structural_operation',
-    'inspect_relaxation', 'calibrate_exploratory_response', 'inspect_scalar_data'})
+    'inspect_relaxation', 'calibrate_exploratory_response', 'inspect_scalar_data', 'inspect_ouro_hull'})
 DISABLED = frozenset({'run_prepared_query', 'prepare_relaxation'})
 
 

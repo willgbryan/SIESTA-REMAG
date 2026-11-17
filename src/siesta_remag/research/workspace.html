@@ -67,7 +67,7 @@ main:has(.source-editor:not([hidden])) aside{grid-column:3}
  .source-editor textarea{min-height:70px;flex-basis:70px}.editor-heading{margin-bottom:6px}.editor-help{margin-top:0}
 }
 </style>
-<header><h1>FePt</h1><small>GPAC × REMAG</small><div class="legend"><span><i class="dot"></i>Fe</span><span><i class="dot pt"></i>Pt</span></div><button id="refresh" title="Refresh calculations" aria-label="Refresh calculations">↻</button></header>
+<header><h1>Crystal research</h1><small>GPAC × REMAG</small><div class="legend"></div><button id="refresh" title="Refresh calculations" aria-label="Refresh calculations">↻</button></header>
 <nav class="workspace-tabs" aria-label="Workspace panels">
 <button id="pane-source" data-pane="source" aria-pressed="false" aria-controls="source-editor" hidden>Source</button>
 <button id="pane-canvas" data-pane="canvas" aria-pressed="true" aria-controls="structure-stage">Crystal</button>
@@ -82,7 +82,7 @@ main:has(.source-editor:not([hidden])) aside{grid-column:3}
 <details class="editor-help"><summary>Authoring notes</summary><p class="note">Source edits create an independent structure. Use parameter controls to retain an explicit parent mapping. Preparing inputs does not start a calculation.</p></details>
 </section>
 <section class="stage" id="structure-stage" aria-label="Interactive crystal structure">
-<div class="stage-label">UNIT CELL</div><div class="axis">P4/mmm</div>
+<div class="stage-label">UNIT CELL</div><div class="axis"></div>
 <canvas id="crystal" aria-label="Crystal structure. Drag to rotate. Select a site with the site controls." tabindex="0"></canvas>
 <div class="views"><button data-view="perspective" title="Perspective view">3D</button><button data-view="x" title="View along a">a</button><button data-view="y" title="View along b">b</button><button data-view="z" title="View along c">c</button><button id="reset" title="Reset view">↺</button></div><span class="stage-bottom">1 × 1 × 1 · UNIT CELL</span>
 </section>
@@ -145,7 +145,7 @@ main:has(.source-editor:not([hidden])) aside{grid-column:3}
 <div id="matrix-selection" hidden><div class="rule"></div><div class="kicker">Orbital coupling · eV</div><select id="matrix-k" class="calc" aria-label="Matrix k point"></select><div id="matrix-couplings"></div><div class="note" id="matrix-scope"></div><details><summary>Coupling convention</summary><p class="note">Symmetric Löwdin atom / l blocks · Frobenius norm. Basis-dependent coupling proxy; includes all Hamiltonian terms.</p></details></div>
 </section><p id="error" role="alert"></p>
 </aside>
-<section class="strain" aria-label="Structural control"><div><select id="family" class="control-select" aria-label="Structural control"><option value="axial">c strain</option></select><div class="note" id="control-hint" style="margin-top:6px">Fixed a, b</div></div><div><input id="strain" aria-label="Control scale" type="range" min="0" max="8" value="4" step="1"><div class="ticks" id="ticks"></div></div><output id="strain-value">0%</output></section>
+<section class="strain" aria-label="Structural control"><div><select id="family" class="control-select" aria-label="Structural control"></select><div class="note" id="control-hint" style="margin-top:6px"></div></div><div><input id="strain" aria-label="Control scale" type="range" min="0" max="8" value="4" step="1"><div class="ticks" id="ticks"></div></div><output id="strain-value"></output></section>
 </main><footer class="foot"><span>EXACT AUTHORING · NUMERICAL OBSERVATIONS</span><span id="hash"></span></footer>
 <script>
 'use strict';

@@ -35,7 +35,16 @@ def test_prospective_prediction_native_import_score_and_revision(discovery, tmp_
     assert load(report)['structure']['geometry']['cell'][0][0] == 3
     assert observed['stages'][0]['stage'] == 'scalar' and observed['stages'][0]['native_stage'] == 'dft-relax'
     assert observed['relaxation_metrics']['Js_T'] > .4
+    from math import hypot
+    per_atom = calculation_observation(report, source, 'relaxation', 'net_moment_per_atom')
+    net = observed['observations']['scalar']['total_moment_muB']
+    assert per_atom['unit'] == 'μB/atom'
+    assert per_atom['value'] == pytest.approx(hypot(*net) / len(observed['evaluated_geometry']['site_ids']))
     assert observed['physical_stability_qualified'] is False
+    assert observed['report_lineage']==dict(inspected_report_sha256=sha256(report),
+        native_report_sha256=sha256(tmp_path/'attempt/collected/query/report.json'),
+        relaxation_feedback_report_sha256=sha256(tmp_path/'attempt/collected/query/report.json'),
+        relationship='research observation derived from the verified native relaxation report')
     outcome = tools.call('record_calculation_outcome', dict(experiment_id=experiment, report=str(report),
         stage='relaxation', observable='Js_T'))
     assert isinstance(outcome, str)

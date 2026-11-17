@@ -17,6 +17,8 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'inspect_ouro_hull': {'required':['attempt','collection','structure','geometry'], 'optional':[],
+        'description':'Verify a saved Ouro hull screen against its exact source, submitted CIF and explicit authored/local_orb/native_relaxed geometry. Returns provider eV/atom results, reference scope and separate untested stability dimensions; no upload or execution.'},
     'prepare_ouro_request': {'required':['route','inputs','output'], 'optional':['body','query','params','organization_id','team_id'],
         'description':'Offline preflight of a saved Ouro route contract and local temporary-file inputs. Retains bytes, schema/price and hashes; never uploads, reserves or executes. External output acceptance and provider allocation admission remain separate.'},
     'export_electronic_spectrum': {'required':['report','stage','native_directory','output'],
@@ -166,6 +168,8 @@ class ResearchTools:
         self.root = Path(workspace).resolve()
         if not self.root.is_dir():
             raise ValueError('Research workspace must already exist')
+        from .material_scope import load_scope
+        self.material_scope = load_scope(self.root)
         self.execution_config = self.path(str(execution_config)) if execution_config is not None else None
         if information_profile not in ('scalar','physics'):raise ValueError('Select scalar or physics information profile')
         self.information_profile=information_profile
@@ -225,6 +229,8 @@ class ResearchTools:
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
         if self.withheld_sources:
+            if name=='inspect_ouro_hull':
+                self._source_access(load(self.path(args['structure']))['source']['sha256'])
             if name=='prepare_ouro_request':
                 raise ValueError('External file preparation is unavailable in a withheld-source policy')
             if name=='import_relaxation_result':
@@ -236,6 +242,14 @@ class ResearchTools:
             if name=='inspect_relaxation':self._source_access(load(self.path(args['structure']))['source']['sha256'])
             if name=='analyze_response_series':
                 for endpoint in args['evidence'].values():self._source_access(load(self.path(endpoint['report']))['source_sha256'])
+        if name == 'inspect_ouro_hull':
+            from .hull import inspect_ouro_hull
+            geometry=args['geometry']
+            if not isinstance(geometry,dict) or set(geometry)-{'kind','bundle','report'}:
+                raise ValueError('Invalid hull geometry selection')
+            geometry={k:self.path(v) if k in ('bundle','report') else v for k,v in geometry.items()}
+            return inspect_ouro_hull(self.path(args['attempt']),self.path(args['collection']),
+                                     self.path(args['structure']),geometry)
         if name == 'prepare_ouro_request':
             from .ouro import prepare_request
             if not isinstance(args['inputs'],dict):raise ValueError('Expected named local file inputs')
@@ -263,6 +277,9 @@ class ResearchTools:
         if name == 'run_prepared_query':
             if self.execution_config is None:
                 raise ValueError('Native execution is not enabled by the operator')
+            from gpac.physical import verify_export
+            from .material_scope import check_scope
+            check_scope(verify_export(load(self.path(args['bundle'])/'structure.json')),self.material_scope)
             from .execution import execute_query
             if self.information_profile=='scalar' and load(self.path(args['bundle'])/'experiment.json').get('soc_matrix',False):
                 raise ValueError('Scalar profile cannot request SOC diagnostics')
@@ -290,7 +307,11 @@ class ResearchTools:
         if name == 'prepare_relaxation':
             from .relaxation import prepare_relaxation
             from ..discovery.config import Settings
-            return prepare_relaxation(load(self.path(args['structure'])),self.path(args['pseudos']),
+            from gpac.physical import verify_export
+            from .material_scope import check_scope
+            export=verify_export(load(self.path(args['structure'])))
+            check_scope(export,self.material_scope)
+            return prepare_relaxation(export,self.path(args['pseudos']),
                 self.path(args['weights']),self.path(args['output']),settings=Settings.from_dict(args.get('settings',{})),
                 orb_threads=args.get('orb_threads',4),initial_moments=args.get('initial_moments'))
         if name == 'inspect_relaxation':
@@ -317,7 +338,14 @@ class ResearchTools:
         if name == 'inspect_calculation':
             path = self.path(args['report']); report = _verified_report(path,self.path(args['collection']) if 'collection' in args else None)
             observations = self._observations(report['observations'])
+            lineage=dict(inspected_report_sha256=sha256(path), native_report_sha256=sha256(path),
+                         relationship='native query report')
+            if report.get('format')=='REMAG-DISCOVERY-OBSERVATION/1':
+                lineage.update(native_report_sha256=report['provenance']['attempt_files']['collected/query/report.json'],
+                    relationship='research observation derived from the verified native relaxation report',
+                    relaxation_feedback_report_sha256=(report.get('relaxation_feedback') or {}).get('report_sha256'))
             return dict(format='REMAG-CALCULATION-INSPECTION/1', report_sha256=sha256(path),
+                report_lineage=lineage,
                 status=report['status'], source_sha256=report['source_sha256'], request=report['request'],
                 executable_sha256=report['executable_sha256'], stages=report['stages'], observations=observations,
                 anisotropy=report.get('anisotropy'), angular_fit=report.get('angular_fit'),
@@ -353,6 +381,9 @@ class ResearchTools:
             from ..discovery.config import Settings
             options={k:v for k,v in args.items() if k not in ('structure','pseudos','output','settings')}
             output=self.path(args['output'])
+            from gpac.physical import verify_export
+            from .material_scope import check_scope
+            check_scope(verify_export(load(self.path(args['structure']))),self.material_scope)
             series=prepare_series(self.path(args['structure']),self.path(args['pseudos']),output,
                 settings=Settings.from_dict(args.get('settings',{})),**options)
             return dict(series=series,series_path=str(output.relative_to(self.root)),
@@ -379,7 +410,8 @@ class ResearchTools:
         if name == 'author_structure':
             from .authoring import author_candidate
             output=self.path(args['output'])
-            record=author_candidate(args['request'],output,structure=self.path(args['structure']) if 'structure' in args else None)
+            record=author_candidate(args['request'],output,structure=self.path(args['structure']) if 'structure' in args else None,
+                                    material_scope=self.material_scope)
             return dict(candidate=record,candidate_path=str((output/'candidate.json').relative_to(self.root)),
                         structure_path=str((output/'structure.json').relative_to(self.root)))
         if name == 'register_structure':
@@ -387,10 +419,14 @@ class ResearchTools:
             return register_structure(self.root,**args)
         if name == 'prepare_query':
             from ..discovery.config import Settings
+            from gpac.physical import verify_export
+            from .material_scope import check_scope
+            export=verify_export(load(self.path(args['structure'])))
+            check_scope(export,self.material_scope)
             options = {k:v for k,v in args.items() if k not in ('structure','pseudos','output','settings')}
             if 'candidate' in options:options['candidate']=self.path(options['candidate'])
             options['settings'] = Settings.from_dict(args.get('settings',{}))
-            return prepare_experiment(load(self.path(args['structure'])), self.path(args['pseudos']),
+            return prepare_experiment(export, self.path(args['pseudos']),
                                       self.path(args['output']), **options)
         notebook = Notebook(self.path('research-memory.sqlite'))
         try:

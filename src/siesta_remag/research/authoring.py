@@ -46,7 +46,7 @@ def inspect_structure(structure, *, candidate=None):
     return result
 
 
-def author_candidate(request, output, *, structure=None):
+def author_candidate(request, output, *, structure=None, material_scope=None):
     """Save one new exact candidate; no implicit canonicalization or calculation."""
     from gpac.physical import verify_export, export_geometry
     if not isinstance(request, dict) or request.get('op') not in AUTHOR_OPERATIONS:
@@ -70,6 +70,8 @@ def author_candidate(request, output, *, structure=None):
     program = _program(request, reply)
     export = export_geometry(program['program'], length_unit='angstrom')
     if export['source'] != program: raise ValueError('Worker program metadata differs from its exact source')
+    from .material_scope import check_scope
+    check_scope(export, material_scope)
     # All GPAC admission, static checks and physical export validation precede
     # file creation. The exclusive directory prevents overwriting an attempt.
     output.mkdir(parents=True, exist_ok=False)
@@ -125,6 +127,8 @@ def register_structure(root, structure, identifier, label, *, candidate=None):
         raise ValueError('A structure identifier and label of 1..100 characters are required')
     source = resolver.path(structure)
     inspected=inspect_structure(source, candidate=resolver.path(candidate) if candidate else None)
+    from .material_scope import check_scope
+    check_scope(inspected['structure'], resolver.material_scope)
     if len(inspected['structure']['geometry']['site_ids'])>256:
         raise ValueError('Interactive structures are bounded to 256 sites')
     with lock(root/'.workspace-catalog.lock'):
@@ -159,7 +163,7 @@ def save_workspace_candidate(root, payload):
             raise ValueError('Conflicting expected source hashes')
         request['expected_sha256']=payload['expected_source_sha256']
         identifier='candidate-'+uuid4().hex[:16];folder=root/'candidates'/identifier
-        record=author_candidate(request,folder,structure=source)
+        record=author_candidate(request,folder,structure=source,material_scope=resolver.material_scope)
         entry=dict(id=identifier,label=payload['label'],structure=str((folder/'structure.json').relative_to(root)),
             candidate=str((folder/'candidate.json').relative_to(root)))
         catalog['structures'].append(entry);save(root/'workspace.json',catalog)
@@ -191,6 +195,8 @@ def workspace_source(root, payload, *, save_source=False):
         if original['source']['sha256'] != payload['expected_source_sha256']:
             raise ValueError('Source changed; refresh before saving the draft')
         export = export_geometry(payload['program'], length_unit='angstrom')
+        from .material_scope import check_scope
+        check_scope(export, resolver.material_scope)
         if len(export['geometry']['site_ids']) > 256:
             raise ValueError('Interactive structures are bounded to 256 sites')
         result = dict(structure=export, coordination=coordination(export['geometry'], cutoff_angstrom=3.4),
@@ -199,7 +205,8 @@ def workspace_source(root, payload, *, save_source=False):
             if len(catalog['structures']) >= 64:
                 raise ValueError('Workspace structure limit reached')
             identifier = 'source-'+uuid4().hex[:16]; folder = root/'candidates'/identifier
-            record = author_candidate(dict(op='physical-export', program=payload['program'], length_unit='angstrom'), folder)
+            record = author_candidate(dict(op='physical-export', program=payload['program'], length_unit='angstrom'), folder,
+                                      material_scope=resolver.material_scope)
             entry = dict(id=identifier, label=payload['label'], structure=str((folder/'structure.json').relative_to(root)),
                          candidate=str((folder/'candidate.json').relative_to(root)))
             catalog['structures'].append(entry); save(root/'workspace.json', catalog)
