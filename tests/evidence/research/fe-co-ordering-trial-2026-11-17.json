@@ -1,0 +1,540 @@
+{
+  "format": "FECO-DIRECT-ORDERING-TRIAL/1",
+  "completed_at": "2026-11-17T19:19:47.425454+00:00",
+  "scope": "Two binary Fe5Co3 orders plus B2 FeCo and Fe3Co. Zero imposed strain. Local Orb geometries for Ghost hulls. Native variable-cell DFT geometries for electronic and magnetic screens. Common 300 Ry, 300 K, k-spacing policy; different cells sample different k meshes.",
+  "case_order": [
+    "b2",
+    "fe3co",
+    "fe5co3",
+    "order2"
+  ],
+  "cases": {
+    "b2": {
+      "source_sha256": "60f88128f1607b1d883495f5872d248e6fb62f4501e2480ed98573dac48d8fe5",
+      "report_sha256": "ad73fc2d68bd724abf62481d96a0fb256c93ecd93ffb5b26f33ed0fa242a924d",
+      "hull_inspection_sha256": "cedde8a708227a0cc8b4616335e10c6a7d87d7c382bfd5a57bfbd234cb184b90",
+      "runtime_sha256": "2acd36f0eb0f8baba360b4b6bdb0814731d43ae94041a41a0f3cc7baed41af28",
+      "kmesh": [
+        7,
+        7,
+        7
+      ],
+      "scalar_native_kpoints": 172,
+      "scalar_energy_eV_cell": -7569.834046,
+      "moment_muB_atom": 2.278155,
+      "Js_T": 2.391993379834975,
+      "sites": [
+        {
+          "site": 1,
+          "species": "Fe",
+          "Co_in_first_8": 8,
+          "aligned_moment_muB": 2.848161
+        },
+        {
+          "site": 2,
+          "species": "Co",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 1.708147
+        }
+      ],
+      "volume_A3": 22.198860913027847,
+      "native_EIG_weights_per_eV_atom": {
+        "0.125": [
+          0.05830903790087463,
+          0.7113702623906702
+        ],
+        "0.25": [
+          0.09912536443148691,
+          0.7113702623906696
+        ],
+        "0.5": [
+          0.17784256559766745,
+          0.8950437317784233
+        ]
+      },
+      "Fe_d_weights_per_eV_atom": [
+        0.02332835276799691,
+        0.4682676873766096
+      ],
+      "Fe_d_projection_native_max_residual_eV": [
+        0.0002773189503386675,
+        0.00027786359351011924
+      ],
+      "soc_x_minus_z_meV_atom": {
+        "total_energy_ev": -0.006000000212225132,
+        "free_energy_ev": 0.007999999979801942
+      },
+      "model_hull_meV_atom": 0,
+      "model_formation_eV_atom": -0.071063,
+      "provider_reference_count": 237,
+      "lowest_reference": {
+        "energy": -0.071063,
+        "material_id": "mp-2090"
+      },
+      "provider_storage_status": "exists",
+      "provider_group": "Pm-3m",
+      "app_id": "ap-jdvxI6tLFEnSCqzDijwOgC",
+      "stopped_at": "2026-11-17 12:59:22-06:00",
+      "original_review_status": "held_review",
+      "saved_recovery": true
+    },
+    "fe3co": {
+      "source_sha256": "8bb3dc504d2b34ac9d0e1bff5cdf661f5b99008d92a2d7f8212748e0d9fad0b1",
+      "report_sha256": "1425ee0b94a95b63fd81cb7449cc06520a09764bf412f1281a48df52e1b8a538",
+      "hull_inspection_sha256": "8b419b4198307b5e8d835163039320723a19180eee0eaf24da592d5246b80230",
+      "runtime_sha256": "2acd36f0eb0f8baba360b4b6bdb0814731d43ae94041a41a0f3cc7baed41af28",
+      "kmesh": [
+        7,
+        7,
+        4
+      ],
+      "scalar_native_kpoints": 102,
+      "scalar_energy_eV_cell": -14386.281091,
+      "moment_muB_atom": 2.3519875,
+      "Js_T": 2.447723230139463,
+      "sites": [
+        {
+          "site": 1,
+          "species": "Fe",
+          "Co_in_first_8": 4,
+          "aligned_moment_muB": 2.659963
+        },
+        {
+          "site": 2,
+          "species": "Fe",
+          "Co_in_first_8": 4,
+          "aligned_moment_muB": 2.659691
+        },
+        {
+          "site": 3,
+          "species": "Fe",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 2.417683
+        },
+        {
+          "site": 4,
+          "species": "Co",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 1.670614
+        }
+      ],
+      "volume_A3": 44.792993774281015,
+      "native_EIG_weights_per_eV_atom": {
+        "0.125": [
+          0.32653063836730206,
+          0.2040816089796326
+        ],
+        "0.25": [
+          0.3086734690816332,
+          0.21938773265309988
+        ],
+        "0.5": [
+          0.30484692066329655,
+          0.27551018112248854
+        ]
+      },
+      "Fe_d_weights_per_eV_atom": [
+        0.20276530978074672,
+        0.16557803250837905
+      ],
+      "Fe_d_projection_native_max_residual_eV": [
+        0.00025680760938939784,
+        0.00025727539593844995
+      ],
+      "soc_x_minus_z_meV_atom": {
+        "total_energy_ev": -0.053249999837134965,
+        "free_energy_ev": -0.04624999974112143
+      },
+      "model_hull_meV_atom": 3.3040000000000003,
+      "model_formation_eV_atom": -0.057118,
+      "provider_reference_count": 183,
+      "lowest_reference": {
+        "energy": -0.060422,
+        "material_id": "mp-601820"
+      },
+      "provider_storage_status": "exists",
+      "provider_group": "P4/mmm",
+      "app_id": "ap-TdU0EYo6G0NFFNeY7Q5IWL",
+      "stopped_at": "2026-11-17 13:04:29-06:00",
+      "original_review_status": "held_review",
+      "saved_recovery": true
+    },
+    "fe5co3": {
+      "source_sha256": "74639c21f4c165e39b7122c915bf536c81667ffaadcb220bf8b91762d8e05a4c",
+      "report_sha256": "8a7ec0a2569062c21ccae341ac41f78faf105824ca42e15ebb144bd700166d8e",
+      "hull_inspection_sha256": "9615a8b0928c098564be5854a95b16918f35ab9406bcbc6cd5fd65e80c120360",
+      "runtime_sha256": "2acd36f0eb0f8baba360b4b6bdb0814731d43ae94041a41a0f3cc7baed41af28",
+      "kmesh": [
+        4,
+        4,
+        7
+      ],
+      "scalar_native_kpoints": 60,
+      "scalar_energy_eV_cell": -29526.080611,
+      "moment_muB_atom": 2.36520375,
+      "Js_T": 2.4613172202423708,
+      "sites": [
+        {
+          "site": 1,
+          "species": "Fe",
+          "Co_in_first_8": 6,
+          "aligned_moment_muB": 2.831261
+        },
+        {
+          "site": 2,
+          "species": "Fe",
+          "Co_in_first_8": 6,
+          "aligned_moment_muB": 2.83102
+        },
+        {
+          "site": 3,
+          "species": "Fe",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 2.453486
+        },
+        {
+          "site": 4,
+          "species": "Fe",
+          "Co_in_first_8": 6,
+          "aligned_moment_muB": 2.830792
+        },
+        {
+          "site": 5,
+          "species": "Fe",
+          "Co_in_first_8": 6,
+          "aligned_moment_muB": 2.830517
+        },
+        {
+          "site": 6,
+          "species": "Co",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 1.713136
+        },
+        {
+          "site": 7,
+          "species": "Co",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 1.713144
+        },
+        {
+          "site": 8,
+          "species": "Co",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 1.718274
+        }
+      ],
+      "volume_A3": 89.59181904338423,
+      "native_EIG_weights_per_eV_atom": {
+        "0.125": [
+          0.0803571299999712,
+          0.10714292000014078
+        ],
+        "0.25": [
+          0.1116071550000272,
+          0.1651786350001424
+        ],
+        "0.5": [
+          0.19977681125005728,
+          0.2845982412500605
+        ]
+      },
+      "Fe_d_weights_per_eV_atom": [
+        0.04505705893339774,
+        0.10351691904659324
+      ],
+      "Fe_d_projection_native_max_residual_eV": [
+        0.0002905575150009554,
+        0.00029189336419221945
+      ],
+      "soc_x_minus_z_meV_atom": {
+        "total_energy_ev": 0.02949999998236308,
+        "free_energy_ev": 0.0021249998098937795
+      },
+      "model_hull_meV_atom": 0.328,
+      "model_formation_eV_atom": -0.071797,
+      "provider_reference_count": 173,
+      "lowest_reference": {
+        "energy": -0.072126,
+        "material_id": "ggen-9cec8d79-ab0a-404d-823d-281b9b08ef86"
+      },
+      "provider_storage_status": "exists",
+      "provider_group": "P4/mmm",
+      "app_id": "ap-GMNw4ZGvCyZayqfZi5s9fU",
+      "stopped_at": "2026-11-17 13:11:26-06:00",
+      "original_review_status": "measured",
+      "saved_recovery": false
+    },
+    "order2": {
+      "source_sha256": "809ddd89c3936c4ad8fe67cc5ea599c72e5312429033afcd30283aa6bd7809a9",
+      "report_sha256": "14596c054e750562f3d07682ef2736d70101651e6f34e9c9940c56c759db8a7b",
+      "hull_inspection_sha256": "00e0471bc32c6c8a6addc6a36ba087f2022f2cf2e98e7cc370bdfc425996c74f",
+      "runtime_sha256": "2acd36f0eb0f8baba360b4b6bdb0814731d43ae94041a41a0f3cc7baed41af28",
+      "kmesh": [
+        2,
+        7,
+        7
+      ],
+      "scalar_native_kpoints": 53,
+      "scalar_energy_eV_cell": -29526.041578,
+      "moment_muB_atom": 2.382365,
+      "Js_T": 2.4741611026599313,
+      "sites": [
+        {
+          "site": 1,
+          "species": "Fe",
+          "Co_in_first_8": 8,
+          "aligned_moment_muB": 2.897237
+        },
+        {
+          "site": 2,
+          "species": "Fe",
+          "Co_in_first_8": 4,
+          "aligned_moment_muB": 2.745295
+        },
+        {
+          "site": 3,
+          "species": "Fe",
+          "Co_in_first_8": 4,
+          "aligned_moment_muB": 2.720936
+        },
+        {
+          "site": 4,
+          "species": "Fe",
+          "Co_in_first_8": 4,
+          "aligned_moment_muB": 2.720684
+        },
+        {
+          "site": 5,
+          "species": "Fe",
+          "Co_in_first_8": 4,
+          "aligned_moment_muB": 2.745516
+        },
+        {
+          "site": 6,
+          "species": "Co",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 1.741087
+        },
+        {
+          "site": 7,
+          "species": "Co",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 1.741115
+        },
+        {
+          "site": 8,
+          "species": "Co",
+          "Co_in_first_8": 0,
+          "aligned_moment_muB": 1.747053
+        }
+      ],
+      "volume_A3": 89.77340772680037,
+      "native_EIG_weights_per_eV_atom": {
+        "0.125": [
+          0.02040816326530612,
+          0.23979591836734693
+        ],
+        "0.25": [
+          0.06122448979591836,
+          0.27551020408163274
+        ],
+        "0.5": [
+          0.1275510204081633,
+          0.3890306122448978
+        ]
+      },
+      "Fe_d_weights_per_eV_atom": [
+        0.02961962983144509,
+        0.19946666024009768
+      ],
+      "Fe_d_projection_native_max_residual_eV": [
+        0.0002650241123944852,
+        0.0002666135258095892
+      ],
+      "soc_x_minus_z_meV_atom": {
+        "total_energy_ev": 0.019249999695603037,
+        "free_energy_ev": 0.016125000001920853
+      },
+      "model_hull_meV_atom": 5.024,
+      "model_formation_eV_atom": -0.067102,
+      "provider_reference_count": 173,
+      "lowest_reference": {
+        "energy": -0.072126,
+        "material_id": "ggen-9cec8d79-ab0a-404d-823d-281b9b08ef86"
+      },
+      "provider_storage_status": "exists",
+      "provider_group": "P4/mmm",
+      "app_id": "ap-XiPfKFbXllw8QuX8OY0REx",
+      "stopped_at": "2026-11-17 13:17:31-06:00",
+      "original_review_status": "measured",
+      "saved_recovery": false
+    }
+  },
+  "frontier_prediction": {
+    "created_at": "2026-11-17T19:14:27.638217+00:00",
+    "experiment_id": "b8bc630444a64bb2a23ce0cba689c104",
+    "source_sha256": "809ddd89c3936c4ad8fe67cc5ea599c72e5312429033afcd30283aa6bd7809a9",
+    "inputs": {
+      "b2": {
+        "report_sha256": "ad73fc2d68bd724abf62481d96a0fb256c93ecd93ffb5b26f33ed0fa242a924d",
+        "projected_file_sha256": "44122815156b32365969605a328f9913d8b50ad2b834c33a87c1687a999e5b36",
+        "hull_file_sha256": "cedde8a708227a0cc8b4616335e10c6a7d87d7c382bfd5a57bfbd234cb184b90"
+      },
+      "fe3co": {
+        "report_sha256": "1425ee0b94a95b63fd81cb7449cc06520a09764bf412f1281a48df52e1b8a538",
+        "projected_file_sha256": "e92d14b148b12cc461da8693b1325765badb4c664fe4e4f86822d4eb1404b98a",
+        "hull_file_sha256": "8b419b4198307b5e8d835163039320723a19180eee0eaf24da592d5246b80230"
+      },
+      "fe5co3": {
+        "report_sha256": "8a7ec0a2569062c21ccae341ac41f78faf105824ca42e15ebb144bd700166d8e",
+        "projected_file_sha256": "99900fe51ede95335f10aa09c1ab66bee9ba03a75d32f8b30e88efd77e55b2e1",
+        "hull_file_sha256": "9615a8b0928c098564be5854a95b16918f35ab9406bcbc6cd5fd65e80c120360"
+      }
+    },
+    "intervention": "Redistribute 24 Fe\u2013Co nearest-neighbor bonds at fixed Fe5Co3 composition. Replace the Fe first-shell counts [0,6,6,6,6] with [4,4,4,4,8]; retain zero Co\u2013Co nearest-neighbor bonds.",
+    "assumptions": "Transfer site moments and Fe d projected weights at equal first-shell coordination from accepted baselines. Use parent volume per atom for Js. Uncertainties are working ranges.",
+    "point_moment_muB_atom": 2.329002875,
+    "point_Js_T": 2.423645270404924,
+    "point_min_Fe_muB": 2.659827,
+    "parent_Fe_d_channels": [
+      0.04505705893339774,
+      0.10351691904659324
+    ],
+    "predicted_Fe_d_channels": [
+      0.12388660591226083,
+      0.20237445507199736
+    ],
+    "window_half_width_eV": 0.25,
+    "directional_tests": {
+      "mean_moment": "decrease",
+      "weakest_Fe": "increase",
+      "Fe_d_channel_1": "increase"
+    },
+    "promotion_rule": "Advance as a joint improvement only if moment/atom rises and the Ghost model hull distance does not increase relative to the original Fe5Co3."
+  },
+  "frontier_notebook_score": {
+    "status": "evaluated",
+    "observables": {
+      "relaxation.Js_T": {
+        "status": "evaluated",
+        "error": 0.05051583225500744,
+        "absolute_error": 0.05051583225500744,
+        "unit": "T",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "relaxation.net_moment_per_atom": {
+        "status": "evaluated",
+        "error": 0.05336212500000004,
+        "absolute_error": 0.05336212500000004,
+        "unit": "\u03bcB/atom",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      }
+    },
+    "mechanism_verified": false
+  },
+  "Fe3Co_notebook_score": {
+    "status": "evaluated",
+    "observables": {
+      "relaxation.Js_T": {
+        "status": "evaluated",
+        "error": 0.1477232301394631,
+        "absolute_error": 0.1477232301394631,
+        "unit": "T",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "relaxation.net_moment_per_atom": {
+        "status": "evaluated",
+        "error": 0.001987499999999809,
+        "absolute_error": 0.001987499999999809,
+        "unit": "\u03bcB/atom",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      }
+    },
+    "mechanism_verified": false
+  },
+  "prospective_directional_tests_passed": {
+    "mean_moment": false,
+    "weakest_Fe": true,
+    "Fe_d_channel_1": false
+  },
+  "delta_new_minus_original": {
+    "moment_muB_atom": 0.017161250000000017,
+    "Js_T": 0.012843882417560515,
+    "minimum_Fe_muB": 0.26719800000000005,
+    "Fe_d_first_channel": -0.015437429101952647,
+    "model_hull_meV_atom": 4.696,
+    "scalar_native_energy_meV_atom": 4.8791250001158915
+  },
+  "decision": "retain original Fe5Co3 as the baseline",
+  "tag": "screening",
+  "novelty": "Distinct orderings in this trial by invariant nearest-neighbor counts. Known B2 control. The hull service reports composition competitors. Space group, storage status and hull distance do not establish structural novelty.",
+  "open_evidence": [
+    "Structure matching to external references, dynamical and mechanical stability, experimental synthesis and magnetic ground state.",
+    "Fine k sampling needed to establish small energy and spin-resolved spectral differences."
+  ],
+  "allocation_states": "All four owned applications individually verified stopped.",
+  "account_container_count_at_close": 0,
+  "total_modal_reserved_cents": 1860,
+  "actual_billed_cents": null,
+  "next_working_goal": {
+    "objective": "Search free-bulk binary Fe\u2013Co for an ordering that preserves the Fe5Co3 moment gain while lowering its model hull distance. Require structure-level comparison to known references before claiming novelty.",
+    "baseline": "Original Fe5Co3 is the near-hull baseline. Redistributed Fe5Co3 is the higher-moment comparator.",
+    "electronic_feedback": "First-shell transfer predicted the weakest Fe moment direction. It missed the sign of the bulk and channel-one Fe d changes. Resolve Fe d contributions in both spin channels and test longer-range coordination and relaxed Fe\u2013Co distances.",
+    "next_comparison": "First match reciprocal sampling of both saved Fe5Co3 orders in their parent bcc frame. Then prioritize alternative Fe/Co arrangements with no zero-Co Fe site, checking the Ghost hull and known structures before promoting any higher-moment candidate.",
+    "promotion": "Seek simultaneous improvement in net moment and hull distance relative to the near-hull baseline; retain explicit tradeoffs and test sensitivity before ranking small gains."
+  },
+  "matched_ordering_source_checks": {
+    "fe5co3": {
+      "program": "XCL-E/3-DRAFT/17\nTABLE a5ae833947bd8a610d8b5292eae47c6520867b63ca3c4c0035847fc582916932\nMEMBER 5ce5d65d01327ffbd41555f52257ba4d4dce805be35e650d2b8245653e5baa36\nCORE d5b7fa4d2d226624e5063c66ea19a526ec3d9a60109cee145c5de9126a5bda8d\nMIRROR identify\nINV 2 26:5 27:3\nHALL 1\nGRAM 20449/625 20449/625 20449/2500 0 0 0\nORBS 8\nORB 26 0 0 0 0\nORB 26 0 0 1/2 0\nORB 26 0 1/4 1/4 1/2\nORB 26 0 1/2 0 0\nORB 26 0 1/2 1/2 0\nORB 27 0 1/4 3/4 1/2\nORB 27 0 3/4 1/4 1/2\nORB 27 0 3/4 3/4 1/2\nEND\n",
+      "source_sha256": "74639c21f4c165e39b7122c915bf536c81667ffaadcb220bf8b91762d8e05a4c",
+      "candidate_key": "e75f96042d1771af900be08e77eefd1d0e0ecca2a11d9942c8cf623cbcf60804",
+      "bounded_identity_policy": "periodic-origin-proper-signed-axes/1",
+      "Fe_Co_neighbor_counts": [
+        0,
+        6,
+        6,
+        6,
+        6
+      ],
+      "Co_Co_neighbor_counts": [
+        0,
+        0,
+        0
+      ],
+      "authored_cutoff_A": 2.6
+    },
+    "order2": {
+      "program": "XCL-E/3-DRAFT/17\nTABLE a5ae833947bd8a610d8b5292eae47c6520867b63ca3c4c0035847fc582916932\nMEMBER 5ce5d65d01327ffbd41555f52257ba4d4dce805be35e650d2b8245653e5baa36\nCORE d5b7fa4d2d226624e5063c66ea19a526ec3d9a60109cee145c5de9126a5bda8d\nMIRROR identify\nINV 2 26:5 27:3\nHALL 1\nGRAM 81796/625 20449/2500 20449/2500 0 0 0\nORBS 8\nORB 26 0 1/8 1/2 1/2\nORB 26 0 3/8 1/2 1/2\nORB 26 0 1/2 0 0\nORB 26 0 3/4 0 0\nORB 26 0 7/8 1/2 1/2\nORB 27 0 0 0 0\nORB 27 0 1/4 0 0\nORB 27 0 5/8 1/2 1/2\nEND\n",
+      "source_sha256": "809ddd89c3936c4ad8fe67cc5ea599c72e5312429033afcd30283aa6bd7809a9",
+      "candidate_key": "53af3f412a5406d55ca06e8d50397f911117c673c0fff68830eaedc480288059",
+      "bounded_identity_policy": "periodic-origin-proper-signed-axes/1",
+      "Fe_Co_neighbor_counts": [
+        4,
+        4,
+        4,
+        4,
+        8
+      ],
+      "Co_Co_neighbor_counts": [
+        0,
+        0,
+        0
+      ],
+      "authored_cutoff_A": 2.6
+    }
+  },
+  "reference_context": [
+    {
+      "url": "https://doi.org/10.1103/PhysRevLett.93.067202",
+      "finding": "Reported ordered Fe\u2013Co structures beyond B2."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S0927025621006935",
+      "finding": "Experimental and computational work on L60 Fe3Co and other ordered compositions."
+    }
+  ]
+}
