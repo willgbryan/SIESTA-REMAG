@@ -65,3 +65,19 @@ def test_failed_branch_is_preserved_as_failed():
                   net_fractional_change=.001, robust_site_flip=False)
     assert check(failed, failed)['exact']
 
+
+
+def test_feco_net_change_replays_only_attainable_values():
+    import math
+    current = dict(atom_moments_muB=[[0., 0., 2.]], total_moment_muB=[.00205, 4.55175, .00043])
+    reference = dict(current, total_moment_muB=[.00017, -.00043, 4.55157])
+    local = dict(passed=True, robust_site_flip=False, site_rms_mub=.001,
+                 net_fractional_change=3.964751923995779e-5)
+    saved = dict(local, net_fractional_change=3.964751923976265e-5)
+    def verify(candidate, settings):
+        return verify_branch_reproduction(candidate, local, current, reference, settings)
+    assert not verify(saved, Settings())['exact']
+    with pytest.raises(ValueError, match='does not reproduce'):
+        verify(dict(saved, net_fractional_change=math.nextafter(saved['net_fractional_change'], 1)), Settings())
+    with pytest.raises(ValueError):
+        verify(saved, Settings(branch_net_fraction=local['net_fractional_change']))

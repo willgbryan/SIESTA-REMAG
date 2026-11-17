@@ -54,13 +54,31 @@ def verify_native_reproduction(saved, replayed, settings):
                 native_thresholds_unchanged=True)
 
 
+def _possible_net_changes(current, reference):
+    """Reproduce 3-vector length reductions from the recorded binary64 inputs."""
+    from itertools import permutations
+
+    def lengths(row):
+        vector = np.asarray(row.get('total_moment_muB', []), dtype=float)
+        if vector.shape != (3,) or not np.isfinite(vector).all():
+            raise ValueError('Saved magnetic branch needs finite net vectors')
+        x, y, z = map(float, vector)
+        candidates = {math.hypot(x, y, z), float(np.linalg.norm(vector))}
+        for a, b, c in permutations((x, y, z)):
+            candidates.add(math.sqrt((a*a + b*b) + c*c))
+        return candidates
+
+    return {abs(a-b)/b for a in lengths(current) for b in lengths(reference) if b > 1e-8}
+
+
 def verify_branch_reproduction(saved, replayed, current, reference, settings):
     """Allow binary64 projection roundoff, never a changed magnetic gate.
 
     The RMS subtracts order-one projected moments. BLAS/CPU differences can
     change that small residual at the input moments' precision, rather than at
     the residual's much smaller ULP. Keep the original bytes and compare only
-    this derived RMS within eight epsilons of the input moment scale. Both
+    the derived RMS within eight epsilons of the input moment scale. A differing
+    net fractional change must reproduce exactly from the saved 3-vectors. Both
     saved and replayed pass/fail decisions must satisfy the unchanged limits.
     """
     keys = {'passed', 'site_rms_mub', 'net_fractional_change', 'robust_site_flip'}
@@ -76,7 +94,13 @@ def verify_branch_reproduction(saved, replayed, current, reference, settings):
                   not result['robust_site_flip'])
         if result['passed'] != passed:
             raise ValueError('Saved magnetic branch decision contradicts its metrics')
-    exact = keys - {'site_rms_mub'}
+    net = 'net_fractional_change'
+    if saved[net] != replayed[net]:
+        values = _possible_net_changes(current, reference)
+        if (saved[net] not in values or replayed[net] not in values or
+                (saved[net] < settings.branch_net_fraction) != (replayed[net] < settings.branch_net_fraction)):
+            raise ValueError('Saved magnetic branch does not reproduce')
+    exact = {'passed', 'robust_site_flip'}
     if any(saved[k] != replayed[k] for k in exact):
         raise ValueError('Saved magnetic branch does not reproduce')
     moments = [np.asarray(row['atom_moments_muB'], dtype=float) for row in (current, reference)]
