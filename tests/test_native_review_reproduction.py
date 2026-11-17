@@ -6,7 +6,24 @@ import numpy as np
 import pytest
 
 from siesta_remag.discovery.config import Settings
-from siesta_remag.research.relaxation_execution import verify_native_reproduction
+from siesta_remag.research.relaxation_execution import _directional_screen_matches, verify_native_reproduction
+
+
+def test_directional_volume_roundoff_keeps_signs_decisions_and_schema_exact():
+    reference = dict(delta_E_MJ_m3=dict(x=-.06286963497721747, z=0.),
+                     delta_F_MJ_m3=dict(y=.18501637247229016, z=0.),
+                     Js_T=2.4535647495223483, signal='mixed_or_unresolved', precision_qualified=False)
+    recorded = deepcopy(reference)
+    recorded['delta_E_MJ_m3']['x'] = -.06286963497721752
+    recorded['delta_F_MJ_m3']['y'] = .18501637247229033
+    recorded['Js_T'] = 2.4535647495223505
+    assert _directional_screen_matches(recorded, reference)
+    for key, value in [('signal','axial'), ('precision_qualified',0), ('Js_T',float('nan')),
+                       ('Js_T',reference['Js_T']+9*math.ulp(reference['Js_T'])),
+                       ('delta_E_MJ_m3',dict(x=.06286963497721747,z=0.)),
+                       ('delta_F_MJ_m3',dict(y=.18501637247229016,z=1e-300)),
+                       ('delta_E_MJ_m3',dict(z=0.))]:
+        assert not _directional_screen_matches(recorded | {key:value}, reference)
 
 
 def review(angle):

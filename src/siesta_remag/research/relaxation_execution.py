@@ -21,6 +21,32 @@ from ..discovery.review import branch_check, directional_result, evaluated_struc
 from .preflight import check_execution_hold, check_mesh_capacity, validate_runtime, preflight_input_audits
 
 
+def _directional_screen_matches(saved, replayed):
+    """Allow eight binary64 ULPs only in the fields divided by cell volume."""
+    def same_metric(a, b):
+        if type(a) not in (int, float) or not math.isfinite(a) or not math.isfinite(b):
+            return False
+        if a == 0 or b == 0 or (a < 0) != (b < 0):
+            return a == b
+        return abs(a-b) <= 8 * math.ulp(b)
+
+    if not isinstance(saved, dict) or saved.keys() != replayed.keys():
+        return False
+    for key, expected in replayed.items():
+        value = saved[key]
+        if key in ('delta_E_MJ_m3', 'delta_F_MJ_m3'):
+            if not isinstance(value, dict) or value.keys() != expected.keys():
+                return False
+            if not all(same_metric(value[k], v) for k, v in expected.items()):
+                return False
+        elif key == 'Js_T':
+            if not same_metric(value, expected):
+                return False
+        elif type(value) is not type(expected) or value != expected:
+            return False
+    return True
+
+
 def verify_native_reproduction(saved, replayed, settings):
     """Compare the derived axis angle in cosine space; keep all gates exact.
 
@@ -276,7 +302,7 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
             if names != ['dft-relax'] or js >= settings.minimum_js_t or report['screen'] is not None:
                 raise ValueError('Low-moment screen does not reproduce')
         elif (names != ordered or js < settings.minimum_js_t or
-              report['screen'] != directional_result(rows, relaxed.get_volume()) or
+              not _directional_screen_matches(report['screen'], directional_result(rows, relaxed.get_volume())) or
               len({(tuple(s['native_grid']), s['native_kpoints']) for s in report['stages'][1:]}) != 1):
             raise ValueError('Directional screen does not reproduce')
     feedback = inspect_relaxation(load(attempt/'campaign/structure.json'), bundle, report_path) if healthy else None
