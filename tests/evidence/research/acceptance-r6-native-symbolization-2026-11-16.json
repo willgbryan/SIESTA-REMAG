@@ -1,0 +1,189 @@
+{
+  "format": "REMAG-SAVED-NATIVE-CRASH-DIAGNOSIS/1",
+  "status": "callsite_proved_cause_unresolved",
+  "executable_sha256": "afeabb67ad88ed8ab5735970b3e43008b800755c5ba28f2d2db66db02d2f9604",
+  "library_sha256": "8594a158fbacef1adb7a5a175ffad3f76ddd4f0c8cd1fce76e6b253d27956534",
+  "stderr_sha256": "43bc0965219e02806e82b474c9d47976564e5e6a8eed8d4cdebf223a69108067",
+  "executable_load_bias": "0x559d27887000",
+  "library_load_bias": "0x2b32159a6000",
+  "call_chain": [
+    {
+      "frame": 22,
+      "address": "0x559d278963f4",
+      "ELF_relative_pc": "0xf3f4",
+      "binary": "siesta",
+      "symbols": [
+        "_start"
+      ],
+      "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/siesta:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n000000000000f3d0 <_start>:\n    f3ef: ff 15 d3 6b 7b 00            \tcallq\t*8088531(%rip)          # 0x7c5fc8 <_GLOBAL_OFFSET_TABLE_+0xcb8>"
+    },
+    {
+      "frame": 19,
+      "address": "0x559d27896364",
+      "ELF_relative_pc": "0xf364",
+      "binary": "siesta",
+      "symbols": [
+        "main"
+      ],
+      "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/siesta:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n000000000000f1b0 <main>:\n    f360: e8 5b 65 00 00               \tcallq\t0x158c0 <__m_siesta_forces_MOD_siesta_forces>"
+    },
+    {
+      "frame": 18,
+      "address": "0x559d2789e9f4",
+      "ELF_relative_pc": "0x179f4",
+      "binary": "siesta",
+      "symbols": [
+        "__m_siesta_forces_MOD_siesta_forces"
+      ],
+      "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/siesta:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n00000000000158c0 <__m_siesta_forces_MOD_siesta_forces>:\n   179f0: e8 4b fb 04 00               \tcallq\t0x67540 <__m_remag_cycle_MOD_remag_cycle_run>"
+    },
+    {
+      "frame": 17,
+      "address": "0x559d278ef11e",
+      "ELF_relative_pc": "0x6811e",
+      "binary": "siesta",
+      "symbols": [
+        "__m_remag_cycle_MOD_remag_cycle_run"
+      ],
+      "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/siesta:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n0000000000067540 <__m_remag_cycle_MOD_remag_cycle_run>:\n   6811a: e8 f1 5a fa ff               \tcallq\t0xdc10 <.plt+0xbf0>"
+    },
+    {
+      "frame": 16,
+      "address": "0x2b3215a55ba7",
+      "ELF_relative_pc": "0xafba7",
+      "binary": "libremag_gpu.so",
+      "symbols": [
+        "remag_cycle_prepare"
+      ],
+      "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n00000000000ae890 <remag_cycle_prepare>:\n   afba3: e8 c8 67 f8 ff               \tcallq\t0x36370 <.plt.sec+0x20e0>"
+    },
+    {
+      "frame": 15,
+      "address": "0x2b3215a44061",
+      "ELF_relative_pc": "0x9e061",
+      "binary": "libremag_gpu.so",
+      "symbols": [
+        "_ZN5remag12ScfCyclePlanC1ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st",
+        "_ZN5remag12ScfCyclePlanC2ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st"
+      ],
+      "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n000000000009e020 <_ZN5remag12ScfCyclePlanC2ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st>:\n   9e05d: e8 3e 83 f9 ff               \tcallq\t0x363a0 <.plt.sec+0x2110>"
+    },
+    {
+      "frame": 14,
+      "address": "0x2b3215a4ba87",
+      "ELF_relative_pc": "0xa5a87",
+      "binary": "libremag_gpu.so",
+      "symbols": [
+        "_ZN5remag12ScfCyclePlan4ImplC1ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st",
+        "_ZN5remag12ScfCyclePlan4ImplC2ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st"
+      ],
+      "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n00000000000a3960 <_ZN5remag12ScfCyclePlan4ImplC2ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st>:\n   a5a83: e8 48 f7 f8 ff               \tcallq\t0x351d0 <.plt.sec+0xf40>"
+    },
+    {
+      "frame": 13,
+      "address": "0x2b3215a47a32",
+      "ELF_relative_pc": "0xa1a32",
+      "binary": "libremag_gpu.so",
+      "symbols": [
+        "_ZN5remag12ScfCyclePlan4Impl5buildEv"
+      ],
+      "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n00000000000a0b20 <_ZN5remag12ScfCyclePlan4Impl5buildEv>:\n   a1a2e: e8 ed 32 f9 ff               \tcallq\t0x34d20 <.plt.sec+0xa90>"
+    }
+  ],
+  "PLT_bindings": [
+    {
+      "binary": "siesta",
+      "callee": "remag_cycle_prepare",
+      "disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/siesta:\tfile format elf64-x86-64\n\nDisassembly of section .plt:\n\n000000000000d020 <.plt>:\n    dc10: ff 25 02 7d 7b 00            \tjmpq\t*8092930(%rip)          # 0x7c5918 <_GLOBAL_OFFSET_TABLE_+0x608>\n    dc16: 68 be 00 00 00               \tpushq\t$190\n    dc1b: e9 00 f4 ff ff               \tjmp\t0xd020 <.plt>",
+      "relocation": "00000000007c5918 R_X86_64_JUMP_SLOT       remag_cycle_prepare"
+    },
+    {
+      "binary": "libremag_gpu.so",
+      "callee": "cudaGraphInstantiate",
+      "disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/acceptance-six-r3/published-build/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .plt.sec:\n\n0000000000034290 <.plt.sec>:\n   34d20: f3 0f 1e fa                  \tendbr64\n   34d24: f2 ff 25 35 68 39 00         \trepne\t\tjmpq\t*3762229(%rip)  # 0x3cb560 <_GLOBAL_OFFSET_TABLE_+0x560>\n   34d2b: 0f 1f 44 00 00               \tnopl\t(%rax,%rax)",
+      "relocation": "00000000003cb560 R_X86_64_JUMP_SLOT       cudaGraphInstantiate"
+    }
+  ],
+  "archived_native_source_matches": {
+    "native/scf_cycle.cu": "ffff2fa5a8356407cc9c015431e9b9cb25d1dbf270dfd80b169d4bcd6d4e1cfe",
+    "native/scf_cycle_state.cpp": "6bc660d1c7a4eb4b784bde3b98cf00f8692707814b7cd86eae7f45d5190d582d",
+    "native/remag_cycle.F90.in": "2fe89a0621ea88ca9770baf4714c039958cdc32c4c46ce17f9f14b743ed6d423",
+    "native/block_jacobi.cu": "dd36de7c23f67f60301ebeef9dac791147635f4292e878e5cc5acf765684e4f5",
+    "native/scf_control.cu": "aad88e0a009355c305883d1332f3090c8235b83c60ee331b5362f502c6d8fede"
+  },
+  "successful_same_binary_runtime_controls": [
+    {
+      "case": "baseline-k12",
+      "returncode": 0,
+      "native_seconds": 9.90791441,
+      "graph_nodes": 120985,
+      "jobs": 1896,
+      "solver_lanes": 8,
+      "iterations": 19,
+      "files": {
+        "acceptance-six-r4/native/baseline-k12/scalar/result.json": "2b40e829f4565817bf1f203772375bbd0ffcb25df3a065ff50ec9d2ff0c7353d",
+        "acceptance-six-r4/native/baseline-k12/scalar/remag-device-scf.json": "1d00402f7710d0cd750ed36316f358960aecf9c5e0846942057debe1c64f1456",
+        "acceptance-six-r4/native/baseline-k12/scalar/input.fdf": "8d835db2a8c1c960c6791c278b8b0abcb6c985da65e5ed449c25940820022794"
+      }
+    },
+    {
+      "case": "minus-k12",
+      "returncode": 0,
+      "native_seconds": 10.417050393,
+      "graph_nodes": 120985,
+      "jobs": 1896,
+      "solver_lanes": 8,
+      "iterations": 20,
+      "files": {
+        "acceptance-six-r4/native/minus-k12/scalar/result.json": "90688e8723fc2fa72226e1302337c6b80bcc729c4f7a3c6838de2773291008bc",
+        "acceptance-six-r4/native/minus-k12/scalar/remag-device-scf.json": "b4b9b95ddbcd5ead88f8d2b8cbb48d8890fe0979edd3c1eb05853d1c3f7954a4",
+        "acceptance-six-r4/native/minus-k12/scalar/input.fdf": "993a3754f2e953c2973e6a6dcb2da9da94da796d1b8eed35e60028720f541112"
+      }
+    },
+    {
+      "case": "plus-k12",
+      "returncode": 0,
+      "native_seconds": 9.668481599,
+      "graph_nodes": 120985,
+      "jobs": 1896,
+      "solver_lanes": 8,
+      "iterations": 20,
+      "files": {
+        "acceptance-six-r4/native/plus-k12/scalar/result.json": "41fa44b5bc6cb49def196e6fe7d64ca7e1ac81d4dfd4b6c903dc440c788b922a",
+        "acceptance-six-r4/native/plus-k12/scalar/remag-device-scf.json": "c5653a436e142c5dbac0367ae0973cde77f96720f897f04c165c53445dba00d0",
+        "acceptance-six-r4/native/plus-k12/scalar/input.fdf": "0f0da25c06a01dcc253a9a6af6250376e4e8078820a0b4a91731c91b33c115ef"
+      }
+    }
+  ],
+  "known": {
+    "signal": "SIGSEGV",
+    "failing_API": "cudaGraphInstantiate",
+    "SCF_iterations": 0,
+    "SOC_stages": 0,
+    "wall_seconds": 4.9523744579999995,
+    "runtime_identical_to_successful_r4": true,
+    "failed_input_difference": "Only the axial lattice constant changes versus successful r4 minus-k12.",
+    "capacity_limit_is_not_a_diagnosis": true
+  },
+  "unresolved": [
+    "Faulting driver instruction has no saved module map or driver library.",
+    "No core dump or CUDA-driver version was retained.",
+    "A driver defect, earlier memory corruption and environment differences cannot be distinguished from this evidence.",
+    "A structurally equal successful graph does not prove the failed graph had identical runtime state."
+  ],
+  "repair": {
+    "native_crash_fixed": false,
+    "native_repair_locally_proved": false,
+    "implemented": "Exact affected binary pair held by execution preflight; historical records remain readable.",
+    "source_solver_changes": 0,
+    "automatic_retry": false
+  },
+  "operations": {
+    "native_executions": 0,
+    "GPU_launches": 0,
+    "cloud_builds": 0,
+    "model_inference_calls": 0,
+    "new_reservations_cents": 0
+  },
+  "scope": "Offline symbolization and incident containment only. Not a reproduced CUDA fault or a validated native repair."
+}

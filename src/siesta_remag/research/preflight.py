@@ -15,6 +15,24 @@ from ..corpus import sha256
 from ..discovery.common import load, digest
 
 
+def check_execution_hold(runtime):
+    """Do not spend on a native build with an unresolved execution failure.
+
+    This is an incident hold, not a capacity limit or a native crash repair.
+    Keep validate_runtime usable for read-only inspection of historical runs.
+    Remove a hold only with reviewed causal repair/validation evidence; changing
+    a mesh, graph setting or mount alias does not establish that repair.
+    """
+    if (runtime.get('environment', {}).get('REMAG_DEVICE_SCF') == '1'
+            and runtime.get('executable_sha256') ==
+                'afeabb67ad88ed8ab5735970b3e43008b800755c5ba28f2d2db66db02d2f9604'
+            and runtime.get('capabilities', {}).get('library_sha256') ==
+                '8594a158fbacef1adb7a5a175ffad3f76ddd4f0c8cd1fce76e6b253d27956534'):
+        raise ValueError('Native execution held: acceptance-r6 SIGSEGV inside '
+                         'cudaGraphInstantiate remains unresolved; no spending. '
+                         'Passing mesh capacity is not native execution validation.')
+
+
 def validate_device_capabilities(value):
     keys={'format','max_kpoints','max_spatial_orbitals','max_spinor_dimension'}
     if (not isinstance(value,dict) or set(value)!=keys
@@ -80,6 +98,7 @@ def build_runtime(executable, library, environment, threads=1):
 def verify_runtime_files(runtime):
     """Verify the uploaded manifest against actual files before native work."""
     c=validate_runtime(runtime)
+    check_execution_hold(runtime)
     if sha256(Path(runtime['executable']))!=runtime['executable_sha256']:
         raise ValueError('Executable checksum differs from capability binding')
     if c and (sha256(Path(c['library']))!=c['library_sha256'] or probe_library(c['library'])!=c['device_scf']):
@@ -129,6 +148,7 @@ def verify_prepared_mesh(bundle):
 def preflight_query(bundle, runtime):
     from .experiments import validate_soc_request
     bundle=Path(bundle);request=verify_prepared_mesh(bundle);c=validate_runtime(runtime)
+    check_execution_hold(runtime)
     validate_soc_request(request.get('soc_matrix',False),request.get('query'),runtime.get('environment',{}))
     result=dict(format='REMAG-QUERY-PREFLIGHT/1',request_sha256=sha256(bundle/'experiment.json'),
         runtime_sha256=digest(runtime),device_scf_enabled=runtime.get('environment',{}).get('REMAG_DEVICE_SCF')=='1',

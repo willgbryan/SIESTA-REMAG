@@ -137,6 +137,69 @@ def test_offline_cli_accepts_new_build_without_authorization_or_ledger_mutation(
     assert (tmp_path/'budget.json').read_bytes()==before
 
 
+def held_runtime(tmp_path,compiled):
+    runtime=pin_runtime(tmp_path,compiled)
+    # Incident identities, independent of the production hold implementation.
+    runtime['executable_sha256']='afeabb67ad88ed8ab5735970b3e43008b800755c5ba28f2d2db66db02d2f9604'
+    runtime['capabilities']['executable_sha256']=runtime['executable_sha256']
+    runtime['capabilities']['library_sha256']='8594a158fbacef1adb7a5a175ffad3f76ddd4f0c8cd1fce76e6b253d27956534'
+    save(tmp_path/'runtime.json',runtime)
+    config=load(tmp_path/'execution-config.json');config['runtime_sha256']=sha256(tmp_path/'runtime.json')
+    save(tmp_path/'execution-config.json',config)
+    return runtime
+
+
+@pytest.mark.parametrize('mesh',[6,12])
+def test_native_crash_hold_precedes_account_intent_and_reservation(prepared,tmp_path,compiled,mesh):
+    remesh(prepared,mesh);runtime=held_runtime(tmp_path,compiled)
+    # Capacity still passes, and historical metadata remains readable.
+    validate_runtime(runtime)
+    assert check_mesh_capacity({'kmesh':[mesh]*3},runtime['capabilities']['device_scf'])['mesh_capacity_passed']
+    before=(tmp_path/'budget.json').read_bytes();transport=SyntheticTransport()
+    with pytest.raises(ValueError,match='cudaGraphInstantiate remains unresolved; no spending'):
+        execute_query(tmp_path,'execution-config.json','bundle','attempt',transport=transport)
+    assert not transport.info_calls and not transport.calls and not transport.native
+    assert not (tmp_path/'.research-execution').exists() and not (tmp_path/'attempt').exists()
+    assert (tmp_path/'budget.json').read_bytes()==before
+
+
+def test_native_crash_hold_precedes_low_level_image_creation(prepared,tmp_path,compiled,monkeypatch):
+    held_runtime(tmp_path,compiled)
+    campaign=tmp_path/'campaign';campaign.mkdir();shutil.copytree(prepared,campaign/'query')
+    save(campaign/'execution.json',dict(experiments=['query'],timeout_seconds=120,hourly_reservation_usd=3,budget_usd=.1,budget_stage='queries'))
+    for k,v in dict(REMAG_RESEARCH_CAMPAIGN=campaign,REMAG_RESEARCH_RUNTIME=tmp_path/'runtime.json',REMAG_RESEARCH_IMAGE='im-fixture',REMAG_RESEARCH_BUDGET_LEDGER=tmp_path/'budget.json').items():monkeypatch.setenv(k,str(v))
+    monkeypatch.setitem(sys.modules,'modal',types.SimpleNamespace(is_local=lambda:True))
+    monkeypatch.setattr(sys,'path',list(sys.path))
+    before=(tmp_path/'budget.json').read_bytes()
+    with pytest.raises(ValueError,match='Native execution held'):
+        runpy.run_path(str(Path(__file__).resolve().parents[1]/'scripts/research_modal.py'))
+    assert (tmp_path/'budget.json').read_bytes()==before
+
+
+def test_native_crash_hold_cannot_be_evaded_by_graph_settings(prepared,tmp_path,compiled):
+    runtime=held_runtime(tmp_path,compiled)
+    runtime['environment'].update(REMAG_SCF_WARM_START='0',REMAG_SCF_SOLVER_LANES='1')
+    with pytest.raises(ValueError,match='Native execution held'):preflight_query(prepared,runtime)
+
+
+def test_native_crash_hold_precedes_worker_library_loading(prepared,tmp_path,compiled,monkeypatch):
+    import siesta_remag.research.preflight as preflight
+    runtime=held_runtime(tmp_path,compiled)
+    def unexpected(*args):raise AssertionError('Held runtime touched native files/library')
+    monkeypatch.setattr(preflight,'sha256',unexpected)
+    monkeypatch.setattr(preflight,'probe_library',unexpected)
+    with pytest.raises(ValueError,match='Native execution held'):verify_runtime_files(runtime)
+
+
+def test_native_crash_hold_does_not_relabel_unrelated_or_historical_paths(prepared,tmp_path,compiled):
+    runtime=pin_runtime(tmp_path,compiled)
+    assert preflight_query(prepared,runtime)['mesh_capacity_passed']
+    runtime=held_runtime(tmp_path,compiled);runtime['environment']['REMAG_DEVICE_SCF']='0'
+    result=preflight_query(prepared,runtime)
+    assert result['mesh_capacity_passed'] is None and not result['device_scf_enabled']
+    assert 'not numerical acceptance' in result['scope']
+
+
 @pytest.mark.parametrize('proof',['valid','missing','wrong_library'])
 def test_collected_build_proof_required_for_usable_result(prepared,tmp_path,compiled,monkeypatch,proof):
     import test_research_execution as fixture

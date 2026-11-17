@@ -124,6 +124,15 @@ product, never an assumed scalar symmetry reduction: 6³ requires capacity 216;
 12³ requires 1,728. Missing capability metadata, stale executable bindings and
 unsupported meshes fail closed. Legacy host-controlled manifests remain valid.
 
+Execution preflight also holds the exact executable/library pair involved in
+the unresolved acceptance-r6 native SIGSEGV. Offline symbolization locates the
+failure inside `cudaGraphInstantiate` during `ScfCyclePlan::Impl::build`.
+Capacity checks still pass for that build, so capacity alone cannot release it.
+The hold applies before account access, image creation or reservation, and is
+rechecked by the worker before loading the native library. Historical manifests
+remain readable. This hold prevents repeat spending; it is not a native crash
+repair, and changing graph settings is not evidence that the crash is fixed.
+
 The same check is mandatory in the controlled executor before account access,
 durable intent, image preparation or reservation, and in the low-level Modal
 entry before any Image/App/Volume API. Successful execution retains
