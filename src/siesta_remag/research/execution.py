@@ -203,6 +203,65 @@ def execute_query(workspace, execution_config, bundle, output, *, spectra=None, 
         return _execute_query(workspace,execution_config,bundle,output,spectra=spectra,transport=transport)
 
 
+def _diagnostic_review(root, owner, plan, preflight):
+    """A narrow operator review, never a successful-outcome rewrite or retry grant."""
+    path = root/'.research-execution/diagnostic-reviews'/(plan['sha256']+'.json')
+    if not path.is_file():
+        raise ValueError('Previous execution needs explicit evidence review; no resubmission or follow-on query')
+    review = load(path)
+    if (review.get('format') != 'REMAG-CHANGED-RUNTIME-DIAGNOSTIC-REVIEW/1'
+            or review.get('owner') != owner or review.get('next_config_sha256') != plan['sha256']
+            or review.get('next_request_sha256') != preflight['request_sha256']
+            or review.get('native_fix_claimed') is not False):
+        raise ValueError('Diagnostic review does not match the held owner or next grant')
+    for name, expected in review['evidence_sha256'].items():
+        if sha256(_path(root, name)) != expected:
+            raise ValueError('Diagnostic review evidence changed')
+    return str(path.relative_to(root))
+
+
+def review_failed_runtime_for_diagnostic(workspace, execution_config, bundle, *, evidence, reason, transport=None):
+    """Operator-only: bind one changed-runtime diagnostic to a reviewed stopped failure.
+
+    This API is deliberately absent from research-policy and browser tool catalogs.
+    Calling it requires separate owner authorization; a reason is not consent.
+    It neither launches nor edits the failed outcome, ownership or budget history.
+    """
+    root = Path(workspace).resolve(); plan = read_execution_config(root, execution_config)
+    preflight = preflight_query(_path(root, str(bundle)), plan['runtime'])
+    c = plan['config']; control = root/'.research-execution'
+    if (c['max_queries'] != 1 or not isinstance(reason, str) or not 20 <= len(reason) <= 8000
+            or not isinstance(evidence, list) or not 1 <= len(evidence) <= 32):
+        raise ValueError('One diagnostic grant, explicit review reason and saved evidence required')
+    transport = transport or ModalExecution()
+    with lock(control/'owner.lock'):
+        owner = load(control/'owner.json')
+        if owner.get('status') != 'held_native_review' or owner.get('allocation_stopped') is not True or not owner.get('app_id'):
+            raise ValueError('Only a stopped native-review failure can receive this diagnostic review')
+        prior = _path(root, owner['attempt']); result = load(prior/'execution.json')
+        if any(result.get(k) != owner.get(k) for k in ('status', 'app_id', 'allocation_stopped')):
+            raise ValueError('Held owner does not match its retained execution')
+        old_runtime = load(prior/'runtime.json'); new_runtime = plan['runtime']
+        identity = lambda r: (r['executable_sha256'], r.get('capabilities', {}).get('library_sha256'))
+        if identity(old_runtime) == identity(new_runtime):
+            raise ValueError('Diagnostic requires changed executable/library bytes, not a path or environment relabel')
+        if (control/'authorizations'/(c['authorization_id']+'.json')).exists():
+            raise ValueError('Diagnostic must use a new unattempted authorization')
+        verify_archive(prior/'collected')
+        paths = [str((prior/name).relative_to(root)) for name in ('execution.json','runtime.json','receipt.json','collected/archive-manifest.json')] + evidence
+        bindings = {name:sha256(_path(root,name)) for name in paths}
+        observation = transport.info(owner['app_id'])
+        if observation.get('app_id') != owner['app_id'] or observation.get('lifecycle',{}).get('state','').lower() != 'stopped':
+            raise ValueError('Reviewed owner is not authoritatively STOPPED')
+        review = dict(format='REMAG-CHANGED-RUNTIME-DIAGNOSTIC-REVIEW/1',
+            recorded_at=datetime.now(timezone.utc).isoformat(), owner=owner, next_config_sha256=plan['sha256'],
+            next_request_sha256=preflight['request_sha256'],
+            evidence_sha256=bindings, reason=reason, native_fix_claimed=False, stopped_observation=observation)
+        path = control/'diagnostic-reviews'/(plan['sha256']+'.json'); path.parent.mkdir(exist_ok=True)
+        with path.open('x') as stream:json.dump(review,stream,indent=2);stream.write('\n')
+        return review
+
+
 def _execute_query(workspace, execution_config, bundle, output, *, spectra=None, transport=None):
     """One finite submission/collection/shutdown/review. Never retries an attempt.
 
@@ -227,10 +286,11 @@ review. Disappearing local sessions never count as allocation release.
     if output.is_relative_to(control):raise ValueError('Attempt output cannot replace controller ownership state')
     with lock(control/'owner.lock'):
         owner_path = control/'owner.json'; previous = c['previous_app_id']
+        continuation_review = None
         if owner_path.exists():
             owner = load(owner_path)
             if owner['status'] != 'measured' or not owner.get('allocation_stopped') or not owner.get('app_id'):
-                raise ValueError('Previous execution needs explicit evidence review; no resubmission or follow-on query')
+                continuation_review = _diagnostic_review(root, owner, plan, preflight)
             previous = owner['app_id']
         prior = transport.info(previous)
         if prior.get('app_id') != previous or prior.get('lifecycle',{}).get('state','').lower() != 'stopped':
@@ -255,7 +315,8 @@ review. Disappearing local sessions never count as allocation release.
         if 'volume' in c:policy['volume'] = c['volume']
         save(output/'campaign/execution.json',policy)
         save(output/'preflight.json',preflight)
-        save(output/'authorization.json',dict(config=c,config_sha256=plan['sha256'],prior_app=prior))
+        save(output/'authorization.json',dict(config=c,config_sha256=plan['sha256'],prior_app=prior,
+            diagnostic_review=continuation_review))
         started = time.monotonic()
         result = dict(format='REMAG-QUERY-EXECUTION/1',status='submitting',config_sha256=plan['sha256'],
             source_sha256=request['source_sha256'],request_sha256=sha256(bundle/'experiment.json'),

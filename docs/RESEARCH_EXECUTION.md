@@ -198,3 +198,21 @@ observations, immutable authorization limits and no retries/refunds. They do not
 allocate a GPU, call a model service, demonstrate scientific policy quality or
 establish the 1–5 minute exploratory-query target. Live authorized integration
 and the equivalent-budget research comparison remain empirical acceptance work.
+
+### Review a stopped failure for one changed-runtime diagnostic
+
+A stopped `held_native_review` remains failed. After the owner authorizes a
+new diagnostic, the operator may call `review_failed_runtime_for_diagnostic`
+with a new one-query execution grant, the exact prepared bundle, saved diagnosis
+paths and a review reason. It checks the retained execution/owner/archive,
+requires changed executable or native-library bytes, and freshly confirms the
+owned app is stopped. Environment/path relabels cannot release the hold.
+
+The append-only review binds the prior failure, evidence hashes, next grant and
+exact request hash. The executor rechecks those bindings and the authoritative
+lifecycle before its existing account-wide launch guards. This performs no
+launch or reservation by itself and never marks the old result measured. An
+unknown allocation, a different bundle/grant, altered evidence or an unchanged
+runtime still blocks. The review API is intentionally absent from policy and
+browser catalogs. Operator-supplied text is not itself owner authorization, and
+this diagnostic does not establish a causal repair or scientific acceptance.
