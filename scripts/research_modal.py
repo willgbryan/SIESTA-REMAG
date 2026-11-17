@@ -32,13 +32,26 @@ if modal.is_local():
     if timeout/3600*policy['hourly_reservation_usd'] > policy['budget_usd'] or policy['budget_usd'] > 100:
         raise ValueError('Campaign exceeds its declared allocation budget')
     from siesta_remag.research.experiments import verify_experiment, experiment_code
-    if 'expected_source_code' in policy and policy['expected_source_code'] != experiment_code():
+    operation = policy.get('operation', 'query')
+    if operation not in ('query', 'relaxation'):
+        raise ValueError('Unsupported execution operation')
+    expected_code = experiment_code()
+    if 'expected_source_code' in policy and policy['expected_source_code'] != expected_code:
         raise ValueError('Prepared execution code changed before image preparation')
     from siesta_remag.research.queries import diagnostic_labels, requested_spectra
     from siesta_remag.research.preflight import preflight_query
     runtime = load(runtime_path)
+    if operation == 'relaxation':
+        from siesta_remag.corpus import sha256
+        if (policy['experiments'] != ['query'] or policy.get('spectra') != [] or
+                sha256(campaign/'structure.json') != policy['source_binding']['structure_file_sha256']):
+            raise ValueError('Expected one source-bound relaxation without additional queries')
     for name in policy['experiments']:
         if not (campaign/name).resolve().is_relative_to(campaign): raise ValueError('Unsafe experiment path')
+        if operation == 'relaxation':
+            from siesta_remag.research.relaxation_execution import preflight_relaxation
+            preflight_relaxation(campaign/name, runtime)
+            continue
         request = verify_experiment(campaign/name)
         preflight_query(campaign/name,runtime)
         if 'spectra' in policy:
@@ -68,6 +81,7 @@ def calculate(run_id):
     for key in ['OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS']:
         os.environ[key] = '1'
     from siesta_remag.research.experiments import run_experiment, experiment_code
+    from siesta_remag.discovery.pipeline import run_dft
     from siesta_remag.research.electronic import spectrum_from_run
     from siesta_remag.discovery.collection import pack
     from siesta_remag.corpus import sha256
@@ -75,6 +89,7 @@ def calculate(run_id):
     root.mkdir(exist_ok=False)
     policy = load('/opt/research/campaign/execution.json')
     runtime = load('/opt/research/runtime.json')
+    operation = policy.get('operation', 'query')
     for key in list(os.environ):
         if key.startswith('REMAG_'): os.environ.pop(key)
     started = time.monotonic()
@@ -90,20 +105,35 @@ def calculate(run_id):
     try:
         from siesta_remag.research.preflight import verify_runtime_files
         report['runtime_verification'] = verify_runtime_files(runtime)
-        if 'expected_source_code' in policy and policy['expected_source_code'] != experiment_code():
+        if operation not in ('query', 'relaxation'):
+            raise ValueError('Unsupported execution operation')
+        expected_code = experiment_code()
+        if 'expected_source_code' in policy and policy['expected_source_code'] != expected_code:
             raise ValueError('Uploaded experiment code differs from the prepared execution')
+        if operation == 'relaxation':
+            if (policy['experiments'] != ['query'] or policy.get('spectra') != [] or
+                    sha256(Path('/opt/research/campaign')/'structure.json') != policy['source_binding']['structure_file_sha256']):
+                raise ValueError('Uploaded relaxation source or single-operation policy differs')
         for name in policy['experiments']:
-            request = load(Path('/opt/research/campaign')/name/'experiment.json')
+            request = load(Path('/opt/research/campaign')/name/('request.json' if operation == 'relaxation' else 'experiment.json'))
             if time.monotonic()-started + request['settings']['total_dft_seconds'] + 60 > policy['timeout_seconds']:
                 report['status'] = 'held_budget'; break
             before_native = time.monotonic()
-            result = run_experiment(Path('/opt/research/campaign')/name, root/name, runtime['executable'],
+            if operation == 'relaxation':
+                from siesta_remag.research.relaxation_execution import preflight_relaxation
+                preflight_relaxation(Path('/opt/research/campaign')/name, runtime)
+            run = run_dft if operation == 'relaxation' else run_experiment
+            result = run(Path('/opt/research/campaign')/name, root/name, runtime['executable'],
                 executable_sha256=runtime['executable_sha256'], runtime_env=runtime.get('environment', {}),
                 threads=runtime.get('threads', 1), checkpoint=volume.commit)
             report['timing']['native_seconds'] += time.monotonic()-before_native
             report['experiments'].append(dict(id=name, status=result['status'], report_sha256=sha256(root/name/'report.json')))
-            if result['status'] != 'measured':
+            completed = ('screened', 'screened_low_moment') if operation == 'relaxation' else ('measured',)
+            if result['status'] not in completed:
                 report['status'] = 'held_experiment'; flush(); break
+            if operation == 'relaxation':
+                flush()
+                continue
             from siesta_remag.research.queries import diagnostic_labels, requested_spectra
             query = request.get('query', {'kind': 'anisotropy'})
             if 'spectra' in policy:
@@ -126,7 +156,7 @@ def calculate(run_id):
     finally:
         report['timing']['function_calculations_finished_at'] = datetime.now(timezone.utc).isoformat()
         flush()
-    return pack(root, include_arrays=True)
+    return pack(root, include_arrays=True, include_native=operation == 'relaxation')
 
 
 @app.local_entrypoint()

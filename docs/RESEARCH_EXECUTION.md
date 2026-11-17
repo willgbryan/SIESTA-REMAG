@@ -69,6 +69,61 @@ The same option works with the JSON-lines `tools` server. For a single explicit
 invocation, use `execute-query --workspace ... --execution-config ... --bundle
 prepared --output attempt-001`. No configuration is enabled automatically.
 
+## General-material relaxation
+
+`execute-relaxation` connects an exact GPAC source and an accepted CPU Orb
+discovery bundle to the **same** allocation owner, authorization history,
+launcher, ledger and authoritative shutdown checks as `execute-query`. The
+configuration must explicitly contain `"operation": "relaxation"`; an existing
+query grant cannot be repurposed. Omitting `operation` retains query behavior.
+This command is operator-only and is absent from the direct policy tool catalog.
+
+Prepare with `research.relaxation.prepare_relaxation(export, pseudos, weights,
+output, initial_moments=[...])`. Optional signed moments are in μB in exact
+export site order; the original and Orb-prepared structures must retain that
+branch. Without explicit moments the existing element defaults are used and
+labeled as such. Preparation is bounded CPU work using existing weights, not
+GPU submission. The currently supported discovery condition is unconstrained
+positions and a fully variable cell at zero external pressure; input constraints
+are rejected. This is not a substrate or pressure-constrained relaxation mode.
+
+```sh
+python -m siesta_remag.research preflight-relaxation \
+  --runtime workspace/runtime.json --structure workspace/prepared/structure.json \
+  --bundle workspace/prepared/bundle
+
+python -m siesta_remag.research execute-relaxation --workspace workspace \
+  --execution-config relaxation-grant.json --structure prepared/structure.json \
+  --bundle prepared/bundle --output attempts/candidate-001
+```
+
+Offline preflight verifies exact-source geometry/site order, prepared hashes,
+per-species fully relativistic PBE PSML files, magnetic starts, mesh and actual
+build capability metadata before account calls or reservations. The worker
+rechecks preparation/runtime bindings before native work. The existing discovery
+runner performs native relaxation and, when its moment screen passes, sequential
+z/x/y SOC evaluations without changing the density-producing integer mesh.
+
+Unlike older compact discovery collections, this path collects the native
+DM/HSX/PSML bytes needed for independent local review. Review reconstructs each
+FDF and manifest from the bound preparation, repeats native completion,
+force/stress, geometry and magnetic-branch checks, verifies collected hashes,
+and reproduces the directional screen. Returned feedback keeps the exact source
+separate from relaxed numerical observations. It does not rewrite GPAC geometry.
+
+Both `screened` and `screened_low_moment` are completed observations and yield
+controller status `measured`; a negative moment screen is not a solver failure.
+Native/branch failures, changed artifacts and uncertain shutdown leave the
+shared owner held, preventing follow-on work. No retry, rebuild or extension is
+performed. The result retains native status and both energy definitions, with
+stability and synthesis qualification false. General electronic analysis,
+notebook scoring and IDE discovery-cycle presentation still need their
+source-bound integration; this adapter alone does not complete the live loop.
+
+The [local integration record](../tests/evidence/research/general-material-execution-2026-11-17.json)
+uses synthetic Ni/Co native results through the actual remote-function code.
+It is engineering evidence, not measured material or GPU acceptance.
+
 An agent call may request just the spectra relevant to its question:
 
 ```json

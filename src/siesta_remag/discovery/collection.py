@@ -9,17 +9,19 @@ from ..corpus import sha256
 from .common import load, save
 
 
-def pack(root, *, include_arrays=False):
+def pack(root, *, include_arrays=False, include_native=False):
     root = Path(root)
     report = load(root/'report.json')
     if report['status'] == 'running': raise ValueError('Cannot package an unfinished pipeline')
     suffixes = ('.json', '.log', '.csv', '.fdf', '.cif', '.extxyz', '.EIG')
     if include_arrays: suffixes += ('.npz', '.KP', '.STRUCT_OUT')
+    if include_native: suffixes += ('.DM', '.HSX', '.psml', '.psf', '.XV', '.STRUCT_OUT', '.KP')
     files = [p for p in sorted(root.rglob('*')) if p.is_file() and
              p.name != 'archive-manifest.json' and p.suffix in suffixes]
     manifest = dict(schema=1, invocation_sha256=report['invocation_sha256'], status=report['status'],
                     files={str(p.relative_to(root)): sha256(p) for p in files},
-                    omitted_binary_artifacts='DM/HSX and pseudopotential bytes remain on the remote volume; hashes are in reviews.')
+                    omitted_binary_artifacts=None if include_native else
+                    'DM/HSX and pseudopotential bytes remain on the remote volume; hashes are in reviews.')
     save(root/'archive-manifest.json', manifest)
     stream = io.BytesIO()
     with tarfile.open(fileobj=stream, mode='w:gz') as archive:

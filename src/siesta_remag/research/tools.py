@@ -48,7 +48,7 @@ TOOLS = {
     'compare_electronic_matrices': {'required':['before','after','output'],
         'optional':['energy_window_ev','degeneracy_tolerance_ev','limit'],
         'description':'Associate same-basis endpoint states with overlap/subspace diagnostics and total Hamiltonian changes; does not isolate SOC or compute MAE.'},
-    'prepare_relaxation': {'required':['structure','pseudos','weights','output'], 'optional':['settings','orb_threads'],
+    'prepare_relaxation': {'required':['structure','pseudos','weights','output'], 'optional':['settings','orb_threads','initial_moments'],
         'description':'Bind an exact source and run bounded CPU Orb preparation using supplied weights; no native/GPU submission.'},
     'inspect_relaxation': {'required':['structure','bundle','report'],
         'optional':['cutoff_angstrom','position_tolerance_angstrom','metric_relative_tolerance'],
@@ -250,7 +250,7 @@ class ResearchTools:
             from ..discovery.config import Settings
             return prepare_relaxation(load(self.path(args['structure'])),self.path(args['pseudos']),
                 self.path(args['weights']),self.path(args['output']),settings=Settings.from_dict(args.get('settings',{})),
-                orb_threads=args.get('orb_threads',4))
+                orb_threads=args.get('orb_threads',4),initial_moments=args.get('initial_moments'))
         if name == 'inspect_relaxation':
             from .relaxation import inspect_relaxation
             return inspect_relaxation(load(self.path(args['structure'])),self.path(args['bundle']),self.path(args['report']),

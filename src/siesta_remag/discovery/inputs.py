@@ -44,6 +44,15 @@ def axes(atoms):
     return {'z': z.tolist(), 'x': x.tolist(), 'y': np.cross(z, x).tolist()}
 
 
+def starting_moments(atoms):
+    """One declared collinear seed, or the existing element-default branch."""
+    spins = np.asarray(atoms.get_initial_magnetic_moments() if atoms.has('initial_magmoms') else [
+        {'Fe': 3., 'Co': 2., 'Ni': 1., 'Mn': 3., 'Cr': 2.}.get(s, 0.) for s in atoms.get_chemical_symbols()], dtype=float)
+    if spins.shape != (len(atoms),) or not np.isfinite(spins).all():
+        raise ValueError('One finite collinear starting moment per atom is required')
+    return spins
+
+
 def pseudos_for(atoms, directory, *, allow_psf=False):
     """Only fully relativistic PBE PSML; caller supplies licensed/cached files."""
     result = {}
@@ -94,8 +103,7 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
     order = list(dict.fromkeys(symbols))
     if spins is None:
         # Preserve an explicitly supplied collinear branch; otherwise a cheap FM seed.
-        spins = atoms.get_initial_magnetic_moments() if atoms.has('initial_magmoms') else [
-            {'Fe': 3., 'Co': 2., 'Ni': 1., 'Mn': 3., 'Cr': 2.}.get(s, 0.) for s in symbols]
+        spins = starting_moments(atoms)
     spins = np.asarray(spins, dtype=float)
     if spins.shape != (len(atoms),) or not np.isfinite(spins).all():
         raise ValueError('One finite collinear starting moment per atom is required')
@@ -153,6 +161,7 @@ def prepare_case(atoms, pseudos, destination, settings, *, mesh=None, direction=
     manifest = dict(name=destination.name, atoms=len(atoms), spin='spin-orbit' if direction is not None else 'polarized',
                     input_sha256=sha256(destination / 'input.fdf'), pseudopotentials=hashes, geometry=geometry(atoms),
                     kmesh=mesh, direction=axis.tolist() if direction is not None else None,
+                    initial_moments_muB=spins.tolist(),
                     settings=settings.to_dict(), screening=True, density_matrix_output=True, hamiltonian_output=True,
                     relaxation=relax, orientation_constrained=False,
                     geometry_sha256=digest(geometry(atoms)), basis_size=basis_size,

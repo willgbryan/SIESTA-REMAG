@@ -9,16 +9,21 @@ from ..discovery.pipeline import prepare_bundle, verify_bundle
 from ..discovery.review import evaluated_structure
 
 
-def prepare_relaxation(export, pseudos, weights, output, *, settings=None, orb_threads=4):
+def prepare_relaxation(export, pseudos, weights, output, *, settings=None, orb_threads=4, initial_moments=None):
     """Run the existing bounded CPU Orb preparation; never submit native work."""
     from ase import Atoms
     from ase.io import write
     from gpac.physical import verify_export
     verified=verify_export(export)
+    if initial_moments is not None and (
+            not isinstance(initial_moments, list) or len(initial_moments) != len(verified['geometry']['atomic_numbers']) or
+            any(type(v) not in (int, float) or not np.isfinite(v) for v in initial_moments)):
+        raise ValueError('One finite collinear starting moment per authored site is required')
     root=Path(output).resolve();root.mkdir(parents=True,exist_ok=False)
     save(root/'structure.json',verified)
     g=verified['geometry']
     atoms=Atoms(numbers=g['atomic_numbers'],cell=g['cell'],scaled_positions=g['fractional'],pbc=True)
+    if initial_moments is not None: atoms.set_initial_magnetic_moments(initial_moments)
     write(root/'input.extxyz',atoms)
     save(root/'source-binding.json',dict(format='REMAG-RELAXATION-SOURCE/1',
         source_sha256=verified['source']['sha256'],export_sha256=verified['sha256'],

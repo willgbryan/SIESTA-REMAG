@@ -1,0 +1,83 @@
+{
+  "format": "REMAG-GENERAL-MATERIAL-EXECUTION-ACCEPTANCE/1",
+  "recorded_at": "2026-11-17T07:14:35.354945+00:00",
+  "status": "local_engineering_passed_live_acceptance_pending",
+  "base_commit": "5acad301423e46932f1e0cb0f51cb77e5f3b0b84",
+  "goal_scope": [
+    "material-specific magnetic starts and per-species preparation preflight",
+    "source-bound relaxation/evaluation through existing allocation control",
+    "independent native review and exact-source feedback"
+  ],
+  "changes": [
+    "Operator-only execute-relaxation and offline preflight-relaxation reuse research execution ownership, ledger, account guard, shutdown and held-failure behavior.",
+    "An explicit relaxation operation is required in the grant; query grants cannot be repurposed.",
+    "Source geometry/site order, pseudo compatibility, retained magnetic starts and compiled device mesh capacity checked before account calls or reservations.",
+    "Native DM/HSX/pseudopotential bytes retained for local review rather than relying on omitted remote artifacts.",
+    "Regenerate each native input/manifest from bound preparation; verify runtime/source/artifact identities and reproduce native, geometry, magnetic branch and directional-screen checks.",
+    "A completed low-moment negative screen is a usable observation; native failures remain held.",
+    "Exact authored source remains separate from observed relaxed geometry; direct policy tools still exclude execution and CPU relaxation."
+  ],
+  "validation": {
+    "full_suite": "775 passed, 4 skipped in 210.27s",
+    "focused_final": "47 passed in 10.23s",
+    "earlier_integration": "119 passed in 16.14s",
+    "full_suite_scope": "Local REMAG suite with adjacent GPAC source import. An optional-dependency test skip was added while this suite ran; the final focused run covers that test module after the change.",
+    "fixtures": "Synthetic Ni/Co native observations through the actual scripts/research_modal.py calculate function, actual discovery pipeline, packing/collection, shared controller and local review. No real solver.",
+    "controls": [
+      "sequential ownership and prior app recheck",
+      "active prior allocation refusal",
+      "finite grant limit and immutable operation",
+      "optimizer/native/branch failure holds",
+      "lost client, missing receipt and unconfirmed shutdown holds",
+      "forged review, runtime, screen and coherently rehashed input rejected",
+      "missing native bytes rejected",
+      "mismatched exact source rejected before account/intent/reservation",
+      "compiled 128-point capacity rejected before account/intent/reservation",
+      "PSML compatibility and magnetic-start-loss rejected",
+      "signed moments bound before CPU work; invalid moments create no preparation",
+      "negative low-moment screen accepted without SOC",
+      "direct tool catalog does not expose execution"
+    ],
+    "CLI": "preflight-relaxation --help parser check passed; behavior exercised by direct preflight/controller tests",
+    "native_default_pressure": "Pinned upstream read_options.F90:1591 sets MD.TargetPressure default to zero; generated relaxation has no pressure overlay."
+  },
+  "log_sha256": {
+    "work/general-material-execution-tests-2026-11-17.log": "c98fa531962806de140d9897927a3328f1837e785f111100e93f249fe8e0ddf9",
+    "work/general-material-execution-focused-final-2026-11-17.log": "6bfaba8b6536dd41e415377d4da07dbd813b4921c534fa9a231e45350e350c18"
+  },
+  "files_sha256": {
+    "scripts/research_modal.py": "2fc5d38674a63637cb32510a1aca53584dd99d296bf9fec49cfb0ccc1d3cfa6c",
+    "src/siesta_remag/discovery/collection.py": "330c0d273a1227432161454fc84f285a9d2b2868aa19e675b520bd5f66c7798d",
+    "src/siesta_remag/discovery/inputs.py": "048d735db87204937ea7fcc4b74743b67a5893af9dff429f94d85dbe3449dabc",
+    "src/siesta_remag/research/__main__.py": "2b531c32e986784d5a9be95d1543bf866953e37defff11920496cb3714559601",
+    "src/siesta_remag/research/execution.py": "675984952354d07d7340f074763afee3a05be9eb609d455319f8e37823aef9d2",
+    "src/siesta_remag/research/relaxation.py": "93bacc6205dab03ae9d7b8c13c4e2ec0a27eb19a8a5d5bdb2a90fd3f5588741e",
+    "src/siesta_remag/research/relaxation_execution.py": "6dc8552f233eeba25a5089c2e169ecf888b5f3081dec8188301b4abc4d835540",
+    "src/siesta_remag/research/tools.py": "2540d866148f8642a73b4844a70b792426b1019c512e602ff6be5f2b87abb92e",
+    "tests/test_research_relaxation_execution.py": "d74885c449b7d739e299ac4a501a18452eec2db29d53e4ee59ee02b7fe100c94",
+    "tests/test_research_relaxation.py": "9f82cd077864d395ef3366e0e69526f5062e97cb5e72d4b9fbf93c1c59bda3c6",
+    "docs/RESEARCH_EXECUTION.md": "039068626aeb23ab7e8dbdf0bea9fdf6a3803698c9d8a9195a77346a990de6c0",
+    "docs/DISCOVERY_SCREEN.md": "5bbda8653a68d09003bb8f11e1ac67f76138430d4dcebbb94700241e56fdd596",
+    "docs/SPEC_COMPLETION.md": "67e903b535138e120a74754ca1206f924bee13a1b20ee4fab23e43c6d8934333"
+  },
+  "new_GPU_launches": 0,
+  "new_native_solver_runs": 0,
+  "new_model_runs": 0,
+  "new_Ouro_calls": 0,
+  "new_production_reservations_cents": 0,
+  "old_campaign_closed": true,
+  "GPAC_unchanged": true,
+  "remaining": [
+    "Live non-FePt native acceptance using verified species inputs and existing reviewed runtime.",
+    "Bind general relaxed results to electronic diagnostics, notebook prediction scoring and Astra revisions; surface that cycle in the IDE.",
+    "Implement and test compatible Ouro temporary-file input adapter.",
+    "Explicit stability-screen coverage and competing-state evidence remain required; relaxation alone does not qualify stability/synthesis.",
+    "Three sequential iterations spanning at least two non-FePt systems and original clean paired-study/latency acceptance remain incomplete."
+  ],
+  "limitations": [
+    "Local synthetic controls are engineering evidence, not DFT results or a speed measurement.",
+    "Discovery adapter currently supports fully variable cells at zero external pressure; constrained epitaxial or pressure modes are not implemented.",
+    "Scalar antiferromagnetic or low-net-moment states are retained as low-moment screens; competing magnetic ground states are not certified.",
+    "This is a tested increment, not completion of the full v3 specification."
+  ]
+}

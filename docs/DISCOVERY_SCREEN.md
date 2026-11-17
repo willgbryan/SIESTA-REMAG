@@ -145,6 +145,13 @@ shutdown before releasing the next candidate.
 
 ## Discovery-loop contract
 
+For exact GPAC sources under the research workspace's durable allocation owner,
+use the [controlled relaxation adapter](RESEARCH_EXECUTION.md#general-material-relaxation).
+It reuses this pipeline with the same account-wide launch guard, collects the
+native bytes for local replay of the health checks, and binds relaxed feedback
+to the original exact source. It requires its own explicit relaxation operation
+in the operator grant; the older standalone commands below remain available.
+
 The Python API is `prepare_bundle(...)` then `run_dft(...)` in
 `siesta_remag.discovery.pipeline`; the CLI prints JSON. Exit status 0 means a
 completed screening/preparation outcome; status 2 means a held scientific stage.

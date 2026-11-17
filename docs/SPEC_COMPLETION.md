@@ -44,6 +44,14 @@ The viewport implementation and bounded browser checks are recorded in
 No native solver, model inference or paid route was run for this UI increment.
 Earlier dated acceptance records below retain their original scope and failures.
 
+The [general-material execution adapter](RESEARCH_EXECUTION.md#general-material-relaxation)
+now connects source-bound discovery preparations to the existing guarded research
+controller. Local Ni/Co fixtures exercise the actual remote entry, collection,
+shutdown and independent native/branch/source review. Explicit magnetic starts
+survive preparation; a completed low-moment screen is retained as a negative
+result. This is local engineering acceptance only. Live non-FePt execution,
+electronic/score/revision integration, stability coverage and Ouro remain open.
+
 | Final deliverable (§16) | Current state |
 | --- | --- |
 | Unified architecture | Integrated authoring, queries, diagnostics, memory and bounded policy sessions; direct-chat tool replay demonstrated |

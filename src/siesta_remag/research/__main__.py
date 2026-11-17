@@ -137,6 +137,16 @@ def main(argv=None):
     p.add_argument('--bundle', required=True)
     p.add_argument('--output', required=True)
     p.add_argument('--spectra', type=Path, help='JSON list of requested stage/spin spectra')
+    p = sub.add_parser('preflight-relaxation', help='Offline discovery-bundle/runtime/source validation; no paid actions')
+    p.add_argument('--runtime', type=Path, required=True)
+    p.add_argument('--structure', type=Path, required=True)
+    p.add_argument('--bundle', type=Path, required=True)
+    p = sub.add_parser('execute-relaxation', help='Operator-only relaxation and magnetic screen through the shared single-allocation owner')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--execution-config', type=Path, required=True)
+    p.add_argument('--structure', required=True)
+    p.add_argument('--bundle', required=True)
+    p.add_argument('--output', required=True)
     p = sub.add_parser('fept', help='Author exact FePt strain family and prepare fixed-geometry bundles')
     p.add_argument('--pseudos', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
@@ -254,6 +264,17 @@ def main(argv=None):
         result=execute_query(args.workspace,args.execution_config,args.bundle,args.output,spectra=load(args.spectra) if args.spectra else None)
         print(json.dumps(result,indent=2,allow_nan=False))
         return 0 if result['status']=='measured' else 2
+    if args.command == 'preflight-relaxation':
+        from .relaxation_execution import preflight_relaxation, verify_relaxation_source
+        result = preflight_relaxation(args.bundle, load(args.runtime))
+        result['source_binding'] = verify_relaxation_source(args.structure, args.bundle)
+        print(json.dumps(result, indent=2, allow_nan=False))
+        return 0
+    if args.command == 'execute-relaxation':
+        from .execution import execute_relaxation
+        result = execute_relaxation(args.workspace, args.execution_config, args.structure, args.bundle, args.output)
+        print(json.dumps(result, indent=2, allow_nan=False))
+        return 0 if result['status'] == 'measured' else 2
     if args.command == 'serve':
         from .workspace import serve
         serve(args.workspace, args.port, editable=args.editable)

@@ -46,9 +46,11 @@ def read_execution_config(workspace, path):
     required = {'format','authorization_id','authorization','budget_ledger','budget_stage','runtime',
                 'runtime_sha256','image','previous_app_id','app_timeout_seconds',
                 'hourly_reservation_usd','max_queries','max_reserved_cents'}
-    if (not isinstance(c,dict) or not required <= set(c) or set(c)-required-{'volume'}
+    if (not isinstance(c,dict) or not required <= set(c) or set(c)-required-{'volume', 'operation'}
             or c['format'] != 'REMAG-RESEARCH-EXECUTION/1'):
         raise ValueError('Expected explicit REMAG research execution configuration')
+    if c.get('operation', 'query') not in ('query', 'relaxation'):
+        raise ValueError('Unsupported execution operation')
     if 'volume' in c and (not isinstance(c['volume'],str)
             or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,63}',c['volume'])):
         raise ValueError('Expected a named operator-selected result volume')
@@ -203,6 +205,16 @@ def execute_query(workspace, execution_config, bundle, output, *, spectra=None, 
         return _execute_query(workspace,execution_config,bundle,output,spectra=spectra,transport=transport)
 
 
+def execute_relaxation(workspace, execution_config, structure, bundle, output, *, transport=None):
+    """Operator-only source-bound discovery through the same allocation owner.
+
+    Requires an explicit relaxation grant. This is not a direct-policy tool.
+    """
+    with _stop_on_signal():
+        return _execute_query(workspace, execution_config, bundle, output,
+                              transport=transport, operation='relaxation', structure=structure)
+
+
 def _diagnostic_review(root, owner, plan, preflight):
     """A narrow operator review, never a successful-outcome rewrite or retry grant."""
     path = root/'.research-execution/diagnostic-reviews'/(plan['sha256']+'.json')
@@ -262,7 +274,8 @@ def review_failed_runtime_for_diagnostic(workspace, execution_config, bundle, *,
         return review
 
 
-def _execute_query(workspace, execution_config, bundle, output, *, spectra=None, transport=None):
+def _execute_query(workspace, execution_config, bundle, output, *, spectra=None, transport=None,
+                   operation='query', structure=None):
     """One finite submission/collection/shutdown/review. Never retries an attempt.
 
 Transport injection is for engineering tests, not an agent-selectable backend.
@@ -271,12 +284,26 @@ review. Disappearing local sessions never count as allocation release.
 """
     requested = time.monotonic(); requested_at = datetime.now(timezone.utc).isoformat()
     root = Path(workspace).resolve(); plan = read_execution_config(root,execution_config); c = plan['config']
+    if c.get('operation', 'query') != operation:
+        raise ValueError('Execution operation is not authorized by this configuration')
     bundle = _path(root,str(bundle)); output = _path(root,str(output))
-    request = verify_experiment(bundle); settings = Settings.from_dict(request['settings'])
-    preflight = preflight_query(bundle,plan['runtime'])
-    from .experiments import validate_soc_request
-    validate_soc_request(request.get('soc_matrix',False),request.get('query'),plan['runtime'].get('environment',{}))
-    spectra = requested_spectra(request.get('query',{'kind':'anisotropy'}),[] if spectra is None else spectra)
+    source_binding = None
+    if operation == 'relaxation':
+        from .relaxation_execution import preflight_relaxation, verify_relaxation_source
+        structure = _path(root, str(structure))
+        preflight = preflight_relaxation(bundle, plan['runtime'])
+        source_binding = verify_relaxation_source(structure, bundle)
+        request = load(bundle/'request.json')
+        source_sha = source_binding['source_sha256']
+        code = experiment_code(); spectra = []
+    else:
+        request = verify_experiment(bundle)
+        preflight = preflight_query(bundle,plan['runtime'])
+        from .experiments import validate_soc_request
+        validate_soc_request(request.get('soc_matrix',False),request.get('query'),plan['runtime'].get('environment',{}))
+        spectra = requested_spectra(request.get('query',{'kind':'anisotropy'}),[] if spectra is None else spectra)
+        source_sha = request['source_sha256']; code = experiment_code()
+    settings = Settings.from_dict(request['settings'])
     if settings.total_dft_seconds+60 > c['app_timeout_seconds']:
         raise ValueError('Query native ceiling does not fit the authorized app deadline')
     if output.exists() or output.is_relative_to(bundle) or bundle.is_relative_to(output):
@@ -304,22 +331,29 @@ review. Disappearing local sessions never count as allocation release.
             raise ValueError('Execution authorization query/reservation limit reached')
         output.mkdir(parents=True,exist_ok=False); (output/'campaign').mkdir()
         shutil.copytree(bundle,output/'campaign/query')
-        if verify_experiment(output/'campaign/query') != request:
+        if operation == 'relaxation':
+            shutil.copyfile(structure, output/'campaign/structure.json')
+            if (preflight_relaxation(output/'campaign/query', plan['runtime']) != preflight or
+                    verify_relaxation_source(output/'campaign/structure.json', output/'campaign/query') != source_binding):
+                raise ValueError('Prepared relaxation changed while snapshotting')
+        elif verify_experiment(output/'campaign/query') != request:
             raise ValueError('Prepared query changed while snapshotting')
         shutil.copyfile(plan['runtime_path'],output/'runtime.json')
         if sha256(output/'runtime.json') != c['runtime_sha256']:
             raise ValueError('Authorized runtime changed while snapshotting')
         policy = dict(experiments=['query'],timeout_seconds=c['app_timeout_seconds'],
             hourly_reservation_usd=c['hourly_reservation_usd'],budget_usd=plan['reserved_cents']/100,
-            budget_stage=c['budget_stage'],spectra=spectra,expected_source_code=experiment_code())
+            budget_stage=c['budget_stage'],spectra=spectra,expected_source_code=code)
+        if operation == 'relaxation': policy.update(operation=operation, source_binding=source_binding)
         if 'volume' in c:policy['volume'] = c['volume']
         save(output/'campaign/execution.json',policy)
         save(output/'preflight.json',preflight)
         save(output/'authorization.json',dict(config=c,config_sha256=plan['sha256'],prior_app=prior,
             diagnostic_review=continuation_review))
         started = time.monotonic()
-        result = dict(format='REMAG-QUERY-EXECUTION/1',status='submitting',config_sha256=plan['sha256'],
-            source_sha256=request['source_sha256'],request_sha256=sha256(bundle/'experiment.json'),
+        result = dict(format='REMAG-RELAXATION-EXECUTION/1' if operation == 'relaxation' else 'REMAG-QUERY-EXECUTION/1',
+            status='submitting',config_sha256=plan['sha256'],
+            source_sha256=source_sha,request_sha256=preflight['request_sha256'],
             requested_at=requested_at,request_to_submission_seconds=started-requested,
             submitted_at=datetime.now(timezone.utc).isoformat(),app_id=None,allocation_stopped=False,
             reserved_ceiling_cents=plan['reserved_cents'],reservation_recorded_cents=None,actual_billed_usd=None,
@@ -366,7 +400,11 @@ review. Disappearing local sessions never count as allocation release.
             flush()
         if result['status'] == 'collected' and result['allocation_stopped']:
             try:
-                result['review'] = _review(output,request,plan['runtime'])
+                if operation == 'relaxation':
+                    from .relaxation_execution import review_relaxation
+                    result['review'] = review_relaxation(output, request, plan['runtime'])
+                else:
+                    result['review'] = _review(output,request,plan['runtime'])
                 result['status'] = 'measured' if result['review']['healthy'] else 'held_native_review'
                 result['review']['report'] = str((output/result['review']['report']).relative_to(root))
                 result['review']['collection'] = str((output/result['review']['collection']).relative_to(root))
@@ -379,5 +417,9 @@ review. Disappearing local sessions never count as allocation release.
             request_through_review_seconds=time.monotonic()-requested,
             scope='One controlled REMAG query; measured means native acceptance, not physical convergence or calibrated exploratory accuracy. Queue/startup remain unseparated unless timing evidence provides them.')
         result['usable_result_seconds'] = result['request_through_review_seconds'] if result['status'] == 'measured' else None
+        if operation == 'relaxation':
+            result['scope'] = ('One controlled relaxation and magnetic screen; measured includes a completed negative screen. '
+                               'Exact authored source is separate from relaxed observations. No synthesis, stability, '
+                               'ground-state, convergence or calibrated-latency qualification.')
         flush()
         return result

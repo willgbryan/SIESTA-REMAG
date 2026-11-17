@@ -71,3 +71,24 @@ def test_preparation_binds_source_before_cpu_work(bundle,tmp_path,export,monkeyp
     save(tmp_path/'prepared/source-binding.json',binding)
     with pytest.raises(ValueError,match='source binding differs'):
         inspect_relaxation(export,tmp_path/'prepared/bundle',tmp_path/'run/report.json')
+
+
+def test_explicit_magnetic_start_is_bound_before_cpu_preparation(tmp_path,export,monkeypatch):
+    from ase.io import read
+    from siesta_remag.research import relaxation
+    calls=[]
+    def prepare(source,*args,**kwargs):
+        assert read(source).get_initial_magnetic_moments().tolist()==[3.,-3.]
+        assert load(source.parent/'source-binding.json')['input_sha256']==sha256(source)
+        calls.append(source)
+        return dict(status='synthetic')
+    monkeypatch.setattr(relaxation,'prepare_bundle',prepare)
+    p=prepare_relaxation(export,tmp_path/'pseudos',tmp_path/'weights',tmp_path/'prepared',initial_moments=[3.,-3.])
+    assert len(calls)==1 and p['native_submitted'] is False
+
+
+@pytest.mark.parametrize('moments',[[True,0], [float('nan'),0], [1], ['3',0]])
+def test_invalid_magnetic_start_creates_no_preparation(tmp_path,export,moments):
+    with pytest.raises(ValueError,match='collinear starting moment'):
+        prepare_relaxation(export,tmp_path/'pseudos',tmp_path/'weights',tmp_path/'prepared',initial_moments=moments)
+    assert not (tmp_path/'prepared').exists()
