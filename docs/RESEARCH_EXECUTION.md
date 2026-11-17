@@ -339,3 +339,30 @@ unknown allocation, a different bundle/grant, altered evidence or an unchanged
 runtime still blocks. The review API is intentionally absent from policy and
 browser catalogs. Operator-supplied text is not itself owner authorization, and
 this diagnostic does not establish a causal repair or scientific acceptance.
+
+## Isolated graph-setup diagnostic
+
+`native/probe_scf_setup.cpp` constructs a synthetic `ScfCyclePlan` against an
+existing REMAG library and stops after graph instantiation/upload. It never
+calls `launch`, loads material inputs or runs a pristine solver. Constructor
+warmup does execute private GPU component work. The diagnostic preserves raw
+process status, CUDA setup checkpoints, runtime/driver versions and mapped
+libraries; successful setup is neither an SCF result nor proof of native repair.
+
+The finite operator harness `scripts/scf_setup_probe_modal.py`, launched through
+`scripts/run_modal.py --module-file`, uses one GPU, zero retries and a 420-second
+allocation limit. Its fixed five shapes vary 30/76 orbitals, 132/948 k points
+and a 4/40 grid side. Each shape runs once in a fresh process with a 60-second
+limit. A timeout ends the batch. The operator must retain the material hold,
+verify its prior allocation stopped under the shared ownership lock, bind the
+existing library/headers, and supply the reviewed 53-cent reservation. The
+harness cannot release a material-runtime hold. Reservations are not invoices.
+
+The [first setup probe](../tests/evidence/research/general-material-setup-probe-2026-11-17.json)
+constructed all five graphs with the exact failed r8 library on an A100 using
+driver 610.57.04 (CUDA driver API 13030). The Ni-sized control had 27,501 nodes,
+matching the failed run's count. The actual Ni failure used driver 620.70.06
+(API 13050), and material data and prior initialization also differ. These
+controls show those synthetic shapes can construct on 610; they do not identify
+the cause on 620 or clear the native hold. No native material calculation was
+repeated and the diagnostic app was authoritatively stopped.

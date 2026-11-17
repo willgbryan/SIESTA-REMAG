@@ -52,6 +52,12 @@ remains held. See the [saved repair record](../tests/evidence/research/general-m
 The next integration milestone is a diagnosed native repair followed by a
 source-bound measured result, prediction scoring and an Astra revision.
 
+A subsequent [setup-only diagnostic](../tests/evidence/research/general-material-setup-probe-2026-11-17.json)
+constructed five synthetic graphs with the unchanged native library, including
+the Ni-sized 27,501-node case. That allocation used driver 610.57.04; the failed
+Ni run used 620.70.06. The native cause and full material acceptance remain open.
+The diagnostic allocation is stopped and the original material hold is intact.
+
 The [Ouro adapter](OURO_ROUTES.md) prepares temporary file inputs without a
 persistent input asset and supplies operator-only submission/collection APIs.
 Local bytes, hashes, action IDs and collected outputs survive upload expiry.
