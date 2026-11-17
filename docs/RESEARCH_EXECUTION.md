@@ -366,3 +366,29 @@ matching the failed run's count. The actual Ni failure used driver 620.70.06
 controls show those synthetic shapes can construct on 610; they do not identify
 the cause on 620 or clear the native hold. No native material calculation was
 repeated and the diagnostic app was authoritatively stopped.
+
+### Original-input initialization with a mandatory cycle barrier
+
+`scripts/native_setup_probe_modal.py` compiles a diagnostic-only preload library
+from `probe_cycle_barrier.cpp` and `probe_graph_interpose.cpp`. It preserves the
+retained executable/library bytes and original input/pseudopotential. The CUDA
+interposer dumps each graph before forwarding the identical graph and flags
+exactly once. The cycle interposer writes a receipt and exits with code 90 before
+the first `remag_cycle_execute` body. It never returns a fake successful result.
+These sources must never be linked into a production library.
+
+The operator harness checks a real Linux preload control and the executable's
+imported cycle symbol before native initialization; immediate loader bindings
+record which library resolves the actual entry point. One native process has a
+60-second limit within the 180-second, one-GPU allocation. There are no retries.
+The separate 23-cent reservation remains charged; invoices remain unknown.
+Shared owner/account guards apply, and the held material owner stays unchanged.
+DOT files and loader records are collected as hash-verified `.log` artifacts.
+
+The [first original-input diagnostic](../tests/evidence/research/general-material-native-initialization-2026-11-17.json)
+reached the barrier at geometry 0 on driver 610.57.04. Both instantiations returned
+success; the actual SCF graph contains 27,501 nodes and 836 distinct conditional
+handles. No SCF cycle ran. This narrows the earlier driver-620 failure but does
+not prove its cause: instrumentation and allocation differ. The app is stopped,
+the incident hold remains active, and no full native or scientific acceptance
+is inferred from initialization alone.

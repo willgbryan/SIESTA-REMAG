@@ -58,6 +58,15 @@ the Ni-sized 27,501-node case. That allocation used driver 610.57.04; the failed
 Ni run used 620.70.06. The native cause and full material acceptance remain open.
 The diagnostic allocation is stopped and the original material hold is intact.
 
+The later [original-input initialization diagnostic](../tests/evidence/research/general-material-native-initialization-2026-11-17.json)
+used the same Ni input, executable and library on driver 610.57.04. It captured
+the actual 27,501-node graph and reached an enforced exit before the first SCF
+cycle. A Linux preload control and the executable's recorded symbol binding
+verified the barrier. Both graph instantiations returned success. The allocation
+is stopped; no material result or native repair is claimed. The graph dump,
+preload instrumentation and different allocation leave driver causality
+unproven, and the affected runtime remains held.
+
 The [Ouro adapter](OURO_ROUTES.md) prepares temporary file inputs without a
 persistent input asset and supplies operator-only submission/collection APIs.
 Local bytes, hashes, action IDs and collected outputs survive upload expiry.
