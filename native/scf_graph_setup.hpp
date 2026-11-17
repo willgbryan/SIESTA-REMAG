@@ -2,6 +2,7 @@
 #pragma once
 #include <cuda_runtime_api.h>
 #include <cstdio>
+#include "scf_runtime_policy.hpp"
 
 namespace remag {
 // Setup evidence must reach disk before a driver call can terminate the process.
@@ -35,6 +36,11 @@ inline cudaError_t instantiate_scf_graph(cudaGraphExec_t* exec,cudaGraph_t graph
     evidence.driver_query_status=cudaDriverGetVersion(&evidence.driver_cuda_version);
     if(evidence.runtime_query_status!=cudaSuccess)evidence.runtime_version=-1;
     if(evidence.driver_query_status!=cudaSuccess)evidence.driver_cuda_version=-1;
+    if(!supported_scf_runtime(evidence.runtime_version,evidence.driver_cuda_version)) {
+        evidence.checkpoint("runtime_rejected",cudaErrorNotSupported);
+        std::fputs("REMAG: device SCF runtime profile is not admitted; no graph instantiation or fallback\n",stderr);
+        return cudaErrorNotSupported;
+    }
     evidence.checkpoint("instantiate_begin");
     auto status=cudaGraphInstantiate(exec,graph,0);
     evidence.checkpoint("instantiate_end",status);

@@ -392,3 +392,26 @@ handles. No SCF cycle ran. This narrows the earlier driver-620 failure but does
 not prove its cause: instrumentation and allocation differ. The app is stopped,
 the incident hold remains active, and no full native or scientific acceptance
 is inferred from initialization alone.
+
+### Explicit native runtime admission
+
+The candidate library now exports a pure `remag_device_scf_runtime_policy`
+metadata symbol, bound into the runtime manifest alongside the executable and
+library hashes. Its initial profile is CUDA runtime 12060, driver API 13030 and
+NVIDIA driver 610.57.04, based on the retained setup and original-input checks.
+This is a restricted deployment candidate, not proof of a causal driver fix or
+successful full Ni calculation. Driver 620 remains unvalidated.
+
+Before invoking the native solver, the research worker checks the actual CUDA
+versions and the single visible GPU's NVIDIA driver version. Unknown, missing or
+different observations stop the attempt without a solver call or fallback.
+Within the native library, the SCF graph helper independently rejects failed
+version queries or unsupported CUDA runtime/driver API pairs before calling
+`cudaGraphInstantiate`. The pure metadata query itself is safe in CPU builders.
+
+Removing or widening the manifest policy fails against the linked library's
+metadata. Collection review recomputes admission from the retained observation;
+a builder's metadata-only proof cannot replace the worker's deployment proof.
+Historical runtime manifests and failed receipts remain readable and unchanged,
+including their incident holds. Full native health and scientific review are
+separate requirements, even on an admitted profile.

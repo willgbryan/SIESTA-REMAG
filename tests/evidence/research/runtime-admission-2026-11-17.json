@@ -1,0 +1,50 @@
+{
+  "format": "REMAG-RUNTIME-ADMISSION-ENGINEERING/1",
+  "recorded_at": "2026-11-17T10:07:03.150656+00:00",
+  "status": "local_engineering_passed_compiled_candidate_and_full_native_validation_pending",
+  "profile": {
+    "cuda_runtime": 12060,
+    "cuda_driver_api": 13030,
+    "nvidia_driver_versions": [
+      "610.57.04"
+    ]
+  },
+  "scope": [
+    "Native rejects unsupported versions before graph instantiation without fallback.",
+    "Compiled pure metadata binds worker policy to library hashes.",
+    "Worker observes actual CUDA and exact NVIDIA versions before solver invocation.",
+    "Collected proof is rechecked; missing, widened, forged or builder-only proofs fail.",
+    "Historical holds and failed reports remain unchanged."
+  ],
+  "tests": {
+    "full_suite": "898 passed, 4 skipped in 212.68s (0:03:32)",
+    "full_log_sha256": "c4e7a76267fbef16e3fe4403ea8988e2e16799609b5d765a09a9fe8568e86a39",
+    "production_native_helper_tested_with_CPU_CUDA_transport": true,
+    "actual_remote_entry_negative_control": "Ni/Co fixture transport confirms zero native calls on driver620 profile",
+    "GPU_tests": false
+  },
+  "source_sha256": {
+    "docs/RESEARCH_EXECUTION.md": "a7a296fb880281ef7ebc957c30b93f252b506ffa9fc3f7964852ec7c4c2f2de7",
+    "docs/SPEC_COMPLETION.md": "1ccb18edef023ec87eb2b1ca751a4849941de0336393e4f00912196bc41b8969",
+    "native/capabilities.cpp": "62e9bce001c260bb85a695eec7ce8174ca1e504eb38b18dff8997ec36d86b963",
+    "native/scf_graph_setup.hpp": "c5173173ab39783f1f57f71274b917eabc303b86215f68c2f7768c072cddc848",
+    "scripts/research_modal.py": "20bf4e84b9fcfa04a32d8f0b26000badd5934d377fa01f92d1cbbed4dc0d783a",
+    "src/siesta_remag/research/execution.py": "cd30346f39a4111078d17bd3824e19cde227b1f50def864d30fb8a2ca2e520a6",
+    "src/siesta_remag/research/preflight.py": "c0777551ae91c03cebe9c4774d0d7b11bfbe1398fd5c8e8f3cc719c2d9a18994",
+    "src/siesta_remag/research/relaxation_execution.py": "044c88c104d8537202d07b1ef9aee6ee1d58fb5fc924066d6d55f00f16cfd6dc",
+    "tests/fixtures/scf_setup_cuda/cuda_runtime_api.h": "8eb66911a06780de6d4e04e6935b7561eed5c5778a4d15e2bfcd5c77f5744a57",
+    "tests/fixtures/scf_setup_driver.cpp": "5b8f134d56b4521f889a555b05f163ef99f6e04af9b88216a935afe8e4cd17dd",
+    "tests/test_native_crash_evidence.py": "135f47388bae982759625f443c34f204b94e65b6faa3b349aa5e168a64455d5d",
+    "tests/test_research_preflight.py": "6a78c7b4581a66aff23f211e1f82dbc62878d12cb34cfd244ab91ef5c1b34e61",
+    "native/scf_runtime_policy.hpp": "4f04d8b6a238fc7d33bf09faa0aeed5cc8d259be714138443027e8ef88ae2258",
+    "src/siesta_remag/research/runtime_policy.py": "c593f586f3b9d85149d7ada1662ef91be730eddd55a147085ec248dff701bb40",
+    "tests/test_runtime_policy.py": "eff0a61b1404e22856a3e49bd1794e76caa048f597af0066ee9dedd3093de22c"
+  },
+  "native_crash_cause_proven": false,
+  "full_native_validation_passed": false,
+  "completed_non_FePt_feedback_iterations": 0,
+  "old_campaign_closed": true,
+  "GPU_launches": 0,
+  "new_reservations_cents": 0,
+  "next": "Compile changed candidate on CPU, verify policy and hashes, then separately review a full source-bound Ni execution. No automatic follow-on."
+}

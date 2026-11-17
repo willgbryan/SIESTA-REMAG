@@ -142,9 +142,9 @@ def _review(attempt, request, runtime):
     top = load(root/'report.json'); policy = load(attempt/'campaign/execution.json')
     if top['invocation_sha256'] != digest(policy) or top.get('policy') != policy:
         raise ValueError('Collected allocation belongs to another execution policy')
-    if runtime.get('capabilities') is not None and top.get('runtime_verification') != dict(
-            executable_sha256=runtime['executable_sha256'],capabilities=runtime['capabilities'],actual_files_verified=True):
-        raise ValueError('Collected native library/capability verification differs or is missing')
+    if runtime.get('capabilities') is not None:
+        from .runtime_policy import verify_saved
+        verify_saved(runtime, top.get('runtime_verification'))
     report = _verified_report(root/'query/report.json',root/'archive-manifest.json')
     if (report['request'] != request or report['source_sha256'] != request['source_sha256']
             or report['executable_sha256'] != runtime['executable_sha256']

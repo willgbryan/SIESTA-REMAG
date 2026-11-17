@@ -87,13 +87,16 @@ def probe_library(library):
 
 
 def validate_runtime(runtime):
-    if (not isinstance(runtime,dict) or set(runtime)-{'executable','executable_sha256','environment','threads','capabilities'}
+    if (not isinstance(runtime,dict) or set(runtime)-{'executable','executable_sha256','environment','threads','capabilities','driver_policy'}
             or not isinstance(runtime.get('executable'),str) or not runtime['executable'].startswith('/')
             or not isinstance(runtime.get('executable_sha256'),str) or not re.fullmatch(r'[0-9a-f]{64}',runtime['executable_sha256'])
             or type(runtime.get('threads',1)) is not int or not 1<=runtime.get('threads',1)<=8
             or not isinstance(runtime.get('environment',{}),dict)
             or any(not isinstance(k,str) or not isinstance(v,str) for k,v in runtime.get('environment',{}).items())):
         raise ValueError('Expected a pinned REMAG runtime manifest')
+    if 'driver_policy' in runtime:
+        from .runtime_policy import validate
+        validate(runtime['driver_policy'])
     enabled=runtime.get('environment',{}).get('REMAG_DEVICE_SCF')=='1'
     c=runtime.get('capabilities')
     if c is None:
@@ -119,15 +122,18 @@ def build_runtime(executable, library, environment, threads=1):
     executable,library=Path(os.path.abspath(executable)),Path(os.path.abspath(library))
     h=sha256(executable);lh=sha256(library)
     c=probe_library(library)
+    from .runtime_policy import probe
+    driver_policy=probe(library)
     if sha256(library)!=lh:raise ValueError('Library changed during capability probe')
     result=dict(executable=str(executable),executable_sha256=h,environment=environment,threads=threads,
         capabilities=dict(format='REMAG-BOUND-CAPABILITIES/1',executable_sha256=h,
             library=str(library),library_sha256=lh,device_scf=c))
+    if driver_policy is not None:result['driver_policy']=driver_policy
     validate_runtime(result)
     return result
 
 
-def verify_runtime_files(runtime):
+def verify_runtime_files(runtime, *, require_deployment=False):
     """Verify the uploaded manifest against actual files before native work."""
     c=validate_runtime(runtime)
     check_execution_hold(runtime)
@@ -135,8 +141,16 @@ def verify_runtime_files(runtime):
         raise ValueError('Executable checksum differs from capability binding')
     if c and (sha256(Path(c['library']))!=c['library_sha256'] or probe_library(c['library'])!=c['device_scf']):
         raise ValueError('Native library bytes/capabilities differ from the authorized build')
-    return dict(executable_sha256=runtime['executable_sha256'],capabilities=c,
-                actual_files_verified=True)
+    from .runtime_policy import probe, observe, check
+    compiled_policy=probe(c['library']) if c else None
+    if compiled_policy!=runtime.get('driver_policy'):
+        raise ValueError('Runtime admission policy differs from the linked library')
+    deployment=None
+    if require_deployment and compiled_policy and runtime.get('environment',{}).get('REMAG_DEVICE_SCF')=='1':
+        deployment=check(compiled_policy,observe())
+    result=dict(executable_sha256=runtime['executable_sha256'],capabilities=c,actual_files_verified=True)
+    if compiled_policy is not None:result.update(driver_policy=compiled_policy,deployment=deployment)
+    return result
 
 
 def check_mesh_capacity(request, capabilities):

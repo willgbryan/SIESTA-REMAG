@@ -2,6 +2,7 @@
 #pragma once
 using cudaError_t=int;
 constexpr int cudaSuccess=0;
+constexpr int cudaErrorNotSupported=801;
 using cudaGraph_t=void*;
 using cudaGraphExec_t=void*;
 using cudaStream_t=void*;

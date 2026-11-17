@@ -105,7 +105,7 @@ def calculate(run_id):
     flush()
     try:
         from siesta_remag.research.preflight import verify_runtime_files
-        report['runtime_verification'] = verify_runtime_files(runtime)
+        report['runtime_verification'] = verify_runtime_files(runtime, require_deployment=True)
         if operation not in ('query', 'relaxation'):
             raise ValueError('Unsupported execution operation')
         expected_code = experiment_code()

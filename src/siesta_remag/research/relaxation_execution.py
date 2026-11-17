@@ -120,10 +120,10 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
             report.get('runtime_env') != runtime.get('environment', {}) or
             report.get('executable_sha256') != runtime['executable_sha256']):
         raise ValueError('Collected relaxation source/input/executable/runtime differs')
-    expected_runtime = dict(executable_sha256=runtime['executable_sha256'],
-                            capabilities=runtime.get('capabilities'), actual_files_verified=True)
-    if top.get('runtime_verification') != expected_runtime:
-        raise ValueError('Collected relaxation runtime verification is missing or differs')
+    from .runtime_policy import verify_saved
+    try: verify_saved(runtime, top.get('runtime_verification'))
+    except ValueError as exc:
+        raise ValueError('Collected relaxation runtime verification is missing or differs') from exc
     if top.get('experiments') != [dict(id='query', status=report['status'], report_sha256=sha256(report_path))]:
         raise ValueError('Collected relaxation report binding differs')
     for name, expected in report['accepted_artifacts'].items():

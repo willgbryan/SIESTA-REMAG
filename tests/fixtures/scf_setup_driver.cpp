@@ -16,7 +16,7 @@ int step(const char* name) {
 cudaError_t cudaRuntimeGetVersion(int* v) {*v=12060;return 0;}
 cudaError_t cudaDriverGetVersion(int* v) {
     if(mode=="unknown-version") {*v=12345;return 9;}
-    *v=12080;return 0;
+    *v=mode=="unadmitted-driver"?13050:13030;return 0;
 }
 cudaError_t cudaGraphInstantiate(cudaGraphExec_t* exec,cudaGraph_t,unsigned long long flags) {
     if(flags)return 99;

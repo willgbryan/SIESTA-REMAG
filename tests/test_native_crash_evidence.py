@@ -45,16 +45,25 @@ def test_setup_evidence_survives_failure_without_retry(native_probe, tmp_path, s
         assert result.stdout.strip() == f'7 {expected_calls}'
     assert all(r['graph_nodes'] == 120985 and r['jobs'] == 1896 for r in rows)
     assert rows[-1]['runtime_version'] == 12060
-    assert rows[-1]['driver_cuda_version'] == 12080
+    assert rows[-1]['driver_cuda_version'] == 13030
 
 
-def test_success_and_unavailable_version_stay_distinct(native_probe, tmp_path):
-    result = subprocess.run([str(native_probe), 'unknown-version'], cwd=tmp_path, capture_output=True, text=True)
+def test_supported_runtime_success(native_probe, tmp_path):
+    result = subprocess.run([str(native_probe), 'success'], cwd=tmp_path, capture_output=True, text=True)
     assert result.returncode == 0 and result.stdout.strip() == '0 3'
     rows = checkpoints(tmp_path)
     assert [r['phase'] for r in rows] == ['version_query_begin','instantiate_begin','instantiate_end',
                                         'upload_begin','upload_end','synchronize_begin','synchronize_end']
-    assert rows[-1]['driver_cuda_version'] == -1 and rows[-1]['driver_query_status'] == 9
+    assert rows[-1]['driver_cuda_version'] == 13030 and rows[-1]['driver_query_status'] == 0
+
+
+@pytest.mark.parametrize('mode,version,status', [('unknown-version',-1,9),('unadmitted-driver',13050,0)])
+def test_unadmitted_driver_stops_before_graph_calls(native_probe, tmp_path, mode, version, status):
+    result = subprocess.run([str(native_probe), mode], cwd=tmp_path, capture_output=True, text=True)
+    assert result.returncode == 801 % 256 and result.stdout.strip() == '801 0'
+    rows = checkpoints(tmp_path)
+    assert [r['phase'] for r in rows] == ['version_query_begin','runtime_rejected']
+    assert rows[-1]['driver_cuda_version'] == version and rows[-1]['driver_query_status'] == status
 
 
 def test_log_failure_does_not_mask_original_api_failure(native_probe, tmp_path):

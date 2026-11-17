@@ -207,7 +207,9 @@ def test_collected_build_proof_required_for_usable_result(prepared,tmp_path,comp
     def collect(remote,**kwargs):
         top=load(remote/'report.json')
         if proof!='missing':
-            top['runtime_verification']=verify_runtime_files(r)
+            from siesta_remag.research import runtime_policy
+            monkeypatch.setattr(runtime_policy,'observe',lambda:dict(cuda_runtime=12060,cuda_driver_api=13030,nvidia_driver_versions=['610.57.04']))
+            top['runtime_verification']=verify_runtime_files(r,require_deployment=True)
             if proof=='wrong_library':top['runtime_verification']['capabilities']['library_sha256']='0'*64
         save(remote/'report.json',top)
         return original(remote,**kwargs)
@@ -220,7 +222,8 @@ def test_collected_build_proof_required_for_usable_result(prepared,tmp_path,comp
         assert result['usable_result_seconds']>0
     else:
         assert result['status']=='held_review' and result['usable_result_seconds'] is None
-        assert 'capability verification' in result['review_error']['message']
+        assert ('capability verification' in result['review_error']['message'] or
+                (proof=='missing' and 'Missing native runtime admission' in result['review_error']['message']))
         with pytest.raises(ValueError,match='Previous execution needs'):
             execute_query(tmp_path,'execution-config.json','bundle','next',transport=t)
         assert len(t.calls)==1
