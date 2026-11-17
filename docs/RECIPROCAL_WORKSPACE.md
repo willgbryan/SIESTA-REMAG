@@ -4,6 +4,14 @@ The electronic workspace links saved k points, band states, atom/orbit/motif
 projections and signed DOS. It consumes the existing native-checked spectra;
 viewing and exporting a path do not invoke a solver or reserve compute.
 
+The live registered IDE initially loads the DOS and bounded state preview.
+**Load saved k-space** retrieves one spectrum's complete exported arrays on
+demand. The read binds the displayed report and spectrum metadata hashes, then
+rechecks source, native artifacts and arrays; changed evidence requires a
+workspace refresh. Original weights, signed populations and full k/band
+resolution are retained. Static snapshots remain self-contained. This changes
+transport/loading only, not the scientific sampling or acceptance thresholds.
+
 ## Periodic regions
 
 Select a fractional reciprocal center and three half widths in `[0, 0.5]`.

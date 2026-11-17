@@ -1,6 +1,8 @@
 // Shipped JavaScript protocol checks with DOM/canvas doubles, not visual QA.
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const html=fs.readFileSync(process.argv[2],'utf8'),state=JSON.parse(fs.readFileSync(process.argv[3],'utf8'));
+const deferred=process.argv[4]==='deferred',savedSamples=new Map();let sampleCalls=0;
+if(deferred){for(const family of state.families){for(const row of family.rows){for(const calc of row.calculations||[]){for(const view of Object.values(calc.spectra||{})){let sample=view.sampled;if(sample?.ref)sample=state.sampled_arrays[sample.ref];if(sample?.available){const url='/api/sampling?fixture='+savedSamples.size;savedSamples.set(url,sample);view.sampled={available:false,deferred:true,url};}}}}}delete state.sampled_arrays;}
 class Element {
  constructor(){this.children=[];this.value='';this.checked=false;this.style={};this.hidden=false;this.textContent='';this.dataset={};}
  append(...children){this.children.push(...children);if(!this.value&&children[0]?.value)this.value=children[0].value;}
@@ -13,11 +15,12 @@ const elements=new Map([...html.matchAll(/id="([^"]+)"/g)].map(m=>['#'+m[1],new 
 for(const name of ['h1','.stage-label','.stage-bottom','.axis','.legend'])elements.set(name,new Element());
 elements.get('#query-mode').value='query';elements.get('#series-control').value='strain-2';
 const context={document:{querySelector:s=>elements.get(s)||null,querySelectorAll:()=>[],createElement:()=>new Element(),createElementNS:()=>new Element(),createTextNode:text=>({textContent:text})},ResizeObserver:class{observe(){}},devicePixelRatio:1,window:{devicePixelRatio:1},setTimeout,clearTimeout,console,Blob,URL,
- fetch:async path=>{assert.equal(path,'/api/state');return {ok:true,json:async()=>structuredClone(state)};}};
+ fetch:async path=>{if(savedSamples.has(path)){sampleCalls++;return {ok:true,json:async()=>structuredClone(savedSamples.get(path))};}assert.equal(path,'/api/state');return {ok:true,json:async()=>structuredClone(state)};}};
 vm.createContext(context);vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);
 const run=code=>vm.runInContext(code,context),el=id=>elements.get('#'+id);
 (async()=>{
  await new Promise(resolve=>setImmediate(resolve));assert.equal(el('error').textContent,'');
+ if(deferred){assert.equal(sampleCalls,0);assert.equal(el('reciprocal-selection').hidden,true);assert.equal(el('load-sampling').hidden,false);await el('load-sampling').onclick();assert.equal(sampleCalls,1);assert.equal(el('load-sampling').hidden,true);}
  assert.equal(el('reciprocal-selection').hidden,false);assert.match(el('region-scope').textContent,/2 \/ 2/);
  assert.equal(el('k-select').children.length,2);assert.match(el('band-scope').textContent,/energy-ranked/);
  const all=run('regionalDOS(spectrum()).groups[1].density.slice()');

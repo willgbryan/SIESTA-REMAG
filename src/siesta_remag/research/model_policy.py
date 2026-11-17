@@ -43,6 +43,8 @@ sign and ranking before claiming exploratory reliability or research advantage.
 Scalar-profile observations do not imply access to electronic diagnostics.
 Action arguments_json must encode exactly the tool's args object. Required and
 optional fields are listed in the catalog; omit unknown fields. Examples:
+When a tool has fixed_arguments, copy each bound value exactly. These values
+are part of its action contract, including evidence paths, event IDs and units.
 record_hypothesis: statement text, predictions and alternatives lists of text.
 propose_experiment: hypothesis_id, structure_sha256, action and rationale text.
 record_prediction: experiment_id, observable, finite value and unit (e.g.
@@ -171,6 +173,34 @@ def make_request(context, config):
     return result
 
 
+def bind_tool_arguments(catalog, tool, fixed_arguments):
+    """Advertise and enforce the same operator-selected phase bindings.
+
+    Binding does not grant tools or execute them. A copy prevents one phase's
+    constraints from contaminating the shared catalog or the next phase.
+    """
+    if tool not in catalog or not isinstance(fixed_arguments, dict):
+        raise ValueError('A listed tool and fixed argument object are required')
+    fields = loads(json.dumps(catalog[tool], allow_nan=False))
+    values = loads(json.dumps(fixed_arguments, allow_nan=False))
+    if set(values) - set(fields['required']) - set(fields['optional']):
+        raise ValueError('Fixed arguments must belong to the tool catalog')
+    fields['fixed_arguments'] = values
+    return {tool: fields}
+
+
+def validate_tool_arguments(arguments, fields):
+    if (not isinstance(arguments, dict) or not set(fields['required']) <= arguments.keys()
+            or arguments.keys() - set(fields['required']) - set(fields['optional'])):
+        raise ValueError('Model arguments do not match the tool catalog')
+    fixed = fields.get('fixed_arguments', {})
+    if (not isinstance(fixed, dict) or set(fixed) - set(fields['required']) - set(fields['optional'])):
+        raise ValueError('Invalid fixed argument contract')
+    for key, value in fixed.items():
+        if key not in arguments or digest(arguments[key]) != digest(value):
+            raise ValueError('Model argument differs from advertised binding: ' + key)
+
+
 def decode_decision(response, catalog):
     if not isinstance(response, dict) or response.get('status') != 'completed' or response.get('error') or response.get('incomplete_details'):
         raise ValueError('Model response is incomplete or failed; no retry')
@@ -193,9 +223,7 @@ def decode_decision(response, catalog):
         if not isinstance(name, str) or name not in catalog: raise ValueError('Model selected an unavailable tool')
         arguments = loads(args['arguments_json'])
         fields = catalog[name]
-        if (not isinstance(arguments, dict) or not set(fields['required']) <= arguments.keys()
-            or arguments.keys() - set(fields['required']) - set(fields['optional'])):
-            raise ValueError('Model arguments do not match the tool catalog')
+        validate_tool_arguments(arguments, fields)
         if isinstance(args['rationale'], str) and 1 <= len(args['rationale']) <= 8000:
             return dict(tool=name, args=arguments, rationale=args['rationale'])
     raise ValueError('Invalid research decision')

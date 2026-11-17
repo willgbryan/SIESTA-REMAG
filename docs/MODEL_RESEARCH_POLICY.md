@@ -16,6 +16,14 @@ credential lookup, model substitution or automatic retry.
 
 ## Operator setup
 
+Phase-specific tool bindings can be added with `bind_tool_arguments`. It copies
+the catalog and advertises `fixed_arguments`, such as the exact experiment ID,
+observable/unit pair, or score-evidence path. Both model transports enforce those
+same values before local tool execution. A revision must not be rejected for an
+unadvertised choice between two otherwise valid evidence paths. This change
+does not rewrite failed phases or count operator-reviewed recovery as unattended
+success. Binding tests exercise isolated catalogs without model calls.
+
 Create a policy configuration outside the research workspace when registering
 a paired study, and include it in `policy_artifacts`. For example:
 

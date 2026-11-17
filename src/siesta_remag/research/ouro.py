@@ -64,6 +64,13 @@ def price_ceiling_cents(route):
         return 0
     if route['monetization'] != 'pay-per-use' or route['cost_accounting'] not in ('fixed', 'runtime'):
         raise ValueError('Unsupported or unresolved route pricing')
+    # An explicit zero fixed rate needs no exchange rate. Missing values alone
+    # are not a quote, and any contradictory nonzero metadata keeps it held.
+    if (route['cost_accounting'] == 'fixed' and route.get('price_currency') in ('usd', 'btc')
+            and route.get('unit_cost') is not None and _nonnegative(route['unit_cost']) == 0
+            and all(route.get(k) is None or _nonnegative(route[k]) == 0 for k in
+                    ('price', 'price_usd', 'price_sats', 'unit_cost_usd', 'unit_cost_sats'))):
+        return 0
     rate = route.get('unit_cost_usd')
     if rate is None and route['price_currency'] == 'usd':
         rate = route.get('unit_cost')
@@ -148,13 +155,17 @@ def _validate(route, body, files, query, params):
     allowed = {'query': set(), 'path': set()}
     for p in spec.get('parameters') or []:
         where, name = p.get('in'), p.get('name')
+        parameter_schema = p.get('schema', {})
+        _schema_check(parameter_schema)
+        # Optional service headers may be injected by Ouro (action/webhook
+        # context). This adapter never supplies or overrides request headers.
+        if where == 'header' and not p.get('required'):
+            continue
         if where not in supplied:
             raise ValueError('Unsupported route parameter location')
         allowed[where].add(name)
         if p.get('required') and name not in supplied[where]:
             raise ValueError('Missing required route parameter: ' + name)
-        parameter_schema = p.get('schema', {})
-        _schema_check(parameter_schema)
         if name in supplied[where]:
             Draft202012Validator(parameter_schema).validate(supplied[where][name])
     if any(set(supplied[k]) - allowed[k] for k in supplied):

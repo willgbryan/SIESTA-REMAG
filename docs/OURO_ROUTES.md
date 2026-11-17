@@ -43,6 +43,11 @@ documented metadata shape; it cannot certify an upstream service implementation.
 explicit `max_billable_seconds`. A billing ceiling is not a provider execution
 deadline, a reservation or an invoice. Missing USD pricing is not treated as
 zero. The initial adapter supports resolved free and pay-per-use pricing only.
+An explicit zero fixed rate in USD or BTC is zero without an exchange-rate
+lookup; absent rates or contradictory nonzero metadata do not become free.
+Optional service headers are left to Ouro, never supplied by this adapter.
+Required headers and attempts to pass header names as query/path parameters
+are rejected. Schema-reference checks also apply to omitted headers.
 The SDK has no atomic quote/hash condition on execution: a fresh preflight does
 not install a server-side spending cap or prevent a concurrent price change.
 An operator requiring a hard cap must establish that guarantee with the provider
@@ -100,6 +105,38 @@ provider release evidence must precede promotion to the REMAG measured notebook
 or the next compute launch. Old convergence evidence and ledgers are unchanged.
 
 ## Local evidence
+
+The working integration uses local CPU Orb relaxation, REMAG electronic/magnetic
+evaluation, and a separate Ouro hull screen. The saved Ni preparation already
+used `orb-v3-conservative-inf-mpa`: 4.0877 seconds including the local worker,
+10 optimizer steps, maximum atom force 0.0147412 eV/Å and stress 0.0819901 GPa.
+This is a measured preparation, not end-to-end research latency or stability.
+
+On 17 November the existing account successfully retrieved the live
+[hull route](https://ouro.foundation/routes/mmoderwell/calculate-energy-above-the-convex-hull),
+ID `75fe7f4b-22f5-4883-aa1d-378fd42da47c`. Its contract accepts a temporary CIF
+object with URL/filename, and currently quotes an explicit zero fixed BTC rate.
+No upload or route execution was made. The offline request uses the saved local
+Orb geometry, Orb MPA surface, `allow_unrelaxed=false`, health checks enabled,
+and no user-material/generated-P1/phase-diagram outputs. The saved force and
+cell-force check passes the route's 0.05 eV/Å screen. CIF conversion preserves
+the cell metric and periodic fractional sites; Cartesian cell orientation is
+not a CIF invariant. Exact GPAC source and observed geometry hashes are retained.
+
+The Orb screen refers to the Orb-relaxed geometry, not the distinct DFT-relaxed
+geometry used for the magnetic result. The route's PBE option mixes an Orb-scored
+candidate with published DFT references, so it is not selected as a consistent
+DFT hull. The same named Orb model family is not proof of identical provider
+weights or settings. Live outputs still need model, geometry, reference coverage
+and scientific validation before use in a stability conclusion.
+
+The route documentation says novel inputs are added to its crystal database;
+the retrieved contract has no opt-out. Temporary input storage and private
+output settings do not prevent that service-side database write. Submission is
+held for that disclosure decision and provider resource admission/release.
+The local preflight and its two retained earlier failures are recorded in
+`tests/evidence/research/local-relaxation-ouro-hull-preflight-2026-11-17.json`.
+No old Desktop campaign or closed FePt campaign is resumed.
 
 `tests/test_research_ouro.py` uses the actual pinned SDK with intercepted HTTP,
 including temporary upload reservation/PUT, async submission, one-read polling

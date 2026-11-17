@@ -3,6 +3,7 @@ from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
+from urllib.parse import urlsplit, parse_qs
 import numpy as np
 
 from ..discovery.common import load, digest
@@ -73,11 +74,11 @@ def comparison_key(report):
     return digest(config)
 
 
-def dataset(workspace):
+def dataset(workspace, *, include_sampling=True):
     workspace = Path(workspace)
     if (workspace/'workspace.json').exists():
         from .catalog import registered_dataset
-        return registered_dataset(workspace)
+        return registered_dataset(workspace,include_sampling=include_sampling)
     families = [dict(id=kind, label=label, hint=hint,
                      rows=[dict(r, result=None) for r in authored_family(kind)])
                 for kind, label, hint in [('axial', 'c strain', 'Fixed a, b'),
@@ -164,11 +165,20 @@ def make_server(workspace, port=8765, *, editable=False):
                 body, kind = Path(__file__).with_name('workspace.html').read_bytes(), 'text/html; charset=utf-8'
             elif self.path == '/api/state':
                 try:
-                    body = json.dumps(browser_state(dataset(workspace)) | {'authoring_enabled':editable,
+                    body = json.dumps(browser_state(dataset(workspace,include_sampling=False)) | {'authoring_enabled':editable,
                         'activity_enabled':(workspace/'research-activity.json').exists()}, allow_nan=False).encode()
                 except Exception as exc:
                     self.send_error(500, type(exc).__name__); return
                 kind = 'application/json'
+            elif urlsplit(self.path).path == '/api/sampling':
+                try:
+                    from .catalog import registered_sampling
+                    parsed=parse_qs(urlsplit(self.path).query,strict_parsing=True)
+                    if any(len(v)!=1 for v in parsed.values()):raise ValueError('Duplicate sampling selection')
+                    body=json.dumps(registered_sampling(workspace,{k:v[0] for k,v in parsed.items()}),allow_nan=False).encode()
+                except Exception as exc:
+                    self.send_error(400,type(exc).__name__);return
+                kind='application/json'
             elif self.path == '/api/activity':
                 try:
                     body = json.dumps(activity_state(workspace), allow_nan=False).encode()

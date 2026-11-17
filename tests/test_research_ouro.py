@@ -156,6 +156,34 @@ def test_runtime_and_free_pricing_are_explicit(route):
     with pytest.raises(ValueError,match='pricing'):price_ceiling_cents(raw)
 
 
+def test_explicit_zero_fixed_btc_rate_needs_no_exchange_rate(route):
+    raw=contract(route);raw.update(price_currency='btc',unit_cost=0,price=0,unit_cost_usd=None)
+    assert price_ceiling_cents(raw)==0
+    for patch in ({'unit_cost':None},{'unit_cost':.000001},{'price_sats':1},
+                  {'cost_accounting':'runtime'},{'price_currency':None}):
+        with pytest.raises(ValueError):price_ceiling_cents(raw|patch)
+    assert price_ceiling_cents(raw|{'unit_cost_usd':.12})==12
+
+
+def test_optional_service_headers_are_omitted_never_overridden(route,tmp_path):
+    raw=contract(route)
+    header={'in':'header','name':'ouro-webhook-token','required':False,'schema':{'type':'string'}}
+    raw['route']['parameters']=[header]
+    f=tmp_path/'input.cif';f.write_text('fixture')
+    prepare_request(raw,{'structure':f},tmp_path/'ok',body={'fmax':.05})
+    prepared=verify_request(tmp_path/'ok')
+    assert prepared['query']==prepared['params']=={}
+    for location in ('query','params'):
+        with pytest.raises(ValueError,match='Unknown route parameter'):
+            prepare_request(raw,{'structure':f},tmp_path/location,body={'fmax':.05},**{location:{'ouro-webhook-token':'override'}})
+    header['required']=True
+    with pytest.raises(ValueError,match='Unsupported route parameter location'):
+        prepare_request(raw,{'structure':f},tmp_path/'required',body={'fmax':.05})
+    header.update(required=False,schema={'$ref':'https://example.invalid/header'})
+    with pytest.raises(ValueError,match='local JSON schema'):
+        prepare_request(raw,{'structure':f},tmp_path/'external',body={'fmax':.05})
+
+
 @pytest.mark.parametrize('fault',['body','bytes','digest','cap','admission','contract','refresh'])
 def test_submission_preconditions_precede_upload(prepared,tmp_path,sdk,fault):
     directory,_=prepared;client,service=sdk;kwargs={}

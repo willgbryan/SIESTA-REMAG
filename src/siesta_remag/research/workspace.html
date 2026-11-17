@@ -134,6 +134,7 @@ main:has(.source-editor:not([hidden])) aside{grid-column:3}
 <section class="panel" id="electronic" role="tabpanel" aria-labelledby="tab-electronic" hidden>
 <div class="kicker">Spin moment</div><div class="value"><span id="moment">—</span> <small>μB / cell</small></div>
 <div class="pair"><span>Fermi energy</span><span id="fermi">—</span></div><div class="pair"><span>Selected-site moment</span><span id="site-moment">—</span></div><div class="rule"></div><select id="spectrum-stage" class="calc" aria-label="Electronic direction" hidden></select><div class="kicker" id="pdos-title">Projected DOS · states / eV</div><svg id="dos" viewBox="0 0 300 200" aria-label="Selected atomic orbital projected density of states" hidden></svg><div class="empty" id="spectral-empty">No checked orbital spectrum</div><div class="pair" id="dos-key" hidden></div><div id="state-selection" hidden><div class="rule"></div><div class="kicker">States near Eƒ</div><select id="k-select" class="calc" aria-label="Sampled k point"></select><select id="band-select" class="calc" aria-label="Electronic state"></select><div class="pair"><span>Selected projection</span><span id="state-weight">—</span></div><div class="pair"><span>Occupation</span><span id="state-occupation">—</span></div><div class="pair"><span>Spin ⟨σ⟩</span><span id="state-spin">—</span></div><div class="note" id="state-scope"></div></div><div class="note">Mulliken projections · nonorthogonal basis</div>
+<button id="load-sampling" hidden>Load saved k-space</button><p class="note" id="sampling-status" role="status"></p>
 <div id="reciprocal-selection" hidden><div class="rule"></div><div class="kicker">Reciprocal space</div>
 <select id="reciprocal-plane" class="calc" aria-label="Reciprocal projection"><option value="0,1">a* / b*</option><option value="0,2">a* / c*</option><option value="1,2">b* / c*</option></select>
 <svg id="reciprocal" viewBox="0 0 300 200" aria-label="Saved k points in fractional reciprocal coordinates"></svg>
@@ -332,12 +333,20 @@ const wrapK=x=>((x+.5)%1+1)%1-.5;
 function regionKeys(sample){return sample.k_fractional.flatMap((k,i)=>!reciprocalSelection||k.every((x,j)=>Math.abs(wrapK(x-reciprocalSelection.center[j]))<=reciprocalSelection.half_width[j]+1e-12)?[i]:[]);}
 function updateReciprocal(){
  const s=spectrum(),sample=s?.sampled;$('#reciprocal-selection').hidden=!sample?.available;
+ $('#load-sampling').hidden=!sample?.deferred;$('#load-sampling').disabled=!!sample?.loading;$('#sampling-status').textContent=sample?.loading?'Loading saved k-space…':sample?.error||'';
  const source=sample?.available?row().structure.source.sha256+':'+spectrumStage+':'+(sample.identity_sha256||sample.artifact_sha256):null;
  if(source!==sampledSource){sampledSource=source;reciprocalSelection=null;bandPathIndices=null;dosCache=null;selectedK=null;selectedBand=null;$('#region-center').value='0,0,0';$('#region-width').value='0.5,0.5,0.5';$('#region-error').textContent='';}
  if(!sample?.available)return;
  const ks=regionKeys(sample);if(!bandPathIndices||bandPathIndices.some(k=>!ks.includes(k))){bandPathIndices=ks.slice(0,16);$('#band-path').value=bandPathIndices.join(',');}
  const weight=ks.reduce((v,k)=>v+sample.k_weights[k],0);$('#region-scope').textContent=ks.length+' / '+sample.k_fractional.length+' saved k points · weight '+weight.toFixed(6)+'. Periodic fractional box; original weights retained.';
 }
+$('#load-sampling').onclick=async()=>{
+ const s=spectrum(),sample=s?.sampled;if(!sample?.deferred||sample.loading)return;
+ sample.loading=true;sample.error='';updateReciprocal();
+ try{const response=await fetch(sample.url);if(!response.ok)throw Error('Saved k-space changed or unavailable; reload the workspace.');const loaded=await response.json();s.sampled=loaded;if(!loaded.available)loaded.error=loaded.reason||'Saved k-space unavailable.';}
+ catch(error){sample.error=error.message;}
+ finally{sample.loading=false;if(spectrum()===s){updateReciprocal();spectrumChart(s);updateStates();drawReciprocal();drawBands();}}
+};
 function svgNode(svg,tag,attrs,text){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);if(text!==undefined)e.textContent=text;svg.append(e);return e;}
 function chooseState(k,n=null){selectedK=String(k);if(n!==null)selectedBand=String(n);updateStates();}
 function keyboardClick(node,fn){node.onclick=fn;node.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}};}

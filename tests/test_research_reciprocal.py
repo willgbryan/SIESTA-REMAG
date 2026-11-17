@@ -116,7 +116,8 @@ def test_browser_transport_deduplicates_aliases_without_mutating_dataset(tmp_pat
     assert wire['sampled_arrays']['sample-0']==source['a']['sampled']
 
 
-def test_shipped_reciprocal_client_updates_dos_and_state_selection(experiment,tmp_path):
+@pytest.mark.parametrize('mode',['embedded','deferred'])
+def test_shipped_reciprocal_client_updates_dos_and_state_selection(experiment,tmp_path,mode):
     if not shutil.which('node'):pytest.skip('Node required for client protocol test')
     from siesta_remag.research.experiments import run_experiment
     from siesta_remag.research.workspace import dataset,browser_state
@@ -128,5 +129,5 @@ def test_shipped_reciprocal_client_updates_dos_and_state_selection(experiment,tm
     state=dataset(tmp_path);p=spectrum_fixture(tmp_path/'spectrum');view=electronic_view(p,'a'*64,2)
     state['families'][0]['rows'][0]['calculations'][0]['spectra']={'soc-z':view};save(tmp_path/'state.json',browser_state(state))
     root=Path(__file__).resolve().parents[1]
-    result=subprocess.run(['node',str(root/'tests/fixtures/workspace_reciprocal_dom.cjs'),str(root/'src/siesta_remag/research/workspace.html'),str(tmp_path/'state.json')],capture_output=True,text=True)
+    result=subprocess.run(['node',str(root/'tests/fixtures/workspace_reciprocal_dom.cjs'),str(root/'src/siesta_remag/research/workspace.html'),str(tmp_path/'state.json'),mode],capture_output=True,text=True)
     assert result.returncode==0,result.stdout+result.stderr
