@@ -43,11 +43,12 @@ The initial integrated demonstration is planned as three sequential iterations
 spanning at least two non-FePt systems. The live general-material loop remains
 unfinished; the existing authored Fe₂B example is not a validated phase.
 
-Current live checkpoint: Ni relaxation and three magnetic stages passed on the
-explicitly admitted driver-610 runtime. All four prospective predictions were
-scored, and Astra used the measurements to propose hcp Co next. This is one
-feedback cycle with operator recovery, zero accepted unattended cycles, and one
-measured non-FePt system. The initial three-iteration demonstration remains open.
+Current live checkpoint: Ni and Co relaxation and three magnetic stages passed
+on the explicitly admitted driver-610 runtime. Four prospective predictions per
+material were scored, and Astra revised both from the measured results. These
+are two feedback cycles with operator recovery, zero accepted unattended full
+cycles, and two measured non-FePt systems. Astra selected four-atom fcc Co as the
+third structural control; the three-iteration demonstration remains open.
 See the [measured checkpoint](../tests/evidence/research/general-material-Ni-feedback-recovery-2026-11-17.json).
 
 Two local review problems remain explicit in that record. Cross-platform
@@ -58,8 +59,10 @@ The original input bytes, hashes, failed review, ownership and ledger are
 unchanged. The revised Astra action cited the actual measured report; an
 unadvertised harness rule required the score-file path. The unchanged proposal
 was recorded locally after verifying both links, while the failed original
-phase remains retained. The next policy context must advertise its required
-bindings before another iteration; the unattended gate has not passed.
+phase remains retained. The corrected policy context now advertises the required bindings. Astra
+completed all seven Co authoring/prediction calls unattended, using Ni feedback;
+four prospective predictions were sealed before CPU preparation. The full
+unattended feedback-cycle gate has not passed.
 
 The recovered usable result took 791.28 seconds including diagnosis and review;
 47.48 seconds is native pipeline time only. The 1–5 minute target is not proven.
@@ -105,11 +108,41 @@ grant without rewriting the failed outcome or its reservation.
 The [Ouro adapter](OURO_ROUTES.md) prepares temporary file inputs without a
 persistent input asset and supplies operator-only submission/collection APIs.
 Local bytes, hashes, action IDs and collected outputs survive upload expiry.
-Local SDK protocol tests exercise this path. A live route, configured access,
-provider allocation admission and scientific result validation remain pending.
+Local SDK protocol tests exercise this path. The first live Ni hull call now
+succeeded in Ghost, with its request, temporary upload and collected result
+bound to the saved local Orb geometry. Ouro reports 0.000004 eV/atom above its
+Orb-MPA hull, 17 references and none missing; no geometry was relaxed by the
+service. Its result is a model/database screen, not a DFT hull or synthesis
+qualification. The terminal action was collected in 25.00 seconds; provider
+hardware/allocation release and actual invoices are not exposed. The original
+upload-only failure and pre-submission account hold remain retained. See the
+[live hull record](../tests/evidence/research/ouro-ghost-Ni-hull-2026-11-17.json).
 This is an extension of the original spec
 completion work, not a replacement for the clean paired-study and empirical
 acceptance requirements below.
+
+Co’s [preparation checkpoint](../tests/evidence/research/general-material-Co-preparation-2026-11-17.json)
+records the exact two-site hcp source, four sealed predictions, and local CPU
+Orb relaxation: 24 steps, 3.99 seconds including the worker, maximum force
+0.006203 eV/Å and stress 0.07190 GPa. The 9×9×5 native preflight passed with
+explicit magnetic starts and the saved admitted runtime. The subsequent
+[measured Co feedback](../tests/evidence/research/general-material-Co-feedback-2026-11-17.json)
+records Js = 1.697639 T, volume = 21.343893 Å³ and E/F axial differences of
+0.223/0.145 meV per cell. All four subjective prediction intervals cover, which
+does not establish calibration. Native review initially failed because three
+recomputed branch RMS values differed by about 1.1e-16 μB. The tested saved-data
+review now permits only projection roundoff at the scale of the input moments;
+branch decisions, other metrics and numerical thresholds remain unchanged.
+An append-only recovery preserved the failed receipt and all original bytes.
+There was no native rerun. The app is stopped. Native pipeline time was 57.84 s;
+request through usable recovery was 452.04 s, outside the 1–5 minute target.
+
+Astra's Co revision completed in one bounded call using existing Codex access.
+It kept the axial signal provisional and proposed fcc Co to distinguish crystal
+family from composition, conditional on the final relaxed geometry and magnetic
+branches. The source-bound measured Ni/Co geometries can now be selected in the
+IDE, which displays one fitted unit cell. The full local suite passed 972 tests
+with four skipped; 92 review checks and five policy-driver checks passed.
 
 The viewport implementation and bounded browser checks are recorded in
 [the IDE evidence](../tests/evidence/research/ide-viewport-2026-11-17.json).
@@ -121,9 +154,9 @@ now connects source-bound discovery preparations to the existing guarded researc
 controller. Local Ni/Co fixtures exercise the actual remote entry, collection,
 shutdown and independent native/branch/source review. Explicit magnetic starts
 survive preparation; a completed low-moment screen is retained as a negative
-result. Live Ni measurement, import, scoring and a recovered revision now pass
-in the bounded scope above. Repeated unattended multi-material execution,
-stability coverage and live Ouro admission remain open.
+result. Live Ni and Co measurement, import, scoring and revisions now pass with
+the explicit recoveries above. Repeated unattended multi-material execution,
+broader stability coverage and route-specific reusable hull ingestion remain open.
 
 | Final deliverable (§16) | Current state |
 | --- | --- |

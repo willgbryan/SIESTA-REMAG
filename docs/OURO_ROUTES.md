@@ -2,9 +2,11 @@
 
 Install `.[ouro]` for the pinned `ouro-py==2.24.0` transport and JSON-schema
 preflight. The adapter implements local file preparation and operator APIs for
-one submission, one status observation and collection. It has **not executed a
-live route**. A selected route, configured access, provider allocation admission
-and route-specific scientific result interpretation are still required.
+one submission, one status observation and collection. A live saved-Ni hull call has now succeeded in Ghost; its
+[checkpoint](../tests/evidence/research/ouro-ghost-Ni-hull-2026-11-17.json) records
+input/result bindings and the original upload-only failure. The generic adapter
+does not turn a successful action into a scientifically qualified observation.
+Each route still requires explicit admission and result interpretation.
 
 The [Ouro guide](https://ouro.foundation/guides/route-input-output-assets#file-inputs-that-dont-need-to-be-assets)
 describes temporary uploads: bytes still leave the machine, but no persistent

@@ -1,0 +1,330 @@
+{
+  "format": "GPAC-REMAG-CO-FEEDBACK/1",
+  "recorded_at": "2026-11-17T17:46:36.545691+00:00",
+  "status": "measured_scored_revised_with_saved_review_recovery",
+  "source_sha256": "93daca3772e1d7629b7d16c1a3a20806f356397babb6ee2b41375d123e926329",
+  "export_sha256": "7d4da801c6bd637b8bf9295f22a7423edbfbe6924c827e5206e9892a007c9432",
+  "source_and_observation_remain_separate": true,
+  "observations": {
+    "relaxation": {
+      "volume_a3": 21.34389277418607,
+      "Js_T": 1.6976393888851777,
+      "max_force_ev_ang": 0.004303389594261714,
+      "max_stress_gpa": 0.42714028710527996
+    },
+    "E_x_minus_z_ev": 0.0002229999990959186,
+    "F_x_minus_z_ev": 0.0001449999999749707
+  },
+  "predictions": [
+    {
+      "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+      "observable": "relaxation.Js_T",
+      "value": 1.8,
+      "unit": "T",
+      "uncertainty": 0.6,
+      "interval_probability": 0.8
+    },
+    {
+      "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+      "observable": "relaxation.volume_a3",
+      "value": 21.5,
+      "unit": "angstrom^3",
+      "uncertainty": 3.0,
+      "interval_probability": 0.8
+    },
+    {
+      "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+      "observable": "anisotropy.total_energy_ev",
+      "value": 6e-05,
+      "unit": "eV/cell",
+      "uncertainty": 0.001,
+      "interval_probability": 0.8
+    },
+    {
+      "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+      "observable": "anisotropy.free_energy_ev",
+      "value": 6e-05,
+      "unit": "eV/cell",
+      "uncertainty": 0.001,
+      "interval_probability": 0.8
+    }
+  ],
+  "evaluation": {
+    "status": "evaluated",
+    "observables": {
+      "anisotropy.free_energy_ev": {
+        "status": "evaluated",
+        "error": 8.499999997497071e-05,
+        "absolute_error": 8.499999997497071e-05,
+        "unit": "eV/cell",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "anisotropy.total_energy_ev": {
+        "status": "evaluated",
+        "error": 0.00016299999909591862,
+        "absolute_error": 0.00016299999909591862,
+        "unit": "eV/cell",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "relaxation.Js_T": {
+        "status": "evaluated",
+        "error": -0.10236061111482231,
+        "absolute_error": 0.10236061111482231,
+        "unit": "T",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "relaxation.volume_a3": {
+        "status": "evaluated",
+        "error": -0.15610722581392977,
+        "absolute_error": 0.15610722581392977,
+        "unit": "angstrom^3",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      }
+    },
+    "mechanism_verified": false
+  },
+  "prospective_seal": {
+    "notebook_sha256": "5e75cd2d4c6285a1c82a40f547fb36221103fcc90b2e5ce607bd33c804aca214",
+    "candidate_sha256": "aa6dc8f48fef4fd0039240a67a7a93bba52b104f0c5edf755dfc629d8771128e",
+    "sealed_at": "2026-11-17T17:08:52.204270+00:00",
+    "predictions": 4,
+    "candidate_measurements_seen": false
+  },
+  "physical_conditions": {
+    "positions": "relaxed",
+    "cell": "fully_variable",
+    "external_pressure_gpa": 0,
+    "smearing_k": 300
+  },
+  "native_screen": {
+    "delta_E_MJ_m3": {
+      "z": 0.0,
+      "x": 1.6739466824065636,
+      "y": 1.6664402061240855
+    },
+    "delta_F_MJ_m3": {
+      "z": 0.0,
+      "x": 1.0884406721573676,
+      "y": 1.0884406721573676
+    },
+    "Js_T": 1.6956737427941888,
+    "signal": "axial",
+    "axis_convention": "z parallel to relaxed c; x perpendicular projection of a; y=z cross x",
+    "K1": null,
+    "K2": null,
+    "kappa": null,
+    "precision_qualified": false,
+    "physical_anisotropy_qualified": false,
+    "magnetic_ground_state_qualified": false,
+    "synthesizability_qualified": false,
+    "mae_ev_cell": 0.0002229999990959186,
+    "transverse_split_ev_cell": -9.999985195463523e-07,
+    "convention": "E[x] - E[z]; positive favors z; axes refer to the relaxed cell",
+    "uncertainty_ev_cell": null,
+    "axes_cartesian": {
+      "z": [
+        -5.447229165666816e-05,
+        -4.462096726632007e-05,
+        0.9999999975208692
+      ],
+      "x": [
+        0.9999998288715677,
+        -0.0005824881430008134,
+        5.4446291285527864e-05
+      ],
+      "y": [
+        0.0005824857121105679,
+        0.9999998293582516,
+        4.465268909441598e-05
+      ]
+    }
+  },
+  "verification": {
+    "native_reviews_reproduced": true,
+    "accepted_artifact_hashes_verified": true,
+    "input_reproduction": {
+      "dft-relax": {
+        "exact_input_bytes": false,
+        "max_fractional_reconstruction_delta": 1.1102230246251565e-16,
+        "fractional_roundoff_bound": 1.7763568394002505e-15,
+        "retained_hashes_verified": true
+      },
+      "soc-z": {
+        "exact_input_bytes": true,
+        "max_fractional_reconstruction_delta": 0.0,
+        "fractional_roundoff_bound": 1.7763568394002505e-15,
+        "retained_hashes_verified": true
+      },
+      "soc-x": {
+        "exact_input_bytes": true,
+        "max_fractional_reconstruction_delta": 0.0,
+        "fractional_roundoff_bound": 1.7763568394002505e-15,
+        "retained_hashes_verified": true
+      },
+      "soc-y": {
+        "exact_input_bytes": true,
+        "max_fractional_reconstruction_delta": 0.0,
+        "fractional_roundoff_bound": 1.7763568394002505e-15,
+        "retained_hashes_verified": true
+      }
+    },
+    "branch_reproduction": {
+      "soc-z": {
+        "exact": false,
+        "site_rms_delta_mub": 1.1210650463500116e-16,
+        "projection_roundoff_bound_mub": 2.7614888153948415e-15,
+        "magnetic_thresholds_unchanged": true
+      },
+      "soc-x": {
+        "exact": false,
+        "site_rms_delta_mub": 1.1270281582986819e-16,
+        "projection_roundoff_bound_mub": 2.75905923378813e-15,
+        "magnetic_thresholds_unchanged": true
+      },
+      "soc-y": {
+        "exact": false,
+        "site_rms_delta_mub": 1.142206988713479e-16,
+        "projection_roundoff_bound_mub": 2.7590485701793203e-15,
+        "magnetic_thresholds_unchanged": true
+      }
+    }
+  },
+  "original_review_status": "held_review",
+  "original_review_error": {
+    "type": "ValueError",
+    "message": "Saved magnetic branch does not reproduce"
+  },
+  "recovery": {
+    "status": "measured",
+    "reason": "Saved Co branch RMS differs by at most 1.143e-16 muB across the two CPU/BLAS evaluations of projected order-one site moments. Tested replay allows only this derived residual within eight binary64 epsilons of the input moment scale; pass/fail decisions and all native thresholds remain unchanged. All four native stages, source/input/runtime/artifact hashes and branch checks reproduce; no solver rerun.",
+    "solver_rerun": false
+  },
+  "policy_revision": {
+    "status": "completed",
+    "wall_seconds": 97.77490562479943,
+    "model": "gpt-6-astra",
+    "reasoning_effort": "xhigh",
+    "process_stopped": true,
+    "action": {
+      "tool": "record_analysis",
+      "args": {
+        "parent_id": "406f29c22b7e4642a3b60f63abbd73a8",
+        "evidence": "scores/iteration-2.json",
+        "conclusion": "Iteration-2 score revision: relaxed Co Js_T=1.6976394 T exceeded both the 0.4 T screening threshold and Ni's measured 0.7989389 T. Its prediction error was -0.1023606 T. Relaxed total two-atom volume=21.3438928 angstrom^3, with error -0.1561072 angstrom^3. These support the magnetic-screening and modest-volume-change expectations for this local solution. E[x]-E[z]=0.000223 eV/cell, with error +0.000163 eV/cell; separately, F[x]-F[z]=0.000145 eV/cell at 300 K electronic smearing, with error +0.000085 eV/cell. Both positive outputs agree with the directional expectation, but both exceed their point predictions. All four observations lie within the prospective subjective 80% intervals; coverage in two cases with correlated observables does not establish calibration or physical accuracy.\n\nRevise the axial-preference interpretation to a provisional numerical signal, not confirmed physical anisotropy. The native screen labels Co axial and reports a transverse splitting near -0.000001 eV/cell, but supplies no energy uncertainty bound and explicitly withholds precision and physical-anisotropy qualification. Transverse agreement is not an error bound. The supplied scores do not independently establish retained hcp symmetry or the proposed mechanism. Retain the original review failure, 'Saved magnetic branch does not reproduce,' alongside four accepted native stages and successful saved-only review recovery; recovery does not erase the failure.\n\nCo maximum force=0.00430339 eV/angstrom and stress=0.4271403 GPa pass the declared DFT thresholds of 0.04 eV/angstrom and 0.5 GPa. This is local numerical acceptance, not evidence of dynamical or thermodynamic stability, magnetic ground state, synthesizability, or physical accuracy.\n\nPreserve Ni's measured total four-atom volume=41.669602 angstrom^3 and unresolved E[x]-E[z] approximately -0.000006 eV/cell, separately F[x]-F[z] approximately -0.000004 eV/cell. Retain its original failure, 'Native input does not reproduce from the source-bound preparation,' and subsequent saved-only operator recovery. Ni's unresolved cubic control and Co's provisional axial signal motivate another symmetry control; their different cell sizes and unqualified energy precision preclude a reliable material ranking from these raw differences.\n\nChoose four-atom fcc Co next, not yet authored, using this exact new construct request: {\"op\":\"construct\",\"recipe\":{\"gram\":[[\"7744/625\",0,0],[0,\"7744/625\",0],[0,0,\"7744/625\"]],\"components\":[{\"id\":\"Co\",\"z\":27,\"shape\":{\"kind\":\"points\",\"points\":[[0,0,0],[0,\"1/2\",\"1/2\"],[\"1/2\",0,\"1/2\"],[\"1/2\",\"1/2\",0]]}}]}}. Use initial moments [2,2,2,2] muB. This deliberately reuses Ni's exact starting geometry while retaining iteration-2 Co chemistry, rather than rationalizing a measured floating geometry. Conditional on retained cubic symmetry and equivalent magnetic branches, expect near-zero x-versus-z differences separately for E and F. Compared with hcp Co, it tests structural-family dependence at fixed composition; compared with fcc Ni, it tests composition dependence within the same starting family. Relaxation may remove these controls, so final geometry and branch checks are essential. Symmetry lowering, magnetic-branch changes and numerical splitting remain competing explanations. Authoring, source-bound hypothesis and experiment registration, then all four ordered finite-uncertainty predictions must precede third-iteration measurement; no follow-on calculation is requested here."
+      },
+      "rationale": "Record the score-bound Co revision while preserving prediction errors and both recovery histories. Select fcc Co to reduce the chemistry\u2013structure confounding of the first two tests, conditional on the relaxed structure retaining the intended symmetry."
+    },
+    "response": {
+      "ok": true,
+      "result": "0100f695231a4e48bc1059a1c5307266",
+      "format": "REMAG-DIRECT-TOOL-RESULT/1",
+      "request_sha256": "47c98600adf7418b666d646ae7535aa9e9d5a581569611fc13d871393f1ae9d9",
+      "elapsed_seconds": 0.006170791573822498,
+      "finished_at": "2026-11-17T17:44:32.625123+00:00",
+      "receipt": "calls/r3-02-1-00"
+    },
+    "unattended_revision_phase": true
+  },
+  "timing": {
+    "native_pipeline_seconds": 57.841536273,
+    "request_through_usable_result_seconds": 452.036822,
+    "exploratory_target_seconds": [
+      60,
+      300
+    ],
+    "target_met": false,
+    "scope": "Native wall_seconds excludes overhead; usable_result_seconds includes request through saved-only recovery"
+  },
+  "allocation": {
+    "observed_at": "2026-11-17T17:29:02.639978+00:00",
+    "owned_app": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-NK15ybeom49HZMv78djXaG",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-17 11:25:46-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-17 11:27:37-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-gOG3opGPl5hSuAx0j5SYEN",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "account_containers": []
+  },
+  "reservations": {
+    "general_loop_reserved_cents": 930,
+    "general_loop_cap_cents": 1395,
+    "Co_reservation_cents": 465,
+    "historical_failed_Ni_reservation_preserved": true,
+    "actual_billed_cents": null,
+    "reservations_are_invoices": false
+  },
+  "acceptance": {
+    "completed_feedback_iterations_with_recovery": 2,
+    "measured_non_FePt_materials": [
+      "Ni",
+      "Co"
+    ],
+    "unattended_complete_cycles": 0,
+    "planned_iterations": 3,
+    "third_iteration": "separate author/predict phase in progress",
+    "original_spec_complete": false,
+    "calibrated_exploratory_default": false,
+    "paired_scientific_advantage_proven": false,
+    "physical_stability_qualified": false
+  },
+  "next_design": "Four-atom fcc Co: same starting geometry as Ni; composition held against hcp Co. Relaxation and magnetic branches must be checked before interpreting the control.",
+  "ide": {
+    "authored_and_relaxed_views_verified": true,
+    "single_unit_cell": true,
+    "screenshot": "outputs/IDE-Co-relaxed-unit-cell-2026-11-17.png"
+  },
+  "tests": {
+    "full": "972 passed, 4 skipped",
+    "branch_and_review": "92 passed",
+    "policy_driver": "5 passed"
+  },
+  "artifacts_sha256": {
+    "scores/iteration-2.json": "a794efd3c295134787477670459fdb10d5d2ed221d769249d49013a515d60342",
+    "phases-r2/iteration-2-predict/result.json": "e1525cfe700be951f1c63a8f145f707ddda613e80c3cf42718999c54b2cc1cd7",
+    "phases-r2/iteration-2-predict/seal.json": "2b27f82a5bcdf80a84511341a607aa4e1ba22318b93c3993c7e692e989fa9dc2",
+    "phases-r3/iteration-2-revise/result.json": "4b6cba144b596212beba38cd03086d69633b3b9b67553f96972c5e8f3e177d3c",
+    "decisions-r3/r3-02-1-00/binding.json": "42549e12aab745a596e7c2ca297f89ec713969b7bb2bb6f1338d9e51747642dc",
+    "decisions-r3/r3-02-1-00/decision.json": "1ee439c2a5195bc47b6345ee2657a18289ff7cb9a1282e6904cc336d9ab0b109",
+    "decisions-r3/r3-02-1-00/response.json": "1ceee8fd18e778ea8cb9b19c4e722d0db333e0c9ea9ee021975df9b227c1313a",
+    "policy-r3-registration.json": "fe6e4a7c791b825ed7b88c277b2b3313cfe5f794764341cc0871578044137d2e",
+    "runs/iteration-2-profile/execution.json": "b406d869967de1db1d531696e0f7a4e4eb7d8c763b71e0dc802056aeed5418a3",
+    "runs/iteration-2-profile/review-recovery.json": "c2f3ab33d2bf520b043daaf47702956ba241ba6dbdf9811f5fc1957d94760fe3",
+    "runs/iteration-2-profile/research-observation/report.json": "2856a844f17d85a4bd643d31a9a26783a8ed4de0a730aa3549222b285f5a1eb7",
+    "executions/iteration-2/saved-review.json": "f316c054332d7e60a75f70dff5974b4376cadb8a68ac049a8f158617f3fa446c",
+    "executions/iteration-2/review-numeric-diagnosis.json": "8fcb5fa68d380b8416d5a0bf5e5f483bc65224a745304c6863d1747e7f95b6c6",
+    "executions/iteration-2/stopped-observation.json": "b363f70a522b113995e4d16645fafec896c723be1447f2865982e456ab74c58c",
+    "executions/iteration-2/score-release.json": "857920a73514057acfc48764a192ba3c0512ea73e3252d2b2c12dab864a53046",
+    "executions/iteration-2/ide-relaxation-binding.json": "e0eb7107f3df177264b9bde85eb9946218b44eacfa6a873423749708bb668800",
+    "executions/iteration-2/full-tests.log": "acb1fb9bd18fb90d643e4d862f73bc0926522a5597ebf21fc710238277d9ba68",
+    "executions/iteration-2/branch-reproduction-tests.log": "2e8080aab0cf9487eef39947ebf6ead63b61ec01e75a3b77f41f3abbcf62d9c2",
+    "policy-r3-local-tests.log": "e1761a8f86fabeb6e749ad250b7eea73562b21d9967d633cd46a2c67eec0c0ba"
+  },
+  "implementation_sha256": "a57e20bae8683ab1faf0811076c6cf0342acf34baa6f882cbbe009d95580f53f",
+  "old_campaign_closed": true
+}

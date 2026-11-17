@@ -20,6 +20,43 @@ from ..discovery.review import branch_check, directional_result, evaluated_struc
 from .preflight import check_execution_hold, check_mesh_capacity, validate_runtime, preflight_input_audits
 
 
+def verify_branch_reproduction(saved, replayed, current, reference, settings):
+    """Allow binary64 projection roundoff, never a changed magnetic gate.
+
+    The RMS subtracts order-one projected moments. BLAS/CPU differences can
+    change that small residual at the input moments' precision, rather than at
+    the residual's much smaller ULP. Keep the original bytes and compare only
+    this derived RMS within eight epsilons of the input moment scale. Both
+    saved and replayed pass/fail decisions must satisfy the unchanged limits.
+    """
+    keys = {'passed', 'site_rms_mub', 'net_fractional_change', 'robust_site_flip'}
+    if not isinstance(saved, dict) or set(saved) != keys or set(replayed) != keys:
+        raise ValueError('Saved magnetic branch does not reproduce')
+    for result in (saved, replayed):
+        if (any(type(result[k]) is not bool for k in ('passed', 'robust_site_flip')) or
+                any(type(result[k]) not in (int, float) or not np.isfinite(result[k]) or result[k] < 0
+                    for k in ('site_rms_mub', 'net_fractional_change'))):
+            raise ValueError('Invalid saved magnetic branch metrics')
+        passed = (result['site_rms_mub'] < settings.branch_rms_mub and
+                  result['net_fractional_change'] < settings.branch_net_fraction and
+                  not result['robust_site_flip'])
+        if result['passed'] != passed:
+            raise ValueError('Saved magnetic branch decision contradicts its metrics')
+    exact = keys - {'site_rms_mub'}
+    if any(saved[k] != replayed[k] for k in exact):
+        raise ValueError('Saved magnetic branch does not reproduce')
+    moments = [np.asarray(row['atom_moments_muB'], dtype=float) for row in (current, reference)]
+    if any(m.ndim != 2 or m.shape[1] != 3 or not m.size or not np.isfinite(m).all() for m in moments):
+        raise ValueError('Invalid moments for magnetic branch reproduction')
+    scale = max(1., *(float(np.linalg.norm(m, axis=1).max()) for m in moments))
+    bound = float(8 * np.finfo(float).eps * scale)
+    delta = abs(saved['site_rms_mub'] - replayed['site_rms_mub'])
+    if delta > bound:
+        raise ValueError('Saved magnetic branch exceeds projection roundoff')
+    return dict(exact=saved == replayed, site_rms_delta_mub=delta,
+                projection_roundoff_bound_mub=bound, magnetic_thresholds_unchanged=True)
+
+
 def preflight_relaxation(bundle, runtime):
     """No service calls: validate the portable preparation before reservation."""
     from ase.io import read
@@ -135,7 +172,7 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
     ordered = ['dft-relax', 'soc-z', 'soc-x', 'soc-y']
     if names != ordered[:len(names)] or not names:
         raise ValueError('Unexpected discovery stage sequence')
-    observations, rows, input_reproduction = {}, {}, {}
+    observations, rows, input_reproduction, branch_reproduction = {}, {}, {}, {}
     relaxed = None
     for saved in report['stages']:
         name = saved['stage']; folder = report_path.parent/name
@@ -168,9 +205,11 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
             if (not np.allclose(actual.cell.array, relaxed.cell.array, atol=2e-8, rtol=0) or
                     not np.allclose(actual.positions, relaxed.positions, atol=2e-7, rtol=0)):
                 raise ValueError('SOC geometry differs from accepted relaxation')
-            branch = branch_check(result['observables'], rows.get('z', observations['dft-relax']),
+            reference = rows.get('z', observations['dft-relax'])
+            branch = branch_check(result['observables'], reference,
                                   axis, axes(relaxed)['z'] if rows else [0, 0, 1], settings)
-            if saved.get('branch') != branch: raise ValueError('Saved magnetic branch does not reproduce')
+            branch_reproduction[name] = verify_branch_reproduction(
+                saved.get('branch'), branch, result['observables'], reference, settings)
             rows[name[4:]] = result['observables']
     healthy = (top['status'] == 'measured' and report['status'] in ('screened', 'screened_low_moment')
                and all(s['accepted'] and s.get('branch', {}).get('passed', True) for s in report['stages']))
@@ -190,5 +229,5 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
         source_binding=binding, feedback=feedback, physical_stability_qualified=False,
         native_wall_seconds=report.get('whole_pipeline_dft_seconds'), remote_timing=top.get('timing'),
         verification=dict(native_reviews_reproduced=True, accepted_artifact_hashes_verified=True,
-                          input_reproduction=input_reproduction),
+                          input_reproduction=input_reproduction, branch_reproduction=branch_reproduction),
         runtime_verification=top['runtime_verification'])
