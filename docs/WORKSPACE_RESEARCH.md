@@ -90,8 +90,25 @@ this is a geometric selection, not a chemical-bond or motif-stability claim.
 
 Engineering tests cover real loopback requests, preparation and saved-response
 bindings, and the shipped JavaScript against DOM/canvas stubs. Stub execution is
-not visual rendering verification. The Project14 text, colors and compact
-accordion layout are retained; browser visual acceptance remains pending.
+not visual rendering verification. The Project14 text and colors are retained.
+
+## Viewport and editing
+
+The workspace fits the browser viewport. At desktop widths the source editor,
+crystal and inspector share one row. Below 1150 CSS pixels, **Source**, **Crystal**
+and **Inspect** select one panel; switching panels preserves unsaved drafts.
+Read-only and relaxed-observation views omit the source editor. Long source lines
+scroll inside the editor, and long inspection/history content scrolls inside its
+panel. The structure selector and navigation stay outside those scrolling areas.
+
+The 17 November browser check rendered the actual local IDE at 320×568, 390×844,
+844×390, 1024×768, 1150×500, 1280×720 and 1440×900. Recorded page dimensions match
+the viewport at every measured check. Source/crystal/inspector switching, draft
+retention, saved electronic data, the bottom of the electronic inspector and the
+activity deep link were exercised. See the
+[bounded browser record](../tests/evidence/research/ide-viewport-2026-11-17.json).
+This verifies the sampled interface behavior, not every scientific workflow or
+arbitrary viewport size.
 
 ## Follow a research run
 
@@ -99,7 +116,9 @@ An optional `research-activity.json` in the workspace enables **Activity**. Open
 `http://127.0.0.1:8765/#activity` to select it immediately. The read-only view
 checks `/api/activity` every five seconds while visible, independently of the
 larger structure/electronic dataset. Unchanged refreshes preserve expanded notes.
-The narrow layout puts activity first; Structure restores the crystal view.
+The activity deep link opens **Inspect → Activity** on narrow screens. **Crystal**
+returns to the structure rendering. Action numbers follow displayed receipt order;
+receipt directory identifiers may contain phase names and are not parsed as numbers.
 
 ```json
 {

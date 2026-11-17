@@ -5,25 +5,90 @@
 <style>
 :root{--paper:#fcfcfd;--ink:#25272e;--muted:#747983;--line:#d4d7dc;--gray:#a4aab4;--pink:#ff0860;--wash:#e7eaee}
 *{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:15px "Arial Narrow",Arial,sans-serif}button,input,select{font:inherit}button,select{color:inherit;background:none;border:1px solid var(--line);border-radius:0;cursor:pointer}button{padding:9px 13px}button:hover{background:var(--wash)}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--pink);outline-offset:4px}button[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:var(--paper)}header{margin:0 40px;height:100px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:25px}h1{font-size:36px;letter-spacing:-1.2px;margin:0;font-weight:500}header small{font-size:11px;letter-spacing:1.8px;color:var(--muted)}.legend{margin-left:auto;display:flex;gap:26px;align-items:center}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px;background:var(--ink)}.dot.pt{background:var(--gray)}.dot.pink{background:var(--pink)}#refresh{border:0;font-size:22px;padding:6px}main{padding:25px 40px 0;display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:34px}.stage{position:relative;min-height:550px;height:calc(100vh - 220px)}canvas{width:100%;height:100%;display:block;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}.stage-label{position:absolute;top:0;left:0;font-size:11px;letter-spacing:1.2px;color:var(--muted);pointer-events:none}.views{position:absolute;bottom:13px;left:0;display:flex;gap:5px}.views button{font-size:12px;min-width:38px;padding:6px}.stage-bottom{position:absolute;bottom:17px;right:0;font-size:10px;color:var(--muted);letter-spacing:1px}.axis{position:absolute;top:0;right:0;font-size:11px;color:var(--muted)}aside{padding-top:1px}.tabs{display:flex;gap:21px;border-bottom:1px solid var(--line);margin-bottom:28px}.tabs button{border:0;padding:0 0 11px;font-size:12px}.tabs button[aria-selected=true]{border-bottom:2px solid var(--pink)}.panel[hidden]{display:none}.kicker{color:var(--muted);font-size:10px;letter-spacing:1.1px;text-transform:uppercase}.value{font-size:35px;font-weight:400;letter-spacing:-1px;margin:9px 0 23px}.value small{font-size:14px;letter-spacing:0;color:var(--muted)}.pair{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin:14px 0}.pair span:first-child{color:var(--muted)}.rule{border-top:1px solid var(--line);margin:24px 0}.site-picker{display:flex;gap:8px;margin:12px 0 23px}.site-picker button{flex:1;text-align:left;font-size:12px}.toggle{display:flex;align-items:center;gap:10px;font-size:12px;margin:16px 0}input[type=checkbox]{accent-color:var(--pink)}input[type=range]{width:100%;accent-color:var(--pink);cursor:pointer}.strain{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;display:grid;grid-template-columns:130px 1fr 72px;gap:24px;align-items:center;max-width:100%}.strain output{font-size:23px;text-align:right}.ticks{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:10px}.status{font-size:10px;color:var(--muted);padding:5px 7px;border:1px solid var(--line);display:inline-block;margin-bottom:22px;letter-spacing:.4px}.status.measured{border-color:var(--pink);color:var(--pink)}details{font-size:11px;margin-top:27px;color:var(--muted)}summary{cursor:pointer;padding:10px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:10px;max-height:220px;overflow:auto;line-height:1.5}#chart,#dos,#bands,#reciprocal{width:100%;height:200px;overflow:visible}.empty{height:160px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;border-bottom:1px solid var(--line)}.foot{margin:25px 40px 20px;display:flex;justify-content:space-between;color:var(--muted);font-size:10px;letter-spacing:1px}.note{color:var(--muted);font-size:11px;line-height:1.5;margin-top:16px}#error{color:var(--pink);font-size:12px}.calc{width:100%;font-size:11px;padding:8px;margin-bottom:18px}.neighbor-list{max-height:135px;overflow:auto;font-size:11px}.neighbor-list .pair{margin:9px 0}#download{font-size:11px;width:100%;margin-top:18px}.energy-row{display:grid;grid-template-columns:45px 1fr 75px;gap:10px;align-items:center;margin:14px 0;font-size:11px}.energy-bar{height:3px;background:var(--gray);display:block}.energy-bar.x{background:var(--pink)}
-@media(max-width:850px){header{margin:0 20px;height:85px}header small{display:none}main{padding:20px;grid-template-columns:1fr;gap:20px}.stage{height:55vh;min-height:320px}aside{padding-top:0}.strain{grid-row:2;grid-template-columns:90px 1fr 65px;gap:12px}.foot{margin:10px 20px 20px}.tabs{margin-top:10px}.panel{min-height:200px}h1{font-size:30px}.legend{font-size:12px;gap:16px}}
 .control-select{font-size:13px;padding:5px 0;width:100%;border:0;border-bottom:1px solid var(--line)}.observable{display:flex;justify-content:space-between;align-items:center}.quantity{display:flex;gap:3px}.quantity button{font-size:11px;padding:3px 8px}.ticks{position:relative;height:12px}.ticks span{position:absolute;transform:translateX(-50%)}.ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}
 .site-picker{flex-wrap:wrap;max-height:160px;overflow:auto}#dos-key{flex-wrap:wrap}
 .author-field{display:block;margin:12px 0;font-size:11px;color:var(--muted)}.author-field input,.author-field select{display:block;width:100%;padding:7px;margin-top:5px;color:var(--ink);background:var(--paper);border:1px solid var(--line)}#save-candidate{width:100%;font-size:12px}button:disabled{opacity:.5;cursor:default}
 .response-table{width:100%;border-collapse:collapse;font-size:11px}.response-table th,.response-table td{text-align:right;padding:7px 3px;border-bottom:1px solid var(--line)}.response-table th:first-child,.response-table td:first-child{text-align:left}.response-table th{font-weight:400;color:var(--muted)}#prepare-query{width:100%;font-size:12px}.prepared-item{font-size:11px;padding:8px 0;border-bottom:1px solid var(--line)}
 .activity-state{font-size:22px;line-height:1.2;margin:10px 0}.activity-stage{padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.activity-stage strong{font-weight:400}.activity-stage span{float:right;color:var(--muted)}#activity .note{line-height:1.5}#activity-actions{max-height:48vh;overflow:auto;padding-right:8px}#activity-actions details{margin-top:6px;border-top:1px solid var(--line)}#activity-actions summary{color:var(--ink);line-height:1.4}#activity-actions p{font-size:12px;line-height:1.5}#activity-actions pre{max-height:250px;color:var(--ink)}#activity-connection{font-size:10px;color:var(--muted);margin:12px 0}#activity-policy{width:100%;margin:18px 0 8px;padding:7px}#activity-next{color:var(--ink)}
-@media(max-width:850px){main.activity-view .stage,main.activity-view .strain{display:none}main.activity-view aside{grid-row:1}main.activity-view .tabs{margin-top:0}}
 .source-editor{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px}.source-editor textarea{width:100%;min-height:250px;resize:vertical;border:1px solid var(--line);background:var(--paper);padding:14px;font:12px/1.6 ui-monospace,SFMono-Regular,monospace;color:var(--ink);tab-size:2}.editor-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}.editor-toolbar input{flex:1;min-width:150px;padding:9px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}.source-editor .note{line-height:1.5}.editor-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.editor-heading h2{font-size:15px;font-weight:400;margin:0}.workbench-header{font-size:11px;color:var(--muted)}
-@media(min-width:1150px){main:has(.source-editor:not([hidden])){grid-template-columns:minmax(260px,.8fr) minmax(350px,1.2fr) 310px;gap:24px}.source-editor{grid-column:1;grid-row:1;border-top:0;padding-top:0}.source-editor textarea{height:calc(100vh - 360px);min-height:300px}main:has(.source-editor:not([hidden])) .stage{grid-column:2}main:has(.source-editor:not([hidden])) aside{grid-column:3}.source-editor+.strain{grid-column:1/-1}}
-@media(max-width:850px){main:has(.source-editor:not([hidden])) .stage{height:35vh;min-height:240px}main.activity-view .source-editor{display:none}.source-editor{grid-row:3}main:has(.source-editor:not([hidden])) aside{grid-row:4}main.activity-view aside{grid-row:1!important}}
+
+/* The workspace occupies the viewport; only the active panels scroll. */
+html,body{height:100%;overflow:hidden}
+body{height:100vh;height:100dvh;display:flex;flex-direction:column}
+header{height:68px;min-height:0;flex:0 0 auto;margin:0 28px;gap:20px}
+h1{min-width:0;max-width:55%;font-size:28px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header small{white-space:nowrap}.legend{min-width:0;overflow:auto;gap:16px;white-space:nowrap;font-size:12px}
+#refresh{flex:none}
+.workspace-tabs{display:none;flex:none;margin:0 28px;border-bottom:1px solid var(--line);gap:22px}
+.workspace-tabs button{border:0;padding:12px 0 10px;font-size:13px}
+.workspace-tabs button[aria-pressed=true]{color:var(--ink);background:none;border-bottom:2px solid var(--pink)}
+main{flex:1;min-height:0;min-width:0;padding:18px 28px 0;grid-template-columns:minmax(0,1fr) 310px;grid-template-rows:minmax(0,1fr) auto;gap:16px 24px}
+main:has(.source-editor:not([hidden])){grid-template-columns:minmax(260px,.85fr) minmax(0,1.15fr) 310px}
+main>*{min-width:0;min-height:0}
+.stage{height:auto;min-height:0;grid-column:1;grid-row:1;overflow:hidden}
+main:has(.source-editor:not([hidden])) .stage{grid-column:2}
+aside{display:flex;flex-direction:column;grid-column:2;grid-row:1;overflow:hidden}
+main:has(.source-editor:not([hidden])) aside{grid-column:3}
+.tabs{flex:none;gap:0;justify-content:space-between;margin:0 4px 12px}
+.tabs button{font-size:12px;padding:5px 0 10px}
+.panel{min-height:0;overflow:auto;overscroll-behavior:contain;padding:4px 8px 12px 4px;scrollbar-gutter:stable;overflow-wrap:anywhere}
+.panel select,.panel input{max-width:100%}
+.source-editor{grid-column:1;grid-row:1;display:flex;flex-direction:column;border:0;padding:0 4px;overflow:auto;overscroll-behavior:contain}
+.editor-heading{flex:none;gap:12px;margin:0 0 10px}.editor-heading h2{white-space:nowrap}.workbench-header{text-align:right;overflow-wrap:anywhere}
+.source-editor textarea{flex:1 0 110px;height:0;min-height:110px;resize:none;padding:12px;overflow:auto}
+.editor-toolbar{flex:none;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin:10px 0 0}
+.editor-toolbar input{min-width:0;width:100%;font-size:12px}.editor-toolbar button{font-size:12px;padding:9px}
+#save-source{grid-column:1/-1}
+#source-status{flex:none;margin:10px 0 0}
+.editor-help{flex:none;margin-top:4px}.editor-help summary{padding:8px 0}.editor-help .note{margin:0 0 8px}
+.strain{grid-column:1/-1;grid-row:2;grid-template-columns:minmax(190px,1fr) minmax(0,2fr) 68px;gap:20px;padding:12px 4px 0}
+.strain>div{min-width:0}.control-select{text-overflow:ellipsis}.strain output{font-size:20px}
+.foot{flex:none;min-width:0;margin:12px 28px;gap:16px;font-size:9px}
+.foot span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#activity-actions{max-height:none;overflow:visible;padding-right:0}
+@media(max-width:1149px){
+ .workspace-tabs{display:flex}
+ main,main:has(.source-editor:not([hidden])){grid-template-columns:minmax(0,1fr)}
+ .source-editor,.stage,aside,main:has(.source-editor:not([hidden])) .stage,main:has(.source-editor:not([hidden])) aside{grid-column:1;grid-row:1}
+ main:not([data-pane=source]) .source-editor,main:not([data-pane=canvas]) .stage,main:not([data-pane=inspect]) aside{display:none}
+ .source-editor textarea{flex-basis:110px}.editor-toolbar{grid-template-columns:minmax(0,1fr) auto auto}#save-source{grid-column:auto}
+ .tabs{gap:24px;justify-content:flex-start}
+}
+@media(max-width:600px){
+ header{height:56px;margin:0 16px;gap:12px}h1{font-size:23px;max-width:none;flex:1}header small{display:none}.legend{max-width:30%;gap:10px;font-size:11px}.dot{width:9px;height:9px;margin-right:5px}
+ .workspace-tabs{margin:0 16px;gap:28px}
+ main{padding:12px 12px 0;gap:12px}
+ .strain{grid-template-columns:minmax(0,1fr) 60px;gap:8px 12px;padding-top:8px}
+ .strain>div:first-child{grid-column:1/-1}#control-hint{font-size:10px}
+ .editor-toolbar{grid-template-columns:minmax(0,1fr) auto}#save-source{grid-column:1/-1}
+ .tabs{gap:0;justify-content:space-between}.foot{margin:10px 16px;font-size:8px}
+ .stage-bottom{max-width:38%;text-align:right;font-size:9px}
+}
+@media(max-height:500px){
+ header{height:44px}.workspace-tabs button{padding:8px 0}main{padding-top:10px;gap:8px}.foot{margin-top:8px;margin-bottom:8px}
+ .source-editor textarea{min-height:70px;flex-basis:70px}.editor-heading{margin-bottom:6px}.editor-help{margin-top:0}
+}
 </style>
 <header><h1>FePt</h1><small>GPAC × REMAG</small><div class="legend"><span><i class="dot"></i>Fe</span><span><i class="dot pt"></i>Pt</span></div><button id="refresh" title="Refresh calculations" aria-label="Refresh calculations">↻</button></header>
-<main>
-<section class="stage" aria-label="Interactive crystal structure">
+<nav class="workspace-tabs" aria-label="Workspace panels">
+<button id="pane-source" data-pane="source" aria-pressed="false" aria-controls="source-editor" hidden>Source</button>
+<button id="pane-canvas" data-pane="canvas" aria-pressed="true" aria-controls="structure-stage">Crystal</button>
+<button id="pane-inspect" data-pane="inspect" aria-pressed="false" aria-controls="inspector">Inspect</button>
+</nav>
+<main data-pane="canvas">
+<section class="source-editor" id="source-editor" aria-label="Exact structure source editor" hidden>
+<div class="editor-heading"><h2>GPAC source</h2><span class="workbench-header" id="draft-state">Saved</span></div>
+<textarea id="source-draft" aria-label="Exact GPAC program" spellcheck="false" wrap="off"></textarea>
+<div class="editor-toolbar"><input id="source-label" aria-label="New structure name" value="New design" maxlength="100"><button id="validate-source">Validate</button><button id="save-source">Save new structure</button></div>
+<p class="note" id="source-status" role="status">Edit the exact program, validate, then save to view the new structure.</p>
+<details class="editor-help"><summary>Authoring notes</summary><p class="note">Source edits create an independent structure. Use parameter controls to retain an explicit parent mapping. Preparing inputs does not start a calculation.</p></details>
+</section>
+<section class="stage" id="structure-stage" aria-label="Interactive crystal structure">
 <div class="stage-label">L1₀ · COORDINATION</div><div class="axis">P4/mmm</div>
 <canvas id="crystal" aria-label="FePt crystal. Drag to rotate. Select a site with the site controls." tabindex="0"></canvas>
 <div class="views"><button data-view="perspective" title="Perspective view">3D</button><button data-view="x" title="View along a">a</button><button data-view="y" title="View along b">b</button><button data-view="z" title="View along c">c</button><button id="reset" title="Reset view">↺</button></div><span class="stage-bottom">1 × 1 × 1 · PERIODIC</span>
 </section>
-<aside>
+<aside id="inspector">
 <nav class="tabs" aria-label="Inspection panels" role="tablist"><button id="tab-structure" role="tab" aria-selected="true" aria-controls="structure" data-tab="structure">Structure</button><button id="tab-response" role="tab" aria-selected="false" aria-controls="response" data-tab="response">Response</button><button id="tab-electronic" role="tab" aria-selected="false" aria-controls="electronic" data-tab="electronic">Electronic</button><button id="tab-activity" role="tab" aria-selected="false" aria-controls="activity" data-tab="activity" hidden>Activity</button></nav>
 <section class="panel" id="structure" role="tabpanel" aria-labelledby="tab-structure">
 <label class="toggle" id="observed-toggle" hidden><input id="observed" type="checkbox">Relaxed geometry</label><div class="kicker">c / a</div><div class="value" id="ratio">—</div>
@@ -86,13 +151,7 @@
 <p id="activity-connection" role="status"></p><select id="activity-policy" aria-label="Research policy history"></select><p class="note" id="activity-policy-status"></p>
 <div id="activity-actions"></div><p class="note">Recorded tool actions and public research notes. Predictions remain separate from measured outcomes.</p>
 </section></aside>
-<section class="source-editor" id="source-editor" aria-label="Exact structure source editor" hidden>
-<div class="editor-heading"><h2>GPAC source</h2><span class="workbench-header" id="draft-state">Saved</span></div>
-<textarea id="source-draft" aria-label="Exact GPAC program" spellcheck="false" wrap="off"></textarea>
-<div class="editor-toolbar"><input id="source-label" aria-label="New structure name" value="New design" maxlength="100"><button id="validate-source">Validate</button><button id="save-source">Save new structure</button></div>
-<p class="note" id="source-status" role="status">Edit the exact program, validate, then save to view the new structure.</p>
-<p class="note">Source edits create an independent structure. Use parameter controls to retain an explicit parent mapping. Preparing inputs does not start a calculation.</p>
-</section><section class="strain" aria-label="Structural control"><div><select id="family" class="control-select" aria-label="Structural control"><option value="axial">c strain</option></select><div class="note" id="control-hint" style="margin-top:6px">Fixed a, b</div></div><div><input id="strain" aria-label="Control scale" type="range" min="0" max="8" value="4" step="1"><div class="ticks" id="ticks"></div></div><output id="strain-value">0%</output></section>
+<section class="strain" aria-label="Structural control"><div><select id="family" class="control-select" aria-label="Structural control"><option value="axial">c strain</option></select><div class="note" id="control-hint" style="margin-top:6px">Fixed a, b</div></div><div><input id="strain" aria-label="Control scale" type="range" min="0" max="8" value="4" step="1"><div class="ticks" id="ticks"></div></div><output id="strain-value">0%</output></section>
 </main><footer class="foot"><span>EXACT AUTHORING · NUMERICAL OBSERVATIONS</span><span id="hash"></span></footer>
 <script>
 'use strict';
@@ -100,6 +159,14 @@ const $=s=>document.querySelector(s), ink='#25272e', gray='#a4aab4', pink='#ff08
 let data=null,index=0,familyId='axial',observable='total_energy_ev',site=1,rx=-.35,ry=.6,selectedCalc=null,drag=null,moved=false,hit=[],orbitSelection=null,spectrumStage=null,selectedK=null,selectedBand=null;
 let reciprocalSelection=null,sampledSource=null,bandPathIndices=null,dosCache=null;
 let authoringBusy=false,authorSource=null,queryBusy=false,querySource=null;
+let workspacePane='canvas';
+function showWorkspacePane(name){
+ if(!['source','canvas','inspect'].includes(name)||name==='source'&&$('#source-editor').hidden)return;
+ workspacePane=name;document.querySelector('main')?.setAttribute('data-pane',name);
+ document.querySelectorAll('.workspace-tabs [data-pane]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pane===name));
+ draw();
+}
+document.querySelectorAll('.workspace-tabs [data-pane]').forEach(b=>b.onclick=()=>showWorkspacePane(b.dataset.pane));
 const canvas=$('#crystal'),ctx=canvas.getContext('2d');
 const family=()=>data.families?.find(f=>f.id===familyId)||{id:'axial',label:'c strain',hint:'Fixed a, b',rows:data.rows};
 const rows=()=>family().rows,row=()=>rows()[index],geo=()=>$('#observed').checked&&row().relaxation?row().relaxation.feedback.observation.observed:row().structure.geometry;
@@ -182,7 +249,7 @@ function updateStructureControls(){
 }
 const sourceDrafts=new Map();let sourceBusy=false,sourceEditorId=null;
 function updateSourceEditor(){
- const enabled=data.authoring_enabled===true&&data.mode==='registered'&&!$('#observed').checked&&!$('#saved-state');$('#source-editor').hidden=!enabled;if(!enabled)return;
+ const enabled=data.authoring_enabled===true&&data.mode==='registered'&&!$('#observed').checked&&!$('#saved-state');$('#source-editor').hidden=!enabled;$('#pane-source').hidden=!enabled;if(!enabled){if(workspacePane==='source')showWorkspacePane('canvas');return;}
  const id=family().id;if(sourceEditorId!==id){sourceEditorId=id;$('#source-draft').value=sourceDrafts.get(id)??row().structure.source.program;$('#source-status').textContent='Edit the exact program, validate, then save to view the new structure.'}
  $('#draft-state').textContent=$('#source-draft').value===row().structure.source.program?'Saved source':'Unsaved draft · canvas shows saved structure';
  $('#source-draft').readOnly=sourceBusy;$('#validate-source').disabled=sourceBusy;$('#save-source').disabled=sourceBusy;
@@ -344,6 +411,7 @@ function setupActivity(){
  $('#tab-activity').hidden=!data.activity_enabled;
  if(data.activity_enabled&&window.location?.hash==='#activity'){
   document.querySelector('main')?.setAttribute('class','activity-view');
+  showWorkspacePane('inspect');
   document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab==='activity'));
   document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!=='activity');loadActivity();
  }
@@ -357,7 +425,7 @@ function renderActivity(){
 }
 function renderActivityPolicy(){
  const policy=activity?.policies[Number($('#activity-policy').value)];$('#activity-actions').replaceChildren();$('#activity-policy-status').textContent=policy?.status||'';
- for(const action of policy?.actions||[]){const details=document.createElement('details'),summary=document.createElement('summary'),rationale=document.createElement('p'),time=document.createElement('p');summary.textContent=(Number(action.sequence)+1)+'. '+action.tool.replaceAll('_',' ')+' · '+action.status;rationale.textContent=action.rationale;time.className='note';time.textContent=action.started_at;details.append(summary,time,rationale);if(action.record){const record=document.createElement('pre');record.textContent=JSON.stringify(action.record,null,2);details.append(record)}$('#activity-actions').append(details)}
+ for(const [position,action] of (policy?.actions||[]).entries()){const details=document.createElement('details'),summary=document.createElement('summary'),rationale=document.createElement('p'),time=document.createElement('p');summary.textContent=(position+1)+'. '+action.tool.replaceAll('_',' ')+' · '+action.status;rationale.textContent=action.rationale;time.className='note';time.textContent=action.started_at;details.append(summary,time,rationale);if(action.record){const record=document.createElement('pre');record.textContent=JSON.stringify(action.record,null,2);details.append(record)}$('#activity-actions').append(details)}
 }
 async function loadActivity(){
  if(activityBusy||!data?.activity_enabled)return;activityBusy=true;clearTimeout(activityTimer);
@@ -368,6 +436,6 @@ async function loadActivity(){
  finally{activityBusy=false;if(!$('#saved-state')&&!$('#activity').hidden)activityTimer=setTimeout(loadActivity,5000)}
 }
 $('#activity-policy').onchange=renderActivityPolicy;
-canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];moved=false;canvas.setPointerCapture(e.pointerId)};canvas.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag[0],dy=e.clientY-drag[1];if(Math.abs(dx)+Math.abs(dy)>2)moved=true;ry+=dx*.008;rx+=dy*.008;drag=[e.clientX,e.clientY];draw()};canvas.onpointerup=e=>{if(!moved){const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,a=[...hit].reverse().find(a=>Math.hypot(x-a.x,y-a.y)<a.radius+4);if(a){site=a.i;orbitSelection=null;update()}}drag=null};canvas.onkeydown=e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();ry+=e.key==='ArrowLeft'?-.1:e.key==='ArrowRight'?.1:0;rx+=e.key==='ArrowUp'?-.1:e.key==='ArrowDown'?.1:0;draw()}};$('#strain').oninput=e=>{const previous=current();index=Number(e.target.value);selectedCalc=row().calculations?.findIndex(c=>matches(c,previous))??null;if(selectedCalc<0)selectedCalc=null;update()};$('#family').onchange=e=>{familyId=e.target.value;index=Math.max(0,rows().findIndex(r=>r.strain===0));selectedCalc=null;orbitSelection=null;$('#observed').checked=false;selectedK=null;selectedBand=null;update()};document.querySelectorAll('[data-quantity]').forEach(b=>b.onclick=()=>{observable=b.dataset.quantity;document.querySelectorAll('[data-quantity]').forEach(x=>x.setAttribute('aria-pressed',x===b));updateResponse()});$('#calculations').onchange=e=>{selectedCalc=Number(e.target.value);updateResponse()};$('#polyhedra').onchange=draw;$('#bonds').onchange=draw;$('#refresh').onclick=()=>{load();if(!$('#activity').hidden)loadActivity()};$('#reset').onclick=()=>{rx=-.35;ry=.6;draw()};document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{[rx,ry]=({x:[0,Math.PI/2],y:[Math.PI/2,0],z:[0,0],perspective:[-.35,.6]})[b.dataset.view];draw()});document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.setAttribute('aria-selected',x===b));document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!==b.dataset.tab);document.querySelector('main')?.setAttribute('class',b.dataset.tab==='activity'?'activity-view':'');if(b.dataset.tab==='activity')loadActivity()});$('#download').onclick=()=>{const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(row().structure,null,2)],{type:'application/json'}));a.href=url;a.download='structure-'+row().structure.source.sha256.slice(0,12)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};$('#selection-orbit').onchange=e=>{orbitSelection=e.target.value||null;if(orbitSelection)site=selectedAtoms()[0];update()};$('#observed').onchange=update;$('#spectrum-stage').onchange=e=>{spectrumStage=e.target.value;selectedK=null;selectedBand=null;updateResponse()};$('#k-select').onchange=e=>{selectedK=e.target.value;selectedBand=null;updateStates()};$('#band-select').onchange=e=>{selectedBand=e.target.value;updateStates()};$('#matrix-k').onchange=updateCouplings;new ResizeObserver(draw).observe(canvas);load();
+canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];moved=false;canvas.setPointerCapture(e.pointerId)};canvas.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag[0],dy=e.clientY-drag[1];if(Math.abs(dx)+Math.abs(dy)>2)moved=true;ry+=dx*.008;rx+=dy*.008;drag=[e.clientX,e.clientY];draw()};canvas.onpointerup=e=>{if(!moved){const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,a=[...hit].reverse().find(a=>Math.hypot(x-a.x,y-a.y)<a.radius+4);if(a){site=a.i;orbitSelection=null;update()}}drag=null};canvas.onkeydown=e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();ry+=e.key==='ArrowLeft'?-.1:e.key==='ArrowRight'?.1:0;rx+=e.key==='ArrowUp'?-.1:e.key==='ArrowDown'?.1:0;draw()}};$('#strain').oninput=e=>{const previous=current();index=Number(e.target.value);selectedCalc=row().calculations?.findIndex(c=>matches(c,previous))??null;if(selectedCalc<0)selectedCalc=null;update()};$('#family').onchange=e=>{familyId=e.target.value;index=Math.max(0,rows().findIndex(r=>r.strain===0));selectedCalc=null;orbitSelection=null;$('#observed').checked=false;selectedK=null;selectedBand=null;update()};document.querySelectorAll('[data-quantity]').forEach(b=>b.onclick=()=>{observable=b.dataset.quantity;document.querySelectorAll('[data-quantity]').forEach(x=>x.setAttribute('aria-pressed',x===b));updateResponse()});$('#calculations').onchange=e=>{selectedCalc=Number(e.target.value);updateResponse()};$('#polyhedra').onchange=draw;$('#bonds').onchange=draw;$('#refresh').onclick=()=>{load();if(!$('#activity').hidden)loadActivity()};$('#reset').onclick=()=>{rx=-.35;ry=.6;draw()};document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{[rx,ry]=({x:[0,Math.PI/2],y:[Math.PI/2,0],z:[0,0],perspective:[-.35,.6]})[b.dataset.view];draw()});document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.setAttribute('aria-selected',x===b));document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!==b.dataset.tab);document.querySelector('main')?.setAttribute('class',b.dataset.tab==='activity'?'activity-view':'');showWorkspacePane('inspect');if(b.dataset.tab==='activity')loadActivity()});$('#download').onclick=()=>{const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(row().structure,null,2)],{type:'application/json'}));a.href=url;a.download='structure-'+row().structure.source.sha256.slice(0,12)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};$('#selection-orbit').onchange=e=>{orbitSelection=e.target.value||null;if(orbitSelection)site=selectedAtoms()[0];update()};$('#observed').onchange=update;$('#spectrum-stage').onchange=e=>{spectrumStage=e.target.value;selectedK=null;selectedBand=null;updateResponse()};$('#k-select').onchange=e=>{selectedK=e.target.value;selectedBand=null;updateStates()};$('#band-select').onchange=e=>{selectedBand=e.target.value;updateStates()};$('#matrix-k').onchange=updateCouplings;new ResizeObserver(draw).observe(canvas);load();
 </script>
 </html>

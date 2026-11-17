@@ -1,0 +1,430 @@
+{
+  "format": "REMAG-IDE-VIEWPORT-ACCEPTANCE/1",
+  "recorded_at": "2026-11-17T06:46:58.254666+00:00",
+  "status": "passed_with_bounded_scope",
+  "requirement_scope": [
+    "Minimal Project14 IDE",
+    "Viewport fit and panel access",
+    "R38 optional interactive environment: bounded UI usability checks, not full workflow/scientific acceptance"
+  ],
+  "before": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "document_dimensions": [
+      1280,
+      1153
+    ]
+  },
+  "browser": {
+    "recorded_at": "2026-11-17T06:45:07.236Z",
+    "browser": "Codex in-app browser",
+    "checks": [
+      {
+        "label": "narrow electronic",
+        "error": "",
+        "inspection": "electronic",
+        "page": [
+          390,
+          844
+        ],
+        "pane": "inspect",
+        "viewport": [
+          390,
+          844
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 694,
+            "clientHeight": 586,
+            "id": "inspector",
+            "scrollHeight": 586,
+            "top": 108,
+            "width": 366
+          },
+          {
+            "bottom": 815,
+            "clientHeight": 108,
+            "id": "strain",
+            "scrollHeight": 108,
+            "top": 706,
+            "width": 366
+          }
+        ]
+      },
+      {
+        "label": "narrow electronic bottom reached",
+        "error": "",
+        "inspection": "electronic",
+        "page": [
+          390,
+          844
+        ],
+        "pane": "inspect",
+        "viewport": [
+          390,
+          844
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 694,
+            "clientHeight": 586,
+            "id": "inspector",
+            "scrollHeight": 586,
+            "top": 108,
+            "width": 366
+          },
+          {
+            "bottom": 815,
+            "clientHeight": 108,
+            "id": "strain",
+            "scrollHeight": 108,
+            "top": 706,
+            "width": 366
+          }
+        ]
+      },
+      {
+        "label": "short landscape source",
+        "error": "",
+        "inspection": "activity",
+        "page": [
+          844,
+          390
+        ],
+        "pane": "source",
+        "viewport": [
+          844,
+          390
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 292,
+            "clientHeight": 204,
+            "id": "source-editor",
+            "scrollHeight": 204,
+            "top": 88,
+            "width": 788
+          },
+          {
+            "bottom": 363.5,
+            "clientHeight": 63,
+            "id": "strain",
+            "scrollHeight": 63,
+            "top": 300,
+            "width": 788
+          }
+        ]
+      },
+      {
+        "label": "source responsive 320x568",
+        "error": "",
+        "inspection": "activity",
+        "page": [
+          320,
+          568
+        ],
+        "pane": "source",
+        "viewport": [
+          320,
+          568
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 418,
+            "clientHeight": 310,
+            "id": "source-editor",
+            "scrollHeight": 310,
+            "top": 108,
+            "width": 296
+          },
+          {
+            "bottom": 539,
+            "clientHeight": 108,
+            "id": "strain",
+            "scrollHeight": 108,
+            "top": 430,
+            "width": 296
+          }
+        ]
+      },
+      {
+        "label": "source responsive 1024x768",
+        "error": "",
+        "inspection": "activity",
+        "page": [
+          1024,
+          768
+        ],
+        "pane": "source",
+        "viewport": [
+          1024,
+          768
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 654,
+            "clientHeight": 528,
+            "id": "source-editor",
+            "scrollHeight": 528,
+            "top": 126,
+            "width": 968
+          },
+          {
+            "bottom": 733.5,
+            "clientHeight": 63,
+            "id": "strain",
+            "scrollHeight": 63,
+            "top": 670,
+            "width": 968
+          }
+        ]
+      },
+      {
+        "label": "source responsive 1150x500",
+        "error": "",
+        "inspection": "activity",
+        "page": [
+          1150,
+          500
+        ],
+        "pane": "source",
+        "viewport": [
+          1150,
+          500
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 402,
+            "clientHeight": 348,
+            "id": "source-editor",
+            "scrollHeight": 348,
+            "top": 54,
+            "width": 326.3984375
+          },
+          {
+            "bottom": 402,
+            "clientHeight": 348,
+            "id": "structure-stage",
+            "scrollHeight": 348,
+            "top": 54,
+            "width": 441.6015625
+          },
+          {
+            "bottom": 402,
+            "clientHeight": 348,
+            "id": "inspector",
+            "scrollHeight": 348,
+            "top": 54,
+            "width": 310
+          },
+          {
+            "bottom": 473.5,
+            "clientHeight": 63,
+            "id": "strain",
+            "scrollHeight": 63,
+            "top": 410,
+            "width": 1094
+          }
+        ]
+      },
+      {
+        "label": "source responsive 1440x900",
+        "error": "",
+        "inspection": "activity",
+        "page": [
+          1440,
+          900
+        ],
+        "pane": "source",
+        "viewport": [
+          1440,
+          900
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 786,
+            "clientHeight": 700,
+            "id": "source-editor",
+            "scrollHeight": 700,
+            "top": 86,
+            "width": 436.046875
+          },
+          {
+            "bottom": 786,
+            "clientHeight": 700,
+            "id": "structure-stage",
+            "scrollHeight": 700,
+            "top": 86,
+            "width": 589.953125
+          },
+          {
+            "bottom": 786,
+            "clientHeight": 700,
+            "id": "inspector",
+            "scrollHeight": 700,
+            "top": 86,
+            "width": 310
+          },
+          {
+            "bottom": 865.5,
+            "clientHeight": 63,
+            "id": "strain",
+            "scrollHeight": 63,
+            "top": 802,
+            "width": 1384
+          }
+        ]
+      },
+      {
+        "label": "desktop measured response",
+        "error": "",
+        "inspection": "response",
+        "page": [
+          1280,
+          720
+        ],
+        "pane": "inspect",
+        "viewport": [
+          1280,
+          720
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 606,
+            "clientHeight": 520,
+            "id": "source-editor",
+            "scrollHeight": 520,
+            "top": 86,
+            "width": 368.046875
+          },
+          {
+            "bottom": 606,
+            "clientHeight": 520,
+            "id": "structure-stage",
+            "scrollHeight": 520,
+            "top": 86,
+            "width": 497.953125
+          },
+          {
+            "bottom": 606,
+            "clientHeight": 520,
+            "id": "inspector",
+            "scrollHeight": 520,
+            "top": 86,
+            "width": 310
+          },
+          {
+            "bottom": 685.5,
+            "clientHeight": 63,
+            "id": "strain",
+            "scrollHeight": 63,
+            "top": 622,
+            "width": 1224
+          }
+        ]
+      },
+      {
+        "label": "narrow source final",
+        "error": "",
+        "inspection": "response",
+        "page": [
+          390,
+          844
+        ],
+        "pane": "source",
+        "viewport": [
+          390,
+          844
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 694,
+            "clientHeight": 586,
+            "id": "source-editor",
+            "scrollHeight": 586,
+            "top": 108,
+            "width": 366
+          },
+          {
+            "bottom": 815,
+            "clientHeight": 108,
+            "id": "strain",
+            "scrollHeight": 108,
+            "top": 706,
+            "width": 366
+          }
+        ]
+      },
+      {
+        "label": "narrow activity deep link",
+        "error": "",
+        "inspection": "activity",
+        "page": [
+          390,
+          844
+        ],
+        "pane": "inspect",
+        "viewport": [
+          390,
+          844
+        ],
+        "visiblePanels": [
+          {
+            "bottom": 694,
+            "clientHeight": 586,
+            "id": "inspector",
+            "scrollHeight": 586,
+            "top": 108,
+            "width": 366
+          },
+          {
+            "bottom": 815,
+            "clientHeight": 108,
+            "id": "strain",
+            "scrollHeight": 108,
+            "top": 706,
+            "width": 366
+          }
+        ]
+      }
+    ],
+    "draft_preserved_on_panel_switch": true,
+    "source_draft_restored_without_save": true,
+    "electronic_bottom_reachable": true,
+    "activity_numbers": "1 through 6",
+    "new_native_calculations": 0
+  },
+  "source_sha256": {
+    "src/siesta_remag/research/workspace.html": "3b13a6bd7fce0338ec61f51eea57f6173fa813741c1423423c1c585e1b576a04",
+    "tests/fixtures/workspace_activity_dom.cjs": "05d7df9c7daf0a8d4536edad7f4ea936964be7c3c8d46ef9bc7e72217da495ef"
+  },
+  "browser_observation_sha256": "9c7f2dc2bd8cbab71489cebb8076ed6b7a65cb0783d14c235024ff45b0781528",
+  "tests": {
+    "passed": 67,
+    "duration_seconds": 43.08,
+    "files": [
+      "test_research_workspace.py",
+      "test_research_workspace_actions.py",
+      "test_research_activity.py",
+      "test_research_authoring.py",
+      "test_research_source_editor.py",
+      "test_research_reciprocal.py"
+    ],
+    "scope": "Source authoring, real local HTTP endpoints, saved response/reciprocal behavior, activity refresh and nonnumeric receipt IDs; no cloud execution"
+  },
+  "screenshots": {
+    "GPAC-REMAG-IDE-desktop-2026-11-17.jpg": "4e3ffa7f89cee1dcbb332f658c7bcb6cdb9b8ab8f0febd125e78dbbdac62a60f",
+    "GPAC-REMAG-IDE-narrow-2026-11-17.jpg": "8ec30459f2a320cf03a945dbbd83d5c96641a543d761b010db7ddc6e3eca5af5"
+  },
+  "limits": [
+    "Sampled viewport sizes and interface states only; no blanket support claim for every browser or arbitrary size.",
+    "General-material integrated discovery loop, Ouro adapter and clean paired study remain pending.",
+    "No new scientific outcome or calibrated exploratory default."
+  ],
+  "new_gpu_runs": 0,
+  "new_model_calls": 0,
+  "new_Ouro_calls": 0,
+  "old_campaign_closed": true
+}

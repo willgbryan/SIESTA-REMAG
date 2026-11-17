@@ -9,7 +9,40 @@ It also maps all nine final deliverables and seven initial success criteria.
 
 The FePt convergence campaign is closed. It is neither a new implementation
 prerequisite nor an active queue. Existing SIESTA comparisons remain evidence;
-no new pristine calculation, GPU launch or spending is authorized here.
+no new pristine reference is part of this development plan. The owner has
+separately authorized necessary Modal development work, with one GPU at a time
+and existing finite execution/account/ledger guards; historical budget records
+remain unchanged. This document does not itself authorize a launch.
+
+## Current direction — 17 November
+
+The owner accepted five targets for the remaining integrated build:
+
+1. General exact structure authoring across compositions and crystal families.
+2. Material-specific pseudopotentials, numerical settings and magnetic starts.
+3. Relaxation under declared conditions, electronic/magnetic evaluation and
+   explicit stability assessment.
+4. Measured outcomes and prospective scores that inform Astra's next design.
+5. A minimal IDE showing this cycle while fitting the available viewport.
+
+Prescribed strains are electronic-response probes. A relaxed or physically
+supported constrained structure needs separate stability/synthesis assessment
+before candidate promotion; relaxation alone does not prove synthesizability.
+The initial integrated demonstration is planned as three sequential iterations
+spanning at least two non-FePt systems. The live general-material loop remains
+unfinished; the existing authored Fe₂B example is not a validated phase.
+
+Suitable Ouro routes will accept temporary file inputs without a persistent
+input asset, subject to each route's schema/pricing compatibility. Local bytes,
+hashes, action IDs and collected outputs must survive temporary upload expiry.
+That integration remains pending. This is an extension of the original spec
+completion work, not a replacement for the clean paired-study and empirical
+acceptance requirements below.
+
+The viewport implementation and bounded browser checks are recorded in
+[the IDE evidence](../tests/evidence/research/ide-viewport-2026-11-17.json).
+No native solver, model inference or paid route was run for this UI increment.
+Earlier dated acceptance records below retain their original scope and failures.
 
 | Final deliverable (§16) | Current state |
 | --- | --- |
@@ -21,7 +54,7 @@ no new pristine calculation, GPU launch or spending is authorized here.
 | Autonomous hypothesis testing | Two isolated live Astra policies sealed eight predictions; native startup failure blocked outcome scoring/revisions; earlier staging failure retained |
 | Evaluation report | Finite prediction errors and response calibration measured; clean information comparison, scientific advantage and invoices remain unproven |
 | Expansion pathway | General authoring and screening foundation implemented; cross-material mechanism transfer remains downstream research |
-| Optional interactive workspace | Saved structural/electronic inspection implemented; browser visual acceptance pending |
+| Optional interactive workspace | Editable source, saved structural/electronic inspection and activity history rendered; bounded viewport/navigation checks pass; full discovery-cycle integration remains |
 
 ## Software implementation status
 
@@ -40,7 +73,9 @@ allocation records must cover known acquisition, search, validation and grading
 costs. Missing coverage leaves totals and rates unknown; reservations and
 invoices remain separate.
 
-No mandatory software reporting gap remains in the reviewed initial scope.
+The software reporting surfaces in the earlier reviewed initial scope are
+implemented. The general-material workflow above still needs integration and
+live acceptance.
 The [extensible direct tool host](DIRECT_RESEARCH_TOOLS.md) lets the current chat
 use the implementation with its selected model, without a separate API account.
 It retains a declaration, rationale and receipt for each operation, reuses the
@@ -110,9 +145,10 @@ execution or old-campaign restart is authorized.
   discrepancies were 0.305/0.153 meV/cell against the fixed 12³ comparator,
   above the 0.05 meV limit. No calibrated default, universal latency or speedup
   is established.
-- Optional browser visual acceptance remains unverified. DOM/canvas doubles do
-  not replace rendering, and the previous browser URL-policy denial must not be
-  bypassed.
+- Bounded browser rendering and viewport/navigation checks now pass for the
+  editable workspace. The complete general-material author–relax–evaluate–revise
+  cycle is not yet demonstrated in the IDE. DOM/canvas doubles do not replace
+  rendering, and historical browser denials remain part of the dated record.
 
 The original numerical qualification failures remain in the
 [closed scientific record](FEPT_QUALIFICATION_PLAN.md). Full qualification,

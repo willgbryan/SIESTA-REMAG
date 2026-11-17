@@ -18,6 +18,10 @@ const run=code=>vm.runInContext(code,context);
  // Unchanged polling must preserve expanded user reading state.
  item.open=true;await timer();assert.equal(elements.get('#activity-actions').children[0],item);assert.equal(item.open,true);
  response={...response,status:'Diagnostic build running'};await timer();assert.equal(elements.get('#activity-status').textContent,'Diagnostic build running');
+ // Receipt directory identifiers are opaque (live phases include a name prefix).
+ response.policies[0].actions.push({...response.policies[0].actions[0],sequence:'iteration-1-000'});
+ await timer();assert.equal(elements.get('#activity-actions').children[0].children[0].textContent,'1. record hypothesis · passed');
+ assert.equal(elements.get('#activity-actions').children[1].children[0].textContent,'2. record hypothesis · passed');
  fail=true;await timer();assert.match(elements.get('#activity-connection').textContent,/Disconnected.*stale/);assert.equal(elements.get('#activity-status').textContent,'Diagnostic build running');
  // Snapshots are explicitly static and never fetch or schedule updates.
  elements.set('#saved-state',new Element());run('data.activity=activity');const calls=fetches;timer=null;await run('loadActivity()');assert.equal(fetches,calls);assert.equal(timer,null);assert.match(elements.get('#activity-connection').textContent,/Saved snapshot/);
