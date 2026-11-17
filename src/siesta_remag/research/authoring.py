@@ -164,3 +164,44 @@ def save_workspace_candidate(root, payload):
             candidate=str((folder/'candidate.json').relative_to(root)))
         catalog['structures'].append(entry);save(root/'workspace.json',catalog)
     return dict(entry=entry,candidate=record)
+
+
+def workspace_source(root, payload, *, save_source=False):
+    """Validate exact source text, optionally saving it as a new independent root.
+
+    Arbitrary source editing does not claim an operation-specific atom mapping.
+    The unchanged selected source hash is only an optimistic UI consistency guard.
+    """
+    from uuid import uuid4
+    from gpac.physical import export_geometry, coordination
+    from .catalog import load_catalog
+    from .tools import ResearchTools
+    resolver = ResearchTools(root); root = resolver.root
+    required = {'source_id', 'expected_source_sha256', 'program'} | ({'label'} if save_source else set())
+    if (not isinstance(payload, dict) or set(payload) != required
+            or not isinstance(payload.get('program'), str) or not 1 <= len(payload['program'].encode()) <= 32768
+            or (save_source and (not isinstance(payload['label'], str) or not 1 <= len(payload['label']) <= 100))):
+        raise ValueError('Provide a registered source hash and bounded exact program')
+    with lock(root/'.workspace-catalog.lock'):
+        catalog = load_catalog(root)
+        selected = [entry for entry in catalog['structures'] if entry['id'] == payload['source_id']]
+        if len(selected) != 1:
+            raise ValueError('Unknown registered source')
+        original = inspect_structure(resolver.path(selected[0]['structure']))['structure']
+        if original['source']['sha256'] != payload['expected_source_sha256']:
+            raise ValueError('Source changed; refresh before saving the draft')
+        export = export_geometry(payload['program'], length_unit='angstrom')
+        if len(export['geometry']['site_ids']) > 256:
+            raise ValueError('Interactive structures are bounded to 256 sites')
+        result = dict(structure=export, coordination=coordination(export['geometry'], cutoff_angstrom=3.4),
+                      calculation_performed=False, saved=False)
+        if save_source:
+            if len(catalog['structures']) >= 64:
+                raise ValueError('Workspace structure limit reached')
+            identifier = 'source-'+uuid4().hex[:16]; folder = root/'candidates'/identifier
+            record = author_candidate(dict(op='physical-export', program=payload['program'], length_unit='angstrom'), folder)
+            entry = dict(id=identifier, label=payload['label'], structure=str((folder/'structure.json').relative_to(root)),
+                         candidate=str((folder/'candidate.json').relative_to(root)))
+            catalog['structures'].append(entry); save(root/'workspace.json', catalog)
+            result.update(saved=True, entry=entry, candidate=record)
+        return result

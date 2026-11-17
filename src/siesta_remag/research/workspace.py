@@ -158,7 +158,7 @@ def make_server(workspace, port=8765, *, editable=False):
 
         def do_GET(self):
             if not self.local_host():return
-            if self.path == '/':
+            if self.path in ('/', '/ide'):
                 body, kind = Path(__file__).with_name('workspace.html').read_bytes(), 'text/html; charset=utf-8'
             elif self.path == '/api/state':
                 try:
@@ -179,7 +179,7 @@ def make_server(workspace, port=8765, *, editable=False):
 
         def do_POST(self):
             if not self.local_host():return
-            if self.path not in ('/api/author','/api/prepare'):self.send_error(404);return
+            if self.path not in ('/api/author','/api/prepare','/api/source/preview','/api/source/save'):self.send_error(404);return
             if not editable:self.send_error(403,'Workspace is read-only');return
             if self.headers.get('Origin')!='http://'+self.headers.get('Host',''):
                 self.send_error(403,'Same-origin workspace action required');return
@@ -189,11 +189,15 @@ def make_server(workspace, port=8765, *, editable=False):
                 self.send_error(400,'Expected bounded JSON request');return
             try:
                 from .model_policy import loads
-                from .authoring import save_workspace_candidate
+                from .authoring import save_workspace_candidate, workspace_source
                 from .workspace_actions import prepare_workspace_research
                 self.connection.settimeout(10)
-                action=save_workspace_candidate if self.path=='/api/author' else prepare_workspace_research
-                result=action(workspace,loads(self.rfile.read(int(length))))
+                payload=loads(self.rfile.read(int(length)))
+                if self.path.startswith('/api/source/'):
+                    result=workspace_source(workspace,payload,save_source=self.path.endswith('/save'))
+                else:
+                    action=save_workspace_candidate if self.path=='/api/author' else prepare_workspace_research
+                    result=action(workspace,payload)
                 self.send_body(json.dumps(dict(ok=True,result=result),allow_nan=False).encode(),status=201)
             except Exception as exc:
                 self.send_body(json.dumps(dict(ok=False,error=dict(type=type(exc).__name__,message=str(exc))),allow_nan=False).encode(),status=400)

@@ -96,7 +96,7 @@ coordinates are not silently promoted to an exact program.
 
 The server remains loopback-only. Writes require the explicitly enabled mode,
 a local Host, same-origin JSON and a bounded static edit of a registered source.
-The browser endpoint cannot prepare or run calculations, execute shell commands,
+The browser endpoint can prepare registered experiments but cannot run calculations, execute shell commands,
 invoke a canonical search, or choose arbitrary output paths. Without
 `--editable`, the existing viewer is read-only. Exported HTML snapshots always
 remain read-only, including when saved from a workspace used for editing.
@@ -117,3 +117,21 @@ validation remain separate items in the spec-completion record.
 
 See [workspace experiments](WORKSPACE_RESEARCH.md) for saved-settings preparation,
 parameter response views and coordination-motif selection in this same interface.
+
+## Exact-source editor
+
+With editable mode enabled, `/ide` also presents a GPAC source editor beside the
+crystal on wide screens and below it on narrow screens. Validation uses GPAC's
+existing exact physical export; it neither saves a candidate nor invokes a solver.
+The canvas continues to show the selected saved source while a draft is edited.
+Saving creates a distinct independent source and selects it in the workspace.
+No calculation is inherited and no atom correspondence is invented for arbitrary
+text edits. Use the parameter controls when an operation-specific parent mapping
+is needed. Drafts persist per selection within the page until it is reloaded.
+
+`/api/source/preview` and `/api/source/save` accept the selected source ID and hash
+with bounded exact program text (and a label when saving). Both require editable
+mode, same-origin JSON, the current source hash and static GPAC validation.
+Neither accepts arbitrary filesystem paths. Unsupported source, stale state or
+failed validation leaves the catalog unchanged. The selected saved source and
+previous evidence remain immutable.

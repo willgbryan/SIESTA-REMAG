@@ -12,6 +12,9 @@
 .response-table{width:100%;border-collapse:collapse;font-size:11px}.response-table th,.response-table td{text-align:right;padding:7px 3px;border-bottom:1px solid var(--line)}.response-table th:first-child,.response-table td:first-child{text-align:left}.response-table th{font-weight:400;color:var(--muted)}#prepare-query{width:100%;font-size:12px}.prepared-item{font-size:11px;padding:8px 0;border-bottom:1px solid var(--line)}
 .activity-state{font-size:22px;line-height:1.2;margin:10px 0}.activity-stage{padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.activity-stage strong{font-weight:400}.activity-stage span{float:right;color:var(--muted)}#activity .note{line-height:1.5}#activity-actions{max-height:48vh;overflow:auto;padding-right:8px}#activity-actions details{margin-top:6px;border-top:1px solid var(--line)}#activity-actions summary{color:var(--ink);line-height:1.4}#activity-actions p{font-size:12px;line-height:1.5}#activity-actions pre{max-height:250px;color:var(--ink)}#activity-connection{font-size:10px;color:var(--muted);margin:12px 0}#activity-policy{width:100%;margin:18px 0 8px;padding:7px}#activity-next{color:var(--ink)}
 @media(max-width:850px){main.activity-view .stage,main.activity-view .strain{display:none}main.activity-view aside{grid-row:1}main.activity-view .tabs{margin-top:0}}
+.source-editor{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px}.source-editor textarea{width:100%;min-height:250px;resize:vertical;border:1px solid var(--line);background:var(--paper);padding:14px;font:12px/1.6 ui-monospace,SFMono-Regular,monospace;color:var(--ink);tab-size:2}.editor-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}.editor-toolbar input{flex:1;min-width:150px;padding:9px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}.source-editor .note{line-height:1.5}.editor-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.editor-heading h2{font-size:15px;font-weight:400;margin:0}.workbench-header{font-size:11px;color:var(--muted)}
+@media(min-width:1150px){main:has(.source-editor:not([hidden])){grid-template-columns:minmax(260px,.8fr) minmax(350px,1.2fr) 310px;gap:24px}.source-editor{grid-column:1;grid-row:1;border-top:0;padding-top:0}.source-editor textarea{height:calc(100vh - 360px);min-height:300px}main:has(.source-editor:not([hidden])) .stage{grid-column:2}main:has(.source-editor:not([hidden])) aside{grid-column:3}.source-editor+.strain{grid-column:1/-1}}
+@media(max-width:850px){main:has(.source-editor:not([hidden])) .stage{height:35vh;min-height:240px}main.activity-view .source-editor{display:none}.source-editor{grid-row:3}main:has(.source-editor:not([hidden])) aside{grid-row:4}main.activity-view aside{grid-row:1!important}}
 </style>
 <header><h1>FePt</h1><small>GPAC × REMAG</small><div class="legend"><span><i class="dot"></i>Fe</span><span><i class="dot pt"></i>Pt</span></div><button id="refresh" title="Refresh calculations" aria-label="Refresh calculations">↻</button></header>
 <main>
@@ -83,7 +86,13 @@
 <p id="activity-connection" role="status"></p><select id="activity-policy" aria-label="Research policy history"></select><p class="note" id="activity-policy-status"></p>
 <div id="activity-actions"></div><p class="note">Recorded tool actions and public research notes. Predictions remain separate from measured outcomes.</p>
 </section></aside>
-<section class="strain" aria-label="Structural control"><div><select id="family" class="control-select" aria-label="Structural control"><option value="axial">c strain</option></select><div class="note" id="control-hint" style="margin-top:6px">Fixed a, b</div></div><div><input id="strain" aria-label="Control scale" type="range" min="0" max="8" value="4" step="1"><div class="ticks" id="ticks"></div></div><output id="strain-value">0%</output></section>
+<section class="source-editor" id="source-editor" aria-label="Exact structure source editor" hidden>
+<div class="editor-heading"><h2>GPAC source</h2><span class="workbench-header" id="draft-state">Saved</span></div>
+<textarea id="source-draft" aria-label="Exact GPAC program" spellcheck="false" wrap="off"></textarea>
+<div class="editor-toolbar"><input id="source-label" aria-label="New structure name" value="New design" maxlength="100"><button id="validate-source">Validate</button><button id="save-source">Save new structure</button></div>
+<p class="note" id="source-status" role="status">Edit the exact program, validate, then save to view the new structure.</p>
+<p class="note">Source edits create an independent structure. Use parameter controls to retain an explicit parent mapping. Preparing inputs does not start a calculation.</p>
+</section><section class="strain" aria-label="Structural control"><div><select id="family" class="control-select" aria-label="Structural control"><option value="axial">c strain</option></select><div class="note" id="control-hint" style="margin-top:6px">Fixed a, b</div></div><div><input id="strain" aria-label="Control scale" type="range" min="0" max="8" value="4" step="1"><div class="ticks" id="ticks"></div></div><output id="strain-value">0%</output></section>
 </main><footer class="foot"><span>EXACT AUTHORING · NUMERICAL OBSERVATIONS</span><span id="hash"></span></footer>
 <script>
 'use strict';
@@ -169,8 +178,26 @@ function updateStructureControls(){
  $('#observed-toggle').hidden=!r.relaxation;$('#feedback-details').hidden=!r.relaxation;$('#parameter-details').hidden=!r.parameters;$('#parameters').textContent=r.parameters?JSON.stringify(r.parameters.exact_parameters,null,2):'';
  if(r.relaxation){const f=r.relaxation.feedback;$('#feedback').textContent=JSON.stringify({max_displacement_angstrom:f.observation.max_nonaffine_displacement_angstrom,authored_operations_retained:f.symmetry.retained_count,operations_tested:f.symmetry.tested_count,coordination:f.coordination_changes.map(c=>({site:c.site_id.split(':').at(-1),lost:c.lost.length,gained:c.gained.length})),scope:f.symmetry.setting},null,2)}
  $('#selection-orbit').replaceChildren();const single=document.createElement('option');single.value='';single.textContent='Selected site';$('#selection-orbit').append(single);const motif=document.createElement('option');motif.value='@coordination';motif.textContent='Coordination motif · 3.4 Å';$('#selection-orbit').append(motif);$('#motif-scope').hidden=orbitSelection!=='@coordination';for(const o of r.structure.orbit_members){const option=document.createElement('option');option.value=o.id;option.textContent=o.label+' · '+symbol(o.z);$('#selection-orbit').append(option)}$('#selection-orbit').value=orbitSelection||'';
- updateAuthoring();updateResearch();
+ updateAuthoring();updateResearch();updateSourceEditor();
 }
+const sourceDrafts=new Map();let sourceBusy=false,sourceEditorId=null;
+function updateSourceEditor(){
+ const enabled=data.authoring_enabled===true&&data.mode==='registered'&&!$('#observed').checked&&!$('#saved-state');$('#source-editor').hidden=!enabled;if(!enabled)return;
+ const id=family().id;if(sourceEditorId!==id){sourceEditorId=id;$('#source-draft').value=sourceDrafts.get(id)??row().structure.source.program;$('#source-status').textContent='Edit the exact program, validate, then save to view the new structure.'}
+ $('#draft-state').textContent=$('#source-draft').value===row().structure.source.program?'Saved source':'Unsaved draft · canvas shows saved structure';
+ $('#source-draft').readOnly=sourceBusy;$('#validate-source').disabled=sourceBusy;$('#save-source').disabled=sourceBusy;
+}
+async function submitSource(save){
+ if(sourceBusy||!data.authoring_enabled||$('#saved-state')||$('#observed').checked)return;
+ const id=family().id,program=$('#source-draft').value,payload={source_id:id,expected_source_sha256:row().structure.source.sha256,program};
+ if(save)payload.label=$('#source-label').value.trim();sourceBusy=true;updateSourceEditor();$('#source-status').textContent=save?'Saving new structure…':'Validating exact source…';
+ try{const response=await fetch('/api/source/'+(save?'save':'preview'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}),reply=await response.json();if(!response.ok||!reply.ok)throw Error(reply.error?.message||'Source validation failed');
+  if(save){if(family().id===id){familyId=reply.result.entry.id;sourceEditorId=null;authorSource=null}await load();$('#source-status').textContent='Saved '+reply.result.entry.label+'. No calculation started.'}
+  else if(family().id===id)$('#source-status').textContent='Valid exact program · '+reply.result.structure.geometry.atomic_numbers.length+' sites · '+reply.result.structure.source.sha256.slice(0,12)+'. Save to view this structure.';
+ }catch(e){$('#source-status').textContent=e.message}finally{sourceBusy=false;updateSourceEditor()}
+}
+$('#source-draft').oninput=()=>{sourceDrafts.set(family().id,$('#source-draft').value);$('#source-status').textContent='Draft changed. Validate before saving.';updateSourceEditor()};
+$('#validate-source').onclick=()=>submitSource(false);$('#save-source').onclick=()=>submitSource(true);
 function authorDefaults(){const op=$('#author-operation').value;$('#author-parameter-field').hidden=op!=='apply';$('#author-value').value=op==='apply'?(row().parameters?.exact_parameters.parameters[$('#author-parameter').value]||''):op.startsWith('strain-')?'1/100':'101/100';}
 function updateAuthoring(){
  const enabled=data.authoring_enabled===true&&data.mode==='registered'&&!$('#observed').checked&&!$('#saved-state');$('#author-controls').hidden=!enabled;if(!enabled)return;
