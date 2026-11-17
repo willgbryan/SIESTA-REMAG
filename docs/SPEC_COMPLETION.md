@@ -71,8 +71,12 @@ An explicit runtime-admission change now binds the candidate library to the
 observed driver-610 profile, rejects other/missing versions before native
 execution, and validates collected admission evidence. This prevents blindly
 repeating the known failing deployment. It is not a causal repair or a completed
-non-FePt iteration: a new compiled build and full native validation are required
-before this profile can support measured feedback.
+non-FePt iteration. The [changed candidate CPU build](../tests/evidence/research/runtime-profile-build-2026-11-17.json)
+completed in 94.79 seconds, with executable/library/manifest hashes independently
+checked from saved artifacts and its allocation stopped. Full native validation
+is still required before this profile can support measured feedback. A narrow
+operator review can bind a retained relaxation failure to one changed-runtime
+grant without rewriting the failed outcome or its reservation.
 
 The [Ouro adapter](OURO_ROUTES.md) prepares temporary file inputs without a
 persistent input asset and supplies operator-only submission/collection APIs.

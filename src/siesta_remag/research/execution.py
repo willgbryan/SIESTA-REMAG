@@ -215,7 +215,7 @@ def execute_relaxation(workspace, execution_config, structure, bundle, output, *
                               transport=transport, operation='relaxation', structure=structure)
 
 
-def _diagnostic_review(root, owner, plan, preflight):
+def _diagnostic_review(root, owner, plan, preflight, source_binding=None):
     """A narrow operator review, never a successful-outcome rewrite or retry grant."""
     path = root/'.research-execution/diagnostic-reviews'/(plan['sha256']+'.json')
     if not path.is_file():
@@ -224,6 +224,8 @@ def _diagnostic_review(root, owner, plan, preflight):
     if (review.get('format') != 'REMAG-CHANGED-RUNTIME-DIAGNOSTIC-REVIEW/1'
             or review.get('owner') != owner or review.get('next_config_sha256') != plan['sha256']
             or review.get('next_request_sha256') != preflight['request_sha256']
+            or review.get('operation', 'query') != plan['config'].get('operation', 'query')
+            or review.get('next_source_binding') != source_binding
             or review.get('native_fix_claimed') is not False):
         raise ValueError('Diagnostic review does not match the held owner or next grant')
     for name, expected in review['evidence_sha256'].items():
@@ -232,7 +234,7 @@ def _diagnostic_review(root, owner, plan, preflight):
     return str(path.relative_to(root))
 
 
-def review_failed_runtime_for_diagnostic(workspace, execution_config, bundle, *, evidence, reason, transport=None):
+def review_failed_runtime_for_diagnostic(workspace, execution_config, bundle, *, evidence, reason, transport=None, structure=None):
     """Operator-only: bind one changed-runtime diagnostic to a reviewed stopped failure.
 
     This API is deliberately absent from research-policy and browser tool catalogs.
@@ -240,26 +242,50 @@ def review_failed_runtime_for_diagnostic(workspace, execution_config, bundle, *,
     It neither launches nor edits the failed outcome, ownership or budget history.
     """
     root = Path(workspace).resolve(); plan = read_execution_config(root, execution_config)
-    preflight = preflight_query(_path(root, str(bundle)), plan['runtime'])
     c = plan['config']; control = root/'.research-execution'
+    operation = c.get('operation', 'query'); source_binding = None
+    if operation == 'relaxation':
+        from .relaxation_execution import preflight_relaxation, verify_relaxation_source
+        if structure is None: raise ValueError('A relaxation diagnostic needs its exact authored source')
+        preflight = preflight_relaxation(_path(root, str(bundle)), plan['runtime'])
+        source_binding = verify_relaxation_source(_path(root, str(structure)), _path(root, str(bundle)))
+    else:
+        preflight = preflight_query(_path(root, str(bundle)), plan['runtime'])
     if (c['max_queries'] != 1 or not isinstance(reason, str) or not 20 <= len(reason) <= 8000
             or not isinstance(evidence, list) or not 1 <= len(evidence) <= 32):
         raise ValueError('One diagnostic grant, explicit review reason and saved evidence required')
     transport = transport or ModalExecution()
     with lock(control/'owner.lock'):
         owner = load(control/'owner.json')
-        if owner.get('status') != 'held_native_review' or owner.get('allocation_stopped') is not True or not owner.get('app_id'):
+        if owner.get('status') not in ('held_native_review', 'held_review') or owner.get('allocation_stopped') is not True or not owner.get('app_id'):
             raise ValueError('Only a stopped native-review failure can receive this diagnostic review')
         prior = _path(root, owner['attempt']); result = load(prior/'execution.json')
         if any(result.get(k) != owner.get(k) for k in ('status', 'app_id', 'allocation_stopped')):
             raise ValueError('Held owner does not match its retained execution')
         old_runtime = load(prior/'runtime.json'); new_runtime = plan['runtime']
+        verify_archive(prior/'collected')
+        if owner['status'] == 'held_review':
+            # A failed Python review is not by itself proof of native failure.
+            # Admit only the retained relaxation-native failure pattern; keep
+            # its original status and report untouched.
+            top = load(prior/'collected/report.json')
+            native_path = prior/'collected/query/dft-relax/execution-status.json'
+            if (result.get('format') != 'REMAG-RELAXATION-EXECUTION/1'
+                    or top.get('policy', {}).get('operation') != 'relaxation'
+                    or not native_path.is_file()):
+                raise ValueError('Held review needs verified native relaxation failure evidence')
+            native = load(native_path); report = load(prior/'collected/query/report.json')
+            if (report.get('executable_sha256') != old_runtime['executable_sha256']
+                    or report.get('runtime_env') != old_runtime.get('environment', {})
+                    or report.get('status') != 'held_error'
+                    or type(native.get('timed_out')) is not bool
+                    or not (native['timed_out'] or (type(native.get('returncode')) is int and native['returncode'] != 0))):
+                raise ValueError('Held review does not establish a matching native failure')
         identity = lambda r: (r['executable_sha256'], r.get('capabilities', {}).get('library_sha256'))
         if identity(old_runtime) == identity(new_runtime):
             raise ValueError('Diagnostic requires changed executable/library bytes, not a path or environment relabel')
         if (control/'authorizations'/(c['authorization_id']+'.json')).exists():
             raise ValueError('Diagnostic must use a new unattempted authorization')
-        verify_archive(prior/'collected')
         paths = [str((prior/name).relative_to(root)) for name in ('execution.json','runtime.json','receipt.json','collected/archive-manifest.json')] + evidence
         bindings = {name:sha256(_path(root,name)) for name in paths}
         observation = transport.info(owner['app_id'])
@@ -268,6 +294,7 @@ def review_failed_runtime_for_diagnostic(workspace, execution_config, bundle, *,
         review = dict(format='REMAG-CHANGED-RUNTIME-DIAGNOSTIC-REVIEW/1',
             recorded_at=datetime.now(timezone.utc).isoformat(), owner=owner, next_config_sha256=plan['sha256'],
             next_request_sha256=preflight['request_sha256'],
+            operation=operation, next_source_binding=source_binding,
             evidence_sha256=bindings, reason=reason, native_fix_claimed=False, stopped_observation=observation)
         path = control/'diagnostic-reviews'/(plan['sha256']+'.json'); path.parent.mkdir(exist_ok=True)
         with path.open('x') as stream:json.dump(review,stream,indent=2);stream.write('\n')
@@ -317,7 +344,7 @@ review. Disappearing local sessions never count as allocation release.
         if owner_path.exists():
             owner = load(owner_path)
             if owner['status'] != 'measured' or not owner.get('allocation_stopped') or not owner.get('app_id'):
-                continuation_review = _diagnostic_review(root, owner, plan, preflight)
+                continuation_review = _diagnostic_review(root, owner, plan, preflight, source_binding)
             previous = owner['app_id']
         prior = transport.info(previous)
         if prior.get('app_id') != previous or prior.get('lifecycle',{}).get('state','').lower() != 'stopped':
