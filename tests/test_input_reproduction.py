@@ -34,6 +34,30 @@ def test_portable_coordinate_solve_retains_original_hashes(pair):
     assert sha256(b/'input.fdf')==before
 
 
+def test_reconstructed_soc_axis_requires_adjacent_components_and_identical_spin_input(pair):
+    original, _ = pair
+    atoms = Atoms('Ni', positions=[[0,0,0]], cell=[3.5]*3, pbc=True)
+    a = prepare_case(atoms, original.parent/'pseudos', original.parent/'soc-x', Settings(),
+                     direction=[0.9999999998760509, -1.263669054552652e-5, 9.392147327529871e-6])
+    b = original.parent/'copy'
+    shutil.copytree(a, b)
+    m = load(b/'manifest.json')
+    m['direction'][2] = float(np.nextafter(m['direction'][2], np.inf))
+    save(b/'manifest.json', m)
+    assert verify_prepared_input(a,b)['exact_input_bytes']
+    m['direction'][2] = float(np.nextafter(m['direction'][2], np.inf))
+    save(b/'manifest.json', m)
+    with pytest.raises(ValueError):
+        verify_prepared_input(a,b)
+    m['direction'][2] = float(np.nextafter(m['direction'][2], -np.inf))
+    fdf = b/'input.fdf'
+    fdf.write_text(fdf.read_text().replace('%block DM.InitSpin\n1 ', '%block DM.InitSpin\n1 0 '))
+    m['input_sha256'] = sha256(fdf)
+    save(b/'manifest.json', m)
+    with pytest.raises(ValueError):
+        verify_prepared_input(a,b)
+
+
 @pytest.mark.parametrize('change',['larger_coordinate','cell','species','settings','moment','option','coordinate_species','forged_hash','unrecorded_coordinate','newline'])
 def test_roundoff_rule_cannot_admit_other_changes(pair,change):
     a,b=pair;m=load(b/'manifest.json');p=b/'input.fdf'

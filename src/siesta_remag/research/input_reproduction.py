@@ -2,8 +2,9 @@
 
 ASE converts Cartesian positions back to fractional coordinates with a linear
 solve. Different BLAS implementations can differ at the last binary places.
-Retained bytes/hashes remain exact. Only that reconstructed coordinate field
-may differ by eight binary64 epsilons; all other input bytes/settings must match.
+Retained bytes/hashes remain exact. Reconstructed coordinates may differ by
+eight binary64 epsilons. A nonzero SOC axis component in the manifest may
+differ by one representable step when the generated spin instructions match.
 This is a serialization bound, never a native convergence tolerance.
 """
 from pathlib import Path
@@ -43,6 +44,13 @@ def verify_prepared_input(expected, actual):
         stripped.append(lines[:begin+1] + [row.split()[-1]+'\n' for row in rows] + lines[end:])
     a, b = manifests
     ignored = {'input_sha256', 'geometry', 'geometry_sha256'}
+    if a['direction'] != b['direction'] and a['spin'] == b['spin'] == 'spin-orbit':
+        left, right = (np.asarray(m['direction'], dtype=float) for m in manifests)
+        if (left.shape == right.shape == (3,) and np.isfinite(left).all() and np.isfinite(right).all()
+                and np.all((left == right) | ((left * right > 0) & (np.nextafter(left, right) == right)))):
+            # The full DM.InitSpin block, including every rendered angle, is
+            # compared byte for byte below. The source-derived axis is expected.
+            ignored.add('direction')
     if ({k:v for k,v in a.items() if k not in ignored} != {k:v for k,v in b.items() if k not in ignored} or
             {k:v for k,v in a['geometry'].items() if k != 'fractional_coordinates'} !=
             {k:v for k,v in b['geometry'].items() if k != 'fractional_coordinates'} or
