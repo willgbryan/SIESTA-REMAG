@@ -119,6 +119,9 @@ def registered_dataset(root):
                 angular_fit=report.get('angular_fit'),stages=report['stages'],comparison_key=comparison_key(report),
                 observations={k:{key:v for key,v in obs.items() if key!='eigenvalues'} for k,obs in report['observations'].items()},
                 executable_sha256=report['executable_sha256'],verification=report['verification'],spectra={},matrices={},orbital_moments={},electronic=None)
+            if report.get('format') == 'REMAG-DISCOVERY-OBSERVATION/1':
+                calc.update(geometry_origin=report['geometry_origin'], evaluated_geometry=report['evaluated_geometry'],
+                    relaxation_metrics=report['relaxation_metrics'], native_status=report['native_status'])
             if calc['basis_spec'] is not None:
                 from .basis import orbital_count
                 calc['basis_orbitals']=orbital_count(calc['basis_spec'],[chemical_symbols[z] for z in export['geometry']['atomic_numbers']])

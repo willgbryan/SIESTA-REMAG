@@ -16,6 +16,14 @@ remain unchanged. This document does not itself authorize a launch.
 
 ## Current direction — 17 November
 
+The saved discovery-observation bridge now connects controlled relaxation to
+research inspection, electronic-spectrum export, prospective prediction scores
+and evidence-bound notebook revisions. Exact sources and measured relaxed
+geometries remain separate. Synthetic Ni/Co tests exercise changed cells,
+negative screens and failures; analytic native-format data exercise spectral
+inspection. This is local engineering evidence, not a live materials discovery
+loop or proof of scientific advantage. See [execution](RESEARCH_EXECUTION.md).
+
 The owner accepted five targets for the remaining integrated build:
 
 1. General exact structure authoring across compositions and crystal families.

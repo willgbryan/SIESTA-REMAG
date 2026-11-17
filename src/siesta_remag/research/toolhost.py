@@ -23,7 +23,7 @@ from .tools import ResearchTools
 PREPARATION = frozenset({'author_structure', 'register_structure', 'assess_structure',
     'prepare_query', 'prepare_response_series', 'analyze_response_series',
     'export_band_path', 'export_electronic_matrices', 'compare_electronic_matrices',
-    'export_orbital_moments', 'export_soc_matrices', 'stage_scalar_data'})
+    'export_orbital_moments', 'export_soc_matrices', 'stage_scalar_data', 'import_relaxation_result', 'export_electronic_spectrum'})
 MEMORY = frozenset({'record_hypothesis', 'propose_experiment', 'record_prediction',
     'record_response_prediction', 'record_calculation_outcome', 'record_response_outcome',
     'record_analysis', 'retrieve_research_history', 'evaluate_hypothesis', 'evaluate_predictions'})

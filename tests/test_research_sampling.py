@@ -70,6 +70,31 @@ def test_reduced_mesh_keeps_native_multiplicities(tmp_path):
     assert identity['multiplicities']==[2,1] and proof['native_sample_count']==2 and proof['full_mesh_size']==3
 
 
+@pytest.mark.parametrize('stage',['scalar','soc-z'])
+def test_relaxed_mesh_uses_final_cell_not_authored_or_initial_cell(tmp_path,stage):
+    a,c,expected=native_fixture(tmp_path/'relaxed')
+    final=np.array(c['report']['structure']['geometry']['cell'])
+    folder=tmp_path/'relaxed/soc-z'
+    if stage=='scalar':
+        folder.rename(folder.with_name('scalar'));folder=folder.with_name('scalar')
+        c['report']['artifacts']={k.replace('soc-z/','scalar/'):v for k,v in c['report']['artifacts'].items()}
+        p=folder/'input.fdf'
+        p.write_text(p.read_text().replace('2.7300000000000000','3.0000000000000000'))
+        c['report']['artifacts']['scalar/input.fdf']=sha256(p)
+    c['stage']=stage;c['report']['format']='REMAG-DISCOVERY-OBSERVATION/1'
+    c['report']['request']['fixed_geometry']=False
+    c['report']['evaluated_geometry']=dict(cell=final.tolist(),atomic_numbers=[28])
+    c['report']['structure']['geometry']['cell']=(final*1.1).tolist()
+    struct=folder/'remag.STRUCT_OUT'
+    struct.write_text('\n'.join(' '.join(map(str,row)) for row in final)+'\n1\n1 28 0 0 0\n')
+    c['report']['artifacts'][stage+'/remag.STRUCT_OUT']=sha256(struct)
+    identity,proof=native_mesh_identity(a,c)
+    assert identity['ordered_grid_indices']==expected.tolist()
+    assert proof['cell_origin']=='accepted native relaxation'
+    c['report']['evaluated_geometry']['cell'][0][0]+=.1
+    with pytest.raises(ValueError,match='relaxed geometry'):native_mesh_identity(a,c)
+
+
 @pytest.mark.parametrize('mutation',[
     'off_grid','duplicate','coarse','bad_weight','missing_array','changed_array','changed_array_weight',
     'file_hash','metadata_hash','source_cell','shifted_input','input_mesh','native_count','unknown_units',

@@ -179,6 +179,27 @@ def finite_difference(points, *, parameter_unit, property_unit):
         propagated_error_bound=bound, truncation_error=None, approximation='local quadratic three-point finite difference')
 
 
+def export_native_spectrum(report_path, stage, directory, output, *, collection=None, collinear_spin=0):
+    """Saved-only, source-bound spectrum export for the research tool host."""
+    from .tools import _verified_report
+    report_path, directory = Path(report_path).resolve(), Path(directory).resolve()
+    report = _verified_report(report_path, collection)
+    if (type(collinear_spin) is not int or collinear_spin not in (0, 1) or
+            not any(row['stage'] == stage and row['accepted'] and row.get('branch', {}).get('passed', True)
+                    for row in report['stages'])):
+        raise ValueError('Select an accepted native stage and a valid collinear channel')
+    bindings = {name: report['artifacts'].get(stage+'/'+name) for name in ('remag.HSX', 'remag.KP', 'remag.EIG')}
+    if any(not expected or not (directory/name).is_file() or sha256(directory/name) != expected
+           for name, expected in bindings.items()):
+        raise ValueError('Spectrum requires the original collected HSX/KP/EIG files for this stage')
+    result = spectrum_from_run(directory, output, collinear_spin=collinear_spin)
+    result.update(report_sha256=sha256(report_path), source_sha256=report['source_sha256'], stage=stage,
+        geometry_origin=report.get('geometry_origin', 'fixed authored geometry'),
+        native_stage=next(row.get('native_stage', stage) for row in report['stages'] if row['stage'] == stage))
+    save(Path(output)/'electronic.json', result)
+    return result
+
+
 def spectrum_from_run(directory, output, *, collinear_spin=0):
     """Use native .KP (Cartesian bohr^-1) sampling and compare native .EIG.
 

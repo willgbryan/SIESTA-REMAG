@@ -344,7 +344,8 @@ review. Disappearing local sessions never count as allocation release.
         policy = dict(experiments=['query'],timeout_seconds=c['app_timeout_seconds'],
             hourly_reservation_usd=c['hourly_reservation_usd'],budget_usd=plan['reserved_cents']/100,
             budget_stage=c['budget_stage'],spectra=spectra,expected_source_code=code)
-        if operation == 'relaxation': policy.update(operation=operation, source_binding=source_binding)
+        if operation == 'relaxation':
+            policy.update(operation=operation, source_binding=source_binding, discovery_diagnostics=True)
         if 'volume' in c:policy['volume'] = c['volume']
         save(output/'campaign/execution.json',policy)
         save(output/'preflight.json',preflight)

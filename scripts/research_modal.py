@@ -44,6 +44,7 @@ if modal.is_local():
     if operation == 'relaxation':
         from siesta_remag.corpus import sha256
         if (policy['experiments'] != ['query'] or policy.get('spectra') != [] or
+                type(policy.get('discovery_diagnostics', False)) is not bool or
                 sha256(campaign/'structure.json') != policy['source_binding']['structure_file_sha256']):
             raise ValueError('Expected one source-bound relaxation without additional queries')
     for name in policy['experiments']:
@@ -125,7 +126,8 @@ def calculate(run_id):
             run = run_dft if operation == 'relaxation' else run_experiment
             result = run(Path('/opt/research/campaign')/name, root/name, runtime['executable'],
                 executable_sha256=runtime['executable_sha256'], runtime_env=runtime.get('environment', {}),
-                threads=runtime.get('threads', 1), checkpoint=volume.commit)
+                threads=runtime.get('threads', 1), checkpoint=volume.commit,
+                **({'diagnostics': policy.get('discovery_diagnostics', False)} if operation == 'relaxation' else {}))
             report['timing']['native_seconds'] += time.monotonic()-before_native
             report['experiments'].append(dict(id=name, status=result['status'], report_sha256=sha256(root/name/'report.json')))
             completed = ('screened', 'screened_low_moment') if operation == 'relaxation' else ('measured',)

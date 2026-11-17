@@ -17,6 +17,11 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'export_electronic_spectrum': {'required':['report','stage','native_directory','output'],
+        'optional':['collection','collinear_spin'],
+        'description':'Reconstruct a spectrum from one accepted stage using its collected HSX/KP/EIG hashes and native sampling. Retains native eigenvalue comparison and authored/relaxed geometry provenance; no solver run.'},
+    'import_relaxation_result': {'required':['attempt'], 'optional':[],
+        'description':'Replay saved native/source/branch checks on one stopped discovery attempt and create a research observation beside its raw collection. Preserves exact authored and relaxed geometry separately; no solver or service call.'},
     'prepare_response_series': {'required':['structure','pseudos','output','design','query','mesh'],
         'optional':['settings','basis_size','basis_energy_shift_ry','basis_spec','soc_matrix'],
         'description':'Prepare 3..9 exact samples along one declared GPAC strain, displacement, coordination or coupled metric path. Returns separate query bundles; no execution or queue.'},
@@ -92,7 +97,8 @@ TOOLS = {
 }
 
 ELECTRONIC_TOOLS=frozenset({'inspect_electronic_structure','projected_dos','compare_electronic_states',
-    'export_electronic_matrices','compare_electronic_matrices','export_orbital_moments','export_soc_matrices','export_band_path'})
+    'export_electronic_matrices','compare_electronic_matrices','export_orbital_moments','export_soc_matrices','export_band_path',
+    'export_electronic_spectrum'})
 STANDARD_OBSERVATIONS=frozenset({'total_energy_ev','free_energy_ev','forces_ev_ang','stress_ev_ang3',
     'atom_moments_muB','total_moment_muB','scf_iterations','spin_components'})
 
@@ -100,6 +106,11 @@ STANDARD_OBSERVATIONS=frozenset({'total_energy_ev','free_energy_ev','forces_ev_a
 def _verified_report(path, collection=None):
     root = path.parent
     report = load(path)
+    if report.get('format') == 'REMAG-DISCOVERY-OBSERVATION/1':
+        from .discovery_observation import verified_observation
+        if collection is not None:
+            raise ValueError('Discovery observations bind their original collection internally')
+        return verified_observation(path)
     if report.get('format') != 'REMAG-EXPERIMENT-RESULT/1':
         raise ValueError('Expected a research calculation report')
     if report['source_sha256'] != report['request']['source_sha256']:
@@ -211,6 +222,8 @@ class ResearchTools:
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
         if self.withheld_sources:
+            if name=='import_relaxation_result':
+                self._source_access(load(self.path(args['attempt'])/'campaign/structure.json')['source']['sha256'])
             if 'report' in args:self._source_access(load(self.path(args['report'])).get('source_sha256'))
             if name=='run_prepared_query':self._source_access(load(self.path(args['bundle'])/'experiment.json').get('source_sha256'))
             if name=='record_response_outcome':
@@ -218,6 +231,14 @@ class ResearchTools:
             if name=='inspect_relaxation':self._source_access(load(self.path(args['structure']))['source']['sha256'])
             if name=='analyze_response_series':
                 for endpoint in args['evidence'].values():self._source_access(load(self.path(endpoint['report']))['source_sha256'])
+        if name == 'import_relaxation_result':
+            from .discovery_observation import import_relaxation_result
+            return import_relaxation_result(self.path(args['attempt']))
+        if name == 'export_electronic_spectrum':
+            from .electronic import export_native_spectrum
+            return export_native_spectrum(self.path(args['report']), args['stage'], self.path(args['native_directory']),
+                self.path(args['output']), collection=self.path(args['collection']) if 'collection' in args else None,
+                collinear_spin=args.get('collinear_spin', 0))
         if name == 'run_prepared_query':
             if self.execution_config is None:
                 raise ValueError('Native execution is not enabled by the operator')
@@ -280,6 +301,9 @@ class ResearchTools:
                 executable_sha256=report['executable_sha256'], stages=report['stages'], observations=observations,
                 anisotropy=report.get('anisotropy'), angular_fit=report.get('angular_fit'),
                 wall_seconds=report.get('wall_seconds'), latency_scope=report.get('latency_scope', 'Recorded experiment time only'),
+                evaluated_geometry=report.get('evaluated_geometry'), geometry_origin=report.get('geometry_origin', 'fixed authored geometry'),
+                relaxation_metrics=report.get('relaxation_metrics'), native_status=report.get('native_status'),
+                physical_conditions=report.get('physical_conditions'), physical_stability_qualified=False,
                 verification=report['verification'],physical_accuracy_qualified=False)
         if name=='export_band_path':
             from .reciprocal import export_band_path
@@ -395,6 +419,9 @@ def calculation_observation(path, source_sha256, stage, observable, *, collectio
     path=Path(path).resolve();report=_verified_report(path,collection)
     if source_sha256 != report['source_sha256']:
         raise ValueError('Outcome source differs from the recorded experiment')
+    if stage == 'relaxation' and report['format'] == 'REMAG-DISCOVERY-OBSERVATION/1':
+        from .discovery_observation import metric_observation
+        return dict(metric_observation(report, stage, observable), report_sha256=sha256(path))
     from .queries import directions
     requested={'scalar'} | {'soc-'+label for label in directions(report['request'].get('query',{'kind':'anisotropy'}),dict(z=[0,0,1],x=[1,0,0],y=[0,1,0]))}
     needed={'soc-z','soc-x'} if stage=='anisotropy' else {stage}
@@ -403,7 +430,11 @@ def calculation_observation(path, source_sha256, stage, observable, *, collectio
     accepted=report['status']=='measured' and all(any(s['stage']==name and s['accepted'] and s.get('branch',{}).get('passed',True)
                                                    for s in report['stages']) for name in needed)
     if not accepted:
-        return dict(observable=stage+'.'+observable,value=None,unit='eV/cell',report_sha256=sha256(path),status='failed')
+        # A completed low-moment screen deliberately omits SOC. It has no
+        # measured anisotropy, and is not a native execution failure.
+        omitted = report.get('native_status') == 'screened_low_moment' and report['status'] == 'measured'
+        return dict(observable=stage+'.'+observable,value=None,unit='eV/cell',report_sha256=sha256(path),
+                    status='inconclusive' if omitted else 'failed')
     if stage == 'anisotropy':
         mapping = {'total_energy_ev':'mae_ev_cell','free_energy_ev':'free_energy_ev_cell'}
         if observable not in mapping or report.get('anisotropy') is None:

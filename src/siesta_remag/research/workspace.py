@@ -68,6 +68,8 @@ def comparison_key(report):
     """Physical controls and runtime match; execution ceilings are not observables."""
     config = numerical_configuration(report)
     del config['source_sha256']
+    if report.get('format') == 'REMAG-DISCOVERY-OBSERVATION/1':
+        config.update(geometry_origin=report['geometry_origin'], evaluated_geometry=report['evaluated_geometry'])
     return digest(config)
 
 

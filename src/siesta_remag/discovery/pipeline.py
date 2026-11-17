@@ -123,7 +123,8 @@ def verify_bundle(bundle):
     return receipt
 
 
-def run_dft(bundle, output, executable, *, executable_sha256, runtime_env=None, threads=1, checkpoint=None, runner=run_case):
+def run_dft(bundle, output, executable, *, executable_sha256, runtime_env=None, threads=1, checkpoint=None, runner=run_case,
+            diagnostics=False):
     """Relax and screen once, using one executable and sequential directions.
 
     A repeated completed call returns its report. Any interrupted allocation or
@@ -140,8 +141,11 @@ def run_dft(bundle, output, executable, *, executable_sha256, runtime_env=None, 
     runtime_env = {k: v for k, v in os.environ.items() if k.startswith('REMAG_')} | runtime_env
     if any(not isinstance(k, str) or not isinstance(v, str) for k, v in runtime_env.items()):
         raise ValueError('Runtime environment must map strings to strings')
-    identity = digest(dict(bundle=receipt['request_sha256'], files=receipt['files'], executable=executable_sha256,
-                           runtime_env=runtime_env, threads=threads, code=source_identity()))
+    if type(diagnostics) is not bool: raise ValueError('Diagnostics must be a boolean')
+    identity_fields = dict(bundle=receipt['request_sha256'], files=receipt['files'], executable=executable_sha256,
+                           runtime_env=runtime_env, threads=threads, code=source_identity())
+    if diagnostics: identity_fields['diagnostics'] = True
+    identity = digest(identity_fields)
     started = time.monotonic()
     deadline = started + settings.total_dft_seconds
     with lock(output.with_name(output.name+'.lock')):
@@ -159,6 +163,7 @@ def run_dft(bundle, output, executable, *, executable_sha256, runtime_env=None, 
                       stages=[], accepted_artifacts={}, screen=None, K1=None, K2=None, kappa=None,
                       physical_accuracy_qualified=False, automatic_extensions=False,
                       scope='Finite discovery triage, not magnetic ground state or synthesis qualification')
+        if diagnostics: report['diagnostics'] = True
         def flush():
             report['whole_pipeline_dft_seconds'] = time.monotonic()-started
             report['solver_seconds'] = sum(s.get('solver_seconds', 0) for s in report['stages'])
@@ -170,7 +175,8 @@ def run_dft(bundle, output, executable, *, executable_sha256, runtime_env=None, 
             if left <= 0: raise TimeoutError('Whole DFT pipeline time limit reached')
             limit = min(settings.dft_seconds if relax else settings.soc_seconds, left)
             prepared = prepare_case(atoms, bundle/'pseudos', output/'inputs'/name, settings, mesh=mesh,
-                                    direction=axis, spins=spins, relax=relax, restart=restart is not None)
+                                    direction=axis, spins=spins, relax=relax, restart=restart is not None,
+                                    diagnostics=diagnostics)
             report['current_stage'] = name; flush()
             result = runner(prepared, executable, output/name, timeout=limit, threads=threads,
                             extra_env=runtime_env, restart=restart)

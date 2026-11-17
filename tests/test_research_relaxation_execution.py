@@ -67,7 +67,7 @@ def refresh_bundle(b):
 
 
 class DiscoveryTransport(SyntheticTransport):
-    def __init__(self, monkeypatch, **kwargs):
+    def __init__(self, monkeypatch, *, relaxed_cell_scale=1., **kwargs):
         super().__init__(**kwargs)
         original = pipeline.run_dft
         base = backend(self.native, fail='optimizer' if self.failure == 'optimizer' else
@@ -75,9 +75,13 @@ class DiscoveryTransport(SyntheticTransport):
         def native(case, executable, destination, **kw):
             result = base(case, executable, destination, **kw)
             m = load(destination/'manifest.json'); g = m['geometry']
-            (destination/'remag.STRUCT_OUT').write_text('\n'.join(' '.join(map(str,r)) for r in g['lattice_A'])+
+            cell = [[v*(relaxed_cell_scale if destination.name == 'dft-relax' else 1) for v in row]
+                    for row in g['lattice_A']]
+            (destination/'remag.STRUCT_OUT').write_text('\n'.join(' '.join(map(str,r)) for r in cell)+
                 '\n2\n'+'\n'.join('1 '+str(atomic_numbers[s])+' '+' '.join(map(str,r))
                                    for s,r in zip(g['species'],g['fractional_coordinates']))+'\n')
+            # Retention fixture only; not a basis accepted by electronic tools.
+            (destination/(g['species'][0]+'.ion.xml')).write_text('<ion>synthetic retention fixture</ion>')
             return result
         monkeypatch.setattr(pipeline, 'run_dft', lambda *a, **kw: original(*a, **kw, runner=native))
 

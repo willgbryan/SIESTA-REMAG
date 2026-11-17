@@ -15,7 +15,7 @@ def pack(root, *, include_arrays=False, include_native=False):
     if report['status'] == 'running': raise ValueError('Cannot package an unfinished pipeline')
     suffixes = ('.json', '.log', '.csv', '.fdf', '.cif', '.extxyz', '.EIG')
     if include_arrays: suffixes += ('.npz', '.KP', '.STRUCT_OUT')
-    if include_native: suffixes += ('.DM', '.HSX', '.psml', '.psf', '.XV', '.STRUCT_OUT', '.KP')
+    if include_native: suffixes += ('.DM', '.HSX', '.psml', '.psf', '.XV', '.STRUCT_OUT', '.KP', '.xml')
     files = [p for p in sorted(root.rglob('*')) if p.is_file() and
              p.name != 'archive-manifest.json' and p.suffix in suffixes]
     manifest = dict(schema=1, invocation_sha256=report['invocation_sha256'], status=report['status'],

@@ -97,16 +97,34 @@ def _input_cell(text,mesh):
 def native_mesh_identity(arrays,context):
     """Bind every stored sample to one uniquely resolved declared mesh point."""
     report=context['report'];mesh=report['request']['kmesh']
-    if (report['request'].get('fixed_geometry') is not True or not isinstance(mesh,list) or len(mesh)!=3
+    relaxed = report.get('format') == 'REMAG-DISCOVERY-OBSERVATION/1'
+    if ((report['request'].get('fixed_geometry') is not True and not relaxed) or not isinstance(mesh,list) or len(mesh)!=3
             or any(type(n) is not int or not 1<=n<=1024 for n in mesh) or np.prod(mesh)>100000):
-        raise ValueError('Native sampling needs a fixed geometry and a bounded explicit mesh')
+        raise ValueError('Native sampling needs a bound geometry and a bounded explicit mesh')
     mesh=np.array(mesh,dtype=np.int64);size=int(np.prod(mesh))
     kp=_bound_file(context,'remag.KP',32*1024*1024)
     inp=_bound_file(context,'input.fdf',1024*1024)
     cell=_input_cell(inp.read_text(),mesh)
-    authored=np.asarray(report['structure']['geometry']['cell'],float)
-    if authored.shape!=(3,3) or not np.allclose(cell,authored,rtol=0,atol=1e-12):
-        raise ValueError('Native sampling input cell differs from the fixed authored geometry')
+    geometry_proof={}
+    if relaxed:
+        # _verified_report already reproduced the preparation and each native
+        # input. Scalar relaxation starts at a different cell; final HSX/KP
+        # coordinates belong to the accepted STRUCT_OUT, not the input cell.
+        from ..discovery.review import evaluated_structure
+        geometry=report.get('evaluated_geometry')
+        if not geometry:raise ValueError('Native sampling lacks accepted relaxed geometry')
+        structure=_bound_file(context,'remag.STRUCT_OUT',1024*1024)
+        atoms=evaluated_structure(structure.parent, geometry['atomic_numbers'])
+        observed=np.asarray(geometry['cell'],float)
+        if (observed.shape!=(3,3) or not np.allclose(atoms.cell.array,observed,rtol=0,atol=2e-8) or
+                (context['stage']!='scalar' and not np.allclose(cell,observed,rtol=0,atol=1e-12))):
+            raise ValueError('Native sampling cell differs from the accepted relaxed geometry')
+        cell=observed
+        geometry_proof=dict(cell_origin='accepted native relaxation',struct_out_sha256=sha256(structure))
+    else:
+        authored=np.asarray(report['structure']['geometry']['cell'],float)
+        if authored.shape!=(3,3) or not np.allclose(cell,authored,rtol=0,atol=1e-12):
+            raise ValueError('Native sampling input cell differs from the fixed authored geometry')
     if context['metadata'].get('kp_sha256')!=sha256(kp):raise ValueError('Spectrum native KP binding differs')
     lines=kp.read_text().splitlines()
     try:count=int(lines[0])
@@ -166,6 +184,7 @@ def native_mesh_identity(arrays,context):
         represented_weight_sum=total,native_weight_printing_bound=weight_bound,
         identity_sha256=digest(identity),admitted_length_conventions=admitted,
         scope='All stored native samples uniquely labeled on the declared mesh; symmetry multiplicities retained; no coordinate/state resampling')
+    proof.update(geometry_proof)
     return identity,proof
 
 

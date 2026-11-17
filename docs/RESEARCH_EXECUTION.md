@@ -15,6 +15,48 @@ file does not itself establish human consent: operators must supply only an
 actually authorized grant. The closed FePt convergence campaign is not such a
 grant; this feature does not reopen it or authorize its remaining funds.
 
+## Saved discovery observations
+
+After `execute_relaxation` has collected, stopped and reviewed an attempt,
+`import_relaxation_result({"attempt": "runs/candidate-1"})` creates
+`runs/candidate-1/research-observation/report.json`. This is an explicit
+`REMAG-DISCOVERY-OBSERVATION/1`, not a fixed-geometry experiment. Its `structure`
+is the unchanged exact source; `evaluated_geometry` contains the accepted
+numeric relaxation. The native `dft-relax` stage is exposed as `scalar` with
+its original name retained in `native_stage`. The raw collection is untouched.
+
+Import replays the source, input, runtime, native acceptance, magnetic-branch
+and geometry checks, then copies collected stage bytes into the research view.
+Subsequent reads verify both the original evidence and the view. Captured
+producer hashes must match their original launch policy; unrelated later
+research-code changes do not make saved observations unreadable. A fresh
+execution still requires exact current producer hashes. This is provenance
+checking and current-validator replay, not cryptographic attestation of a
+remote machine. Interrupted imports are retained rather than overwritten.
+
+The direct tool host can inspect this report, record E/F predictions and
+outcomes, score them, and record evidence-bound revisions. Relaxation metrics
+use stage `relaxation`: `Js_T` (T), `volume_a3` (angstrom^3),
+`max_force_ev_ang` (eV/angstrom), and `max_stress_gpa` (GPa).
+A completed low-moment screen is a measured negative screen; its unrun SOC
+and anisotropy outcomes are inconclusive, never zero. Native/branch failures
+remain failed outcomes. These checks do not establish phase stability or
+synthesis feasibility. Prescribed-strain response experiments remain distinct
+from these relaxed observations, including in catalog comparison groups.
+
+New controlled discovery runs request native k-point diagnostics and retain
+HSX/KP/EIG, density, pseudopotential and ion XML bytes. The physics-profile
+`export_electronic_spectrum` tool requires the bound HSX/KP/EIG files for an
+accepted stage; its output feeds the existing state inspection and DOS tools.
+Existing matrix/orbital-moment exports can use the copied native stage files
+when their required evidence is present. No missing diagnostic is silently
+recalculated. Native-mesh correspondence uses the accepted final cell for
+relaxation outputs while retaining the input's declared integer grid.
+
+The local regression path uses synthetic Ni/Co native transport and an analytic
+native-format spectral fixture. Live non-FePt measurements, model-selected
+revisions and exploratory latency remain separate acceptance work.
+
 ## Operator configuration
 
 `REMAG-RESEARCH-EXECUTION/1` requires these fields. Values below are illustrative

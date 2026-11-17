@@ -5,6 +5,7 @@ launch work. A completed negative magnetic screen is a usable observation,
 not a claim of stability or synthesis feasibility.
 """
 from pathlib import Path
+import re
 from tempfile import TemporaryDirectory
 
 import numpy as np
@@ -70,7 +71,7 @@ def verify_relaxation_source(structure, bundle):
                 structure_file_sha256=sha256(structure))
 
 
-def review_relaxation(attempt, request, runtime):
+def review_relaxation(attempt, request, runtime, *, require_current_code=True):
     """Reproduce native/branch checks and exact-source feedback from collection."""
     from .relaxation import inspect_relaxation
     from .experiments import experiment_code
@@ -85,15 +86,30 @@ def review_relaxation(attempt, request, runtime):
     bundle = attempt/'campaign/query'
     receipt = verify_bundle(bundle)
     binding = verify_relaxation_source(attempt/'campaign/structure.json', bundle)
-    expected_invocation = digest(dict(bundle=receipt['request_sha256'], files=receipt['files'],
+    # A new execution must match this checkout. Saved-only ingestion instead
+    # binds the captured producer hashes to the original launch policy. It
+    # still reruns the native, input, runtime and geometry checks below.
+    captured_code = report.get('source_code')
+    policy_code = policy.get('expected_source_code')
+    if (not isinstance(captured_code, dict) or not captured_code or not isinstance(policy_code, dict) or
+            any(not isinstance(k, str) or not isinstance(v, str) or not re.fullmatch('[0-9a-f]{64}', v)
+                for k, v in policy_code.items()) or
+            captured_code != {k: v for k, v in policy_code.items() if not k.startswith('research/')} or
+            (require_current_code and (policy_code != experiment_code() or captured_code != source_identity()))):
+        raise ValueError('Collected relaxation producer code differs from its launch policy')
+    diagnostics = policy.get('discovery_diagnostics', False)
+    if type(diagnostics) is not bool or report.get('diagnostics', False) != diagnostics:
+        raise ValueError('Discovery diagnostics differ from launch policy')
+    invocation_fields = dict(bundle=receipt['request_sha256'], files=receipt['files'],
         executable=runtime['executable_sha256'], runtime_env=runtime.get('environment', {}),
-        threads=runtime.get('threads', 1), code=source_identity()))
+        threads=runtime.get('threads', 1), code=captured_code)
+    if diagnostics: invocation_fields['diagnostics'] = True
+    expected_invocation = digest(invocation_fields)
     if (policy.get('operation') != 'relaxation' or policy.get('source_binding') != binding or
             top.get('policy') != policy or top.get('invocation_sha256') != digest(policy) or
             report.get('prepared_bundle') != receipt or load(bundle/'request.json') != request or
             report.get('input_sha256') != request['input_sha256'] or
             report.get('invocation_sha256') != expected_invocation or
-            policy.get('expected_source_code') != experiment_code() or report.get('source_code') != source_identity() or
             report.get('settings') != request['settings'] or
             report.get('runtime_env') != runtime.get('environment', {}) or
             report.get('executable_sha256') != runtime['executable_sha256']):
@@ -128,6 +144,7 @@ def review_relaxation(attempt, request, runtime):
             expected = prepare_case(read(bundle/'orb/relaxed.extxyz') if axis is None else relaxed,
                 bundle/'pseudos', Path(temp)/name, settings, mesh=receipt['kmesh'],
                 relax=axis is None, direction=axis, restart=axis is not None,
+                diagnostics=diagnostics,
                 spins=None if axis is None else np.asarray(observations['dft-relax']['atom_moments_muB'])[:, 2])
             if ((expected/'input.fdf').read_bytes() != (folder/'input.fdf').read_bytes() or
                     load(expected/'manifest.json') != manifest):
