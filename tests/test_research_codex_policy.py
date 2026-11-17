@@ -61,6 +61,17 @@ def test_fixture_endpoint_cannot_target_remote_service(codex_config,tmp_path):
     assert p.proc is None
 
 
+def test_oversized_context_is_held_before_any_managed_connection(codex_config,tmp_path,monkeypatch):
+    backend=CodexPolicy(codex_config,tmp_path/'runtime')
+    folder=tmp_path/'call';folder.mkdir()
+    context=dict(seconds_remaining=120,tools={},large_array='x'*(1024*1024))
+    save(folder/'context.json',context)
+    monkeypatch.setattr(backend,'_start',lambda *_:pytest.fail('Invalid context opened a model connection'))
+    with pytest.raises(ValueError,match='exceeds 1 MiB'):backend.decide(context,codex_config,folder)
+    assert backend.held and backend.proc is None
+    assert load(folder/'codex.json')['status']=='held_error'
+
+
 class FakeModel:
     def __init__(self, attack=None):
         self.requests=[];self.attack=attack

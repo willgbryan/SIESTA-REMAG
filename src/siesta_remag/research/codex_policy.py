@@ -178,6 +178,9 @@ class CodexPolicy:
         save(receipt, record)
         deadline = time.monotonic()+min(self.config['request_timeout_seconds'], context['seconds_remaining'])
         try:
+            # Reject oversized data before even opening a managed-model connection.
+            prompt = json.dumps(dict(research_brief=self.config['research_brief'],context=context),allow_nan=False)
+            if len(prompt.encode())>model_policy.MAX_BYTES:raise ValueError('Codex context exceeds 1 MiB')
             if self.proc is None: self._start(deadline)
             self.events.clear()
             t = self._rpc('thread/start', dict(model=self.config['model'],
@@ -190,8 +193,6 @@ class CodexPolicy:
                 config=controls(self.config), experimentalRawEvents=True), deadline)
             if t['model'] != self.config['model'] or t['reasoningEffort'] != 'xhigh':
                 raise ValueError('Codex changed requested model or reasoning effort')
-            prompt = json.dumps(dict(research_brief=self.config['research_brief'],context=context),allow_nan=False)
-            if len(prompt.encode())>model_policy.MAX_BYTES:raise ValueError('Codex context exceeds 1 MiB')
             schema = dict(type='object', properties=dict(
                 tool=dict(type='string',enum=sorted(context['tools'])),
                 arguments_json=dict(type='string'),rationale=dict(type='string')),
