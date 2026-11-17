@@ -17,6 +17,8 @@ from .memory import Notebook
 
 
 TOOLS = {
+    'prepare_ouro_request': {'required':['route','inputs','output'], 'optional':['body','query','params'],
+        'description':'Offline preflight of a saved Ouro route contract and local temporary-file inputs. Retains bytes, schema/price and hashes; never uploads, reserves or executes. External output acceptance and provider allocation admission remain separate.'},
     'export_electronic_spectrum': {'required':['report','stage','native_directory','output'],
         'optional':['collection','collinear_spin'],
         'description':'Reconstruct a spectrum from one accepted stage using its collected HSX/KP/EIG hashes and native sampling. Retains native eigenvalue comparison and authored/relaxed geometry provenance; no solver run.'},
@@ -98,7 +100,7 @@ TOOLS = {
 
 ELECTRONIC_TOOLS=frozenset({'inspect_electronic_structure','projected_dos','compare_electronic_states',
     'export_electronic_matrices','compare_electronic_matrices','export_orbital_moments','export_soc_matrices','export_band_path',
-    'export_electronic_spectrum'})
+    'export_electronic_spectrum','prepare_ouro_request'})
 STANDARD_OBSERVATIONS=frozenset({'total_energy_ev','free_energy_ev','forces_ev_ang','stress_ev_ang3',
     'atom_moments_muB','total_moment_muB','scf_iterations','spin_components'})
 
@@ -177,6 +179,7 @@ class ResearchTools:
 
     def catalog(self):
         result={k:dict(v) for k,v in TOOLS.items() if (k != 'run_prepared_query' or self.execution_config is not None)
+                and (k != 'prepare_ouro_request' or not self.withheld_sources)
                 and (self.information_profile=='physics' or k not in ELECTRONIC_TOOLS)}
         if self.information_profile=='scalar':
             result['record_response_outcome']['description']='Ingest only anisotropy-response outcomes; electronic outcomes are reserved for the separate evaluator.'
@@ -222,6 +225,8 @@ class ResearchTools:
         if set(args)-set(schema['required']+schema['optional']) or set(schema['required'])-set(args):
             raise ValueError('Missing or unknown tool arguments')
         if self.withheld_sources:
+            if name=='prepare_ouro_request':
+                raise ValueError('External file preparation is unavailable in a withheld-source policy')
             if name=='import_relaxation_result':
                 self._source_access(load(self.path(args['attempt'])/'campaign/structure.json')['source']['sha256'])
             if 'report' in args:self._source_access(load(self.path(args['report'])).get('source_sha256'))
@@ -231,6 +236,12 @@ class ResearchTools:
             if name=='inspect_relaxation':self._source_access(load(self.path(args['structure']))['source']['sha256'])
             if name=='analyze_response_series':
                 for endpoint in args['evidence'].values():self._source_access(load(self.path(endpoint['report']))['source_sha256'])
+        if name == 'prepare_ouro_request':
+            from .ouro import prepare_request
+            if not isinstance(args['inputs'],dict):raise ValueError('Expected named local file inputs')
+            return prepare_request(load(self.path(args['route'])),
+                {k:self.path(v) for k,v in args['inputs'].items()},self.path(args['output']),
+                **{k:args[k] for k in ('body','query','params') if k in args})
         if name == 'import_relaxation_result':
             from .discovery_observation import import_relaxation_result
             return import_relaxation_result(self.path(args['attempt']))

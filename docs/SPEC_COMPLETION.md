@@ -40,10 +40,12 @@ The initial integrated demonstration is planned as three sequential iterations
 spanning at least two non-FePt systems. The live general-material loop remains
 unfinished; the existing authored Fe₂B example is not a validated phase.
 
-Suitable Ouro routes will accept temporary file inputs without a persistent
-input asset, subject to each route's schema/pricing compatibility. Local bytes,
-hashes, action IDs and collected outputs must survive temporary upload expiry.
-That integration remains pending. This is an extension of the original spec
+The [Ouro adapter](OURO_ROUTES.md) prepares temporary file inputs without a
+persistent input asset and supplies operator-only submission/collection APIs.
+Local bytes, hashes, action IDs and collected outputs survive upload expiry.
+Local SDK protocol tests exercise this path. A live route, configured access,
+provider allocation admission and scientific result validation remain pending.
+This is an extension of the original spec
 completion work, not a replacement for the clean paired-study and empirical
 acceptance requirements below.
 
@@ -58,7 +60,8 @@ controller. Local Ni/Co fixtures exercise the actual remote entry, collection,
 shutdown and independent native/branch/source review. Explicit magnetic starts
 survive preparation; a completed low-moment screen is retained as a negative
 result. This is local engineering acceptance only. Live non-FePt execution,
-electronic/score/revision integration, stability coverage and Ouro remain open.
+live electronic/score/revision integration, stability coverage and live Ouro
+admission remain open.
 
 | Final deliverable (§16) | Current state |
 | --- | --- |

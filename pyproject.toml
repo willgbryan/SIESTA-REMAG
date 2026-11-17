@@ -18,6 +18,7 @@ netcdf = ["netCDF4==1.7.2"]
 modal = ["modal==1.6.1"]
 discovery = ["ase>=3.26,<4", "orb-models>=0.5,<0.6"]
 research = ["ase>=3.26,<4", "scipy>=1.14,<2"]
+ouro = ["ouro-py==2.24.0", "jsonschema>=4.23,<5"]
 
 [project.scripts]
 remag = "siesta_remag.cli:main"
