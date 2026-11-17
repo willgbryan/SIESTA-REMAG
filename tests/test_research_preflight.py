@@ -233,7 +233,8 @@ def test_export_and_history_policy_coverage_is_offline():
     r = preflight_input_audits(text, env)
     assert r['hamiltonian_exports'] == 4 and r['density_exports'] == 2
     assert r['density_history']['depth'] == 1
-    for bad in ('Broyden', 'FC', 'Verlet'):
+    assert preflight_input_audits(text.replace('CG', 'Broyden'), env) == r
+    for bad in ('FIRE', 'FC', 'Verlet'):
         with pytest.raises(ValueError, match='MD mode'):
             preflight_input_audits(text.replace('CG', bad), env)
     with pytest.raises(ValueError, match='analysis consumer'):

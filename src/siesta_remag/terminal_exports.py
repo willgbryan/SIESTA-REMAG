@@ -9,11 +9,11 @@ from .density_history import settings, boolean
 
 
 def requested_hamiltonian_exports(input_text, gated):
-    """Resolve the fixed/CG regression policy; do not certify extra analysis."""
+    """Resolve fixed/CG/Broyden export policy; do not certify extra analysis."""
     if not gated:
         return 1
     values=settings(input_text)
-    if values.get('mdtypeofrun',['cg'])[0].lower()!='cg':
+    if values.get('mdtypeofrun',['cg'])[0].lower() not in ('cg', 'broyden'):
         raise ValueError('Hamiltonian export audit has no reference for this MD mode')
     if boolean(values,'writeh',False):
         raise ValueError('Hamiltonian audit requires per-iteration H writes disabled')
@@ -33,9 +33,9 @@ def requested_hamiltonian_exports(input_text, gated):
 
 
 def requested_density_exports(input_text, gpu_history, shadow=False):
-    """Resolve D consumers for the supported fixed/CG material corpus."""
+    """Resolve D consumers for fixed/CG/Broyden (native idyn=0)."""
     values = settings(input_text)
-    if values.get('mdtypeofrun', ['cg'])[0].lower() != 'cg':
+    if values.get('mdtypeofrun', ['cg'])[0].lower() not in ('cg', 'broyden'):
         raise ValueError('Density export audit has no reference for this MD mode')
     if boolean(values, 'writedm', True):
         raise ValueError('Terminal audit requires per-iteration DM writes disabled')

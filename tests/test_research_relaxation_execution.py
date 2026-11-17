@@ -239,14 +239,24 @@ def test_discovery_execution_is_not_a_policy_tool(tmp_path):
     assert not {'execute_relaxation', 'prepare_relaxation', 'run_prepared_query'} & host.catalog()['tools'].keys()
 
 
-def test_broyden_audit_gap_fails_before_account_intent_or_reservation(discovery, tmp_path, monkeypatch):
+def test_broyden_input_audits_and_unknown_consumers_before_account(discovery, tmp_path, monkeypatch):
     runtime = load(tmp_path/'runtime.json')
-    runtime['environment'] = {'REMAG_INTEGRAL_FORCE':'1', 'REMAG_GATE_H_EXPORT':'1'}
+    runtime['environment'] = {'REMAG_INTEGRAL_FORCE':'1', 'REMAG_GATE_H_EXPORT':'1', 'REMAG_GPU_HISTORY':'1'}
     save(tmp_path/'runtime.json', runtime)
     config = load(tmp_path/'config.json'); config['runtime_sha256'] = sha256(tmp_path/'runtime.json')
     save(tmp_path/'config.json', config)
+    audit = preflight_relaxation(discovery, runtime)['input_audits']
+    assert audit['hamiltonian_exports'] == 4 and audit['density_exports'] == 2
+    assert audit['density_history'] == dict(depth=1, mode=2)
+    from siesta_remag.research import relaxation_execution
+    original = relaxation_execution.prepare_case
+    def unsupported(*args, **kwargs):
+        folder = original(*args, **kwargs)
+        with (folder/'input.fdf').open('a') as f: f.write('\nOpticalCalculation true\n')
+        return folder
+    monkeypatch.setattr(relaxation_execution, 'prepare_case', unsupported)
     t = DiscoveryTransport(monkeypatch); before = (tmp_path/'budget.json').read_bytes()
-    with pytest.raises(ValueError, match='Hamiltonian export audit has no reference for this MD mode'):
+    with pytest.raises(ValueError, match='analysis consumer'):
         run(tmp_path, t)
     assert not t.calls and not t.info_calls and not t.native
     assert not (tmp_path/'attempt').exists() and not (tmp_path/'.research-execution').exists()

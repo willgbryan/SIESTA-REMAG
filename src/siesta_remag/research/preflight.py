@@ -45,7 +45,8 @@ def preflight_input_audits(input_text, environment):
     """Resolve the runner's supported input policies before paid execution.
 
     These are audit-coverage checks, not evidence that a native mode works.
-    In particular, do not silently broaden CG-only audits to Broyden.
+    CG/Broyden accounting has compiled native policy controls. Other modes and
+    unqualified analysis consumers remain rejected.
     """
     from ..terminal_exports import (requested_energy_exports, requested_density_exports,
                                     requested_hamiltonian_exports)

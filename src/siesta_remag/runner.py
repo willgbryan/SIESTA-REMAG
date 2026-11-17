@@ -9,6 +9,7 @@ import signal
 import subprocess
 import threading
 import time
+import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -37,6 +38,53 @@ from .nonlocal_h0 import audit as audit_nonlocal_h0
 from .native_diagnostics import NativeProcessDiagnostics
 
 def run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None, restart=None):
+    """Retain the native outcome even when its subsequent review raises.
+
+    Input/setup errors still raise. Only a newly created attempt with a saved
+    terminal process status can become a failed result; an old attempt is never
+    rewritten. A review exception cannot produce an accepted observation.
+    """
+    destination = Path(destination).resolve()
+    existed = destination.exists()
+    try:
+        return _run_case(case, executable, destination, threads=threads, timeout=timeout,
+                         extra_env=extra_env, restart=restart)
+    except Exception as error:
+        status_path = destination/'execution-status.json'
+        if existed or not status_path.is_file():
+            raise
+        status = json.loads(status_path.read_text())
+        detail = dict(type=type(error).__name__, message=str(error), traceback=traceback.format_exc())
+        (destination/'postprocessing-error.json').write_text(json.dumps(detail, indent=2)+'\n')
+        code = status['returncode']
+        native_error = 'Native process timed out' if status['timed_out'] else f'Native process exit code {code}'
+        if code < 0:
+            try: name = signal.Signals(-code).name
+            except ValueError: name = 'unknown signal'
+            native_error = f'Native process terminated by {name} ({-code})'
+        # Partial observables stay diagnostic only. Malformed/nonfinite output
+        # cannot prevent persistence of the native failure status either.
+        try:
+            output = parse_output((destination/'stdout.log').read_text(errors='replace'))
+            json.dumps(output, allow_nan=False)
+        except Exception:
+            output = parse_output('')
+        result = dict(schema_version=1,
+            benchmark=json.loads((destination/'manifest.json').read_text()),
+            created_at=datetime.now(timezone.utc).isoformat(),
+            executable=dict(path=str(Path(executable).resolve()), sha256=sha256(Path(executable))),
+            returncode=code, timed_out=status['timed_out'], wall_seconds=status['wall_seconds'],
+            valid=False, observables=output, profile=None,
+            parse_errors=[native_error, f'Postprocessing failed: {detail["type"]}: {detail["message"]}'],
+            postprocessing_complete=False, postprocessing_error=dict(type=detail['type'], message=detail['message']),
+            telemetry=dict(native_process_file='native-process.json',
+                postprocessing_error_file='postprocessing-error.json', raw_evidence_retained=True,
+                notes='Review failed; partial native observables and timing are not usable-result evidence.'))
+        (destination/'result.json').write_text(json.dumps(result, indent=2, allow_nan=False)+'\n')
+        return result
+
+
+def _run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None, restart=None):
     if threads < 1 or timeout <= 0:
         raise ValueError("Positive thread count and timeout required")
     case, executable, destination = case.resolve(), executable.resolve(), destination.resolve()

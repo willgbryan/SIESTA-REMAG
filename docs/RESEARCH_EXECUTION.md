@@ -240,12 +240,21 @@ The owned app is stopped and no next case is queued. See the
 [preserved failure record](../tests/evidence/research/general-material-first-native-failure-2026-11-17.json).
 
 Preflight now also checks the generated FDF against the runner's export and
-density-history policies before account access, intent or reservation. The
-accelerated export audit supports CG, but the discovery relaxation generator
-currently emits Broyden. That combination is rejected offline rather than
-silently widening audit coverage or changing a registered input. The original
-attempt retains both failures: native return code -11 and the subsequent
-unsupported-MD audit exception that obscured it in the pipeline summary.
+density-history policies before account access, intent or reservation. CG and
+Broyden both select native `idyn=0`. Their accounting is now supported after
+100 option combinations matched compiled fragments from the pinned native
+reader/history routine and REMAG export adapter. Other dynamics and unknown
+analysis consumers remain rejected. This proves policy arithmetic, not native
+relaxation health, and does not release the failed runtime or alter frozen
+inputs. The original attempt retains both failures: native return code -11 and
+the subsequent unsupported-MD audit exception that obscured it in the summary.
+
+For new attempts, a postprocessing exception after the native process finishes
+produces an explicitly invalid `result.json` containing the actual exit status
+and elapsed native time, plus `postprocessing-error.json`. The discovery driver
+retains that failed stage and stops before SOC. Raw artifacts stay intact;
+input/setup errors still raise, and existing attempt directories are never
+rewritten. Exit code zero with a failed review is also unusable.
 
 The same check is mandatory in the controlled executor before account access,
 durable intent, image preparation or reservation, and in the low-level Modal
