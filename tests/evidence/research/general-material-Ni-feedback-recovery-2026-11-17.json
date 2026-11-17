@@ -1,0 +1,531 @@
+{
+  "format": "GPAC-REMAG-GENERAL-VALIDATION-CHECKPOINT/2",
+  "recorded_at": "2026-11-17T10:47:45.603910+00:00",
+  "status": "Ni_measured_scored_revision_recorded_with_operator_recovery",
+  "record": "outputs/GPAC-REMAG-general-material-runtime-validation-2026-11-17.json",
+  "accepted_targets": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "source_binding": {
+    "source_sha256": "97ab01f3a57f96b64484eb022e51767928fcc31e911ee65cd39f0319c0472e92",
+    "export_sha256": "b613c6c12db0572877f11de9b5d3d31079bbdcacb8f66fb96dd5674ab6bb8846",
+    "structure_file_sha256": "91d21f12c09942777f8c281db87790f0cff6cadd6972059bc864315fdd3d8028"
+  },
+  "request_sha256": "49e954fd71c1b8faf29b2a38120f3521342a57efb203f77e7931edee2cc963f3",
+  "native": {
+    "status": "screened",
+    "stages": [
+      {
+        "accepted": true,
+        "errors": [],
+        "solver_seconds": 10.866960682000002,
+        "scf_iterations": 36,
+        "timed_out": false,
+        "native_optimizer_converged": true,
+        "max_force_ev_ang": 0.02164409547659592,
+        "native_grid": [
+          40,
+          40,
+          40
+        ],
+        "native_kpoints": 132,
+        "max_stress_gpa": 0.37923520614336004,
+        "axis_deviation_deg": null,
+        "effective_options_sha256": {
+          "fdf.20261117T102258.117.log": "d258107fb4e2be8a39b902a6ba18df53cc3477b93e92fafe784821a734327e65"
+        },
+        "artifact_sha256": {
+          "Ni.psml": "235018d8105a124b4bd114759bdf2dfd632d821173857e3968d8abce326de6b5",
+          "input.fdf": "7811a0379dfb732c7a72272b8269404d15616b9678a6e8f02c1337dc9fcf0046",
+          "remag.DM": "10e8d6f073d9206011a837e3a979619a7e0b23f85abaeb9c039006ba2cb0e762",
+          "remag.HSX": "eb9790c5a3ee4280b2c407576ac0abd9b7cd1745041067a1aa5f0c1172267648",
+          "remag.STRUCT_OUT": "5a5ab31625a541a09a53afd293a9a9e03ee2c1c0cb89a28d7940f3fed8dc70b5",
+          "remag.XV": "4c2c3959f8284d07df3fc3b903c3a8070e0e86bf24c5aabcbcccec41c9f2e105",
+          "result.json": "c7556c2d1e060432b3d25da09d09e9b8ccd2da482bf3fd00344e356379d09c68",
+          "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+          "stdout.log": "cd0bbdda2a1ef7eb66f7bf2f43d4f30c767b5f7b2cf18269d8b70faa1400f979"
+        },
+        "stage": "dft-relax"
+      },
+      {
+        "accepted": true,
+        "errors": [],
+        "solver_seconds": 4.468209775999998,
+        "scf_iterations": 6,
+        "timed_out": false,
+        "native_optimizer_converged": null,
+        "max_force_ev_ang": 0.02159802328918089,
+        "native_grid": [
+          40,
+          40,
+          40
+        ],
+        "native_kpoints": 216,
+        "max_stress_gpa": 0.33789904932672005,
+        "axis_deviation_deg": 0.00027073241749612516,
+        "effective_options_sha256": {
+          "fdf.20261117T102312.943.log": "37a3ac89f41d2e1ee662fc9b044842afdb301f69a08e4dfad77645a95a5ffb1b"
+        },
+        "artifact_sha256": {
+          "Ni.psml": "235018d8105a124b4bd114759bdf2dfd632d821173857e3968d8abce326de6b5",
+          "input.fdf": "77cb8760a5f146799e842f1c9dd08913af06f9703c424a051cb215594ba2d205",
+          "remag.DM": "0bb66b72f9b44180529fbe71268451db3834a4f4561078cae71878a4f35cc6f2",
+          "remag.HSX": "88bc36ddfdcb9424697fac45211a3780141f8c7c841dae74d07bff9944997763",
+          "remag.STRUCT_OUT": "5a5ab31625a541a09a53afd293a9a9e03ee2c1c0cb89a28d7940f3fed8dc70b5",
+          "remag.XV": "1f53701485e4c36474b5aeacd146a88c5bba27183fc6df90ee4777e8c0cb3374",
+          "result.json": "3217bd3cbee9351bdb38c5eacdbda88bfe8dca2faea357298b07b3c8186996db",
+          "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+          "stdout.log": "66978b1c3568ddc88251d5e3d3ee18279d23bf4f2091f2b5b6fb4ce7d2d50a7e"
+        },
+        "stage": "soc-z",
+        "branch": {
+          "passed": true,
+          "site_rms_mub": 0.0031432485290235194,
+          "net_fractional_change": 0.004400272220469216,
+          "robust_site_flip": false
+        }
+      },
+      {
+        "accepted": true,
+        "errors": [],
+        "solver_seconds": 4.370225911999999,
+        "scf_iterations": 6,
+        "timed_out": false,
+        "native_optimizer_converged": null,
+        "max_force_ev_ang": 0.02159420544961078,
+        "native_grid": [
+          40,
+          40,
+          40
+        ],
+        "native_kpoints": 216,
+        "max_stress_gpa": 0.31642988260800003,
+        "axis_deviation_deg": 0.0003615376055400699,
+        "effective_options_sha256": {
+          "fdf.20261117T102323.388.log": "37a3ac89f41d2e1ee662fc9b044842afdb301f69a08e4dfad77645a95a5ffb1b"
+        },
+        "artifact_sha256": {
+          "Ni.psml": "235018d8105a124b4bd114759bdf2dfd632d821173857e3968d8abce326de6b5",
+          "input.fdf": "602ef3ff9cd804b6f4b065cb98c98766c8cbbaf4f235655d41cdd7cafc7d974b",
+          "remag.DM": "c98b2b813a9af93e001f9d873bea18545fe3eac7d1939e52e56c2849e5504729",
+          "remag.HSX": "3879f2d2ae58c270f178171a0b61b6272bcf9a1f27687d8713d50570d29b2aa1",
+          "remag.STRUCT_OUT": "5a5ab31625a541a09a53afd293a9a9e03ee2c1c0cb89a28d7940f3fed8dc70b5",
+          "remag.XV": "1f53701485e4c36474b5aeacd146a88c5bba27183fc6df90ee4777e8c0cb3374",
+          "result.json": "cbc0eaa277b995a6bcdcbfc4e58879025ef585dc1b17dd8347b8f25c491d6147",
+          "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+          "stdout.log": "44a4e0059d67c685ab810d070687c9223800a07a6a85691334b6eb1a25466448"
+        },
+        "stage": "soc-x",
+        "branch": {
+          "passed": true,
+          "site_rms_mub": 3.28243926119527e-06,
+          "net_fractional_change": 3.521521308073562e-06,
+          "robust_site_flip": false
+        }
+      },
+      {
+        "accepted": true,
+        "errors": [],
+        "solver_seconds": 4.684223217000003,
+        "scf_iterations": 6,
+        "timed_out": false,
+        "native_optimizer_converged": null,
+        "max_force_ev_ang": 0.021587145503748288,
+        "native_grid": [
+          40,
+          40,
+          40
+        ],
+        "native_kpoints": 216,
+        "max_stress_gpa": 0.33421404309888003,
+        "axis_deviation_deg": 0.00036581485900037474,
+        "effective_options_sha256": {
+          "fdf.20261117T102333.630.log": "37a3ac89f41d2e1ee662fc9b044842afdb301f69a08e4dfad77645a95a5ffb1b"
+        },
+        "artifact_sha256": {
+          "Ni.psml": "235018d8105a124b4bd114759bdf2dfd632d821173857e3968d8abce326de6b5",
+          "input.fdf": "7a89418994a2c38e0ea74ce3cf144d5c95c3346d21a3a30150826fc762139037",
+          "remag.DM": "89fb9b48da6a4bc71f868204ce9df140c057d05af402b790fbd600b0569dc55c",
+          "remag.HSX": "7dc5337a0abab0fffb38a98bee963cc7a12f924cc8061442f05b355c9e490196",
+          "remag.STRUCT_OUT": "5a5ab31625a541a09a53afd293a9a9e03ee2c1c0cb89a28d7940f3fed8dc70b5",
+          "remag.XV": "1f53701485e4c36474b5aeacd146a88c5bba27183fc6df90ee4777e8c0cb3374",
+          "result.json": "e3bc7751c9947cbbad94ec9f6a536b779347b4ae8e0a5ad1a7ba145a68070fcb",
+          "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+          "stdout.log": "b494c28700bb382b80c14a3925a619630abe0b80239781b59467d82fcbaecb15"
+        },
+        "stage": "soc-y",
+        "branch": {
+          "passed": true,
+          "site_rms_mub": 1.3248827010901633e-06,
+          "net_fractional_change": 2.985633984722737e-09,
+          "robust_site_flip": false
+        }
+      }
+    ],
+    "settings": {
+      "orb_fmax_ev_ang": 0.02,
+      "orb_stress_gpa": 0.1,
+      "orb_steps": 400,
+      "orb_seconds": 300,
+      "dft_fmax_ev_ang": 0.04,
+      "dft_stress_gpa": 0.5,
+      "dft_steps": 30,
+      "dft_seconds": 1800,
+      "soc_seconds": 600,
+      "total_dft_seconds": 3600,
+      "max_scf": 100,
+      "dm_tolerance": 0.0001,
+      "h_tolerance_ev": 0.001,
+      "mixing_weight": 0.03,
+      "mixing_history": 8,
+      "mesh_ry": 300,
+      "smearing_k": 300,
+      "k_spacing_inv_ang": 0.35,
+      "max_kpoints": 512,
+      "max_atoms": 4,
+      "minimum_js_t": 0.4,
+      "axis_tolerance_deg": 1.0,
+      "branch_rms_mub": 0.2,
+      "branch_net_fraction": 0.05
+    },
+    "runtime_verification": {
+      "executable_sha256": "069227b116ed403cafb44da3c9c706a07953cfa0a3807f25c2104572fc0c15bc",
+      "capabilities": {
+        "format": "REMAG-BOUND-CAPABILITIES/1",
+        "executable_sha256": "069227b116ed403cafb44da3c9c706a07953cfa0a3807f25c2104572fc0c15bc",
+        "library": "/results/runtime-profile-r1-build/libremag_gpu.so",
+        "library_sha256": "53d4ddd28fdaf47575040d73b943b9ae60a1d749f3fcc92b51fe149ff0b1f1a0",
+        "device_scf": {
+          "format": "REMAG-DEVICE-SCF-CAPABILITIES/1",
+          "max_kpoints": 4096,
+          "max_spatial_orbitals": 2048,
+          "max_spinor_dimension": 4096
+        }
+      },
+      "actual_files_verified": true,
+      "driver_policy": {
+        "format": "REMAG-SCF-RUNTIME-POLICY/1",
+        "cuda_runtime": 12060,
+        "cuda_driver_api": 13030,
+        "nvidia_driver_versions": [
+          "610.57.04"
+        ]
+      },
+      "deployment": {
+        "observed": {
+          "cuda_runtime": 12060,
+          "cuda_driver_api": 13030,
+          "nvidia_driver_versions": [
+            "610.57.04"
+          ]
+        },
+        "admitted": true,
+        "scientific_acceptance": false,
+        "scope": "Runtime admission only; full native and scientific review still required"
+      }
+    }
+  },
+  "original_execution_status": "held_review",
+  "original_review_error": {
+    "type": "ValueError",
+    "message": "Native input does not reproduce from the source-bound preparation"
+  },
+  "saved_only_recovery": {
+    "status": "measured",
+    "recorded_at": "2026-11-17T10:35:31.089600+00:00",
+    "verification": {
+      "native_reviews_reproduced": true,
+      "accepted_artifact_hashes_verified": true,
+      "input_reproduction": {
+        "dft-relax": {
+          "exact_input_bytes": false,
+          "max_fractional_reconstruction_delta": 1.1102230246251565e-16,
+          "fractional_roundoff_bound": 1.7763568394002505e-15,
+          "retained_hashes_verified": true
+        },
+        "soc-z": {
+          "exact_input_bytes": true,
+          "max_fractional_reconstruction_delta": 8.673617379884035e-19,
+          "fractional_roundoff_bound": 1.7763568394002505e-15,
+          "retained_hashes_verified": true
+        },
+        "soc-x": {
+          "exact_input_bytes": true,
+          "max_fractional_reconstruction_delta": 8.673617379884035e-19,
+          "fractional_roundoff_bound": 1.7763568394002505e-15,
+          "retained_hashes_verified": true
+        },
+        "soc-y": {
+          "exact_input_bytes": true,
+          "max_fractional_reconstruction_delta": 8.673617379884035e-19,
+          "fractional_roundoff_bound": 1.7763568394002505e-15,
+          "retained_hashes_verified": true
+        }
+      }
+    },
+    "native_executions": 0,
+    "original_files_unchanged": true
+  },
+  "measurements": {
+    "relaxation": {
+      "volume_a3": 41.66960198336292,
+      "Js_T": 0.7989388859114136,
+      "max_force_ev_ang": 0.02164409547659592,
+      "max_stress_gpa": 0.37923520614336004
+    },
+    "E_x_minus_z_ev": -5.999998393235728e-06,
+    "F_x_minus_z_ev": -3.999997716164216e-06
+  },
+  "native_screen": {
+    "delta_E_MJ_m3": {
+      "z": 0.0,
+      "x": -0.023069711955295315,
+      "y": 0.007689908647717641
+    },
+    "delta_F_MJ_m3": {
+      "z": 0.0,
+      "x": -0.015379803307577674,
+      "y": 0.011534862971576463
+    },
+    "Js_T": 0.795423337325885,
+    "signal": "mixed_or_unresolved",
+    "axis_convention": "z parallel to relaxed c; x perpendicular projection of a; y=z cross x",
+    "K1": null,
+    "K2": null,
+    "kappa": null,
+    "precision_qualified": false,
+    "physical_anisotropy_qualified": false,
+    "magnetic_ground_state_qualified": false,
+    "synthesizability_qualified": false,
+    "mae_ev_cell": -5.999998393235728e-06,
+    "transverse_split_ev_cell": 7.99999907030724e-06,
+    "convention": "E[x] - E[z]; positive favors z; axes refer to the relaxed cell",
+    "uncertainty_ev_cell": null,
+    "axes_cartesian": {
+      "z": [
+        -7.088107906238774e-05,
+        -5.907357545360584e-06,
+        0.9999999974704878
+      ],
+      "x": [
+        0.9999999929105533,
+        -9.568096008835881e-05,
+        7.088051351753172e-05
+      ],
+      "y": [
+        9.56805411297963e-05,
+        0.9999999954051284,
+        5.914139473177475e-06
+      ]
+    }
+  },
+  "prospective_predictions": [
+    {
+      "experiment_id": "db7a222e937c454bae7a636a14d8b84e",
+      "observable": "relaxation.Js_T",
+      "value": 0.6,
+      "unit": "T",
+      "uncertainty": 0.3,
+      "interval_probability": 0.8
+    },
+    {
+      "experiment_id": "db7a222e937c454bae7a636a14d8b84e",
+      "observable": "relaxation.volume_a3",
+      "value": 44,
+      "unit": "angstrom^3",
+      "uncertainty": 5,
+      "interval_probability": 0.8
+    },
+    {
+      "experiment_id": "db7a222e937c454bae7a636a14d8b84e",
+      "observable": "anisotropy.total_energy_ev",
+      "value": 0.0,
+      "unit": "eV/cell",
+      "uncertainty": 0.001,
+      "interval_probability": 0.8
+    },
+    {
+      "experiment_id": "db7a222e937c454bae7a636a14d8b84e",
+      "observable": "anisotropy.free_energy_ev",
+      "value": 0.0,
+      "unit": "eV/cell",
+      "uncertainty": 0.001,
+      "interval_probability": 0.8
+    }
+  ],
+  "prospective_seal": {
+    "notebook_sha256": "2e7af174fd009d958aba0d480f2c324ac1a123f6895616dbb7abdd145464a450",
+    "candidate_sha256": "427e57377b4655b2a99932d7b2b808cf0533cfa1e4a1dce1cc16bbbe922d6e46",
+    "sealed_at": "2026-11-17T08:31:09.381284+00:00",
+    "predictions": 4,
+    "candidate_measurements_seen": false
+  },
+  "evaluation": {
+    "status": "evaluated",
+    "observables": {
+      "anisotropy.free_energy_ev": {
+        "status": "evaluated",
+        "error": -3.999997716164216e-06,
+        "absolute_error": 3.999997716164216e-06,
+        "unit": "eV/cell",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "anisotropy.total_energy_ev": {
+        "status": "evaluated",
+        "error": -5.999998393235728e-06,
+        "absolute_error": 5.999998393235728e-06,
+        "unit": "eV/cell",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "relaxation.Js_T": {
+        "status": "evaluated",
+        "error": 0.19893888591141362,
+        "absolute_error": 0.19893888591141362,
+        "unit": "T",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "relaxation.volume_a3": {
+        "status": "evaluated",
+        "error": -2.3303980166370835,
+        "absolute_error": 2.3303980166370835,
+        "unit": "angstrom^3",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      }
+    },
+    "mechanism_verified": false
+  },
+  "astra_revision": {
+    "status": "recorded_with_operator_review",
+    "original_phase_status": "held_error",
+    "original_error": {
+      "type": "ValueError",
+      "message": "Revision must bind the measured score artifact"
+    },
+    "action": {
+      "tool": "record_analysis",
+      "args": {
+        "parent_id": "db7a222e937c454bae7a636a14d8b84e",
+        "conclusion": "Revision from released iteration-1 scores: relaxed Ni Js_T was 0.7989389 T, exceeding the 0.4 T screening threshold but exceeding the point prediction by 0.1989389 T. Relaxed total cell volume was 41.669602 angstrom^3, 2.330398 angstrom^3 below prediction. Retain support for the magnetic-screening and modest-volume-change expectations while retaining these prediction errors. E[x]-E[z] was approximately -0.000006 eV/cell; separately, F[x]-F[z] was approximately -0.000004 eV/cell at 300 K electronic smearing. All four observations fell within their prospective subjective 80% intervals; one experiment with correlated observables does not establish interval calibration or physical accuracy.\n\nThe directional differences are consistent with the near-zero control prediction, but retained cubic symmetry and its proposed mechanism remain unverified. The native screen reports mixed_or_unresolved, an 0.000008 eV/cell transverse splitting, no energy uncertainty bound, and no precision or physical-anisotropy qualification. Do not infer an easy-axis sign or reliable ranking. Maximum force 0.0216441 eV/angstrom and stress 0.379235 GPa passed the declared DFT relaxation thresholds, establishing only local numerical acceptance\u2014not dynamical or thermodynamic stability, magnetic ground state, or synthesizability. Retain the original review failure, 'Native input does not reproduce from the source-bound preparation,' alongside the subsequent saved-only recovery and four accepted stages; recovery does not erase that provenance issue.\n\nChoose two-atom hcp Co next, not yet authored: rational Gram [[25/4,-25/8,0],[-25/8,25/4,0],[0,0,165649/10000]], Co fractional motif [[0,0,0],[2/3,1/3,1/2]], with initial moments [2,2] muB. Ni's adequate magnetic signal but unresolved directional splitting motivates testing a structure where basal and axial directions are not symmetry-equivalent. A resolved Co response would distinguish it from this control; unresolved splitting, structural changes, and magnetic-branch changes remain alternatives. Composition and crystal family both change, so any difference cannot be attributed uniquely to either. Authoring, source-bound hypothesis registration, and all four ordered finite-uncertainty predictions must precede the next measurements.",
+        "evidence": "runs/iteration-1-profile/research-observation/report.json"
+      },
+      "rationale": "Record the score-based revision and next-design choice using the returned experiment ID and report path. Preserve prediction errors, unresolved anisotropy, and the review failure without inventing a separate score-artifact path or executing another action."
+    },
+    "analysis_id": "cb21991adc174f4391b524bf08778828",
+    "decision_modified": false,
+    "recovery_model_calls": 0,
+    "recovery_GPU_calls": 0,
+    "unattended_phase_gate_passed": false
+  },
+  "completed_feedback_iterations_with_operator_recovery": 1,
+  "unattended_completed_feedback_iterations": 0,
+  "required_initial_feedback_iterations": 3,
+  "required_non_FePt_systems": 2,
+  "measured_non_FePt_systems": [
+    "Ni"
+  ],
+  "next_proposed_system": "hcp Co; not yet authored or measured",
+  "latency": {
+    "native_pipeline_seconds": 47.475631684999996,
+    "solver_seconds": 24.389619587000002,
+    "native_remote_seconds": 49.406111552999995,
+    "submission_to_collection_seconds": 110.11896379198879,
+    "original_request_through_failed_review_seconds": 113.69851033296436,
+    "request_through_usable_saved_recovery_seconds": 791.277849,
+    "target_met": false,
+    "queue_startup_separated": false,
+    "scope": "Recovery latency includes diagnosis. Earlier failure return is not usable-result latency; no speedup claimed."
+  },
+  "allocation": {
+    "observed_at": "2026-11-17T10:33:13.083745+00:00",
+    "owned_app": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-JaXyrBQ1kfUOvQnwoemuUF",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-17 04:22:23-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-17 04:24:10-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-yLP8iDDgh3luIaV5meDX0z",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "account_containers": []
+  },
+  "automatic_follow_on": false,
+  "automatic_retries": false,
+  "reservations": {
+    "CPU_build_cents": 100,
+    "native_validation_cents": 465,
+    "total_this_increment_cents": 565,
+    "actual_billed_usd": null,
+    "reservations_are_not_invoices": true,
+    "historical_ledgers_unchanged": true
+  },
+  "tests": {
+    "full": "928 passed, 4 skipped in 225.99s",
+    "final_focused": "19 passed in 9.82s; includes one additional CRLF negative control after full suite",
+    "scope": "Portable coordinate reproduction, immutable saved-only recovery, import, separate-case guard and tamper rejection."
+  },
+  "native_causal_repair_proven": false,
+  "scientific_accuracy_qualified": false,
+  "stability_and_synthesis_qualified": false,
+  "interval_coverage_calibrated": false,
+  "old_campaign_closed": true,
+  "goal_complete": false,
+  "pending": [
+    "Expose required argument bindings in a versioned Astra policy context before the next iteration; retain the failed original phase.",
+    "Complete three sequential feedback iterations across at least two non-FePt systems and separately report any operator recoveries.",
+    "Complete stability evidence, live Ouro route/access/admission and original paired-study/empirical acceptance.",
+    "Calibrate exploratory latency and response/sign/ranking; the present recovered result took about 13.2 minutes."
+  ],
+  "files_sha256": {
+    "work/general-material-runtime-r2/registration.json": "f6f14e37faabe55c324e002353d3f46bce2366c1236e2aaf64dfafdd7801c08c",
+    "work/general-material-runtime-r2/stopped-observation.json": "2549a579c51bf0f46b9261b7a5fdb03d8b09f381ed3bb04d0ffcc850bcc32a56",
+    "work/general-material-runtime-r2/attempt/execution.json": "81b067a7d360faec914094c574bf64857d9d6ecae13587debede337e975b0c7f",
+    "work/general-material-runtime-r2/attempt/review-recovery.json": "14e258015f064b24fb83c4f06a689352757e3f6578b3a47c7a3c589a91c223f1",
+    "work/general-material-runtime-r2/attempt/receipt.json": "bba4c9efa4f031abc7671ff2c3e6ba3e02ea69537ee1f2633aac5d8831c13411",
+    "work/general-material-runtime-r2/attempt/runtime.json": "2acd36f0eb0f8baba360b4b6bdb0814731d43ae94041a41a0f3cc7baed41af28",
+    "work/general-material-runtime-r2/attempt/collected/archive-manifest.json": "c3201da656ce3ce6a126f9b5a15eb420a3697d1819033767f7d43717b19d5311",
+    "work/general-material-runtime-r2/saved-review.json": "2085f313bab6853415c381fa558db40ebb87f0c43e136bd44a5e153c443d21bd",
+    "work/general-material-runtime-r2/score-release.json": "e75e9a11d33df5ba28566d54454cabbf20a5f05bc7db51a3b274fe43d2d8c6c3",
+    "work/general-material-runtime-r2/reviewed-revision.json": "891a4a35f1396c2022376391b825a79a39c987a502345ba7ada0d7e336b811c4",
+    "work/general-material-runtime-r2/recovery-full-tests.log": "0e507eab419095bc68cdbd3405b37154292ccf2b618528a7a829572d074c52c4",
+    "work/general-material-runtime-r2/recovery-final-focused-tests.log": "6accaa18a5d6ae8bd94b76ec53ee7dd3994eb158e8e811273d6c57001354de52",
+    "work/general-material-loop-r1/scores/iteration-1.json": "daa14d6e8d665ae65fcef6fb097cdbd52bb280a752cdb386dbf3dfeb835c4104",
+    "work/general-material-loop-r1/phases/iteration-1-revise/result.json": "c1a88c3bc88b2263f633d41619ed5983797a07f7b520606f7765af0dc16414db",
+    "work/general-material-loop-r1/decisions/01-1-00/decision.json": "f17e5996252465d78a3a0a0b669971e4e4766eee76e7eda1c12e5bd0a5aeba4a"
+  },
+  "protected_files_sha256": {
+    "general-material-runtime-r2/attempt/execution.json": "81b067a7d360faec914094c574bf64857d9d6ecae13587debede337e975b0c7f",
+    "general-material-runtime-r2/attempt/collected/archive-manifest.json": "c3201da656ce3ce6a126f9b5a15eb420a3697d1819033767f7d43717b19d5311",
+    ".research-execution/owner.json": "302548376d5fdd605a3d31aba177dd4068ced42f5a3618c9d98b8998e913e4d0",
+    "general-material-runtime-r2/budget.json": "60f79c6fe814646b3aa11c15be1f64adca59c327c0345a0e07f3148d0dc17bee",
+    "fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8"
+  },
+  "previous_running_checkpoint_preserved": "work/general-material-runtime-r2/previous-running-checkpoint.json"
+}

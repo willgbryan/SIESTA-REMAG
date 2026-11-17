@@ -25,7 +25,8 @@ STAGES = {'dft-relax': 'scalar', 'soc-z': 'soc-z', 'soc-x': 'soc-x', 'soc-y': 's
 def _observation(attempt):
     """Reproduce a deterministic view from a stopped, reviewed attempt."""
     attempt = Path(attempt).resolve()
-    execution = load(attempt/'execution.json')
+    from .relaxation_recovery import verified_execution, NAME as RECOVERY
+    execution = verified_execution(attempt)
     if (execution.get('format') != 'REMAG-RELAXATION-EXECUTION/1' or
             execution.get('status') not in ('measured', 'held_native_review') or
             execution.get('allocation_stopped') is not True or
@@ -74,6 +75,7 @@ def _observation(attempt):
     binding_files = ['execution.json', 'authorization.json', 'runtime.json', 'receipt.json',
         'preflight.json', 'campaign/execution.json', 'campaign/structure.json',
         'collected/report.json', 'collected/query/report.json', 'collected/archive-manifest.json']
+    if 'review_recovery_sha256' in execution: binding_files.append(RECOVERY)
     result = dict(format=FORMAT, status=execution['status'], native_status=raw['status'],
         source_sha256=review['source_binding']['source_sha256'], structure=source,
         evaluated_geometry=geometry, geometry_origin='accepted native variable-cell relaxation' if geometry is not None else 'no accepted relaxed geometry',
@@ -87,7 +89,9 @@ def _observation(attempt):
         provenance=dict(attempt_files={k: sha256(attempt/k) for k in binding_files},
             native_stage_mapping=STAGES, producer_code='captured launch-policy hashes; current validators replayed'),
         wall_seconds=review['native_wall_seconds'], usable_result_seconds=execution['usable_result_seconds'],
-        latency_scope='Native wall_seconds excludes overhead; usable_result_seconds includes request through original review',
+        latency_scope=('Native wall_seconds excludes overhead; usable_result_seconds includes request through saved-only recovery'
+                       if 'review_recovery_sha256' in execution else
+                       'Native wall_seconds excludes overhead; usable_result_seconds includes request through original review'),
         physical_accuracy_qualified=False, physical_stability_qualified=False, synthesizability_qualified=False,
         scope='Measured geometry and magnetic screen linked to the unchanged exact source. No thermodynamic, phonon or synthesis qualification.')
     return result, copies

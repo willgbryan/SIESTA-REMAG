@@ -344,7 +344,16 @@ review. Disappearing local sessions never count as allocation release.
         if owner_path.exists():
             owner = load(owner_path)
             if owner['status'] != 'measured' or not owner.get('allocation_stopped') or not owner.get('app_id'):
-                continuation_review = _diagnostic_review(root, owner, plan, preflight, source_binding)
+                from .relaxation_recovery import verified_execution, NAME as RECOVERY
+                previous_attempt = _path(root, owner['attempt'])
+                if owner['status']=='held_review' and (previous_attempt/RECOVERY).exists():
+                    recovered = verified_execution(previous_attempt)
+                    if (recovered['status']!='measured' or recovered['app_id']!=owner.get('app_id') or
+                            recovered['allocation_stopped'] is not True or owner.get('allocation_stopped') is not True):
+                        raise ValueError('Recovered prior execution is not a stopped measured result')
+                    continuation_review = str((previous_attempt/RECOVERY).relative_to(root))
+                else:
+                    continuation_review = _diagnostic_review(root, owner, plan, preflight, source_binding)
             previous = owner['app_id']
         prior = transport.info(previous)
         if prior.get('app_id') != previous or prior.get('lifecycle',{}).get('state','').lower() != 'stopped':

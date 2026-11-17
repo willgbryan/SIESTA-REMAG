@@ -135,7 +135,7 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
     ordered = ['dft-relax', 'soc-z', 'soc-x', 'soc-y']
     if names != ordered[:len(names)] or not names:
         raise ValueError('Unexpected discovery stage sequence')
-    observations, rows = {}, {}
+    observations, rows, input_reproduction = {}, {}, {}
     relaxed = None
     for saved in report['stages']:
         name = saved['stage']; folder = report_path.parent/name
@@ -152,9 +152,8 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
                 relax=axis is None, direction=axis, restart=axis is not None,
                 diagnostics=diagnostics,
                 spins=None if axis is None else np.asarray(observations['dft-relax']['atom_moments_muB'])[:, 2])
-            if ((expected/'input.fdf').read_bytes() != (folder/'input.fdf').read_bytes() or
-                    load(expected/'manifest.json') != manifest):
-                raise ValueError('Native input does not reproduce from the source-bound preparation')
+            from .input_reproduction import verify_prepared_input
+            input_reproduction[name] = verify_prepared_input(expected, folder)
         review = native_review(folder, result, settings, relaxation=name == 'dft-relax', axis=axis)
         if any(saved.get(k) != v for k, v in review.items()):
             raise ValueError('Saved native review does not reproduce')
@@ -190,5 +189,6 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
         observations=observations, screen=report.get('screen'), relaxation=report.get('relaxation'),
         source_binding=binding, feedback=feedback, physical_stability_qualified=False,
         native_wall_seconds=report.get('whole_pipeline_dft_seconds'), remote_timing=top.get('timing'),
-        verification=dict(native_reviews_reproduced=True, accepted_artifact_hashes_verified=True),
+        verification=dict(native_reviews_reproduced=True, accepted_artifact_hashes_verified=True,
+                          input_reproduction=input_reproduction),
         runtime_verification=top['runtime_verification'])

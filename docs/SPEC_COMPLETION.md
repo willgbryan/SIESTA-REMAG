@@ -21,8 +21,9 @@ research inspection, electronic-spectrum export, prospective prediction scores
 and evidence-bound notebook revisions. Exact sources and measured relaxed
 geometries remain separate. Synthetic Ni/Co tests exercise changed cells,
 negative screens and failures; analytic native-format data exercise spectral
-inspection. This is local engineering evidence, not a live materials discovery
-loop or proof of scientific advantage. See [execution](RESEARCH_EXECUTION.md).
+inspection. The first live Ni result and recovered feedback cycle are described
+below; repeated unattended acceptance and scientific advantage remain unproven.
+See [execution](RESEARCH_EXECUTION.md).
 
 The owner accepted five targets for the remaining integrated build:
 
@@ -42,15 +43,37 @@ The initial integrated demonstration is planned as three sequential iterations
 spanning at least two non-FePt systems. The live general-material loop remains
 unfinished; the existing authored Fe₂B example is not a validated phase.
 
-Current live checkpoint: Astra authored a non-FePt Ni candidate and sealed four
-prospective predictions; CPU Orb preparation passed. The native evaluation
-failed during CUDA graph instantiation before any accepted measurement, and its
-app is stopped. No complete feedback iteration is claimed (0 of the initial 3).
-The subsequent Broyden accounting and failure-reporting fixes passed 853 local
-tests with 4 skipped, but do not repair the native crash. The affected runtime
-remains held. See the [saved repair record](../tests/evidence/research/general-material-policy-repair-2026-11-17.json).
-The next integration milestone is a diagnosed native repair followed by a
-source-bound measured result, prediction scoring and an Astra revision.
+Current live checkpoint: Ni relaxation and three magnetic stages passed on the
+explicitly admitted driver-610 runtime. All four prospective predictions were
+scored, and Astra used the measurements to propose hcp Co next. This is one
+feedback cycle with operator recovery, zero accepted unattended cycles, and one
+measured non-FePt system. The initial three-iteration demonstration remains open.
+See the [measured checkpoint](../tests/evidence/research/general-material-Ni-feedback-recovery-2026-11-17.json).
+
+Two local review problems remain explicit in that record. Cross-platform
+fractional-coordinate regeneration differed by at most 1.11e-16. A tested
+serialization rule and append-only recovery replayed the retained native,
+source, input, runtime and branch checks without another native execution.
+The original input bytes, hashes, failed review, ownership and ledger are
+unchanged. The revised Astra action cited the actual measured report; an
+unadvertised harness rule required the score-file path. The unchanged proposal
+was recorded locally after verifying both links, while the failed original
+phase remains retained. The next policy context must advertise its required
+bindings before another iteration; the unattended gate has not passed.
+
+The recovered usable result took 791.28 seconds including diagnosis and review;
+47.48 seconds is native pipeline time only. The 1–5 minute target is not proven.
+The directional screen is mixed or unresolved, and local force/stress acceptance
+does not establish thermodynamic/dynamical stability or synthesizability. The
+allocation is authoritatively stopped and no follow-on is queued. The local full
+suite passed 928 tests with four skipped; 19 final focused checks passed after
+adding a newline rejection control. Original Ni startup failure and subsequent
+diagnostics remain evidence, as outlined below.
+
+The original Ni evaluation failed during CUDA graph instantiation before any
+accepted measurement. Its allocation is stopped; the Broyden accounting and
+failure-reporting fixes alone did not repair the crash. See the retained
+[repair record](../tests/evidence/research/general-material-policy-repair-2026-11-17.json).
 
 A subsequent [setup-only diagnostic](../tests/evidence/research/general-material-setup-probe-2026-11-17.json)
 constructed five synthetic graphs with the unchanged native library, including
@@ -73,8 +96,9 @@ execution, and validates collected admission evidence. This prevents blindly
 repeating the known failing deployment. It is not a causal repair or a completed
 non-FePt iteration. The [changed candidate CPU build](../tests/evidence/research/runtime-profile-build-2026-11-17.json)
 completed in 94.79 seconds, with executable/library/manifest hashes independently
-checked from saved artifacts and its allocation stopped. Full native validation
-is still required before this profile can support measured feedback. A narrow
+checked from saved artifacts and its allocation stopped. The later Ni validation
+above supplies one full-path measurement on this admitted profile, while the
+driver-620 crash's causal diagnosis remains unresolved. A narrow
 operator review can bind a retained relaxation failure to one changed-runtime
 grant without rewriting the failed outcome or its reservation.
 
@@ -97,9 +121,9 @@ now connects source-bound discovery preparations to the existing guarded researc
 controller. Local Ni/Co fixtures exercise the actual remote entry, collection,
 shutdown and independent native/branch/source review. Explicit magnetic starts
 survive preparation; a completed low-moment screen is retained as a negative
-result. This is local engineering acceptance only. Live non-FePt execution,
-live electronic/score/revision integration, stability coverage and live Ouro
-admission remain open.
+result. Live Ni measurement, import, scoring and a recovered revision now pass
+in the bounded scope above. Repeated unattended multi-material execution,
+stability coverage and live Ouro admission remain open.
 
 | Final deliverable (§16) | Current state |
 | --- | --- |
@@ -108,7 +132,7 @@ admission remain open.
 | Extended REMAG | Electronic/magnetic diagnostics implemented; production device SOC measured in six accepted live bundles |
 | Structural–physical bridge | Source-bound conversion, correspondence and observations implemented with explicit unsupported cases |
 | FePt dataset | Controlled measurements plus six new device-SOC bundles; original numerical qualification failures remain |
-| Autonomous hypothesis testing | Two isolated live Astra policies sealed eight predictions; native startup failure blocked outcome scoring/revisions; earlier staging failure retained |
+| Autonomous hypothesis testing | Live Ni predictions measured/scored and Astra revision recorded with operator recovery; repeated unattended multi-material and clean paired acceptance remain open; prior failures retained |
 | Evaluation report | Finite prediction errors and response calibration measured; clean information comparison, scientific advantage and invoices remain unproven |
 | Expansion pathway | General authoring and screening foundation implemented; cross-material mechanism transfer remains downstream research |
 | Optional interactive workspace | Editable source, saved structural/electronic inspection and activity history rendered; bounded viewport/navigation checks pass; full discovery-cycle integration remains |

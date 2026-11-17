@@ -345,6 +345,27 @@ runtime still blocks. The review API is intentionally absent from policy and
 browser catalogs. Operator-supplied text is not itself owner authorization, and
 this diagnostic does not establish a causal repair or scientific acceptance.
 
+### Recover a saved review error
+
+`recover_saved_review(attempt, reason=...)` is an operator-only, local operation
+for an already stopped relaxation `held_review`. It replays native, input,
+source, runtime and branch checks, then writes an append-only
+`review-recovery.json`. The original execution, collection, owner and ledger
+are unchanged. Import and later explicitly granted execution independently
+replay the recovery and require a healthy measured result. Recovery never
+launches compute. Usable-result latency includes the elapsed time through
+recovery, including diagnosis; the earlier review-error return is not usable
+latency.
+
+Input reproduction verifies original artifact hashes exactly. The sole
+serialization allowance is eight binary64 epsilons in fractional coordinates
+recomputed by ASE's Cartesian-to-fractional solve across BLAS implementations.
+Both manifests must reproduce their own hashes and rendered coordinates.
+Species, cell, options, all other input bytes and metadata remain exact, and
+native convergence/force/stress/branch thresholds are unchanged. The reviewer
+records the measured reconstruction difference instead of claiming byte-equal
+regeneration when it is not.
+
 ## Isolated graph-setup diagnostic
 
 `native/probe_scf_setup.cpp` constructs a synthetic `ScfCyclePlan` against an
