@@ -85,8 +85,12 @@ regional signed DOS, with original k weights and explicit native provenance.
 The site/orbit selector also offers the center's periodic coordination motif at
 the displayed 3.4 Å cutoff. Its unique unit-cell sites feed the existing DOS,
 state-weight, orbital-moment and coupling views. Multiple images of one site do
-not multiply electronic weights. The geometry still displays periodic neighbors;
-this is a geometric selection, not a chemical-bond or motif-stability claim.
+not multiply electronic weights. The canvas shows one unit cell, including sites
+on its boundary faces, and only connections whose endpoints lie inside that
+cell. Periodic coordination counts and distances remain available in the
+inspector; neighboring-cell atoms and the expanded coordination-shell overlay
+are not drawn. The camera fits the unit cell as it rotates. This is a geometric
+selection, not a chemical-bond or motif-stability claim.
 
 Engineering tests cover real loopback requests, preparation and saved-response
 bindings, and the shipped JavaScript against DOM/canvas stubs. Stub execution is
