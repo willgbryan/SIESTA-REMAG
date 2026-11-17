@@ -132,8 +132,26 @@ Codex transport now uses the existing ChatGPT login. A real-client local replay
 completed 24 synthetic decisions with separate histories, and forced agent-list,
 spawn and shell attempts were stopped. The missing `agents.enabled=false`
 control was verified with the normal provider as well. No separate API account
-is required. Live scientific acceptance remains untested; the two remaining
-GPU reservations fit $1.50 using existing Codex quota. No allocations were made.
+is required. That local repair made no allocations.
+
+The subsequently authorized [Codex two-outcome attempt](../tests/evidence/research/finite-tool-acceptance-r6-2026-11-16.json)
+is closed after its first native failure. Both isolated Astra extra-high policies
+completed ten live research actions and sealed four E/F predictions each before
+GPU execution. Their contexts contained no sibling event IDs and made no native
+Codex tool attempts. The first 12³ bundle then segfaulted after mesh initialization,
+before any SCF iteration or SOC stage. The executable/library hashes and compiled
+capacity passed their in-app checks; the unsymbolized backtrace does not identify
+the responsible source routine. All 28 partial native files were recovered and
+hash-verified, and saved-only native review reproduces the failure.
+
+The failed health gate prevented the second bundle. No scores or policy
+revisions were fabricated. The owned app is authoritatively stopped, the account
+container list was empty at closeout, and no local policy/driver process remains.
+The same $1.50 remainder now has $0.75 reserved and $0.75 unreserved; invoices are
+unknown. The earlier $0.05 reservation remains. There were no rebuilds, retries,
+extensions or new model-account purchases. Clean prospective policy authoring
+passes; the complete outcome/scoring/revision workflow remains incomplete. No
+follow-on execution is authorized.
 
 The full scalar-versus-physics comparison needs a genuinely new held-out cohort,
 matching declared budgets, frozen predictions/targets and measured allocation

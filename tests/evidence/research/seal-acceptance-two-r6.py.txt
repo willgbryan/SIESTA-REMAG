@@ -1,0 +1,52 @@
+"""Read completed policy receipts and bind the operator handoff before any GPU."""
+from pathlib import Path
+from datetime import datetime,timezone
+import json,shutil
+from siesta_remag.discovery.common import load,save
+from siesta_remag.corpus import sha256
+from siesta_remag.research.memory import Notebook
+from siesta_remag.research.execution import read_execution_config
+from siesta_remag.research.experiments import verify_experiment
+from siesta_remag.research.preflight import preflight_query
+W=Path(__file__).resolve().parent;A=W/'acceptance-two-r6'
+assert not (A/'policy-predictions-sealed.json').exists() and not (A/'runs').exists()
+reg=load(A/'registration.json');sources={r['source_sha256'] for r in reg['bundles']}
+arms={};files={}
+for arm in ('scalar','physics'):
+    root=A/'policy-arms'/arm;private=root/'.policy';state=load(private/'state.json')
+    assert state['status']=='awaiting_scores' and state['calls']==10
+    driver=load(A/f'{arm}-predict-driver.json');assert driver['status']=='completed' and driver['owned_process_stopped']
+    seal=load(private/'seal.json');assert sha256(private/'sealed-notebook.sqlite')==sha256(root/'research-memory.sqlite')==seal['notebook_sha256']
+    book=Notebook(root/'research-memory.sqlite')
+    try:events=[book.get(r[0]) for r in book.db.execute('SELECT id FROM events ORDER BY rowid')]
+    finally:book.close()
+    experiments=[e for e in events if e['kind']=='experiment'];predictions=[e for e in events if e['kind']=='prediction']
+    assert len(events)==7 and len(experiments)==2 and len(predictions)==4
+    assert {e['payload']['structure_sha256'] for e in experiments}==sources
+    save(A/f'{arm}-sealed-events.json',events)
+    for p in [private/'registration.json',private/'seal.json',private/'sealed-notebook.sqlite',A/f'{arm}-sealed-events.json',A/f'{arm}-predict-driver.json']:
+        files[str(p.relative_to(A))]=sha256(p)
+    for i in range(10):
+        folder=private/f'{i:03d}';r=load(folder/'codex.json');assert r['status']=='completed' and r['config_sha256']==reg['codex_config_sha256']
+        for p in folder.iterdir():
+            if p.is_file():files[str(p.relative_to(A))]=sha256(p)
+    arms[arm]=dict(experiments={e['payload']['structure_sha256']:e['id'] for e in experiments},prediction_ids=[e['id'] for e in predictions],seal_sha256=sha256(private/'seal.json'),calls=10)
+baseline=W/'acceptance-six-r4/native/baseline-k6';report=load(W/'acceptance-six-r4/runs/baseline-k6/collected/query/report.json')
+for stage in ('scalar','soc-z','soc-x','soc-y'):
+    for symbol in ('Fe','Pt'):
+        rel=f'{stage}/{symbol}.ion.xml';source=baseline/rel;assert sha256(source)==report['artifacts'][rel]
+        dest=A/'native/baseline-k6'/rel;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,dest)
+        files[str(dest.relative_to(A))]=sha256(dest)
+for row in reg['bundles']:
+    b=A/'bundles'/row['key'];verify_experiment(b)
+    assert sha256(b/'experiment.json')==row['request_sha256']
+    assert preflight_query(b,load(A/'runtime-built.json'))==row['preflight']
+    for p in b.rglob('*'):
+        if p.is_file():files[str(p.relative_to(A))]=sha256(p)
+execution=read_execution_config(W,'acceptance-two-r6/execution-config.json')
+assert execution['reserved_cents']==75 and execution['ledger'].remaining_cents('queries')==150
+for p,h in load(A/'protected-before.json').items():assert sha256(W.parent/p)==h,p
+save(A/'policy-predictions-sealed.json',dict(format='REMAG-CODEX-POLICY-SEAL/1',status='sealed',recorded_at=datetime.now(timezone.utc).isoformat(),heldouts_executed=0,arms=arms,files=files))
+paths=['run-acceptance-two-r6-case.py','acceptance_six_review.py','fept_control_review.py','SIESTA-REMAG/scripts/research_modal.py','SIESTA-REMAG/scripts/run_modal.py','SIESTA-REMAG/src/siesta_remag/research/execution.py','acceptance-two-r6/execution-config.json','acceptance-two-r6/registration.json','acceptance-two-r6/runtime-built.json']
+save(A/'query-readiness.json',dict(status='passed',files={p:sha256(W/p) for p in paths},old_build_reused=True,no_paid_preflight=True,one_case_per_invocation=True,no_retries=True))
+print(json.dumps(dict(status='sealed',arms=2,predictions=8,heldouts_executed=0,readiness='passed',remaining_cents=150)))

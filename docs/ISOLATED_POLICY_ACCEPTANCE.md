@@ -7,6 +7,13 @@ and shared-agent exposure paths. The selected transport is the local
 The direct-chat research tools remain available as before. This broker is for
 the controlled scalar-versus-physics acceptance comparison.
 
+The [authorized live attempt](../tests/evidence/research/finite-tool-acceptance-r6-2026-11-16.json)
+completed both ten-action policy phases and sealed eight predictions. Its first
+GPU bundle segfaulted during scalar startup; the health gate prevented the second
+bundle and scoring/revisions. The app is stopped and this attempt is closed:
+$0.75 reserved, $0.75 unreserved, actual invoices unknown. The plan below records
+the approved scope, not a new execution authorization. No rebuild or retry ran.
+
 ## Boundary
 
 The model receives a fixed brief, registered parent/scalar packet, its own

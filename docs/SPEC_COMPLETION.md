@@ -18,7 +18,7 @@ no new pristine calculation, GPU launch or spending is authorized here.
 | Extended REMAG | Electronic/magnetic diagnostics implemented; production device SOC measured in six accepted live bundles |
 | Structural–physical bridge | Source-bound conversion, correspondence and observations implemented with explicit unsupported cases |
 | FePt dataset | Controlled measurements plus six new device-SOC bundles; original numerical qualification failures remain |
-| Autonomous hypothesis testing | Prospective tools exercised by two Astra contexts on prescribed heldouts; strict arm comparison failed operator staging |
+| Autonomous hypothesis testing | Two isolated live Astra policies sealed eight predictions; native startup failure blocked outcome scoring/revisions; earlier staging failure retained |
 | Evaluation report | Finite prediction errors and response calibration measured; clean information comparison, scientific advantage and invoices remain unproven |
 | Expansion pathway | General authoring and screening foundation implemented; cross-material mechanism transfer remains downstream research |
 | Optional interactive workspace | Saved structural/electronic inspection implemented; browser visual acceptance pending |
@@ -76,9 +76,19 @@ controlled comparison. Local two-arm regressions and actual-input preflights
 pass without paid calls. The selected Codex
 transport also passes a real-client local fake-model replay and three forced
 native-tool rejection tests. Existing ChatGPT login is verified without a
-separate API account. Measured live acceptance remains pending; its two GPU
-reservations fit $1.50 with existing Codex quota. This repair does not reclassify
-the closed r5 attempt or restart any campaign.
+separate API account. This repair does not reclassify the closed r5 attempt or
+restart any campaign.
+
+The [approved Codex acceptance](../tests/evidence/research/finite-tool-acceptance-r6-2026-11-16.json)
+then passed live isolated policy authoring: twenty actions and eight sealed E/F
+predictions. Its first native bundle failed with SIGSEGV after mesh initialization,
+before the first SCF iteration. Runtime hashes/capacity passed and all 28 partial
+native files were verified. The second bundle and scoring/revisions did not run
+because the first health gate failed. The app is stopped and the finite attempt
+is closed without rebuild, retry or extension. Of the authorized $1.50 remainder,
+$0.75 is reserved and $0.75 unreserved; actual invoices remain unknown. The native
+fault location and complete live outcome workflow remain unresolved. No further
+execution or old-campaign restart is authorized.
 
 - A clean scalar-versus-physics evaluation with measured equal compute remains.
   Two fresh Astra extra-high contexts completed the prospective tool workflow

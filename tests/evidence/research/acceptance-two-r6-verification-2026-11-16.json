@@ -1,0 +1,1 @@
+{"status": "passed", "evidence_files": 26, "protected_prior_files": 33, "sealed_files": 174, "native_files": 28, "outputs_equal_repo": true, "policy_decisions": 20, "sealed_predictions": 8, "GPU_launches": 1, "completed_bundles": 0, "reserved_cents": 75, "unreserved_cents": 75, "owned_app_stopped": true, "old_campaign_closed": true}

@@ -1,0 +1,423 @@
+{
+  "format": "REMAG-CODEX-TWO-OUTCOME-RESULT/1",
+  "recorded_at": "2026-11-17T02:08:06.730702+00:00",
+  "status": "closed_after_first_native_failure",
+  "authorization": "Approved. Run the two-outcome plan within the remaining $1.50 using our existing Codex access. One GPU at a time, no rebuilds, retries or extensions. Keep the old campaign closed and report pass/fail results.",
+  "results": [
+    {
+      "check": "Existing Codex access and isolated policy authoring",
+      "result": "passed",
+      "detail": "Both Astra xhigh policies completed ten actions through fixed ToolHost dispatch, with separate histories and no native tool attempts."
+    },
+    {
+      "check": "Prospective prediction seals",
+      "result": "passed",
+      "detail": "Eight E/F predictions sealed before GPU execution; exact source and target checks passed."
+    },
+    {
+      "check": "Saved build and capacity identity",
+      "result": "passed",
+      "detail": "Actual executable/library hashes verified inside the funded app; compiled capacity 4096, observed scalar k-points 948."
+    },
+    {
+      "check": "First native outcome",
+      "result": "failed",
+      "detail": "SIGSEGV after mesh initialization; zero SCF iterations, no SOC stages and no usable energy result."
+    },
+    {
+      "check": "Second native outcome",
+      "result": "not_run",
+      "detail": "Previous health gate failed; no second reservation or launch."
+    },
+    {
+      "check": "Outcome scoring and policy revisions",
+      "result": "not_run",
+      "detail": "No accepted pair of native outcomes; do not invent numeric scores or revise against missing results."
+    },
+    {
+      "check": "Shutdown and evidence preservation",
+      "result": "passed",
+      "detail": "Owned app authoritatively STOPPED, account containers empty, local drivers stopped; all 28 recovered files and 33 prior protected files verified."
+    }
+  ],
+  "policy_arms": {
+    "scalar": {
+      "status": "predictions_sealed",
+      "calls": 10,
+      "model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "backend": "codex-managed-chatgpt",
+      "process_stopped": true,
+      "seed_hashes": {
+        "packet.json": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+        "parent.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+      },
+      "no_sibling_event_ids_in_context": true,
+      "no_native_tool_attempts": true,
+      "sealed_notebook_sha256": "d00bbeba654762d39f26c5518aed2d82083e9a9706da6e0f1dc7ccaf997a702b",
+      "predictions": [
+        {
+          "id": "d95dc3ef0dd04ad6935547da3921b45c",
+          "experiment_id": "049600e2d1154681a762ad0e19726359",
+          "observable": "E_response",
+          "target": {
+            "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+            "kind": "anisotropy_response",
+            "metric": "total_energy_ev"
+          },
+          "uncertainty": 0.0003,
+          "unit": "eV/cell",
+          "value": 6.4e-05
+        },
+        {
+          "id": "16921c92187e438f8fb879a1d81a9651",
+          "experiment_id": "049600e2d1154681a762ad0e19726359",
+          "observable": "F_response",
+          "target": {
+            "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+            "kind": "anisotropy_response",
+            "metric": "free_energy_ev"
+          },
+          "uncertainty": 0.00015,
+          "unit": "eV/cell",
+          "value": 6.4e-05
+        },
+        {
+          "id": "1662608f3f1a4d4c95b7ca45097523be",
+          "experiment_id": "090871cc983c4dc5b9741ed18f51fb4a",
+          "observable": "E_response",
+          "target": {
+            "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+            "kind": "anisotropy_response",
+            "metric": "total_energy_ev"
+          },
+          "uncertainty": 0.0003,
+          "unit": "eV/cell",
+          "value": -6.4e-05
+        },
+        {
+          "id": "81ef919460cd4f948199cee49702e6ce",
+          "experiment_id": "090871cc983c4dc5b9741ed18f51fb4a",
+          "observable": "F_response",
+          "target": {
+            "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+            "kind": "anisotropy_response",
+            "metric": "free_energy_ev"
+          },
+          "uncertainty": 0.00015,
+          "unit": "eV/cell",
+          "value": -6.4e-05
+        }
+      ],
+      "reported_token_usage": {
+        "inputTokens": 156204,
+        "cachedInputTokens": 16640,
+        "outputTokens": 4562,
+        "reasoningOutputTokens": 2422
+      },
+      "scoring": "not_run",
+      "revisions": "not_run"
+    },
+    "physics": {
+      "status": "predictions_sealed",
+      "calls": 10,
+      "model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "backend": "codex-managed-chatgpt",
+      "process_stopped": true,
+      "seed_hashes": {
+        "electronic/soc-x/electronic.json": "01744691dacd70c89e2cf3e8e5245baef51b70b153c65438778305aa6b91e9ba",
+        "electronic/soc-x/spectrum.npz": "cc182321df11705357221a289b91e2813617c759ebcaab53cc3917ec0a5440d2",
+        "electronic/soc-z/electronic.json": "6161a5ddb295edf3ac6a4ae97b9a9bcf4422d09afe07b2047de12ef62d524892",
+        "electronic/soc-z/spectrum.npz": "fb2a7216decbe41ed084203fd882ad6a1e3a9f06e2525192d43f2d14890cf39e",
+        "packet.json": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+        "parent.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+      },
+      "no_sibling_event_ids_in_context": true,
+      "no_native_tool_attempts": true,
+      "sealed_notebook_sha256": "f566c4228ccc28ad479b1b6d99576985fd4d55dc38bf4b259a1782fa229d468c",
+      "predictions": [
+        {
+          "id": "e00d0626b1f744eda9bd0fc2dacc0710",
+          "experiment_id": "a9bedc6ba7bf404999eddc8fd56543a2",
+          "observable": "E_response",
+          "target": {
+            "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+            "kind": "anisotropy_response",
+            "metric": "total_energy_ev"
+          },
+          "uncertainty": 0.00025,
+          "unit": "eV/cell",
+          "value": 6.4e-05
+        },
+        {
+          "id": "cfd045cc4c8f4c65b2d9b6a39f6a04d0",
+          "experiment_id": "a9bedc6ba7bf404999eddc8fd56543a2",
+          "observable": "F_response",
+          "target": {
+            "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+            "kind": "anisotropy_response",
+            "metric": "free_energy_ev"
+          },
+          "uncertainty": 0.00015,
+          "unit": "eV/cell",
+          "value": 6.4e-05
+        },
+        {
+          "id": "236c67727ed34241b4a0fde7838187e6",
+          "experiment_id": "c80329e4137f4c06b9e49c3793612a5a",
+          "observable": "E_response",
+          "target": {
+            "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+            "kind": "anisotropy_response",
+            "metric": "total_energy_ev"
+          },
+          "uncertainty": 0.00025,
+          "unit": "eV/cell",
+          "value": -6.4e-05
+        },
+        {
+          "id": "1749a416a443425e88fb165362a54684",
+          "experiment_id": "c80329e4137f4c06b9e49c3793612a5a",
+          "observable": "F_response",
+          "target": {
+            "baseline_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+            "kind": "anisotropy_response",
+            "metric": "free_energy_ev"
+          },
+          "uncertainty": 0.00015,
+          "unit": "eV/cell",
+          "value": -6.4e-05
+        }
+      ],
+      "reported_token_usage": {
+        "inputTokens": 174189,
+        "cachedInputTokens": 0,
+        "outputTokens": 4610,
+        "reasoningOutputTokens": 2601
+      },
+      "scoring": "not_run",
+      "revisions": "not_run"
+    }
+  },
+  "bundles": [
+    {
+      "key": "fresh-minus-k12",
+      "source_sha256": "d79f12edad7922290b78d0a41a5e666191312bfa50606158d5d44c5444e89ec2",
+      "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+      "preflight": {
+        "format": "REMAG-QUERY-PREFLIGHT/1",
+        "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+        "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+        "device_scf_enabled": true,
+        "paid_actions": 0,
+        "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+        "kmesh": [
+          12,
+          12,
+          12
+        ],
+        "native_kpoints_upper_bound": 1728,
+        "compiled_max_kpoints": 4096,
+        "reduction_assumed": false,
+        "mesh_capacity_passed": true
+      },
+      "result": "failed_scalar_startup"
+    },
+    {
+      "key": "fresh-plus-k12",
+      "source_sha256": "e754efbac55612ff16c285623ed74b5e7bee1d33b45e9f743c5b17f21ab5a719",
+      "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+      "preflight": {
+        "format": "REMAG-QUERY-PREFLIGHT/1",
+        "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+        "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+        "device_scf_enabled": true,
+        "paid_actions": 0,
+        "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+        "kmesh": [
+          12,
+          12,
+          12
+        ],
+        "native_kpoints_upper_bound": 1728,
+        "compiled_max_kpoints": 4096,
+        "reduction_assumed": false,
+        "mesh_capacity_passed": true
+      },
+      "result": "not_run_prior_health_gate"
+    }
+  ],
+  "execution": {
+    "GPU_launches": 1,
+    "native_stage_executions": 1,
+    "SCF_iterations": 0,
+    "SOC_stages": 0,
+    "completed_bundles": 0,
+    "policy_decisions": 20,
+    "sealed_predictions": 8,
+    "scoring_calls": 0,
+    "revision_calls": 0,
+    "rebuilds": 0,
+    "retries": 0,
+    "extensions": 0,
+    "automatic_follow_on": false
+  },
+  "budget": {
+    "cap_cents": 150,
+    "reserved_cents": 75,
+    "unreserved_cents": 75,
+    "actual_billed_usd": null,
+    "reservations_are_invoices": false,
+    "prior_r5_reservation_cents": 5,
+    "combined_r5_r6_reservations_cents": 80,
+    "combined_original_cap_cents": 155,
+    "no_added_budget": true,
+    "refunds_or_reallocations": 0,
+    "model_access": "Existing Codex quota; no separate API account or credit purchase"
+  },
+  "failure": {
+    "status": "native_segfault_confirmed_root_location_unresolved",
+    "returncode": -11,
+    "signal": "SIGSEGV",
+    "native_seconds": 4.9523744579999995,
+    "SCF_iterations": 0,
+    "SOC_stages": 0,
+    "timed_out": false,
+    "last_stdout": [
+      "InitMesh: MESH = 30 x 30 x 40 = 36000",
+      "New grid distribution [1]: sub = 2"
+    ],
+    "backtrace": "Unsymbolized addresses; cannot identify the responsible source routine from these logs alone",
+    "runtime_hashes_and_capacity_verified": true,
+    "native_kpoints": 948,
+    "compiled_max_kpoints": 4096,
+    "distinction": "The earlier 128-k-point rejection is absent; this attempt crashes during scalar startup after mesh initialization.",
+    "native_review_reproduced": true,
+    "review_errors": [
+      "Device-cycle publication evidence is missing",
+      "Final force-grid handoff does not cover every geometry",
+      "Retained output density does not cover every geometry/kind",
+      "Integral forces require the device-cycle geometry epochs",
+      "Integral force publication does not cover every electronic geometry",
+      "Integral force grid does not cover every electronic geometry",
+      "Integral force pair geometry does not cover every electronic geometry",
+      "Integral force nonlocal geometry does not cover every electronic geometry",
+      "Terminal matrix export schema is missing",
+      "Terminal export/final-grid geometry coverage differs",
+      "Missing final spectrum schema",
+      "Final spectrum does not cover all electronic and force geometries",
+      "Missing production history schema",
+      "Missing population publication schema",
+      "Population ownership does not cover every electronic geometry",
+      "Missing initial density ownership schema",
+      "Initial density ownership does not cover every electronic geometry",
+      "History ownership does not cover every electronic/force geometry",
+      "Orbital basis owner does not cover every geometry",
+      "Atomic derivative comparison tolerances differ",
+      "Atomic basis owner does not cover every geometry",
+      "H0 shadow does not cover every electronic/force geometry",
+      "Initial GPU mesh did not cover completed SCF and forces",
+      "Device consumer transfer accounting is missing",
+      "Native calculation did not complete successfully",
+      "Missing native SCF completion or explicit SCF failure",
+      "Missing force/stress/site-moment arrays",
+      "Missing native option dmtolerance"
+    ],
+    "recovered_files": 28,
+    "recovered_bytes": 2649332,
+    "all_recovered_hashes_verified": true,
+    "solver_reruns": 0
+  },
+  "allocations": {
+    "recorded_at": "2026-11-17T02:06:11.603209+00:00",
+    "app": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-ubh1HQKSBcK0xWwxDNzKka",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 20:04:00-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 20:04:41-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-MVZmXaWyYnrspvnuevFSNn",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "account_containers": [],
+    "owned_local_drivers": [],
+    "new_allocations": 0
+  },
+  "timing": {
+    "submission_to_collection_seconds": 43.42256491724402,
+    "submission_through_failure_review_seconds": 49.96269679162651,
+    "usable_result_seconds": null
+  },
+  "preservation": {
+    "old_campaign_closed": true,
+    "old_heartbeat_deleted": true,
+    "prior_attempts_and_ledgers_unchanged": true,
+    "protected_files": 33,
+    "sealed_predictions_unchanged": true,
+    "no_further_execution_authorized": true
+  },
+  "retained_acceptance": {
+    "native_SOC": "r4 passed for its six measured bundles; r6 adds no SOC evidence",
+    "fast_latency": "r4 passed for its three 6-cubed bundles; no r6 usable result",
+    "response_consistency": "r4 failed: max E/F 0.305/0.153 meV versus original 0.05 meV criterion",
+    "clean_prospective_policy_authoring": "r6 passed; full outcome/scoring/revision workflow remains incomplete",
+    "scientific_advantage_established": false,
+    "full_empirical_spec_complete": false
+  },
+  "evidence_sha256": {
+    "acceptance-two-r6/registration.json": "554803d723a63ca139018111b5ec540d9d89a3962270d0a56c1c67d6f1b8527b",
+    "acceptance-two-r6/budget-lineage.json": "22a98252e0e5bd8fcbe223cbb038f88f939254e74c12a3ec866e8338d6de9da8",
+    "acceptance-two-r6/budget-final.json": "99d87af39be378be6683736530c28329d8bd70a49e39ed2b6b91aea7ab22bb5f",
+    "acceptance-two-r6/codex-config.json": "772763c698a549234dd8c05289583f7e2d3955423c28a4a49f5e0ef33c4beff0",
+    "acceptance-two-r6/execution-config.json": "4fd3ff9321aee5b3f94286eac73d0cbc097ed0d52ac077b107d013c907e48b95",
+    "acceptance-two-r6/source-census.json": "934739d785fce1cf83b24111eb5c5bc32f4321463c7310664209b60804236f56",
+    "acceptance-two-r6/scalar-preflight.json": "cf15ce4e7977f7a5c88fcbe8c5b7125910d1de9747e7c8549ed8e845beb154d3",
+    "acceptance-two-r6/physics-preflight.json": "79d31f531ad8021c157d601b1c6f07f73476c4b3c52dd219521bc3146358b2de",
+    "acceptance-two-r6/scalar-predict-driver.json": "66b118ba133585b778c23a738f8acc8e02fe5520ebcef8fe7e07868b04a7fcb4",
+    "acceptance-two-r6/physics-predict-driver.json": "88e8daf033871bf5c8b42e15cf64c1c1549c993373fc221c885119e201aaf909",
+    "acceptance-two-r6/scalar-sealed-events.json": "ecc4084189f576d0808e805305eada696c2a735dcd042db5984c71277fb0b38f",
+    "acceptance-two-r6/physics-sealed-events.json": "11c1e3dff5cda94b5a5a5bda25a6d4817289cf4bba0f2072a0014d714292a2b8",
+    "acceptance-two-r6/policy-predictions-sealed.json": "951c809afd0e8531fc4ac8c5367c20bd6acbd43a5c2e2c7cc425ca55622e6e2c",
+    "acceptance-two-r6/query-readiness.json": "f91c1a8526b04230a726d900233225a3e638572c735dca5faa169d43b412dabc",
+    "acceptance-two-r6/prelaunch-allocation-observation.json": "14b5cfed671420de7b859ce8a6c4d6e960b627dc37f94b9ad7ac68999ddc8e35",
+    "acceptance-two-r6/closeout-allocation-observation.json": "292c0f36d6e096f025f35367efd4b0cc2116eb8eb485ba21ca8e89b3e2cb47d0",
+    "acceptance-two-r6/case-reviews/fresh-minus-k12.json": "5515931ac71366441b228ece6870705c6a33c4a627e2de70979f78ed0657aefb",
+    "acceptance-two-r6/runs/fresh-minus-k12/receipt.json": "097c573ffbc04576cc2f879941b6673195e720de19c2b43d274c20c274fb45cb",
+    "acceptance-two-r6/runs/fresh-minus-k12/execution.json": "dcbbb06db10222d789d6302149f1f43b0977e15c0b64a5abe980b972a56ed80b",
+    "acceptance-two-r6/runs/fresh-minus-k12/collected/report.json": "ec4b90e2eb3f1d4303df28cd55c7256bb0583d6aa6abf37553ac4b3b1e22af0e",
+    "acceptance-two-r6/runs/fresh-minus-k12/collected/query/report.json": "a1efc76e4d93de4d7d7a2a7b3ecfd935f9b68c63b8519831de1a599580bc8611",
+    "acceptance-two-r6/native/fresh-minus-k12/recovery-manifest.json": "0c9dd14acf1ec1d6c85c30cd305439b028598f765240da8b3041c722dede1f28",
+    "acceptance-two-r6/saved-failure-diagnosis.json": "6bb263f6749ec13ee4b7e07b27893ed8502bf7c2aaab2e3d7fa2c676f75eb7ca",
+    "acceptance-two-r6/native/fresh-minus-k12/scalar/stdout.log": "3545ce9281c40d0fbc64df49336776a9b2d5e1bc5bdebbe2e3809806f5bc1c23",
+    "acceptance-two-r6/native/fresh-minus-k12/scalar/stderr.log": "43bc0965219e02806e82b474c9d47976564e5e6a8eed8d4cdebf223a69108067",
+    "acceptance-two-r6/native/fresh-minus-k12/scalar/execution-status.json": "790b03ce777d6697406836c6087f3fb1a1e99d27efcf1a663f8fd049b86554a7"
+  },
+  "executed_helpers_sha256": {
+    "run-acceptance-two-r6-policy.py": "0ac8897d510839eaf3008b0afea198cf25db1eef69bc593138211baaed82ca74",
+    "run-acceptance-two-r6-case.py": "855ee4b67de72daab93542834a55f4f56da4151096e7c4cc58ed62c8026ff5da",
+    "seal-acceptance-two-r6.py": "8b10c4aa9d173e9e60031da3d0729269f0913c1472e57344d54584ca1068620d",
+    "acceptance_six_review.py": "b360a208d90456f6a8eb8753f0626d3cf81d4a59b934dc7d160f03ba56412629",
+    "SIESTA-REMAG/src/siesta_remag/research/codex_policy.py": "f6064e2cd8c7c77a7366fcf13723bcd3b384a643ff0729c99053bc1c1f169728",
+    "SIESTA-REMAG/src/siesta_remag/research/isolated_policy.py": "98629b59f3c3efdf6aaeadcf185c579b0215f21d9f25eb1ad783e9cce38009a7"
+  }
+}

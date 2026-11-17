@@ -1,0 +1,33 @@
+"""Read-only verification of closed r6 evidence; no model or cloud operations."""
+from pathlib import Path
+import json,hashlib
+W=Path(__file__).resolve().parent;A=W/'acceptance-two-r6';R=W/'SIESTA-REMAG'
+read=lambda p:json.loads(p.read_text())
+digest=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+r=read(A/'closeout.json')
+for p,h in r['evidence_sha256'].items():assert digest(W/p)==h,p
+for p,h in r['executed_helpers_sha256'].items():assert digest(W/p)==h,p
+protected=read(A/'protected-before.json')
+for p,h in protected.items():assert digest(W.parent/p)==h,p
+seal=read(A/'policy-predictions-sealed.json')
+for p,h in seal['files'].items():assert digest(A/p)==h,p
+recovery=read(A/'native/fresh-minus-k12/recovery-manifest.json')
+for p,h in recovery['files'].items():assert digest(A/'native/fresh-minus-k12'/p)==h,p
+assert r['budget']['reserved_cents']==75 and r['budget']['unreserved_cents']==75 and r['budget']['actual_billed_usd'] is None
+budget=read(A/'budget.json');assert budget==read(A/'budget-final.json')
+assert budget['cap_cents']==150 and sum(row['cents'] for row in budget['reservations'])==75
+assert r['execution']['policy_decisions']==20 and r['execution']['sealed_predictions']==8
+assert r['execution']['GPU_launches']==1 and r['execution']['completed_bundles']==0
+assert r['execution']['retries']==r['execution']['rebuilds']==r['execution']['extensions']==0
+assert r['failure']['returncode']==-11 and r['failure']['SCF_iterations']==r['failure']['SOC_stages']==0
+assert r['allocations']['app']['lifecycle']['state']=='stopped'
+assert not r['allocations']['account_containers'] and not r['allocations']['owned_local_drivers']
+assert not (A/'runs/fresh-plus-k12').exists() and not (A/'scores-released.json').exists()
+assert (A/'closeout.json').read_bytes()==(W.parent/'outputs/Codex-two-outcome-results-2026-11-16.json').read_bytes()
+assert (A/'closeout.json').read_bytes()==(R/'tests/evidence/research/finite-tool-acceptance-r6-2026-11-16.json').read_bytes()
+state=read(W/'qualification-state.json')
+assert state['acceptance_two_r6']['status']==r['status'] and state['scheduling']['status']=='deleted'
+print(json.dumps(dict(status='passed',evidence_files=len(r['evidence_sha256']),protected_prior_files=len(protected),
+    sealed_files=len(seal['files']),native_files=len(recovery['files']),outputs_equal_repo=True,
+    policy_decisions=20,sealed_predictions=8,GPU_launches=1,completed_bundles=0,
+    reserved_cents=75,unreserved_cents=75,owned_app_stopped=True,old_campaign_closed=True)))
