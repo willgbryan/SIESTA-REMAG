@@ -224,3 +224,58 @@ def test_collected_build_proof_required_for_usable_result(prepared,tmp_path,comp
         with pytest.raises(ValueError,match='Previous execution needs'):
             execute_query(tmp_path,'execution-config.json','bundle','next',transport=t)
         assert len(t.calls)==1
+
+
+def test_export_and_history_policy_coverage_is_offline():
+    from siesta_remag.research.preflight import preflight_input_audits
+    env = {'REMAG_INTEGRAL_FORCE':'1', 'REMAG_GATE_H_EXPORT':'1', 'REMAG_GPU_HISTORY':'1'}
+    text = 'Write.DM false\nWrite.DM.End.Of.Cycle true\nSaveHS true\nMD.TypeOfRun CG\n'
+    r = preflight_input_audits(text, env)
+    assert r['hamiltonian_exports'] == 4 and r['density_exports'] == 2
+    assert r['density_history']['depth'] == 1
+    for bad in ('Broyden', 'FC', 'Verlet'):
+        with pytest.raises(ValueError, match='MD mode'):
+            preflight_input_audits(text.replace('CG', bad), env)
+    with pytest.raises(ValueError, match='analysis consumer'):
+        preflight_input_audits(text+'OpticalCalculation true\n', env)
+    assert preflight_input_audits(text.replace('CG', 'Broyden'), {}) == {}
+
+
+def test_unqualified_input_policy_cannot_reach_query_account(prepared, tmp_path):
+    runtime = load(tmp_path/'runtime.json')
+    runtime['environment'] = {'REMAG_INTEGRAL_FORCE':'1', 'REMAG_GATE_H_EXPORT':'1'}
+    save(tmp_path/'runtime.json', runtime)
+    config = load(tmp_path/'execution-config.json')
+    config['runtime_sha256'] = sha256(tmp_path/'runtime.json')
+    save(tmp_path/'execution-config.json', config)
+    p = prepared/'scalar/input.fdf'; p.write_text(p.read_text()+'\nOpticalCalculation true\n')
+    m = load(prepared/'scalar/manifest.json'); m['input_sha256'] = sha256(p); save(prepared/'scalar/manifest.json', m)
+    q = load(prepared/'experiment.json')
+    for name in q['files']: q['files'][name] = sha256(prepared/name)
+    save(prepared/'experiment.json', q)
+    before = (tmp_path/'budget.json').read_bytes(); t = SyntheticTransport()
+    with pytest.raises(ValueError, match='analysis consumer'):
+        execute_query(tmp_path, 'execution-config.json', 'bundle', 'attempt', transport=t)
+    assert not t.calls and not t.info_calls
+    assert not (tmp_path/'attempt').exists() and not (tmp_path/'.research-execution').exists()
+    assert (tmp_path/'budget.json').read_bytes() == before
+
+
+def test_general_material_native_incident_hold_preserves_saved_inspection():
+    from siesta_remag.research.preflight import check_execution_hold
+    r = dict(executable='/results/build/siesta',
+        executable_sha256='68fbdc97c03e00d4088b1e4454cb42284eb0af28735e5eabd87e5b8d2e36c0fd',
+        environment={'REMAG_DEVICE_SCF':'1','LD_LIBRARY_PATH':'/results/build'}, threads=1,
+        capabilities=dict(format='REMAG-BOUND-CAPABILITIES/1',
+            executable_sha256='68fbdc97c03e00d4088b1e4454cb42284eb0af28735e5eabd87e5b8d2e36c0fd',
+            library='/results/build/libremag_gpu.so',
+            library_sha256='e96e212fc6553632b4a66ff0bc5a3b5355bade9b4fee0f09b44b9e09b5774754',
+            device_scf=dict(format='REMAG-DEVICE-SCF-CAPABILITIES/1', max_kpoints=4096,
+                            max_spatial_orbitals=2048, max_spinor_dimension=4096)))
+    assert validate_runtime(r) == r['capabilities']
+    with pytest.raises(ValueError, match='general-material-loop-r1 SIGSEGV'):
+        check_execution_hold(r)
+    r['environment']['CUDA_DISABLE_PTX_JIT'] = '1'
+    r['executable'] = '/another/alias/siesta'
+    with pytest.raises(ValueError, match='no spending'):
+        check_execution_hold(r)

@@ -31,6 +31,37 @@ def check_execution_hold(runtime):
         raise ValueError('Native execution held: acceptance-r6 SIGSEGV inside '
                          'cudaGraphInstantiate remains unresolved; no spending. '
                          'Passing mesh capacity is not native execution validation.')
+    if (runtime.get('environment', {}).get('REMAG_DEVICE_SCF') == '1'
+            and runtime.get('executable_sha256') ==
+                '68fbdc97c03e00d4088b1e4454cb42284eb0af28735e5eabd87e5b8d2e36c0fd'
+            and runtime.get('capabilities', {}).get('library_sha256') ==
+                'e96e212fc6553632b4a66ff0bc5a3b5355bade9b4fee0f09b44b9e09b5774754'):
+        raise ValueError('Native execution held: general-material-loop-r1 SIGSEGV '
+                         'with libcuda stack frames remains unresolved; no spending. '
+                         'Earlier passing FePt checks do not repair this failure.')
+
+
+def preflight_input_audits(input_text, environment):
+    """Resolve the runner's supported input policies before paid execution.
+
+    These are audit-coverage checks, not evidence that a native mode works.
+    In particular, do not silently broaden CG-only audits to Broyden.
+    """
+    from ..terminal_exports import (requested_energy_exports, requested_density_exports,
+                                    requested_hamiltonian_exports)
+    from ..density_history import policy
+    result = {}
+    if environment.get('REMAG_INTEGRAL_FORCE') == '1':
+        result['energy_exports'] = requested_energy_exports(input_text, True)
+        result['hamiltonian_exports'] = requested_hamiltonian_exports(
+            input_text, environment.get('REMAG_GATE_H_EXPORT') == '1')
+        result['density_exports'] = requested_density_exports(
+            input_text, environment.get('REMAG_GPU_HISTORY') == '1',
+            environment.get('REMAG_FINAL_GRID_SHADOW') == '1' or
+            environment.get('REMAG_FINAL_DENSITY_SHADOW') == '1')
+    if environment.get('REMAG_GPU_HISTORY') == '1':
+        result['density_history'] = policy(input_text)
+    return result
 
 
 def validate_device_capabilities(value):
@@ -150,9 +181,11 @@ def preflight_query(bundle, runtime):
     bundle=Path(bundle);request=verify_prepared_mesh(bundle);c=validate_runtime(runtime)
     check_execution_hold(runtime)
     validate_soc_request(request.get('soc_matrix',False),request.get('query'),runtime.get('environment',{}))
+    audits = preflight_input_audits((bundle/'scalar/input.fdf').read_text(), runtime.get('environment', {}))
     result=dict(format='REMAG-QUERY-PREFLIGHT/1',request_sha256=sha256(bundle/'experiment.json'),
         runtime_sha256=digest(runtime),device_scf_enabled=runtime.get('environment',{}).get('REMAG_DEVICE_SCF')=='1',
-        paid_actions=0,scope='Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.')
+        paid_actions=0,input_audits=audits,
+        scope='Mesh capability, input audit coverage and input/runtime identity only; not numerical acceptance, memory fit or latency.')
     if result['device_scf_enabled']:result.update(check_mesh_capacity(request,c['device_scf']))
     else:result.update(mesh_capacity_passed=None,reason='Host-controlled path; device-cycle limit does not apply')
     return result

@@ -237,3 +237,17 @@ def test_discovery_execution_is_not_a_policy_tool(tmp_path):
     from siesta_remag.research.toolhost import ToolHost
     host=ToolHost(tmp_path)
     assert not {'execute_relaxation', 'prepare_relaxation', 'run_prepared_query'} & host.catalog()['tools'].keys()
+
+
+def test_broyden_audit_gap_fails_before_account_intent_or_reservation(discovery, tmp_path, monkeypatch):
+    runtime = load(tmp_path/'runtime.json')
+    runtime['environment'] = {'REMAG_INTEGRAL_FORCE':'1', 'REMAG_GATE_H_EXPORT':'1'}
+    save(tmp_path/'runtime.json', runtime)
+    config = load(tmp_path/'config.json'); config['runtime_sha256'] = sha256(tmp_path/'runtime.json')
+    save(tmp_path/'config.json', config)
+    t = DiscoveryTransport(monkeypatch); before = (tmp_path/'budget.json').read_bytes()
+    with pytest.raises(ValueError, match='Hamiltonian export audit has no reference for this MD mode'):
+        run(tmp_path, t)
+    assert not t.calls and not t.info_calls and not t.native
+    assert not (tmp_path/'attempt').exists() and not (tmp_path/'.research-execution').exists()
+    assert (tmp_path/'budget.json').read_bytes() == before

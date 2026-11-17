@@ -17,7 +17,7 @@ from ..discovery.config import Settings
 from ..discovery.inputs import axes, pseudos_for, prepare_case, starting_moments, validate_atoms, MU0_MUB_PER_A3
 from ..discovery.pipeline import source_identity, verify_bundle
 from ..discovery.review import branch_check, directional_result, evaluated_structure, native_review
-from .preflight import check_execution_hold, check_mesh_capacity, validate_runtime
+from .preflight import check_execution_hold, check_mesh_capacity, validate_runtime, preflight_input_audits
 
 
 def preflight_relaxation(bundle, runtime):
@@ -39,6 +39,12 @@ def preflight_relaxation(bundle, runtime):
         raise ValueError('Prepared pseudopotential identity/species differs')
     capabilities = validate_runtime(runtime)
     check_execution_hold(runtime)
+    # Exercise the actual generated FDF against the same input-policy audits
+    # used by the runner. A valid mesh alone cannot admit an unsupported mode.
+    with TemporaryDirectory() as scratch:
+        generated = prepare_case(prepared, bundle/'pseudos', Path(scratch)/'dft-relax',
+                                 settings, mesh=receipt['kmesh'], relax=True, diagnostics=True)
+        audits = preflight_input_audits((generated/'input.fdf').read_text(), runtime.get('environment', {}))
     result = dict(format='REMAG-RELAXATION-PREFLIGHT/1',
         request_sha256=sha256(bundle/'request.json'), prepared_sha256=sha256(bundle/'prepared.json'),
         runtime_sha256=digest(runtime), kmesh=receipt['kmesh'],
@@ -47,7 +53,7 @@ def preflight_relaxation(bundle, runtime):
                             provenance='explicit' if original.has('initial_magmoms') else 'element_default'),
         physical_conditions=dict(positions='relaxed', cell='fully_variable', external_pressure_gpa=0,
                                  smearing_k=settings.smearing_k),
-        paid_actions=0, physical_stability_qualified=False,
+        paid_actions=0, input_audits=audits, physical_stability_qualified=False,
         scope='Prepared identity, species, mesh and runtime capability; native convergence and stability remain untested.')
     if result['device_scf_enabled']:
         result.update(check_mesh_capacity({'kmesh': receipt['kmesh']}, capabilities['device_scf']))

@@ -158,9 +158,9 @@ controller status `measured`; a negative moment screen is not a solver failure.
 Native/branch failures, changed artifacts and uncertain shutdown leave the
 shared owner held, preventing follow-on work. No retry, rebuild or extension is
 performed. The result retains native status and both energy definitions, with
-stability and synthesis qualification false. General electronic analysis,
-notebook scoring and IDE discovery-cycle presentation still need their
-source-bound integration; this adapter alone does not complete the live loop.
+stability and synthesis qualification false. Source-bound observation import,
+notebook scoring and IDE discovery-cycle views have local integration coverage;
+general electronic analysis and a completed live feedback loop remain open.
 
 The [local integration record](../tests/evidence/research/general-material-execution-2026-11-17.json)
 uses synthetic Ni/Co native results through the actual remote-function code.
@@ -229,6 +229,23 @@ The hold applies before account access, image creation or reservation, and is
 rechecked by the worker before loading the native library. Historical manifests
 remain readable. This hold prevents repeat spending; it is not a native crash
 repair, and changing graph settings is not evidence that the crash is fixed.
+
+The first non-FePt live iteration also holds the exact r8 executable/library
+pair after a Ni native SIGSEGV. Saved instrumentation reaches
+`instantiate_begin` with 27,501 graph nodes; stack addresses map to CUDA driver
+and runtime libraries. This localizes the failing phase but does not establish
+the cause or a repair. Astra authoring, prospective predictions and real CPU Orb
+preparation passed; native measurement, scoring and revision did not complete.
+The owned app is stopped and no next case is queued. See the
+[preserved failure record](../tests/evidence/research/general-material-first-native-failure-2026-11-17.json).
+
+Preflight now also checks the generated FDF against the runner's export and
+density-history policies before account access, intent or reservation. The
+accelerated export audit supports CG, but the discovery relaxation generator
+currently emits Broyden. That combination is rejected offline rather than
+silently widening audit coverage or changing a registered input. The original
+attempt retains both failures: native return code -11 and the subsequent
+unsupported-MD audit exception that obscured it in the pipeline summary.
 
 The same check is mandatory in the controlled executor before account access,
 durable intent, image preparation or reservation, and in the low-level Modal
