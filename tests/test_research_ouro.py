@@ -54,6 +54,7 @@ class Service:
         self.route = route.model_dump(mode='json')
         self.requests = []
         self.mode = 'ok'
+        self.upload_id = uid(11)
         self.action = dict(id=uid(10), route_id=uid(1), user_id=uid(3), status='queued',
             response={'energy': -2.0}, output_assets=[])
 
@@ -65,7 +66,7 @@ class Service:
         if path == '/routes/'+uid(1):
             return httpx.Response(200, json={'data':self.route})
         if path == '/files/upload-url':
-            return httpx.Response(200, json={'data': {'upload_id':uid(11),
+            return httpx.Response(200, json={'data': {'upload_id':self.upload_id,
                 'upload_url':'https://storage.example.invalid/scratch', 'method':'PUT'}})
         if path == '/scratch':
             return httpx.Response(200)
@@ -217,6 +218,102 @@ def test_real_sdk_upload_and_submit_exactly_once(prepared,tmp_path,sdk):
     assert all(p not in ('/files','/posts') for _,p,_,_ in service.requests)
 
 
+def scoped_preparation(tmp_path,route):
+    f=tmp_path/'Ni.cif';f.write_text('data_fixture_Ni\n')
+    summary=prepare_request(route,{'structure':f},tmp_path/'scoped',body={'fmax':.05},
+                            organization_id=uid(40),team_id=uid(41))
+    return tmp_path/'scoped',summary
+
+
+def test_opaque_upload_handle_survives_exactly_and_submits_once(prepared,tmp_path,sdk):
+    _,service=sdk
+    service.upload_id='opaque.header.payload/signature+suffix=='
+    state=submit(prepared,tmp_path,sdk)
+    assert state['upload_refs']['structure']['upload_id']==service.upload_id
+    saved=load(tmp_path/'attempt/upload-response-structure.json')
+    assert saved=={'upload_id':service.upload_id,'file_name':'Ni.cif'}
+    payload=next(json.loads(b) for _,p,b,_ in service.requests if p.endswith('/use'))
+    assert payload['config']['input_assets']['structure']['upload_id']==service.upload_id
+    assert service.count('/use')==service.count('/files/upload-url')==1
+    assert (tmp_path/'attempt').stat().st_mode & 0o777 == 0o700
+
+
+@pytest.mark.parametrize('invalid',[None,12,'','  '])
+def test_invalid_upload_handle_is_retained_without_route_submission(prepared,tmp_path,sdk,invalid):
+    _,service=sdk;service.upload_id=invalid
+    with pytest.raises(ValueError,match='opaque temporary-upload'):
+        submit(prepared,tmp_path,sdk)
+    assert load(tmp_path/'attempt/upload-response-structure.json')['upload_id']==invalid
+    assert service.count('/use')==0
+    with pytest.raises(FileExistsError):submit(prepared,tmp_path,sdk)
+    assert service.count('/files/upload-url')==1
+
+
+def test_organization_is_bound_before_upload_and_retained_in_sdk_requests(tmp_path,route,sdk):
+    client,service=sdk;prepared=scoped_preparation(tmp_path,route)
+    with pytest.raises(ValueError,match='organization/team'):submit(prepared,tmp_path,sdk)
+    assert not (tmp_path/'attempt').exists() and service.count('/files/upload-url')==0
+    client.use_organization(uid(40),team=uid(41))
+    submit(prepared,tmp_path,sdk)
+    for _,path,body,headers in service.requests:
+        if path=='/files/upload-url' or path.endswith('/use'):
+            assert headers['x-ouro-org']==uid(40)
+        if path.endswith('/use'):
+            assert json.loads(body)['config']['output']=={'visibility':'private','team_id':uid(41)}
+    client.use_organization(uid(99))
+    with pytest.raises(ValueError,match='organization/team'):observe_action(tmp_path/'attempt',client)
+    with pytest.raises(ValueError,match='organization/team'):collect_action(tmp_path/'attempt',client,tmp_path/'out')
+    assert service.count('/actions/'+uid(10))==0
+
+
+@pytest.mark.parametrize('wrong',['organization','team','header'])
+def test_context_mismatch_never_uploads(tmp_path,route,sdk,wrong):
+    client,service=sdk;prepared=scoped_preparation(tmp_path,route)
+    client.use_organization(uid(40),team=uid(41))
+    if wrong=='organization':client.use_organization(uid(99),team=uid(41))
+    if wrong=='team':client.team=uid(99)
+    if wrong=='header':client.client.headers['X-Ouro-Org']=uid(99)
+    with pytest.raises(ValueError,match='organization/team'):submit(prepared,tmp_path,sdk)
+    assert service.count('/files/upload-url')==service.count('/use')==0
+
+
+def test_wrong_output_organization_is_retained_but_not_downloaded(tmp_path,route,sdk):
+    client,service=sdk;prepared=scoped_preparation(tmp_path,route)
+    client.use_organization(uid(40),team=uid(41));submit(prepared,tmp_path,sdk)
+    service.action.update(status='success',output_assets=[{'name':'relaxed','asset':{
+        'id':uid(12),'asset_type':'file','org_id':uid(99),'team_id':uid(41)}}])
+    with pytest.raises(ValueError,match='Output asset differs'):
+        collect_action(tmp_path/'attempt',client,tmp_path/'out')
+    assert (tmp_path/'out/action.json').exists()
+    assert service.count('/assets/'+uid(12)+'/download')==0
+
+
+def test_zero_btc_quote_uses_the_declared_currency_on_the_wire(tmp_path,route,sdk):
+    client,service=sdk;raw=contract(route)
+    raw.update(price_currency='btc',unit_cost=0.0,price=0.0,unit_cost_usd=None)
+    service.route.update({k:raw[k] for k in ('price_currency','unit_cost','price','unit_cost_usd')})
+    f=tmp_path/'Ni.cif';f.write_text('fixture')
+    summary=prepare_request(raw,{'structure':f},tmp_path/'zero',body={'fmax':.05})
+    submit((tmp_path/'zero',summary),tmp_path,sdk,maximum_cents=0)
+    payload=next(json.loads(b) for _,p,b,_ in service.requests if p.endswith('/use'))
+    assert payload['currency']=='btc' and summary['price_ceiling_cents']==0
+
+
+def test_workspace_organization_is_defaulted_and_cannot_be_overridden(tmp_path,route):
+    save(tmp_path/'route.json',route.model_dump(mode='json'))
+    (tmp_path/'input.cif').write_text('fixture')
+    context={'organization_id':uid(40),'team_id':uid(41)}
+    save(tmp_path/'research-ouro-context.json',context)
+    tools=ResearchTools(tmp_path)
+    args=dict(route='route.json',inputs={'structure':'input.cif'},output='prepared',body={'fmax':.05})
+    tools.call('prepare_ouro_request',args)
+    assert verify_request(tmp_path/'prepared')['execution_context']=={'org_id':uid(40),'team_id':uid(41)}
+    for key in context:
+        with pytest.raises(ValueError,match='conflicts with workspace'):
+            tools.call('prepare_ouro_request',dict(args,output='bad',**{key:uid(99)}))
+    assert not (tmp_path/'bad').exists()
+
+
 @pytest.mark.parametrize('mode',['timeout','unauthorized'])
 def test_uncertain_submission_is_retained_and_never_retried(prepared,tmp_path,sdk,mode):
     client,service=sdk;service.mode=mode
@@ -258,8 +355,10 @@ def test_poll_is_bounded_and_rejects_identity_change(prepared,tmp_path,sdk):
 def test_local_tool_paths_and_policy_isolation(tmp_path,route):
     save(tmp_path/'route.json',route.model_dump(mode='json'))
     (tmp_path/'input.cif').write_text('fixture')
-    args={'route':'route.json','inputs':{'structure':'input.cif'},'output':'prepared','body':{'fmax':.05}}
+    args={'route':'route.json','inputs':{'structure':'input.cif'},'output':'prepared','body':{'fmax':.05},
+          'organization_id':uid(40),'team_id':uid(41)}
     assert ResearchTools(tmp_path).call('prepare_ouro_request',args)['executed'] is False
+    assert verify_request(tmp_path/'prepared')['execution_context']=={'org_id':uid(40),'team_id':uid(41)}
     for profile in [dict(information_profile='scalar'),dict(withheld_sources=['a'*64])]:
         with pytest.raises(ValueError):ResearchTools(tmp_path,**profile).call('prepare_ouro_request',args)
     args['inputs']['structure']='../outside.cif'

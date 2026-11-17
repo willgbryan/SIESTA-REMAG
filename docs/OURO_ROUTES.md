@@ -48,6 +48,21 @@ lookup; absent rates or contradictory nonzero metadata do not become free.
 Optional service headers are left to Ouro, never supplied by this adapter.
 Required headers and attempts to pass header names as query/path parameters
 are rejected. Schema-reference checks also apply to omitted headers.
+Zero BTC-only routes use `currency=btc` on execution; a zero quote does not make
+USD an accepted payment currency.
+
+An operator can pass `organization_id` and `team_id` to preparation. These UUIDs
+are part of the request digest. Submission and observation require a client
+pinned to that organization, including its `X-Ouro-Org` header and selected team.
+The route call receives the same organization and output team. Collected assets
+with another organization/team are retained as a failed review and never
+downloaded. This binds Ouro execution/output context, not an independent
+service's database tenancy.
+To persist an operator's workspace choice, set `research-ouro-context.json` at
+the workspace root to `{"organization_id":"<UUID>","team_id":"<UUID>"}`.
+The policy preparation tool uses this context by default and rejects conflicting
+arguments before writing a request. The generic library remains usable by other
+workspaces and accounts.
 The SDK has no atomic quote/hash condition on execution: a fresh preflight does
 not install a server-side spending cap or prevent a concurrent price change.
 An operator requiring a hard cap must establish that guarantee with the provider
@@ -80,6 +95,9 @@ admission or uploading. It retains a second local copy of input bytes in the
 attempt, uploads via `files.upload_input`, saves each returned upload ID, then
 submits once with `wait=False`. It never creates persistent input assets and
 requests private outputs. Policy tools have no Ouro submission entry point.
+Temporary upload IDs are opaque strings, not asset UUIDs. Each raw upload
+receipt is saved before validation in a private attempt directory. Keep those
+handles out of public evidence; publish their hashes instead.
 
 An attempt directory is an exclusive submission marker. An exception after the
 submission intent leaves `submission_uncertain`; do not delete it or resubmit.
@@ -116,7 +134,7 @@ On 17 November the existing account successfully retrieved the live
 [hull route](https://ouro.foundation/routes/mmoderwell/calculate-energy-above-the-convex-hull),
 ID `75fe7f4b-22f5-4883-aa1d-378fd42da47c`. Its contract accepts a temporary CIF
 object with URL/filename, and currently quotes an explicit zero fixed BTC rate.
-No upload or route execution was made. The offline request uses the saved local
+That initial snapshot preceded all uploads and route execution. The request uses the saved local
 Orb geometry, Orb MPA surface, `allow_unrelaxed=false`, health checks enabled,
 and no user-material/generated-P1/phase-diagram outputs. The saved force and
 cell-force check passes the route's 0.05 eV/Å screen. CIF conversion preserves
@@ -133,10 +151,22 @@ and scientific validation before use in a stability conclusion.
 The route documentation says novel inputs are added to its crystal database;
 the retrieved contract has no opt-out. Temporary input storage and private
 output settings do not prevent that service-side database write. Submission is
-held for that disclosure decision and provider resource admission/release.
+authorized by the owner, who permits future Ouro uploads into **Ghost**. The
+verified Ghost organization is `0194e5db-d49e-7d25-ac3d-fde542f594cb`, with default
+team `0194e5db-d4c6-7bc2-9a6e-14e628284eb8`. Provider hardware and allocation
+release are not reported by the route. A terminal service action must not be
+reported as verified provider GPU release.
 The local preflight and its two retained earlier failures are recorded in
 `tests/evidence/research/local-relaxation-ouro-hull-preflight-2026-11-17.json`.
 No old Desktop campaign or closed FePt campaign is resumed.
+
+The first Ghost temporary upload completed, then the local adapter rejected its
+opaque handle as a UUID before making any route call. That failure is retained;
+the handle check is now corrected and covered by a real-SDK/mock-HTTP regression.
+A subsequent explicit invocation was held by the account guard before upload
+because an unrelated REMAG GPU app was active. No hull action or stability result
+has been obtained, and no follow-on job is queued. Current receipts and counters
+are in `tests/evidence/research/ouro-ghost-context-2026-11-17.json`.
 
 `tests/test_research_ouro.py` uses the actual pinned SDK with intercepted HTTP,
 including temporary upload reservation/PUT, async submission, one-read polling

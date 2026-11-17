@@ -6,7 +6,6 @@ from urllib.request import urlopen
 from urllib.error import HTTPError
 
 import pytest
-from gpac.errors import GPACError
 
 from test_research import experiment
 from test_discovery import backend
@@ -50,6 +49,7 @@ def test_initial_preview_and_on_demand_sampling_equal_the_full_saved_data(regist
 
 @pytest.mark.parametrize('change',['source','report','metadata','array','stage','index','escape'])
 def test_deferred_read_rechecks_bound_source_report_and_native_artifacts(registered,change):
+    from gpac.errors import GPACError
     _,query=deferred(registered)
     if change=='source':
         p=registered/'bundle/structure.json';d=load(p);d['source']['sha256']='0'*64;save(p,d)

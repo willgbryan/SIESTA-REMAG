@@ -17,7 +17,7 @@ from .memory import Notebook
 
 
 TOOLS = {
-    'prepare_ouro_request': {'required':['route','inputs','output'], 'optional':['body','query','params'],
+    'prepare_ouro_request': {'required':['route','inputs','output'], 'optional':['body','query','params','organization_id','team_id'],
         'description':'Offline preflight of a saved Ouro route contract and local temporary-file inputs. Retains bytes, schema/price and hashes; never uploads, reserves or executes. External output acceptance and provider allocation admission remain separate.'},
     'export_electronic_spectrum': {'required':['report','stage','native_directory','output'],
         'optional':['collection','collinear_spin'],
@@ -239,9 +239,19 @@ class ResearchTools:
         if name == 'prepare_ouro_request':
             from .ouro import prepare_request
             if not isinstance(args['inputs'],dict):raise ValueError('Expected named local file inputs')
+            options={k:args[k] for k in ('body','query','params','organization_id','team_id') if k in args}
+            context_path=self.path('research-ouro-context.json')
+            if context_path.exists():
+                context=load(context_path)
+                if (not isinstance(context,dict) or set(context)!={'organization_id','team_id'}
+                        or not all(isinstance(v,str) and v for v in context.values())):
+                    raise ValueError('Invalid workspace Ouro organization context')
+                if any(k in options and options[k]!=v for k,v in context.items()):
+                    raise ValueError('Request conflicts with workspace Ouro organization context')
+                options.update(context)
             return prepare_request(load(self.path(args['route'])),
                 {k:self.path(v) for k,v in args['inputs'].items()},self.path(args['output']),
-                **{k:args[k] for k in ('body','query','params') if k in args})
+                **options)
         if name == 'import_relaxation_result':
             from .discovery_observation import import_relaxation_result
             return import_relaxation_result(self.path(args['attempt']))

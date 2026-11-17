@@ -176,10 +176,30 @@ def _validate(route, body, files, query, params):
             raise ValueError('Disable route post/comment outputs before preparation')
 
 
-def prepare_request(route, inputs, output, *, body=None, query=None, params=None):
+def _execution_context(organization_id=None, team_id=None):
+    if organization_id is None:
+        if team_id is not None:
+            raise ValueError('A team requires an explicit organization')
+        return {}
+    context = {'org_id': str(UUID(organization_id))}
+    if team_id is not None:
+        context['team_id'] = str(UUID(team_id))
+    return context
+
+
+def _currency(route, ceiling):
+    # A zero BTC-only quote still needs BTC on the wire: the service may refuse
+    # a currency it does not sell. This is not a conversion of a paid BTC rate.
+    return 'btc' if (ceiling == 0 and route['price_currency'] == 'btc'
+                     and route.get('unit_cost_usd') is None) else 'usd'
+
+
+def prepare_request(route, inputs, output, *, body=None, query=None, params=None,
+                    organization_id=None, team_id=None):
     """Offline preparation; copies original bytes, never uploads or reserves."""
     route = contract(route)
     ceiling = price_ceiling_cents(route)
+    context = _execution_context(organization_id, team_id)
     files, contents = {}, {}
     if not isinstance(inputs, dict) or not 1 <= len(inputs) <= 16:
         raise ValueError('Inputs must map 1..16 route keys to local files')
@@ -205,9 +225,11 @@ def prepare_request(route, inputs, output, *, body=None, query=None, params=None
     request = {'format': 'REMAG-OURO-REQUEST/1', 'sdk_version': SDK_VERSION,
         'contract': route, 'contract_sha256': digest(route), 'inputs': files,
         'body': body, 'query': query, 'params': params,
-        'output': {'visibility': 'private'}, 'currency': 'usd',
+        'output': {'visibility': 'private'}, 'currency': _currency(route, ceiling),
         'price_ceiling_cents': ceiling, 'temporary_retention_days': 7,
         'scientific_acceptance': 'not_evaluated'}
+    if context:
+        request['execution_context'] = context
     output = Path(output)
     digest(request)
     output.mkdir(parents=True, exist_ok=False)
@@ -228,7 +250,12 @@ def verify_request(directory):
     route = contract(request['contract'])
     if digest(route) != request['contract_sha256'] or price_ceiling_cents(route) != request['price_ceiling_cents']:
         raise ValueError('Prepared route contract differs')
-    if request['output'] != {'visibility': 'private'} or request['currency'] != 'usd':
+    context = request.get('execution_context', {})
+    if (not isinstance(context, dict) or
+            context != _execution_context(context.get('org_id'), context.get('team_id'))):
+        raise ValueError('Invalid prepared organization context')
+    if (request['output'] != {'visibility': 'private'} or
+            request['currency'] != _currency(route, request['price_ceiling_cents'])):
         raise ValueError('Prepared output/currency policy differs')
     for item in request['inputs'].values():
         p = (directory / item['path']).resolve()
@@ -244,6 +271,14 @@ def _client_check(client):
         raise ValueError('Use pinned Ouro SDK with an access-token client: mutation retries must be disabled')
 
 
+def _context_check(client, request):
+    context = request.get('execution_context', {})
+    if (client.organization != context.get('org_id') or
+            client.client.headers.get('X-Ouro-Org') != context.get('org_id') or
+            (context.get('team_id') is not None and client.team != context['team_id'])):
+        raise ValueError('Client differs from the prepared organization/team context')
+
+
 def submit_request(directory, attempt, client, *, expected_sha256, maximum_cents, admit):
     """Operator-only submission, once. ``admit`` must durably hold resources.
 
@@ -255,6 +290,7 @@ def submit_request(directory, attempt, client, *, expected_sha256, maximum_cents
     """
     _client_check(client)
     request = verify_request(directory)
+    _context_check(client, request)
     if digest(request) != expected_sha256:
         raise ValueError('Request differs from operator-reviewed digest')
     if type(maximum_cents) is not int or maximum_cents < request['price_ceiling_cents']:
@@ -265,7 +301,7 @@ def submit_request(directory, attempt, client, *, expected_sha256, maximum_cents
     if digest(contract(fresh)) != request['contract_sha256']:
         raise ValueError('Route schema or price changed; prepare and review again')
     attempt = Path(attempt)
-    attempt.mkdir(parents=True, exist_ok=False)  # durable no-resubmission marker
+    attempt.mkdir(parents=True, exist_ok=False, mode=0o700)  # private durable marker
     save(attempt / 'request.json', request)
     state = {'format': 'REMAG-OURO-ATTEMPT/1', 'request_sha256': expected_sha256,
         'state': 'admission_pending', 'upload_refs': {}, 'action_id': None,
@@ -291,14 +327,21 @@ def submit_request(directory, attempt, client, *, expected_sha256, maximum_cents
             if hashlib.sha256(data).hexdigest() != item['sha256']:
                 raise ValueError('Prepared file changed before upload')
             ref = client.files.upload_input(data, file_name=item['file_name'])
-            UUID(str(ref['upload_id']))
-            state['upload_refs'][name] = {'upload_id': str(ref['upload_id']), 'file_name': item['file_name']}
+            # Temporary upload handles are opaque strings, not asset UUIDs.
+            # Persist the SDK response before interpretation so a validation
+            # failure cannot lose the handle and force another upload.
+            save(attempt / f'upload-response-{name}.json', ref)
+            if (not isinstance(ref, dict) or not isinstance(ref.get('upload_id'), str)
+                    or not ref['upload_id'].strip()):
+                raise ValueError('Missing opaque temporary-upload handle')
+            state['upload_refs'][name] = {'upload_id': ref['upload_id'], 'file_name': item['file_name']}
             save(attempt / 'state.json', state)
         state['state'] = 'submission_uncertain'
         save(attempt / 'state.json', state)
         action = client.routes.execute(fresh, body=request['body'], query=request['query'],
             params=request['params'], input_assets=state['upload_refs'], output=request['output'],
-            currency='usd', wait=False, timeout=30, notify='none', raise_on_error=False)
+            currency=request['currency'], wait=False, timeout=30, notify='none', raise_on_error=False,
+            **request.get('execution_context', {}))
         raw = _plain(action)  # do not use SDK final_data: it mutates response
         # Retain any returned ID before interpretation/validation can fail.
         save(attempt / 'action-submission.json', raw)
@@ -336,6 +379,7 @@ def observe_action(attempt, client):
     attempt = Path(attempt)
     with _attempt_lock(attempt):
         state, request = load(attempt / 'state.json'), load(attempt / 'request.json')
+        _context_check(client, request)
         if digest(request) != state['request_sha256'] or not state['action_id']:
             raise ValueError('Unbound attempt or unknown action: reconcile without resubmission')
         raw = _plain(client.routes.retrieve_action(state['action_id']))
@@ -356,6 +400,7 @@ def collect_action(attempt, client, output):
     attempt, output = Path(attempt), Path(output)
     with _attempt_lock(attempt):
         state, request = load(attempt / 'state.json'), load(attempt / 'request.json')
+        _context_check(client, request)
         if digest(request) != state['request_sha256'] or not state['action_id']:
             raise ValueError('Unbound attempt or unknown action')
         raw = _plain(client.routes.retrieve_action(state['action_id']))
@@ -380,6 +425,10 @@ def collect_action(attempt, client, output):
                     or asset.get('asset_type') != declared.get('asset_type')):
                 raise ValueError('Undeclared or incompatible output asset')
             names.add(name)
+            context = request.get('execution_context', {})
+            if context and (asset.get('org_id') != context['org_id'] or
+                    (context.get('team_id') and asset.get('team_id') != context['team_id'])):
+                raise ValueError('Output asset differs from the prepared organization/team')
             if asset.get('asset_type') != 'file':
                 continue  # non-file output metadata is retained in action.json
             asset_id = str(UUID(asset['id']))
