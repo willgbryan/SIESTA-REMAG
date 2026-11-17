@@ -81,14 +81,3 @@ def test_live_endpoint_refresh_and_no_host_or_write_bypass(recorded):
         request.write_text('{')
         assert http_request(server,'GET','/api/activity')[0]==503
     finally:server.shutdown();server.server_close();thread.join()
-
-
-def test_shipped_activity_client_refresh_stale_and_snapshot_states():
-    from pathlib import Path
-    import shutil
-    import subprocess
-    node=shutil.which('node')
-    if not node:pytest.skip('Node is required for the shipped client checks')
-    repo=Path(__file__).resolve().parents[1]
-    subprocess.run([node,str(repo/'tests/fixtures/workspace_activity_dom.cjs'),
-                    str(repo/'src/siesta_remag/research/workspace.html')],check=True)

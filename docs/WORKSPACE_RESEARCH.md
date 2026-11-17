@@ -102,7 +102,7 @@ The workspace fits the browser viewport. At desktop widths the source editor,
 crystal and inspector share one row. Below 1150 CSS pixels, **Source**, **Crystal**
 and **Inspect** select one panel; switching panels preserves unsaved drafts.
 Read-only and relaxed-observation views omit the source editor. Long source lines
-scroll inside the editor, and long inspection/history content scrolls inside its
+scroll inside the editor, and long inspection content scrolls inside its
 panel. The structure selector and navigation stay outside those scrolling areas.
 
 The 17 November browser check rendered the actual local IDE at 320×568, 390×844,
@@ -114,15 +114,14 @@ activity deep link were exercised. See the
 This verifies the sampled interface behavior, not every scientific workflow or
 arbitrary viewport size.
 
-## Follow a research run
+## Research records
 
-An optional `research-activity.json` in the workspace enables **Activity**. Open
-`http://127.0.0.1:8765/#activity` to select it immediately. The read-only view
-checks `/api/activity` every five seconds while visible, independently of the
-larger structure/electronic dataset. Unchanged refreshes preserve expanded notes.
-The activity deep link opens **Inspect → Activity** on narrow screens. **Crystal**
-returns to the structure rendering. Action numbers follow displayed receipt order;
-receipt directory identifiers may contain phase names and are not parsed as numbers.
+The IDE presents Structure, Response and Electronic inspection panels. The activity
+log and its polling client have been removed from the interface. Existing
+`#activity` links open the normal structure workspace.
+
+The read-only `/api/activity` endpoint and `research-activity.json` records remain
+available to development tools. The manifest format is unchanged:
 
 ```json
 {
@@ -139,19 +138,18 @@ receipt directory identifiers may contain phase names and are not parsed as numb
 
 The controller updates this status manifest atomically as work advances. These
 are controller-reported milestones, not independent cloud-allocation observations.
-Register each desired policy explicitly: the viewer reads its existing
+Register each desired policy explicitly: the endpoint reads its existing
 `calls/*/request.json` and matching `response.json`, including new calls on later
-refreshes. A missing response is pending; a response is accepted only when its
+requests. A missing response is pending; a response is accepted only when its
 request hash matches. Successful tool dispatch is not scientific acceptance.
 
 Only tool names, supplied public rationales, timestamps, dispatch status and public
-notebook arguments are displayed. Model contexts, ambient agent histories,
+notebook arguments are returned. Model contexts, ambient agent histories,
 arbitrary tool arguments and raw tool results are not served. Paths (including
 symlinks) must remain inside the workspace. Files are bounded to 256 KiB, with at
 most 8 policies and 256 calls per policy. The endpoint has the same loopback Host
 checks as the workspace and no execution/write action. Invalid or incomplete
-records produce an unavailable/stale indication; they are not presented as live
-success. HTML exports embed a labeled static snapshot and never poll.
+records produce an unavailable response; they are not reported as success.
 
 The activity view was rendered in the in-app browser at narrow panel width and
 its recorded-hypothesis disclosure was checked. This is not blanket visual
