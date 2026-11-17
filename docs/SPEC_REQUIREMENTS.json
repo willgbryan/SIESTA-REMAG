@@ -2230,6 +2230,26 @@
           "repo": "GPAC",
           "path": "src/gpac/physical.py",
           "sha256": "6efbb4f780443a0acd22e083f174569ccb380c62f1fb9d2c5b14b5d05e9805c1"
+        },
+        {
+          "repo": "REMAG",
+          "path": "native/scf_cycle.cu",
+          "sha256": "21d3056f7cfd14b8b1711c2e6835dce822b11ee78b0bf7b73c940d83a21ca5b9"
+        },
+        {
+          "repo": "REMAG",
+          "path": "native/scf_graph_setup.hpp",
+          "sha256": "fbe93e0224c9fd3191dee2a9d3939d19dcedc1bc9acb0b358f71389312c1b0a9"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/native_diagnostics.py",
+          "sha256": "14dfb214b3a2992a07843759cad8feb561ebf81b537d5ec025e7c12b2a8c7dca"
+        },
+        {
+          "repo": "REMAG",
+          "path": "src/siesta_remag/runner.py",
+          "sha256": "c33c4c8beed0cf402613b6ddbccb19ea5c9aff2576fe0b5495787ec795718aca"
         }
       ],
       "tests": [
@@ -2252,6 +2272,11 @@
           "repo": "GPAC",
           "path": "tests/test_physical.py",
           "sha256": "1c8a88aca5e73ca5d099467e50d4202662959ca505618039d549e88538d99f01"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/test_native_crash_evidence.py",
+          "sha256": "d7e2310309eb1c8bd3236c4718788e1db1c1f2478b8f8836d705f242cd4d57f4"
         }
       ],
       "evidence": [
@@ -2259,6 +2284,11 @@
           "repo": "REMAG",
           "path": "tests/evidence/research/fept-campaign-closeout-2026-11-15.json",
           "sha256": "294d950e2d0a3d66084c9761571a2ca6fe125aa271fcded9eec6ea77e3ab9636"
+        },
+        {
+          "repo": "REMAG",
+          "path": "tests/evidence/research/native-crash-evidence-regression-2026-11-16.json",
+          "sha256": "76e6ab6265e65e877947eefb441963152f7bd9997d75273014e35e921afef7b1"
         }
       ]
     },
@@ -2606,5 +2636,12 @@
     "response_consistency_passed": false,
     "new_GPU_launches": 0,
     "full_spec_complete": false
+  },
+  "native_crash_evidence_update": {
+    "recorded_at": "2026-11-17T02:54:22.701902+00:00",
+    "status": "diagnostic_gap_fixed_native_cause_unresolved",
+    "evidence": "tests/evidence/research/native-crash-evidence-regression-2026-11-16.json",
+    "scope": "R37 diagnostic retention only; causal repair and live acceptance remain unproved.",
+    "validation": "709 passed, 4 skipped"
   }
 }

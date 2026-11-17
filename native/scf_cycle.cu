@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "scf_cycle.hpp"
+#include "scf_graph_setup.hpp"
 #include "block_jacobi.hpp"
 #include "sparse_state.hpp"
 #include <algorithm>
@@ -331,7 +332,7 @@ struct ScfCyclePlan::Impl {
         for(const auto& solver:solvers) {nodes+=solver->graph_nodes();forbidden+=solver->forbidden_nodes();}
         nodes+=control->graph_nodes();forbidden+=control->forbidden_nodes();
         if(forbidden) throw std::runtime_error("Forbidden nested SCF cycle node");
-        check(cudaGraphInstantiate(&exec,graph,0));check(cudaGraphUpload(exec,stream));check(cudaStreamSynchronize(stream));
+        check(instantiate_scf_graph(&exec,graph,stream,{dim,spins,jobs,lanes,nodes,forbidden}));
     }
 };
 ScfCyclePlan::ScfCyclePlan(const ScfCycleShape& s,const ScfCycleBindings& b,const ScfControlProblem& p,cudaStream_t stream)

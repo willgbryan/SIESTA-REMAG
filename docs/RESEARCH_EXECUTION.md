@@ -184,6 +184,12 @@ recorded. Queue, allocation startup, packaging and download-only durations remai
 unknown where the provider evidence does not separate them. Cached inspection
 does not become a new-calculation latency measurement.
 
+[Native crash diagnostics](NATIVE_CRASH_DIAGNOSTICS.md) preserve flushed graph
+setup boundaries and bounded Linux process mappings through the same collection
+format. Exit status is saved before scientific output parsing. This improves
+failure diagnosis; it does not clear the unresolved r6 execution hold or authorize
+a new build or calculation.
+
 Tests execute the actual experiment/review/collection/ledger paths with a
 synthetic native backend and cloud transport. They cover prediction → controlled
 execution → outcome → evaluation, scalar/SOC diagnostic selection, legacy

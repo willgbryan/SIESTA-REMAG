@@ -87,7 +87,8 @@ native files were verified. The second bundle and scoring/revisions did not run
 because the first health gate failed. The app is stopped and the finite attempt
 is closed without rebuild, retry or extension. Of the authorized $1.50 remainder,
 $0.75 is reserved and $0.75 unreserved; actual invoices remain unknown. The native
-fault location and complete live outcome workflow remain unresolved. No further
+callsite is now localized to `cudaGraphInstantiate`; its cause and the complete
+live outcome workflow remain unresolved. No further
 execution or old-campaign restart is authorized.
 
 - A clean scalar-versus-physics evaluation with measured equal compute remains.
@@ -122,6 +123,14 @@ longer-term discovery objectives are not silently promoted to initial software
 completion gates.
 
 ## Delivered development increments
+
+- 16 November: [native crash diagnostics](NATIVE_CRASH_DIAGNOSTICS.md) close a
+  failure-evidence gap in §12/§15 (R37). Setup checkpoints survive a deliberate
+  local native crash, bounded process observations retain the last usable
+  mapping, and exit status precedes output parsing. Compiled CPU transport and
+  runner/collection regressions test the behavior without cloud jobs. The
+  original CUDA fault remains unresolved and its execution hold remains active;
+  diagnostic improvements are not a native repair or completed acceptance.
 
 - 16 November: [six-bundle tool acceptance](../tests/evidence/research/finite-tool-acceptance-r4-2026-11-16.json)
   reused the existing build after the corrected actual-library preflight.

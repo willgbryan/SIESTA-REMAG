@@ -1,0 +1,122 @@
+{
+  "format": "REMAG-NATIVE-CRASH-EVIDENCE-PROGRESS/1",
+  "recorded_at": "2026-11-17T02:54:22.701902+00:00",
+  "status": "diagnostic_gap_fixed_native_cause_unresolved",
+  "goal_status": "active",
+  "spec_requirement": "R37: failure retention and reproducibility (original sections 12 and 15)",
+  "base_heads": {
+    "REMAG": "c1c810c7355c9a8df94611e9e52d5ae0c3d37583",
+    "GPAC": "b8d94281bdf285d66ddcb1d31e9d2cb1d6d8838d"
+  },
+  "delivered": [
+    "Flushed setup boundaries around the actual graph instantiate/upload/synchronize calls; API errors stop without retry.",
+    "Bounded Linux child maps/limits and driver-version text with explicit unavailable/exit-race handling; no memory or environment reads.",
+    "Exit status and diagnostics saved before output parsing; early process-exit race retained.",
+    "Existing artifact collection hashes and validates diagnostics, including failed native attempts."
+  ],
+  "validation": {
+    "targeted": "50 passed in 4.42s",
+    "full_sandbox": "705 passed, 4 skipped; 4 loopback PermissionError failures",
+    "loopback_with_permission": "4 passed in 7.04s",
+    "combined": "709 passed, 4 skipped",
+    "added_regressions": 13,
+    "CPU_CPP_probe": "Actual production checkpoint helper against fake CUDA API; real deliberate SIGSEGV, not the original CUDA fault.",
+    "counterfactual": {
+      "format": "REMAG-LOCAL-CRASH-EVIDENCE-REGRESSION/1",
+      "status": "passed",
+      "cases": [
+        {
+          "version": "before",
+          "parser_failure": "preserved",
+          "files": {
+            "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "remag-scf-setup.log": "6f35f2496432d3a63701d259bab5121627a5c1691fdbcb6c07b2217ea4f4597a",
+            "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "manifest.json": "91b44c30bd18b0a5a7b8147fde3a5c94c9dde3856c768e2b57f6974e4c7483d3",
+            "input.fdf": "86d460d14e51dcdf00bc60487e5d4f93919386a3e99d0fb67e16a787f15147e2"
+          }
+        },
+        {
+          "version": "after",
+          "parser_failure": "preserved",
+          "files": {
+            "execution-status.json": "d3acd48ab0414e5748a6428cd3d204621ca28a971c51ef6fb6a756360354b6b1",
+            "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "remag-scf-setup.log": "6f35f2496432d3a63701d259bab5121627a5c1691fdbcb6c07b2217ea4f4597a",
+            "native-process.json": "c1f9710b0fa9ab4879217af66342ecb5ab3bd8125bc97d6f65b83153d91ff58b",
+            "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "manifest.json": "91b44c30bd18b0a5a7b8147fde3a5c94c9dde3856c768e2b57f6974e4c7483d3",
+            "input.fdf": "86d460d14e51dcdf00bc60487e5d4f93919386a3e99d0fb67e16a787f15147e2"
+          }
+        }
+      ],
+      "native_probe_sha256": "4ceb247c48ab166ae366099df763eabb5199ee2a223e45922b453166ca2de753",
+      "historical_runner_sha256": "e27e94b19e1bfdbc84a3763caeb904fcc34dd594d56103d95b6eb26d6f6b2aff",
+      "native_CUDA_fault_reproduced": false,
+      "causal_native_fix_proved": false,
+      "scientific_solver_runs": 0,
+      "local_CPP_crash_probe_runs": 2,
+      "paid_actions": 0
+    },
+    "prior_acceptance_integrity": "r6: 26 evidence, 33 protected files, 174 sealed files, 28 recovered native files verified; r5: 17 evidence files plus policies, bundles and ledgers verified."
+  },
+  "native_fault": {
+    "callsite": "cudaGraphInstantiate",
+    "cause": "unresolved",
+    "reproduced_locally": false,
+    "causal_repair_proved": false,
+    "affected_runtime_execution_hold": true,
+    "full_CUDA_build_and_hardware_test_of_diagnostics": false
+  },
+  "paid_actions": {
+    "cloud_builds": 0,
+    "GPU_launches": 0,
+    "model_inference_calls": 0,
+    "new_reservations_cents": 0,
+    "scientific_solver_runs": 0
+  },
+  "budget": {
+    "grant_cap_cents": 150,
+    "reserved_cents": 75,
+    "unreserved_cents": 75,
+    "actual_billed_usd": null,
+    "reservations_are_invoices": false
+  },
+  "smallest_plan": {
+    "ready": false,
+    "reason": "No causal repair is proved. Diagnostic tests do not satisfy the prerequisite for paid acceptance.",
+    "previous_conditional_envelope": {
+      "CPU_build_cents": 11,
+      "minus_outcome_cents": 32,
+      "plus_outcome_cents": 32,
+      "total_cents": 75
+    },
+    "constraints": "Existing eight sealed predictions; one GPU; no retries, extensions, campaign restart or new inference. Conditional arithmetic is not authorization or a completion guarantee."
+  },
+  "old_campaign_closed": true,
+  "old_heartbeat_deleted": true,
+  "prior_evidence_unchanged": {
+    "work/fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "work/acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8",
+    "work/acceptance-two-r5/closeout.json": "6e1c313ac2601de27d42c25e602f252ee15fba90b9d2911eccd23e0437c45fef",
+    "work/acceptance-two-r6/budget.json": "99d87af39be378be6683736530c28329d8bd70a49e39ed2b6b91aea7ab22bb5f",
+    "work/acceptance-two-r6/closeout.json": "4fa9cf54a8e12fcafdd7852af206a647faa7c321e26710875b728f0ed2b1ea2c",
+    "work/acceptance-two-r6/policy-predictions-sealed.json": "951c809afd0e8531fc4ac8c5367c20bd6acbd43a5c2e2c7cc425ca55622e6e2c",
+    "work/native-segfault-repair/saved-diagnosis.json": "6e5d7366a45b385e3d3326a525b48a0815384fe11fc3772ac4355a5687c83f08",
+    "outputs/Native-segfault-diagnosis-and-budget-2026-11-16.json": "6a11759e576dc6bd7f5fa4fa352385a3c21bc1982b4f475755d04ca50e3bd60a"
+  },
+  "source_sha256": {
+    "native/scf_cycle.cu": "21d3056f7cfd14b8b1711c2e6835dce822b11ee78b0bf7b73c940d83a21ca5b9",
+    "native/scf_graph_setup.hpp": "fbe93e0224c9fd3191dee2a9d3939d19dcedc1bc9acb0b358f71389312c1b0a9",
+    "src/siesta_remag/native_diagnostics.py": "14dfb214b3a2992a07843759cad8feb561ebf81b537d5ec025e7c12b2a8c7dca",
+    "src/siesta_remag/runner.py": "c33c4c8beed0cf402613b6ddbccb19ea5c9aff2576fe0b5495787ec795718aca",
+    "tests/test_native_crash_evidence.py": "d7e2310309eb1c8bd3236c4718788e1db1c1f2478b8f8836d705f242cd4d57f4",
+    "tests/fixtures/scf_setup_driver.cpp": "019c058e5cae0fe25fc144f137aea3d78616e87332bf3ac46a7a3c690b8caa41",
+    "tests/fixtures/scf_setup_cuda/cuda_runtime_api.h": "b9c97235f998b880914a365b9519b2d6b3ac3bef0abd698f0a1d2293740e8c06"
+  },
+  "test_logs_sha256": {
+    "full-tests.log": "a1209951b85d2fcfc0f0d5eaa9766ba17ee503ade2cfa69c57a7bc3e154f9455",
+    "loopback-tests.log": "11a14d87e6d3b57e1dd988b0888f54ea0fb6fda30442a6790fdf83c006de4c81",
+    "counterfactual.json": "d9b8942de451c0b755687b9cee3d5a436f254954209265427bf9621bb987ab7f"
+  }
+}

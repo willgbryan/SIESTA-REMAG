@@ -34,6 +34,7 @@ from .vector_cache import record_errors as vector_cache_errors
 from .population import record_errors as population_errors
 from .initial_state import record_errors as initial_state_errors
 from .nonlocal_h0 import audit as audit_nonlocal_h0
+from .native_diagnostics import NativeProcessDiagnostics
 
 def run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None, restart=None):
     if threads < 1 or timeout <= 0:
@@ -149,11 +150,15 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         start = time.perf_counter()
         process = subprocess.Popen(command, stdin=inp, stdout=out, stderr=err,
                                    cwd=destination, env=env, start_new_session=True)
+        native_diagnostics = NativeProcessDiagnostics(process.pid, traced=trace_io)
         # strace is the parent in diagnostic runs; do not mislabel its CPU/RSS
         # as SIESTA usage. These runs are excluded from performance qualification.
-        monitor = None if trace_io else psutil.Process(process.pid)
-        if monitor:
-            monitor.cpu_percent()
+        try:
+            monitor = None if trace_io else psutil.Process(process.pid)
+            if monitor:
+                monitor.cpu_percent()
+        except psutil.NoSuchProcess:
+            monitor = None  # A fast native exit still has a waitable status.
         gpu = None
         gpu_lines, gpu_reader = [], None
         if shutil.which("nvidia-smi"):
@@ -169,6 +174,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         try:
             while process.poll() is None:
                 elapsed = time.perf_counter() - start
+                native_diagnostics.sample(elapsed)
                 if monitor:
                     try:
                         cpu = monitor.cpu_times()
@@ -197,6 +203,10 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
                 gpu.wait()
                 gpu_reader.join()
                 (destination / "gpu.csv").write_bytes(b"".join(gpu_lines))
+    # Persist before parsing native output: a malformed final record must not
+    # lose the exit status or the last live process sample.
+    (destination/'execution-status.json').write_text(json.dumps(dict(returncode=returncode, timed_out=timed_out, wall_seconds=wall)))
+    (destination/'native-process.json').write_text(json.dumps(native_diagnostics.finish(returncode, timed_out), indent=2)+'\n')
     output = parse_output((destination / "stdout.log").read_text(errors="replace"))
     eigenfile = destination / "remag.EIG"
     parse_errors = []
@@ -218,7 +228,6 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         if not output["relaxation_converged"]:
             parse_errors.append("Structural relaxation did not reach its force tolerance")
     timefile = destination / "time.json"
-    (destination/'execution-status.json').write_text(json.dumps(dict(returncode=returncode, timed_out=timed_out, wall_seconds=wall)))
     try:
         profile = summarize(json.loads(timefile.read_text()), wall) if timefile.exists() else None
     except (json.JSONDecodeError, KeyError, ValueError) as error:
@@ -227,6 +236,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
     telemetry = dict(cpu_samples=samples, peak_rss_bytes=max((s["rss_bytes"] for s in samples), default=None),
                      host_to_device_bytes=None, device_to_host_bytes=None, kernel_launch_count=None,
                      device_allocation_count=None, gpu_samples_file="gpu.csv" if gpu else None,
+                     native_process_file="native-process.json",
                      notes="CPU/RSS sampled at 100ms; GPU at 200ms. Unmeasured counters are null.")
     if trace_io:
         telemetry["notes"] = "Filesystem tracing perturbs timing. CPU/RSS sampling disabled; GPU sampled at 200ms. Unmeasured counters are null."
