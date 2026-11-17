@@ -31,7 +31,9 @@ The owner accepted five targets for the remaining integrated build:
 3. Relaxation under declared conditions, electronic/magnetic evaluation and
    explicit stability assessment.
 4. Measured outcomes and prospective scores that inform Astra's next design.
-5. A minimal IDE showing this cycle while fitting the available viewport.
+5. A minimal Project14 IDE showing this cycle while fitting the available
+   viewport: no horizontal page overflow or clipped primary controls, bounded
+   scrolling inside panels, and compact panel switching on narrow screens.
 
 Prescribed strains are electronic-response probes. A relaxed or physically
 supported constrained structure needs separate stability/synthesis assessment
@@ -39,6 +41,16 @@ before candidate promotion; relaxation alone does not prove synthesizability.
 The initial integrated demonstration is planned as three sequential iterations
 spanning at least two non-FePt systems. The live general-material loop remains
 unfinished; the existing authored Fe₂B example is not a validated phase.
+
+Current live checkpoint: Astra authored a non-FePt Ni candidate and sealed four
+prospective predictions; CPU Orb preparation passed. The native evaluation
+failed during CUDA graph instantiation before any accepted measurement, and its
+app is stopped. No complete feedback iteration is claimed (0 of the initial 3).
+The subsequent Broyden accounting and failure-reporting fixes passed 853 local
+tests with 4 skipped, but do not repair the native crash. The affected runtime
+remains held. See the [saved repair record](../tests/evidence/research/general-material-policy-repair-2026-11-17.json).
+The next integration milestone is a diagnosed native repair followed by a
+source-bound measured result, prediction scoring and an Astra revision.
 
 The [Ouro adapter](OURO_ROUTES.md) prepares temporary file inputs without a
 persistent input asset and supplies operator-only submission/collection APIs.
