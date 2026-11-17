@@ -4,10 +4,14 @@ ASE converts Cartesian positions back to fractional coordinates with a linear
 solve. Different BLAS implementations can differ at the last binary places.
 Retained bytes/hashes remain exact. Reconstructed coordinates may differ by
 eight binary64 epsilons. A nonzero SOC axis component in the manifest may
-differ by one representable step when the generated spin instructions match.
+differ by one representable step or reproduce exactly from the same lattice
+using a different binary64 reduction. The rendered spin instructions must match.
 This is a serialization bound, never a native convergence tolerance.
 """
 from pathlib import Path
+from fractions import Fraction
+from itertools import permutations
+import math
 import re
 import numpy as np
 from ..corpus import sha256
@@ -16,6 +20,43 @@ from ..discovery.common import load, digest
 FRACTIONAL_ROUNDOFF = 8 * np.finfo(float).eps
 START = '%block AtomicCoordinatesAndAtomicSpecies\n'
 END = '%endblock AtomicCoordinatesAndAtomicSpecies\n'
+
+
+def _dot_values(a, b):
+    """Binary64 three-term dot products with separate or fused multiply-add."""
+    terms = [x*y for x,y in zip(a,b)]
+    def fused(i, partial):
+        return float(Fraction(a[i])*Fraction(b[i]) + Fraction(partial))
+    values = {math.fsum(terms)}
+    for i,j,k in permutations(range(3)):
+        for partial in (terms[i]+terms[j], fused(i,terms[j])):
+            values.update((partial+terms[k], fused(k,partial)))
+    return values
+
+
+def _unit_vectors(v):
+    lengths = {math.sqrt(s) for s in _dot_values(v,v)} | {math.hypot(*v)}
+    return {tuple(x/d for x in v) for d in lengths if d > 0}
+
+
+def _reconstructed_axes(cell, stage):
+    """Repeat discovery.inputs.axes and prepare_case's final normalization."""
+    if stage not in ('soc-x','soc-y','soc-z'):
+        return set()
+    a, _, c = cell
+    axes = set()
+    for z in _unit_vectors(c):
+        if stage == 'soc-z':
+            axes.update(_unit_vectors(z))
+            continue
+        for projection in _dot_values(a,z):
+            residual = tuple(x-projection*y for x,y in zip(a,z))
+            for x_axis in _unit_vectors(residual):
+                if stage == 'soc-x':
+                    axes.update(_unit_vectors(x_axis))
+                else:
+                    axes.update(_unit_vectors(tuple(np.cross(z,x_axis).tolist())))
+    return axes
 
 
 def verify_prepared_input(expected, actual):
@@ -51,6 +92,10 @@ def verify_prepared_input(expected, actual):
             # The full DM.InitSpin block, including every rendered angle, is
             # compared byte for byte below. The source-derived axis is expected.
             ignored.add('direction')
+        elif left.shape == right.shape == (3,) and a['geometry']['lattice_A'] == b['geometry']['lattice_A']:
+            axes = _reconstructed_axes(a['geometry']['lattice_A'], a['name'])
+            if tuple(left) in axes and tuple(right) in axes:
+                ignored.add('direction')
     if ({k:v for k,v in a.items() if k not in ignored} != {k:v for k,v in b.items() if k not in ignored} or
             {k:v for k,v in a['geometry'].items() if k != 'fractional_coordinates'} !=
             {k:v for k,v in b['geometry'].items() if k != 'fractional_coordinates'} or

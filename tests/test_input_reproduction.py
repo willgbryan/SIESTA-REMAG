@@ -49,6 +49,7 @@ def test_reconstructed_soc_axis_requires_adjacent_components_and_identical_spin_
     save(b/'manifest.json', m)
     with pytest.raises(ValueError):
         verify_prepared_input(a,b)
+
     m['direction'][2] = float(np.nextafter(m['direction'][2], -np.inf))
     fdf = b/'input.fdf'
     fdf.write_text(fdf.read_text().replace('%block DM.InitSpin\n1 ', '%block DM.InitSpin\n1 0 '))
@@ -56,6 +57,17 @@ def test_reconstructed_soc_axis_requires_adjacent_components_and_identical_spin_
     save(b/'manifest.json', m)
     with pytest.raises(ValueError):
         verify_prepared_input(a,b)
+
+
+def test_fe2co_lattice_axis_reproduces_both_binary64_dot_reductions():
+    from siesta_remag.research.input_reproduction import _reconstructed_axes
+    axes = _reconstructed_axes([[2.814950438, .000000701, -.000059730],
+                                [.000000918, 3.977232862, .000119616],
+                                [-.000127210, -1.988436607, 5.973303953]], 'soc-x')
+    local = (.9999999997749514, -1.2516734035804875e-5, 1.7129760785587528e-5)
+    native = (.9999999997749514, -1.2516734035804873e-5, 1.712976078558751e-5)
+    assert local in axes and native in axes
+    assert (*native[:2], np.nextafter(native[2], 0)) not in axes
 
 
 @pytest.mark.parametrize('change',['larger_coordinate','cell','species','settings','moment','option','coordinate_species','forged_hash','unrecorded_coordinate','newline'])
