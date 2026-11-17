@@ -8,6 +8,7 @@ import numpy as np
 from ..discovery.common import load, digest
 from ..corpus import sha256
 from .convergence import numerical_configuration
+from .activity import activity_state
 
 
 def electronic_preview(folder, *, expected_hsx_sha256=None):
@@ -161,9 +162,16 @@ def make_server(workspace, port=8765, *, editable=False):
                 body, kind = Path(__file__).with_name('workspace.html').read_bytes(), 'text/html; charset=utf-8'
             elif self.path == '/api/state':
                 try:
-                    body = json.dumps(browser_state(dataset(workspace)) | {'authoring_enabled':editable}, allow_nan=False).encode()
+                    body = json.dumps(browser_state(dataset(workspace)) | {'authoring_enabled':editable,
+                        'activity_enabled':(workspace/'research-activity.json').exists()}, allow_nan=False).encode()
                 except Exception as exc:
                     self.send_error(500, type(exc).__name__); return
+                kind = 'application/json'
+            elif self.path == '/api/activity':
+                try:
+                    body = json.dumps(activity_state(workspace), allow_nan=False).encode()
+                except Exception as exc:
+                    self.send_error(503, type(exc).__name__); return
                 kind = 'application/json'
             else:
                 self.send_error(404); return
@@ -206,6 +214,8 @@ def serve(workspace, port=8765, *, editable=False):
 def snapshot(workspace, output):
     """Self-contained read-only HTML, with the same source/result binding as serve."""
     state = dataset(Path(workspace).resolve())
+    state['activity'] = activity_state(workspace)
+    state['activity_enabled'] = state['activity']['available']
     payload = json.dumps(browser_state(state), allow_nan=False).replace('<', '\\u003c')
     html = Path(__file__).with_name('workspace.html').read_text()
     html = html.replace('<script>', '<script type="application/json" id="saved-state">'+payload+'</script>\n<script>', 1)

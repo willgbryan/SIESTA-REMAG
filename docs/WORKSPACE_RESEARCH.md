@@ -92,3 +92,44 @@ Engineering tests cover real loopback requests, preparation and saved-response
 bindings, and the shipped JavaScript against DOM/canvas stubs. Stub execution is
 not visual rendering verification. The Project14 text, colors and compact
 accordion layout are retained; browser visual acceptance remains pending.
+
+## Follow a research run
+
+An optional `research-activity.json` in the workspace enables **Activity**. Open
+`http://127.0.0.1:8765/#activity` to select it immediately. The read-only view
+checks `/api/activity` every five seconds while visible, independently of the
+larger structure/electronic dataset. Unchanged refreshes preserve expanded notes.
+The narrow layout puts activity first; Structure restores the crystal view.
+
+```json
+{
+  "format": "REMAG-RESEARCH-ACTIVITY/1",
+  "title": "Astra · acceptance",
+  "status": "Awaiting native outcomes",
+  "summary": "Predictions sealed; no outcome scores yet.",
+  "next": "Collect and review the registered measurement.",
+  "updated_at": "2026-11-16T12:00:00Z",
+  "stages": [{"label": "Predictions", "status": "Sealed", "detail": "Four predictions."}],
+  "policies": [{"label": "Physics", "status": "Finished; outcomes pending", "calls": "policy/calls"}]
+}
+```
+
+The controller updates this status manifest atomically as work advances. These
+are controller-reported milestones, not independent cloud-allocation observations.
+Register each desired policy explicitly: the viewer reads its existing
+`calls/*/request.json` and matching `response.json`, including new calls on later
+refreshes. A missing response is pending; a response is accepted only when its
+request hash matches. Successful tool dispatch is not scientific acceptance.
+
+Only tool names, supplied public rationales, timestamps, dispatch status and public
+notebook arguments are displayed. Model contexts, ambient agent histories,
+arbitrary tool arguments and raw tool results are not served. Paths (including
+symlinks) must remain inside the workspace. Files are bounded to 256 KiB, with at
+most 8 policies and 256 calls per policy. The endpoint has the same loopback Host
+checks as the workspace and no execution/write action. Invalid or incomplete
+records produce an unavailable/stale indication; they are not presented as live
+success. HTML exports embed a labeled static snapshot and never poll.
+
+The activity view was rendered in the in-app browser at narrow panel width and
+its recorded-hypothesis disclosure was checked. This is not blanket visual
+acceptance of every scientific inspection panel.

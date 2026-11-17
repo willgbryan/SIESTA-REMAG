@@ -1,0 +1,38 @@
+{
+  "format": "REMAG-WORKSPACE-ACTIVITY-VERIFICATION/1",
+  "recorded_at": "2026-11-17T05:33:24.751300+00:00",
+  "tests": {
+    "passed": 58,
+    "scope": "Activity, workspace, authoring, preparation and reciprocal regressions; real loopback HTTP and shipped JavaScript"
+  },
+  "visual": {
+    "browser": "Codex in-app browser",
+    "viewport": "Narrow side panel",
+    "activity_selected": true,
+    "crystal_rendered": true,
+    "recorded_hypothesis_expanded": true,
+    "all_inspection_panels_visually_accepted": false
+  },
+  "saved_policy_receipts": {
+    "physics": 10,
+    "scalar": 10
+  },
+  "semantics": {
+    "read_only": true,
+    "automatic_execution": false,
+    "model_contexts_served": false,
+    "refresh_seconds": 5,
+    "unavailable_is_stale": true,
+    "snapshot_is_static": true,
+    "dispatch_success_is_not_scientific_acceptance": true
+  },
+  "source_sha256": {
+    "src/siesta_remag/research/activity.py": "e949e1e1e9fdd2e654a67c7f0edd8bf589942da240dae9fca9fa28dbb8ed933a",
+    "src/siesta_remag/research/workspace.py": "be36b87a289715811581fc0e2a305e92eceb93d9296c1470f5323f367ed3db13",
+    "src/siesta_remag/research/workspace.html": "0979e4db65506c49bc50c46f8ff4aea8909ae5b829b98d86011593eea225cd0e",
+    "tests/test_research_activity.py": "06f3a0f4621efea83e37b81bc5846d457a88e83cecb66f5700b234375def3717",
+    "tests/fixtures/workspace_activity_dom.cjs": "babac9c9c8181fa3c5ddf997c75e7863c87ab58cf15ec1568d68c214b0afe6e2"
+  },
+  "native_calculations_started": 0,
+  "old_convergence_campaign": "closed"
+}
