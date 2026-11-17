@@ -127,11 +127,16 @@ class PolicyContext:
         if name=='record_response_prediction' and (not isinstance(args.get('target'),dict) or args['target'].get('kind')!='anisotropy_response'):
             raise ValueError('This acceptance records E/F anisotropy responses only')
 
-    def step(self, config, *, api_key=None, transport=None, seconds=600):
+    def step(self, config, *, api_key=None, transport=None, seconds=600, backend=None):
         """A single model request and tool action. Any failure holds the whole arm."""
         with (self.private/'lock').open('a') as lock:
             fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
             state=self._check()
+            backend_id=dict(kind=backend.kind if backend is not None else 'responses',
+                            config_sha256=sha256(Path(config)))
+            if state.get('policy_backend',backend_id)!=backend_id:
+                raise ValueError('Policy backend changed; no context migration')
+            state['policy_backend']=backend_id
             now=datetime.now(timezone.utc)
             if 'phase_started_at' not in state:state['phase_started_at']=now.isoformat()
             remaining=600-(now-datetime.fromisoformat(state['phase_started_at'])).total_seconds()
@@ -147,7 +152,8 @@ class PolicyContext:
                 active=dict(state,status=state['status_before_call'])
                 context=self._context(active,seconds)
                 save(folder/'context.json',context)
-                decision=model_policy.decide(context,config,folder,api_key=api_key,transport=transport)
+                decision=(backend.decide(context,config,folder) if backend is not None else
+                          model_policy.decide(context,config,folder,api_key=api_key,transport=transport))
                 save(folder/'decision.json',decision); self._authorize(decision,active)
                 response=self.host.call(decision,f"calls/{state['calls']:03d}")
                 # Do not feed implementation paths/receipt metadata or exception text to a policy.
@@ -163,7 +169,7 @@ class PolicyContext:
                         frozen.write((self.root/'research-memory.sqlite').read_bytes())
                     save(self.private/'seal.json',dict(status='sealed',calls=10,
                         notebook_sha256=sha256(self.root/'research-memory.sqlite'),
-                        model_audit=model_policy.audit_session(self.private),
+                        model_audit=backend.audit(self.private) if backend is not None else model_policy.audit_session(self.private),
                         bindings={str(p.relative_to(self.private)):sha256(p) for p in sorted(self.private.glob('[0-9][0-9][0-9]/binding.json'))}))
                 return visible
             except BaseException as exc:
@@ -239,16 +245,31 @@ def main(argv=None):
         result=preflight(args.workspace,information_profile=args.information_profile,withheld_sources=args.withheld_source)
         if args.config is not None:
             import os
-            config=model_policy.config_value(load(args.config))
-            result['model_readiness']=dict(model=config['model'],reasoning_effort=config.get('reasoning_effort'),
-                credential_present=bool(os.environ.get('OPENAI_API_KEY','').strip()),
-                service_access_tested=False,model_calls=0)
+            value=load(args.config)
+            if value.get('format')=='REMAG-CODEX-POLICY/1':
+                from .codex_policy import config_value
+                config=config_value(value)
+                result['model_readiness']=dict(model=config['model'],reasoning_effort=config['reasoning_effort'],
+                    authentication='existing Codex-managed ChatGPT login',API_key_required=False,
+                    binary_sha256=config['binary_sha256'],service_access_tested=False,model_calls=0)
+            else:
+                config=model_policy.config_value(value)
+                result['model_readiness']=dict(model=config['model'],reasoning_effort=config.get('reasoning_effort'),
+                    credential_present=bool(os.environ.get('OPENAI_API_KEY','').strip()),
+                    service_access_tested=False,model_calls=0)
     elif args.command=='create':
         context=PolicyContext.create(args.workspace,objective=args.objective,information_profile=args.information_profile,withheld_sources=args.withheld_source)
         result=load(context.private/'state.json')
     else:
         if args.config is None:parser.error('step requires an explicit model configuration')
-        result=PolicyContext(args.workspace).step(args.config)
+        context=PolicyContext(args.workspace)
+        if load(args.config).get('format')=='REMAG-CODEX-POLICY/1':
+            from .codex_policy import CodexPolicy
+            calls=load(context.private/'state.json')['calls']
+            backend=CodexPolicy(args.config,context.private/f'codex-process-{calls:03d}')
+            try:result=context.step(args.config,backend=backend)
+            finally:backend.close()
+        else:result=context.step(args.config)
     print(json.dumps(result,allow_nan=False))
 
 

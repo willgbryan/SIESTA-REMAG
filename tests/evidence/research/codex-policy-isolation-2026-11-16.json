@@ -1,0 +1,277 @@
+{
+  "format": "REMAG-CODEX-POLICY-ISOLATION/1",
+  "recorded_at": "2026-11-17T01:52:26.001931+00:00",
+  "status": "local_isolation_proof_passed_live_acceptance_pending",
+  "owner_direction": "Use existing Codex access. Prove isolation locally without spending. Propose remaining $1.50 plan; old campaign stays closed.",
+  "correction": "The previous separate-API-account prerequisite is superseded. agents.enabled=false removes the collaboration namespace in the installed build; feature flags alone did not.",
+  "implementation": {
+    "canonical_import": "siesta_remag.research.toolhost.ToolHost",
+    "transport": "Personal local Codex app-server, managed ChatGPT login, unmodified built-in provider",
+    "configuration": "REMAG-CODEX-POLICY/1",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "xhigh",
+    "binary_version": "0.165.0-alpha.1.2",
+    "binary_sha256": "50ab38ba21d0d9f8346f32f41848382f15b556190f3c7a07e885a4fb73e379c8",
+    "boundary": [
+      "Separate process/private state per arm; no shared daemon, resume, fork or inherited thread history",
+      "Fresh ephemeral decision threads receive only fixed brief, arm-local receipts and allowlisted research catalog",
+      "agents.enabled=false; Code Mode host, shell, memories, plugins, apps and configured MCP servers disabled",
+      "Native tool attempts, server tool/approval requests, malformed actions and reported errors hold the context and terminate its owned process",
+      "Fixed broker validates JSON before ToolHost; policy cannot import Python or select a backend",
+      "Codex credentials remain inside Codex; ambient API keys and desktop routing variables excluded"
+    ],
+    "residual_advertised_native_names": [
+      "functions.exec",
+      "functions.wait",
+      "functions.request_user_input",
+      "functions.request_user_input_async"
+    ],
+    "zero_advertised_tools_claim": false,
+    "automatic_context_retries": 0,
+    "built_in_transport_internals_overridden": false,
+    "output_token_ceiling_enforced": false
+  },
+  "local_proof": {
+    "unit_regression": "95 passed, 4 optional real-client tests skipped in 22.22s",
+    "real_client_regression": "4 passed, 16 deselected in 144.83s; actual installed Codex client against loopback synthetic model only",
+    "two_arm_replay": {
+      "status": "passed",
+      "model": "local synthetic fixture",
+      "arms": 2,
+      "decisions_each": 12,
+      "actual_Codex_requests": 24,
+      "live_model_requests": 0,
+      "GPU_launches": 0,
+      "collaboration_tools_advertised": false,
+      "sibling_canaries_exposed": false
+    },
+    "native_tool_negative_controls": [
+      {
+        "case": "shell",
+        "status": "held_error",
+        "calls": 0,
+        "event_sha256": "fc64af8f6a7c4521b045b5218dd8bac8b5fd9329e79403f5cbd18564d5389bc2",
+        "no_ToolHost_calls": true
+      },
+      {
+        "case": "list",
+        "status": "held_error",
+        "calls": 0,
+        "event_sha256": "1a2139a492b4d8802860f93e703d506ca06e14e765c436b053844a697f6460af",
+        "no_ToolHost_calls": true
+      },
+      {
+        "case": "spawn_agent",
+        "status": "held_error",
+        "calls": 0,
+        "event_sha256": "03a476c75c1e23203141db0e9528da649e4e253737286a2f796e92788278f3fe",
+        "no_ToolHost_calls": true
+      }
+    ],
+    "native_provider_prompt": {
+      "status": "passed",
+      "provider": "openai (normal Codex provider)",
+      "existing_ChatGPT_login": true,
+      "API_key_required": false,
+      "model_requested": "gpt-6-astra",
+      "effort_requested": "xhigh",
+      "advertised_tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "collaboration_tools_advertised": false,
+      "live_model_requests": 0,
+      "GPU_launches": 0,
+      "binary_sha256": "50ab38ba21d0d9f8346f32f41848382f15b556190f3c7a07e885a4fb73e379c8",
+      "prompt_input_sha256": "d6276350525d571c8f00573930a4129617a51d176df876c67dbf195e3e90bccb",
+      "scope": "Native-provider prompt rendering and managed-login status; no live model inference or returned-model attestation."
+    },
+    "native_provider_startup_and_auth": {
+      "status": "passed",
+      "backend": "codex-managed-chatgpt",
+      "authentication": "Codex-managed ChatGPT",
+      "API_key_required": false,
+      "credentials_extracted": false,
+      "live_model_requests": 0,
+      "GPU_launches": 0
+    },
+    "actual_seed_preflights": {
+      "scalar": "passed",
+      "physics": "passed"
+    },
+    "protected_files_unchanged": 33,
+    "scope": "Finite software boundary and workflow proof, not live Astra inference, actual model availability, forecast quality or an OS security certification"
+  },
+  "plan": {
+    "status": "proposal_only_not_authorized_or_queued",
+    "objective": "Complete clean tool-workflow acceptance on the two registered unmeasured outcomes; preserve original response failure.",
+    "sequence": [
+      {
+        "step": 1,
+        "action": "Locally reverify frozen inputs/runtime, source census, clean registrations and common protocol. Bind two new broker seals to a reviewed operator handoff; never resume the old driver.",
+        "new_allocation_cents": 0
+      },
+      {
+        "step": 2,
+        "action": "Use existing Codex-managed ChatGPT access with Astra extra-high. Ten decisions per arm, four sealed E/F predictions each before either GPU measurement. Stop on quota or access failure; no fallback or restart.",
+        "model_calls_max": 20,
+        "GPU_launches": 0
+      },
+      {
+        "step": 3,
+        "action": "Run the existing minus-1/320 12-cubed bundle once using the saved executable/library; collect, review health and verify authoritative STOPPED.",
+        "reservation_cents": 75
+      },
+      {
+        "step": 4,
+        "action": "Only after previous shutdown and health review, run plus-1/320 12-cubed once; collect/review and verify authoritative STOPPED.",
+        "reservation_cents": 75
+      },
+      {
+        "step": 5,
+        "action": "Score identical outcomes for both sealed notebooks in evaluator copies, release only arm-local scores, append two revisions each, verify shutdown, report pass/fail/pending and close.",
+        "model_calls_max": 4,
+        "new_allocation_cents": 0
+      }
+    ],
+    "bundles": [
+      {
+        "key": "fresh-minus-k12",
+        "source_sha256": "d79f12edad7922290b78d0a41a5e666191312bfa50606158d5d44c5444e89ec2",
+        "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+        "preflight": {
+          "format": "REMAG-QUERY-PREFLIGHT/1",
+          "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+          "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+          "device_scf_enabled": true,
+          "paid_actions": 0,
+          "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+          "kmesh": [
+            12,
+            12,
+            12
+          ],
+          "native_kpoints_upper_bound": 1728,
+          "compiled_max_kpoints": 4096,
+          "reduction_assumed": false,
+          "mesh_capacity_passed": true
+        }
+      },
+      {
+        "key": "fresh-plus-k12",
+        "source_sha256": "e754efbac55612ff16c285623ed74b5e7bee1d33b45e9f743c5b17f21ab5a719",
+        "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+        "preflight": {
+          "format": "REMAG-QUERY-PREFLIGHT/1",
+          "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+          "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+          "device_scf_enabled": true,
+          "paid_actions": 0,
+          "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+          "kmesh": [
+            12,
+            12,
+            12
+          ],
+          "native_kpoints_upper_bound": 1728,
+          "compiled_max_kpoints": 4096,
+          "reduction_assumed": false,
+          "mesh_capacity_passed": true
+        }
+      }
+    ],
+    "limits": {
+      "GPU_queries": 2,
+      "native_stage_executions": 8,
+      "max_simultaneous_GPUs": 1,
+      "app_seconds_each": 600,
+      "native_seconds_each": 480,
+      "SOC_stage_seconds": 180,
+      "rebuilds": 0,
+      "retries": 0,
+      "extensions": 0,
+      "automatic_queue": false
+    },
+    "new_GPU_reservation_cents": 150,
+    "existing_preflight_reused": true,
+    "additional_paid_preflight": false,
+    "no_new_convergence_or_pristine_reference": true,
+    "no_automatic_queue": true,
+    "expected_result_scope": "May establish clean finite workflow only; cannot guarantee prediction accuracy, advantage, calibrated response or full spec completion",
+    "model_transport": "Codex-managed ChatGPT",
+    "separate_API_account_required": false,
+    "new_model_credit_purchases": 0,
+    "existing_Codex_quota_only": true,
+    "no_new_GPU_execution_authorized_by_this_record": true
+  },
+  "budget": {
+    "remaining_r5_unreserved_cents": 150,
+    "prior_r5_reservation_cents": 5,
+    "new_reservations_cents": 0,
+    "new_GPU_launches": 0,
+    "new_cloud_allocations": 0,
+    "live_model_inference_requests": 0,
+    "proposed_GPU_reservations_cents": 150,
+    "proposed_additional_CPU_reservations_cents": 0,
+    "separate_API_purchase_usd": 0,
+    "existing_Codex_quota_only": true,
+    "actual_invoices_usd": null,
+    "condition": "No new subscription, API account or credit top-up. Verify existing quota through the bounded policy phase before GPU spending; hold if unavailable."
+  },
+  "passed": [
+    "Canonical import and scalar staging regression",
+    "Two independent complete synthetic policy histories through installed Codex",
+    "Forced list/spawn/custom shell attempts stop before ToolHost",
+    "Normal-provider prompt and existing ChatGPT authentication",
+    "Both exact actual-input local preflights"
+  ],
+  "failed_retained": [
+    "r4 scalar information comparison invalid from staging leak",
+    "r4 response consistency exceeded original 0.05 meV threshold",
+    "r5 setup/information isolation failed before predictions or GPU outcomes",
+    "Desktop CLI disable flags did not remove collaboration tools in local probes"
+  ],
+  "pending": [
+    "Live Astra decisions and clean scientific policy workflow",
+    "Two unchanged native outcomes, shared scoring and arm-local revisions",
+    "Prediction quality, response calibration and full empirical spec acceptance"
+  ],
+  "old_campaign_closed": true,
+  "old_heartbeat_deleted": true,
+  "old_ledgers_and_attempts_unchanged": true,
+  "previous_allocation_evidence": {
+    "path": "work/acceptance-two-r5/closeout-allocation-observation.json",
+    "sha256": "7d89a251b51278d54bae45a520aa372bae10d30e23428a9ceb59f47944204f77",
+    "fresh_cloud_observation_this_turn": false,
+    "reason": "No cloud calls or allocations made in this repair turn; prior stopped closeout retained"
+  },
+  "allocation_observation_scope": "Retained r5 STOPPED/empty-account evidence; no new cloud observation or allocation was needed for this local repair.",
+  "official_controls": [
+    "https://learn.chatgpt.com/docs/config-file/config-reference",
+    "https://learn.chatgpt.com/docs/app-server#authentication"
+  ],
+  "evidence_sha256": {
+    "work/codex-policy-isolation/unit-tests-final.log": "86baf1834ef72c2437cab2964a02cb719e68d0fba9dce26a9cc26c24132542d3",
+    "work/codex-policy-isolation/real-client-tests-r2.log": "0416a74c8fae4730d32c7d025651aa950829d4e5698e18a568d675045dc171d1",
+    "work/codex-policy-isolation/real-client-proof/summary.json": "0dff4a37f1200f3aef92f835693364c411c00dc468a119ca986c77ee3d8e809a",
+    "work/codex-policy-isolation/real-client-proof/requests.json": "662531b59739dd91277bab09725754882dcc2f251950c3becb69243972c2df34",
+    "work/codex-policy-isolation/real-client-proof/negative-controls.json": "341eaa679c0cd68cb35d8d9a8b7979d17ad690968b2427889130ea34b7888c45",
+    "work/codex-policy-isolation/native-provider-preflight-r2/summary.json": "d9641877bf264b97298b07d03ca109620e75195af7f0264a696773cbe3ad8a96",
+    "work/codex-policy-isolation/managed-auth-preflight/summary.json": "37f2dceba3fa68da6bf32318dc99d55c642125e8ea26d4c2d526665364a06f4f",
+    "work/codex-policy-isolation/codex-acceptance-config.json": "772763c698a549234dd8c05289583f7e2d3955423c28a4a49f5e0ef33c4beff0",
+    "work/codex-policy-isolation/scalar-preflight.json": "f07731fd69186f9f3f6cb90ce1c3567845b1e606b47f06a7a0a7e8e8fcbb3b19",
+    "work/codex-policy-isolation/physics-preflight.json": "85f4215a504adeed169e86c166e6926b46d45eab501be077003da00e1076e815",
+    "work/codex-policy-isolation/bundled-model-metadata.json": "ef9087b36027ee522aed8d67113a367f8582953ae80eaaf8099983a90dd860ae",
+    "work/SIESTA-REMAG/src/siesta_remag/research/codex_policy.py": "f6064e2cd8c7c77a7366fcf13723bcd3b384a643ff0729c99053bc1c1f169728",
+    "work/SIESTA-REMAG/src/siesta_remag/research/isolated_policy.py": "98629b59f3c3efdf6aaeadcf185c579b0215f21d9f25eb1ad783e9cce38009a7",
+    "work/SIESTA-REMAG/src/siesta_remag/research/staging.py": "23e27175c8644a02582558a99ab5676c03a3a8c2da5f8c7254efb9ed8823efba",
+    "work/SIESTA-REMAG/tests/test_research_codex_policy.py": "24eabaec6b2c565ea4101ca9f1f7af94743e7c8953f47d7024510b7885451fe7",
+    "work/SIESTA-REMAG/tests/test_research_isolated_policy.py": "a525e6f11bb2d3e56f1d8d627a102772b23da6c503966395ed537d324482dfd5",
+    "work/SIESTA-REMAG/tests/test_research_staging.py": "741e96bd1810aee2822f51f3e77154a160d0309bb326068f0a784bf64f572c8a",
+    "outputs/Policy-isolation-repair-plan-2026-11-16.json": "40efdbb4b34dfbd5e69736f829ead77d8bcb414e13801fd5e7f33a47a9ec5f1f",
+    "work/acceptance-two-r5/closeout.json": "6e1c313ac2601de27d42c25e602f252ee15fba90b9d2911eccd23e0437c45fef",
+    "work/policy-isolation-repair/protected-before.json": "2b6b1ebce379c1c904e9111ea1f8d1231a9f928d61a7bff825d5f2352cb02ff3"
+  }
+}

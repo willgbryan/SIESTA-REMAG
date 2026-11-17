@@ -1,20 +1,37 @@
 # Isolated policy acceptance
 
-The optional `siesta_remag.research.isolated_policy` broker fixes the r5 startup
-and shared-agent exposure paths. The operator imports
+The `siesta_remag.research.isolated_policy` broker fixes the r5 startup
+and shared-agent exposure paths. The selected transport is the local
+`codex_policy.CodexPolicy` client using existing Codex-managed ChatGPT access. The operator imports
 `siesta_remag.research.toolhost.ToolHost`; the policy never imports Python.
 The direct-chat research tools remain available as before. This broker is for
 the controlled scalar-versus-physics acceptance comparison.
 
 ## Boundary
 
-The model receives only a fixed brief, registered parent/scalar packet, its own
-receipted history and an allowlisted research catalog. The Responses request
-offers `select_research_action` and `finish_research` only, with no conversation
-or previous-response identifier and `store=false`. A local broker validates
-the returned action before calling ToolHost. There is no desktop agent harness,
-agent listing, messaging, shell, plugin loading or native execution in this
-model interface. Policies cannot choose the model transport or extensions.
+The model receives a fixed brief, registered parent/scalar packet, its own
+receipted history and an allowlisted research catalog. A local broker validates
+one structured JSON action before calling ToolHost. Each arm uses its own
+app-server process, private state directory and ephemeral decision threads;
+its context is reconstructed from that arm's receipts. It never resumes or forks
+this chat, another policy, or the shared daemon.
+
+The documented `agents.enabled=false` control removes collaboration tools in
+this installed build. The earlier `features.multi_agent=false` flags alone did
+not do so. Shell, Code Mode host, apps, plugins, memories, environment access,
+project instructions and configured MCP servers are disabled. Four native
+execution/input tool names remain advertised by this build; execution has no
+Code Mode host, and the client holds and terminates the context on any native
+tool attempt or server tool/approval request. The local forced agent-list,
+agent-spawn and correctly encoded custom shell calls all stopped before a
+research action. No policy-selected transport or extension is accepted.
+
+Codex owns authentication: the client checks `account/read` for `chatgpt`, never
+extracts credentials and never falls back to an API key. The unmodified built-in
+provider is used. Its connection internals cannot be overridden through a custom
+provider definition; reported transport errors terminate the owned process.
+There are no automatic policy/context or native-calculation restarts. The
+separate Responses adapter remains an optional interface, outside this plan.
 
 Preflight accepts exactly `parent.json` and `packet.json` for the scalar arm.
 The physics arm additionally accepts the registered SOC-z/SOC-x `electronic.json`
@@ -57,10 +74,19 @@ python -m siesta_remag.research.isolated_policy preflight \
 
 Preflight makes no model, solver or allocation request. `create` records a new
 private context only; `step` is the separately authorized live model operation.
-Credentials are supplied outside chat through `OPENAI_API_KEY`. A syntactically
-valid configuration and credential presence do not prove service/model access.
-The optional model adapter records requested model, returned model, tokens,
-timeouts and uncertain attempts. Equal limits do not prove equal actual compute.
+A `REMAG-CODEX-POLICY/1` configuration pins the installed binary SHA-256,
+`gpt-6-astra`, `xhigh`, the finite request timeout, disabled MCP server names and
+the common research brief. The CLI selects this backend from the config format.
+Existing ChatGPT login is required; no separate API account is required. Native
+provider prompt inspection and managed-login initialization have passed without
+inference. Live model availability is still subject to existing account quota.
+Stop on unavailable access or limits; do not purchase credits, switch models or
+restart the context.
+
+Codex receipts retain requested model, reasoning effort, reported token usage,
+context/decision hashes and process events. The broker enforces ten actions
+before scoring and two afterward. No API-style output-token ceiling is claimed
+for Codex. Equal action/time bounds do not establish equal actual model compute.
 
 The local regression suite runs both twelve-action histories through the
 production request builder, response decoder, ToolHost and GPAC using synthetic
@@ -70,10 +96,13 @@ and verifies preflight, deadlines, immutable seals and score release. Fresh
 process preflights also pass on hash-identical copies of the actual r5 seed
 inputs. These are software tests, not live Astra acceptance or forecasts.
 
-Two local fake-server probes of desktop CLI 0.165.0-alpha.1.2 still advertised
-collaboration tools despite disabled feature flags, including with a clean child
-environment. That route is rejected for clean acceptance. No live model or
-shared-agent tool was invoked by those probes. The new broker does not use it.
+The original two failed local probes are retained. A later test used the actual
+installed Codex app-server with a loopback fake model: both twelve-decision
+histories completed, sibling prediction IDs and environment/file canaries never
+crossed contexts, collaboration tools were absent, and all three forced native
+tool attempts held their contexts. Normal-provider prompt rendering confirms
+the same collaboration exclusion without a fake-provider override. These local
+proofs make no claim about live Astra prediction quality.
 
 ## Smallest remaining measurement plan
 
@@ -85,11 +114,11 @@ campaign and all original failures. No new execution is authorized by this guide
    model configuration and two clean broker registrations before any paid call.
    Bind both seals to a newly reviewed operator handoff; never restart the old
    r5 driver or contexts.
-2. With authorized, funded Astra extra-high access, use ten decisions per arm
+2. Using existing Codex access with Astra extra-high, use ten decisions per arm
    to inspect the permitted data, author the fixed ±1/320 axial strains and seal
    four E/F response predictions each. Both seals must pass before GPU spending.
 3. Reuse the existing build for the two unchanged 12³ bundles, one GPU at a time.
-   Each gets one 600-second app / 480-second native / 180-second stage attempt
+   Each gets one 600-second app / 480-second native / 180-second SOC-stage attempt
    and a 75-cent reservation. Verify prior authoritative STOPPED status and
    account availability before each launch using the existing guarded launcher.
    Verify the saved executable/library inside each funded app before solving.
@@ -99,15 +128,17 @@ campaign and all original failures. No new execution is authorized by this guide
    per arm, verify shutdown and close with pass/fail/pending scope.
 
 The remaining GPU reservations total **$1.50**, separate from actual invoices.
-They leave no reserved room for new model-service charges. Local access has no
-configured API key, and the desktop subscription has not been connected to this
-decision-only adapter. At the checked standard Astra price of $50 per million
-output tokens, 24 requests with a 2,048-token output ceiling allow **$2.4576 in
-output charges alone**, plus input. This is a configured ceiling component, not
-an invoice or a minimum cost. An all-in $1.50 completion is therefore not ready
-to authorize with that paid configuration. Existing funded/credited model access
-would have to cover it, or a separately reviewed budget/configuration is needed.
-See [official model pricing](https://developers.openai.com/api/docs/models/gpt-6-astra).
+Policy reasoning uses the existing Codex access selected by the owner; there is
+no separate API purchase, new subscription or credit top-up in this plan. The
+prior API-account funding prerequisite is superseded. Reuse the passed CPU
+preflight; all remaining staging, scoring and review are local. No new CPU app
+reservation is needed. If existing Codex quota is unavailable, hold before GPU
+spending. The old five-cent reservation and all other ledgers remain unchanged.
+
+See the [official configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference)
+for `agents.enabled`, and [app-server authentication](https://learn.chatgpt.com/docs/app-server#authentication)
+for Codex-managed ChatGPT access. Local evidence is retained in
+[the Codex isolation record](../tests/evidence/research/codex-policy-isolation-2026-11-16.json).
 
 The two outcomes finish the clean tool-workflow exercise only. They do not erase
 the completed response-calibration failure or establish scientific advantage,
