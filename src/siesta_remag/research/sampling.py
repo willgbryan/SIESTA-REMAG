@@ -21,7 +21,7 @@ BOHR_ANGSTROM = {'codata2018': .529177210903, 'legacy': .529177}
 
 def native_report_context(endpoint,metadata):
     """Admit optional native context for a standalone spectral comparison."""
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     if (not isinstance(endpoint,dict) or not {'report','stage'}<=set(endpoint)
             or set(endpoint)-{'report','stage','collection'} or not isinstance(endpoint['stage'],str)
             or not re.fullmatch(r'scalar|soc-[a-z][a-z0-9_-]{0,31}',endpoint['stage'])):

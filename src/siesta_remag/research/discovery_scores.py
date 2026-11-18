@@ -71,7 +71,7 @@ def validate_policy(value):
 
 def _endpoint(root, value, source, export):
     from .study import _path
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     _fields(value, {'report'}, {'collection'})
     path = _path(root, value['report'])
     r = _verified_report(path, _path(root, value['collection']) if 'collection' in value else None)

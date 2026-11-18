@@ -107,7 +107,7 @@ def export_matrices(report_path, stage, native_directory, output, *, k_indices=N
     Native files may have been recovered separately; their bytes must match the
     original report. Nothing is computed by a native solver or submitted here.
     """
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     report_path = Path(report_path).resolve()
     report = _verified_report(report_path, collection)
     matches = [s for s in report['stages'] if s['stage'] == stage]

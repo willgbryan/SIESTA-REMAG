@@ -141,7 +141,7 @@ class ModalExecution:
 
 
 def _review(attempt, request, runtime):
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     root = attempt/'collected'; verify_archive(root)
     top = load(root/'report.json'); policy = load(attempt/'campaign/execution.json')
     if top['invocation_sha256'] != digest(policy) or top.get('policy') != policy:

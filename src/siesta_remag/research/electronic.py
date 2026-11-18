@@ -181,7 +181,7 @@ def finite_difference(points, *, parameter_unit, property_unit):
 
 def export_native_spectrum(report_path, stage, directory, output, *, collection=None, collinear_spin=0):
     """Saved-only, source-bound spectrum export for the research tool host."""
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     report_path, directory = Path(report_path).resolve(), Path(directory).resolve()
     report = _verified_report(report_path, collection)
     if (type(collinear_spin) is not int or collinear_spin not in (0, 1) or

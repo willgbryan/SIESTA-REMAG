@@ -79,7 +79,7 @@ def project_soc(operator, overlap, coefficients, occupations):
 
 def export_soc(report_path, stage, native_directory, output, *, k_indices=None, collection=None):
     """Export at most eight k points with matching total-H, S and PAO evidence."""
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     report_path=Path(report_path).resolve(); native=Path(native_directory).resolve()
     report=_verified_report(report_path,collection)
     paths={key:native/name for key,name in [('operator','remag.SOC.HSX'),('metadata','remag.SOC.json'),('hsx','remag.HSX')]}

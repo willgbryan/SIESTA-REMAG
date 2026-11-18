@@ -26,7 +26,7 @@ def prepare_experiment(export, pseudos, output, *, settings=None, mesh=None,
     verified = verify_export(export)
     authorship = None
     if candidate is not None:
-        from .authoring import verify_candidate
+        from .source_binding import verify_candidate
         candidate = Path(candidate)
         authorship = verify_candidate(candidate)
         if authorship['source_sha256'] != verified['source']['sha256'] or authorship['export_sha256'] != verified['sha256']:

@@ -59,7 +59,7 @@ def validate_target(target):
 
 
 def _endpoint(endpoint, target):
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     required={'report'} | ({'spectrum'} if target['kind']=='spectral_response' else {'diagnostic'} if target['kind']=='diagnostic_response' else set())
     if not isinstance(endpoint,dict) or not required<=set(endpoint) or set(endpoint)-required-{'collection'}:
         raise ValueError('Response endpoint requires a report and its target-specific spectrum or diagnostic')

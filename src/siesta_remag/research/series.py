@@ -317,7 +317,7 @@ def analyze_series(directory, evidence, observables, output, *, error_bounds=Non
     All parent atom selections use the exact authoring correspondence. Native
     failure, missing points and magnetic branch changes remain in the report.
     """
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     from .electronic import finite_difference
     directory=Path(directory).resolve();output=Path(output)
     if output.exists():raise FileExistsError('Response analysis output must be new')

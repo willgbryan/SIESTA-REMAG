@@ -131,7 +131,7 @@ def _printed_moments(path, orbitals):
 
 def export_orbital_moments(report_path, stage, native_directory, output, *, collection=None):
     """Inspect an accepted saved native SOC stage without running a solver."""
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     report_path = Path(report_path).resolve()
     if not isinstance(stage, str) or not re.fullmatch(r'[A-Za-z0-9_-]+', stage):
         raise ValueError('Invalid native stage name')

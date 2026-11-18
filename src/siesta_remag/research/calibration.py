@@ -31,7 +31,7 @@ def report_endpoints(values, resolve=Path):
 
 
 def _series(paths):
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     rows, fixed = {}, None
     for endpoint in report_endpoints(paths):
         path=endpoint['report'].resolve()

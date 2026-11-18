@@ -112,7 +112,7 @@ def reference_mixture(composition, energies, reference_compositions):
 
 def load_reference_phases(root, policy, references):
     from .study import _path
-    from .tools import _verified_report
+    from .evidence import verify_report as _verified_report
     from .discovery_scores import _fields,report_interval
     declared=set(policy['reference_sources'])
     if not isinstance(references,dict) or set(references)-declared:raise ValueError('Unregistered reference phase')
