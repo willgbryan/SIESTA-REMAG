@@ -5,7 +5,8 @@ solve. Different BLAS implementations can differ at the last binary places.
 Retained bytes/hashes remain exact. Reconstructed coordinates may differ by
 eight binary64 epsilons. A nonzero SOC axis component in the manifest may
 differ by one representable step or reproduce exactly from the same lattice
-using a different binary64 reduction. The rendered spin instructions must match.
+using a different binary64 reduction. For identical axes, a polar angle may
+also reproduce from the equivalent atan2 evaluation at a decimal rounding boundary.
 This is a serialization bound, never a native convergence tolerance.
 """
 from pathlib import Path
@@ -59,6 +60,30 @@ def _reconstructed_axes(cell, stage):
     return axes
 
 
+def _matches_polar_rendering(expected, actual, manifest):
+    """Reproduce the entire spin block from the exact axis and signed moments."""
+    start, end = '%block DM.InitSpin\n', '%endblock DM.InitSpin\n'
+    if expected.count(start) != 1 or expected.count(end) != 1:
+        return False
+    first, last = expected.index(start) + 1, expected.index(end)
+    moments = manifest['initial_moments_muB']
+    if last - first != len(moments) or expected[:first] != actual[:first] or expected[last:] != actual[last:]:
+        return False
+    x, y, z = manifest['direction']
+    z = min(1.0, max(-1.0, z))
+    polar = math.acos(z)
+    alternate = math.atan2(math.sqrt((1.0-z)*(1.0+z)), z)
+    if abs(alternate-polar) > math.ulp(polar):
+        return False
+    phi = math.degrees(math.atan2(y, x))
+    variants = []
+    for angle in (polar, alternate):
+        theta = math.degrees(angle)
+        variants.append([f'{i} {abs(m):.12f} {theta if m >= 0 else 180-theta:.12f} '
+                         f'{phi if m >= 0 else phi+180:.12f}\n' for i, m in enumerate(moments, 1)])
+    return expected[first:last] in variants and actual[first:last] in variants
+
+
 def verify_prepared_input(expected, actual):
     expected, actual = Path(expected), Path(actual)
     manifests = [load(p/'manifest.json') for p in (expected, actual)]
@@ -96,13 +121,18 @@ def verify_prepared_input(expected, actual):
             axes = _reconstructed_axes(a['geometry']['lattice_A'], a['name'])
             if tuple(left) in axes and tuple(right) in axes:
                 ignored.add('direction')
+    spin_roundoff = (stripped[0] != stripped[1] and a['spin'] == b['spin'] == 'spin-orbit' and
+                     a['direction'] == b['direction'] and _matches_polar_rendering(*stripped, a))
     if ({k:v for k,v in a.items() if k not in ignored} != {k:v for k,v in b.items() if k not in ignored} or
             {k:v for k,v in a['geometry'].items() if k != 'fractional_coordinates'} !=
             {k:v for k,v in b['geometry'].items() if k != 'fractional_coordinates'} or
-            stripped[0] != stripped[1] or coordinates[0].shape != coordinates[1].shape):
+            (stripped[0] != stripped[1] and not spin_roundoff) or coordinates[0].shape != coordinates[1].shape):
         raise ValueError('Native input does not reproduce from the source-bound preparation')
     delta = float(np.max(np.abs(coordinates[0]-coordinates[1])))
     if not np.isfinite(delta) or delta > FRACTIONAL_ROUNDOFF:
         raise ValueError('Native input coordinates exceed portable reconstruction roundoff')
-    return dict(exact_input_bytes=texts[0] == texts[1], max_fractional_reconstruction_delta=delta,
-                fractional_roundoff_bound=float(FRACTIONAL_ROUNDOFF), retained_hashes_verified=True)
+    proof = dict(exact_input_bytes=texts[0] == texts[1], max_fractional_reconstruction_delta=delta,
+                 fractional_roundoff_bound=float(FRACTIONAL_ROUNDOFF), retained_hashes_verified=True)
+    if spin_roundoff:
+        proof['soc_polar_rendering_reproduced'] = True
+    return proof

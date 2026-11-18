@@ -70,6 +70,34 @@ def test_fe2co_lattice_axis_reproduces_both_binary64_dot_reductions():
     assert (*native[:2], np.nextafter(native[2], 0)) not in axes
 
 
+def test_fe10co3_polar_rounding_requires_one_consistent_reconstructed_block(pair, monkeypatch):
+    import math
+    original, _ = pair
+    axis = [0.00036517154982476305, 0.9941769384487912, -0.10775936945958714]
+    # The saved Linux acos and Darwin acos differ by one binary64 step.
+    native = 1.6787653453881948
+    monkeypatch.setattr(math, 'acos', lambda z: math.nextafter(native, 0.))
+    atoms = Atoms('Ni2', scaled_positions=[[0,0,0],[.5,.5,.5]], cell=[3.5]*3, pbc=True)
+    a = prepare_case(atoms, original.parent/'pseudos', original.parent/'soc-y', Settings(),
+                     direction=axis, spins=[2.48, -1.68])
+    b = original.parent/'linux'; shutil.copytree(a, b)
+    f = b/'input.fdf'
+    initial = f.read_text()
+    def replace_angles(positive, negative):
+        text = initial.replace('2.480000000000 96.186169083565', '2.480000000000 '+positive)
+        text = text.replace('1.680000000000 83.813830916435', '1.680000000000 '+negative)
+        assert text != initial
+        f.write_text(text)
+        m = load(b/'manifest.json'); m['input_sha256'] = sha256(f); save(b/'manifest.json', m)
+    replace_angles('96.186169083566', '83.813830916434')
+    assert verify_prepared_input(a, b)['soc_polar_rendering_reproduced']
+    for positive, negative in [('96.186169083567','83.813830916434'),
+                               ('96.186169083566','83.813830916435')]:
+        replace_angles(positive, negative)
+        with pytest.raises(ValueError):
+            verify_prepared_input(a, b)
+
+
 @pytest.mark.parametrize('change',['larger_coordinate','cell','species','settings','moment','option','coordinate_species','forged_hash','unrecorded_coordinate','newline'])
 def test_roundoff_rule_cannot_admit_other_changes(pair,change):
     a,b=pair;m=load(b/'manifest.json');p=b/'input.fdf'
