@@ -82,6 +82,7 @@ def verify_native_reproduction(saved, replayed, settings):
 
 def _possible_net_changes(current, reference):
     """Reproduce 3-vector length reductions from the recorded binary64 inputs."""
+    from fractions import Fraction
     from itertools import permutations
 
     def lengths(row):
@@ -92,6 +93,12 @@ def _possible_net_changes(current, reference):
         candidates = {math.hypot(x, y, z), float(np.linalg.norm(vector))}
         for a, b, c in permutations((x, y, z)):
             candidates.add(math.sqrt((a*a + b*b) + c*c))
+            # A BLAS dot product can fuse either multiply-add. Exact rational
+            # products followed by float() reproduce the single rounding.
+            ab_fused = float(Fraction(a)**2 + Fraction(b*b))
+            for partial in (a*a + b*b, ab_fused):
+                candidates.add(math.sqrt(partial + c*c))
+                candidates.add(math.sqrt(float(Fraction(partial) + Fraction(c)**2)))
         return candidates
 
     return {abs(a-b)/b for a in lengths(current) for b in lengths(reference) if b > 1e-8}

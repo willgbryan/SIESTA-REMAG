@@ -81,3 +81,16 @@ def test_feco_net_change_replays_only_attainable_values():
         verify(dict(saved, net_fractional_change=math.nextafter(saved['net_fractional_change'], 1)), Settings())
     with pytest.raises(ValueError):
         verify(saved, Settings(branch_net_fraction=local['net_fractional_change']))
+
+
+def test_fused_dot_reproduces_saved_fe7co5_branch():
+    import math
+    cur = dict(atom_moments_muB=[[0., 0., 2.]], total_moment_muB=[-.00017, .00005, 28.16662])
+    ref = dict(cur, total_moment_muB=[0., 0., 28.18967])
+    local = dict(passed=True, robust_site_flip=False, site_rms_mub=.0019473526957242597,
+                 net_fractional_change=.0008176753911131946)
+    fused = dict(local, net_fractional_change=.0008176753911130685)
+    assert not verify_branch_reproduction(fused, local, cur, ref, Settings())['exact']
+    unattainable = dict(fused, net_fractional_change=math.nextafter(fused['net_fractional_change'], 1.))
+    with pytest.raises(ValueError, match='does not reproduce'):
+        verify_branch_reproduction(unattainable, local, cur, ref, Settings())
