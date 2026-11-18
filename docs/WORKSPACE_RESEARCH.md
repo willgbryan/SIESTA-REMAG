@@ -154,3 +154,27 @@ records produce an unavailable response; they are not reported as success.
 The activity view was rendered in the in-app browser at narrow panel width and
 its recorded-hypothesis disclosure was checked. This is not blanket visual
 acceptance of every scientific inspection panel.
+
+### Synthesis
+
+Open **Inspect → Synthesis** for a registered candidate. To open a candidate directly, use
+`/ide#synthesis/<candidate-id>`. Viewing the tab reads the workspace receipts. An editable
+server with `NEWFOUND_API_KEY` in its environment also exposes **Assess with Newfound**.
+Set the credential through the server's local environment or secret manager.
+
+The assessment sends the finest measured native variable-cell geometry available for the
+selected GPAC source, falling back to the authored cell. The submitted CIF is bound to the
+source and saved with the structure response from Newfound. The accessibility and recipe
+searches share results across orderings of the same reduced formula. The baseline uses
+a closed system at 500 and 1000 °C. The accessibility score describes modeled reaction
+driving force. Experimental formation of a specific ordering requires separate evidence.
+
+The same operations are available to a research agent:
+
+```sh
+python -m siesta_remag.research synthesis --workspace WORKSPACE --candidate ID --source-sha256 HASH --submit
+python -m siesta_remag.research synthesis --workspace WORKSPACE --candidate ID --source-sha256 HASH
+```
+
+Receipts live in `WORKSPACE/synthesis/newfound/`. Reopening a completed assessment reads
+saved results. **Check existing jobs** checks the provider's returned job identifiers.

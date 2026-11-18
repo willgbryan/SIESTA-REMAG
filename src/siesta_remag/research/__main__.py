@@ -172,6 +172,11 @@ def main(argv=None):
     p.add_argument('bundle', type=Path)
     p.add_argument('--runtime', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('synthesis', help='Read saved Newfound synthesis results or explicitly submit a candidate')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--candidate', required=True)
+    p.add_argument('--source-sha256', required=True)
+    p.add_argument('--submit', action='store_true', help='Send the selected geometry and formula to Newfound')
     p = sub.add_parser('serve', help='Open local scientific workspace')
     p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--port', type=int, default=8765)
@@ -275,6 +280,14 @@ def main(argv=None):
         result = execute_relaxation(args.workspace, args.execution_config, args.structure, args.bundle, args.output)
         print(json.dumps(result, indent=2, allow_nan=False))
         return 0 if result['status'] == 'measured' else 2
+    if args.command == 'synthesis':
+        from .newfound import screen, view
+        result = (screen if args.submit else view)(args.workspace, args.candidate, args.source_sha256)
+        print(json.dumps(result, indent=2, allow_nan=False))
+        if not args.submit:
+            return 0
+        return 0 if result['status']=='saved' and not result['missing_steps'] and not result['jobs_pending'] and all(
+            s['status']=='returned' for s in result['steps'].values()) else 2
     if args.command == 'serve':
         from .workspace import serve
         serve(args.workspace, args.port, editable=args.editable)

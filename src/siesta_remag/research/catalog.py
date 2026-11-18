@@ -111,6 +111,11 @@ def registered_dataset(root, *, include_sampling=True):
         row=dict(strain=0,exact_strain='0',label=entry['label'],structure=export,structure_path=entry['structure'],
             coordination=coordination(export['geometry'],cutoff_angstrom=3.4),
             parameters=describe_dofs(export['source']['program']),calculations=[],result=None)
+        if include_sampling:
+            from .newfound import view as synthesis_view
+            saved = synthesis_view(root, entry['id'], export['source']['sha256'])
+            if saved['status'] != 'empty':
+                row['synthesis'] = saved
         if 'candidate' in entry:
             row['candidate']=verify_candidate(resolver.path(entry['candidate']))
             if row['candidate']['source_sha256']!=export['source']['sha256']:

@@ -66,6 +66,8 @@ main:has(.source-editor:not([hidden])) aside{grid-column:3}
  header{height:44px}.workspace-tabs button{padding:8px 0}main{padding-top:10px;gap:8px}.foot{margin-top:8px;margin-bottom:8px}
  .source-editor textarea{min-height:70px;flex-basis:70px}.editor-heading{margin-bottom:6px}.editor-help{margin-top:0}
 }
+.synthesis-links{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.synthesis-links a{color:var(--ink);font-size:12px}
+#synth-results details summary{overflow-wrap:anywhere}#synth-results details pre{max-width:100%;overflow:auto}
 </style>
 <header><h1>Crystal research</h1><small>GPAC × REMAG</small><div class="legend"></div><button id="refresh" title="Refresh calculations" aria-label="Refresh calculations">↻</button></header>
 <nav class="workspace-tabs" aria-label="Workspace panels">
@@ -87,7 +89,7 @@ main:has(.source-editor:not([hidden])) aside{grid-column:3}
 <div class="views"><button data-view="perspective" title="Perspective view">3D</button><button data-view="x" title="View along a">a</button><button data-view="y" title="View along b">b</button><button data-view="z" title="View along c">c</button><button id="reset" title="Reset view">↺</button></div><span class="stage-bottom">1 × 1 × 1 · UNIT CELL</span>
 </section>
 <aside id="inspector">
-<nav class="tabs" aria-label="Inspection panels" role="tablist"><button id="tab-structure" role="tab" aria-selected="true" aria-controls="structure" data-tab="structure">Structure</button><button id="tab-response" role="tab" aria-selected="false" aria-controls="response" data-tab="response">Response</button><button id="tab-electronic" role="tab" aria-selected="false" aria-controls="electronic" data-tab="electronic">Electronic</button></nav>
+<nav class="tabs" aria-label="Inspection panels" role="tablist"><button id="tab-structure" role="tab" aria-selected="true" aria-controls="structure" data-tab="structure">Structure</button><button id="tab-response" role="tab" aria-selected="false" aria-controls="response" data-tab="response">Response</button><button id="tab-electronic" role="tab" aria-selected="false" aria-controls="electronic" data-tab="electronic">Electronic</button><button id="tab-synthesis" role="tab" aria-selected="false" aria-controls="synthesis" data-tab="synthesis">Synthesis</button></nav>
 <section class="panel" id="structure" role="tabpanel" aria-labelledby="tab-structure">
 <label class="toggle" id="observed-toggle" hidden><input id="observed" type="checkbox">Relaxed geometry</label><div class="kicker">c / a</div><div class="value" id="ratio">—</div>
 <div class="pair"><span>a · b</span><span id="a-value">—</span></div><div class="pair"><span>c</span><span id="c-value">—</span></div><div class="pair"><span>Volume</span><span id="volume">—</span></div>
@@ -143,6 +145,12 @@ main:has(.source-editor:not([hidden])) aside{grid-column:3}
 </div>
 <div id="orbital-moment-selection" hidden><div class="rule"></div><div class="kicker">Orbital moment · μB</div><div class="pair"><span>Selection · x, y, z</span><span id="orbital-moment-vector">—</span></div><details><summary>Orbital contributions</summary><div id="orbital-moment-contributions"></div></details><details><summary>Moment convention</summary><p class="note">Native onsite, same-zeta approximation · Cartesian frame. Basis-dependent local moments.</p></details></div>
 <div id="matrix-selection" hidden><div class="rule"></div><div class="kicker">Orbital coupling · eV</div><select id="matrix-k" class="calc" aria-label="Matrix k point"></select><div id="matrix-couplings"></div><div class="note" id="matrix-scope"></div><details><summary>Coupling convention</summary><p class="note">Symmetric Löwdin atom / l blocks · Frobenius norm. Basis-dependent coupling proxy; includes all Hamiltonian terms.</p></details></div>
+</section>
+<section class="panel" id="synthesis" role="tabpanel" aria-labelledby="tab-synthesis" hidden>
+<div class="kicker">Newfound Materials</div>
+<p class="note" id="synth-status" role="status" aria-live="polite"></p>
+<div id="synth-results"></div>
+<button type="button" id="synth-run" hidden>Assess with Newfound</button>
 </section><p id="error" role="alert"></p>
 </aside>
 <section class="strain" aria-label="Structural control"><div><select id="family" class="control-select" aria-label="Structural control"></select><div class="note" id="control-hint" style="margin-top:6px"></div></div><div><input id="strain" aria-label="Control scale" type="range" min="0" max="8" value="4" step="1"><div class="ticks" id="ticks"></div></div><output id="strain-value"></output></section>
@@ -201,19 +209,123 @@ function measured(calc){
  return Number.isFinite(z)&&Number.isFinite(x)?(x-z)*1000:null;
 }
 async function load(){try{
- const previous=data?row().structure.source.sha256:null,saved=$('#saved-state');
+ const opening=!data,previous=data?row().structure.source.sha256:null,saved=$('#saved-state');
  if(saved){data=JSON.parse(saved.textContent)}else{const response=await fetch('/api/state');if(!response.ok)throw Error('Unable to load workspace');data=await response.json()}
+ const launch=opening&&window.location?.hash.startsWith('#synthesis/')?decodeURIComponent(window.location.hash.slice(11)):null;
+ if(launch&&data.families?.some(f=>f.id===launch))familyId=launch;
  if(data.families?.length&&!data.families.some(f=>f.id===familyId))familyId=data.families[0].id;$('#family').replaceChildren();for(const f of data.families||[family()]){const option=document.createElement('option');option.value=f.id;option.textContent=f.label;$('#family').append(option)}$('#family').value=family().id;
  index=rows().findIndex(r=>r.structure.source.sha256===previous);if(index<0)index=rows().findIndex(r=>r.strain===0);if(index<0)index=0;
- selectedCalc=null;$('#observed').checked=false;orbitSelection=null;update();$('#error').textContent='';
+ selectedCalc=null;$('#observed').checked=false;orbitSelection=null;update();if(launch)$('#tab-synthesis').click();else if(!$('#synthesis').hidden)syncSynthesis(true);$('#error').textContent='';
  }catch(e){$('#error').textContent=e.message}}
+let synthSelection='', synthVersion=0;
+const synthRunning=new Set();
+function synthesisSelection(){
+ return {candidate:family().id,source:row().structure.source.sha256};
+}
+function synthesisLine(parent,label,value){
+ const line=document.createElement('div');line.className='pair';
+ for(const text of [label,value]){const el=document.createElement('span');el.textContent=text;line.append(el)}
+ parent.append(line);
+}
+function synthesisText(parent,text,style='note'){
+ const el=document.createElement('p');el.className=style;el.textContent=text;parent.append(el);return el;
+}
+function synthesisDetails(parent,title,content){
+ const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');
+ summary.textContent=title;pre.textContent=JSON.stringify(content,null,2);details.append(summary,pre);parent.append(details);
+}
+function showSynthesis(record){
+ const panel=$('#synth-results'),status=$('#synth-status'),run=$('#synth-run');
+ panel.replaceChildren();run.hidden=true;
+ if(!record?.binding){
+  status.textContent=record?.status==='empty'?'No saved Newfound assessment.':'Loading assessment…';
+  if(record?.status==='empty' && data.synthesis_enabled && family().mode==='structure'){
+   run.hidden=false;run.disabled=synthRunning.has(synthSelection);run.textContent=run.disabled?'Assessing…':'Assess with Newfound';
+   synthesisText(panel,'Sends the selected cell and requests a shared composition-level recipe search. Newfound credits may apply.');
+  }
+  return;
+ }
+ const b=record.binding,steps=record.steps;
+ if(data.synthesis_enabled&&(record.jobs_pending||record.missing_steps)){
+  run.hidden=false;run.disabled=synthRunning.has(synthSelection);
+  run.textContent=record.jobs_pending?'Check existing jobs':'Collect remaining results';
+ }
+ status.textContent=b.sites+' sites · '+b.origin+(b.k_spacing_inv_ang?' · '+b.k_spacing_inv_ang+' Å⁻¹':'');
+ const struct=steps.structure?.result;
+ if(struct?.by_temperature?.length){
+  for(const r of struct.by_temperature) synthesisLine(panel,'Hull at '+r.temperature_c+' °C',r.e_above_hull_mev+' meV/atom');
+  synthesisLine(panel,'Space group',struct.space_group_before+' → '+struct.space_group_after);
+  if(Number.isFinite(struct.volume_change_percent))synthesisLine(panel,'Volume change',struct.volume_change_percent+'%');
+ }else synthesisText(panel,steps.structure?.error||struct?.summary||'Awaiting structure assessment.');
+ const rule=document.createElement('div');rule.className='rule';panel.append(rule);
+ synthesisText(panel,b.formula+' · composition-level synthesis','kicker');
+ renderFormulaResults(panel,steps);
+ for(const [name,title] of [['structure','Structure response'],['accessibility','Accessibility response'],['recipes','Recipe response']]){
+  if(steps[name]?.result)synthesisDetails(panel,title,steps[name].result);
+ }
+}
+async function syncSynthesis(force=false){
+ const panel=$('#synthesis');
+ if(panel.hidden||!data)return;
+ const chosen=synthesisSelection(),key=chosen.candidate+':'+chosen.source;
+ if(!force&&synthSelection===key)return;
+ synthSelection=key;const serial=++synthVersion;
+ if(family().mode!=='structure'||$('#saved-state')){
+  showSynthesis(row().synthesis||{status:'empty'});return;
+ }
+ showSynthesis(null);
+ try{
+  const res=await fetch('/api/synthesis?'+new URLSearchParams(chosen));
+  if(!res.ok)throw Error('Unable to read saved synthesis results.');
+  const result=await res.json();if(serial===synthVersion)showSynthesis(result);
+ }catch(err){if(serial===synthVersion)$('#synth-status').textContent=err.message}
+}
+$('#synth-run').onclick=async()=>{
+ const chosen=synthesisSelection(),key=synthSelection;if(synthRunning.has(key))return;
+ synthRunning.add(key);$('#synth-run').disabled=true;$('#synth-run').textContent='Assessing…';
+ $('#synth-status').textContent='Requesting Newfound results…';
+ try{
+  const res=await fetch('/api/synthesis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(chosen)});
+  const reply=await res.json();if(!reply.ok)throw Error(reply.error?.message||'Submission failed.');
+  if(synthSelection===key)showSynthesis(reply.result);
+ }catch(err){if(synthSelection===key)$('#synth-status').textContent=err.message}
+ finally{synthRunning.delete(key);if(synthSelection===key){$('#synth-run').disabled=false;$('#synth-run').textContent='Assess with Newfound'}}
+};
+function renderFormulaResults(panel,steps){
+ const accessibility=steps.accessibility?.result, recipes=steps.recipes?.result;
+ if(Number.isFinite(accessibility?.score)){
+  synthesisLine(panel,'Accessibility',accessibility.score+' / 100 · '+accessibility.band);
+  const scores=(accessibility.by_temperature||[]).filter(r=>Number.isFinite(r.score)).map(r=>r.temperature_c+' °C: '+r.score+'/100');
+  synthesisText(panel,scores.join(' · ')+' · closed system');
+  synthesisText(panel,'Score measures modeled driving force. The recipe search targets the formula; it does not resolve its orderings.');
+ }else synthesisText(panel,steps.accessibility?.error||accessibility?.summary||'Awaiting accessibility score.');
+ if(steps.recipes?.error)synthesisText(panel,steps.recipes.error);
+ if(Array.isArray(recipes?.recipes)){
+  synthesisText(panel,'Ranked routes · '+recipes.recipes.length+' of '+recipes.recipes_total,'kicker');
+  if(!recipes.recipes.length)synthesisText(panel,'No routes returned.');
+  recipes.recipes.forEach((r,i)=>{
+   const item=document.createElement('details'),label=document.createElement('summary');
+   label.textContent=(i+1)+'. '+r.reaction.replaceAll('->','→');item.append(label);item.open=i===0;
+   synthesisLine(item,'Search conditions',r.run_temperature_c+' °C · '+r.atmosphere);
+   if(Number.isFinite(r.dg_eff_ev_per_atom))synthesisLine(item,'Driving force',Math.round(r.dg_eff_ev_per_atom*1000)+' meV/atom · '+r.quality);
+   if(r.expected_impurities)synthesisText(item,'Modeled impurities: '+Object.keys(r.expected_impurities).join(', '));
+   panel.append(item);
+  });
+  const links=document.createElement('div');links.className='synthesis-links';
+  for(const r of recipes.runs||[]){
+   if(!/^https:\/\/app\.newfoundmaterials\.com\/jobs\/[a-zA-Z0-9-]+$/.test(r.app_url))continue;
+   const a=document.createElement('a');a.href=r.app_url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Newfound · '+r.temperature_c+' °C ↗';links.append(a);
+  }
+  panel.append(links);
+ }else if(!steps.recipes?.error)synthesisText(panel,recipes?.summary||'Awaiting ranked routes.');
+}
 function updateControl(){
  $('#strain').max=rows().length-1;$('#strain').value=index;$('#strain').setAttribute('aria-label',family().label);$('#control-hint').textContent=family().hint;
  $('#strain').disabled=rows().length===1;$('#strain-value').textContent=family().mode==='structure'?'':percent(row().strain);$('#ticks').replaceChildren();
  const ticks=[0,rows().findIndex(r=>r.strain===0),rows().length-1];
  for(const i of new Set(ticks)){if(i<0)continue;const tick=document.createElement('span');tick.textContent=family().mode==='structure'?'':percent(rows()[i].strain);tick.style.left=(rows().length===1?0:100*i/(rows().length-1))+'%';$('#ticks').append(tick)}
 }
-function update(){if(!data)return;const r=row(),g=geo(),cell=g.cell,c=norm(cell[2]),a=norm(cell[0]);site=Math.min(site,g.atomic_numbers.length-1);updateControl();updateStructureControls();$('#a-value').textContent=a.toFixed(3)+' · '+norm(cell[1]).toFixed(3)+' Å';$('#ratio').textContent=(c/a).toFixed(4);$('#c-value').textContent=c.toFixed(3)+' Å';$('#volume').textContent=dot(cell[0],cross(cell[1],cell[2])).toFixed(2)+' Å³';$('#hash').textContent=r.structure.source.sha256.slice(0,12);$('#source').textContent=r.structure.source.program;$('#sites').replaceChildren();g.atomic_numbers.forEach((z,i)=>{const b=document.createElement('button');b.textContent=symbol(z)+' · '+(i+1);b.setAttribute('aria-pressed',i===site);b.onclick=()=>{site=i;orbitSelection=null;update()};$('#sites').append(b)});const orbit=r.structure.orbit_members.find(o=>o.atoms.some(a=>a.site_index===site));$('#orbit').textContent=orbit?.label||'—';const neighbors=neighborsOf(site);$('#coordination').textContent=neighbors.length;$('.stage-bottom').textContent=neighbors.length>64?'FIRST 64 NEIGHBORS · PERIODIC':'1 × 1 × 1 · UNIT CELL';$('#neighbors').replaceChildren();neighbors.forEach(n=>{const e=document.createElement('div');e.className='pair';const a=document.createElement('span'),b=document.createElement('span');a.textContent=symbol(g.atomic_numbers[n.site_index]);b.textContent=n.distance_angstrom.toFixed(3)+' Å';e.append(a,b);$('#neighbors').append(e)});$('#calculations').replaceChildren();(r.calculations||[]).forEach((v,i)=>{const o=document.createElement('option');o.value=i;o.textContent=calculationLabel(v);$('#calculations').append(o)});$('#calculations').hidden=!(r.calculations?.length>1);$('#calculations').value=currentIndex();updateResponse();draw()}
+function update(){if(!data)return;const r=row(),g=geo(),cell=g.cell,c=norm(cell[2]),a=norm(cell[0]);site=Math.min(site,g.atomic_numbers.length-1);updateControl();updateStructureControls();syncSynthesis();$('#a-value').textContent=a.toFixed(3)+' · '+norm(cell[1]).toFixed(3)+' Å';$('#ratio').textContent=(c/a).toFixed(4);$('#c-value').textContent=c.toFixed(3)+' Å';$('#volume').textContent=dot(cell[0],cross(cell[1],cell[2])).toFixed(2)+' Å³';$('#hash').textContent=r.structure.source.sha256.slice(0,12);$('#source').textContent=r.structure.source.program;$('#sites').replaceChildren();g.atomic_numbers.forEach((z,i)=>{const b=document.createElement('button');b.textContent=symbol(z)+' · '+(i+1);b.setAttribute('aria-pressed',i===site);b.onclick=()=>{site=i;orbitSelection=null;update()};$('#sites').append(b)});const orbit=r.structure.orbit_members.find(o=>o.atoms.some(a=>a.site_index===site));$('#orbit').textContent=orbit?.label||'—';const neighbors=neighborsOf(site);$('#coordination').textContent=neighbors.length;$('.stage-bottom').textContent=neighbors.length>64?'FIRST 64 NEIGHBORS · PERIODIC':'1 × 1 × 1 · UNIT CELL';$('#neighbors').replaceChildren();neighbors.forEach(n=>{const e=document.createElement('div');e.className='pair';const a=document.createElement('span'),b=document.createElement('span');a.textContent=symbol(g.atomic_numbers[n.site_index]);b.textContent=n.distance_angstrom.toFixed(3)+' Å';e.append(a,b);$('#neighbors').append(e)});$('#calculations').replaceChildren();(r.calculations||[]).forEach((v,i)=>{const o=document.createElement('option');o.value=i;o.textContent=calculationLabel(v);$('#calculations').append(o)});$('#calculations').hidden=!(r.calculations?.length>1);$('#calculations').value=currentIndex();updateResponse();draw()}
 function updateResponse(){const calc=current(),a=calc?.anisotropy,value=measured(calc);$('#observable-label').textContent=(observable==='total_energy_ev'?'E':'F')+'[100] − '+(observable==='total_energy_ev'?'E':'F')+'[001]';$('#status').textContent=calc?(calc.status==='measured'?'Measured':calc.status.replaceAll('_',' ')):'Awaiting DFT';$('#status').className='status'+(a?' measured':'');$('#mae').textContent=value===null?'—':value.toFixed(4);$('#scf').textContent=calc?calc.stages.filter(s=>s.accepted).length+' / '+calc.stages.length:'—';$('#calculation').textContent=calc?JSON.stringify({settings:calc.settings,kmesh:calc.kmesh,basis_size:calc.basis_size,basis_spec:calc.basis_spec,basis_energy_shift_ry:calc.basis_energy_shift_ry,pseudopotentials:calc.pseudopotentials,stages:calc.stages,verification:calc.verification,angular_fit:calc.angular_fit,executable_sha256:calc.executable_sha256},null,2):'No calculation';$('#directions').replaceChildren();if(calc){const energies=['z','x','y'].map(k=>calc.observations['soc-'+k]?.[observable]);const deltas=energies.map(v=>(v-energies[0])*1000),max=Math.max(...deltas.filter(Number.isFinite).map(Math.abs),.0001);deltas.forEach((v,i)=>{if(!Number.isFinite(v))return;const div=document.createElement('div');div.className='energy-row';const label=document.createElement('span'),track=document.createElement('span'),value=document.createElement('span');label.textContent=['[001]','[100]','[010]'][i];track.className='energy-bar '+(i===1?'x':'');track.style.width=Math.max(2,Math.abs(v)/max*100)+'%';value.textContent=v.toFixed(4);div.append(label,track,value);$('#directions').append(div)})}const stages=[...new Set([...Object.keys(calc?.spectra||{}),...Object.keys(calc?.matrices||{}),...Object.keys(calc?.orbital_moments||{})])];if(!stages.includes(spectrumStage))spectrumStage=stages.includes('soc-z')?'soc-z':stages[0];$('#spectrum-stage').replaceChildren();for(const stage of stages){const option=document.createElement('option');option.value=stage;option.textContent=stage;$('#spectrum-stage').append(option)}$('#spectrum-stage').value=spectrumStage||'';$('#spectrum-stage').hidden=stages.length<2;const obs=calc?.observations[spectrumStage]||calc?.observations['soc-z']||calc?.observations.scalar;$('#moment').textContent=obs?.total_moment_muB?norm(obs.total_moment_muB).toFixed(3):'—';$('#fermi').textContent=Number.isFinite(obs?.fermi_energy_ev)?obs.fermi_energy_ev.toFixed(4)+' eV':'—';$('#site-moment').textContent=obs?.atom_moments_muB?.[site]?norm(obs.atom_moments_muB[site]).toFixed(3)+' μB':'—';updateReciprocal();spectrumChart(spectrum());updateStates();updateCouplings();updateOrbitalMoments();chart()}
 function chart(){
  const svg=$('#chart');svg.replaceChildren();const active=current();if(family().mode==='structure'){$('#chart-note').textContent='Single registered structure';return;}
@@ -434,6 +546,6 @@ function draw(){
  for(const[v,label,color]of [[[.7,0,0],'a',gray],[[0,.7,0],'b',gray],[[0,0,.7],'c',pink]]){const a=project(center),b=project(add(center,v)),axisScale=Math.min(.65,24/(scale*.7));ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox+(b[0]-a[0])*axisScale,oy+(b[1]-a[1])*axisScale);ctx.strokeStyle=color;ctx.stroke();ctx.fillStyle=color;ctx.font='10px Arial';ctx.fillText(label,ox+(b[0]-a[0])*axisScale*1.25,oy+(b[1]-a[1])*axisScale*1.25)}
  ctx.strokeStyle=gray;ctx.beginPath();ctx.moveTo(13,h-60);ctx.lineTo(13+scale,h-60);ctx.stroke();ctx.fillStyle=gray;ctx.font='10px Arial';ctx.fillText('1 Å',13+scale/2-6,h-45)
 }
-canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];moved=false;canvas.setPointerCapture(e.pointerId)};canvas.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag[0],dy=e.clientY-drag[1];if(Math.abs(dx)+Math.abs(dy)>2)moved=true;ry+=dx*.008;rx+=dy*.008;drag=[e.clientX,e.clientY];draw()};canvas.onpointerup=e=>{if(!moved){const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,a=[...hit].reverse().find(a=>Math.hypot(x-a.x,y-a.y)<a.radius+4);if(a){site=a.i;orbitSelection=null;update()}}drag=null};canvas.onkeydown=e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();ry+=e.key==='ArrowLeft'?-.1:e.key==='ArrowRight'?.1:0;rx+=e.key==='ArrowUp'?-.1:e.key==='ArrowDown'?.1:0;draw()}};$('#strain').oninput=e=>{const previous=current();index=Number(e.target.value);selectedCalc=row().calculations?.findIndex(c=>matches(c,previous))??null;if(selectedCalc<0)selectedCalc=null;update()};$('#family').onchange=e=>{familyId=e.target.value;index=Math.max(0,rows().findIndex(r=>r.strain===0));selectedCalc=null;orbitSelection=null;$('#observed').checked=false;selectedK=null;selectedBand=null;update()};document.querySelectorAll('[data-quantity]').forEach(b=>b.onclick=()=>{observable=b.dataset.quantity;document.querySelectorAll('[data-quantity]').forEach(x=>x.setAttribute('aria-pressed',x===b));updateResponse()});$('#calculations').onchange=e=>{selectedCalc=Number(e.target.value);updateResponse()};$('#bonds').onchange=draw;$('#refresh').onclick=load;$('#reset').onclick=()=>{rx=-.35;ry=.6;draw()};document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{[rx,ry]=({x:[0,Math.PI/2],y:[Math.PI/2,0],z:[0,0],perspective:[-.35,.6]})[b.dataset.view];draw()});document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.setAttribute('aria-selected',x===b));document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!==b.dataset.tab);showWorkspacePane('inspect')});$('#download').onclick=()=>{const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(row().structure,null,2)],{type:'application/json'}));a.href=url;a.download='structure-'+row().structure.source.sha256.slice(0,12)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};$('#selection-orbit').onchange=e=>{orbitSelection=e.target.value||null;if(orbitSelection)site=selectedAtoms()[0];update()};$('#observed').onchange=update;$('#spectrum-stage').onchange=e=>{spectrumStage=e.target.value;selectedK=null;selectedBand=null;updateResponse()};$('#k-select').onchange=e=>{selectedK=e.target.value;selectedBand=null;updateStates()};$('#band-select').onchange=e=>{selectedBand=e.target.value;updateStates()};$('#matrix-k').onchange=updateCouplings;new ResizeObserver(draw).observe(canvas);load();
+canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];moved=false;canvas.setPointerCapture(e.pointerId)};canvas.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag[0],dy=e.clientY-drag[1];if(Math.abs(dx)+Math.abs(dy)>2)moved=true;ry+=dx*.008;rx+=dy*.008;drag=[e.clientX,e.clientY];draw()};canvas.onpointerup=e=>{if(!moved){const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,a=[...hit].reverse().find(a=>Math.hypot(x-a.x,y-a.y)<a.radius+4);if(a){site=a.i;orbitSelection=null;update()}}drag=null};canvas.onkeydown=e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();ry+=e.key==='ArrowLeft'?-.1:e.key==='ArrowRight'?.1:0;rx+=e.key==='ArrowUp'?-.1:e.key==='ArrowDown'?.1:0;draw()}};$('#strain').oninput=e=>{const previous=current();index=Number(e.target.value);selectedCalc=row().calculations?.findIndex(c=>matches(c,previous))??null;if(selectedCalc<0)selectedCalc=null;update()};$('#family').onchange=e=>{familyId=e.target.value;index=Math.max(0,rows().findIndex(r=>r.strain===0));selectedCalc=null;orbitSelection=null;$('#observed').checked=false;selectedK=null;selectedBand=null;update()};document.querySelectorAll('[data-quantity]').forEach(b=>b.onclick=()=>{observable=b.dataset.quantity;document.querySelectorAll('[data-quantity]').forEach(x=>x.setAttribute('aria-pressed',x===b));updateResponse()});$('#calculations').onchange=e=>{selectedCalc=Number(e.target.value);updateResponse()};$('#bonds').onchange=draw;$('#refresh').onclick=load;$('#reset').onclick=()=>{rx=-.35;ry=.6;draw()};document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{[rx,ry]=({x:[0,Math.PI/2],y:[Math.PI/2,0],z:[0,0],perspective:[-.35,.6]})[b.dataset.view];draw()});document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.setAttribute('aria-selected',x===b));document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!==b.dataset.tab);showWorkspacePane('inspect');if(b.dataset.tab==='synthesis')syncSynthesis(true)});$('#download').onclick=()=>{const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(row().structure,null,2)],{type:'application/json'}));a.href=url;a.download='structure-'+row().structure.source.sha256.slice(0,12)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};$('#selection-orbit').onchange=e=>{orbitSelection=e.target.value||null;if(orbitSelection)site=selectedAtoms()[0];update()};$('#observed').onchange=update;$('#spectrum-stage').onchange=e=>{spectrumStage=e.target.value;selectedK=null;selectedBand=null;updateResponse()};$('#k-select').onchange=e=>{selectedK=e.target.value;selectedBand=null;updateStates()};$('#band-select').onchange=e=>{selectedBand=e.target.value;updateStates()};$('#matrix-k').onchange=updateCouplings;new ResizeObserver(draw).observe(canvas);load();
 </script>
 </html>

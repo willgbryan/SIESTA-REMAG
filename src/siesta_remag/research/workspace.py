@@ -2,6 +2,7 @@
 from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 from urllib.parse import urlsplit, parse_qs
 import numpy as np
@@ -166,9 +167,20 @@ def make_server(workspace, port=8765, *, editable=False):
             elif self.path == '/api/state':
                 try:
                     body = json.dumps(browser_state(dataset(workspace,include_sampling=False)) | {'authoring_enabled':editable,
+                        'synthesis_enabled':editable and bool(os.environ.get('NEWFOUND_API_KEY')),
                         'activity_enabled':(workspace/'research-activity.json').exists()}, allow_nan=False).encode()
                 except Exception as exc:
                     self.send_error(500, type(exc).__name__); return
+                kind = 'application/json'
+            elif urlsplit(self.path).path == '/api/synthesis':
+                from .newfound import view
+                try:
+                    query = parse_qs(urlsplit(self.path).query, strict_parsing=True)
+                    if set(query) != {'candidate', 'source'} or any(len(v) != 1 for v in query.values()):
+                        raise ValueError('Expected a candidate and source.')
+                    body = json.dumps(view(workspace, query['candidate'][0], query['source'][0]), allow_nan=False).encode()
+                except (ValueError, OSError) as exc:
+                    self.send_error(400, type(exc).__name__); return
                 kind = 'application/json'
             elif urlsplit(self.path).path == '/api/sampling':
                 try:
@@ -191,7 +203,7 @@ def make_server(workspace, port=8765, *, editable=False):
 
         def do_POST(self):
             if not self.local_host():return
-            if self.path not in ('/api/author','/api/prepare','/api/source/preview','/api/source/save'):self.send_error(404);return
+            if self.path not in ('/api/author','/api/prepare','/api/source/preview','/api/source/save','/api/synthesis'):self.send_error(404);return
             if not editable:self.send_error(403,'Workspace is read-only');return
             if self.headers.get('Origin')!='http://'+self.headers.get('Host',''):
                 self.send_error(403,'Same-origin workspace action required');return
@@ -205,7 +217,12 @@ def make_server(workspace, port=8765, *, editable=False):
                 from .workspace_actions import prepare_workspace_research
                 self.connection.settimeout(10)
                 payload=loads(self.rfile.read(int(length)))
-                if self.path.startswith('/api/source/'):
+                if self.path == '/api/synthesis':
+                    from .newfound import screen
+                    if not isinstance(payload, dict) or set(payload) != {'candidate', 'source'}:
+                        raise ValueError('Expected a candidate and source.')
+                    result = screen(workspace, payload['candidate'], payload['source'])
+                elif self.path.startswith('/api/source/'):
                     result=workspace_source(workspace,payload,save_source=self.path.endswith('/save'))
                 else:
                     action=save_workspace_candidate if self.path=='/api/author' else prepare_workspace_research
