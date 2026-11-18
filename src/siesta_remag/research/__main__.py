@@ -1,5 +1,6 @@
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from ..discovery.common import load, save
@@ -7,56 +8,17 @@ from ..discovery.config import Settings
 from .experiments import prepare_experiment, run_experiment
 
 
+WORKBENCH_COMMANDS = ('workspace-register', 'prepare-response', 'analyze-response', 'study-register', 'study-run-arm', 'study-grade', 'study-evaluate', 'prediction-scores', 'agent', 'tool-catalog', 'tool-call', 'tools', 'synthesis', 'serve', 'snapshot')
+
+
 def main(argv=None):
-    parser = argparse.ArgumentParser(prog='python -m siesta_remag.research')
+    argv = sys.argv[1:] if argv is None else argv
+    if argv and argv[0] in WORKBENCH_COMMANDS:
+        from ._workbench import load_module
+        return load_module('cli').main(argv)
+    parser = argparse.ArgumentParser(prog='python -m siesta_remag.research',
+        epilog='Workbench commands moved to twins: ' + ', '.join(sorted(WORKBENCH_COMMANDS)))
     sub = parser.add_subparsers(dest='command', required=True)
-    p = sub.add_parser('workspace-register', help='Register saved calculation settings, queries, exact response series or analyses')
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--kind', choices=['profile','query','series','response'], required=True)
-    p.add_argument('--path', required=True, help='Existing bundle directory, or response.json, inside the workspace')
-    p.add_argument('--identifier', required=True)
-    p.add_argument('--label', required=True)
-    p = sub.add_parser('prepare-response', help='Prepare independent exact structural-response bundles; never queue calculations')
-    p.add_argument('structure', type=Path)
-    p.add_argument('--pseudos', type=Path, required=True)
-    p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--design', type=Path, required=True)
-    p.add_argument('--query', type=Path, required=True)
-    p.add_argument('--mesh', type=int, nargs=3, required=True)
-    p.add_argument('--settings', type=Path)
-    p.add_argument('--basis', default='DZP')
-    p.add_argument('--basis-spec', type=Path)
-    p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
-    p.add_argument('--soc-matrix', action='store_true')
-    p = sub.add_parser('analyze-response', help='Analyze saved structural-response evidence, retaining failed and missing points')
-    p.add_argument('series', type=Path)
-    p.add_argument('--evidence', type=Path, required=True, help='JSON point IDs to saved report, optional collection and spectra paths')
-    p.add_argument('--observables', type=Path, required=True)
-    p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--error-bounds', type=Path, help='Optional absolute observable error bounds; omitted means unknown')
-    p = sub.add_parser('study-register', help='Register matched scalar/physics sessions without launching either arm')
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--definition', type=Path, required=True)
-    p.add_argument('--output', required=True)
-    p = sub.add_parser('study-run-arm', help='Run one explicitly selected arm of a registered study')
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--study', required=True)
-    p.add_argument('--arm', choices=['scalar','physics'], required=True)
-    p = sub.add_parser('study-grade', help='Ingest shared heldout evidence after both arms finish')
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--study', required=True)
-    p.add_argument('--outcomes', type=Path, required=True)
-    p = sub.add_parser('study-evaluate', help='Audit registered limits and compare heldout predictions')
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--study', required=True)
-    p.add_argument('--output', required=True)
-    p.add_argument('--discovery-evidence', type=Path, help='Saved validation reports for the registered authored-candidate cohort')
-    p.add_argument('--usage', type=Path, help='Imported measured allocation rows; never inferred from reservations')
-    p = sub.add_parser('prediction-scores', help='Score recorded scalar and electronic-response predictions, retaining failed/pending cases')
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--experiments', type=Path, required=True, help='JSON array of notebook experiment IDs')
-    p.add_argument('--resolutions', type=Path, required=True, help='JSON object of observable resolutions in prediction units')
-    p.add_argument('--output', type=Path, required=True)
     p = sub.add_parser('bands', help='Export a band path over saved checked k points without new calculations')
     p.add_argument('report', type=Path)
     p.add_argument('--stage', required=True)
@@ -95,33 +57,6 @@ def main(argv=None):
     p.add_argument('--energy-window-ev', type=float, nargs=2, default=[-3, 3])
     p.add_argument('--degeneracy-tolerance-ev', type=float, default=1e-5)
     p.add_argument('--limit', type=int, default=40)
-    p = sub.add_parser('agent', help='Run a bounded research policy over local tools')
-    p.add_argument('--information-profile', choices=['scalar','physics'], default='physics')
-    p.add_argument('--withheld-source', action='append', default=[])
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--output', required=True, help='New session directory inside the workspace')
-    p.add_argument('--objective', required=True)
-    p.add_argument('--policy-command', type=Path, required=True, help='JSON array naming a trusted policy command and its arguments')
-    p.add_argument('--max-steps', type=int, default=24)
-    p.add_argument('--max-seconds', type=float, default=300)
-    p.add_argument('--allow-cpu-relaxation', action='store_true')
-    p.add_argument('--execution-config', type=Path, help='Operator-authorized existing budget/runtime; omitted disables native execution')
-    for command in ('tool-catalog', 'tool-call'):
-        p = sub.add_parser(command, help='Direct chat tools: discover operations or execute one receipted call; no model service')
-        p.add_argument('--workspace', type=Path, required=True)
-        p.add_argument('--information-profile', choices=['scalar', 'physics'], default='physics')
-        p.add_argument('--withheld-source', action='append', default=[])
-        p.add_argument('--extension', action='append', default=[], help='Explicit trusted Python module exporting register_tools(host)')
-        if command == 'tool-catalog':
-            p.add_argument('--name', help='Describe one tool instead of the full catalog')
-        else:
-            p.add_argument('--request', required=True, help='JSON file containing tool, args and rationale; - reads stdin')
-            p.add_argument('--receipt', required=True, help='New receipt directory inside the workspace; never reused')
-    p = sub.add_parser('tools', help='Serve the experimental local JSON-lines research tool interface')
-    p.add_argument('--information-profile', choices=['scalar','physics'], default='physics')
-    p.add_argument('--withheld-source', action='append', default=[])
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--execution-config', type=Path)
     p = sub.add_parser('runtime-manifest', help='Bind executable/library hashes to compiled metadata in a trusted CPU builder; no solver')
     p.add_argument('--executable', type=Path, required=True)
     p.add_argument('--library', type=Path, required=True)
@@ -172,15 +107,6 @@ def main(argv=None):
     p.add_argument('bundle', type=Path)
     p.add_argument('--runtime', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
-    p = sub.add_parser('synthesis', help='Read saved Newfound synthesis results or explicitly submit a candidate')
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--candidate', required=True)
-    p.add_argument('--source-sha256', required=True)
-    p.add_argument('--submit', action='store_true', help='Send the selected geometry and formula to Newfound')
-    p = sub.add_parser('serve', help='Open local scientific workspace')
-    p.add_argument('--workspace', type=Path, required=True)
-    p.add_argument('--port', type=int, default=8765)
-    p.add_argument('--editable',action='store_true',help='Enable exact candidate and query/family preparation in a registered local workspace; no calculations')
     p = sub.add_parser('electronic', help='Export orbital-resolved spectra from HSX')
     p.add_argument('hsx', type=Path)
     p.add_argument('--sampling', type=Path, required=True, help='JSON kpoints (reciprocal fractional) and normalized weights')
@@ -191,9 +117,6 @@ def main(argv=None):
     p.add_argument('--spin', type=int, default=0)
     p = sub.add_parser('overlap-run', help='Measure basis overlap conditioning on every native KP point')
     p.add_argument('directory', type=Path)
-    p.add_argument('--output', type=Path, required=True)
-    p = sub.add_parser('snapshot', help='Save a self-contained interactive workspace')
-    p.add_argument('--workspace', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p = sub.add_parser('convergence', help='Compare one numerical control using both E and F anisotropies')
     p.add_argument('reports', type=Path, nargs='+')
@@ -211,48 +134,6 @@ def main(argv=None):
     p.add_argument('--structure', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
-    if args.command in ('tool-catalog', 'tool-call'):
-        from .toolhost import create_host, read_request
-        try:
-            host = create_host(args.workspace, information_profile=args.information_profile,
-                               withheld_sources=args.withheld_source, extensions=args.extension)
-            if args.command == 'tool-catalog':
-                result = host.catalog()
-                if args.name:
-                    result['tools'] = {args.name: result['tools'][args.name]}
-                result = dict(ok=True, result=result)
-            else:
-                result = host.call(read_request(args.request), args.receipt)
-        except Exception as exc:
-            result = dict(ok=False, error=dict(type=type(exc).__name__, message=str(exc)), retry_safe=False)
-        print(json.dumps(result, allow_nan=False))
-        return 0 if result['ok'] else 2
-    if args.command.startswith('study-'):
-        from .study import register_study,run_study_arm,grade_study,evaluate_study
-        if args.command=='study-register':result=register_study(args.workspace,load(args.definition),args.output)
-        elif args.command=='study-run-arm':result=run_study_arm(args.workspace,args.study,args.arm)
-        elif args.command=='study-grade':result=grade_study(args.workspace,args.study,load(args.outcomes))
-        else:result=evaluate_study(args.workspace,args.study,args.output,
-            discovery_evidence=load(args.discovery_evidence) if args.discovery_evidence else None,
-            usage=load(args.usage) if args.usage else None)
-        print(json.dumps(result,indent=2,allow_nan=False))
-        return 2 if args.command=='study-run-arm' and result['status']!='completed' else 0
-    if args.command == 'prediction-scores':
-        from .tools import ResearchTools
-        if args.output.exists():raise ValueError('Prediction score output must be new')
-        result=ResearchTools(args.workspace).call('evaluate_predictions',dict(experiment_ids=load(args.experiments),resolutions=load(args.resolutions)))
-        save(args.output,result)
-        return 0
-    if args.command == 'agent':
-        from .agent import run_session
-        result=run_session(args.workspace,args.output,objective=args.objective,policy_command=load(args.policy_command),
-            max_steps=args.max_steps,max_seconds=args.max_seconds,allow_cpu_relaxation=args.allow_cpu_relaxation,execution_config=args.execution_config,information_profile=args.information_profile,withheld_sources=args.withheld_source)
-        print(json.dumps(result,indent=2,allow_nan=False))
-        return 0 if result['status']=='completed' else 2
-    if args.command == 'tools':
-        from .tools import serve
-        serve(args.workspace,execution_config=args.execution_config,information_profile=args.information_profile,withheld_sources=args.withheld_source)
-        return 0
     if args.command == 'runtime-manifest':
         from .preflight import build_runtime
         if args.output.exists():raise ValueError('Runtime manifest output must be new')
@@ -280,31 +161,7 @@ def main(argv=None):
         result = execute_relaxation(args.workspace, args.execution_config, args.structure, args.bundle, args.output)
         print(json.dumps(result, indent=2, allow_nan=False))
         return 0 if result['status'] == 'measured' else 2
-    if args.command == 'synthesis':
-        from .newfound import screen, view
-        result = (screen if args.submit else view)(args.workspace, args.candidate, args.source_sha256)
-        print(json.dumps(result, indent=2, allow_nan=False))
-        if not args.submit:
-            return 0
-        return 0 if result['status']=='saved' and not result['missing_steps'] and not result['jobs_pending'] and all(
-            s['status']=='returned' for s in result['steps'].values()) else 2
-    if args.command == 'serve':
-        from .workspace import serve
-        serve(args.workspace, args.port, editable=args.editable)
-        return 0
-    if args.command == 'workspace-register':
-        from .workspace_actions import register_research
-        result=register_research(args.workspace,args.kind,args.path,args.identifier,args.label)
-    elif args.command == 'prepare-response':
-        from .series import prepare_series
-        result=prepare_series(args.structure,args.pseudos,args.output,design=load(args.design),query=load(args.query),mesh=args.mesh,
-            settings=Settings.from_dict(load(args.settings) if args.settings else {}),basis_size=args.basis,
-            basis_spec=load(args.basis_spec) if args.basis_spec else None,basis_energy_shift_ry=args.basis_energy_shift_ry,soc_matrix=args.soc_matrix)
-    elif args.command == 'analyze-response':
-        from .series import analyze_series
-        result=analyze_series(args.series,load(args.evidence),load(args.observables),args.output,
-            error_bounds=load(args.error_bounds) if args.error_bounds else None)
-    elif args.command == 'bands':
+    if args.command == 'bands':
         from .reciprocal import export_band_path
         result=export_band_path(args.report,args.stage,args.spectrum,args.native_hsx,args.output,
             k_indices=args.k_indices,breaks=args.breaks,selection=load(args.selection) if args.selection else None,
@@ -368,9 +225,6 @@ def main(argv=None):
                         successive_changes=args.successive_changes,
                         transverse_tolerance_ev=args.transverse_tolerance_ev)
         save(args.output, result)
-    elif args.command == 'snapshot':
-        from .workspace import snapshot
-        result = snapshot(args.workspace, args.output)
     elif args.command == 'electronic-run':
         from .electronic import spectrum_from_run
         result = spectrum_from_run(args.directory, args.output, collinear_spin=args.spin)

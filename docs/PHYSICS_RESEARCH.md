@@ -1,5 +1,9 @@
 # Physics-guided research workspace
 
+The IDE, notebook, and research tools are maintained in
+[TWINS](https://github.com/willgbryan/TWINS). Install TWINS to open a workspace.
+REMAG provides the calculation, observable and evidence APIs used in this guide.
+
 The experimental `siesta_remag.research` package connects GPAC's exact structural
 authoring to fixed-geometry REMAG measurements. It reuses the existing discovery
 input generator, execution harness, density rotation, SCF review and magnetic

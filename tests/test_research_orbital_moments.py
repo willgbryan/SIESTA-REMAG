@@ -4,17 +4,13 @@ from pathlib import Path
 import shutil
 import struct
 import subprocess
-
 import numpy as np
 import pytest
-
 from siesta_remag.corpus import sha256
 from siesta_remag.density import read_dm
 from siesta_remag.discovery.common import load, save
 from siesta_remag.research.orbital_moments import (
     _angular, export_orbital_moments, load_orbital_moments, magnetic_orbital_metadata, moment_kernels, native_moments)
-from siesta_remag.research.tools import ResearchTools
-
 
 def write_dm(path, header, counts, columns, density, endian='<'):
     with path.open('wb') as stream:
@@ -27,7 +23,6 @@ def write_dm(path, header, counts, columns, density, endian='<'):
         for start,end in zip(offsets[:-1], offsets[1:]): record(columns[start:end], 'i4')
         for spin in density:
             for start,end in zip(offsets[:-1], offsets[1:]): record(spin[start:end], 'f8')
-
 
 def p_shell():
     # An occupied (p_y-i*p_x)/sqrt(2) orbital has L_z = +1 in the
@@ -48,7 +43,6 @@ def p_shell():
               columns=hsx['columns'].copy(), density=density.reshape(8,27))
     return hsx, dm
 
-
 @pytest.mark.parametrize('endian', ['<','>'])
 def test_native_dm_reader_and_circular_p_state(tmp_path,endian):
     hsx,dm = p_shell(); path = tmp_path/'remag.DM'
@@ -59,7 +53,6 @@ def test_native_dm_reader_and_circular_p_state(tmp_path,endian):
     assert np.allclose(arrays['orbital_moments_mu_b'],[[0,0,.5],[0,0,0],[0,0,.5]])
     assert np.allclose(arrays['atom_moments_mu_b'],[[0,0,1.]])
     assert np.array_equal(loaded['density'],dm['density'])
-
 
 @pytest.mark.parametrize('l', [0,1,2,3])
 def test_shell_angular_algebra_and_spectrum(l):
@@ -72,14 +65,12 @@ def test_shell_angular_algebra_and_spectrum(l):
         assert np.allclose(np.linalg.eigvalsh(operators[axis]),np.arange(-l,l+1))
     assert np.allclose(sum(a@a for a in operators), l*(l+1)*np.eye(2*l+1))
 
-
 def test_atom_and_zeta_separation():
     orbs = [dict(atom_index=a,l=1,zeta=z,n=2,m=m) for a,z in [(0,1),(0,2),(1,1)] for m in range(-1,2)]
     kernels = moment_kernels(orbs)
     assert not kernels[:,:3,3:].any()
     assert not kernels[:,3:6,6:].any()
     assert kernels[:,:3,:3].any()
-
 
 def test_partial_or_unsupported_shell_and_topology_are_rejected():
     hsx,dm = p_shell()
@@ -93,7 +84,6 @@ def test_partial_or_unsupported_shell_and_topology_are_rejected():
     bad_h['columns'][0] = bad_d['columns'][0] = 2
     with pytest.raises(ValueError,match='Repeated'): native_moments(bad_h,bad_d)
 
-
 @pytest.mark.parametrize('mutation', ['tail','truncate','marker','column','nan','size'])
 def test_malformed_density_rejected(tmp_path,mutation):
     _,dm = p_shell(); path = tmp_path/'bad.DM'
@@ -106,7 +96,6 @@ def test_malformed_density_rejected(tmp_path,mutation):
     if mutation == 'truncate': path.write_bytes(raw[:-5])
     if mutation == 'marker': path.write_bytes(raw[:24]+struct.pack('<i',16)+raw[28:])
     with pytest.raises(ValueError): read_dm(path)
-
 
 def saved_fixture(root):
     root.mkdir(); stage = root/'soc-z'; stage.mkdir()
@@ -135,39 +124,6 @@ def saved_fixture(root):
     save(root/'report.json',report)
     return root/'report.json',stage
 
-
-def test_saved_handoff_through_agent_tool(tmp_path):
-    saved_fixture(tmp_path/'saved')
-    r=ResearchTools(tmp_path).call('export_orbital_moments',dict(report='saved/report.json',stage='soc-z',
-        native_directory='saved/soc-z',output='moments'))
-    assert np.allclose(r['total_moment_mu_b'],[0,0,1])
-    assert r['native_table_max_abs_residual_mu_b']['total'] < 1e-14
-    assert not r['physical_accuracy_qualified']
-    assert sha256(tmp_path/'moments/orbital-moments.npz') == r['artifact_sha256']
-    with pytest.raises(FileExistsError):
-        export_orbital_moments(tmp_path/'saved/report.json','soc-z',tmp_path/'saved/soc-z',tmp_path/'moments')
-
-
-def test_preview_recomputes_moments_and_binds_native_density(tmp_path):
-    from siesta_remag.research.catalog import orbital_moment_view
-    report,native=saved_fixture(tmp_path/'saved')
-    r=export_orbital_moments(report,'soc-z',native,tmp_path/'out')
-    path=tmp_path/'out/orbital-moments.json'
-    r['total_moment_mu_b']=[0,0,100]  # Do not trust duplicated JSON summary values.
-    save(path,r)
-    args=[path,sha256(report),'soc-z',r['evidence']['hsx'],r['evidence']['dm'],1]
-    view=orbital_moment_view(*args)
-    assert np.allclose(view['total_moment_mu_b'],[0,0,1])
-    with pytest.raises(ValueError,match='another displayed'):orbital_moment_view(*args[:4],'c'*64,1)
-    with pytest.raises(ValueError,match='displayed geometry'):orbital_moment_view(*args[:5],2)
-    _,arrays=load_orbital_moments(path)
-    arrays['atom_moments_mu_b'][0,2]=2
-    artifact=path.parent/r['artifact'];np.savez_compressed(artifact,**arrays)
-    with pytest.raises(ValueError,match='artifact binding'):load_orbital_moments(path)
-    r['artifact_sha256']=sha256(artifact);save(path,r)
-    with pytest.raises(ValueError,match='contraction differs'):load_orbital_moments(path)
-
-
 def test_orbital_moment_cli_dispatch(tmp_path,capsys):
     from siesta_remag.research.__main__ import main
     report,native=saved_fixture(tmp_path/'saved')
@@ -175,7 +131,6 @@ def test_orbital_moment_cli_dispatch(tmp_path,capsys):
     assert 'REMAG-ORBITAL-MOMENTS/1' in capsys.readouterr().out
     meta,_=load_orbital_moments(tmp_path/'out/orbital-moments.json')
     assert set(meta['implementation_sha256']) == {'orbital_moments.py','electronic.py','../density.py','../hsx.py'}
-
 
 @pytest.mark.parametrize('mutation', ['hash','table','branch','stage','incomplete'])
 def test_saved_evidence_failures_do_not_write_output(tmp_path,mutation):
@@ -190,7 +145,6 @@ def test_saved_evidence_failures_do_not_write_output(tmp_path,mutation):
     with pytest.raises(ValueError):
         export_orbital_moments(report,'../soc-z' if mutation=='stage' else 'soc-z',native,tmp_path/'out')
     assert not (tmp_path/'out').exists()
-
 
 def test_port_matches_pinned_native_angular_routine(tmp_path):
     """Compile just angular arithmetic, never a SIESTA/native calculation."""

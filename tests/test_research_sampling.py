@@ -1,14 +1,10 @@
 """Independent known-grid controls; no solver execution or native-data edits."""
 import itertools
 from pathlib import Path
-
 import numpy as np
 import pytest
-
 from siesta_remag.corpus import sha256
-from siesta_remag.discovery.common import load,save
 from siesta_remag.research.sampling import native_mesh_identity,compare_sampling
-
 
 def native_fixture(root,cell=None,*,bohr=.529177210903,mesh=(3,3,3)):
     root.mkdir();stage=root/'soc-z';stage.mkdir()
@@ -28,19 +24,16 @@ def native_fixture(root,cell=None,*,bohr=.529177210903,mesh=(3,3,3)):
     arrays=read_arrays(context,bohr)
     return arrays,context,indices%np.array(mesh)
 
-
 def read_arrays(context,bohr=.529177210903):
     p=Path(context['report_path']).parent/'soc-z/remag.KP'
     values=np.loadtxt(p,skiprows=1);cell=np.asarray(context['report']['structure']['geometry']['cell'])
     weights=values[:,4]/values[:,4].sum()
     return dict(k_fractional=values[:,1:4]@(cell/bohr).T/(2*np.pi),k_weights=weights)
 
-
 def replace_rows(context,rows):
     p=Path(context['report_path']).parent/'soc-z/remag.KP'
     p.write_text(str(len(rows))+'\n'+'\n'.join(' '.join(row) for row in rows)+'\n')
     context['report']['artifacts']['soc-z/remag.KP']=context['metadata']['kp_sha256']=sha256(p)
-
 
 @pytest.mark.parametrize('bohr,convention',[(.529177210903,'codata2018'),(.529177,'legacy')])
 def test_skew_cell_mesh_corresponds_with_literal_rounding_proof(tmp_path,bohr,convention):
@@ -59,7 +52,6 @@ def test_skew_cell_mesh_corresponds_with_literal_rounding_proof(tmp_path,bohr,co
     assert r['energy_error_bound'] is None and not r['coordinates_modified'] and not r['states_interpolated']
     assert all(np.array_equal(b[k],original[k]) for k in b)
 
-
 def test_reduced_mesh_keeps_native_multiplicities(tmp_path):
     a,c,expected=native_fixture(tmp_path/'a',mesh=(3,1,1))
     # Native representation of a +/- pair with twice the Gamma weight.
@@ -68,7 +60,6 @@ def test_reduced_mesh_keeps_native_multiplicities(tmp_path):
     replace_rows(c,rows);a=read_arrays(c)
     identity,proof=native_mesh_identity(a,c)
     assert identity['multiplicities']==[2,1] and proof['native_sample_count']==2 and proof['full_mesh_size']==3
-
 
 @pytest.mark.parametrize('stage',['scalar','soc-z'])
 def test_relaxed_mesh_uses_final_cell_not_authored_or_initial_cell(tmp_path,stage):
@@ -93,7 +84,6 @@ def test_relaxed_mesh_uses_final_cell_not_authored_or_initial_cell(tmp_path,stag
     assert proof['cell_origin']=='accepted native relaxation'
     c['report']['evaluated_geometry']['cell'][0][0]+=.1
     with pytest.raises(ValueError,match='relaxed geometry'):native_mesh_identity(a,c)
-
 
 @pytest.mark.parametrize('mutation',[
     'off_grid','duplicate','coarse','bad_weight','missing_array','changed_array','changed_array_weight',
@@ -123,7 +113,6 @@ def test_native_proof_rejects_unresolved_or_unbound_sampling(tmp_path,mutation):
         p=root/'remag.KP';p.write_text(p.read_text().replace('27\n','26\n',1));c['report']['artifacts']['soc-z/remag.KP']=c['metadata']['kp_sha256']=sha256(p)
     with pytest.raises(ValueError):native_mesh_identity(a,c)
 
-
 def test_ordered_indices_and_units_cannot_change_between_endpoints(tmp_path):
     a,ca,_=native_fixture(tmp_path/'a');b,cb,_=native_fixture(tmp_path/'b',np.diag([2.73,2.88,3.81]))
     rows=[r.split() for r in (tmp_path/'b/soc-z/remag.KP').read_text().splitlines()[1:]][::-1]
@@ -134,61 +123,3 @@ def test_ordered_indices_and_units_cannot_change_between_endpoints(tmp_path):
     with pytest.raises(ValueError,match='length conventions'):compare_sampling(a,b,ca,cb)
     assert compare_sampling(a,a)['mode']=='literal_ordered_arrays'
     with pytest.raises(ValueError,match='context unavailable'):compare_sampling(a,b)
-
-
-def test_series_and_prediction_outcomes_share_native_mesh_correspondence(tmp_path):
-    # Reuse independently validated synthetic native acceptance and exact GPAC
-    # family fixtures; replace only their explicitly synthetic spectra.
-    pytest.importorskip('gpac')
-    from test_research import experiment
-    from test_research_series import measured
-    from test_research_inspection import spectrum_fixture
-    from siesta_remag.research.series import analyze_series
-    from siesta_remag.research.evaluation import response_observation
-    bundle=experiment.__wrapped__(tmp_path)
-    series,evidence=measured(bundle,tmp_path)
-    for point in series['points']:
-        endpoint=evidence[point['id']];rp=endpoint['report'];report=load(rp)
-        arrays,context,_=native_fixture(tmp_path/(point['id']+'-native'),report['structure']['geometry']['cell'])
-        source=Path(context['report_path']).parent/'soc-z/remag.KP';dest=rp.parent/'soc-z/remag.KP'
-        dest.write_bytes(source.read_bytes());report['artifacts']['soc-z/remag.KP']=sha256(dest)
-        for suffix in ('HSX','EIG'):
-            p=rp.parent/'soc-z'/('remag.'+suffix);p.write_text('synthetic '+suffix);report['artifacts']['soc-z/'+p.name]=sha256(p)
-        save(rp,report)
-        meta=spectrum_fixture(tmp_path/(point['id']+'-spectrum'));m=load(meta)
-        n=len(arrays['k_weights']);q=float(point['q_exact'].split('/')[0])/float(point['q_exact'].split('/')[1]) if '/' in point['q_exact'] else 0
-        np.savez(meta.parent/'spectrum.npz',**arrays,eigenvalues_ev=np.tile([-.1+q,.2+q],(n,1)),occupations=np.tile([1,0],(n,1)),
-            orbital_mulliken=np.tile([[1.1,.2],[-.1,.8]],(n,1,1)),spin_pauli=np.zeros((n,2,3)))
-        m.update(artifact_sha256=sha256(meta.parent/'spectrum.npz'),**{key:report['artifacts']['soc-z/remag.'+suffix] for key,suffix in
-            [('hsx_sha256','HSX'),('kp_sha256','KP'),('eig_sha256','EIG')]});save(meta,m)
-        endpoint['spectra']={'response':meta}
-    definition=dict(kind='spectral',stage='soc-z',spin=0,metric='projected_energy_moment',selection={'atom_indices':[1],'energy_window_ev':[-.2,.4]})
-    r=analyze_series(tmp_path/'series',evidence,{'response':definition},tmp_path/'analysis')['observables']['response']
-    assert r['derivatives'][0]['derivative']['first']==pytest.approx(.7)
-    assert r['points'][1]['evidence']['sampling_correspondence']['mode']=='native_KP_printing_intervals'
-    endpoints=[dict(report=e['report'],spectrum=e['spectra']['response']) for e in evidence.values()]
-    target=definition|dict(kind='spectral_response',baseline_source_sha256=series['points'][0]['source_sha256'])
-    result=response_observation(target,endpoints[0],endpoints[2],source_sha256=series['points'][2]['source_sha256'])
-    assert result['value']==pytest.approx(.03*.7)
-    assert result['evidence']['sampling_correspondence']['mode']=='native_KP_printing_intervals'
-    from siesta_remag.research.inspection import compare_electronic
-    native=[dict(report=e['report'],stage='soc-z') for e in endpoints]
-    with pytest.raises(ValueError,match='context unavailable'):
-        compare_electronic(endpoints[0]['spectrum'],endpoints[2]['spectrum'])
-    with pytest.raises(ValueError,match='both native'):
-        compare_electronic(endpoints[0]['spectrum'],endpoints[2]['spectrum'],before_native=native[0])
-    compared=compare_electronic(endpoints[0]['spectrum'],endpoints[2]['spectrum'],before_native=native[0],after_native=native[2],points=5)
-    assert compared['sampling_correspondence']['mode']=='native_KP_printing_intervals'
-    assert compared['native_contexts']['before']['source_sha256']==series['points'][0]['source_sha256']
-    assert len(compared['delta_dos'])==5 and not compared['mechanism_verified']
-    from siesta_remag.research.tools import ResearchTools
-    args=dict(before=str(endpoints[0]['spectrum'].relative_to(tmp_path)),after=str(endpoints[2]['spectrum'].relative_to(tmp_path)),points=5,
-        before_native=dict(report=str(endpoints[0]['report'].relative_to(tmp_path)),stage='soc-z'),
-        after_native=dict(report=str(endpoints[2]['report'].relative_to(tmp_path)),stage='soc-z'))
-    assert ResearchTools(tmp_path).call('compare_electronic_states',args)==compared
-    with pytest.raises(ValueError,match='held-out evaluator'):
-        ResearchTools(tmp_path,withheld_sources=[series['points'][2]['source_sha256']]).call('compare_electronic_states',args)
-    with pytest.raises(ValueError,match='escapes'):
-        ResearchTools(tmp_path).call('compare_electronic_states',args|{'before_native':dict(report='../escape.json',stage='soc-z')})
-    with pytest.raises(ValueError,match='native context stage'):
-        compare_electronic(endpoints[0]['spectrum'],endpoints[2]['spectrum'],before_native=native[0]|{'stage':'soc-x'},after_native=native[2])

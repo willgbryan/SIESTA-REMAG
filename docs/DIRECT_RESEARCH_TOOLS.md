@@ -1,5 +1,9 @@
 # Research tools for an existing chat
 
+The implementation and its tests now live in [TWINS](https://github.com/willgbryan/TWINS).
+Install that workbench before using this guide. The canonical executable is
+`twins`. The historical REMAG command below delegates to the same implementation.
+
 The chat supplies scientific decisions and calls local tools. No second model
 process, API key or model-service subscription is needed by this interface.
 Model and reasoning-effort selection belong to the chat client; the tool layer

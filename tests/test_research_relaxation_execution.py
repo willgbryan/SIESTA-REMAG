@@ -7,12 +7,10 @@ import ast
 import os
 from pathlib import Path
 import types
-
 import pytest
 from ase import Atoms
 from ase.data import atomic_numbers
 from ase.io import write
-
 from test_discovery import backend
 from test_research_execution import SyntheticTransport
 from siesta_remag.corpus import sha256
@@ -24,7 +22,6 @@ from siesta_remag.discovery.inputs import kmesh
 from siesta_remag.research.budget import BudgetLedger
 from siesta_remag.research.execution import execute_query, execute_relaxation
 from siesta_remag.research.relaxation_execution import preflight_relaxation, verify_relaxation_source
-
 
 @pytest.fixture(params=['Ni', 'Co'])
 def discovery(tmp_path, request):
@@ -56,7 +53,6 @@ def discovery(tmp_path, request):
         hourly_reservation_usd=3., max_queries=2, max_reserved_cents=20))
     return b
 
-
 def refresh_bundle(b):
     from ase.io import read
     request = load(b/'request.json')
@@ -64,7 +60,6 @@ def refresh_bundle(b):
     save(b/'prepared.json', dict(status='prepared', request_sha256=digest(request),
         files={name:sha256(b/name) for name in files}, orb_seconds=1,
         kmesh=kmesh(read(b/'orb/relaxed.extxyz'), Settings.from_dict(request['settings']))))
-
 
 class DiscoveryTransport(SyntheticTransport):
     def __init__(self, monkeypatch, *, relaxed_cell_scale=1., **kwargs):
@@ -125,10 +120,8 @@ class DiscoveryTransport(SyntheticTransport):
             payload = pack(root, include_arrays=True, include_native=True)
         unpack(payload, attempt/'collected')
 
-
 def run(tmp_path, transport, output='attempt'):
     return execute_relaxation(tmp_path, 'config.json', 'structure.json', 'bundle', output, transport=transport)
-
 
 def test_non_fept_remote_collection_feedback_and_shared_owner(discovery, tmp_path, monkeypatch):
     t = DiscoveryTransport(monkeypatch)
@@ -150,7 +143,6 @@ def test_non_fept_remote_collection_feedback_and_shared_owner(discovery, tmp_pat
     with pytest.raises(ValueError, match='limit reached'): run(tmp_path, t, 'third')
     assert len(t.calls) == 2
 
-
 def test_negative_screen_is_a_completed_observation(discovery, tmp_path, monkeypatch):
     request = load(discovery/'request.json'); request['settings']['minimum_js_t'] = 100
     save(discovery/'request.json', request); refresh_bundle(discovery)
@@ -158,7 +150,6 @@ def test_negative_screen_is_a_completed_observation(discovery, tmp_path, monkeyp
     assert result['status'] == 'measured', result
     assert result['review']['native_status'] == 'screened_low_moment'
     assert result['review']['screen'] is None and len(t.native) == 1
-
 
 @pytest.mark.parametrize('failure,status', [('optimizer','held_native_review'), ('native','held_native_review'),
     ('branch','held_native_review'), ('client','held_execution'), ('unknown','held_unknown_owner'),
@@ -173,7 +164,6 @@ def test_failed_attempt_is_retained_never_retried(discovery, tmp_path, monkeypat
     assert len(t.calls) == 1
     assert sum(r['cents'] for r in BudgetLedger(tmp_path/'budget.json').snapshot()['reservations']) == (0 if failure == 'unknown' else 10)
 
-
 def test_operation_grant_cannot_be_repurposed(discovery, tmp_path):
     t = SyntheticTransport()
     with pytest.raises(ValueError, match='operation is not authorized'):
@@ -181,7 +171,6 @@ def test_operation_grant_cannot_be_repurposed(discovery, tmp_path):
     c = load(tmp_path/'config.json'); c.pop('operation'); save(tmp_path/'config.json', c)
     with pytest.raises(ValueError, match='operation is not authorized'): run(tmp_path, t)
     assert not t.calls and not t.info_calls
-
 
 def test_mismatched_exact_source_is_rejected_before_ownership_or_reservation(discovery, tmp_path):
     from gpac import ir, physical
@@ -192,7 +181,6 @@ def test_mismatched_exact_source_is_rejected_before_ownership_or_reservation(dis
     with pytest.raises(ValueError, match='Authored source differs'): run(tmp_path, t)
     assert not t.info_calls and not t.calls and not (tmp_path/'.research-execution').exists()
     assert (tmp_path/'budget.json').read_bytes() == before
-
 
 def test_preflight_checks_compiled_capacity_before_account_calls(discovery, tmp_path):
     runtime = load(tmp_path/'runtime.json')
@@ -206,7 +194,6 @@ def test_preflight_checks_compiled_capacity_before_account_calls(discovery, tmp_
     with pytest.raises(ValueError, match='compiled device-SCF limit is 128'): run(tmp_path, t)
     assert not t.info_calls and not t.calls
 
-
 def test_read_only_preflight_and_input_psp_compatibility(discovery, tmp_path):
     result = preflight_relaxation(discovery, load(tmp_path/'runtime.json'))
     assert result['paid_actions'] == 0 and result['physical_conditions']['cell'] == 'fully_variable'
@@ -217,7 +204,6 @@ def test_read_only_preflight_and_input_psp_compatibility(discovery, tmp_path):
     save(discovery/'request.json', request); refresh_bundle(discovery)
     with pytest.raises(ValueError, match='fully relativistic'): preflight_relaxation(discovery, load(tmp_path/'runtime.json'))
 
-
 def test_cpu_preparation_cannot_lose_magnetic_start(discovery, tmp_path):
     from ase.io import read
     atoms=read(discovery/'orb/relaxed.extxyz'); atoms.set_initial_magnetic_moments([2., -2.])
@@ -226,18 +212,10 @@ def test_cpu_preparation_cannot_lose_magnetic_start(discovery, tmp_path):
     with pytest.raises(ValueError, match='magnetic starting branch'): run(tmp_path, t)
     assert not t.calls and not t.info_calls
 
-
 def test_previous_running_app_prevents_discovery_launch(discovery, tmp_path):
     t=SyntheticTransport(failure='prior_active')
     with pytest.raises(ValueError, match='authoritatively STOPPED'): run(tmp_path, t)
     assert not t.calls and not (tmp_path/'attempt').exists()
-
-
-def test_discovery_execution_is_not_a_policy_tool(tmp_path):
-    from siesta_remag.research.toolhost import ToolHost
-    host=ToolHost(tmp_path)
-    assert not {'execute_relaxation', 'prepare_relaxation', 'run_prepared_query'} & host.catalog()['tools'].keys()
-
 
 def test_broyden_input_audits_and_unknown_consumers_before_account(discovery, tmp_path, monkeypatch):
     runtime = load(tmp_path/'runtime.json')

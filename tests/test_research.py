@@ -1,15 +1,8 @@
-import copy
-from pathlib import Path
-
 import numpy as np
 import pytest
-
 from siesta_remag.research.electronic import mulliken_weights, finite_difference, bloch_matrices
-from siesta_remag.research.memory import Notebook, evaluate_holdout
 from siesta_remag.research.experiments import prepare_experiment, run_experiment, verify_experiment
-from siesta_remag.discovery.common import load
 from siesta_remag.corpus import sha256
-
 
 def test_nonorthogonal_population_and_spinor_assembly():
     from scipy.linalg import eigh
@@ -26,7 +19,6 @@ def test_nonorthogonal_population_and_spinor_assembly():
     assert hk[0, 1].imag < 0
     assert np.allclose(hk, hk.conj().T) and np.allclose(sk, np.eye(2))
 
-
 def test_unequal_finite_difference_and_unknown_error():
     points = [dict(q=q, value=7+2*q+3*q*q) for q in [-.02, 0, .01]]
     r = finite_difference(points, parameter_unit='strain', property_unit='eV/cell')
@@ -35,7 +27,6 @@ def test_unequal_finite_difference_and_unknown_error():
     assert r['propagated_error_bound'] is None and r['truncation_error'] is None
     for p in points: p['error_bound'] = 1e-6
     assert finite_difference(points, parameter_unit='strain', property_unit='eV')['propagated_error_bound']['first'] > 0
-
 
 def test_complex_offsite_spinor_uses_native_spatial_index_order():
     # Independent explicit matrix from SIESTA diag3kp.F90 setup_k's (spin,j,spin,i).
@@ -51,16 +42,6 @@ def test_complex_offsite_spinor_uses_native_spatial_index_order():
     assert np.allclose(h/RY_EV, expected)
     assert np.allclose(s, np.eye(4))
 
-
-def test_viewer_withholds_uncompared_or_failed_spectra(tmp_path):
-    from siesta_remag.research.workspace import electronic_preview
-    from siesta_remag.discovery.common import save
-    p = tmp_path/'electronic-z'; p.mkdir()
-    for residual, passed in [(None, False), (1.2, False), (1.2, True)]:
-        save(p/'electronic.json', dict(native_max_abs_error_ev=residual, native_comparison_passed=passed))
-        assert electronic_preview(tmp_path) is None
-
-
 def test_native_kp_rounding_does_not_hide_missing_samples():
     from siesta_remag.research.electronic import _native_weights
     w, total, bound = _native_weights(['0.195312E-02']*512)
@@ -68,26 +49,6 @@ def test_native_kp_rounding_does_not_hide_missing_samples():
     assert total == .99999744 and bound == 2.56e-6
     for tokens in [['0.195312E-02']*511, ['0.2']*5, ['NaN'], ['-0.1'], ['0']]:
         with pytest.raises(ValueError): _native_weights(tokens)
-
-
-def test_predictions_cannot_follow_outcomes(tmp_path):
-    n = Notebook(tmp_path/'research.sqlite')
-    h = n.record_hypothesis('strain changes near-Fermi states', predictions=['positive slope'], alternatives=['branch change'])
-    e = n.propose_experiment(h, structure_sha256='a'*64, action='strain', rationale='distinguish response')
-    n.record_prediction(e, observable='MAE', value=1., unit='meV/cell', uncertainty=.2)
-    with pytest.raises(ValueError): n.record_prediction(e, observable='MAE', value=2., unit='meV/cell')
-    n.record_outcome(e, observable='MAE', value=1.1, unit='meV/cell', report_sha256='b'*64, status='measured')
-    assert n.evaluate(e)['within_predicted_uncertainty']
-    with pytest.raises(ValueError): n.record_prediction(e, observable='MAE', value=1.1, unit='meV/cell')
-    assert len(n.retrieve('strain')) == 2
-    analysis = n.record_analysis(h, conclusion='Replication agrees; physical convergence remains open', report_sha256='c'*64)
-    assert not n.get(analysis)['payload']['mechanism_verified']
-    assert n.evaluate(e)['error'] == pytest.approx(.1)
-    n.close()
-    r = evaluate_holdout([[-1, 0], [0, 1], [1, 2]], [[.5, 1.5]], agent_predictions=[1.6])
-    assert r['agent']['mae'] == pytest.approx(.1)
-    assert r['interpolation']['mae'] == 0
-
 
 @pytest.fixture
 def experiment(tmp_path):
@@ -101,7 +62,6 @@ def experiment(tmp_path):
     b = tmp_path/'bundle'
     prepare_experiment(export_geometry(p, length_unit='angstrom'), pseudo, b, mesh=[3, 3, 3])
     return b
-
 
 def test_fixed_experiment_and_provenance(experiment, tmp_path):
     from test_discovery import backend
@@ -120,7 +80,6 @@ def test_fixed_experiment_and_provenance(experiment, tmp_path):
     assert len(calls) == 4
     (experiment/'scalar/input.fdf').write_text('tampered')
     with pytest.raises(ValueError): verify_experiment(experiment)
-
 
 def test_fixed_failure_retains_no_anisotropy(experiment, tmp_path):
     from test_discovery import backend

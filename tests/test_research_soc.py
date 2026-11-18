@@ -3,21 +3,17 @@ from pathlib import Path
 import shutil
 import struct
 import subprocess
-
 import numpy as np
 import pytest
 from scipy.linalg import eigh
-
 from siesta_remag.corpus import sha256
 from siesta_remag.discovery.common import load, save
 from siesta_remag.research.electronic import RY_EV
 from siesta_remag.research.soc import NATIVE_METADATA, export_soc, project_soc, validate_native_soc
-from siesta_remag.research.tools import ResearchTools
 from siesta_remag.research.experiments import validate_soc_request
 from test_research_mechanisms import native_fixture
 from test_research import experiment
 from test_discovery import backend
-
 
 def soc_fixture(root):
     report, native=native_fixture(root)
@@ -35,7 +31,6 @@ def soc_fixture(root):
     save(native/'remag.SOC.json',NATIVE_METADATA)
     data=load(report);data['artifacts']={'soc-z/'+p.name:sha256(p) for p in native.iterdir()};save(report,data)
     return report,native,v
-
 
 def test_nonorthogonal_projection_and_phase_covariance():
     s=np.kron([[1.,.3],[.3,1.]],np.eye(2))
@@ -56,7 +51,6 @@ def test_nonorthogonal_projection_and_phase_covariance():
     assert a['occupied_expectation_ev']==pytest.approx(b['occupied_expectation_ev'])
     assert not np.allclose(a['state_matrix_ev'].diagonal(),b['state_matrix_ev'].diagonal())
 
-
 @pytest.mark.parametrize('bad',['trace','hermitian','metric','normalization','occupation','nan'])
 def test_invalid_operator_or_states_are_rejected(bad):
     v=np.diag([1.,-1]);s=np.eye(2);c=np.eye(2);f=np.array([1.,0])
@@ -67,28 +61,6 @@ def test_invalid_operator_or_states_are_rejected(bad):
     if bad=='occupation':f[0]=2
     if bad=='nan':v[0,0]=np.nan
     with pytest.raises(ValueError):project_soc(v,s,c,f)
-
-
-def test_native_export_tool_and_cli(tmp_path):
-    report,native,v=soc_fixture(tmp_path/'native')
-    tool=ResearchTools(tmp_path)
-    result=tool.call('export_soc_matrices',dict(report='native/report.json',stage='soc-z',native_directory='native/soc-z',output='inspection',k_indices=[1]))
-    assert result['selected_k_weight']==pytest.approx(.5)
-    assert result['native_k_count']==2 and result['physical_accuracy_qualified'] is False
-    with np.load(tmp_path/'inspection/soc.npz') as arrays:
-        assert np.allclose(arrays['operator_ev'][0],v)
-        assert np.allclose(np.trace(arrays['operator_ev'][0].reshape(2,2,2,2),axis1=1,axis2=3),0)
-        assert result['selected_weighted_expectation_ev']==pytest.approx(.5*arrays['occupied_expectation_ev'][0])
-    from siesta_remag.research.__main__ import main
-    assert main(['soc-matrices',str(report),'--stage','soc-z','--native-directory',str(native),
-                 '--output',str(tmp_path/'cli'),'--k-indices','1'])==0
-    assert load(tmp_path/'cli/soc.json')['occupied_expectations_ev']==result['occupied_expectations_ev']
-    with pytest.raises(ValueError,match='scalar profile'):
-        ResearchTools(tmp_path,information_profile='scalar').call('export_soc_matrices',{})
-    with pytest.raises(ValueError,match='held-out'):
-        ResearchTools(tmp_path,withheld_sources=['a'*64]).call('export_soc_matrices',
-            dict(report='native/report.json',stage='soc-z',native_directory='native/soc-z',output='held'))
-
 
 @pytest.mark.parametrize('mutation',['missing','hash','definition','total_h','overlap','branch','eig'])
 def test_saved_soc_identity_and_native_health_fail_closed(tmp_path,mutation):
@@ -107,7 +79,6 @@ def test_saved_soc_identity_and_native_health_fail_closed(tmp_path,mutation):
     with pytest.raises((ValueError,FileNotFoundError)):
         export_soc(report,'soc-z',native,tmp_path/'inspection')
 
-
 def test_soc_request_remains_explicit_and_requires_complete_device_h0_owner():
     validate_soc_request(False,{'kind':'scalar'})
     validate_soc_request(True,{'kind':'anisotropy'},{'REMAG_DEVICE_SCF':'1'})
@@ -120,7 +91,6 @@ def test_soc_request_remains_explicit_and_requires_complete_device_h0_owner():
         with pytest.raises(ValueError,match='host nonlocal'):validate_soc_request(True,None,{flag:'1'})
     for enabled,q in [(1,None),('true',None),(True,{'kind':'scalar'})]:
         with pytest.raises(ValueError):validate_soc_request(enabled,q)
-
 
 def test_native_device_snapshot_metadata_and_bound_operator_are_required(tmp_path):
     report,native,_=soc_fixture(tmp_path/'data');operator=validate_native_soc(native)
@@ -137,7 +107,6 @@ def test_native_device_snapshot_metadata_and_bound_operator_are_required(tmp_pat
                       ('snapshot_columns',999),('snapshot_phase','scf'),('host_nonlocal_h0',0),('producer','unknown')]:
         save(native/'remag.SOC.json',m|{key:value})
         with pytest.raises(ValueError,match='SOC producer|ownership'):validate_native_soc(native)
-
 
 def test_compiled_native_components_remove_only_nonlocal_spin_trace(tmp_path):
     compiler=shutil.which('gfortran')
@@ -168,7 +137,6 @@ def test_compiled_native_components_remove_only_nonlocal_spin_trace(tmp_path):
     subprocess.run([compiler,'-Wall','-Wextra','-fcheck=all','components.f90','check.f90','-o','check'],cwd=tmp_path,check=True,capture_output=True,text=True)
     subprocess.run([str(tmp_path/'check')],check=True,capture_output=True,text=True)
 
-
 @pytest.fixture(scope='module')
 def compiled_export(tmp_path_factory):
     compiler=shutil.which('gfortran')
@@ -180,7 +148,6 @@ def compiled_export(tmp_path_factory):
         'remag_soc_components.f90','remag_soc_export.f90',str(root/'tests/fixtures/soc_export_driver.f90'),
         '-o','export'],cwd=build,check=True,capture_output=True,text=True)
     return build/'export'
-
 
 @pytest.mark.parametrize('mode',['valid','disabled','parallel','onsite','collinear','device','device_poison',
     'device_missing','device_epoch','device_geometry','device_topology','device_copy_failure','poison','external','missing','nonfinite'])
@@ -197,7 +164,6 @@ def test_native_export_adapter_ownership_and_component_handoff(tmp_path,compiled
         assert result.returncode!=0
         assert 'REMAG SOC' in result.stdout+result.stderr
         assert not (tmp_path/'remag.SOC.json').exists()
-
 
 def test_opt_in_query_stops_if_native_executable_does_not_supply_operator(experiment,tmp_path):
     from siesta_remag.research.experiments import prepare_experiment,run_experiment
@@ -218,24 +184,3 @@ def test_opt_in_query_stops_if_native_executable_does_not_supply_operator(experi
         run_experiment(bundle,tmp_path/'forbidden',binary,executable_sha256=sha256(binary),
             runtime_env={'REMAG_NONLOCAL_H0':'1'},runner=backend([]))
     assert not (tmp_path/'forbidden').exists()
-
-
-def test_policy_session_can_select_soc_tool(tmp_path):
-    import sys
-    from siesta_remag.research.agent import run_session
-    soc_fixture(tmp_path/'native')
-    policy=tmp_path/'policy.py'
-    policy.write_text('''import json,sys
-context=json.load(sys.stdin)
-if context['history']:
- print(json.dumps({'finish':'Fixture SOC tool returned; no scientific inference'}))
-else:
- print(json.dumps({'tool':'export_soc_matrices','args':{'report':'native/report.json',
- 'stage':'soc-z','native_directory':'native/soc-z','output':'inspection','k_indices':[0]},
- 'rationale':'Inspect the synthetic nonlocal operator'}))
-''')
-    result=run_session(tmp_path,'session',objective='Synthetic SOC inspection integration',
-        policy_command=[sys.executable,str(policy)],max_steps=2,max_seconds=30)
-    assert result['status']=='completed',result
-    assert load(tmp_path/'inspection/soc.json')['operator']==NATIVE_METADATA['operator']
-    assert result['native_submissions']==0

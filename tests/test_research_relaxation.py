@@ -1,15 +1,10 @@
 """Synthetic native handoff fixtures; these are engineering tests, not DFT data."""
-import json
 import shutil
-
 import pytest
-
-from test_discovery import bundle, backend, execute
+from test_discovery import bundle, execute
 from siesta_remag.discovery.common import load,save
 from siesta_remag.corpus import sha256
 from siesta_remag.research.relaxation import inspect_relaxation,prepare_relaxation
-from siesta_remag.research.tools import ResearchTools
-
 
 @pytest.fixture
 def export():
@@ -19,22 +14,6 @@ def export():
         orbits=[dict(z=26,wyckoff_index=0,parameters=[x]*3) for x in [0,'1/2']]))
     return physical.export_geometry(p,length_unit='angstrom')
 
-
-def test_saved_relaxation_tool_is_source_bound(bundle,tmp_path,export):
-    calls=[];report=execute(bundle,tmp_path,calls)
-    assert report['status']=='screened'
-    save(tmp_path/'source.json',export)
-    result=ResearchTools(tmp_path).call('inspect_relaxation',dict(structure='source.json',bundle='bundle',report='run/report.json'))
-    assert len(calls)==4 and result['solver_executed'] is False
-    assert result['feedback']['symmetry']['all_authored_operations_preserved']
-    assert result['feedback']['observation']['max_nonaffine_displacement_angstrom']<1e-12
-    assert 'retrospective' in result['source_binding']
-    assert result['source_sha256']==export['source']['sha256']
-    (tmp_path/'run/dft-relax/remag.STRUCT_OUT').write_text('changed')
-    with pytest.raises(ValueError,match='artifact changed'):
-        inspect_relaxation(export,bundle,tmp_path/'run/report.json')
-
-
 def test_failed_relaxation_or_wrong_source_is_not_feedback(bundle,tmp_path,export):
     execute(bundle,tmp_path,[],fail='optimizer')
     with pytest.raises(ValueError,match='No accepted'):
@@ -43,7 +22,6 @@ def test_failed_relaxation_or_wrong_source_is_not_feedback(bundle,tmp_path,expor
     wrong=physical.export_geometry(physical.fept_reference(),length_unit='angstrom')
     with pytest.raises(ValueError,match='source differs'):
         inspect_relaxation(wrong,bundle,tmp_path/'run/report.json')
-
 
 def test_preparation_binds_source_before_cpu_work(bundle,tmp_path,export,monkeypatch):
     from siesta_remag.research import relaxation
@@ -72,7 +50,6 @@ def test_preparation_binds_source_before_cpu_work(bundle,tmp_path,export,monkeyp
     with pytest.raises(ValueError,match='source binding differs'):
         inspect_relaxation(export,tmp_path/'prepared/bundle',tmp_path/'run/report.json')
 
-
 def test_explicit_magnetic_start_is_bound_before_cpu_preparation(tmp_path,export,monkeypatch):
     from ase.io import read
     from siesta_remag.research import relaxation
@@ -85,7 +62,6 @@ def test_explicit_magnetic_start_is_bound_before_cpu_preparation(tmp_path,export
     monkeypatch.setattr(relaxation,'prepare_bundle',prepare)
     p=prepare_relaxation(export,tmp_path/'pseudos',tmp_path/'weights',tmp_path/'prepared',initial_moments=[3.,-3.])
     assert len(calls)==1 and p['native_submitted'] is False
-
 
 @pytest.mark.parametrize('moments',[[True,0], [float('nan'),0], [1], ['3',0]])
 def test_invalid_magnetic_start_creates_no_preparation(tmp_path,export,moments):
