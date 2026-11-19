@@ -46,12 +46,18 @@ def read_execution_config(workspace, path):
     required = {'format','authorization_id','authorization','budget_ledger','budget_stage','runtime',
                 'runtime_sha256','image','previous_app_id','app_timeout_seconds',
                 'hourly_reservation_usd','max_queries','max_reserved_cents'}
-    optional = {'volume', 'operation', 'driver_rejection_report_sha256', 'final_axis_checkpoint_sha256', 'seed_rejection_sha256'}
+    optional = {'volume', 'operation', 'driver_rejection_report_sha256', 'final_axis_checkpoint_sha256', 'seed_rejection_sha256', 'previous_scf_failure_report_sha256'}
     if (not isinstance(c,dict) or not required <= set(c) or set(c)-required-optional
             or c['format'] != 'REMAG-RESEARCH-EXECUTION/1'):
         raise ValueError('Expected explicit REMAG research execution configuration')
     if c.get('operation', 'query') not in ('query', 'relaxation'):
         raise ValueError('Unsupported execution operation')
+    if 'previous_scf_failure_report_sha256' in c and (
+            c.get('operation') != 'relaxation' or c['max_queries'] != 1
+            or {'seed_rejection_sha256', 'final_axis_checkpoint_sha256', 'driver_rejection_report_sha256'} & c.keys()
+            or not isinstance(c['previous_scf_failure_report_sha256'], str)
+            or not re.fullmatch('[0-9a-f]{64}', c['previous_scf_failure_report_sha256'])):
+        raise ValueError('Independent composition requires one report-bound relaxation grant')
     if 'seed_rejection_sha256' in c and ('final_axis_checkpoint_sha256' not in c
             or not isinstance(c['seed_rejection_sha256'], str) or not re.fullmatch('[0-9a-f]{64}', c['seed_rejection_sha256'])):
         raise ValueError('Seed rejection review requires a report-bound final-axis grant')
@@ -279,6 +285,53 @@ def _review_driver_rejection(root, owner, config, preflight, source_binding):
     raise ValueError('Previous runtime rejection does not reproduce')
 
 
+def _review_prior_scf_failure(root, owner, plan, structure):
+    """Admit an independent composition after a reproducible, stopped SCF rejection."""
+    from collections import Counter
+    from fractions import Fraction
+    from .relaxation_execution import review_relaxation
+
+    config = plan['config']
+    previous = config['previous_app_id']
+    attempt = _path(root, owner['attempt'])
+    result = load(attempt/'execution.json')
+    receipt = load(attempt/'receipt.json')
+    grant = load(attempt/'authorization.json')
+    report = attempt/'collected/query/report.json'
+    stage = report.parent/'dft-relax'
+    if (owner.get('status') != 'held_native_review' or owner.get('allocation_stopped') is not True
+            or owner.get('app_id') != previous or receipt.get('app_id') != previous
+            or any(result.get(k) != owner[k] for k in ('app_id', 'status', 'allocation_stopped'))
+            or result.get('app_lifecycle', {}).get('state', '').lower() != 'stopped'
+            or grant['config']['authorization_id'] == config['authorization_id']
+            or grant['config_sha256'] != result['config_sha256']
+            or sha256(report) != config['previous_scf_failure_report_sha256']
+            or result['review']['report_sha256'] != sha256(report)):
+        raise ValueError('Independent composition requires its reviewed stopped predecessor')
+    reservation = next((row for row in plan['ledger'].snapshot()['reservations']
+                        if row['id'] == receipt.get('run_id')), None)
+    if (not reservation or reservation['metadata'].get('app_id') != previous
+            or reservation['metadata'].get('receipt') != str(attempt/'receipt.json')):
+        raise ValueError('Previous receipt differs from its reservation')
+    reproduced = review_relaxation(attempt, load(attempt/'campaign/query/request.json'),
+                                   load(attempt/'runtime.json'), require_current_code=False)
+    exit_status = load(stage/'execution-status.json')
+    marker = 'REMAG device SCF export: Final electronic state requires convergence'
+    if (reproduced['healthy'] or reproduced['native_status'] != 'held_dft-relax'
+            or reproduced['source_binding']['source_sha256'] != result['source_sha256']
+            or exit_status['timed_out'] is not False or exit_status['returncode'] != -6
+            or marker not in (stage/'stderr.log').read_text().splitlines()):
+        raise ValueError('Prior native artifacts do not establish the terminal SCF convergence rejection')
+
+    def composition(path):
+        numbers = load(path)['geometry']['atomic_numbers']
+        return {z: Fraction(n, len(numbers)) for z, n in Counter(numbers).items()}
+
+    if composition(attempt/'campaign/structure.json') == composition(structure):
+        raise ValueError('This grant requires a different chemical composition')
+    return str(report.relative_to(root))
+
+
 def _diagnostic_review(root, owner, plan, preflight, source_binding=None):
     """A narrow operator review, never a successful-outcome rewrite or retry grant."""
     path = root/'.research-execution/diagnostic-reviews'/(plan['sha256']+'.json')
@@ -412,9 +465,13 @@ review. Disappearing local sessions never count as allocation release.
             raise ValueError('Missing owner for final SOC direction')
         if 'driver_rejection_report_sha256' in c and not owner_path.exists():
             raise ValueError('No owned driver rejection for this grant')
+        if 'previous_scf_failure_report_sha256' in c and not owner_path.exists():
+            raise ValueError('No owned SCF rejection for this grant')
         if owner_path.exists():
             owner = load(owner_path)
-            if 'seed_rejection_sha256' in c:
+            if 'previous_scf_failure_report_sha256' in c:
+                continuation_review = _review_prior_scf_failure(root, owner, plan, structure)
+            elif 'seed_rejection_sha256' in c:
                 from .preempted_axis import review_seed_rejection
                 checkpoint_spec = review_seed_rejection(root, owner, c, bundle, plan['runtime'], source_binding, plan['ledger'])
                 continuation_review = owner['attempt']+'/collected/query/report.json'

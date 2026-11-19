@@ -322,6 +322,18 @@ allocate a GPU, call a model service, demonstrate scientific policy quality or
 establish the 1–5 minute exploratory-query target. Live authorized integration
 and the equivalent-budget research comparison remain empirical acceptance work.
 
+### Screen another composition after electronic nonconvergence
+
+An operator can authorize one independent relaxation after a native geometry
+stage aborts while exporting an unconverged electronic state. Set
+`previous_scf_failure_report_sha256` to the SHA-256 of the prior collected
+`query/report.json`, set `previous_app_id` to that allocation, and bind the
+new structure with a fresh single-query relaxation grant. The controller
+reproduces the archived native review and checks the exit status, terminal
+SCF diagnostic, ledger receipt, and stopped allocation. It compares atomic
+fractions so a relabeled structure or supercell of the same composition
+cannot qualify. The original rejection stays in the campaign record.
+
 ### Review a stopped failure for one changed-runtime diagnostic
 
 When the device final-grid export rejects an unconverged electronic cycle,
