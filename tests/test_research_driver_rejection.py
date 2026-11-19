@@ -13,15 +13,24 @@ from test_research_execution import prepared
     None, 'admitted_host', 'different_source', 'different_request', 'same_grant',
     'additional_artifact', 'native_work', 'unconfirmed_stop', 'different_report',
 ])
-@pytest.mark.parametrize('operation', ['query','relaxation'])
-def test_stopped_pre_solver_host_replacement(tmp_path, prepared, change, operation):
+@pytest.mark.parametrize('operation,kind', [('query','scalar'),('query','anisotropy'),('relaxation',None)])
+def test_stopped_pre_solver_host_replacement(tmp_path, prepared, change, operation, kind):
+    args, kwargs = host_review(tmp_path, prepared, change, operation, kind)
+    if change is None:
+        assert _review_driver_rejection(*args, **kwargs) == 'prior/collected/report.json'
+    else:
+        with pytest.raises(ValueError):
+            _review_driver_rejection(*args, **kwargs)
+
+
+def host_review(tmp_path, prepared, change, operation, kind):
     prior = tmp_path/'prior'
     source = {'source_sha256': 'a'*64}
     policy = dict(operation='relaxation', source_binding=source)
     if operation == 'query':
         policy = dict(experiments=['query'], spectra=[])
         request = load(prepared/'experiment.json')
-        request['query'] = {'kind':'scalar'}
+        request['query'] = {'kind':kind}
         save(prepared/'experiment.json', request)
         shutil.copytree(prepared, prior/'campaign/query')
     original_host = dict(cuda_runtime=12060, cuda_driver_api=13030,
@@ -64,9 +73,25 @@ def test_stopped_pre_solver_host_replacement(tmp_path, prepared, change, operati
     if change == 'different_request':
         preflight = dict(request_sha256='f'*64)
     args = (tmp_path, owner, cfg, preflight, source if operation=='relaxation' else None)
-    query = dict(scalar_bundle=prepared) if operation=='query' else {}
-    if change is None:
-        assert _review_driver_rejection(*args, **query) == 'prior/collected/report.json'
+    query = dict(query_bundle=prepared) if operation=='query' else {}
+    return args, query
+
+
+@pytest.mark.parametrize('change', ['add_spectrum','changed_kind','changed_volume','longer_deadline','second_replacement'])
+def test_fixed_anisotropy_replacement_keeps_the_original_work(tmp_path, prepared, change):
+    args, kwargs = host_review(tmp_path, prepared, None, 'query', 'anisotropy')
+    if change=='add_spectrum':
+        kwargs['spectra'] = [{'stage':'soc-z','spin':0}]
+    elif change=='changed_kind':
+        request = load(prepared/'experiment.json')
+        save(prepared/'experiment.json', dict(request, query={'kind':'scalar'}))
+    elif change=='second_replacement':
+        path = tmp_path/'prior/authorization.json'
+        old = load(path)
+        old['config']['driver_rejection_report_sha256'] = 'a'*64
+        save(path, old)
     else:
-        with pytest.raises(ValueError):
-            _review_driver_rejection(*args, **query)
+        field, value = ('volume','another') if change=='changed_volume' else ('app_timeout_seconds',300)
+        args[2][field] = value
+    with pytest.raises(ValueError):
+        _review_driver_rejection(*args, **kwargs)

@@ -348,10 +348,13 @@ cannot qualify. The original rejection stays in the campaign record.
 
 A worker can reject its host driver before calling the solver. A fresh single-use
 grant can bind `driver_rejection_report_sha256` to the archived rejection for a
-relaxation or a fixed scalar query. The controller verifies the stopped app,
+relaxation, fixed scalar query, or fixed anisotropy query. The controller verifies the stopped app,
 reproduces the host rejection, and checks the archive contains only the run
-report with zero native time. A scalar replacement must use the identical
-prepared bundle, executable, image and driver policy.
+report with zero native time. Fixed queries require the identical prepared
+bundle, executable, image and driver policy. A fixed anisotropy query allows
+one operator-reviewed replacement under the original time and reservation
+limits and on the original volume. This path requires empty spectra selections
+and excludes SOC matrix exports.
 
 When the device final-grid export rejects an unconverged electronic cycle,
 the stage's `stderr.log` records the geometry step, iteration count, exhaustion
