@@ -5,8 +5,9 @@ solve. Different BLAS implementations can differ at the last binary places.
 Retained bytes/hashes remain exact. Reconstructed coordinates may differ by
 eight binary64 epsilons. A nonzero SOC axis component in the manifest may
 differ by one representable step or reproduce exactly from the same lattice
-using a different binary64 reduction. For identical axes, a polar angle may
-also reproduce from the equivalent atan2 evaluation at a decimal rounding boundary.
+using a different binary64 reduction. If the rendered angles differ, both
+spin blocks must regenerate from their respective axes. Different axes in
+this case must both regenerate from the same lattice.
 This is a serialization bound, never a native convergence tolerance.
 """
 from pathlib import Path
@@ -60,28 +61,35 @@ def _reconstructed_axes(cell, stage):
     return axes
 
 
-def _matches_polar_rendering(expected, actual, manifest):
-    """Reproduce the entire spin block from the exact axis and signed moments."""
-    start, end = '%block DM.InitSpin\n', '%endblock DM.InitSpin\n'
-    if expected.count(start) != 1 or expected.count(end) != 1:
-        return False
-    first, last = expected.index(start) + 1, expected.index(end)
+def _spin_renderings(manifest):
     moments = manifest['initial_moments_muB']
-    if last - first != len(moments) or expected[:first] != actual[:first] or expected[last:] != actual[last:]:
-        return False
     x, y, z = manifest['direction']
     z = min(1.0, max(-1.0, z))
     polar = math.acos(z)
     alternate = math.atan2(math.sqrt((1.0-z)*(1.0+z)), z)
-    if abs(alternate-polar) > math.ulp(polar):
-        return False
     phi = math.degrees(math.atan2(y, x))
-    variants = []
-    for angle in (polar, alternate):
+    angles = (polar, alternate) if abs(alternate-polar) <= math.ulp(polar) else (polar,)
+    for angle in angles:
         theta = math.degrees(angle)
-        variants.append([f'{i} {abs(m):.12f} {theta if m >= 0 else 180-theta:.12f} '
-                         f'{phi if m >= 0 else phi+180:.12f}\n' for i, m in enumerate(moments, 1)])
-    return expected[first:last] in variants and actual[first:last] in variants
+        yield [f'{i} {abs(m):.12f} {theta if m >= 0 else 180-theta:.12f} '
+               f'{phi if m >= 0 else phi+180:.12f}\n' for i, m in enumerate(moments, 1)]
+
+
+def _matches_polar_rendering(expected, actual, left, right):
+    """Validate each complete block against its own source-derived direction."""
+    start, end = '%block DM.InitSpin\n', '%endblock DM.InitSpin\n'
+    if expected.count(start) != 1 or expected.count(end) != 1:
+        return False
+    first, last = expected.index(start) + 1, expected.index(end)
+    if expected[:first] != actual[:first] or expected[last:] != actual[last:]:
+        return False
+    if left['direction'] != right['direction']:
+        if left['geometry']['lattice_A'] != right['geometry']['lattice_A']:
+            return False
+        axes = _reconstructed_axes(left['geometry']['lattice_A'], left['name'])
+        if not all(tuple(m['direction']) in axes for m in (left, right)):
+            return False
+    return expected[first:last] in _spin_renderings(left) and actual[first:last] in _spin_renderings(right)
 
 
 def verify_prepared_input(expected, actual):
@@ -114,15 +122,15 @@ def verify_prepared_input(expected, actual):
         left, right = (np.asarray(m['direction'], dtype=float) for m in manifests)
         if (left.shape == right.shape == (3,) and np.isfinite(left).all() and np.isfinite(right).all()
                 and np.all((left == right) | ((left * right > 0) & (np.nextafter(left, right) == right)))):
-            # The full DM.InitSpin block, including every rendered angle, is
-            # compared byte for byte below. The source-derived axis is expected.
+            # Adjacent components alone only admit identical rendered input.
             ignored.add('direction')
         elif left.shape == right.shape == (3,) and a['geometry']['lattice_A'] == b['geometry']['lattice_A']:
             axes = _reconstructed_axes(a['geometry']['lattice_A'], a['name'])
             if tuple(left) in axes and tuple(right) in axes:
                 ignored.add('direction')
     spin_roundoff = (stripped[0] != stripped[1] and a['spin'] == b['spin'] == 'spin-orbit' and
-                     a['direction'] == b['direction'] and _matches_polar_rendering(*stripped, a))
+                     (a['direction'] == b['direction'] or 'direction' in ignored) and
+                     _matches_polar_rendering(*stripped, a, b))
     if ({k:v for k,v in a.items() if k not in ignored} != {k:v for k,v in b.items() if k not in ignored} or
             {k:v for k,v in a['geometry'].items() if k != 'fractional_coordinates'} !=
             {k:v for k,v in b['geometry'].items() if k != 'fractional_coordinates'} or

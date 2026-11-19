@@ -70,6 +70,46 @@ def test_fe2co_lattice_axis_reproduces_both_binary64_dot_reductions():
     assert (*native[:2], np.nextafter(native[2], 0)) not in axes
 
 
+def test_near_polar_axis_reduction_must_reproduce_each_signed_spin_row(pair):
+    import math
+    from siesta_remag.discovery.inputs import axes
+    from siesta_remag.research.input_reproduction import _reconstructed_axes
+
+    original, _ = pair
+    cell = [[3., 0., 0.], [0., 3., 0.], [.0001, .0002, 3.]]
+    atoms = Atoms('Ni2', scaled_positions=[[0,0,0],[.5,.5,.5]], cell=cell, pbc=True)
+    a = prepare_case(atoms, original.parent/'pseudos', original.parent/'soc-z', Settings(),
+                     direction=axes(atoms)['z'], spins=[2., -1.])
+    b = original.parent/'alternate'
+    shutil.copytree(a, b)
+    manifest = load(a/'manifest.json')
+    axis = next(v for v in sorted(_reconstructed_axes(cell, 'soc-z')) if v[2] != manifest['direction'][2])
+    lines = (a/'input.fdf').read_text().splitlines(keepends=True)
+    start = lines.index('%block DM.InitSpin\n') + 1
+
+    def write_block(direction, corrupt_second=False):
+        theta = math.degrees(math.acos(direction[2]))
+        phi = math.degrees(math.atan2(direction[1], direction[0]))
+        new = lines.copy()
+        new[start] = f'1 2.000000000000 {theta:.12f} {phi:.12f}\n'
+        if not corrupt_second:
+            new[start+1] = f'2 1.000000000000 {180-theta:.12f} {phi+180:.12f}\n'
+        assert new[start] != lines[start]
+        f = b/'input.fdf'
+        f.write_text(''.join(new))
+        save(b/'manifest.json', dict(manifest, direction=list(direction), input_sha256=sha256(f)))
+
+    write_block(axis)
+    assert verify_prepared_input(a,b)['soc_polar_rendering_reproduced']
+    write_block(axis, corrupt_second=True)
+    with pytest.raises(ValueError):
+        verify_prepared_input(a,b)
+    # Both rows can agree with a forged direction that is absent from the lattice reconstructions.
+    write_block((axis[0], axis[1], np.nextafter(min(axis[2], manifest['direction'][2]), 0.)))
+    with pytest.raises(ValueError):
+        verify_prepared_input(a,b)
+
+
 def test_fe10co3_polar_rounding_requires_one_consistent_reconstructed_block(pair, monkeypatch):
     import math
     original, _ = pair
