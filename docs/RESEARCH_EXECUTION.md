@@ -324,6 +324,13 @@ and the equivalent-budget research comparison remain empirical acceptance work.
 
 ### Review a stopped failure for one changed-runtime diagnostic
 
+When the device final-grid export rejects an unconverged electronic cycle,
+the stage's `stderr.log` records the geometry step, iteration count, exhaustion
+flag, and the density-matrix, Hamiltonian and energy-density-matrix residuals
+from each completed iteration. Hamiltonian and energy-density-matrix residuals
+use Ry. These values describe the failed iteration history. The stage still fails
+the convergence gate. Older builds may have only the terminal error message.
+
 A stopped `held_native_review` remains failed. A relaxation `held_review` can
 also be reviewed when its verified archive contains a nonzero native exit or
 timeout matching the retained executable and environment; a Python review
