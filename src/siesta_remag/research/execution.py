@@ -46,12 +46,17 @@ def read_execution_config(workspace, path):
     required = {'format','authorization_id','authorization','budget_ledger','budget_stage','runtime',
                 'runtime_sha256','image','previous_app_id','app_timeout_seconds',
                 'hourly_reservation_usd','max_queries','max_reserved_cents'}
-    optional = {'volume', 'operation', 'driver_rejection_report_sha256', 'final_axis_checkpoint_sha256', 'seed_rejection_sha256', 'previous_scf_failure_report_sha256'}
+    endpoint = 'relaxation_endpoint_report_sha256'
+    optional = {'volume', 'operation', 'driver_rejection_report_sha256', 'final_axis_checkpoint_sha256', 'seed_rejection_sha256', 'previous_scf_failure_report_sha256', endpoint}
     if (not isinstance(c,dict) or not required <= set(c) or set(c)-required-optional
             or c['format'] != 'REMAG-RESEARCH-EXECUTION/1'):
         raise ValueError('Expected explicit REMAG research execution configuration')
     if c.get('operation', 'query') not in ('query', 'relaxation'):
         raise ValueError('Unsupported execution operation')
+    if endpoint in c and (c.get('operation', 'query') != 'query' or c['max_queries'] != 1
+            or (optional - {endpoint, 'volume', 'operation'}) & c.keys()
+            or not isinstance(c[endpoint], str) or not re.fullmatch('[0-9a-f]{64}', c[endpoint])):
+        raise ValueError('An endpoint force measurement requires one report-bound scalar query grant')
     if 'previous_scf_failure_report_sha256' in c and (
             c.get('operation') != 'relaxation' or c['max_queries'] != 1
             or {'seed_rejection_sha256', 'final_axis_checkpoint_sha256', 'driver_rejection_report_sha256'} & c.keys()
@@ -66,10 +71,10 @@ def read_execution_config(workspace, path):
             or 'driver_rejection_report_sha256' in c or not isinstance(c['final_axis_checkpoint_sha256'], str)
             or not re.fullmatch('[0-9a-f]{64}', c['final_axis_checkpoint_sha256'])):
         raise ValueError('Final SOC direction requires a single checkpoint-bound relaxation grant')
-    if 'driver_rejection_report_sha256' in c and (c.get('operation') != 'relaxation' or c['max_queries'] != 1
+    if 'driver_rejection_report_sha256' in c and (c.get('operation') not in ('query', 'relaxation') or c['max_queries'] != 1
             or not isinstance(c['driver_rejection_report_sha256'], str)
             or not re.fullmatch('[0-9a-f]{64}', c['driver_rejection_report_sha256'])):
-        raise ValueError('Driver rejection continuation requires one report-bound relaxation grant')
+        raise ValueError('Driver rejection continuation requires one report-bound execution grant')
     if 'volume' in c and (not isinstance(c['volume'],str)
             or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,63}',c['volume'])):
         raise ValueError('Expected a named operator-selected result volume')
@@ -234,7 +239,7 @@ def execute_relaxation(workspace, execution_config, structure, bundle, output, *
                               transport=transport, operation='relaxation', structure=structure)
 
 
-def _review_driver_rejection(root, owner, config, preflight, source_binding):
+def _review_driver_rejection(root, owner, config, preflight, source_binding, *, scalar_bundle=None):
     """Admit a fresh operator grant for the same case after a pre-solver host rejection."""
     from .runtime_policy import check, validate
     attempt = _path(root, owner['attempt'])
@@ -247,11 +252,24 @@ def _review_driver_rejection(root, owner, config, preflight, source_binding):
     authorization = load(attempt/'authorization.json')
     old_config = authorization['config']
     app_id = config['previous_app_id']
+    operation = config['operation']
+    if operation == 'query':
+        if scalar_bundle is None or source_binding is not None or policy.get('spectra') != []:
+            raise ValueError('Driver rejection continuation requires the same fixed scalar query')
+        saved = attempt/'campaign/query'
+        request = verify_experiment(saved)
+        if (request != verify_experiment(scalar_bundle) or request.get('query') != {'kind':'scalar'}
+                or request.get('fixed_geometry') is not True or sha256(saved/'experiment.json') != preflight['request_sha256']
+                or old_config.get('operation', 'query') != operation):
+            raise ValueError('Driver rejection continuation requires the same fixed scalar query')
+        source_sha = request['source_sha256']
+    else:
+        source_sha = source_binding['source_sha256']
     if (owner.get('status') != 'held_review' or owner.get('allocation_stopped') is not True
             or owner.get('app_id') != app_id or old.get('app_id') != app_id
             or old.get('status') != 'held_review' or old.get('allocation_stopped') is not True
             or old['config_sha256'] != authorization['config_sha256']
-            or old['source_sha256'] != source_binding['source_sha256']
+            or old['source_sha256'] != source_sha
             or old.get('app_lifecycle', {}).get('state','').lower() != 'stopped'
             or load(attempt/'receipt.json').get('app_id') != app_id
             or old_config['authorization_id'] == config['authorization_id']
@@ -262,7 +280,7 @@ def _review_driver_rejection(root, owner, config, preflight, source_binding):
             or report.get('timing', {}).get('native_seconds') != 0
             or set(load(collected/'archive-manifest.json')['files']) != {'report.json'}
             or report.get('policy') != policy or report.get('invocation_sha256') != digest(policy)
-            or policy.get('operation') != 'relaxation' or policy.get('source_binding') != source_binding
+            or policy.get('operation', 'query') != operation or policy.get('source_binding') != source_binding
             or load(attempt/'preflight.json') != preflight or old['request_sha256'] != preflight['request_sha256']):
         raise ValueError('Previous attempt is not the authorized stopped pre-solver driver rejection')
     prefix = 'Native runtime profile is not admitted: '
@@ -467,9 +485,15 @@ review. Disappearing local sessions never count as allocation release.
             raise ValueError('No owned driver rejection for this grant')
         if 'previous_scf_failure_report_sha256' in c and not owner_path.exists():
             raise ValueError('No owned SCF rejection for this grant')
+        if 'relaxation_endpoint_report_sha256' in c and not owner_path.exists():
+            raise ValueError('No owned relaxation endpoint for this grant')
         if owner_path.exists():
             owner = load(owner_path)
-            if 'previous_scf_failure_report_sha256' in c:
+            if 'relaxation_endpoint_report_sha256' in c:
+                from .endpoint_diagnostic import review_endpoint_query
+                continuation_review = review_endpoint_query(
+                    root, _path(root, owner['attempt']), owner, plan, bundle)
+            elif 'previous_scf_failure_report_sha256' in c:
                 continuation_review = _review_prior_scf_failure(root, owner, plan, structure)
             elif 'seed_rejection_sha256' in c:
                 from .preempted_axis import review_seed_rejection
@@ -481,7 +505,8 @@ review. Disappearing local sessions never count as allocation release.
                                              source_binding, plan['ledger'])
                 continuation_review = owner['attempt']+'/saved-volume/query/report.json'
             elif 'driver_rejection_report_sha256' in c:
-                continuation_review = _review_driver_rejection(root, owner, c, preflight, source_binding)
+                continuation_review = _review_driver_rejection(root, owner, c, preflight, source_binding,
+                    scalar_bundle=bundle if operation=='query' else None)
             elif owner['status'] != 'measured' or not owner.get('allocation_stopped') or not owner.get('app_id'):
                 from .relaxation_recovery import verified_execution, NAME as RECOVERY
                 previous_attempt = _path(root, owner['attempt'])

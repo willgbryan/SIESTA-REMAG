@@ -65,11 +65,16 @@ class DiscoveryTransport(SyntheticTransport):
     def __init__(self, monkeypatch, *, relaxed_cell_scale=1., **kwargs):
         super().__init__(**kwargs)
         original = pipeline.run_dft
-        base = backend(self.native, fail='optimizer' if self.failure == 'optimizer' else
+        base = backend(self.native, fail='optimizer' if self.failure in ('optimizer', 'step_limit') else
                        'soc-x' if self.failure == 'native' else None, branch=self.failure == 'branch')
         def native(case, executable, destination, **kw):
             result = base(case, executable, destination, **kw)
             m = load(destination/'manifest.json'); g = m['geometry']
+            if self.failure == 'step_limit':
+                with (destination/'stdout.log').open('a') as stream:
+                    for move in range(m['settings']['dft_steps']+1):
+                        stream.write(f'\nBegin Broyden opt. move = {move}\n')
+                save(destination/'execution-status.json', dict(returncode=0, timed_out=False))
             cell = [[v*(relaxed_cell_scale if destination.name == 'dft-relax' else 1) for v in row]
                     for row in g['lattice_A']]
             (destination/'remag.STRUCT_OUT').write_text('\n'.join(' '.join(map(str,r)) for r in cell)+

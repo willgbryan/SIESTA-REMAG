@@ -11,6 +11,7 @@ import pytest
 
 ase = pytest.importorskip('ase')
 from ase import Atoms
+from ase.data import atomic_numbers
 from ase.io import write
 from siesta_remag.corpus import sha256
 from siesta_remag.discovery.common import digest, load, save
@@ -76,7 +77,11 @@ def backend(calls, fail=None, branch=False, axis_failure=False, mesh_mismatch=Fa
         (destination/'fdf-1.log').write_text('DM.Tolerance 1e-4\nSCF.DM.Tolerance 1e-4\nSCF.H.Tolerance 1e-3 eV\nSCF.DM.Converge true\nSCF.H.Converge true\nSCF.MustConverge true\n')
         cell = manifest['geometry']['lattice_A']
         pos = manifest['geometry']['fractional_coordinates']
-        (destination/'remag.STRUCT_OUT').write_text('\n'.join(' '.join(map(str,r)) for r in cell)+'\n2\n'+'\n'.join('1 26 '+' '.join(map(str,r)) for r in pos)+'\n')
+        species = manifest['geometry']['species']
+        indices = {s:i for i,s in enumerate(sorted(set(species)), 1)}
+        sites = [f'{indices[s]} {atomic_numbers[s]} '+' '.join(map(str,r)) for s,r in zip(species,pos)]
+        (destination/'remag.STRUCT_OUT').write_text('\n'.join(' '.join(map(str,r)) for r in cell)+
+            f'\n{len(sites)}\n'+'\n'.join(sites)+'\n')
         scalar_dm(destination/'remag.DM')
         result = dict(valid=name!=fail, returncode=0, timed_out=False, observables=obs, wall_seconds=.1, parse_errors=[])
         save(destination/'result.json', result)

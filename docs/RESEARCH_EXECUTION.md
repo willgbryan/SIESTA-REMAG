@@ -162,6 +162,16 @@ stability and synthesis qualification false. Source-bound observation import,
 notebook scoring and IDE discovery-cycle views have local integration coverage;
 general electronic analysis and a completed live feedback loop remain open.
 
+An operator investigating residual forces can authorize one fixed-ion scalar
+measurement at the last geometry of an exhausted Broyden relaxation. Supply
+`relaxation_endpoint_report_sha256` with the SHA-256 of the collected
+`query/report.json`, the stopped app ID and a fresh single-query grant. The
+controller reproduces the predecessor review, checks the clean native exit and
+the complete sequence of geometry moves, and verifies the new scalar input
+against the terminal unit cell, sites, spin seed, mesh, basis and potentials.
+The diagnostic starts a fresh electronic solve. Its forces describe the saved
+geometry. The original relaxation retains its failed force or optimizer check.
+
 The [local integration record](../tests/evidence/research/general-material-execution-2026-11-17.json)
 uses synthetic Ni/Co native results through the actual remote-function code.
 It is engineering evidence, not measured material or GPU acceptance.
@@ -335,6 +345,13 @@ fractions so a relabeled structure or supercell of the same composition
 cannot qualify. The original rejection stays in the campaign record.
 
 ### Review a stopped failure for one changed-runtime diagnostic
+
+A worker can reject its host driver before calling the solver. A fresh single-use
+grant can bind `driver_rejection_report_sha256` to the archived rejection for a
+relaxation or a fixed scalar query. The controller verifies the stopped app,
+reproduces the host rejection, and checks the archive contains only the run
+report with zero native time. A scalar replacement must use the identical
+prepared bundle, executable, image and driver policy.
 
 When the device final-grid export rejects an unconverged electronic cycle,
 the stage's `stderr.log` records the geometry step, iteration count, exhaustion
