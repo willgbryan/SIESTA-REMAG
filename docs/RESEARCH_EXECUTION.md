@@ -441,3 +441,13 @@ a builder's metadata-only proof cannot replace the worker's deployment proof.
 Historical runtime manifests and failed receipts remain readable and unchanged,
 including their incident holds. Full native health and scientific review are
 separate requirements, even on an admitted profile.
+
+### Completing a preempted final SOC direction
+
+A relaxation interrupted by provider preemption during `soc-y` can retain three accepted native stages. An operator can recover them into a fresh attempt and run the final direction alone. The initial execution and reservation stay in the ledger.
+
+Retrieve the stopped run’s top-level `report.json` and `query/` from its result volume into `saved-volume/` inside the original attempt. Use `siesta_remag.research.preempted_axis.snapshot_axis` to reproduce the stage inputs, native and branch reviews, runtime identity and scalar-derived seeds. It returns a manifest of the original files and volume run ID. An explicit single-query relaxation grant can bind its canonical digest in `final_axis_checkpoint_sha256`. Use the same runtime, image and named volume, and set the app deadline to cover the SOC stage ceiling plus startup and collection. Submit through the ordinary relaxation executor and its account and ledger guards.
+
+The remote runner checks the volume again, copies the accepted stages, then passes the original y input and original density to the native solver. A fresh output directory prevents the interrupted y working density from entering that calculation. The combined archive binds the inherited files and records their original and locally reconstructed seed hashes. Use the original execution and the completion execution together when reporting elapsed time or reservations.
+
+A previous replay that stopped during host reconstruction of a prefix seed can be diagnosed from its archive. For that specific pre-dispatch failure, a separate grant may bind `seed_rejection_sha256` to the prior collected query report. Admission reproduces the rejected seed, checks the stopped allocations and the original ledger records, and verifies which stages ran. Atomic input coordinates, branch checks and native acceptance use the same review as a full run.

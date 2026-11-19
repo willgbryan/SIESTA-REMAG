@@ -205,11 +205,56 @@ def verify_relaxation_source(structure, bundle):
                 structure_file_sha256=sha256(structure))
 
 
+def reproduce_stages(query, bundle, request, receipt, report, expected_numbers, diagnostics):
+    from ase.io import read
+    settings = Settings.from_dict(request['settings'])
+    names = [r['stage'] for r in report['stages']]
+    observations, rows, input_reproduction, branch_reproduction, native_reproduction = {}, {}, {}, {}, {}
+    relaxed = None
+    for saved in report['stages']:
+        name = saved['stage']; folder = query/name
+        manifest = load(folder/'manifest.json')
+        if manifest['settings'] != request['settings'] or manifest['kmesh'] != receipt['kmesh']:
+            raise ValueError('Native stage settings or mesh differs')
+        result = load(folder/'result.json')
+        axis = None if name == 'dft-relax' else axes(relaxed)[name[4:]]
+        # Recreate the generated native input from the source-bound preparation,
+        # not from the collected input's own self-declared manifest.
+        with TemporaryDirectory(prefix='relaxation-input-review-') as temp:
+            expected = prepare_case(read(bundle/'orb/relaxed.extxyz') if axis is None else relaxed,
+                bundle/'pseudos', Path(temp)/name, settings, mesh=receipt['kmesh'],
+                relax=axis is None, direction=axis, restart=axis is not None,
+                diagnostics=diagnostics,
+                spins=None if axis is None else np.asarray(observations['dft-relax']['atom_moments_muB'])[:, 2])
+            from .input_reproduction import verify_prepared_input
+            input_reproduction[name] = verify_prepared_input(expected, folder)
+        review = native_review(folder, result, settings, relaxation=name == 'dft-relax', axis=axis)
+        native_reproduction[name] = verify_native_reproduction(saved, review, settings)
+        observations[name] = result['observables']
+        if not review['accepted']:
+            if name != names[-1]: raise ValueError('Execution continued after native failure')
+            continue
+        if name == 'dft-relax':
+            relaxed = evaluated_structure(folder, expected_numbers)
+        else:
+            actual = evaluated_structure(folder, relaxed.numbers)
+            if (not np.allclose(actual.cell.array, relaxed.cell.array, atol=2e-8, rtol=0) or
+                    not np.allclose(actual.positions, relaxed.positions, atol=2e-7, rtol=0)):
+                raise ValueError('SOC geometry differs from accepted relaxation')
+            reference = rows.get('z', observations['dft-relax'])
+            branch = branch_check(result['observables'], reference,
+                                  axis, axes(relaxed)['z'] if rows else [0, 0, 1], settings)
+            branch_reproduction[name] = verify_branch_reproduction(
+                saved.get('branch'), branch, result['observables'], reference, settings)
+            rows[name[4:]] = result['observables']
+    return relaxed, observations, rows, dict(input_reproduction=input_reproduction,
+        branch_reproduction=branch_reproduction, native_reproduction=native_reproduction)
+
+
 def review_relaxation(attempt, request, runtime, *, require_current_code=True):
     """Reproduce native/branch checks and exact-source feedback from collection."""
     from .relaxation import inspect_relaxation
     from .experiments import experiment_code
-    from ase.io import read
     attempt = Path(attempt)
     root = attempt/'collected'
     verify_archive(root)
@@ -254,6 +299,12 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
         raise ValueError('Collected relaxation runtime verification is missing or differs') from exc
     if top.get('experiments') != [dict(id='query', status=report['status'], report_sha256=sha256(report_path))]:
         raise ValueError('Collected relaxation report binding differs')
+    checkpoint = policy.get('final_axis_checkpoint')
+    if checkpoint is not None:
+        if report['status'] == 'held_error':
+            raise ValueError(f"Final-axis operation held at {report.get('current_stage')}: {report.get('reason')}")
+        from .preempted_axis import verify_collected_prefix
+        verify_collected_prefix(attempt, report_path.parent, checkpoint)
     for name, expected in report['accepted_artifacts'].items():
         path = (report_path.parent/name).resolve()
         if not path.is_relative_to(report_path.parent.resolve()) or sha256(path) != expected:
@@ -263,44 +314,8 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
     ordered = ['dft-relax', 'soc-z', 'soc-x', 'soc-y']
     if names != ordered[:len(names)] or not names:
         raise ValueError('Unexpected discovery stage sequence')
-    observations, rows, input_reproduction, branch_reproduction, native_reproduction = {}, {}, {}, {}, {}
-    relaxed = None
-    for saved in report['stages']:
-        name = saved['stage']; folder = report_path.parent/name
-        manifest = load(folder/'manifest.json')
-        if manifest['settings'] != request['settings'] or manifest['kmesh'] != receipt['kmesh']:
-            raise ValueError('Native stage settings or mesh differs')
-        result = load(folder/'result.json')
-        axis = None if name == 'dft-relax' else axes(relaxed)[name[4:]]
-        # Recreate the generated native input from the source-bound preparation,
-        # not from the collected input's own self-declared manifest.
-        with TemporaryDirectory(prefix='relaxation-input-review-') as temp:
-            expected = prepare_case(read(bundle/'orb/relaxed.extxyz') if axis is None else relaxed,
-                bundle/'pseudos', Path(temp)/name, settings, mesh=receipt['kmesh'],
-                relax=axis is None, direction=axis, restart=axis is not None,
-                diagnostics=diagnostics,
-                spins=None if axis is None else np.asarray(observations['dft-relax']['atom_moments_muB'])[:, 2])
-            from .input_reproduction import verify_prepared_input
-            input_reproduction[name] = verify_prepared_input(expected, folder)
-        review = native_review(folder, result, settings, relaxation=name == 'dft-relax', axis=axis)
-        native_reproduction[name] = verify_native_reproduction(saved, review, settings)
-        observations[name] = result['observables']
-        if not review['accepted']:
-            if name != names[-1]: raise ValueError('Execution continued after native failure')
-            continue
-        if name == 'dft-relax':
-            relaxed = evaluated_structure(folder, load(attempt/'campaign/structure.json')['geometry']['atomic_numbers'])
-        else:
-            actual = evaluated_structure(folder, relaxed.numbers)
-            if (not np.allclose(actual.cell.array, relaxed.cell.array, atol=2e-8, rtol=0) or
-                    not np.allclose(actual.positions, relaxed.positions, atol=2e-7, rtol=0)):
-                raise ValueError('SOC geometry differs from accepted relaxation')
-            reference = rows.get('z', observations['dft-relax'])
-            branch = branch_check(result['observables'], reference,
-                                  axis, axes(relaxed)['z'] if rows else [0, 0, 1], settings)
-            branch_reproduction[name] = verify_branch_reproduction(
-                saved.get('branch'), branch, result['observables'], reference, settings)
-            rows[name[4:]] = result['observables']
+    relaxed, observations, rows, checks = reproduce_stages(report_path.parent, bundle, request, receipt, report,
+        load(attempt/'campaign/structure.json')['geometry']['atomic_numbers'], diagnostics)
     healthy = (top['status'] == 'measured' and report['status'] in ('screened', 'screened_low_moment')
                and all(s['accepted'] and s.get('branch', {}).get('passed', True) for s in report['stages']))
     if healthy:
@@ -319,6 +334,5 @@ def review_relaxation(attempt, request, runtime, *, require_current_code=True):
         source_binding=binding, feedback=feedback, physical_stability_qualified=False,
         native_wall_seconds=report.get('whole_pipeline_dft_seconds'), remote_timing=top.get('timing'),
         verification=dict(native_reviews_reproduced=True, accepted_artifact_hashes_verified=True,
-                          input_reproduction=input_reproduction, branch_reproduction=branch_reproduction,
-                          native_reproduction=native_reproduction),
+                          **checks),
         runtime_verification=top['runtime_verification'])

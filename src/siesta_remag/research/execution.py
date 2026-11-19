@@ -46,11 +46,20 @@ def read_execution_config(workspace, path):
     required = {'format','authorization_id','authorization','budget_ledger','budget_stage','runtime',
                 'runtime_sha256','image','previous_app_id','app_timeout_seconds',
                 'hourly_reservation_usd','max_queries','max_reserved_cents'}
-    if (not isinstance(c,dict) or not required <= set(c) or set(c)-required-{'volume', 'operation', 'driver_rejection_report_sha256'}
+    optional = {'volume', 'operation', 'driver_rejection_report_sha256', 'final_axis_checkpoint_sha256', 'seed_rejection_sha256'}
+    if (not isinstance(c,dict) or not required <= set(c) or set(c)-required-optional
             or c['format'] != 'REMAG-RESEARCH-EXECUTION/1'):
         raise ValueError('Expected explicit REMAG research execution configuration')
     if c.get('operation', 'query') not in ('query', 'relaxation'):
         raise ValueError('Unsupported execution operation')
+    if 'seed_rejection_sha256' in c and ('final_axis_checkpoint_sha256' not in c
+            or not isinstance(c['seed_rejection_sha256'], str) or not re.fullmatch('[0-9a-f]{64}', c['seed_rejection_sha256'])):
+        raise ValueError('Seed rejection review requires a report-bound final-axis grant')
+    if 'final_axis_checkpoint_sha256' in c and (
+            c.get('operation') != 'relaxation' or c['max_queries'] != 1 or not c.get('volume')
+            or 'driver_rejection_report_sha256' in c or not isinstance(c['final_axis_checkpoint_sha256'], str)
+            or not re.fullmatch('[0-9a-f]{64}', c['final_axis_checkpoint_sha256'])):
+        raise ValueError('Final SOC direction requires a single checkpoint-bound relaxation grant')
     if 'driver_rejection_report_sha256' in c and (c.get('operation') != 'relaxation' or c['max_queries'] != 1
             or not isinstance(c['driver_rejection_report_sha256'], str)
             or not re.fullmatch('[0-9a-f]{64}', c['driver_rejection_report_sha256'])):
@@ -386,7 +395,9 @@ review. Disappearing local sessions never count as allocation release.
         spectra = requested_spectra(request.get('query',{'kind':'anisotropy'}),[] if spectra is None else spectra)
         source_sha = request['source_sha256']; code = experiment_code()
     settings = Settings.from_dict(request['settings'])
-    if settings.total_dft_seconds+60 > c['app_timeout_seconds']:
+    final_axis = 'final_axis_checkpoint_sha256' in c
+    native_limit = settings.soc_seconds if final_axis else settings.total_dft_seconds
+    if native_limit+60 > c['app_timeout_seconds']:
         raise ValueError('Query native ceiling does not fit the authorized app deadline')
     if output.exists() or output.is_relative_to(bundle) or bundle.is_relative_to(output):
         raise ValueError('Use a new attempt directory separate from the prepared bundle')
@@ -396,11 +407,23 @@ review. Disappearing local sessions never count as allocation release.
     with lock(control/'owner.lock'):
         owner_path = control/'owner.json'; previous = c['previous_app_id']
         continuation_review = None
+        checkpoint_spec = None
+        if final_axis and not owner_path.exists():
+            raise ValueError('Missing owner for final SOC direction')
         if 'driver_rejection_report_sha256' in c and not owner_path.exists():
             raise ValueError('No owned driver rejection for this grant')
         if owner_path.exists():
             owner = load(owner_path)
-            if 'driver_rejection_report_sha256' in c:
+            if 'seed_rejection_sha256' in c:
+                from .preempted_axis import review_seed_rejection
+                checkpoint_spec = review_seed_rejection(root, owner, c, bundle, plan['runtime'], source_binding, plan['ledger'])
+                continuation_review = owner['attempt']+'/collected/query/report.json'
+            elif final_axis:
+                from .preempted_axis import admit_axis
+                checkpoint_spec = admit_axis(_path(root,owner['attempt']), owner, c, bundle, plan['runtime'],
+                                             source_binding, plan['ledger'])
+                continuation_review = owner['attempt']+'/saved-volume/query/report.json'
+            elif 'driver_rejection_report_sha256' in c:
                 continuation_review = _review_driver_rejection(root, owner, c, preflight, source_binding)
             elif owner['status'] != 'measured' or not owner.get('allocation_stopped') or not owner.get('app_id'):
                 from .relaxation_recovery import verified_execution, NAME as RECOVERY
@@ -441,6 +464,8 @@ review. Disappearing local sessions never count as allocation release.
             budget_stage=c['budget_stage'],spectra=spectra,expected_source_code=code)
         if operation == 'relaxation':
             policy.update(operation=operation, source_binding=source_binding, discovery_diagnostics=True)
+        if checkpoint_spec is not None:
+            policy['final_axis_checkpoint'] = checkpoint_spec
         if 'volume' in c:policy['volume'] = c['volume']
         save(output/'campaign/execution.json',policy)
         save(output/'preflight.json',preflight)

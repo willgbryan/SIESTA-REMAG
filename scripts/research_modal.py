@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import math
 import os
+import re
 import sys
 import uuid
 
@@ -117,17 +118,31 @@ def calculate(run_id):
                 raise ValueError('Uploaded relaxation source or single-operation policy differs')
         for name in policy['experiments']:
             request = load(Path('/opt/research/campaign')/name/('request.json' if operation == 'relaxation' else 'experiment.json'))
-            if time.monotonic()-started + request['settings']['total_dft_seconds'] + 60 > policy['timeout_seconds']:
+            final_axis = policy.get('final_axis_checkpoint')
+            seconds = request['settings']['soc_seconds' if final_axis is not None else 'total_dft_seconds']
+            if time.monotonic()-started + seconds + 60 > policy['timeout_seconds']:
                 report['status'] = 'held_budget'; break
             before_native = time.monotonic()
             if operation == 'relaxation':
                 from siesta_remag.research.relaxation_execution import preflight_relaxation
                 preflight_relaxation(Path('/opt/research/campaign')/name, runtime)
+            extra = {'diagnostics': policy.get('discovery_diagnostics', False)} if operation == 'relaxation' else {}
+            if final_axis is not None:
+                from siesta_remag.research.preempted_axis import axis_runner, snapshot_axis
+                if operation != 'relaxation' or not re.fullmatch('physics-[a-f0-9]{32}', final_axis['run_id']):
+                    raise ValueError('Invalid preempted source run')
+                prior = Path('/results')/final_axis['run_id']
+                previous_policy = load(prior/'report.json')['policy']
+                if (previous_policy['source_binding'] != policy['source_binding']
+                        or snapshot_axis(prior, Path('/opt/research/campaign')/name, runtime,
+                                         previous_policy, final_axis['run_id']) != final_axis):
+                    raise ValueError('Remote final-axis checkpoint differs from operator preflight')
+                extra['runner'] = axis_runner(prior, final_axis)
             run = run_dft if operation == 'relaxation' else run_experiment
             result = run(Path('/opt/research/campaign')/name, root/name, runtime['executable'],
                 executable_sha256=runtime['executable_sha256'], runtime_env=runtime.get('environment', {}),
                 threads=runtime.get('threads', 1), checkpoint=volume.commit,
-                **({'diagnostics': policy.get('discovery_diagnostics', False)} if operation == 'relaxation' else {}))
+                **extra)
             report['timing']['native_seconds'] += time.monotonic()-before_native
             report['experiments'].append(dict(id=name, status=result['status'], report_sha256=sha256(root/name/'report.json')))
             completed = ('screened', 'screened_low_moment') if operation == 'relaxation' else ('measured',)
