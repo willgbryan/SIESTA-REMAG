@@ -239,7 +239,7 @@ def execute_relaxation(workspace, execution_config, structure, bundle, output, *
                               transport=transport, operation='relaxation', structure=structure)
 
 
-def _review_driver_rejection(root, owner, config, preflight, source_binding, *, scalar_bundle=None):
+def _review_driver_rejection(root, owner, config, preflight, source_binding, *, query_bundle=None, spectra=None):
     """Admit a fresh operator grant for the same case after a pre-solver host rejection."""
     from .runtime_policy import check, validate
     attempt = _path(root, owner['attempt'])
@@ -254,14 +254,19 @@ def _review_driver_rejection(root, owner, config, preflight, source_binding, *, 
     app_id = config['previous_app_id']
     operation = config['operation']
     if operation == 'query':
-        if scalar_bundle is None or source_binding is not None or policy.get('spectra') != []:
-            raise ValueError('Driver rejection continuation requires the same fixed scalar query')
+        if query_bundle is None or source_binding is not None or policy.get('spectra') != [] or spectra:
+            raise ValueError('Driver rejection continuation requires the same fixed query without spectra')
         saved = attempt/'campaign/query'
         request = verify_experiment(saved)
-        if (request != verify_experiment(scalar_bundle) or request.get('query') != {'kind':'scalar'}
+        if (request != verify_experiment(query_bundle) or request.get('query') not in ({'kind':'scalar'}, {'kind':'anisotropy'})
                 or request.get('fixed_geometry') is not True or sha256(saved/'experiment.json') != preflight['request_sha256']
                 or old_config.get('operation', 'query') != operation):
-            raise ValueError('Driver rejection continuation requires the same fixed scalar query')
+            raise ValueError('Driver rejection continuation requires an identical fixed scalar or anisotropy query')
+        if request['query'] == {'kind':'anisotropy'}:
+            limits = ('volume', 'app_timeout_seconds', 'hourly_reservation_usd', 'max_reserved_cents')
+            if ('driver_rejection_report_sha256' in old_config or request.get('soc_matrix', False)
+                    or any(old_config.get(key) != config.get(key) for key in limits)):
+                raise ValueError('A fixed anisotropy query permits one host replacement with its original limits')
         source_sha = request['source_sha256']
     else:
         source_sha = source_binding['source_sha256']
@@ -506,7 +511,7 @@ review. Disappearing local sessions never count as allocation release.
                 continuation_review = owner['attempt']+'/saved-volume/query/report.json'
             elif 'driver_rejection_report_sha256' in c:
                 continuation_review = _review_driver_rejection(root, owner, c, preflight, source_binding,
-                    scalar_bundle=bundle if operation=='query' else None)
+                    query_bundle=bundle if operation=='query' else None, spectra=spectra)
             elif owner['status'] != 'measured' or not owner.get('allocation_stopped') or not owner.get('app_id'):
                 from .relaxation_recovery import verified_execution, NAME as RECOVERY
                 previous_attempt = _path(root, owner['attempt'])
