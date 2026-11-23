@@ -16,6 +16,7 @@ license-files = ["LICENSE", "NOTICE", "native/GRIDXC_NOTICE"]
 dev = ["pytest>=8,<10", "scipy>=1.14,<2"]
 netcdf = ["netCDF4==1.7.2"]
 modal = ["modal==1.6.1"]
+magnetic = ["cupy-cuda12x>=14,<15"]
 
 [project.scripts]
 remag = "siesta_remag.cli:main"
