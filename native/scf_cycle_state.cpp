@@ -252,7 +252,8 @@ extern "C" int remag_cycle_initial_grid() {
 extern "C" int remag_cycle_request() {
     try {
 #ifndef REMAG_BUILD_FROZEN_POTENTIAL
-        require(!std::getenv("REMAG_FROZEN_ROTATIONS")&&!std::getenv("REMAG_FROZEN_SOC_FREE"),
+        require(!std::getenv("REMAG_FROZEN_ROTATIONS")&&!std::getenv("REMAG_FROZEN_SOC_FREE")&&
+                !std::getenv("REMAG_EXPORT_MAGNETIC_STATE"),
             "Frozen-potential probe requires REMAG_BUILD_FROZEN_POTENTIAL=ON");
 #endif
         require(remag_cycle_enabled()&&remag_gpu_enabled()&&remag_grid_enabled()&&!remag::in_scf()&&
@@ -505,6 +506,13 @@ extern "C" int remag_cycle_export(int bank_size,double* energies,double* occupat
     try {
         current(Stage::executed);require(bank_size==state.bank_size,"Cycle spectrum shape mismatch");
 #ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        if(std::getenv("REMAG_EXPORT_MAGNETIC_STATE")) {
+            require(state.result.control.convergence.converged&&state.soc==2&&state.nh==8,
+                "Magnetic export requires a converged full offsite spinor generator");
+            remag::export_magnetic_state(state.frozen_assembly,state.plan->old_hamiltonian(),
+                state.frozen_soc,state.bindings.fermi,state.bindings.weights,state.plan->energies(),state.stream,
+                !state.record.soc_free_reference);
+        }
         if(std::getenv("REMAG_FROZEN_ROTATIONS")) {
             require(state.result.control.convergence.converged&&state.soc==2&&state.nh==8,
                 "Frozen-potential probe requires converged full offsite SOC");

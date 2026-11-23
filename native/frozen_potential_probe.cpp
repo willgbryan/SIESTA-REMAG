@@ -181,6 +181,92 @@ struct Probe {
 };
 }
 
+void export_magnetic_state(const HamiltonianAssemblyView& view,const double* generator,
+        const cuDoubleComplex* offsite,const FermiProblem* problem,const double* weights,
+        const double* generator_spectrum,cudaStream_t stream,bool reference_has_soc) {
+    // This is a requested scientific output, not an observer or a new run.
+    const char* option=std::getenv("REMAG_EXPORT_MAGNETIC_STATE");
+    if(!option||!std::strcmp(option,"0")) return;
+    require(!std::strcmp(option,"1"),"REMAG_EXPORT_MAGNETIC_STATE must be 0 or 1");
+    const unsigned int endian=1;
+    require(*reinterpret_cast<const unsigned char*>(&endian)==1,"Magnetic export requires little endian");
+    require(problem&&weights&&generator_spectrum,"Missing generator export data");
+    FermiProblem f;
+    check(cudaMemcpyAsync(&f,problem,sizeof(f),cudaMemcpyDeviceToHost,stream));
+    check(cudaStreamSynchronize(stream));
+    require(f.nspinor==2&&f.maxspn==1&&f.nk==view.shape.nk&&f.maxe==2*view.shape.n&&f.ne==f.maxe,
+        "Magnetic export requires complete spinor bands");
+    // A failure must not leave a previous complete manifest over new data.
+    {File metadata("remag-magnetic-export.json");std::fputs("{\"schema\":1,\"complete\":false}\n",metadata.value);metadata.close();}
+    // Retain the finite-range generator, not an inverse Fourier transform of
+    // the SCF sampling mesh: new k meshes must not inherit coarse-mesh aliasing.
+    const auto p=view.shape;
+    require(p.kind==3&&p.nh==8&&view.xij,"Real-space magnetic export requires k-space spinors");
+    std::vector<HamiltonianPair> pairs(p.pairs);
+    size_t sparse_downloaded=0;
+    auto download=[&](void* out,const void* in,size_t bytes) {
+        check(cudaMemcpyAsync(out,in,bytes,cudaMemcpyDeviceToHost,stream));
+        check(cudaStreamSynchronize(stream));
+        sparse_downloaded+=bytes;transfer(Transfer::spectral_export,false,bytes);
+    };
+    download(pairs.data(),view.pairs,pairs.size()*sizeof(HamiltonianPair));
+    const size_t entries=pairs.back().end;
+    std::vector<int> indices(entries),rows(entries),columns(entries);
+    std::vector<double> sparse_h(8*size_t(p.ldh)),sparse_s(p.nnz),xij(3*size_t(p.nnz));
+    std::vector<cuDoubleComplex> sparse_soc(4*size_t(p.ldh));
+    download(indices.data(),view.indices,entries*sizeof(int));
+    download(sparse_h.data(),generator,sparse_h.size()*sizeof(double));
+    download(sparse_soc.data(),offsite,sparse_soc.size()*sizeof(cuDoubleComplex));
+    download(sparse_s.data(),view.overlap,sparse_s.size()*sizeof(double));
+    download(xij.data(),view.xij,xij.size()*sizeof(double));
+    for(const auto& pair:pairs) for(int j=pair.begin;j<pair.end;j++) {rows[j]=pair.row;columns[j]=pair.col;}
+    std::vector<double> compact_x(3*entries),compact_h(8*entries),compact_s(entries);
+    std::vector<cuDoubleComplex> compact_soc(4*entries);
+    for(size_t j=0;j<entries;j++) {
+        const size_t i=indices[j];compact_s[j]=sparse_s[i];
+        for(int c=0;c<3;c++) compact_x[3*j+c]=xij[3*i+c];
+        for(int c=0;c<8;c++) compact_h[8*j+c]=sparse_h[i+size_t(p.ldh)*c];
+        for(int c=0;c<4;c++) compact_soc[4*j+c]=sparse_soc[i+size_t(p.ldh)*c];
+    }
+    {File raw("remag-magnetic-realspace.bin");
+        auto write=[&](const void* source,size_t bytes) {require(std::fwrite(source,1,bytes,raw.value)==bytes,"Real-space export write failed");};
+        write(rows.data(),entries*sizeof(int));write(columns.data(),entries*sizeof(int));
+        write(compact_x.data(),compact_x.size()*sizeof(double));write(compact_h.data(),compact_h.size()*sizeof(double));
+        write(compact_soc.data(),compact_soc.size()*sizeof(cuDoubleComplex));write(compact_s.data(),entries*sizeof(double));raw.close();}
+    {File info("remag-magnetic-realspace.json");
+        std::fprintf(info.value,"{\"schema\":1,\"complete\":true,\"entries\":%zu,\"spatial_orbitals\":%d,\"device_to_host_bytes\":%zu,"
+            "\"reference\":\"Final SCF generator Hamiltonian\",\"layout\":\"rows,columns,xij,generator,offsite,overlap\","
+            "\"reference_has_soc\":%s,\"energy_unit\":\"Ry\",\"length_unit\":\"bohr\"}\n",
+            entries,p.n,sparse_downloaded,reference_has_soc?"true":"false");info.close();}
+    FrozenPotentialPlan plan(view,generator,offsite,false,256ULL*1024*1024,stream,reference_has_soc);
+    const size_t matrix=size_t(f.maxe)*f.maxe;
+    Buffer<cuDoubleComplex> device(4*matrix);std::vector<cuDoubleComplex> host(4*matrix);
+    std::vector<double> spectrum(f.maxe);double weight,kpoint[3],identity[4]={1.,0.,0.,0.};
+    File data("remag-magnetic-export.bin");
+    auto write=[&](const void* source,size_t bytes) {
+        require(std::fwrite(source,1,bytes,data.value)==bytes,"Failed writing magnetic generator export");
+    };
+    for(int k=0;k<f.nk;k++) {
+        plan.capture_matrices(k,identity,device.p);
+        check(cudaMemcpyAsync(host.data(),device.p,3*matrix*sizeof(cuDoubleComplex),cudaMemcpyDeviceToHost,stream));
+        check(cudaMemcpyAsync(&weight,weights+k,sizeof(double),cudaMemcpyDeviceToHost,stream));
+        check(cudaMemcpyAsync(spectrum.data(),generator_spectrum+size_t(f.maxe)*k,f.maxe*sizeof(double),cudaMemcpyDeviceToHost,stream));
+        for(double& x:kpoint) x=0.;
+        if(view.kpoints) check(cudaMemcpyAsync(kpoint,view.kpoints+3*k,3*sizeof(double),cudaMemcpyDeviceToHost,stream));
+        check(cudaStreamSynchronize(stream));
+        write(host.data(),3*matrix*sizeof(cuDoubleComplex));write(kpoint,3*sizeof(double));
+        write(&weight,sizeof(double));write(spectrum.data(),spectrum.size()*sizeof(double));
+        transfer(Transfer::spectral_export,false,3*matrix*sizeof(cuDoubleComplex)+(spectrum.size()+4)*sizeof(double));
+    }
+    data.close();
+    File metadata("remag-magnetic-export.json");
+    std::fprintf(metadata.value,"{\"schema\":1,\"complete\":true,\"reference\":\"Final SCF generator Hamiltonian\","
+        "\"kpoints\":%d,\"bands\":%d,\"reference_has_soc\":%s,\"electrons\":%.17g,\"temperature_ry\":%.17g,"
+        "\"dtype\":\"<c16\",\"order\":\"F\",\"matrices\":[\"generator\",\"overlap\",\"offsite\"]}\n",
+        f.nk,f.maxe,reference_has_soc?"true":"false",f.charge,f.temperature);
+    metadata.close();
+}
+
 void frozen_potential_probe(const HamiltonianAssemblyView& view,const double* generator,
         const cuDoubleComplex* offsite,const FermiProblem* problem,const double* weights,
         const double* generator_spectrum,cudaStream_t stream,bool reference_has_soc) {

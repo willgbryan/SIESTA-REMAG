@@ -7,6 +7,13 @@ if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES AND NOT DEFINED ENV{CUDAARCHS})
 endif()
 project(remag_gpu LANGUAGES CXX CUDA)
 find_package(CUDAToolkit 12.6 REQUIRED)
+# Standalone research interface: uses the production FD implementation but
+# neither changes SCF defaults nor links a CPU numerical fallback.
+add_library(remag_magnetic SHARED mft_sweep.cu occupations.cu)
+target_include_directories(remag_magnetic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+set_target_properties(remag_magnetic PROPERTIES CUDA_STANDARD 17)
+set_source_files_properties(mft_sweep.cu PROPERTIES COMPILE_OPTIONS "--fmad=false")
+target_link_libraries(remag_magnetic PRIVATE CUDA::cudart CUDA::cusolver CUDA::cublas)
 add_library(remag_gpu SHARED solver.cpp block_jacobi.cu grid.cu grid_force.cu grid_force_shadow.cpp atomic_grid_force.cu atomic_grid_force_shadow.cpp final_grid_state.cpp density_matrix.cu execution.cpp occupations.cu occupation_state.cpp hamiltonian.cu hartree.cu hartree_state.cpp pbe.cu grid_potential.cu grid_potential_state.cpp hamiltonian_seeds.cu scf_scalars.cu pulay.cu sparse_state.cu scf_cycle.cu scf_control.cu scf_convergence.cu scf_cycle_state.cpp)
 target_sources(remag_gpu PRIVATE nonlocal_query.cu nonlocal_h0.cu nonlocal_h0_state.cpp final_accumulator.cu nonlocal_compact.cu nonlocal_force_state.cpp pair_force.cu pair_force_state.cpp pair_geometry_state.cpp two_center.cu two_center_comparison.cu two_center_state.cpp final_grid.cu orbital_basis.cu orbital_basis_state.cpp atomic_basis.cu atomic_basis_comparison.cu atomic_basis_state.cpp)
 target_sources(remag_gpu PRIVATE integral_force_state.cpp)

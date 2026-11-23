@@ -26,7 +26,7 @@ def summarize_residency(trace, telemetry, expected_scf_iterations):
     if not trace["phase_markers_seen"] or len(scf) != expected_regions:
         errors.append(f"SCF marker coverage: {len(scf)} intervals for {expected_regions} expected regions")
     for key in COUNTERS[:2]:
-        expected = telemetry.get('gpu_energy_only',{}).get(key,0)+sum(telemetry.get(name, {}).get(key, 0) for name in
+        expected = telemetry.get('gpu_magnetic_export',{}).get(key,0)+telemetry.get('gpu_energy_only',{}).get(key,0)+sum(telemetry.get(name, {}).get(key, 0) for name in
                        ("gpu_bridge", "gpu_grid", "gpu_density_matrix", "gpu_occupations", "gpu_matrix_assembly", "gpu_hartree", "gpu_grid_flow", "gpu_sparse_state", "gpu_device_cycle", "gpu_grid_force_shadow", "gpu_grid_force", "gpu_atomic_grid_force_shadow", "gpu_final_density", "gpu_orbital_basis", "gpu_atomic_basis", "gpu_two_center", "gpu_pair_force", "gpu_nonlocal_force", "gpu_integral_force", "gpu_population", "gpu_initial_state", "gpu_density_history", "gpu_final_spectrum", "gpu_nonlocal_h0", "gpu_initial_mesh"))
         if key == 'device_to_host_bytes':
             expected += telemetry.get('frozen_potential_probe', {}).get('qualification_download_bytes', 0)
