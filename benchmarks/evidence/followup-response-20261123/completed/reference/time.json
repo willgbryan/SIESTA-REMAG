@@ -1,0 +1,67 @@
+{
+ "global_section": { "_calls": 1, "_time":       16.552, "_%":   100.00,
+   "siesta": { "_calls": 1, "_time":       16.552, "_%":   100.00,
+     "Setup": { "_calls": 1, "_time":        0.250, "_%":     1.51,
+       "bands": { "_calls": 1, "_time":        0.000, "_%":     0.00},
+       "KSV_init": { "_calls": 1, "_time":        0.000, "_%":     0.00}
+     },
+     "IterGeom": { "_calls": 1, "_time":       16.162, "_%":    97.64,
+       "geom_init": { "_calls": 1, "_time":       10.406, "_%":    62.87,
+         "state_init": { "_calls": 1, "_time":        8.545, "_%":    51.63,
+           "hsparse": { "_calls": 1, "_time":        0.056, "_%":     0.34},
+           "remag_two_center_setup": { "_calls": 1, "_time":        0.263, "_%":     1.59},
+           "overlap": { "_calls": 1, "_time":        0.035, "_%":     0.21}
+         },
+         "Setup_H0": { "_calls": 1, "_time":        1.807, "_%":    10.92,
+           "naefs": { "_calls": 1, "_time":        0.000, "_%":     0.00},
+           "dnaefs": { "_calls": 1, "_time":        0.000, "_%":     0.00},
+           "two-body": { "_calls": 1, "_time":        0.000, "_%":     0.00,
+             "MolMec": { "_calls": 1, "_time":        0.000, "_%":     0.00}
+           },
+           "kinefsm": { "_calls": 1, "_time":        0.079, "_%":     0.48},
+           "nlefsm": { "_calls": 1, "_time":        0.535, "_%":     3.23},
+           "DHSCF_Init": { "_calls": 1, "_time":        1.191, "_%":     7.20,
+             "DHSCF1": { "_calls": 1, "_time":        0.055, "_%":     0.33,
+               "InitMesh": { "_calls": 1, "_time":        0.055, "_%":     0.33,
+                 "INITMESH": { "_calls": 1, "_time":        0.000, "_%":     0.00}
+               }
+             },
+             "DHSCF2": { "_calls": 1, "_time":        1.137, "_%":     6.87,
+               "REMESH": { "_calls": 1, "_time":        0.234, "_%":     1.42},
+               "REORD": { "_calls": 2, "_time":        0.000, "_%":     0.00},
+               "PHION": { "_calls": 1, "_time":        0.787, "_%":     4.75},
+               "COMM_BSC": { "_calls": 1, "_time":        0.000, "_%":     0.00,
+                 "REORD": { "_calls": 1, "_time":        0.000, "_%":     0.00}
+               },
+               "POISON": { "_calls": 1, "_time":        0.029, "_%":     0.18,
+                 "remag_hartree": { "_calls": 1, "_time":        0.000, "_%":     0.00}
+               }
+             }
+           }
+         },
+         "setup_H": { "_calls": 1, "_time":        0.054, "_%":     0.32,
+           "DHSCF": { "_calls": 1, "_time":        0.054, "_%":     0.32,
+             "DHSCF3": { "_calls": 1, "_time":        0.054, "_%":     0.32,
+               "rhoofd": { "_calls": 1, "_time":        0.051, "_%":     0.31}
+             }
+           }
+         }
+       },
+       "remag_basis_setup": { "_calls": 1, "_time":        0.002, "_%":     0.01},
+       "remag_device_cycle": { "_calls": 1, "_time":        2.036, "_%":    12.30},
+       "PostSCF": { "_calls": 1, "_time":        0.058, "_%":     0.35,
+         "FINAL_HF": { "_calls": 1, "_time":        0.043, "_%":     0.26,
+           "writeHSX": { "_calls": 1, "_time":        0.037, "_%":     0.22}
+         }
+       },
+       "state_analysis": { "_calls": 1, "_time":        0.001, "_%":     0.00},
+       "siesta_move": { "_calls": 1, "_time":        0.000, "_%":     0.00}
+     },
+     "Analysis": { "_calls": 1, "_time":        0.137, "_%":     0.83,
+       "optical": { "_calls": 1, "_time":        0.000, "_%":     0.00},
+       "DHSCF": { "_calls": 1, "_time":        0.128, "_%":     0.77,
+         "DHSCF3": { "_calls": 1, "_time":        0.128, "_%":     0.77}
+       }
+     }
+   }
+ }}

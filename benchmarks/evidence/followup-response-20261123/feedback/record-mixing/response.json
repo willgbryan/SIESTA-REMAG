@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "result": "54b6bc6a79a54a7aaba92622a2c5d485",
+  "format": "REMAG-DIRECT-TOOL-RESULT/1",
+  "request_sha256": "283807c60544c35e20889a719df4aec5e2b628174704cafadde2612ca15f3194",
+  "elapsed_seconds": 0.0028186235576868057,
+  "finished_at": "2026-11-23T19:55:38.688544+00:00",
+  "receipt": "results/followup-authoring-feedback-20261123/record-mixing"
+}

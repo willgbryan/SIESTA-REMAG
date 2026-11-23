@@ -1,0 +1,21 @@
+{
+  "status": "complete",
+  "passed": true,
+  "seconds": 69.085961373,
+  "gpu": [
+    "NVIDIA A100-SXM4-40GB, GPU-7212124b-637a-0b36-2756-73b44f7c488a, 620.70.06"
+  ],
+  "sources": {
+    "/opt/remag/siesta_remag/magnetic/__init__.py": "69826a8efcb8cb843ba0ff2f60156e4284e006e1191bbdbf2f6d575de60cb78e",
+    "/opt/remag/siesta_remag/magnetic/downfold.py": "acf82f3117407eb20476f646b11723bd27549c60e210c170710c49d9affeedb8",
+    "/opt/remag/siesta_remag/magnetic/state.py": "2a95f325a8d45417d418960e79f5b3010cf116b2fc8b1b76259eddd686836352",
+    "/opt/remag/siesta_remag/magnetic/descriptors.py": "6a2f8e30bc7596f2d2035f159b54def117bc0549a52f8e7dd0b8c97a22d22db8",
+    "/opt/remag/siesta_remag/magnetic/gpu.py": "f0b152bba4ca4a5a47dfa0189ffd1490a9b35d4dafbf49f7d044ca8983b49b0b",
+    "/opt/remag/siesta_remag/magnetic/greens.py": "a132c28b4c78da542a2533ff0c2cc27bfc104299e0f3a9ad547a55bc26ddd7c9",
+    "/opt/remag/siesta_remag/magnetic/force_theorem.py": "29d6e1931320b52ee0f7203b559848375305bf51dbfd8d32028b481ed2fa57e4",
+    "/opt/remag/siesta_remag/magnetic/compare.py": "dfebd055aaeb0654225630404e8dfebd449af260704fadb142d006d95e828bc8",
+    "/opt/remag/siesta_remag/magnetic/multiplet.py": "d0ca54d8126532cee3c48f5c2566ec1bacb27193683bc694f610c2f18edcffa2",
+    "/opt/remag/siesta_remag/magnetic/backend.py": "3c733f10105bdc4666c0ddad81b2e93f572dc82a5a8507169e8f18ea45225f49",
+    "/opt/remag/siesta_remag/magnetic/operators.py": "6e767257dcc8b476782159e9a838c41486da66a59be16e7ee90fb6d2659368c9"
+  }
+}

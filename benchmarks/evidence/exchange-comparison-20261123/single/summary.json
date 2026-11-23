@@ -1,0 +1,13 @@
+{
+  "status": "complete",
+  "benchmark_returncode": 0,
+  "gpu": [
+    "NVIDIA A100-SXM4-80GB, GPU-8b5ca4d2-b50c-57ae-c06f-855cfbb54237, 610.57.04"
+  ],
+  "seconds": 325.982102634,
+  "startup_diagnostic_returncode": null,
+  "source_sha256": {
+    "compare_exchange.py": "d13c38b3104bbe9e6922d44b700b7754ce84ff4b6e606637bcac88feaefa0841",
+    "app.py": "ac0c8dfae72264c2361ed991535c48bed596bcd2192ef5d4b86310d94ed285e3"
+  }
+}

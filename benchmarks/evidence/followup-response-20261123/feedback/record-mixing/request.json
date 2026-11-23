@@ -1,0 +1,54 @@
+{
+  "format": "REMAG-DIRECT-TOOL-CALL/1",
+  "request": {
+    "tool": "record_magnetic_outcome",
+    "args": {
+      "experiment_id": "32975c19a675482090cc916910646f61",
+      "report": "results/followup-tool-run-20261123b/magnetic-run.json",
+      "mesh": [
+        16,
+        16,
+        16
+      ],
+      "observable": "near_fermi_Fe_d_Pt_d_co_weight",
+      "selector": {
+        "co_weight": [
+          "orbit.0000.atom.0000:Fe:d",
+          "orbit.0001.atom.0000:Pt:d"
+        ]
+      }
+    },
+    "rationale": "Bind the measured mixing diagnostic to the existing prospective prediction."
+  },
+  "information_profile": "physics",
+  "withheld_sources": [],
+  "definition": {
+    "name": "record_magnetic_outcome",
+    "description": "Record a measured frozen_Fx_minus_Fz or magnetization_muB_cell in the existing Notebook. For a named mixing prediction, supply selector={co_weight:[exact_group_1,exact_group_2]}. Binds the predicted exact source and saved screen hash.",
+    "effect": "notebook",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "experiment_id": {},
+        "report": {},
+        "observable": {},
+        "mesh": {},
+        "selector": {}
+      },
+      "required": [
+        "experiment_id",
+        "report",
+        "observable"
+      ],
+      "additionalProperties": false
+    },
+    "validation": "Field presence at transport; value types, units and invariants in handler"
+  },
+  "implementation_sha256": {
+    "/Users/willgbryan/Desktop/SIESTA-REMAG/build/twins-magnetic-tools/src/twins/toolhost.py": "828b2d80fe90906c21c9ec19b82246f3b6ebb3fadce1dc6f6996399f21494d2c",
+    "/Users/willgbryan/Desktop/SIESTA-REMAG/build/twins-magnetic-tools/src/twins/tools.py": "335da71671fa2b460d765f1ab5d88b9ca2a52570667dec0ae32b1c466b9aa26c"
+  },
+  "started_at": "2026-11-23T19:55:38.685499+00:00",
+  "native_execution_enabled": false,
+  "cpu_relaxation_enabled": false
+}

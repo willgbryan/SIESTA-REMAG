@@ -1,0 +1,36 @@
+{
+  "format": "REMAG-DIRECT-TOOL-CALL/1",
+  "request": {
+    "tool": "evaluate_hypothesis",
+    "args": {
+      "experiment_id": "32975c19a675482090cc916910646f61"
+    },
+    "rationale": "Evaluate the unchanged predictions against the newly measured outcomes."
+  },
+  "information_profile": "physics",
+  "withheld_sources": [],
+  "definition": {
+    "name": "evaluate_hypothesis",
+    "description": "Compare a recorded prediction with its measured outcome; agreement is not mechanism proof.",
+    "effect": "notebook",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "experiment_id": {},
+        "observable": {}
+      },
+      "required": [
+        "experiment_id"
+      ],
+      "additionalProperties": false
+    },
+    "validation": "Field presence at transport; value types, units and invariants in handler"
+  },
+  "implementation_sha256": {
+    "/Users/willgbryan/Desktop/SIESTA-REMAG/build/twins-magnetic-tools/src/twins/toolhost.py": "828b2d80fe90906c21c9ec19b82246f3b6ebb3fadce1dc6f6996399f21494d2c",
+    "/Users/willgbryan/Desktop/SIESTA-REMAG/build/twins-magnetic-tools/src/twins/tools.py": "335da71671fa2b460d765f1ab5d88b9ca2a52570667dec0ae32b1c466b9aa26c"
+  },
+  "started_at": "2026-11-23T19:55:38.689284+00:00",
+  "native_execution_enabled": false,
+  "cpu_relaxation_enabled": false
+}

@@ -1,0 +1,142 @@
+{
+  "z": {
+    "passed": false,
+    "reasons": [],
+    "checks": {
+      "energy_per_atom_ev": {
+        "passed": true,
+        "max_absolute_error": 2.379567831667373e-07,
+        "tolerance": 1e-05
+      },
+      "free_energy_per_atom_ev": {
+        "passed": true,
+        "max_absolute_error": 5.556853466259781e-08,
+        "tolerance": 1e-05
+      },
+      "fermi_energy_ev": {
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "tolerance": 1e-05
+      },
+      "total_moment_muB": {
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "tolerance": 0.0001
+      },
+      "atom_moments_muB": {
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "tolerance": 0.0001
+      },
+      "atom_net_charges_e": {
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "tolerance": 0.0001
+      },
+      "eigenvalues_ev": {
+        "passed": false,
+        "max_absolute_error": 0.00034409999999951424,
+        "tolerance": 0.0001
+      },
+      "density_components_e_bohr3": {
+        "passed": true,
+        "max_absolute_error": 2.9802322387695312e-08,
+        "tolerance": 1e-05
+      },
+      "deformation_density_components_e_bohr3": {
+        "passed": true,
+        "max_absolute_error": 2.9802322387695312e-08,
+        "tolerance": 1e-05
+      },
+      "tsde_not_requested": {
+        "passed": true
+      },
+      "netcdf_not_requested": {
+        "passed": true
+      }
+    },
+    "end_to_end_speedup": null,
+    "performance_comparable": false,
+    "performance_reasons": [
+      "Requested force/stress work differs; timings have different observable scope",
+      "Hardware or runtime allocation differs"
+    ],
+    "reference_seconds": 175.427367412,
+    "candidate_seconds": 13.096868599000004,
+    "reference_iterations": 51,
+    "candidate_iterations": 53,
+    "occupied_spectrum_max_abs_ev": 9.99999993922529e-08,
+    "reference_path": "results/mae-energy-only-c-20261025T200237Z/tzdp_np_s25_m400_k4_t300_z/cpu",
+    "candidate_path": "results/magnetic-screen-20261123T171929Z/scf-z"
+  },
+  "x": {
+    "passed": false,
+    "reasons": [],
+    "checks": {
+      "energy_per_atom_ev": {
+        "passed": true,
+        "max_absolute_error": 5.391530066845007e-08,
+        "tolerance": 1e-05
+      },
+      "free_energy_per_atom_ev": {
+        "passed": true,
+        "max_absolute_error": 5.161678018339444e-08,
+        "tolerance": 1e-05
+      },
+      "fermi_energy_ev": {
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "tolerance": 1e-05
+      },
+      "total_moment_muB": {
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "tolerance": 0.0001
+      },
+      "atom_moments_muB": {
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "tolerance": 0.0001
+      },
+      "atom_net_charges_e": {
+        "passed": true,
+        "max_absolute_error": 0.0,
+        "tolerance": 0.0001
+      },
+      "eigenvalues_ev": {
+        "passed": false,
+        "max_absolute_error": 0.00034409999999951424,
+        "tolerance": 0.0001
+      },
+      "density_components_e_bohr3": {
+        "passed": true,
+        "max_absolute_error": 2.9802322387695312e-08,
+        "tolerance": 1e-05
+      },
+      "deformation_density_components_e_bohr3": {
+        "passed": true,
+        "max_absolute_error": 2.9802322387695312e-08,
+        "tolerance": 1e-05
+      },
+      "tsde_not_requested": {
+        "passed": true
+      },
+      "netcdf_not_requested": {
+        "passed": true
+      }
+    },
+    "end_to_end_speedup": null,
+    "performance_comparable": false,
+    "performance_reasons": [
+      "Requested force/stress work differs; timings have different observable scope",
+      "Hardware or runtime allocation differs"
+    ],
+    "reference_seconds": 179.67379075000002,
+    "candidate_seconds": 13.701464145000003,
+    "reference_iterations": 70,
+    "candidate_iterations": 72,
+    "occupied_spectrum_max_abs_ev": 9.99999993922529e-08,
+    "reference_path": "results/mae-energy-only-c-20261025T200237Z/tzdp_np_s25_m400_k4_t300_x/cpu",
+    "candidate_path": "results/magnetic-screen-20261123T171929Z/scf-x"
+  }
+}

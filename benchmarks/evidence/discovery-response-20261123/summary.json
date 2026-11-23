@@ -1,0 +1,515 @@
+{
+  "status": "screening",
+  "parent_run": "discovery-response-20261123T175305Z",
+  "child_run": "discovery-child-20261123T180908Z",
+  "raw_volume": "siesta-remag-magnetic-results",
+  "upstream": {
+    "url": "https://gitlab.com/siesta-project/siesta.git",
+    "tag": "5.4.2",
+    "commit": "e486d12067b96ff688179f0496d0ec21b6fae0ab",
+    "submodules": [
+      "External/libfdf",
+      "External/xmlf90",
+      "External/libpsml",
+      "External/libgridxc"
+    ]
+  },
+  "workspace_base_commit": "3f3a2b09e94e924c6dcfb23efcdfea12fc340f6b",
+  "gpac_commit": "d0112b1cf72f56f17b6594e8d61a09f7552f7ddd",
+  "twins_commit": "02d94b038180d0772bae08078a98700f78bc24d1",
+  "parent": {
+    "delta_xz_ev": 0.0027372670101328523,
+    "magnetization_muB_cell": 3.359908419119744,
+    "orbital_response": {
+      "window_width_ev": 0.25,
+      "projected_dos": [
+        {
+          "group": "orbit.0000.atom.0000:Fe:s",
+          "fermi_projected_dos_states_per_ev_cell": 0.01799364554491427,
+          "near_fermi_centroid_ev": 0.03134255777457628
+        },
+        {
+          "group": "orbit.0000.atom.0000:Fe:p",
+          "fermi_projected_dos_states_per_ev_cell": 0.06854266911330172,
+          "near_fermi_centroid_ev": -0.01880040153384815
+        },
+        {
+          "group": "orbit.0000.atom.0000:Fe:d",
+          "fermi_projected_dos_states_per_ev_cell": 0.9552636047917951,
+          "near_fermi_centroid_ev": -0.043032903414652074
+        },
+        {
+          "group": "orbit.0001.atom.0000:Pt:s",
+          "fermi_projected_dos_states_per_ev_cell": 0.021904879393329,
+          "near_fermi_centroid_ev": -0.0006851741023106979
+        },
+        {
+          "group": "orbit.0001.atom.0000:Pt:p",
+          "fermi_projected_dos_states_per_ev_cell": 0.11518004711227722,
+          "near_fermi_centroid_ev": -0.0424099431105909
+        },
+        {
+          "group": "orbit.0001.atom.0000:Pt:d",
+          "fermi_projected_dos_states_per_ev_cell": 0.3109446297775963,
+          "near_fermi_centroid_ev": -0.0507088772792212
+        }
+      ],
+      "intersite_band_mixing": [
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:d",
+            "orbit.0001.atom.0000:Pt:d"
+          ],
+          "near_fermi_co_weight": 0.401945700395488
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:d",
+            "orbit.0001.atom.0000:Pt:p"
+          ],
+          "near_fermi_co_weight": 0.16268009074412104
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:p",
+            "orbit.0001.atom.0000:Pt:d"
+          ],
+          "near_fermi_co_weight": 0.040610015426170064
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:d",
+            "orbit.0001.atom.0000:Pt:s"
+          ],
+          "near_fermi_co_weight": 0.030007542062011953
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:p",
+            "orbit.0001.atom.0000:Pt:p"
+          ],
+          "near_fermi_co_weight": 0.02258323140036388
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:s",
+            "orbit.0001.atom.0000:Pt:d"
+          ],
+          "near_fermi_co_weight": 0.01365397187729934
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:s",
+            "orbit.0001.atom.0000:Pt:p"
+          ],
+          "near_fermi_co_weight": 0.007790766885380264
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:p",
+            "orbit.0001.atom.0000:Pt:s"
+          ],
+          "near_fermi_co_weight": 0.004936747830135387
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:s",
+            "orbit.0001.atom.0000:Pt:s"
+          ],
+          "near_fermi_co_weight": 0.00153786582486027
+        }
+      ],
+      "convention": "Gaussian near-Fermi PAO Mulliken DOS; absolute-weight normalized band co-weight",
+      "interpretation": "Representation-dependent electronic diagnostics; a structural mechanism remains a hypothesis"
+    },
+    "angular_fit": {
+      "model": "axial4",
+      "energy_kind": "frozen_band_free",
+      "energy_unit": "eV/cell",
+      "energy_origin": 0.0,
+      "offset_relative_to_origin": -3.482820596177849e-06,
+      "coefficients": {
+        "A2": 0.0027891297915958566,
+        "A4": -4.58080290664934e-05
+      },
+      "coefficient_error_amplification": {
+        "A2": 9.405405405405547,
+        "A4": 9.513513513513631
+      },
+      "observations": 6,
+      "distinct_invariant_points": 5,
+      "overdetermined_angular_fit": true,
+      "symmetry_equivalent_samples": 1,
+      "residual_degrees_of_freedom": 3,
+      "condition_number": 20.99119324273834,
+      "relative_energies": [
+        0.0,
+        0.0003995544021871554,
+        0.0013779690508577901,
+        0.002351575760571155,
+        0.0027372670101328523,
+        0.002737267036060007
+      ],
+      "fitted_relative_energies": [
+        -3.482820596177849e-06,
+        0.000403993353671296,
+        0.0013796300679351269,
+        0.0023438147749323362,
+        0.0027398389419331856,
+        0.0027398389419331856
+      ],
+      "residuals": [
+        3.482820596177849e-06,
+        -4.438951484140555e-06,
+        -1.6610170773367471e-06,
+        7.760985638818711e-06,
+        -2.5719318003333304e-06,
+        -2.57190587317881e-06
+      ],
+      "max_absolute_residual": 7.760985638818711e-06,
+      "coefficient_uncertainties": null,
+      "physical_accuracy_qualified": false,
+      "K1_ev_cell": 0.0027891297915958566,
+      "K2_ev_cell": -4.58080290664934e-05
+    }
+  },
+  "child": {
+    "delta_xz_ev": 0.003322906893997517,
+    "magnetization_muB_cell": 3.2769658326782527,
+    "orbital_response": {
+      "window_width_ev": 0.25,
+      "projected_dos": [
+        {
+          "group": "orbit.0000.atom.0000:Fe:s",
+          "fermi_projected_dos_states_per_ev_cell": 0.013694885535506164,
+          "near_fermi_centroid_ev": 0.0753267172313817
+        },
+        {
+          "group": "orbit.0000.atom.0000:Fe:p",
+          "fermi_projected_dos_states_per_ev_cell": 0.0650443071979018,
+          "near_fermi_centroid_ev": -0.02607475444608284
+        },
+        {
+          "group": "orbit.0000.atom.0000:Fe:d",
+          "fermi_projected_dos_states_per_ev_cell": 0.8633549390128916,
+          "near_fermi_centroid_ev": -0.0382410382802846
+        },
+        {
+          "group": "orbit.0001.atom.0000:Pt:s",
+          "fermi_projected_dos_states_per_ev_cell": 0.02168197905825802,
+          "near_fermi_centroid_ev": 0.00479095305280244
+        },
+        {
+          "group": "orbit.0001.atom.0000:Pt:p",
+          "fermi_projected_dos_states_per_ev_cell": 0.11178750270299087,
+          "near_fermi_centroid_ev": -0.03712670354047599
+        },
+        {
+          "group": "orbit.0001.atom.0000:Pt:d",
+          "fermi_projected_dos_states_per_ev_cell": 0.32312640830890565,
+          "near_fermi_centroid_ev": -0.06792663314228752
+        }
+      ],
+      "intersite_band_mixing": [
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:d",
+            "orbit.0001.atom.0000:Pt:d"
+          ],
+          "near_fermi_co_weight": 0.4317527728703385
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:d",
+            "orbit.0001.atom.0000:Pt:p"
+          ],
+          "near_fermi_co_weight": 0.16445457004237657
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:p",
+            "orbit.0001.atom.0000:Pt:d"
+          ],
+          "near_fermi_co_weight": 0.04248478029181326
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:d",
+            "orbit.0001.atom.0000:Pt:s"
+          ],
+          "near_fermi_co_weight": 0.031410215479354374
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:p",
+            "orbit.0001.atom.0000:Pt:p"
+          ],
+          "near_fermi_co_weight": 0.022516119483909584
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:s",
+            "orbit.0001.atom.0000:Pt:d"
+          ],
+          "near_fermi_co_weight": 0.013811903745051219
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:s",
+            "orbit.0001.atom.0000:Pt:p"
+          ],
+          "near_fermi_co_weight": 0.006585721209589728
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:p",
+            "orbit.0001.atom.0000:Pt:s"
+          ],
+          "near_fermi_co_weight": 0.004775681793226098
+        },
+        {
+          "groups": [
+            "orbit.0000.atom.0000:Fe:s",
+            "orbit.0001.atom.0000:Pt:s"
+          ],
+          "near_fermi_co_weight": 0.0014483722032232465
+        }
+      ],
+      "convention": "Gaussian near-Fermi PAO Mulliken DOS; absolute-weight normalized band co-weight",
+      "interpretation": "Representation-dependent electronic diagnostics; a structural mechanism remains a hypothesis"
+    },
+    "angular_fit": {
+      "model": "axial4",
+      "energy_kind": "frozen_band_free",
+      "energy_unit": "eV/cell",
+      "energy_origin": 0.0,
+      "offset_relative_to_origin": 3.732659370086447e-08,
+      "coefficients": {
+        "A2": 0.0032500926334693664,
+        "A4": 7.314108703002954e-05
+      },
+      "coefficient_error_amplification": {
+        "A2": 9.405405405405547,
+        "A4": 9.513513513513631
+      },
+      "observations": 6,
+      "distinct_invariant_points": 5,
+      "overdetermined_angular_fit": true,
+      "symmetry_equivalent_samples": 1,
+      "residual_degrees_of_freedom": 3,
+      "condition_number": 20.99119324273834,
+      "relative_energies": [
+        0.0,
+        0.0004778480112091749,
+        0.0016426033729993119,
+        0.0028287061748932803,
+        0.003322906893997517,
+        0.0033229069846958032
+      ],
+      "fitted_relative_energies": [
+        3.732659370086447e-08,
+        0.000477571001348246,
+        0.001643368915085891,
+        0.0028274521005810425,
+        0.003323271047093097,
+        0.003323271047093097
+      ],
+      "residuals": [
+        -3.732659370086447e-08,
+        2.770098609288841e-07,
+        -7.655420865791945e-07,
+        1.254074312237799e-06,
+        -3.641530955797098e-07,
+        -3.640623972935887e-07
+      ],
+      "max_absolute_residual": 1.254074312237799e-06,
+      "coefficient_uncertainties": null,
+      "physical_accuracy_qualified": false,
+      "K1_ev_cell": 0.0032500926334693664,
+      "K2_ev_cell": 7.314108703002954e-05
+    }
+  },
+  "parent_progression": [
+    {
+      "mesh": 4,
+      "seconds": 1.3030464819999992,
+      "mft_seconds": 1.1490208729999978,
+      "delta_xz_ev": -0.0006802120559696853,
+      "spin_muB": [
+        -4.777809833787867e-16,
+        -1.4625562359782788e-15,
+        3.3802993579202334
+      ]
+    },
+    {
+      "mesh": 8,
+      "seconds": 6.164779660999997,
+      "mft_seconds": 5.09714563,
+      "delta_xz_ev": 0.0029945879057466603,
+      "spin_muB": [
+        -3.040000702256974e-16,
+        5.804307059766417e-17,
+        3.3457528977508098
+      ]
+    },
+    {
+      "mesh": 12,
+      "seconds": 20.45167059900001,
+      "mft_seconds": 17.242726587000007,
+      "delta_xz_ev": 0.002722036095058318,
+      "spin_muB": [
+        -1.2528638700179117e-17,
+        -2.2063629554294404e-16,
+        3.3946082021231265
+      ]
+    },
+    {
+      "mesh": 16,
+      "seconds": 89.91255413299999,
+      "mft_seconds": 80.94117977900001,
+      "delta_xz_ev": 0.0027372670101328523,
+      "spin_muB": [
+        -8.933767641212842e-18,
+        -1.776745103218324e-16,
+        3.359908419119744
+      ]
+    }
+  ],
+  "child_progression": [
+    {
+      "mesh": 8,
+      "seconds": 29.226640262000004,
+      "mft_seconds": 5.160913233999999,
+      "delta_xz_ev": 0.003165633544821898
+    },
+    {
+      "mesh": 16,
+      "seconds": 89.93012757699998,
+      "mft_seconds": 80.44258158599999,
+      "delta_xz_ev": 0.003322906893997517
+    }
+  ],
+  "exchange_performance": {
+    "previous_spectral_4_cubed_seconds": 52.239583110000005,
+    "realspace_4_cubed_first_seconds": 16.826263314000002,
+    "realspace_4_cubed_warm_seconds": 3.5997852050000176,
+    "realspace_8_cubed_warm_seconds": 7.473403836999999,
+    "child_8_cubed_first_seconds": 18.528968327,
+    "first_speed_ratio": 3.1046455255775633,
+    "warm_speed_ratio": 14.511861162560601,
+    "old_new_4_cubed_response_comparison": {
+      "max_abs_ev": 1.7242830080421712e-10,
+      "old_seconds": 52.23958311,
+      "new_seconds": 16.826263314000002
+    },
+    "single_observations": true
+  },
+  "contraction_assessment": {
+    "anisotropy": "provisional_at_tested_8_cubed_mesh",
+    "exchange": "retain_full_pao",
+    "explanation": "The raw run screening_use label only checked MFT. This assessment explicitly separates the two observables.",
+    "original_spinor_dimension": 96,
+    "reduced_spinor_dimension": 72,
+    "mft_speed_ratio": 1.3168983205525235,
+    "mft_max_abs_error_ev": 5.1222528318351813e-05,
+    "exchange_max_abs_error_ev": 0.0029296187049414908,
+    "original_nearest_Fe_Fe_ev": 0.004150247536624811,
+    "reduced_nearest_Fe_Fe_ev": 0.0070798662415663014,
+    "relative_Fe_Fe_error": 0.705890113562721,
+    "timings_single_observations": true,
+    "automatic_promotion": false
+  },
+  "feedback": {
+    "child_experiment": "88e23c293ca348fc91666c8e0710a181",
+    "outcome_events": [
+      "83fb8e1b18e64237a880c737616c389c",
+      "db4b239b61714191b81f857b15059d7f",
+      "34b68886bb9a4e538901c1021e0934e5",
+      "27db69173f27435891bc5f240b7bb12d"
+    ],
+    "prediction_evaluation": {
+      "status": "evaluated",
+      "observables": {
+        "frozen_Fx_minus_Fz": {
+          "status": "evaluated",
+          "error": 0.0009229068939975173,
+          "absolute_error": 0.0009229068939975173,
+          "unit": "eV/cell",
+          "within_predicted_uncertainty": false,
+          "mechanism_verified": false
+        },
+        "near_fermi_Fe_d_Pt_d_co_weight": {
+          "status": "evaluated",
+          "error": 0.05175277287033847,
+          "absolute_error": 0.05175277287033847,
+          "unit": "dimensionless",
+          "within_predicted_uncertainty": false,
+          "mechanism_verified": false
+        }
+      },
+      "mechanism_verified": false
+    },
+    "interpretation": "The c+2% fixed-volume child increased frozen Fx-Fz from 2.737267 to 3.322907 meV/cell and Fe-d/Pt-d co-weight from 0.401946 to 0.431753. Both directional predictions were contradicted; neither observation establishes a causal mechanism. Fe d Fermi DOS decreased while Pt d DOS increased. Large angle-sensitive band-index shifts also contain substantial Fe/Pt p weight. At 8^3 the nearest Fe-Fe response rose from 4.150 to 31.424 meV, but the parent changes from 28.927 to 4.150 meV between 4^3 and 8^3, so that exchange trend is not mesh-converged. The simultaneous in-plane compression and c stretch should be separated next.",
+    "followup_hypothesis": "8adbc2babff94553a2a07a92ac6ea4e3",
+    "followup_experiment": "32975c19a675482090cc916910646f61",
+    "followup_source_hash": "b6d55f549171abbbc5c27cfd73b87432bd0f80087029ccbbd12174cd995fc106",
+    "followup_evaluated": false,
+    "mechanism_verified": false
+  },
+  "failed_attempts": [
+    {
+      "run_id": "discovery-child-20261123T180253Z",
+      "seconds": 0.10763021799999994,
+      "reason": "Unexpected structure.json in input whitelist; authoring record moved outside native input.",
+      "gpu": [
+        "NVIDIA A100-SXM4-40GB, GPU-501cb2bc-d806-0857-d27b-6dd6ce53cccd, 620.70.06"
+      ]
+    },
+    {
+      "run_id": "discovery-child-20261123T180345Z",
+      "seconds": 19.487805793,
+      "reason": "Same startup SIGSEGV before SCF on driver 620.70.06.",
+      "gpu": [
+        "NVIDIA A100-SXM4-80GB, GPU-e5810989-6121-9335-c622-f9f69ed439b4, 620.70.06"
+      ]
+    },
+    {
+      "run_id": "discovery-response-20261123T174852Z",
+      "seconds": 0.14515652300000004,
+      "reason": "Missing frozen-rotation option rejected before SCF; corrected.",
+      "gpu": [
+        "NVIDIA A100-SXM4-40GB, GPU-c8d9d1ac-ed0b-37e4-303c-91149c0d3753, 610.57.04"
+      ]
+    },
+    {
+      "run_id": "discovery-response-20261123T174943Z",
+      "seconds": 3.199785071,
+      "reason": "Integer zero FDF coordinate tokens parsed as species; scientific notation fixed.",
+      "gpu": [
+        "NVIDIA A100-SXM4-40GB, GPU-7b7da7c4-8618-1465-ef7a-0873d07d77f2, 610.57.04"
+      ]
+    },
+    {
+      "run_id": "discovery-response-20261123T175118Z",
+      "seconds": 16.157744179999998,
+      "reason": "Startup SIGSEGV before SCF on driver 620.70.06; unresolved driver-specific suspicion.",
+      "gpu": [
+        "NVIDIA A100-SXM4-40GB, GPU-f0af8f4f-b775-6d60-9262-e9991fcf3fce, 620.70.06"
+      ]
+    }
+  ],
+  "precision": "FP64/complex128 electronic response",
+  "physics_qualified": false,
+  "upstream_gpu_speedup": null,
+  "peak_device_memory_bytes": null,
+  "billed_gpu_seconds": null,
+  "limitations": [
+    "Frozen density and magnetic field were converged only on the original 4^3 SCF mesh; dense MFT is not dense-SCF or basis convergence.",
+    "Onsite exchange is strongly mesh-sensitive here; Pt channels are induced responses.",
+    "PAO co-weights and fixed band-index shifts are diagnostics, not causal or gauge-unique MAE contributions.",
+    "72-state contraction is provisional for anisotropy and inadequate for exchange at the tested settings.",
+    "Structure-to-crystal-field 4f integration and TWINS browser tool registration remain incomplete.",
+    "Startup driver-620 failures remain unresolved; successful parent and child used driver 610.57.04.",
+    "All-band high-energy regression issue remains as documented in the earlier report."
+  ]
+}

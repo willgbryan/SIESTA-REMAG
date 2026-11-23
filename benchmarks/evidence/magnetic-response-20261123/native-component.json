@@ -1,0 +1,55 @@
+{
+  "scope": "Three existing FePt k points; component check, not a material anisotropy",
+  "spectral_error_ev": 3.0114033278128936e-11,
+  "torque_finite_difference_error_ev": 2.1069785093797201e-10,
+  "no_soc_spectrum_error_ev": 8.918200866476386e-12,
+  "torque_derivative_step_radians": 0.0001,
+  "raw_free_derivative_error_ev": 2.8458206071740587e-06,
+  "z": {
+    "chemical_potential": -0.2683861330874975,
+    "charge": 17.999999999963777,
+    "band_energy": -9.57919648617172,
+    "free_energy": -9.579450096148898,
+    "delta_band": 0.0,
+    "delta_free": 0.0,
+    "delta_canonical_free": 0.0,
+    "spin": [
+      -1.138613144050842e-13,
+      1.1382343536476596e-13,
+      2.689752317233092
+    ],
+    "torque": [
+      -5.383239029472672e-15,
+      -5.508556344349418e-15,
+      3.747350952221773e-30
+    ],
+    "max_residual": 4.833601724664298e-16,
+    "max_orthogonality_error": 1.5509821435411572e-12,
+    "seconds": 0.200880083,
+    "workspace_bytes": 4842300
+  },
+  "x": {
+    "chemical_potential": -0.2680760896072282,
+    "charge": 17.999999999956685,
+    "band_energy": -9.579185309439252,
+    "free_energy": -9.579467195432679,
+    "delta_band": 1.1176732466860515e-05,
+    "delta_free": -1.7099283781941875e-05,
+    "delta_canonical_free": -1.709928567248917e-05,
+    "spin": [
+      2.695678564538208,
+      -7.845845219793882e-05,
+      1.3885176293011198e-14
+    ],
+    "torque": [
+      2.281462194574307e-22,
+      -1.7377290119732254e-15,
+      -2.3117837070585016e-05
+    ],
+    "max_residual": 5.52245818731026e-16,
+    "max_orthogonality_error": 9.707284216181005e-13,
+    "seconds": 0.012585114,
+    "workspace_bytes": 4842300
+  },
+  "passed": true
+}

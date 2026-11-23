@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "result": "e053dd93f84b4c9d9b4623bd644b6f29",
+  "format": "REMAG-DIRECT-TOOL-RESULT/1",
+  "request_sha256": "e8ae048a2932369e5924c3262a44389997278f2b0765fb026779273e6d5d1aa8",
+  "elapsed_seconds": 0.007484249770641327,
+  "finished_at": "2026-11-23T19:55:38.684735+00:00",
+  "receipt": "results/followup-authoring-feedback-20261123/record-anisotropy"
+}

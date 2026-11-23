@@ -1,0 +1,37 @@
+{
+  "child_experiment": "88e23c293ca348fc91666c8e0710a181",
+  "outcome_events": [
+    "83fb8e1b18e64237a880c737616c389c",
+    "db4b239b61714191b81f857b15059d7f",
+    "34b68886bb9a4e538901c1021e0934e5",
+    "27db69173f27435891bc5f240b7bb12d"
+  ],
+  "prediction_evaluation": {
+    "status": "evaluated",
+    "observables": {
+      "frozen_Fx_minus_Fz": {
+        "status": "evaluated",
+        "error": 0.0009229068939975173,
+        "absolute_error": 0.0009229068939975173,
+        "unit": "eV/cell",
+        "within_predicted_uncertainty": false,
+        "mechanism_verified": false
+      },
+      "near_fermi_Fe_d_Pt_d_co_weight": {
+        "status": "evaluated",
+        "error": 0.05175277287033847,
+        "absolute_error": 0.05175277287033847,
+        "unit": "dimensionless",
+        "within_predicted_uncertainty": false,
+        "mechanism_verified": false
+      }
+    },
+    "mechanism_verified": false
+  },
+  "interpretation": "The c+2% fixed-volume child increased frozen Fx-Fz from 2.737267 to 3.322907 meV/cell and Fe-d/Pt-d co-weight from 0.401946 to 0.431753. Both directional predictions were contradicted; neither observation establishes a causal mechanism. Fe d Fermi DOS decreased while Pt d DOS increased. Large angle-sensitive band-index shifts also contain substantial Fe/Pt p weight. At 8^3 the nearest Fe-Fe response rose from 4.150 to 31.424 meV, but the parent changes from 28.927 to 4.150 meV between 4^3 and 8^3, so that exchange trend is not mesh-converged. The simultaneous in-plane compression and c stretch should be separated next.",
+  "followup_hypothesis": "8adbc2babff94553a2a07a92ac6ea4e3",
+  "followup_experiment": "32975c19a675482090cc916910646f61",
+  "followup_source_hash": "b6d55f549171abbbc5c27cfd73b87432bd0f80087029ccbbd12174cd995fc106",
+  "followup_evaluated": false,
+  "mechanism_verified": false
+}

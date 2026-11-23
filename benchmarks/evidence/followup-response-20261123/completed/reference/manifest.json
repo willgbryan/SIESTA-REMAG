@@ -1,0 +1,52 @@
+{
+  "name": "tzdp_np_s25_m400_k4_t300_z",
+  "atoms": 2,
+  "spin": "spin-orbit",
+  "kmesh": [
+    4,
+    4,
+    4
+  ],
+  "repeat": [
+    1,
+    1,
+    1
+  ],
+  "theta_deg": 0,
+  "pseudopotentials": {
+    "Fe_fept_SOC.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+    "Pt_fept_SOC.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+  },
+  "energy_density_outputs": {
+    "tsde": false,
+    "netcdf": false
+  },
+  "initial_population_output": true,
+  "input_sha256": "3901502832786459e8148683eca6464b9de07c84aa04571d812d105959856862",
+  "purpose": "authored-magnetic-screening",
+  "orientation_constrained": false,
+  "io_policy": "end-of-cycle",
+  "split_scf_timings": false,
+  "orientation_family_sha256": null,
+  "density_matrix_output": true,
+  "hamiltonian_output": true,
+  "property_point": "tzdp_np_s25_m400_k4_t300",
+  "basis": "TZDP",
+  "mesh_cutoff_ry": 400,
+  "electronic_temperature_k": 300,
+  "formula_units": 1,
+  "fixed_cell_volume_ang3": 28.811420820000002,
+  "lattice_relaxed": false,
+  "orbital_moment_output": true,
+  "physical_accuracy_qualified": false,
+  "pao_split_norm": 0.25,
+  "polarization_scheme": "non-perturbative",
+  "pao_energy_shift_ry": 0.01,
+  "gpac_source_hash": "b6d55f549171abbbc5c27cfd73b87432bd0f80087029ccbbd12174cd995fc106",
+  "evaluated_geometry_hash": "b1e996f97463a3549bf78cf5b745cc87f4a04ba5594a546b0bbd8888ea9ff780",
+  "parent_source_hash": "2655ff8b059af4ee36a671ce59b4a20a4cea135c0d0dc58f2d6cec556095d827",
+  "structural_intervention": {
+    "metric.g11": "74529/10000",
+    "metric.g22": "74529/10000"
+  }
+}

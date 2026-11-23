@@ -1,0 +1,68 @@
+{
+  "format": "REMAG-MAGNETIC-RUN/1",
+  "status": "complete",
+  "identity": {
+    "gpac_source_hash": "b6d55f549171abbbc5c27cfd73b87432bd0f80087029ccbbd12174cd995fc106",
+    "evaluated_geometry_hash": "b1e996f97463a3549bf78cf5b745cc87f4a04ba5594a546b0bbd8888ea9ff780",
+    "calculation_id": "magnetic-screen-20261123T195200Z-94ee7cd6/reference"
+  },
+  "reference_converged": true,
+  "screens": [
+    {
+      "mesh": [
+        8,
+        8,
+        8
+      ],
+      "path": "k8x8x8/magnetic-screen.json",
+      "sha256": "d7c96d788c14749c61a162a11b73e06b7f0b2b22ec0adf2a48babd6dad4f3b62"
+    },
+    {
+      "mesh": [
+        16,
+        16,
+        16
+      ],
+      "path": "k16x16x16/magnetic-screen.json",
+      "sha256": "31b844950e4a7e9e2f992c4d458eaafc21fed3910742755e27b400dea068658e"
+    }
+  ],
+  "seconds": 141.283737231,
+  "physical_accuracy_qualified": false,
+  "reference_settings": {
+    "material": "FePt",
+    "basis": "TZDP",
+    "mesh_cutoff_ry": 400,
+    "kmesh": [
+      4,
+      4,
+      4
+    ],
+    "temperature_k": 300,
+    "reference": "SOC-free"
+  },
+  "run_id": "magnetic-screen-20261123T195200Z-94ee7cd6",
+  "volume": "siesta-remag-magnetic-results",
+  "image": "im-v2SJzLdYwhBNWghlBeQgMq",
+  "gpu": [
+    "NVIDIA A100-SXM4-40GB, GPU-6f81fdfc-fecd-bc16-c328-7cb40063a1e5, 610.57.04"
+  ],
+  "sources": {
+    "/opt/remag/siesta_remag/magnetic/realspace.py": "9c479288402c55ae290580a93507ff4c9d4de23b1ca081c4eda7ed61769769fa",
+    "/opt/remag/siesta_remag/magnetic/backend.py": "3c733f10105bdc4666c0ddad81b2e93f572dc82a5a8507169e8f18ea45225f49",
+    "/opt/remag/siesta_remag/magnetic/electronic.py": "1ad57c549541666d71829ac80ae85258bcc1782356857e4efc3de9f2d9428968",
+    "/opt/remag/siesta_remag/magnetic/multiplet.py": "d0ca54d8126532cee3c48f5c2566ec1bacb27193683bc694f610c2f18edcffa2",
+    "/opt/remag/siesta_remag/magnetic/authoring.py": "ff4062a54f143b7b84e4292f72a6ed720b50307662e96328b99c545d997aba49",
+    "/opt/remag/siesta_remag/magnetic/__init__.py": "3556924f3e115e352f2919b5f93c94b6797912b755ce106e844f78eee4dbaf0a",
+    "/opt/remag/siesta_remag/magnetic/force_theorem.py": "e6194c1cbae33d1abed787d6bb7bb489eda1c063a8258eb82ee5026c7d8e8af2",
+    "/opt/remag/siesta_remag/magnetic/operators.py": "6e767257dcc8b476782159e9a838c41486da66a59be16e7ee90fb6d2659368c9",
+    "/opt/remag/siesta_remag/magnetic/greens.py": "550f45dfa9cbcd310bc7feb1df9a944f13055758f4052d1eaa631af70769a9f0",
+    "/opt/remag/siesta_remag/magnetic/tools.py": "dbb777c680877f72204cb2de6d63acf3f8827c0d5db5f928e154f624745214a9",
+    "/opt/remag/siesta_remag/magnetic/workflow.py": "5c33d8d8ebb9b739cba0e71c99e5e8fce3d761883463bc5aa65a959e319e89e3",
+    "/opt/remag/siesta_remag/magnetic/gpu.py": "f0b152bba4ca4a5a47dfa0189ffd1490a9b35d4dafbf49f7d044ca8983b49b0b",
+    "/opt/remag/siesta_remag/magnetic/compare.py": "1a19b2a7ddedf1ab47f763116b55c3f74b1f3b7dd43649d1f5b27bd2287fb001",
+    "/opt/remag/siesta_remag/magnetic/downfold.py": "079e2bef46eea0fc2d331bc2850cc0f8e514d650fb3f5f10bd61f79a73a27e91",
+    "/opt/remag/siesta_remag/magnetic/state.py": "2a95f325a8d45417d418960e79f5b3010cf116b2fc8b1b76259eddd686836352",
+    "/opt/remag/siesta_remag/magnetic/descriptors.py": "5f21af8b3e821b178301638e741307ffecce7f96429b1772b9c6c0dde7a26207"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "request_sha256": "ceb052da212e86d740078d4af7dd5e07ebd6305c48c28d2d23b3268268a47f80",
+  "runtime_sha256": "eb61637a618c3cf504eb15fe8dc8b8cfc8c6d73ae949f4699435dd4d0ea40af1",
+  "request": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/followup-tool-request-20261123/request.json",
+  "runtime": "/Users/willgbryan/Desktop/SIESTA-REMAG/build/magnetic-runtime.json"
+}

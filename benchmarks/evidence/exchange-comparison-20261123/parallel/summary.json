@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "benchmark_returncode": 0,
+  "gpu": [],
+  "seconds": 163.16342376999998,
+  "startup_diagnostic_returncode": null,
+  "source_sha256": {
+    "app.py": "11b769d01ebf6a8b2b861adf99feac3b8ce368f2f9305b72e6502a92485e1577",
+    "compare_exchange.py": "5f5a612be9c7fbf1a2c4d5d20690ceecb26e0510d9e8678c432933d01dd56fd4"
+  }
+}

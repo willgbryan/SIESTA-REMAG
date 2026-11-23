@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/opt/exchange-comparison/compare_exchange.py", line 38, in <module>
+    if max(checks.values())>1.e-9:raise RuntimeError('HamiltonIO and native generator matrices differ')
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: HamiltonIO and native generator matrices differ

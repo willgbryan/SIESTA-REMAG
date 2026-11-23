@@ -1,0 +1,191 @@
+{
+  "status": "screening",
+  "method": "gpu_4f_fock_space",
+  "approximation": "localized_atomic_multiplet_supplied_crystal_field",
+  "parameters": {
+    "species": "Ce",
+    "ionic_valence": 3,
+    "occupancy": 1,
+    "slater_ev": {
+      "0": 0.0,
+      "2": 0.0,
+      "4": 0.0,
+      "6": 0.0
+    },
+    "soc_ev": 0.1,
+    "crystal_field_convention": "Wybourne_Ckq",
+    "crystal_field_ev": [
+      {
+        "k": 2,
+        "q": 0,
+        "real_ev": 0.01
+      }
+    ],
+    "exchange_field_ev": 0.02,
+    "double_counting": "local_model_only"
+  },
+  "basis": "m=-3..3, up/down; fixed-number Slater determinants",
+  "dimension": 14,
+  "temperature_k": 300,
+  "points": [
+    {
+      "direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "free_energy_ev": -0.2492000338973621,
+      "excitation_energies_ev": [
+        0.0,
+        0.008769801229870339,
+        0.016039396466950795,
+        0.021791635298753553,
+        0.026007584536126144,
+        0.028666439105155733,
+        0.3444121419728869,
+        0.35349117817395126,
+        0.36148336607631426,
+        0.36836598198035336,
+        0.37411822081215623,
+        0.37872114938257007,
+        0.382157617279107,
+        0.38441214197288687
+      ],
+      "spin_expectation": [
+        0.0,
+        0.0,
+        0.1364584460872674
+      ],
+      "orbital_expectation": [
+        0.0,
+        0.0,
+        -0.8025449998385048
+      ],
+      "magnetic_moment_muB": [
+        -0.0,
+        -0.0,
+        0.52962810766397
+      ],
+      "S_squared": 0.7500000000000001,
+      "L_squared": 12.000000000000004,
+      "J_squared": 8.766593490347269,
+      "partition_tail_relative_bound": 0.0,
+      "full_spectrum": true,
+      "max_residual_ev": 1.0007415106216802e-16,
+      "delta_free_ev": 0.0
+    },
+    {
+      "direction": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "free_energy_ev": -0.24900704436967053,
+      "excitation_energies_ev": [
+        0.0,
+        0.0035339174837408227,
+        0.008418508969903482,
+        0.014292107639421014,
+        0.021072361036906573,
+        0.028732729120802852,
+        0.3451089912595193,
+        0.34993537262470487,
+        0.3551030395116337,
+        0.36059497591394885,
+        0.3663857136636459,
+        0.3724504615670501,
+        0.37876705455751014,
+        0.3853161046494506
+      ],
+      "spin_expectation": [
+        0.1273610618611628,
+        0.0,
+        3.8469780076683415e-16
+      ],
+      "orbital_expectation": [
+        -0.7229016227372247,
+        0.0,
+        -3.0479707324421954e-15
+      ],
+      "magnetic_moment_muB": [
+        0.4681794990148991,
+        -0.0,
+        2.2785751309085273e-15
+      ],
+      "S_squared": 0.7500000000000004,
+      "L_squared": 12.000000000000005,
+      "J_squared": 8.766761341350149,
+      "partition_tail_relative_bound": 0.0,
+      "full_spectrum": true,
+      "max_residual_ev": 1.762794039667066e-16,
+      "delta_free_ev": 0.00019298952769156164
+    },
+    {
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "free_energy_ev": -0.24900704436967053,
+      "excitation_energies_ev": [
+        0.0,
+        0.003533917483740684,
+        0.008418508969903399,
+        0.014292107639421014,
+        0.021072361036906462,
+        0.028732729120802714,
+        0.3451089912595192,
+        0.34993537262470475,
+        0.3551030395116335,
+        0.36059497591394873,
+        0.3663857136636458,
+        0.37245046156704986,
+        0.37876705455751003,
+        0.3853161046494505
+      ],
+      "spin_expectation": [
+        5.450656386058246e-20,
+        0.12736106186116275,
+        7.34594851142959e-16
+      ],
+      "orbital_expectation": [
+        5.283454395326645e-19,
+        -0.7229016227372235,
+        -5.339091798031065e-15
+      ],
+      "magnetic_moment_muB": [
+        -6.373585672538294e-19,
+        0.46817949901489797,
+        3.869902095745147e-15
+      ],
+      "S_squared": 0.7499999999999996,
+      "L_squared": 11.999999999999995,
+      "J_squared": 8.766761341350142,
+      "partition_tail_relative_bound": 0.0,
+      "full_spectrum": true,
+      "max_residual_ev": 2.626386609369172e-16,
+      "delta_free_ev": 0.00019298952769156164
+    }
+  ],
+  "summary": {
+    "preferred_sampled_direction": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "local_anisotropy_ev": 0.00019298952769156164
+  },
+  "numerical_sensitivity": null,
+  "raw_evidence": [],
+  "performance": {
+    "total_wall_seconds": 9.651111086
+  },
+  "limitations": [
+    "Local 4f response is not the full magnet temperature-dependent anisotropy.",
+    "Parameters and ionic occupancy are supplied; general first-principles crystal-field extraction is unavailable.",
+    "Magnetic moment uses the electron sign -muB(L+2S); the exchange coupling is -2 B_ex dot S.",
+    "Truncated thermal sums are withheld when their omitted-state bound is insufficient; increase levels.",
+    "Do not add this contribution to a DFT calculation containing the same explicit 4f electrons."
+  ],
+  "parameter_source": "Illustrative supplied Ce3+ environment; not a material extraction"
+}

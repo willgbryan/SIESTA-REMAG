@@ -1,0 +1,15 @@
+{
+  "anisotropy": "provisional_at_tested_8_cubed_mesh",
+  "exchange": "retain_full_pao",
+  "explanation": "The raw run screening_use label only checked MFT. This assessment explicitly separates the two observables.",
+  "original_spinor_dimension": 96,
+  "reduced_spinor_dimension": 72,
+  "mft_speed_ratio": 1.3168983205525235,
+  "mft_max_abs_error_ev": 5.1222528318351813e-05,
+  "exchange_max_abs_error_ev": 0.0029296187049414908,
+  "original_nearest_Fe_Fe_ev": 0.004150247536624811,
+  "reduced_nearest_Fe_Fe_ev": 0.0070798662415663014,
+  "relative_Fe_Fe_error": 0.705890113562721,
+  "timings_single_observations": true,
+  "automatic_promotion": false
+}

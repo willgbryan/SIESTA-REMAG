@@ -1,0 +1,99 @@
+Note that running a local entrypoint in detached mode only keeps the last triggered Modal function alive after the parent process has been killed or disconnected.
+✓ Initialized. View run at 
+https://modal.com/apps/will-bryan421/main/ap-ebmvE0d9eazEma9hmbsKPc
+Building image im-NpqzDguYjEhZcOKwwA095G
+
+Using legacy Image Builder version. We suggest upgrading at https://modal.com/settings/image-config.
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.55s
+
+Built image im-NpqzDguYjEhZcOKwwA095G in 4.55s
+
+
+Building image im-fgjCqGZzyewvxxEjuu9kFD
+
+Using legacy Image Builder version. We suggest upgrading at https://modal.com/settings/image-config.
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.27s
+
+Built image im-fgjCqGZzyewvxxEjuu9kFD in 3.56s
+
+
+Building image im-ybE221sM1csu8bhvU9UeLR
+
+Using legacy Image Builder version. We suggest upgrading at https://modal.com/settings/image-config.
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 833.19ms
+
+Built image im-ybE221sM1csu8bhvU9UeLR in 4.16s
+
+
+Building image im-9Z2CROVdqHBn0YPcGGkkfZ
+
+Using legacy Image Builder version. We suggest upgrading at https://modal.com/settings/image-config.
+
+=> Step 0: FROM base
+
+=> Step 1: ENV PYTHONPATH=/opt/remag
+
+=> Step 2: ENV REMAG_MAGNETIC_RUNTIME=/opt/magnetic-job/runtime.json
+
+=> Step 3: ENV REMAG_MAGNETIC_REQUEST=/opt/magnetic-job/request.json
+Saving image...
+Image saved, took 2.84s
+
+Built image im-9Z2CROVdqHBn0YPcGGkkfZ in 4.56s
+
+
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/willgbryan/Desktop/SIESTA-REMAG/build/remag-magnetic-integration/scri
+│   pts/magnetic_modal.py
+├── ✓ Uploaded 
+│   /Users/willgbryan/Desktop/SIESTA-REMAG/build/remag-magnetic-integration/src/
+│   siesta_remag
+├── ✓ Uploaded 
+│   /Users/willgbryan/Desktop/SIESTA-REMAG/build/magnetic-runtime.json
+├── ✓ Uploaded 
+│   /Users/willgbryan/Desktop/SIESTA-REMAG/results/followup-tool-request-2026112
+│   3/request.json
+└── ✓ Created Function run.
+Volume mounted at /templates is using 100.0% of available inodes (500000 out of 500000). If you reach the limit, creating new files will fail.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.6.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+Traceback (most recent call last):
+  File "/root/magnetic_modal.py", line 47, in run
+    result=run_screen(request,configured,root,checkpoint=volume.commit)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/remag/siesta_remag/magnetic/workflow.py", line 36, in run_screen
+    raise RuntimeError('Reference SCF failed; inspect reference/result.json and native logs')
+RuntimeError: Reference SCF failed; inspect reference/result.json and native logs
+
+Collected magnetic screen: /Users/willgbryan/Desktop/SIESTA-REMAG/results/followup-tool-run-20261123
+✓ App completed. View run at 
+https://modal.com/apps/will-bryan421/main/ap-ebmvE0d9eazEma9hmbsKPc

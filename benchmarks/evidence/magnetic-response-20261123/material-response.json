@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "downfold_response_error_ev": 2.824857860649066e-12,
+  "exchange_pair_count": 12,
+  "exchange_seconds": 52.23958311,
+  "exchange_min_ev": 0.0012004712134872566,
+  "exchange_max_ev": 0.028927127677707925,
+  "local_4f_summary": {
+    "preferred_sampled_direction": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "local_anisotropy_ev": 0.00019298952769156164
+  },
+  "scope": "Initial FePt onsite exchange and full-basis interpolation; illustrative Ce3+ local anisotropy"
+}

@@ -1,0 +1,70 @@
+{
+  "status": "complete",
+  "progression": [
+    {
+      "mesh": 4,
+      "seconds": 1.3030464819999992,
+      "mft_seconds": 1.1490208729999978,
+      "delta_xz_ev": -0.0006802120559696853,
+      "spin_muB": [
+        -4.777809833787867e-16,
+        -1.4625562359782788e-15,
+        3.3802993579202334
+      ]
+    },
+    {
+      "mesh": 8,
+      "seconds": 6.164779660999997,
+      "mft_seconds": 5.09714563,
+      "delta_xz_ev": 0.0029945879057466603,
+      "spin_muB": [
+        -3.040000702256974e-16,
+        5.804307059766417e-17,
+        3.3457528977508098
+      ]
+    },
+    {
+      "mesh": 12,
+      "seconds": 20.45167059900001,
+      "mft_seconds": 17.242726587000007,
+      "delta_xz_ev": 0.002722036095058318,
+      "spin_muB": [
+        -1.2528638700179117e-17,
+        -2.2063629554294404e-16,
+        3.3946082021231265
+      ]
+    },
+    {
+      "mesh": 16,
+      "seconds": 89.91255413299999,
+      "mft_seconds": 80.94117977900001,
+      "delta_xz_ev": 0.0027372670101328523,
+      "spin_muB": [
+        -8.933767641212842e-18,
+        -1.776745103218324e-16,
+        3.359908419119744
+      ]
+    }
+  ],
+  "physical_accuracy_qualified": false,
+  "seconds": 182.146230224,
+  "gpu": [
+    "NVIDIA A100-SXM4-40GB, GPU-7336d923-1eed-5f8f-55b3-2e41cc56f796, 610.57.04"
+  ],
+  "sources": {
+    "/opt/remag/siesta_remag/magnetic/gpu.py": "f0b152bba4ca4a5a47dfa0189ffd1490a9b35d4dafbf49f7d044ca8983b49b0b",
+    "/opt/remag/siesta_remag/magnetic/greens.py": "6341b8130e356ffe585581b809824609f6a85282474e68990bdb1c50276e1dff",
+    "/opt/remag/siesta_remag/magnetic/descriptors.py": "d452e0ecd5efebf14cf92f89486415024df46007a68feb8a021fa8ff6f4e1a68",
+    "/opt/remag/siesta_remag/magnetic/multiplet.py": "d0ca54d8126532cee3c48f5c2566ec1bacb27193683bc694f610c2f18edcffa2",
+    "/opt/remag/siesta_remag/magnetic/backend.py": "3c733f10105bdc4666c0ddad81b2e93f572dc82a5a8507169e8f18ea45225f49",
+    "/opt/remag/siesta_remag/magnetic/compare.py": "1a19b2a7ddedf1ab47f763116b55c3f74b1f3b7dd43649d1f5b27bd2287fb001",
+    "/opt/remag/siesta_remag/magnetic/authoring.py": "6888d94f288fa13470c2aeac06aaa1be1c760b7845b522b80f7b5f84e4c70917",
+    "/opt/remag/siesta_remag/magnetic/__init__.py": "3556924f3e115e352f2919b5f93c94b6797912b755ce106e844f78eee4dbaf0a",
+    "/opt/remag/siesta_remag/magnetic/downfold.py": "f1bf741fd64a0efc2ff20ca41f80fc01acfc1234b6ac8d2cef5f57c73b1bbbd6",
+    "/opt/remag/siesta_remag/magnetic/operators.py": "6e767257dcc8b476782159e9a838c41486da66a59be16e7ee90fb6d2659368c9",
+    "/opt/remag/siesta_remag/magnetic/realspace.py": "9c479288402c55ae290580a93507ff4c9d4de23b1ca081c4eda7ed61769769fa",
+    "/opt/remag/siesta_remag/magnetic/force_theorem.py": "c58e4b15c4ba03a0e0dd53481021a0ba993931f7b3c95eaf502056b2c24b3f57",
+    "/opt/remag/siesta_remag/magnetic/electronic.py": "1ad57c549541666d71829ac80ae85258bcc1782356857e4efc3de9f2d9428968",
+    "/opt/remag/siesta_remag/magnetic/state.py": "2a95f325a8d45417d418960e79f5b3010cf116b2fc8b1b76259eddd686836352"
+  }
+}

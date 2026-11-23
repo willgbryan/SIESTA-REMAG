@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "result": "3e8d14fe197c46a6b3f9a42b9f16971e",
+  "format": "REMAG-DIRECT-TOOL-RESULT/1",
+  "request_sha256": "0a5ae1388c579b22046c59b099f5d382326e126445c8375683db029d323d30e7",
+  "elapsed_seconds": 0.0010350421071052551,
+  "finished_at": "2026-11-23T19:55:38.692084+00:00",
+  "receipt": "results/followup-authoring-feedback-20261123/analysis"
+}

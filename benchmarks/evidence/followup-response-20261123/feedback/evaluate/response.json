@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "result": {
+    "status": "evaluated",
+    "observables": {
+      "frozen_Fx_minus_Fz": {
+        "status": "evaluated",
+        "error": -8.131570726930713e-05,
+        "absolute_error": 8.131570726930713e-05,
+        "unit": "eV/cell",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "near_fermi_Fe_d_Pt_d_co_weight": {
+        "status": "evaluated",
+        "error": -0.008855632904519961,
+        "absolute_error": 0.008855632904519961,
+        "unit": "dimensionless",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      }
+    },
+    "mechanism_verified": false
+  },
+  "format": "REMAG-DIRECT-TOOL-RESULT/1",
+  "request_sha256": "6e2f459a84c8c3252aaadb4c0ffd4bfd6587733d0407144fd83bba77620b1b5b",
+  "elapsed_seconds": 0.0005343742668628693,
+  "finished_at": "2026-11-23T19:55:38.690093+00:00",
+  "receipt": "results/followup-authoring-feedback-20261123/evaluate"
+}

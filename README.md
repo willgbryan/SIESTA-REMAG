@@ -27,6 +27,11 @@ benchmarking; the supported runtime remains CUDA with FP64 solvers.
 - Directional magnetic-energy comparisons and FePt regression coverage through
   128 atoms / 2,304 spinor states, with additional Fe, Fe3C, Fe2B and Fe5PB2 cases.
 
+Provisional [magnetic-response tools](docs/MAGNETIC_RESPONSE.md) provide dense
+frozen angular MFT, real-space Green's-function exchange, named orbital
+descriptors and GPAC/TWINS feedback. The [measured FePt discovery example](benchmarks/evidence/discovery-response-20261123/REPORT.md)
+retains approximation and compact-model limits; these are screening capabilities.
+
 CPU geometry/setup and ionic work remain. Requested scientific outputs are
 exported explicitly. See [execution and configuration](docs/RUNNING.md) for the
 integrated GPU path and its supported settings.

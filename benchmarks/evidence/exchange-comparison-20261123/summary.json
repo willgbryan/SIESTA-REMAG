@@ -1,0 +1,36 @@
+{
+  "status": "measured",
+  "material": "FePt",
+  "source_run": "discovery-response-20261123T175305Z",
+  "comparison": "same frozen onsite exchange model",
+  "wall_seconds": {
+    "remag_interpolation": 5.4086348410000005,
+    "remag_first_exchange": 23.748478402000003,
+    "remag_first_total": 29.157113243000005,
+    "remag_warm_exchange": 2.7791023799999977,
+    "tb2j_one_worker": 150.961391674,
+    "tb2j_eight_workers": 158.037822028
+  },
+  "first_call_speedup": 5.177515017205709,
+  "max_abs_error_ev": 4.495362415646298e-14,
+  "single_observations": true,
+  "cpu_model": null,
+  "cpu_allocation": 8,
+  "blas_threads_per_worker": 1,
+  "gpu": [
+    "NVIDIA A100-SXM4-80GB, GPU-8b5ca4d2-b50c-57ae-c06f-855cfbb54237, 610.57.04"
+  ],
+  "raw_volume": "siesta-remag-magnetic-results",
+  "raw_runs": [
+    "exchange-comparison-20261123T194205Z",
+    "exchange-comparison-parallel-20261123T194812Z",
+    "exchange-comparison-20261123T194005Z"
+  ],
+  "accuracy_scope": "Implementation agreement at one mesh; no exchange mesh convergence or ordering-temperature claim.",
+  "openmx_status": "not_run: requires an OpenMX collinear SCF scfout, unavailable for the saved SIESTA generator",
+  "dependency_note": "TB2J source was installed without dependency resolution because it lists unpublished pypao. Required imports were installed explicitly. The reused image has SciPy 1.18.1, outside TB2J declared <1.17; numerical agreement is measured, not a vendor-supported environment claim.",
+  "failed_builds": [
+    "TB2J dependency pypao unavailable on package index",
+    "TB2J import required undeclared PyYAML; fixed before allocating GPU"
+  ]
+}

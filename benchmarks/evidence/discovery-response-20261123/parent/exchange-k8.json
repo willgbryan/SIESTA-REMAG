@@ -1,0 +1,1306 @@
+{
+  "status": "screening",
+  "method": "gpu_realspace_pole_greens_hessian",
+  "approximation": "onsite_rigid_exchange_frozen_potential",
+  "convention": "E=-sum_unique_pairs e_i^T J_ij e_j; unit spins; positive J is ferromagnetic",
+  "pairs": [
+    {
+      "i": 0,
+      "j": 0,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0000.atom.0000",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "distance_angstrom": 2.73,
+      "displacement_angstrom": [
+        -2.73,
+        0.0,
+        0.0
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.004150247536624811,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.004150247536624811,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.004150247536624811
+        ]
+      ],
+      "isotropic_ev": 0.004150247536624811,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "local_moment"
+      ],
+      "independent_spin_pair": true,
+      "interpretation": "spin_coupling"
+    },
+    {
+      "i": 0,
+      "j": 0,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0000.atom.0000",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "distance_angstrom": 2.73,
+      "displacement_angstrom": [
+        0.0,
+        -2.73,
+        0.0
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.004150260209199248,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.004150260209199248,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.004150260209199248
+        ]
+      ],
+      "isotropic_ev": 0.004150260209199248,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "local_moment"
+      ],
+      "independent_spin_pair": true,
+      "interpretation": "spin_coupling"
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        -1,
+        -1
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        -1.365,
+        -1.365,
+        -1.895
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.00610544873464658,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.00610544873464658,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.00610544873464658
+        ]
+      ],
+      "isotropic_ev": 0.00610544873464658,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        -1,
+        0
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        -1.365,
+        -1.365,
+        1.895
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006105448733386894,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006105448733386894,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006105448733386894
+        ]
+      ],
+      "isotropic_ev": 0.006105448733386895,
+      "symmetric_anisotropic_ev": [
+        [
+          -8.673617379884035e-19,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -8.673617379884035e-19,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -8.673617379884035e-19
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        0,
+        -1
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        -1.365,
+        1.365,
+        -1.895
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.00610544873461698,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.00610544873461698,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.00610544873461698
+        ]
+      ],
+      "isotropic_ev": 0.00610544873461698,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        -1.365,
+        1.365,
+        1.895
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006105448733368296,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006105448733368296,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006105448733368296
+        ]
+      ],
+      "isotropic_ev": 0.006105448733368296,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        -1,
+        -1
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        1.365,
+        -1.365,
+        -1.895
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006105448734616219,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006105448734616219,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006105448734616219
+        ]
+      ],
+      "isotropic_ev": 0.006105448734616219,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        1.365,
+        -1.365,
+        1.895
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006105448733367667,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006105448733367667,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006105448733367667
+        ]
+      ],
+      "isotropic_ev": 0.006105448733367667,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        0,
+        -1
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        1.365,
+        1.365,
+        -1.895
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006105448734632717,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006105448734632717,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006105448734632717
+        ]
+      ],
+      "isotropic_ev": 0.006105448734632718,
+      "symmetric_anisotropic_ev": [
+        [
+          -8.673617379884035e-19,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -8.673617379884035e-19,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -8.673617379884035e-19
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        1.365,
+        1.365,
+        1.895
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006105448733393822,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006105448733393822,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006105448733393822
+        ]
+      ],
+      "isotropic_ev": 0.006105448733393822,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "local_moment",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 1,
+      "j": 1,
+      "site_i": "orbit.0001.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "distance_angstrom": 2.73,
+      "displacement_angstrom": [
+        -2.73,
+        0.0,
+        0.0
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.0013427063402766276,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0013427063402766276,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0013427063402766276
+        ]
+      ],
+      "isotropic_ev": 0.0013427063402766278,
+      "symmetric_anisotropic_ev": [
+        [
+          -2.168404344971009e-19,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -2.168404344971009e-19,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -2.168404344971009e-19
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "induced",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    },
+    {
+      "i": 1,
+      "j": 1,
+      "site_i": "orbit.0001.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "distance_angstrom": 2.73,
+      "displacement_angstrom": [
+        0.0,
+        -2.73,
+        0.0
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.001342700424834455,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.001342700424834455,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.001342700424834455
+        ]
+      ],
+      "isotropic_ev": 0.0013427004248344552,
+      "symmetric_anisotropic_ev": [
+        [
+          -2.168404344971009e-19,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -2.168404344971009e-19,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -2.168404344971009e-19
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "site_roles": [
+        "induced",
+        "induced"
+      ],
+      "independent_spin_pair": false,
+      "interpretation": "electronic_response_channel"
+    }
+  ],
+  "site_roles": {
+    "orbit.0000.atom.0000": "local_moment",
+    "orbit.0001.atom.0000": "induced"
+  },
+  "network": {
+    "pair_count": 12,
+    "independent_spin_pair_count": 2,
+    "dominant_ferromagnetic": [
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "orbit.0000.atom.0000",
+        "site_j": "orbit.0001.atom.0000",
+        "translation": [
+          -1,
+          -1,
+          -1
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          -1.365,
+          -1.365,
+          -1.895
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.00610544873464658,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.00610544873464658,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.00610544873464658
+          ]
+        ],
+        "isotropic_ev": 0.00610544873464658,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "site_roles": [
+          "local_moment",
+          "induced"
+        ],
+        "independent_spin_pair": false,
+        "interpretation": "electronic_response_channel"
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "orbit.0000.atom.0000",
+        "site_j": "orbit.0001.atom.0000",
+        "translation": [
+          0,
+          0,
+          -1
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          1.365,
+          1.365,
+          -1.895
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006105448734632717,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006105448734632717,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006105448734632717
+          ]
+        ],
+        "isotropic_ev": 0.006105448734632718,
+        "symmetric_anisotropic_ev": [
+          [
+            -8.673617379884035e-19,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -8.673617379884035e-19,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -8.673617379884035e-19
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "site_roles": [
+          "local_moment",
+          "induced"
+        ],
+        "independent_spin_pair": false,
+        "interpretation": "electronic_response_channel"
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "orbit.0000.atom.0000",
+        "site_j": "orbit.0001.atom.0000",
+        "translation": [
+          -1,
+          0,
+          -1
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          -1.365,
+          1.365,
+          -1.895
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.00610544873461698,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.00610544873461698,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.00610544873461698
+          ]
+        ],
+        "isotropic_ev": 0.00610544873461698,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "site_roles": [
+          "local_moment",
+          "induced"
+        ],
+        "independent_spin_pair": false,
+        "interpretation": "electronic_response_channel"
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "orbit.0000.atom.0000",
+        "site_j": "orbit.0001.atom.0000",
+        "translation": [
+          0,
+          -1,
+          -1
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          1.365,
+          -1.365,
+          -1.895
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006105448734616219,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006105448734616219,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006105448734616219
+          ]
+        ],
+        "isotropic_ev": 0.006105448734616219,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "site_roles": [
+          "local_moment",
+          "induced"
+        ],
+        "independent_spin_pair": false,
+        "interpretation": "electronic_response_channel"
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "orbit.0000.atom.0000",
+        "site_j": "orbit.0001.atom.0000",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          1.365,
+          1.365,
+          1.895
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006105448733393822,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006105448733393822,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006105448733393822
+          ]
+        ],
+        "isotropic_ev": 0.006105448733393822,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "site_roles": [
+          "local_moment",
+          "induced"
+        ],
+        "independent_spin_pair": false,
+        "interpretation": "electronic_response_channel"
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "orbit.0000.atom.0000",
+        "site_j": "orbit.0001.atom.0000",
+        "translation": [
+          -1,
+          -1,
+          0
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          -1.365,
+          -1.365,
+          1.895
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006105448733386894,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006105448733386894,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006105448733386894
+          ]
+        ],
+        "isotropic_ev": 0.006105448733386895,
+        "symmetric_anisotropic_ev": [
+          [
+            -8.673617379884035e-19,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -8.673617379884035e-19,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -8.673617379884035e-19
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "site_roles": [
+          "local_moment",
+          "induced"
+        ],
+        "independent_spin_pair": false,
+        "interpretation": "electronic_response_channel"
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "orbit.0000.atom.0000",
+        "site_j": "orbit.0001.atom.0000",
+        "translation": [
+          -1,
+          0,
+          0
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          -1.365,
+          1.365,
+          1.895
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006105448733368296,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006105448733368296,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006105448733368296
+          ]
+        ],
+        "isotropic_ev": 0.006105448733368296,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "site_roles": [
+          "local_moment",
+          "induced"
+        ],
+        "independent_spin_pair": false,
+        "interpretation": "electronic_response_channel"
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "orbit.0000.atom.0000",
+        "site_j": "orbit.0001.atom.0000",
+        "translation": [
+          0,
+          -1,
+          0
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          1.365,
+          -1.365,
+          1.895
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006105448733367667,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006105448733367667,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006105448733367667
+          ]
+        ],
+        "isotropic_ev": 0.006105448733367667,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "site_roles": [
+          "local_moment",
+          "induced"
+        ],
+        "independent_spin_pair": false,
+        "interpretation": "electronic_response_channel"
+      }
+    ],
+    "dominant_antiferromagnetic": [],
+    "competing_signs": false
+  },
+  "checks": [
+    {
+      "max_residual": 9.267577000211032e-15,
+      "max_orthogonality_error": 4.49466597023005e-12
+    }
+  ],
+  "pole_approximation": [
+    {
+      "poles": 256,
+      "fermi_function_max_error": 5.329070518200751e-15
+    }
+  ],
+  "local_single_ion_anisotropy": null,
+  "numerical_sensitivity": null,
+  "raw_evidence": [],
+  "performance": {
+    "total_wall_seconds": 7.473403836999999,
+    "kpoints": 512,
+    "algorithm": "O(nk * poles), excluding eigensolution and orbital contractions"
+  },
+  "limitations": [
+    "Onsite projected exchange only; finite k meshes alias real-space interactions.",
+    "Induced and unassigned moments are electronic response channels, not independently orientable local spins.",
+    "Fixed-chemical-potential Hessian; SOC tensors use three frozen global references, not general noncollinear response.",
+    "Interaction strengths do not alone establish ordering temperature or a causal structural mechanism."
+  ]
+}

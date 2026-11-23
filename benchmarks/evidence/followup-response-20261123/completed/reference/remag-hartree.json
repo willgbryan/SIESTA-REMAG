@@ -1,0 +1,1 @@
+{"calls":1,"geometry_setups":1,"host_to_device_bytes":497768,"device_to_host_bytes":497752,"debug_host_validation_bytes":0,"bridge_allocations":4,"wall_seconds":0.000256445,"scope":"periodic FP64 Hartree; temporary density upload and potential/scalar exports; plan allocations excluded"}

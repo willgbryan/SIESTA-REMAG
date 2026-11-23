@@ -1,0 +1,33 @@
+{
+  "format": "REMAG-MAGNETIC-RUN/1",
+  "status": "failed",
+  "error": "Reference SCF failed; inspect reference/result.json and native logs",
+  "traceback": "Traceback (most recent call last):\n  File \"/root/magnetic_modal.py\", line 47, in run\n    result=run_screen(request,configured,root,checkpoint=volume.commit)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/remag/siesta_remag/magnetic/workflow.py\", line 36, in run_screen\n    raise RuntimeError('Reference SCF failed; inspect reference/result.json and native logs')\nRuntimeError: Reference SCF failed; inspect reference/result.json and native logs\n",
+  "reference_converged": false,
+  "screens": [],
+  "run_id": "magnetic-screen-20261123T192720Z-c3910559",
+  "volume": "siesta-remag-magnetic-results",
+  "image": "im-v2SJzLdYwhBNWghlBeQgMq",
+  "gpu": [
+    "NVIDIA A100-SXM4-80GB, GPU-66fb52d5-13c2-4010-1109-0f5d905923b3, 620.70.06"
+  ],
+  "sources": {
+    "/opt/remag/siesta_remag/magnetic/electronic.py": "1ad57c549541666d71829ac80ae85258bcc1782356857e4efc3de9f2d9428968",
+    "/opt/remag/siesta_remag/magnetic/gpu.py": "f0b152bba4ca4a5a47dfa0189ffd1490a9b35d4dafbf49f7d044ca8983b49b0b",
+    "/opt/remag/siesta_remag/magnetic/backend.py": "3c733f10105bdc4666c0ddad81b2e93f572dc82a5a8507169e8f18ea45225f49",
+    "/opt/remag/siesta_remag/magnetic/tools.py": "57f9a979eb9cb61a876ddbdd38b335cc3fb081737bacee7184109a72361b2933",
+    "/opt/remag/siesta_remag/magnetic/force_theorem.py": "e6194c1cbae33d1abed787d6bb7bb489eda1c063a8258eb82ee5026c7d8e8af2",
+    "/opt/remag/siesta_remag/magnetic/authoring.py": "32e11810db67aea791b3a36db903eae3ca20a9e3dfe228dd873a8887c995bb0c",
+    "/opt/remag/siesta_remag/magnetic/downfold.py": "079e2bef46eea0fc2d331bc2850cc0f8e514d650fb3f5f10bd61f79a73a27e91",
+    "/opt/remag/siesta_remag/magnetic/compare.py": "1a19b2a7ddedf1ab47f763116b55c3f74b1f3b7dd43649d1f5b27bd2287fb001",
+    "/opt/remag/siesta_remag/magnetic/descriptors.py": "d452e0ecd5efebf14cf92f89486415024df46007a68feb8a021fa8ff6f4e1a68",
+    "/opt/remag/siesta_remag/magnetic/workflow.py": "5c33d8d8ebb9b739cba0e71c99e5e8fce3d761883463bc5aa65a959e319e89e3",
+    "/opt/remag/siesta_remag/magnetic/greens.py": "474874abdca283c78d319d3261bc5ded4aaca10318709b04d92cb5dcb5928bfb",
+    "/opt/remag/siesta_remag/magnetic/multiplet.py": "d0ca54d8126532cee3c48f5c2566ec1bacb27193683bc694f610c2f18edcffa2",
+    "/opt/remag/siesta_remag/magnetic/realspace.py": "9c479288402c55ae290580a93507ff4c9d4de23b1ca081c4eda7ed61769769fa",
+    "/opt/remag/siesta_remag/magnetic/state.py": "2a95f325a8d45417d418960e79f5b3010cf116b2fc8b1b76259eddd686836352",
+    "/opt/remag/siesta_remag/magnetic/operators.py": "6e767257dcc8b476782159e9a838c41486da66a59be16e7ee90fb6d2659368c9",
+    "/opt/remag/siesta_remag/magnetic/__init__.py": "3556924f3e115e352f2919b5f93c94b6797912b755ce106e844f78eee4dbaf0a"
+  },
+  "seconds": 19.590732235
+}

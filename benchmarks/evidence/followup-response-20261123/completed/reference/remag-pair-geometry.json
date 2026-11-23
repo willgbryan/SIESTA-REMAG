@@ -1,0 +1,1 @@
+{"scope":"pre-SCF orbital-pair geometry shared by kinetic and overlap retained-D/E consumers","complete":false,"cycles":[{"epoch":1,"atoms":2,"rows":48,"columns":19440,"capacity":116630,"queries":38344,"volume":194.42910495805339,"setup_bytes":2307416,"device_allocation_bytes":2307416,"consumer_mask":0,"complete":false,"energy_only_complete":false}]}

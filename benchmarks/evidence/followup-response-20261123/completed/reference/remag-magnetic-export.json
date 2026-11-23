@@ -1,0 +1,1 @@
+{"schema":1,"complete":true,"reference":"Final SCF generator Hamiltonian","kpoints":64,"bands":96,"reference_has_soc":false,"electrons":18.000000000000004,"temperature_ry":0.0019000869380734083,"dtype":"<c16","order":"F","matrices":["generator","overlap","offsite"]}

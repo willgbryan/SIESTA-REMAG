@@ -1,0 +1,31 @@
+[
+  {
+    "role": "reference_scf",
+    "valid": true,
+    "seconds": 17.03139741
+  },
+  {
+    "role": "frozen_screen",
+    "mesh": [
+      8,
+      8,
+      8
+    ],
+    "valid": true,
+    "seconds": 31.996588501,
+    "mft_seconds": 10.099120673000002,
+    "exchange_seconds": 18.778816394000003
+  },
+  {
+    "role": "frozen_screen",
+    "mesh": [
+      16,
+      16,
+      16
+    ],
+    "valid": true,
+    "seconds": 85.271274998,
+    "mft_seconds": 79.8345625,
+    "exchange_seconds": null
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "role": "soc_free_scf_reference",
+    "valid": true,
+    "wall_seconds": 13.819381014
+  },
+  {
+    "role": "six_direction_mft",
+    "valid": true,
+    "wall_seconds": 1.9285918770000023
+  },
+  {
+    "role": "directional_scf_z",
+    "valid": true,
+    "wall_seconds": 13.096868599000004
+  },
+  {
+    "role": "directional_scf_x",
+    "valid": true,
+    "wall_seconds": 13.701464145000003
+  }
+]

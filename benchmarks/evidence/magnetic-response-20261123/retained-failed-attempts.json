@@ -1,0 +1,47 @@
+[
+  {
+    "path": "results/magnetic-screen-20261123T170755Z/summary.json",
+    "summary": {
+      "status": "failed",
+      "error": "reference H: Hermiticity error 1.33514e-08 exceeds 1e-10",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/property_app.py\", line 39, in run\n    check_gpu.run(root)\n  File \"/opt/magnetic-stage/check_gpu.py\", line 9, in run\n    matrices=bank['matrices'];base,mag,soc=decompose(matrices[:,0],matrices[:,2],reference_has_soc=False)\n                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/remag/siesta_remag/magnetic/operators.py\", line 37, in decompose\n    h = hermitian(reference, \"reference H\")\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/remag/siesta_remag/magnetic/operators.py\", line 15, in hermitian\n    raise ValueError(f\"{name}: Hermiticity error {error:g} exceeds {tolerance:g}\")\nValueError: reference H: Hermiticity error 1.33514e-08 exceeds 1e-10\n",
+      "elapsed_seconds": 0.7097263336181641
+    }
+  },
+  {
+    "path": "results/magnetic-screen-20261123T171002Z/summary.json",
+    "summary": {
+      "status": "failed",
+      "error": "Native MFT component check failed",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/property_app.py\", line 39, in run\n    check_gpu.run(root)\n  File \"/opt/magnetic-stage/check_gpu.py\", line 29, in run\n    if not result['passed']:raise RuntimeError('Native MFT component check failed')\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Native MFT component check failed\n",
+      "elapsed_seconds": 1.2981650829315186
+    }
+  },
+  {
+    "path": "results/magnetic-screen-20261123T171132Z/summary.json",
+    "summary": {
+      "status": "failed",
+      "error": "FePt electronic reference failed",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/property_app.py\", line 46, in run\n    if not result['valid']:raise RuntimeError('FePt electronic reference failed')\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: FePt electronic reference failed\n",
+      "elapsed_seconds": 18.729623317718506
+    }
+  },
+  {
+    "path": "results/magnetic-screen-20261123T171618Z/summary.json",
+    "summary": {
+      "status": "failed",
+      "error": "FePt electronic reference failed",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/property_app.py\", line 46, in run\n    if not result['valid']:raise RuntimeError('FePt electronic reference failed')\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: FePt electronic reference failed\n",
+      "elapsed_seconds": 18.620348691940308
+    }
+  },
+  {
+    "path": "results/magnetic-screen-20261123T171929Z/summary.json",
+    "summary": {
+      "status": "failed",
+      "error": "Object of type bool is not JSON serializable",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/property_app.py\", line 71, in run\n    check_response.run(root)\n  File \"/opt/magnetic-stage/check_response.py\", line 63, in run\n    (root/'optional-response-checks.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\\n')\n                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/__init__.py\", line 238, in dumps\n    **kw).encode(obj)\n          ^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 202, in encode\n    chunks = list(chunks)\n             ^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 432, in _iterencode\n    yield from _iterencode_dict(o, _current_indent_level)\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 406, in _iterencode_dict\n    yield from chunks\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 439, in _iterencode\n    o = _default(o)\n        ^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 180, in default\n    raise TypeError(f'Object of type {o.__class__.__name__} '\nTypeError: Object of type bool is not JSON serializable\n",
+      "elapsed_seconds": 74.56834816932678
+    }
+  }
+]

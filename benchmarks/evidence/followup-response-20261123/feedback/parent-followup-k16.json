@@ -1,0 +1,329 @@
+{
+  "schema": "REMAG-MAGNETIC-COMPARISON/1",
+  "parent": {
+    "gpac_source_hash": "00f64fc152db148830f1bf26de347a68122ff055156cf912da90bd179a1a20c1",
+    "evaluated_geometry_hash": "7c7d38a79c66eac3255be5ddc2270cef74c99186896fabd8b31f5ff69e714fe1",
+    "calculation_id": "discovery-response-20261123T175305Z/reference"
+  },
+  "child": {
+    "gpac_source_hash": "b6d55f549171abbbc5c27cfd73b87432bd0f80087029ccbbd12174cd995fc106",
+    "evaluated_geometry_hash": "b1e996f97463a3549bf78cf5b745cc87f4a04ba5594a546b0bbd8888ea9ff780",
+    "calculation_id": "magnetic-screen-20261123T195200Z-94ee7cd6/reference"
+  },
+  "structural_intervention": [
+    {
+      "site_id": "orbit.0001.atom.0000",
+      "before": {
+        "site_id": "orbit.0001.atom.0000",
+        "species": "Pt",
+        "atomic_number": 78,
+        "position_angstrom": [
+          1.365,
+          1.365,
+          1.895
+        ],
+        "magnetic_role": "induced"
+      },
+      "after": {
+        "site_id": "orbit.0001.atom.0000",
+        "species": "Pt",
+        "atomic_number": 78,
+        "position_angstrom": [
+          1.365,
+          1.365,
+          1.9329
+        ],
+        "magnetic_role": "induced"
+      }
+    }
+  ],
+  "geometry_change": {
+    "before": {
+      "cell_angstrom": [
+        [
+          2.73,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.73,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          3.79
+        ]
+      ],
+      "positions_angstrom": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.365,
+          1.365,
+          1.895
+        ]
+      ]
+    },
+    "after": {
+      "cell_angstrom": [
+        [
+          2.73,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.73,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          3.8658
+        ]
+      ],
+      "positions_angstrom": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.365,
+          1.365,
+          1.9329
+        ]
+      ]
+    }
+  },
+  "magnetization_change_muB_cell": -0.012977798298088317,
+  "sampled_anisotropy_change_ev_cell": 0.00018141751732807373,
+  "angular_response_change": [
+    {
+      "direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "parent_delta_free_ev": 0.0,
+      "child_delta_free_ev": 0.0,
+      "change_ev": 0.0
+    },
+    {
+      "direction": [
+        0.3826834323651146,
+        0.0,
+        0.9238795325112765
+      ],
+      "parent_delta_free_ev": 0.0003995544021871554,
+      "child_delta_free_ev": 0.0004279343153428174,
+      "change_ev": 2.837991315566196e-05
+    },
+    {
+      "direction": [
+        0.7071067811865475,
+        0.0,
+        0.7071067811865475
+      ],
+      "parent_delta_free_ev": 0.0013779690508577901,
+      "child_delta_free_ev": 0.0014624824728237998,
+      "change_ev": 8.45134219660097e-05
+    },
+    {
+      "direction": [
+        0.9238795325112765,
+        0.0,
+        0.3826834323651146
+      ],
+      "parent_delta_free_ev": 0.002351575760571155,
+      "child_delta_free_ev": 0.0024983230434247007,
+      "change_ev": 0.00014674728285354573
+    },
+    {
+      "direction": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "parent_delta_free_ev": 0.0027372670101328523,
+      "child_delta_free_ev": 0.002918684292730693,
+      "change_ev": 0.00018141728259784065
+    },
+    {
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "parent_delta_free_ev": 0.002737267036060007,
+      "child_delta_free_ev": 0.0029186845533880805,
+      "change_ev": 0.00018141751732807373
+    }
+  ],
+  "numerically_comparable": true,
+  "comparability_limitations": [],
+  "changed_exchange_pathways": null,
+  "changed_orbital_hybridization": {
+    "projected_dos": [
+      {
+        "group": "orbit.0000.atom.0000:Fe:d",
+        "change_states_per_ev_cell": -0.022324502103360233
+      },
+      {
+        "group": "orbit.0000.atom.0000:Fe:p",
+        "change_states_per_ev_cell": 0.0019707135022692945
+      },
+      {
+        "group": "orbit.0000.atom.0000:Fe:s",
+        "change_states_per_ev_cell": -0.00011973247409049689
+      },
+      {
+        "group": "orbit.0001.atom.0000:Pt:d",
+        "change_states_per_ev_cell": 0.005880557346484683
+      },
+      {
+        "group": "orbit.0001.atom.0000:Pt:p",
+        "change_states_per_ev_cell": 0.004144357714533045
+      },
+      {
+        "group": "orbit.0001.atom.0000:Pt:s",
+        "change_states_per_ev_cell": 0.0013579564668054107
+      }
+    ],
+    "band_mixing": [
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:d",
+          "orbit.0001.atom.0000:Pt:d"
+        ],
+        "co_weight_change": -0.0008013333000079781
+      },
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:d",
+          "orbit.0001.atom.0000:Pt:p"
+        ],
+        "co_weight_change": 0.0036487397420530976
+      },
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:d",
+          "orbit.0001.atom.0000:Pt:s"
+        ],
+        "co_weight_change": 0.0006802089545126302
+      },
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:p",
+          "orbit.0001.atom.0000:Pt:d"
+        ],
+        "co_weight_change": 0.001602322506364412
+      },
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:p",
+          "orbit.0001.atom.0000:Pt:p"
+        ],
+        "co_weight_change": 0.0011381596832045378
+      },
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:p",
+          "orbit.0001.atom.0000:Pt:s"
+        ],
+        "co_weight_change": 0.00021069793648489845
+      },
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:s",
+          "orbit.0001.atom.0000:Pt:d"
+        ],
+        "co_weight_change": 0.0009676997004940194
+      },
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:s",
+          "orbit.0001.atom.0000:Pt:p"
+        ],
+        "co_weight_change": 0.0003102392789851678
+      },
+      {
+        "groups": [
+          "orbit.0000.atom.0000:Fe:s",
+          "orbit.0001.atom.0000:Pt:s"
+        ],
+        "co_weight_change": 8.067854124841419e-05
+      }
+    ],
+    "interpretation": "Measured PAO diagnostics; not an established causal mechanism"
+  },
+  "changed_soc_response": [
+    {
+      "direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "parent_delta_free_ev": 0.0,
+      "child_delta_free_ev": 0.0,
+      "change_ev": 0.0
+    },
+    {
+      "direction": [
+        0.3826834323651146,
+        0.0,
+        0.9238795325112765
+      ],
+      "parent_delta_free_ev": 0.0003995544021871554,
+      "child_delta_free_ev": 0.0004279343153428174,
+      "change_ev": 2.837991315566196e-05
+    },
+    {
+      "direction": [
+        0.7071067811865475,
+        0.0,
+        0.7071067811865475
+      ],
+      "parent_delta_free_ev": 0.0013779690508577901,
+      "child_delta_free_ev": 0.0014624824728237998,
+      "change_ev": 8.45134219660097e-05
+    },
+    {
+      "direction": [
+        0.9238795325112765,
+        0.0,
+        0.3826834323651146
+      ],
+      "parent_delta_free_ev": 0.002351575760571155,
+      "child_delta_free_ev": 0.0024983230434247007,
+      "change_ev": 0.00014674728285354573
+    },
+    {
+      "direction": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "parent_delta_free_ev": 0.0027372670101328523,
+      "child_delta_free_ev": 0.002918684292730693,
+      "change_ev": 0.00018141728259784065
+    },
+    {
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "parent_delta_free_ev": 0.002737267036060007,
+      "child_delta_free_ev": 0.0029186845533880805,
+      "change_ev": 0.00018141751732807373
+    }
+  ],
+  "changed_rare_earth_response": null,
+  "interpretation": "Measured differences support hypotheses; they do not establish a causal mechanism."
+}

@@ -1,0 +1,744 @@
+{
+  "scope": "Targeted analytic operator tests; not material qualification",
+  "green_block_error": 5.402578411571408e-15,
+  "exchange_vs_frozen_finite_difference_error_ev": 3.9093789766520004e-07,
+  "downfold_full_basis_spectrum_error_ev": 0.0,
+  "one_electron_soc_multiplet_error_ev": 1.1102230246251565e-16,
+  "f2_hund_S_squared": 1.9999999999999996,
+  "f2_hund_L_squared": 29.999999999999996,
+  "exchange": {
+    "status": "screening",
+    "method": "gpu_spectral_greens_hessian",
+    "approximation": "onsite_rigid_exchange_frozen_potential",
+    "convention": "E=-sum_unique_pairs e_i^T J_ij e_j; unit spins; positive J is ferromagnetic",
+    "pairs": [
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "A",
+        "site_j": "B",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "distance_angstrom": 2.0,
+        "displacement_angstrom": [
+          2.0,
+          0.0,
+          0.0
+        ],
+        "exchange_tensor_ev": [
+          [
+            -0.45352310409980007,
+            -0.0,
+            -0.0
+          ],
+          [
+            -0.0,
+            -0.45352310409980007,
+            -0.0
+          ],
+          [
+            -0.0,
+            -0.0,
+            -0.45352310409980007
+          ]
+        ],
+        "isotropic_ev": -0.45352310409980007,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "network": {
+      "pair_count": 1,
+      "dominant_ferromagnetic": [],
+      "dominant_antiferromagnetic": [
+        {
+          "i": 0,
+          "j": 1,
+          "site_i": "A",
+          "site_j": "B",
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "distance_angstrom": 2.0,
+          "displacement_angstrom": [
+            2.0,
+            0.0,
+            0.0
+          ],
+          "exchange_tensor_ev": [
+            [
+              -0.45352310409980007,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.45352310409980007,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.45352310409980007
+            ]
+          ],
+          "isotropic_ev": -0.45352310409980007,
+          "symmetric_anisotropic_ev": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "dmi_ev": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "competing_signs": false
+    },
+    "local_single_ion_anisotropy": null,
+    "checks": [
+      {
+        "max_residual": 6.064815655915396e-17,
+        "max_orthogonality_error": 2.220446049250313e-16
+      }
+    ],
+    "numerical_sensitivity": null,
+    "raw_evidence": [],
+    "performance": {
+      "total_wall_seconds": 3.4869688430000005
+    },
+    "limitations": [
+      "Onsite projection defines the local exchange perturbation; nonlocal exchange-potential terms are omitted.",
+      "Fixed-chemical-potential Hessian at the reference electron count and electronic temperature.",
+      "Finite k meshes alias real-space interactions; radius does not establish real-space convergence.",
+      "SOC tensors combine transverse responses of three frozen reference directions; general noncollinear response is unsupported.",
+      "Exchange paths are representation-dependent diagnostics; competing signs do not by themselves prove frustration."
+    ]
+  },
+  "relativistic_exchange": {
+    "status": "screening",
+    "method": "gpu_spectral_greens_hessian",
+    "approximation": "onsite_rigid_exchange_frozen_potential",
+    "convention": "E=-sum_unique_pairs e_i^T J_ij e_j; unit spins; positive J is ferromagnetic",
+    "pairs": [
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "A",
+        "site_j": "B",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "distance_angstrom": 2.0,
+        "displacement_angstrom": [
+          2.0,
+          0.0,
+          0.0
+        ],
+        "exchange_tensor_ev": [
+          [
+            -0.43110546808767175,
+            -0.13708506924930988,
+            -5.8627796855320115e-18
+          ],
+          [
+            0.13708506924930988,
+            -0.43110546808767203,
+            -1.8014921865187894e-18
+          ],
+          [
+            5.8627796855320115e-18,
+            1.8014921865187894e-18,
+            -0.45632088720401054
+          ]
+        ],
+        "isotropic_ev": -0.4395106077931181,
+        "symmetric_anisotropic_ev": [
+          [
+            0.008405139705446374,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.008405139705446096,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.016810279410892415
+          ]
+        ],
+        "dmi_ev": [
+          -1.8014921865187894e-18,
+          5.8627796855320115e-18,
+          -0.13708506924930988
+        ]
+      }
+    ],
+    "network": {
+      "pair_count": 1,
+      "dominant_ferromagnetic": [],
+      "dominant_antiferromagnetic": [
+        {
+          "i": 0,
+          "j": 1,
+          "site_i": "A",
+          "site_j": "B",
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "distance_angstrom": 2.0,
+          "displacement_angstrom": [
+            2.0,
+            0.0,
+            0.0
+          ],
+          "exchange_tensor_ev": [
+            [
+              -0.43110546808767175,
+              -0.13708506924930988,
+              -5.8627796855320115e-18
+            ],
+            [
+              0.13708506924930988,
+              -0.43110546808767203,
+              -1.8014921865187894e-18
+            ],
+            [
+              5.8627796855320115e-18,
+              1.8014921865187894e-18,
+              -0.45632088720401054
+            ]
+          ],
+          "isotropic_ev": -0.4395106077931181,
+          "symmetric_anisotropic_ev": [
+            [
+              0.008405139705446374,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.008405139705446096,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -0.016810279410892415
+            ]
+          ],
+          "dmi_ev": [
+            -1.8014921865187894e-18,
+            5.8627796855320115e-18,
+            -0.13708506924930988
+          ]
+        }
+      ],
+      "competing_signs": false
+    },
+    "local_single_ion_anisotropy": null,
+    "checks": [
+      {
+        "max_residual": 2.1171942725208626e-16,
+        "max_orthogonality_error": 5.551116798073244e-16
+      },
+      {
+        "max_residual": 2.1173355518775532e-16,
+        "max_orthogonality_error": 6.661339575494591e-16
+      },
+      {
+        "max_residual": 5.945298880664561e-17,
+        "max_orthogonality_error": 3.3308121465041014e-16
+      }
+    ],
+    "numerical_sensitivity": null,
+    "raw_evidence": [],
+    "performance": {
+      "total_wall_seconds": 0.11071499300000198
+    },
+    "limitations": [
+      "Onsite projection defines the local exchange perturbation; nonlocal exchange-potential terms are omitted.",
+      "Fixed-chemical-potential Hessian at the reference electron count and electronic temperature.",
+      "Finite k meshes alias real-space interactions; radius does not establish real-space convergence.",
+      "SOC tensors combine transverse responses of three frozen reference directions; general noncollinear response is unsupported.",
+      "Exchange paths are representation-dependent diagnostics; competing signs do not by themselves prove frustration."
+    ]
+  },
+  "multiplet": {
+    "status": "screening",
+    "method": "gpu_4f_fock_space",
+    "approximation": "localized_atomic_multiplet_supplied_crystal_field",
+    "parameters": {
+      "species": "Ce",
+      "ionic_valence": 3,
+      "occupancy": 1,
+      "slater_ev": {
+        "0": 0.0,
+        "2": 0.0,
+        "4": 0.0,
+        "6": 0.0
+      },
+      "soc_ev": 0.1,
+      "crystal_field_convention": "Wybourne_Ckq",
+      "crystal_field_ev": [],
+      "exchange_field_ev": 0.0,
+      "double_counting": "local_model_only"
+    },
+    "basis": "m=-3..3, up/down; fixed-number Slater determinants",
+    "dimension": 14,
+    "temperature_k": 0.0,
+    "points": [
+      {
+        "direction": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "free_energy_ev": -0.20000000000000004,
+        "excitation_energies_ev": [
+          0.0,
+          0.0,
+          0.0,
+          5.551115123125783e-17,
+          5.551115123125783e-17,
+          5.551115123125783e-17,
+          0.35,
+          0.35,
+          0.35,
+          0.35000000000000003,
+          0.3500000000000001,
+          0.3500000000000001,
+          0.3500000000000001,
+          0.3500000000000001
+        ],
+        "spin_expectation": [
+          0.0,
+          0.0,
+          2.7755575615628914e-17
+        ],
+        "orbital_expectation": [
+          0.0,
+          0.0,
+          -5.551115123125783e-17
+        ],
+        "magnetic_moment_muB": [
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "S_squared": 0.75,
+        "L_squared": 12.0,
+        "J_squared": 8.749999999999998,
+        "partition_tail_relative_bound": 0.0,
+        "full_spectrum": true,
+        "max_residual_ev": 7.850462293418876e-17,
+        "delta_free_ev": 0.0
+      },
+      {
+        "direction": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "free_energy_ev": -0.20000000000000004,
+        "excitation_energies_ev": [
+          0.0,
+          0.0,
+          0.0,
+          5.551115123125783e-17,
+          5.551115123125783e-17,
+          5.551115123125783e-17,
+          0.35,
+          0.35,
+          0.35,
+          0.35000000000000003,
+          0.3500000000000001,
+          0.3500000000000001,
+          0.3500000000000001,
+          0.3500000000000001
+        ],
+        "spin_expectation": [
+          0.0,
+          0.0,
+          2.7755575615628914e-17
+        ],
+        "orbital_expectation": [
+          0.0,
+          0.0,
+          -5.551115123125783e-17
+        ],
+        "magnetic_moment_muB": [
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "S_squared": 0.75,
+        "L_squared": 12.0,
+        "J_squared": 8.749999999999998,
+        "partition_tail_relative_bound": 0.0,
+        "full_spectrum": true,
+        "max_residual_ev": 7.850462293418876e-17,
+        "delta_free_ev": 0.0
+      }
+    ],
+    "summary": {
+      "preferred_sampled_direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "local_anisotropy_ev": 0.0
+    },
+    "numerical_sensitivity": null,
+    "raw_evidence": [],
+    "performance": {
+      "total_wall_seconds": 8.501459937
+    },
+    "limitations": [
+      "Local 4f response is not the full magnet temperature-dependent anisotropy.",
+      "Parameters and ionic occupancy are supplied; general first-principles crystal-field extraction is unavailable.",
+      "Magnetic moment uses the electron sign -muB(L+2S); the exchange coupling is -2 B_ex dot S.",
+      "Truncated thermal sums are withheld when their omitted-state bound is insufficient; increase levels.",
+      "Do not add this contribution to a DFT calculation containing the same explicit 4f electrons."
+    ]
+  },
+  "hund": {
+    "status": "screening",
+    "method": "gpu_4f_fock_space",
+    "approximation": "localized_atomic_multiplet_supplied_crystal_field",
+    "parameters": {
+      "species": "Pr",
+      "ionic_valence": 3,
+      "occupancy": 2,
+      "slater_ev": {
+        "0": 0.0,
+        "2": 10.0,
+        "4": 6.0,
+        "6": 4.0
+      },
+      "soc_ev": 0.0,
+      "crystal_field_convention": "Wybourne_Ckq",
+      "crystal_field_ev": [],
+      "exchange_field_ev": 0.0,
+      "double_counting": "local_model_only"
+    },
+    "basis": "m=-3..3, up/down; fixed-number Slater determinants",
+    "dimension": 91,
+    "temperature_k": 0.0,
+    "points": [
+      {
+        "direction": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "free_energy_ev": -1.3991664900755822,
+        "excitation_energies_ev": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          4.440892098500626e-16,
+          4.440892098500626e-16,
+          4.440892098500626e-16,
+          6.661338147750939e-16,
+          6.661338147750939e-16,
+          6.661338147750939e-16,
+          6.661338147750939e-16,
+          6.661338147750939e-16,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.5543122344752192e-15,
+          1.5543122344752192e-15,
+          1.5543122344752192e-15,
+          1.7763568394002505e-15,
+          1.9984014443252818e-15,
+          1.9984014443252818e-15,
+          2.220446049250313e-15,
+          0.6175037084127997,
+          0.6175037084127998,
+          0.6175037084128003,
+          0.6175037084128003,
+          0.6175037084128003,
+          0.6175037084128004,
+          0.6175037084128004,
+          0.6175037084128006,
+          0.6175037084128006,
+          0.6175037084128006,
+          0.6175037084128007,
+          0.6175037084128007,
+          0.6175037084128008,
+          0.6175037084128008,
+          0.6175037084128008,
+          0.6175037084128008,
+          0.617503708412801,
+          0.617503708412801,
+          0.6175037084128012,
+          0.6175037084128013,
+          0.6175037084128017,
+          0.6426502790139157,
+          0.642650279013916,
+          0.642650279013916,
+          0.642650279013916,
+          0.6426502790139162,
+          0.6426502790139164,
+          0.6426502790139165,
+          0.6426502790139165,
+          0.6426502790139166,
+          2.08665677756587,
+          2.08665677756587,
+          2.08665677756587,
+          2.08665677756587,
+          2.08665677756587,
+          2.5604077352329107,
+          2.5604077352329107,
+          2.5604077352329107,
+          2.560407735232911,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.8816839725930636,
+          2.881683972593065,
+          2.881683972593065,
+          2.8816839725930654,
+          2.8816839725930654,
+          2.8816839725930654,
+          2.8816839725930654,
+          2.8816839725930663,
+          2.8816839725930667,
+          6.089143180052273
+        ],
+        "spin_expectation": [
+          1.3010426069826053e-17,
+          0.0,
+          7.632783294297951e-17
+        ],
+        "orbital_expectation": [
+          4.163336342344337e-17,
+          0.0,
+          2.983724378680108e-16
+        ],
+        "magnetic_moment_muB": [
+          -6.765421556309548e-17,
+          -0.0,
+          -4.510281037539698e-16
+        ],
+        "S_squared": 1.9999999999999996,
+        "L_squared": 29.999999999999996,
+        "J_squared": 32.0,
+        "partition_tail_relative_bound": 0.0,
+        "full_spectrum": true,
+        "max_residual_ev": 2.9486512412033206e-15,
+        "delta_free_ev": 0.0
+      },
+      {
+        "direction": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "free_energy_ev": -1.3991664900755822,
+        "excitation_energies_ev": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          4.440892098500626e-16,
+          4.440892098500626e-16,
+          4.440892098500626e-16,
+          6.661338147750939e-16,
+          6.661338147750939e-16,
+          6.661338147750939e-16,
+          6.661338147750939e-16,
+          6.661338147750939e-16,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.1102230246251565e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.3322676295501878e-15,
+          1.5543122344752192e-15,
+          1.5543122344752192e-15,
+          1.5543122344752192e-15,
+          1.7763568394002505e-15,
+          1.9984014443252818e-15,
+          1.9984014443252818e-15,
+          2.220446049250313e-15,
+          0.6175037084127997,
+          0.6175037084127998,
+          0.6175037084128003,
+          0.6175037084128003,
+          0.6175037084128003,
+          0.6175037084128004,
+          0.6175037084128004,
+          0.6175037084128006,
+          0.6175037084128006,
+          0.6175037084128006,
+          0.6175037084128007,
+          0.6175037084128007,
+          0.6175037084128008,
+          0.6175037084128008,
+          0.6175037084128008,
+          0.6175037084128008,
+          0.617503708412801,
+          0.617503708412801,
+          0.6175037084128012,
+          0.6175037084128013,
+          0.6175037084128017,
+          0.6426502790139157,
+          0.642650279013916,
+          0.642650279013916,
+          0.642650279013916,
+          0.6426502790139162,
+          0.6426502790139164,
+          0.6426502790139165,
+          0.6426502790139165,
+          0.6426502790139166,
+          2.08665677756587,
+          2.08665677756587,
+          2.08665677756587,
+          2.08665677756587,
+          2.08665677756587,
+          2.5604077352329107,
+          2.5604077352329107,
+          2.5604077352329107,
+          2.560407735232911,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.5604077352329115,
+          2.8816839725930636,
+          2.881683972593065,
+          2.881683972593065,
+          2.8816839725930654,
+          2.8816839725930654,
+          2.8816839725930654,
+          2.8816839725930654,
+          2.8816839725930663,
+          2.8816839725930667,
+          6.089143180052273
+        ],
+        "spin_expectation": [
+          1.3010426069826053e-17,
+          0.0,
+          7.632783294297951e-17
+        ],
+        "orbital_expectation": [
+          4.163336342344337e-17,
+          0.0,
+          2.983724378680108e-16
+        ],
+        "magnetic_moment_muB": [
+          -6.765421556309548e-17,
+          -0.0,
+          -4.510281037539698e-16
+        ],
+        "S_squared": 1.9999999999999996,
+        "L_squared": 29.999999999999996,
+        "J_squared": 32.0,
+        "partition_tail_relative_bound": 0.0,
+        "full_spectrum": true,
+        "max_residual_ev": 2.9486512412033206e-15,
+        "delta_free_ev": 0.0
+      }
+    ],
+    "summary": {
+      "preferred_sampled_direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "local_anisotropy_ev": 0.0
+    },
+    "numerical_sensitivity": null,
+    "raw_evidence": [],
+    "performance": {
+      "total_wall_seconds": 3.3731885990000023
+    },
+    "limitations": [
+      "Local 4f response is not the full magnet temperature-dependent anisotropy.",
+      "Parameters and ionic occupancy are supplied; general first-principles crystal-field extraction is unavailable.",
+      "Magnetic moment uses the electron sign -muB(L+2S); the exchange coupling is -2 B_ex dot S.",
+      "Truncated thermal sums are withheld when their omitted-state bound is insufficient; increase levels.",
+      "Do not add this contribution to a DFT calculation containing the same explicit 4f electrons."
+    ]
+  },
+  "passed": true
+}

@@ -1,0 +1,1 @@
+{"prepares":1,"ends":0,"matrix_builds":0,"geometry_uploads":1,"host_to_device_bytes":4237112,"device_to_host_bytes":0,"avoided_dense_upload_bytes":0,"debug_host_validation_bytes":0,"kernel_launch_count":0,"assembly_dispatch_seconds":0.000000000,"scope":"sparse H upload each diagonalization; geometry-owned S/topology/k data; no matrix downloads"}

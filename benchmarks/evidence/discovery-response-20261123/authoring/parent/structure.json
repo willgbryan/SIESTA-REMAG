@@ -1,0 +1,184 @@
+{
+  "gpac_source_hash": "00f64fc152db148830f1bf26de347a68122ff055156cf912da90bd179a1a20c1",
+  "evaluated_geometry_hash": "7c7d38a79c66eac3255be5ddc2270cef74c99186896fabd8b31f5ff69e714fe1",
+  "source": {
+    "program": "XCL-E/3-DRAFT/17\nTABLE a5ae833947bd8a610d8b5292eae47c6520867b63ca3c4c0035847fc582916932\nMEMBER 5ce5d65d01327ffbd41555f52257ba4d4dce805be35e650d2b8245653e5baa36\nCORE d5b7fa4d2d226624e5063c66ea19a526ec3d9a60109cee145c5de9126a5bda8d\nMIRROR identify\nINV 2 26:1 78:1\nHALL 1\nGRAM 74529/10000 74529/10000 143641/10000 0 0 0\nORBS 2\nORB 26 0 0 0 0\nORB 78 0 1/2 1/2 1/2\nEND\n",
+    "sha256": "00f64fc152db148830f1bf26de347a68122ff055156cf912da90bd179a1a20c1",
+    "wire": "XCL-E/3-DRAFT/17",
+    "hashes": {
+      "table": "a5ae833947bd8a610d8b5292eae47c6520867b63ca3c4c0035847fc582916932",
+      "member": "5ce5d65d01327ffbd41555f52257ba4d4dce805be35e650d2b8245653e5baa36",
+      "core": "d5b7fa4d2d226624e5063c66ea19a526ec3d9a60109cee145c5de9126a5bda8d"
+    },
+    "mirror_policy": "identify",
+    "orientation": null,
+    "inventory": [
+      [
+        26,
+        1
+      ],
+      [
+        78,
+        1
+      ]
+    ],
+    "hall": {
+      "number": 1,
+      "hall_symbol": "P 1",
+      "international_short": "P1",
+      "spacegroup_number": 1,
+      "centering": "P"
+    },
+    "gram6": [
+      "74529/10000",
+      "74529/10000",
+      "143641/10000",
+      "0",
+      "0",
+      "0"
+    ],
+    "gram": [
+      [
+        "74529/10000",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "74529/10000",
+        "0"
+      ],
+      [
+        "0",
+        "0",
+        "143641/10000"
+      ]
+    ],
+    "orbits": [
+      {
+        "z": 26,
+        "wyckoff_index": 0,
+        "label_primitive": "1a",
+        "label_hall": "1a",
+        "letter": "a",
+        "multiplicity_primitive": 1,
+        "multiplicity_hall": 1,
+        "site_symmetry": "1",
+        "dof": 3,
+        "parameters": [
+          "0",
+          "0",
+          "0"
+        ],
+        "line": 9
+      },
+      {
+        "z": 78,
+        "wyckoff_index": 0,
+        "label_primitive": "1a",
+        "label_hall": "1a",
+        "letter": "a",
+        "multiplicity_primitive": 1,
+        "multiplicity_hall": 1,
+        "site_symmetry": "1",
+        "dof": 3,
+        "parameters": [
+          "1/2",
+          "1/2",
+          "1/2"
+        ],
+        "line": 10
+      }
+    ],
+    "pins": {
+      "wire": "XCL-E/3-DRAFT/17",
+      "protocol_sha256": "a9aa910085c460e639ca9d8a1f4ffafb8b9a9069260e8b4599a2a30457114774",
+      "table_sha256": "a5ae833947bd8a610d8b5292eae47c6520867b63ca3c4c0035847fc582916932",
+      "core_sha256": "d5b7fa4d2d226624e5063c66ea19a526ec3d9a60109cee145c5de9126a5bda8d",
+      "qualification_gates": {
+        "core": "efb05ae8d18f67f8cb271b4a98d097f23f3ca1a84e0502a84d0a53ebaa75fead",
+        "integration": "c57a6cd60e38f3b60a6e2833dc5c1f5ec48bb8280a0063b9e8605415fa9937ca"
+      },
+      "engines": {
+        "a17": "3ceca9480a1da453b4930a3421ce301909095813b2246a8c93af8807e4aee051",
+        "b10": "fbc64c58d2b3a149e8faa47db7811f3806b8c776767f91d7b2f65ff00f126b54"
+      }
+    },
+    "validation_status": "VERIFIED_DRAFT17_LOCAL",
+    "identity_scope": "LOCAL_DRAFT17_SEARCHED_FAMILY"
+  },
+  "geometry": {
+    "cell_angstrom": [
+      [
+        2.73,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        2.73,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        3.79
+      ]
+    ],
+    "positions_angstrom": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.365,
+        1.365,
+        1.895
+      ]
+    ],
+    "atomic_numbers": [
+      26,
+      78
+    ],
+    "site_ids": [
+      "orbit.0000.atom.0000",
+      "orbit.0001.atom.0000"
+    ],
+    "length_unit": "angstrom"
+  },
+  "sites": [
+    {
+      "site_id": "orbit.0000.atom.0000",
+      "atomic_number": 26,
+      "fractional": [
+        "0",
+        "0",
+        "0"
+      ],
+      "position_angstrom": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "site_id": "orbit.0001.atom.0000",
+      "atomic_number": 78,
+      "fractional": [
+        "1/2",
+        "1/2",
+        "1/2"
+      ],
+      "position_angstrom": [
+        1.365,
+        1.365,
+        1.895
+      ]
+    }
+  ],
+  "parent_source_hash": null,
+  "intervention": null,
+  "numerical_frame": "lower Cholesky of exact Gram in Angstrom",
+  "relaxed": false
+}

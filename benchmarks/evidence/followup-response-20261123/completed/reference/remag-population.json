@@ -1,0 +1,1 @@
+{"schema":2,"scope":"GPU population and derived observables with shared final status and requested terminal exports","cycles":[{"epoch":1,"atoms":2,"rows":48,"capacity":116630,"spins":8,"species":2,"setup_bytes":68,"retained_topology_bytes":933424,"workspace_bytes":937304,"evaluated":true,"published":true,"export_bytes":[0,0,32,1920,96,80,80],"reads":[0,0,2,2,4,2,4]}]}

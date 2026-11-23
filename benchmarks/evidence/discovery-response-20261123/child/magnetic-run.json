@@ -1,0 +1,45 @@
+{
+  "format": "REMAG-MAGNETIC-RUN/1",
+  "status": "complete",
+  "reference_converged": true,
+  "identity": {
+    "gpac_source_hash": "2655ff8b059af4ee36a671ce59b4a20a4cea135c0d0dc58f2d6cec556095d827",
+    "evaluated_geometry_hash": "f58ec1fb4bcb7d6259baa59649486b651b78763927d229778af9d17d5c851ad2",
+    "calculation_id": "discovery-child-20261123T180908Z/reference"
+  },
+  "screens": [
+    {
+      "mesh": [
+        8,
+        8,
+        8
+      ],
+      "path": "screen-k8.json",
+      "sha256": "5fa150597a78ba25f43c7d1acb867977358df7482180c6018bb223eff3d0bae0"
+    },
+    {
+      "mesh": [
+        16,
+        16,
+        16
+      ],
+      "path": "screen-k16.json",
+      "sha256": "b19e588f2be969835561e58beee1d9b326368a256846a2917af03dbbece24ed3"
+    }
+  ],
+  "reference_settings": {
+    "material": "FePt",
+    "basis": "TZDP",
+    "mesh_cutoff_ry": 400,
+    "kmesh": [
+      4,
+      4,
+      4
+    ],
+    "temperature_k": 300,
+    "reference": "SOC-free"
+  },
+  "physical_accuracy_qualified": false,
+  "manifest_note": "Index of already measured immutable screens; source SCF convergence and timings retained in the original ledger and summary.",
+  "source_ledger_sha256": "81f881651fefa68fb473038f9a3cdef83eccad1f7a49ed2150ed97d202dac991"
+}

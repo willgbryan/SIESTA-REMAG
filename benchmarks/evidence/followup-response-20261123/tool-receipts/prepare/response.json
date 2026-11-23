@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "result": {
+    "request": "/Users/willgbryan/Desktop/SIESTA-REMAG/results/followup-tool-request-20261123/request.json",
+    "source_sha256": "b6d55f549171abbbc5c27cfd73b87432bd0f80087029ccbbd12174cd995fc106",
+    "request_sha256": "ceb052da212e86d740078d4af7dd5e07ebd6305c48c28d2d23b3268268a47f80",
+    "meshes": [
+      [
+        8,
+        8,
+        8
+      ],
+      [
+        16,
+        16,
+        16
+      ]
+    ],
+    "calculation_performed": false
+  },
+  "format": "REMAG-DIRECT-TOOL-RESULT/1",
+  "request_sha256": "f923d47f8fc1f7cbc206c99e42698fb872c4d341c33fbab12a983ba84daa7b42",
+  "elapsed_seconds": 4.6466624569147825,
+  "finished_at": "2026-11-23T19:25:53.898653+00:00",
+  "receipt": "results/followup-tool-prepare-receipt-20261123"
+}

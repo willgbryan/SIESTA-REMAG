@@ -1,0 +1,38 @@
+{
+  "format": "REMAG-DIRECT-TOOL-CALL/1",
+  "request": {
+    "tool": "run_magnetic_screen",
+    "args": {
+      "request": "results/followup-tool-request-20261123/request.json",
+      "output": "results/followup-tool-run-20261123b"
+    },
+    "rationale": "Complete the already predicted FePt follow-up using the registered single-A100 response tool; preserve the prior failed attempt."
+  },
+  "information_profile": "physics",
+  "withheld_sources": [],
+  "definition": {
+    "name": "run_magnetic_screen",
+    "description": "Run one prepared magnetic screen using the explicitly enabled, fixed operator runtime and existing single-GPU launcher. One converged reference yields dense MFT/orbital response and optional onsite exchange. Retains failures; never retries automatically.",
+    "effect": "execute",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "request": {},
+        "output": {}
+      },
+      "required": [
+        "request",
+        "output"
+      ],
+      "additionalProperties": false
+    },
+    "validation": "Field presence at transport; value types, units and invariants in handler"
+  },
+  "implementation_sha256": {
+    "/Users/willgbryan/Desktop/SIESTA-REMAG/build/twins-magnetic-tools/src/twins/toolhost.py": "828b2d80fe90906c21c9ec19b82246f3b6ebb3fadce1dc6f6996399f21494d2c",
+    "/Users/willgbryan/Desktop/SIESTA-REMAG/build/twins-magnetic-tools/src/twins/tools.py": "335da71671fa2b460d765f1ab5d88b9ca2a52570667dec0ae32b1c466b9aa26c"
+  },
+  "started_at": "2026-11-23T19:51:31.993809+00:00",
+  "native_execution_enabled": true,
+  "cpu_relaxation_enabled": false
+}

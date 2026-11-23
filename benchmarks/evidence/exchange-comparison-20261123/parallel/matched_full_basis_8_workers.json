@@ -1,0 +1,199 @@
+{
+  "label": "matched_full_basis_8_workers",
+  "setup_seconds": 6.234270737,
+  "calculation_seconds": 151.803551291,
+  "total_seconds": 158.037822028,
+  "retained_bands": [
+    48,
+    48
+  ],
+  "pairs": [
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0000.atom.0000",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "remag_ev": 0.02020976555666956,
+      "tb2j_ordered_pair_ev": 0.010104882778374836,
+      "tb2j_unique_pair_ev": 0.02020976555674967,
+      "difference_ev": 8.01129995675609e-14,
+      "independent_spin_pair": true
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0000.atom.0000",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "remag_ev": 0.020209777881161427,
+      "tb2j_ordered_pair_ev": 0.010104888940628172,
+      "tb2j_unique_pair_ev": 0.020209777881256344,
+      "difference_ev": 9.491712971154698e-14,
+      "independent_spin_pair": true
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        -1,
+        -1
+      ],
+      "remag_ev": 0.005992702512738204,
+      "tb2j_ordered_pair_ev": 0.00299635125638827,
+      "tb2j_unique_pair_ev": 0.00599270251277654,
+      "difference_ev": 3.833565409561146e-14,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        -1,
+        0
+      ],
+      "remag_ev": 0.0059927025114779806,
+      "tb2j_ordered_pair_ev": 0.002996351255758622,
+      "tb2j_unique_pair_ev": 0.005992702511517244,
+      "difference_ev": 3.926373115525905e-14,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        0,
+        -1
+      ],
+      "remag_ev": 0.005992702512703116,
+      "tb2j_ordered_pair_ev": 0.002996351256369821,
+      "tb2j_unique_pair_ev": 0.005992702512739642,
+      "difference_ev": 3.652633751016765e-14,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "remag_ev": 0.005992702511459257,
+      "tb2j_ordered_pair_ev": 0.0029963512557487555,
+      "tb2j_unique_pair_ev": 0.005992702511497511,
+      "difference_ev": 3.825412209224055e-14,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        -1,
+        -1
+      ],
+      "remag_ev": 0.005992702512703715,
+      "tb2j_ordered_pair_ev": 0.0029963512563720377,
+      "tb2j_unique_pair_ev": 0.005992702512744075,
+      "difference_ev": 4.0360076392076394e-14,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "remag_ev": 0.00599270251145938,
+      "tb2j_ordered_pair_ev": 0.002996351255751007,
+      "tb2j_unique_pair_ev": 0.005992702511502014,
+      "difference_ev": 4.263429886908199e-14,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        0,
+        -1
+      ],
+      "remag_ev": 0.005992702512721072,
+      "tb2j_ordered_pair_ev": 0.0029963512563786973,
+      "tb2j_unique_pair_ev": 0.005992702512757395,
+      "difference_ev": 3.6322507501740375e-14,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0000.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "remag_ev": 0.005992702511485238,
+      "tb2j_ordered_pair_ev": 0.0029963512557640744,
+      "tb2j_unique_pair_ev": 0.005992702511528149,
+      "difference_ev": 4.291098726350029e-14,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0001.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "remag_ev": 0.0013809442269592913,
+      "tb2j_ordered_pair_ev": 0.0006904721134837057,
+      "tb2j_unique_pair_ev": 0.0013809442269674115,
+      "difference_ev": 8.120240591047434e-15,
+      "independent_spin_pair": false
+    },
+    {
+      "site_i": "orbit.0001.atom.0000",
+      "site_j": "orbit.0001.atom.0000",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "remag_ev": 0.0013809382157749465,
+      "tb2j_ordered_pair_ev": 0.0006904691078908058,
+      "tb2j_unique_pair_ev": 0.0013809382157816115,
+      "difference_ev": 6.66502443513739e-15,
+      "independent_spin_pair": false
+    }
+  ],
+  "max_abs_error_ev": 9.491712971154698e-14,
+  "rms_error_ev": 4.8264743692185565e-14,
+  "atom_spin_muB": [
+    [
+      0.0,
+      0.0,
+      3.192548631272023
+    ],
+    [
+      0.0,
+      0.0,
+      0.1674196010956006
+    ]
+  ],
+  "directed_pair_count": 24,
+  "kpoints": 729,
+  "contour_points": 257,
+  "nproc": 8,
+  "blas_threads": 1
+}

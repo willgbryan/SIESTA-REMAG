@@ -1,0 +1,714 @@
+{
+  "status": "complete",
+  "progression": [
+    {
+      "mesh": 8,
+      "seconds": 29.226640262000004,
+      "mft_seconds": 5.160913233999999,
+      "delta_xz_ev": 0.003165633544821898
+    },
+    {
+      "mesh": 16,
+      "seconds": 89.93012757699998,
+      "mft_seconds": 80.44258158599999,
+      "delta_xz_ev": 0.003322906893997517
+    }
+  ],
+  "contraction": {
+    "status": "screening",
+    "approximation": "local_radial_pao_contraction",
+    "original_spinor_dimension": 96,
+    "reduced_spinor_dimension": 72,
+    "basis_mapping": [
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 0,
+        "m": 0,
+        "zeta": 1,
+        "parent_indices": [
+          0,
+          1,
+          2
+        ],
+        "parent_coefficients": [
+          0.9286587178160307,
+          -0.29639161412278114,
+          0.22303586460921124
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 0,
+        "m": 0,
+        "zeta": 2,
+        "parent_indices": [
+          0,
+          1,
+          2
+        ],
+        "parent_coefficients": [
+          -0.2963877317942255,
+          -0.23136051882212624,
+          0.9266210783120741
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 1,
+        "m": -1,
+        "zeta": 1,
+        "parent_indices": [
+          3,
+          6
+        ],
+        "parent_coefficients": [
+          -0.18673579588209316,
+          0.9824101702121579
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 1,
+        "m": -1,
+        "zeta": 2,
+        "parent_indices": [
+          3,
+          6
+        ],
+        "parent_coefficients": [
+          0.9824101702121579,
+          0.18673579588209316
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 1,
+        "m": 0,
+        "zeta": 1,
+        "parent_indices": [
+          4,
+          7
+        ],
+        "parent_coefficients": [
+          -0.18673579588209316,
+          0.9824101702121579
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 1,
+        "m": 0,
+        "zeta": 2,
+        "parent_indices": [
+          4,
+          7
+        ],
+        "parent_coefficients": [
+          0.9824101702121579,
+          0.18673579588209316
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 1,
+        "m": 1,
+        "zeta": 1,
+        "parent_indices": [
+          5,
+          8
+        ],
+        "parent_coefficients": [
+          -0.18673579588209316,
+          0.9824101702121579
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 1,
+        "m": 1,
+        "zeta": 2,
+        "parent_indices": [
+          5,
+          8
+        ],
+        "parent_coefficients": [
+          0.9824101702121579,
+          0.18673579588209316
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": -2,
+        "zeta": 1,
+        "parent_indices": [
+          9,
+          14,
+          19
+        ],
+        "parent_coefficients": [
+          -0.015478857507495744,
+          0.019803605785908562,
+          0.9996840611753992
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": -2,
+        "zeta": 2,
+        "parent_indices": [
+          9,
+          14,
+          19
+        ],
+        "parent_coefficients": [
+          0.999589173656648,
+          -0.023814046264690445,
+          0.01594914132242279
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": -1,
+        "zeta": 1,
+        "parent_indices": [
+          10,
+          15,
+          20
+        ],
+        "parent_coefficients": [
+          -0.015478857507495744,
+          0.019803605785908562,
+          0.9996840611753992
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": -1,
+        "zeta": 2,
+        "parent_indices": [
+          10,
+          15,
+          20
+        ],
+        "parent_coefficients": [
+          0.999589173656648,
+          -0.023814046264690445,
+          0.01594914132242279
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": 0,
+        "zeta": 1,
+        "parent_indices": [
+          11,
+          16,
+          21
+        ],
+        "parent_coefficients": [
+          -0.015478857507495744,
+          0.019803605785908562,
+          0.9996840611753992
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": 0,
+        "zeta": 2,
+        "parent_indices": [
+          11,
+          16,
+          21
+        ],
+        "parent_coefficients": [
+          0.999589173656648,
+          -0.023814046264690445,
+          0.01594914132242279
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": 1,
+        "zeta": 1,
+        "parent_indices": [
+          12,
+          17,
+          22
+        ],
+        "parent_coefficients": [
+          -0.015478857507495744,
+          0.019803605785908562,
+          0.9996840611753992
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": 1,
+        "zeta": 2,
+        "parent_indices": [
+          12,
+          17,
+          22
+        ],
+        "parent_coefficients": [
+          0.999589173656648,
+          -0.023814046264690445,
+          0.01594914132242279
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": 2,
+        "zeta": 1,
+        "parent_indices": [
+          13,
+          18,
+          23
+        ],
+        "parent_coefficients": [
+          -0.015478857507495744,
+          0.019803605785908562,
+          0.9996840611753992
+        ]
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "m": 2,
+        "zeta": 2,
+        "parent_indices": [
+          13,
+          18,
+          23
+        ],
+        "parent_coefficients": [
+          0.999589173656648,
+          -0.023814046264690445,
+          0.01594914132242279
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 0,
+        "m": 0,
+        "zeta": 1,
+        "parent_indices": [
+          24,
+          25,
+          26
+        ],
+        "parent_coefficients": [
+          -0.9423159476098694,
+          0.034559947391908624,
+          0.33293582702434277
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 0,
+        "m": 0,
+        "zeta": 2,
+        "parent_indices": [
+          24,
+          25,
+          26
+        ],
+        "parent_coefficients": [
+          0.2983570610500894,
+          -0.36416990352210055,
+          0.8822490269137494
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 1,
+        "m": -1,
+        "zeta": 1,
+        "parent_indices": [
+          27,
+          30
+        ],
+        "parent_coefficients": [
+          -0.19590129318228136,
+          0.9806236196061717
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 1,
+        "m": -1,
+        "zeta": 2,
+        "parent_indices": [
+          27,
+          30
+        ],
+        "parent_coefficients": [
+          0.9806236196061717,
+          0.19590129318228136
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 1,
+        "m": 0,
+        "zeta": 1,
+        "parent_indices": [
+          28,
+          31
+        ],
+        "parent_coefficients": [
+          -0.19590129318228136,
+          0.9806236196061717
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 1,
+        "m": 0,
+        "zeta": 2,
+        "parent_indices": [
+          28,
+          31
+        ],
+        "parent_coefficients": [
+          0.9806236196061717,
+          0.19590129318228136
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 1,
+        "m": 1,
+        "zeta": 1,
+        "parent_indices": [
+          29,
+          32
+        ],
+        "parent_coefficients": [
+          -0.19590129318228136,
+          0.9806236196061717
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 1,
+        "m": 1,
+        "zeta": 2,
+        "parent_indices": [
+          29,
+          32
+        ],
+        "parent_coefficients": [
+          0.9806236196061717,
+          0.19590129318228136
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": -2,
+        "zeta": 1,
+        "parent_indices": [
+          33,
+          38,
+          43
+        ],
+        "parent_coefficients": [
+          -0.005242620953010487,
+          -0.05019052299112425,
+          0.9987259015002168
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": -2,
+        "zeta": 2,
+        "parent_indices": [
+          33,
+          38,
+          43
+        ],
+        "parent_coefficients": [
+          0.9996609835233415,
+          0.02520874503796017,
+          0.006514383682007931
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": -1,
+        "zeta": 1,
+        "parent_indices": [
+          34,
+          39,
+          44
+        ],
+        "parent_coefficients": [
+          -0.005242620953010487,
+          -0.05019052299112425,
+          0.9987259015002168
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": -1,
+        "zeta": 2,
+        "parent_indices": [
+          34,
+          39,
+          44
+        ],
+        "parent_coefficients": [
+          0.9996609835233415,
+          0.02520874503796017,
+          0.006514383682007931
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": 0,
+        "zeta": 1,
+        "parent_indices": [
+          35,
+          40,
+          45
+        ],
+        "parent_coefficients": [
+          -0.005242620953010487,
+          -0.05019052299112425,
+          0.9987259015002168
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": 0,
+        "zeta": 2,
+        "parent_indices": [
+          35,
+          40,
+          45
+        ],
+        "parent_coefficients": [
+          0.9996609835233415,
+          0.02520874503796017,
+          0.006514383682007931
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": 1,
+        "zeta": 1,
+        "parent_indices": [
+          36,
+          41,
+          46
+        ],
+        "parent_coefficients": [
+          -0.005242620953010487,
+          -0.05019052299112425,
+          0.9987259015002168
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": 1,
+        "zeta": 2,
+        "parent_indices": [
+          36,
+          41,
+          46
+        ],
+        "parent_coefficients": [
+          0.9996609835233415,
+          0.02520874503796017,
+          0.006514383682007931
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": 2,
+        "zeta": 1,
+        "parent_indices": [
+          37,
+          42,
+          47
+        ],
+        "parent_coefficients": [
+          -0.005242620953010487,
+          -0.05019052299112425,
+          0.9987259015002168
+        ]
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "m": 2,
+        "zeta": 2,
+        "parent_indices": [
+          37,
+          42,
+          47
+        ],
+        "parent_coefficients": [
+          0.9996609835233415,
+          0.02520874503796017,
+          0.006514383682007931
+        ]
+      }
+    ],
+    "shells": [
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 0,
+        "original_radial_count": 3,
+        "retained_radial_count": 2
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 4,
+        "l": 1,
+        "original_radial_count": 2,
+        "retained_radial_count": 2
+      },
+      {
+        "site_id": "orbit.0000.atom.0000",
+        "n": 3,
+        "l": 2,
+        "original_radial_count": 3,
+        "retained_radial_count": 2
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 0,
+        "original_radial_count": 3,
+        "retained_radial_count": 2
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 6,
+        "l": 1,
+        "original_radial_count": 2,
+        "retained_radial_count": 2
+      },
+      {
+        "site_id": "orbit.0001.atom.0000",
+        "n": 5,
+        "l": 2,
+        "original_radial_count": 3,
+        "retained_radial_count": 2
+      }
+    ],
+    "training_window_above_fermi_ev": 8.0,
+    "training_checks": {
+      "max_residual": 1.72525089703518e-14,
+      "max_orthogonality_error": 2.741478722648842e-12
+    },
+    "response_error": {
+      "mft_max_abs_ev": 5.1222528318351813e-05,
+      "exchange_max_abs_ev": 0.0029296187049414908
+    },
+    "measured_speedup": null,
+    "performance": {
+      "construction_seconds": 0.9498899710000046
+    },
+    "numerical_sensitivity": null,
+    "raw_evidence": [],
+    "limitations": [
+      "Contraction is variational; excluded radial flexibility can change small anisotropy differences.",
+      "One common local real map projects H, S, exchange and SOC; angular manifolds remain complete.",
+      "Retain the full PAO model if measured magnetic response changes materially."
+    ],
+    "mft_performance": {
+      "total_wall_seconds": 3.8705688590000022,
+      "workspace_bytes": 228166180,
+      "per_orientation_seconds": [
+        1.281995011,
+        1.248021344,
+        1.243802467
+      ],
+      "repeated_directional_scf_speedup": null
+    },
+    "exchange_performance": {
+      "total_wall_seconds": 1.8973952549999922,
+      "kpoints": 512,
+      "algorithm": "O(nk * poles), excluding eigensolution and orbital contractions"
+    },
+    "screening_use": "provisional_candidate"
+  },
+  "physical_accuracy_qualified": false,
+  "seconds": 158.301365007,
+  "gpu": [
+    "NVIDIA A100-SXM4-40GB, GPU-14bda544-d60d-58b5-0530-193d756d8b77, 610.57.04"
+  ],
+  "sources": {
+    "/opt/remag/siesta_remag/magnetic/realspace.py": "9c479288402c55ae290580a93507ff4c9d4de23b1ca081c4eda7ed61769769fa",
+    "/opt/remag/siesta_remag/magnetic/multiplet.py": "d0ca54d8126532cee3c48f5c2566ec1bacb27193683bc694f610c2f18edcffa2",
+    "/opt/remag/siesta_remag/magnetic/state.py": "2a95f325a8d45417d418960e79f5b3010cf116b2fc8b1b76259eddd686836352",
+    "/opt/remag/siesta_remag/magnetic/authoring.py": "53643a1de54dc3293023ba141468da1aefd765226dbe261bec73390b856186fc",
+    "/opt/remag/siesta_remag/magnetic/downfold.py": "079e2bef46eea0fc2d331bc2850cc0f8e514d650fb3f5f10bd61f79a73a27e91",
+    "/opt/remag/siesta_remag/magnetic/descriptors.py": "d452e0ecd5efebf14cf92f89486415024df46007a68feb8a021fa8ff6f4e1a68",
+    "/opt/remag/siesta_remag/magnetic/compare.py": "1a19b2a7ddedf1ab47f763116b55c3f74b1f3b7dd43649d1f5b27bd2287fb001",
+    "/opt/remag/siesta_remag/magnetic/__init__.py": "3556924f3e115e352f2919b5f93c94b6797912b755ce106e844f78eee4dbaf0a",
+    "/opt/remag/siesta_remag/magnetic/gpu.py": "f0b152bba4ca4a5a47dfa0189ffd1490a9b35d4dafbf49f7d044ca8983b49b0b",
+    "/opt/remag/siesta_remag/magnetic/greens.py": "726f09d15b822321a7af00f34b95ce8ce7066f05fe375077b4af9d9d0fc1f2ba",
+    "/opt/remag/siesta_remag/magnetic/backend.py": "3c733f10105bdc4666c0ddad81b2e93f572dc82a5a8507169e8f18ea45225f49",
+    "/opt/remag/siesta_remag/magnetic/electronic.py": "1ad57c549541666d71829ac80ae85258bcc1782356857e4efc3de9f2d9428968",
+    "/opt/remag/siesta_remag/magnetic/force_theorem.py": "e6194c1cbae33d1abed787d6bb7bb489eda1c063a8258eb82ee5026c7d8e8af2",
+    "/opt/remag/siesta_remag/magnetic/operators.py": "6e767257dcc8b476782159e9a838c41486da66a59be16e7ee90fb6d2659368c9"
+  }
+}

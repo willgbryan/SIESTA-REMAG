@@ -1,0 +1,1 @@
+{"schema":1,"scope":"Device eigenvalues retained until final analysis; occupations have no host consumer in this mode","cycles":[{"epoch":1,"bank_size":6144,"retained_device_bytes":49152,"eigenvalue_export_bytes":49152,"occupation_export_bytes":0,"consumed":true,"discarded":false}]}

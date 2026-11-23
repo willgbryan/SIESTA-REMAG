@@ -1,0 +1,93 @@
+{
+  "format": "REMAG-DIRECT-TOOL-CALL/1",
+  "request": {
+    "tool": "prepare_magnetic_screen",
+    "args": {
+      "structure": "results/discovery-authoring-20261123/followup/structure.json",
+      "output": "results/followup-tool-request-20261123",
+      "meshes": [
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          16,
+          16,
+          16
+        ]
+      ],
+      "directions": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0.382683432365,
+          0,
+          0.923879532511
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0.923879532511,
+          0,
+          0.382683432365
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "angular_model": "axial4",
+      "exchange_mesh": [
+        8,
+        8,
+        8
+      ]
+    },
+    "rationale": "Evaluate the prospectively authored follow-up that restores a and b while retaining expanded c; reuse one reference for orbital and magnetic response."
+  },
+  "information_profile": "physics",
+  "withheld_sources": [],
+  "definition": {
+    "name": "prepare_magnetic_screen",
+    "description": "Prepare one exact GPAC structure for a frozen magnetic screen. Meshes are lists of three integers up to 16; directions are Cartesian vectors. Optional exchange_mesh selects one requested mesh. No compute is launched.",
+    "effect": "prepare",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "structure": {},
+        "output": {},
+        "meshes": {},
+        "directions": {},
+        "exchange_mesh": {},
+        "exchange_radius_angstrom": {},
+        "angular_model": {}
+      },
+      "required": [
+        "structure",
+        "output"
+      ],
+      "additionalProperties": false
+    },
+    "validation": "Field presence at transport; value types, units and invariants in handler"
+  },
+  "implementation_sha256": {
+    "/Users/willgbryan/Desktop/SIESTA-REMAG/build/twins-magnetic-tools/src/twins/toolhost.py": "68cae24886a4615f5aa08d31ed76a79d161d53659b1deeb620babf3f6b418168",
+    "/Users/willgbryan/Desktop/SIESTA-REMAG/build/twins-magnetic-tools/src/twins/tools.py": "335da71671fa2b460d765f1ab5d88b9ca2a52570667dec0ae32b1c466b9aa26c"
+  },
+  "started_at": "2026-11-23T19:25:49.251164+00:00",
+  "native_execution_enabled": false,
+  "cpu_relaxation_enabled": false
+}

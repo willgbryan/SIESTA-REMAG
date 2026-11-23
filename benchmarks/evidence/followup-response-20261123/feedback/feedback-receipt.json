@@ -1,0 +1,34 @@
+{
+  "followup_experiment": "32975c19a675482090cc916910646f61",
+  "source_hash": "b6d55f549171abbbc5c27cfd73b87432bd0f80087029ccbbd12174cd995fc106",
+  "outcome_events": [
+    "e053dd93f84b4c9d9b4623bd644b6f29",
+    "54b6bc6a79a54a7aaba92622a2c5d485"
+  ],
+  "evaluation": {
+    "status": "evaluated",
+    "observables": {
+      "frozen_Fx_minus_Fz": {
+        "status": "evaluated",
+        "error": -8.131570726930713e-05,
+        "absolute_error": 8.131570726930713e-05,
+        "unit": "eV/cell",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      },
+      "near_fermi_Fe_d_Pt_d_co_weight": {
+        "status": "evaluated",
+        "error": -0.008855632904519961,
+        "absolute_error": 0.008855632904519961,
+        "unit": "dimensionless",
+        "within_predicted_uncertainty": true,
+        "mechanism_verified": false
+      }
+    },
+    "mechanism_verified": false
+  },
+  "analysis_event": "3e8d14fe197c46a6b3f9a42b9f16971e",
+  "conclusion": "Restoring a=b=2.73 Angstrom at fixed c=3.8658 Angstrom reduced 16^3 frozen Fx-Fz from 3.322907 to 2.918684 meV/cell and Fe-d/Pt-d co-weight from 0.431753 to 0.401144. Both outcomes fall within the prospective intervals (3.0 +/- 0.6 meV and 0.410 +/- 0.040). This supports the predicted direction of the in-plane response but does not prove a hybridization mechanism. Relative to the original parent, the remaining c stretch raises anisotropy by 0.181418 meV while d/d co-weight is nearly unchanged, which argues against treating that one mixing descriptor as a sufficient causal explanation. The 8^3 anisotropy is 2.963484 meV and Fe-Fe response is 8.731044 meV; exchange remains mesh-sensitive. A useful next hypothesis is that specific near-Fermi p/d band shifts account for the residual c-only response; inspect the retained k/state contributions before proposing another calculation.",
+  "followup_evaluated": true,
+  "mechanism_verified": false
+}

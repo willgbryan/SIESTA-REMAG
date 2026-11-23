@@ -1,0 +1,1178 @@
+{
+  "status": "screening",
+  "method": "gpu_spectral_greens_hessian",
+  "approximation": "onsite_rigid_exchange_frozen_potential",
+  "convention": "E=-sum_unique_pairs e_i^T J_ij e_j; unit spins; positive J is ferromagnetic",
+  "pairs": [
+    {
+      "i": 0,
+      "j": 0,
+      "site_i": "site-0",
+      "site_j": "site-0",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "distance_angstrom": 2.73,
+      "displacement_angstrom": [
+        -2.73,
+        0.0,
+        0.0
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.02892712713505513,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.02892712713505513,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.02892712713505513
+        ]
+      ],
+      "isotropic_ev": 0.02892712713505513,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 0,
+      "site_i": "site-0",
+      "site_j": "site-0",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "distance_angstrom": 2.73,
+      "displacement_angstrom": [
+        0.0,
+        -2.73,
+        0.0
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.02892712767770792,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.02892712767770792,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.02892712767770792
+        ]
+      ],
+      "isotropic_ev": 0.028927127677707925,
+      "symmetric_anisotropic_ev": [
+        [
+          -3.469446951953614e-18,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -3.469446951953614e-18,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -3.469446951953614e-18
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "site-0",
+      "site_j": "site-1",
+      "translation": [
+        -1,
+        -1,
+        -1
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        -1.365,
+        -1.365,
+        -1.8949999999999998
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006905034017396209,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006905034017396209,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006905034017396209
+        ]
+      ],
+      "isotropic_ev": 0.0069050340173962095,
+      "symmetric_anisotropic_ev": [
+        [
+          -8.673617379884035e-19,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -8.673617379884035e-19,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -8.673617379884035e-19
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "site-0",
+      "site_j": "site-1",
+      "translation": [
+        -1,
+        -1,
+        0
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        -1.365,
+        -1.365,
+        1.8949999999999998
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006905034016243593,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006905034016243593,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006905034016243593
+        ]
+      ],
+      "isotropic_ev": 0.006905034016243593,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "site-0",
+      "site_j": "site-1",
+      "translation": [
+        -1,
+        0,
+        -1
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        -1.365,
+        1.365,
+        -1.8949999999999998
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.00690503401736997,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.00690503401736997,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.00690503401736997
+        ]
+      ],
+      "isotropic_ev": 0.00690503401736997,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "site-0",
+      "site_j": "site-1",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        -1.365,
+        1.365,
+        1.8949999999999998
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006905034016228529,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006905034016228529,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006905034016228529
+        ]
+      ],
+      "isotropic_ev": 0.006905034016228529,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "site-0",
+      "site_j": "site-1",
+      "translation": [
+        0,
+        -1,
+        -1
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        1.365,
+        -1.365,
+        -1.8949999999999998
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006905034017383906,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006905034017383906,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006905034017383906
+        ]
+      ],
+      "isotropic_ev": 0.006905034017383907,
+      "symmetric_anisotropic_ev": [
+        [
+          -8.673617379884035e-19,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -8.673617379884035e-19,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -8.673617379884035e-19
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "site-0",
+      "site_j": "site-1",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        1.365,
+        -1.365,
+        1.8949999999999998
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006905034016229751,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006905034016229751,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006905034016229751
+        ]
+      ],
+      "isotropic_ev": 0.006905034016229751,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "site-0",
+      "site_j": "site-1",
+      "translation": [
+        0,
+        0,
+        -1
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        1.365,
+        1.365,
+        -1.8949999999999998
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.0069050340173857526,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0069050340173857526,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0069050340173857526
+        ]
+      ],
+      "isotropic_ev": 0.0069050340173857526,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "site_i": "site-0",
+      "site_j": "site-1",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "distance_angstrom": 2.705083178018746,
+      "displacement_angstrom": [
+        1.365,
+        1.365,
+        1.8949999999999998
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.006905034016249824,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.006905034016249824,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.006905034016249824
+        ]
+      ],
+      "isotropic_ev": 0.006905034016249824,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 1,
+      "j": 1,
+      "site_i": "site-1",
+      "site_j": "site-1",
+      "translation": [
+        -1,
+        0,
+        0
+      ],
+      "distance_angstrom": 2.73,
+      "displacement_angstrom": [
+        -2.73,
+        0.0,
+        0.0
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.0012004806716128542,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0012004806716128542,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0012004806716128542
+        ]
+      ],
+      "isotropic_ev": 0.0012004806716128542,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "i": 1,
+      "j": 1,
+      "site_i": "site-1",
+      "site_j": "site-1",
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "distance_angstrom": 2.73,
+      "displacement_angstrom": [
+        0.0,
+        -2.73,
+        0.0
+      ],
+      "exchange_tensor_ev": [
+        [
+          0.0012004712134872566,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0012004712134872566,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0012004712134872566
+        ]
+      ],
+      "isotropic_ev": 0.0012004712134872566,
+      "symmetric_anisotropic_ev": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "dmi_ev": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "network": {
+    "pair_count": 12,
+    "dominant_ferromagnetic": [
+      {
+        "i": 0,
+        "j": 0,
+        "site_i": "site-0",
+        "site_j": "site-0",
+        "translation": [
+          0,
+          -1,
+          0
+        ],
+        "distance_angstrom": 2.73,
+        "displacement_angstrom": [
+          0.0,
+          -2.73,
+          0.0
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.02892712767770792,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.02892712767770792,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.02892712767770792
+          ]
+        ],
+        "isotropic_ev": 0.028927127677707925,
+        "symmetric_anisotropic_ev": [
+          [
+            -3.469446951953614e-18,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -3.469446951953614e-18,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -3.469446951953614e-18
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 0,
+        "j": 0,
+        "site_i": "site-0",
+        "site_j": "site-0",
+        "translation": [
+          -1,
+          0,
+          0
+        ],
+        "distance_angstrom": 2.73,
+        "displacement_angstrom": [
+          -2.73,
+          0.0,
+          0.0
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.02892712713505513,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.02892712713505513,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.02892712713505513
+          ]
+        ],
+        "isotropic_ev": 0.02892712713505513,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "site-0",
+        "site_j": "site-1",
+        "translation": [
+          -1,
+          -1,
+          -1
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          -1.365,
+          -1.365,
+          -1.8949999999999998
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006905034017396209,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006905034017396209,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006905034017396209
+          ]
+        ],
+        "isotropic_ev": 0.0069050340173962095,
+        "symmetric_anisotropic_ev": [
+          [
+            -8.673617379884035e-19,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -8.673617379884035e-19,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -8.673617379884035e-19
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "site-0",
+        "site_j": "site-1",
+        "translation": [
+          0,
+          0,
+          -1
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          1.365,
+          1.365,
+          -1.8949999999999998
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.0069050340173857526,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0069050340173857526,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0069050340173857526
+          ]
+        ],
+        "isotropic_ev": 0.0069050340173857526,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "site-0",
+        "site_j": "site-1",
+        "translation": [
+          0,
+          -1,
+          -1
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          1.365,
+          -1.365,
+          -1.8949999999999998
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006905034017383906,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006905034017383906,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006905034017383906
+          ]
+        ],
+        "isotropic_ev": 0.006905034017383907,
+        "symmetric_anisotropic_ev": [
+          [
+            -8.673617379884035e-19,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -8.673617379884035e-19,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -8.673617379884035e-19
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "site-0",
+        "site_j": "site-1",
+        "translation": [
+          -1,
+          0,
+          -1
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          -1.365,
+          1.365,
+          -1.8949999999999998
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.00690503401736997,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.00690503401736997,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.00690503401736997
+          ]
+        ],
+        "isotropic_ev": 0.00690503401736997,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "site-0",
+        "site_j": "site-1",
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          1.365,
+          1.365,
+          1.8949999999999998
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006905034016249824,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006905034016249824,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006905034016249824
+          ]
+        ],
+        "isotropic_ev": 0.006905034016249824,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 0,
+        "j": 1,
+        "site_i": "site-0",
+        "site_j": "site-1",
+        "translation": [
+          -1,
+          -1,
+          0
+        ],
+        "distance_angstrom": 2.705083178018746,
+        "displacement_angstrom": [
+          -1.365,
+          -1.365,
+          1.8949999999999998
+        ],
+        "exchange_tensor_ev": [
+          [
+            0.006905034016243593,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.006905034016243593,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.006905034016243593
+          ]
+        ],
+        "isotropic_ev": 0.006905034016243593,
+        "symmetric_anisotropic_ev": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "dmi_ev": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "dominant_antiferromagnetic": [],
+    "competing_signs": false
+  },
+  "local_single_ion_anisotropy": null,
+  "checks": [
+    {
+      "max_residual": 6.0216679384786094e-15,
+      "max_orthogonality_error": 1.91402449445377e-12
+    }
+  ],
+  "numerical_sensitivity": null,
+  "raw_evidence": [
+    {
+      "path": "/results/magnetic-screen-20261123T171929Z/state/magnetic-state.json"
+    }
+  ],
+  "performance": {
+    "total_wall_seconds": 52.23958311
+  },
+  "limitations": [
+    "Onsite projection defines the local exchange perturbation; nonlocal exchange-potential terms are omitted.",
+    "Fixed-chemical-potential Hessian at the reference electron count and electronic temperature.",
+    "Finite k meshes alias real-space interactions; radius does not establish real-space convergence.",
+    "SOC tensors combine transverse responses of three frozen reference directions; general noncollinear response is unsupported.",
+    "Exchange paths are representation-dependent diagnostics; competing signs do not by themselves prove frustration."
+  ]
+}
