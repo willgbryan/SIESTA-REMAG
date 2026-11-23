@@ -21,6 +21,9 @@ numerical reference. Execution supports one NVIDIA A100 or H100 GPU.
 - Directional magnetic-energy comparisons and FePt regression coverage through
   128 atoms / 2,304 spinor states, with additional Fe, Fe3C, Fe2B and Fe5PB2 cases.
 
+[Magnetic response screening](docs/MAGNETIC_RESPONSE.md) uses one frozen electronic
+state for dense angular energies, orbital descriptors and pair exchange.
+
 CPU geometry/setup and ionic work remain. Requested scientific outputs are
 exported explicitly. See [execution and configuration](docs/RUNNING.md) for the
 integrated GPU path and its supported settings.
