@@ -235,7 +235,9 @@ def _realspace_exchange(state,radius,*,relativistic,directions,poles,site_roles)
             if error<1.e-9:break
             if used>=512:raise RuntimeError('Fermi pole approximation insufficient for the occupied spectrum')
             used=min(2*used,512)
-        pole_reports.append(dict(poles=used,fermi_function_max_error=error))
+        pole_reports.append(dict(poles=used,fermi_function_max_error=error,
+                                 chemical_potential_ev=float(mu)*RY_EV,
+                                 temperature_ev=temperature*RY_EV))
         active=[a for a in range(3) if axis[a]==0]
         operators=[[cp.kron(v,pauli[a]) for a in active] for v in fields]
         for a in active:

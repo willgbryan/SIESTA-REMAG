@@ -23,7 +23,8 @@ def summarize_magnetic_screen(state, *, mae=None, exchange=None, reduced=None, r
         for d in electronic]
     return dict(schema=SCREEN_SCHEMA, status='screening' if any(v and v.get('status') in ('screening','refined','qualified') for v in methods.values()) else 'incomplete',
         identity={key: m.get(key) for key in ('gpac_source_hash', 'evaluated_geometry_hash', 'calculation_id')},
-        site_identity=m.get('sites'), geometry=m.get('geometry'), calculation_settings=m.get('settings'),
+        site_identity=m.get('sites'), physical_site_mapping=m.get('physical_site_mapping'),
+        geometry=m.get('geometry'), calculation_settings=m.get('settings'),
         summary=dict(magnetization_muB_cell=None if spin is None else float(np.linalg.norm(spin)),
             screening_anisotropy_ev_cell=None if mae is None else mae.get('sampled_barrier_ev'),
             preferred_sampled_direction=None if mae is None else mae.get('lowest_sampled_direction'),

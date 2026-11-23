@@ -66,6 +66,7 @@ def state_metadata(structure,hsx,*,calculation_id,settings,evidence):
         magnetic_terms=dict(xc='rigid_spin_rotation',hubbard='absent',constraint='absent',external_field='absent'),
         gpac_source_hash=structure['gpac_source_hash'],evaluated_geometry_hash=structure['evaluated_geometry_hash'],
         parent_source_hash=structure['parent_source_hash'],structural_intervention=structure['intervention'],
+        physical_site_mapping=structure.get('physical_site_mapping'),
         geometry={k:geometry[k] for k in ('cell_angstrom','positions_angstrom')},sites=sites,orbitals=orbitals,
         settings=settings,evidence=evidence)
 
