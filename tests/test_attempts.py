@@ -17,11 +17,13 @@ def test_interrupted_attempts_are_preserved_and_completed_response_repackages(tm
     preserved=root.with_name(root.name+'-interrupted-'+second['attempt_id']);root.rename(preserved)
     third,done=prepare_attempt(root,identity);assert len(third['interrupted_attempts'])==2
     (root/'ledger.json').write_text('[{"passed":false}]')
+    (root/'remag-frozen-matrices-000-k000000.bin').write_bytes(b'raw matrix capture')
     complete_attempt(root);completed,done=prepare_attempt(root,identity)
     assert done and completed['attempt_id']==third['attempt_id']
     with tarfile.open(fileobj=io.BytesIO(package_evidence(root))) as archive:
         assert json.load(archive.extractfile('ledger.json'))==[{'passed':False}]
         assert json.load(archive.extractfile(MARKER))['state']=='complete'
+        assert archive.extractfile('remag-frozen-matrices-000-k000000.bin').read()==b'raw matrix capture'
         assert not any('interrupted' in name for name in archive.getnames())
 
 def test_run_identity_collision_preserves_existing_outputs(tmp_path):

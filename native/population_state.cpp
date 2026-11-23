@@ -124,7 +124,7 @@ void evaluate_final_population(const FinalGridStateView& view,const FinalForceAc
 void complete_population_publication(uint64_t epoch){
     if(!population_enabled())return;
     current(epoch,Stage::evaluating);
-    require(final_grid_forces_complete(epoch),"Population publication before force acceptance");
+    require(final_electronic_state_complete(epoch),"Population publication before electronic acceptance");
     state->stage=Stage::published;evidence.records[state->record].published=true;
 }
 void reset_population_state(){
@@ -132,7 +132,7 @@ void reset_population_state(){
 }
 void read_final_population(uint64_t epoch,int kind,int atoms,int rows,int spins,int output_count,double* output){
     current(epoch,Stage::published);auto& s=*state;
-    require(final_grid_forces_complete(epoch)&&kind>=1&&kind<=7&&atoms==s.atoms&&rows==s.rows&&spins==s.spins&&output,
+    require(final_electronic_state_complete(epoch)&&kind>=1&&kind<=7&&atoms==s.atoms&&rows==s.rows&&spins==s.spins&&output,
         "Population export requested before publication or with a different shape");
     const size_t sizes[]={size_t(s.components)*rows,size_t(s.components)*atoms,size_t(s.components),
         size_t(5)*rows,size_t(6)*atoms,size_t(5)*s.species,10};
