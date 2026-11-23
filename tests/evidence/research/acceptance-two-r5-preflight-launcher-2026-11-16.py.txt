@@ -1,0 +1,66 @@
+"""One authorized metadata-only inspection of saved binaries; no build or solver."""
+from pathlib import Path
+import hashlib,json,os,sys
+import modal
+
+ROOT=Path(__file__).resolve().parents[1]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def load(p):return json.loads(p.read_text())
+def save(p,d):p.write_text(json.dumps(d,indent=2)+'\n')
+
+if modal.is_local():
+    sys.path.insert(0,str(ROOT/'src'))
+    from siesta_remag.research.budget import BudgetLedger
+    attempt=Path(os.environ['REMAG_ACCEPTANCE_ROOT']).resolve()
+    manifest=load(attempt/'preflight-manifest.json')
+    if manifest['timeout_seconds']!=120 or manifest['reserved_cents']!=5:raise ValueError('Inspection bounds changed')
+    for name,h in manifest['python_source_files'].items():
+        if sha(ROOT/'src'/name)!=h:raise ValueError('Inspection source changed')
+    ledger=BudgetLedger(attempt/'budget.json')
+    if ledger.remaining_cents('preflight')<5 or ledger.remaining_cents()!=155:raise ValueError('Remaining authorization differs')
+    if (attempt/'preflight-receipt.json').exists():raise ValueError('Inspection already attempted')
+    image=(modal.Image.from_id(manifest['base_image'])
+           .add_local_dir(ROOT/'src','/opt/reuse-python',copy=True)
+           .add_local_file(attempt/'preflight-manifest.json','/opt/reuse-manifest.json',copy=True))
+else:
+    manifest=load(Path('/opt/reuse-manifest.json'));image=None
+
+app=modal.App('siesta-remag-single-gpu')
+volume=modal.Volume.from_name(manifest['volume'],create_if_missing=False)
+
+@app.function(image=image,cpu=(1,1),memory=(2048,2048),timeout=120,startup_timeout=60,
+              max_containers=1,min_containers=0,buffer_containers=0,scaledown_window=2,
+              retries=0,volumes={'/results':volume})
+def inspect_saved(run_id):
+    import time
+    from datetime import datetime,timezone
+    start=time.monotonic()
+    if run_id!=manifest['run_id']:raise ValueError('Unregistered inspection')
+    result=dict(format='REMAG-REUSE-PREFLIGHT/1',status='checking',started_at=datetime.now(timezone.utc).isoformat(),
+                GPU_allocation=False,native_solver_execution=False,rebuild=False,manifest=manifest)
+    try:
+        for name,h in manifest['python_source_files'].items():
+            if sha(Path('/opt/reuse-python')/name)!=h:raise ValueError('Uploaded Python changed')
+        for key in ('executable','library'):
+            if sha(Path(manifest[key]))!=manifest[key+'_sha256']:raise ValueError('Saved binary changed: '+key)
+        sys.path.insert(0,'/opt/reuse-python')
+        from siesta_remag.research.preflight import build_runtime,verify_runtime_files
+        runtime=build_runtime(manifest['executable'],manifest['library'],manifest['environment'],threads=1)
+        if runtime['capabilities']['device_scf']['max_kpoints']!=4096:raise ValueError('Unexpected compiled capacity')
+        result.update(status='passed',runtime=runtime,runtime_verification=verify_runtime_files(runtime))
+    except Exception as exc:result.update(status='failed',error=dict(type=type(exc).__name__,message=str(exc)))
+    result.update(elapsed_seconds=time.monotonic()-start,finished_at=datetime.now(timezone.utc).isoformat())
+    return result
+
+@app.local_entrypoint()
+def main():
+    run_id=manifest['run_id'];receipt=attempt/'preflight-receipt.json'
+    if receipt.exists():raise ValueError('Do not resubmit inspection')
+    ledger.reserve(run_id,5,stage='preflight',metadata=dict(app_id=app.app_id,receipt=str(receipt),manifest_sha256=sha(attempt/'preflight-manifest.json')))
+    save(receipt,dict(status='submitting',app_id=app.app_id,run_id=run_id,reserved_cents=5))
+    call=inspect_saved.spawn(run_id)
+    save(receipt,load(receipt)|dict(status='running',function_call_id=call.object_id));ledger.record(run_id,load(receipt))
+    result=call.get(timeout=180)
+    save(attempt/'preflight-result.json',result)
+    save(receipt,load(receipt)|dict(status='collected',preflight_status=result['status']));ledger.record(run_id,load(receipt))
+    print(json.dumps(dict(status=result['status'],elapsed_seconds=result['elapsed_seconds'])),flush=True)

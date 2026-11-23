@@ -1,0 +1,15 @@
+{
+  "format": "REMAG-WORKSPACE-UI-CHECK/1",
+  "html_sha256": "63d08642f1d303dd4f0ce56cfa177f272d456ccd6b3ac215ec313d27306f3d7f",
+  "javascript_syntax_passed": true,
+  "browser": "IAB",
+  "checked": {
+    "compact_settings_labels": true,
+    "measured_status_without_duplicate_qualification": true,
+    "physical_convergence_unqualified_visible": true,
+    "tzp16_free_energy_mev": 2.625,
+    "tzp_matching_curve_points": 1,
+    "console_errors_or_warnings": 0
+  },
+  "scope": "Local snapshot UI check after replacing implementation paths with compact numerical-setting labels. Native evidence and prediction values are unchanged."
+}

@@ -1,0 +1,46 @@
+{
+  "format": "REMAG-FEPT-LOCAL-CONTROLS-PLAN/1",
+  "recorded_at": "2026-11-14T08:50:47.062206+00:00",
+  "reference_report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e",
+  "runtime": {
+    "executable": "/Users/willgbryan/Desktop/SIESTA-REMAG/build/upstream/Src/siesta",
+    "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+    "threads": 1,
+    "environment": {}
+  },
+  "experiments": [
+    {
+      "id": "tzp16",
+      "varied": "basis",
+      "change": {
+        "basis_size": "TZP"
+      },
+      "request_sha256": "a8a9324e54c59984aab109d49d9f47530511f3dd2e2ccebcfbc58c9d4ecdaeae"
+    },
+    {
+      "id": "shift001-k16",
+      "varied": "radial_extent",
+      "change": {
+        "basis_energy_shift_ry": 0.01
+      },
+      "request_sha256": "aba84aadd83ed96b7a30d49bf9b59ad3dde58dc0246c63bcf388b9bd6c182f50"
+    },
+    {
+      "id": "temperature150-k16",
+      "varied": "smearing",
+      "change": {
+        "smearing_k": 150
+      },
+      "request_sha256": "48e3d3b7e2a0bc83517a66810e3a26a2c684fd33f8e25f7b94dc685ba19fdef1"
+    }
+  ],
+  "allocation": "Existing local CPU, sequential, one thread; no cloud call or GPU reservation",
+  "criterion": {
+    "tolerance_ev": 5e-05,
+    "transverse_tolerance_ev": 1e-05,
+    "successive_changes": 1
+  },
+  "unchanged_low_predictions_sha256": "9d854eeaff57f860472d04f4593b76e9dcb5dec3b085d915c83e147b239c2820",
+  "unchanged_high_predictions_sha256": "7e9d74e5d8f9519649d50cf61edad5885c6aa573b2c381bf8537e2a97c5b7a9c",
+  "scope": "Finite one-variable sensitivity checks at 16 cubed. Neither a basis limit nor a zero-temperature limit is inferred. Existing sealed predictions are not refitted or selectively withheld."
+}

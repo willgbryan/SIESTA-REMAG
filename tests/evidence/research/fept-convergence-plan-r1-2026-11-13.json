@@ -1,0 +1,347 @@
+{
+  "format": "REMAG-CONVERGENCE-PLAN/1",
+  "recorded_before_submission": true,
+  "date": "2026-11-13",
+  "policy": {
+    "experiments": [
+      "k20",
+      "k24",
+      "scf16",
+      "grid500-k16"
+    ],
+    "timeout_seconds": 7200,
+    "hourly_reservation_usd": 10,
+    "budget_usd": 100,
+    "volume": "siesta-remag-fept-convergence",
+    "diagnostic_axes": [],
+    "authorization": "Original $100 total; one GPU; cumulative ledger carries prior $26.67 reservations",
+    "purpose": "Continue fixed-geometry FePt k, SCF and real-space-grid checks at the unchanged 300 K electronic temperature",
+    "criteria": {
+      "energy_anisotropy_tolerance_ev": 5e-05,
+      "free_energy_anisotropy_tolerance_ev": 5e-05,
+      "successive_k_refinements": 2,
+      "transverse_split_tolerance_ev": 1e-05,
+      "caveat": "Observed stability under tested controls is not complete basis/pseudopotential/physical qualification"
+    },
+    "prior_evidence_sha256": "d2199f0f2dd121213dd34d7d2a71dd78a59dab4cde09444f8d80018ac49561bc"
+  },
+  "reference_report_sha256": "b81ede81f92dd9cf340494b7c1be50e8f4267d90e6593f914be1bb65e3805587",
+  "runtime": {
+    "executable": "/opt/remag-candidate/Src/siesta",
+    "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "0",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "0",
+      "REMAG_DEVICE_VECTOR_CACHE": "0",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "0",
+      "REMAG_ATOMIC_GRID_FORCE": "0",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "0",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "0",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "0",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "0",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "0",
+      "REMAG_POPULATION": "0",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "0",
+      "REMAG_GPU_HISTORY": "0",
+      "REMAG_FINAL_SPECTRA": "0",
+      "REMAG_GATE_H_EXPORT": "0",
+      "REMAG_DEFER_SCF_LOG": "0",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "0",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "1",
+      "REMAG_SCF_WARM_START": "0",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "threads": 1
+  },
+  "experiments": [
+    {
+      "id": "k20",
+      "request_sha256": "42ec928233d9fa174158cc166e3ab4f27cede848a470f374783700638d2c7233",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "epsilon_c",
+          "exact": "0",
+          "unit": "dimensionless"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 900,
+          "total_dft_seconds": 3000,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 32768,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          20,
+          20,
+          20
+        ],
+        "basis_size": "DZP",
+        "basis_energy_shift_ry": 0.02,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "94823a5297726023cebf39549452ba735a5bafd293734e4f38a6e78de1111c3f",
+          "scalar/manifest.json": "2222e11f3fb45ecfe32345b873e1c4565b601d24a8f70009b5dbf42cd1b095fe",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        }
+      }
+    },
+    {
+      "id": "k24",
+      "request_sha256": "ef8b9152ab9dba8e0359e4fd8365dbaca88524d3c1b33d0c02353943fb341687",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "epsilon_c",
+          "exact": "0",
+          "unit": "dimensionless"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 900,
+          "total_dft_seconds": 3000,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 32768,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "DZP",
+        "basis_energy_shift_ry": 0.02,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "90cbe3ea3f87cad1000f44fc194d43c3085c40d8a6d1c3862bc37b84b532b3a4",
+          "scalar/manifest.json": "6ea2d75df1a74bad0b7987df88e57642b3ceaed5ef9e0d4326d9e07db2c2c10d",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        }
+      }
+    },
+    {
+      "id": "scf16",
+      "request_sha256": "5848bf173e9f8c3d6f50da59d01ccf8cafdef2a156f4e959beea070d0409741a",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "epsilon_c",
+          "exact": "0",
+          "unit": "dimensionless"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 900,
+          "total_dft_seconds": 3000,
+          "max_scf": 150,
+          "dm_tolerance": 1e-06,
+          "h_tolerance_ev": 1e-05,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 32768,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          16,
+          16,
+          16
+        ],
+        "basis_size": "DZP",
+        "basis_energy_shift_ry": 0.02,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "7f553c7f3cd8038a074a67895af470ff7b13f11d2bd995a1ba94fea89a80e0e3",
+          "scalar/manifest.json": "1eca494703ce1b98dc4d1b1cb8350b97fb7200419360d2293ede59d9a44bd8c9",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        }
+      }
+    },
+    {
+      "id": "grid500-k16",
+      "request_sha256": "d2c00666ad062beab5a87af20d3ba26de3d251f7bf493be531df829b80fcacea",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "epsilon_c",
+          "exact": "0",
+          "unit": "dimensionless"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 900,
+          "total_dft_seconds": 3000,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 500,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 32768,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          16,
+          16,
+          16
+        ],
+        "basis_size": "DZP",
+        "basis_energy_shift_ry": 0.02,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "2570a7eae0089711bc9b8b7d8eb04e5af30409329b816a6962a4d50560476170",
+          "scalar/manifest.json": "751e567aef7f023bcfc51ab02c0d3806f48f0872fe3e37b905af9fc91752c037",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        }
+      }
+    }
+  ]
+}

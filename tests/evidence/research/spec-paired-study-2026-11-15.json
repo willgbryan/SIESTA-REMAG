@@ -1,0 +1,66 @@
+{
+  "format": "REMAG-SPEC-PAIRED-STUDY-DELIVERY/1",
+  "recorded_at": "2026-11-15T19:12:32.402653+00:00",
+  "scope": "Spec 12 registered scalar-versus-physics-guided research sessions and shared heldout evaluation",
+  "implementation": [
+    "scalar/physics tool profiles with identical structural authoring",
+    "frozen policy, tool implementations, initial inputs, heldout cohort and target definitions",
+    "matched session and optional existing native reservation/query ceilings",
+    "separate notebooks, one arm per explicit invocation and no automatic retry or queue",
+    "known heldout source protection through calculation tools",
+    "terminal prediction snapshots and separate shared-evidence grading",
+    "paired prediction errors with missing/failed inventories and scoped execution accounting"
+  ],
+  "tests": {
+    "research_discovery": "203 passed in 24.59s",
+    "post_grading_integration": "47 passed in 14.43s",
+    "final_study_controls": "18 passed in 9.32s",
+    "coverage": [
+      "profile dispatch and observation filtering",
+      "immutable common input/policy/tool bindings",
+      "separate arm histories and no automatic following arm",
+      "source withholding and late-prediction rejection",
+      "shared scalar and response grading plus CLI round trip",
+      "failed heldout calculations without directional energies retained",
+      "changed/unregistered outcomes rejected",
+      "synthetic native controller handoff, authoritative STOPPED checks and reservation accounting"
+    ]
+  },
+  "synthetic_example": {
+    "scope": "Engineering fixtures and a deterministic fixture policy; no actual model service, native executable or GPU. Numerical fixture differences do not demonstrate research advantage.",
+    "registration_sha256": "259dde763279e6ce27111ece24e9b8ce3fbd59f3fb84b19a4f50229b314bc15d",
+    "scores_sha256": "052edbb0ae7c1621584af66a4fc054cd19a3db0b087bfcd3b524544bbdf8ffa6",
+    "grading_sha256": "270ebbf07d7725642fa5f094222508deb8cc9242c44e9037d35e5f2b4ef51f0e",
+    "grading_status": "completed",
+    "arm_statuses": {
+      "scalar": "completed",
+      "physics": "completed"
+    },
+    "frozen_prediction_count": 2,
+    "graded_outcomes": 2,
+    "matched_registered_limits": true,
+    "actual_gpu_hours": {
+      "scalar": null,
+      "physics": null
+    }
+  },
+  "implementation_sha256": {
+    "src/siesta_remag/research/study.py": "5d1c15d66d250e21dad09bfba8b3f7796bccaf865e0180748c73c48eaa01d5f6",
+    "src/siesta_remag/research/tools.py": "2beee6f8668cce3d063a731e1c90e6672db17a777a81e4d3f0b00da2a7e806c5",
+    "src/siesta_remag/research/agent.py": "3d0d2393a99763b65b618c5a7d4246b3944991bbaa5c64f6ec609b0428c4ecee",
+    "tests/test_research_study.py": "440a2f0e6a91b875536464c56ec6f4df4fd7b7f7fbd632ab904cce07cf4caec1"
+  },
+  "new_native_calculations": 0,
+  "new_cloud_calls": 0,
+  "new_gpu_reservations_cents": 0,
+  "closed_campaign_budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "empirical_equal_compute_verified": false,
+  "blinding_verified": false,
+  "scientific_advantage_demonstrated": false,
+  "remaining": [
+    "actual research-policy demonstration",
+    "provider GPU usage and policy/initial-data compute accounting",
+    "empirical blinded equal-compute comparison",
+    "independent candidate validation and cross-material transfer"
+  ]
+}

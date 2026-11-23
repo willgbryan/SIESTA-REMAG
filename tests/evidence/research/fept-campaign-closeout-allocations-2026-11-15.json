@@ -1,0 +1,355 @@
+{
+  "format": "REMAG-FEPT-ALLOCATION-CLOSEOUT/1",
+  "recorded_at": "2026-11-15T06:53:54.075053+00:00",
+  "ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "owned_app_count": 18,
+  "all_owned_apps_stopped": true,
+  "owned_apps": [
+    {
+      "app_id": "ap-kYVHoVuEBnpkjuFfEdjTfu",
+      "run_id": "physics-3f84ce10f0374441bd6a454f4daeb5d5",
+      "reserved_cents": 2000,
+      "receipts": [
+        "work/fept-modal-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:50.556874+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-13 21:27:22-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-13 21:47:26-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-gxb7wIuXC5nItfKFjxlBoZ",
+      "run_id": "physics-e81ce42a9e034d7ca9a3fbe24c9ef972",
+      "reserved_cents": 667,
+      "receipts": [
+        "work/fept-heldout-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:50.559100+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-13 21:47:49-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-13 21:51:32-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-Rx4RD8L5qwq6bOsWEFYHpT",
+      "run_id": "physics-c12a93d4c4ed4dd4939e0e9b8dca6e2e",
+      "reserved_cents": 2000,
+      "receipts": [
+        "work/fept-convergence-r1-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:50.555552+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-13 23:32:16-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 00:31:51-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-pekEMdN51RKiqeaO1vwAUt",
+      "run_id": "physics-f228b833278b47c5a32aac3e712d4f65",
+      "reserved_cents": 2000,
+      "receipts": [
+        "work/fept-convergence-r2-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:50.558173+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 00:34:00-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 02:19:00-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-f7zyON1PMhb0fPAiJJpdD4",
+      "run_id": "physics-f83472e76a2d4f1892999761e5714a10",
+      "reserved_cents": 1500,
+      "receipts": [
+        "work/fept-transfer32-minus-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:51.261565+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 02:21:55-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 03:28:32-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-8J6gOKdqSM2QVoKLryDDBD",
+      "run_id": "physics-b63a8ce4862e47fc9f7a66493c4ee689",
+      "reserved_cents": 1500,
+      "receipts": [
+        "work/fept-transfer32-plus-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:51.267309+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 03:28:45-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 04:31:52-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-D94e6UUQH4MO0zKFevRBcb",
+      "run_id": "physics-f97e9717193045c88caa8bc81c3d6bbe",
+      "reserved_cents": 2000,
+      "receipts": [
+        "work/fept-mesh-r3-k36-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:51.264777+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 10:02:30-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 11:34:05-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-yxqGOJWqcisxc29wBjDQzM",
+      "run_id": "physics-ee83c5e9b36a4773bac9a584647a8222",
+      "reserved_cents": 3000,
+      "receipts": [
+        "work/fept-mesh-r3-k40-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:51.268255+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 11:34:17-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 13:41:10-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-U5nYfkRemZOxbW1Q05pGEx",
+      "run_id": "physics-9d1cb877884a435bb4302d4dd5a75cb7",
+      "reserved_cents": 2000,
+      "receipts": [
+        "work/fept-basis-transfer-r2-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:52.080073+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 14:34:27-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 14:59:39-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-Vr7iBbyOhy30pigG61oWCk",
+      "run_id": "physics-338b15e2a87e41169fe474779d65e4bc",
+      "reserved_cents": 500,
+      "receipts": [
+        "work/fept-basis-transfer-r3-42-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:52.082583+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 15:18:45-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 15:34:22-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-9u2ySapdOKPszH44wS6nGp",
+      "run_id": "physics-efab93cef9224c8b931b7920f1531beb",
+      "reserved_cents": 500,
+      "receipts": [
+        "work/fept-basis-transfer-r3-48-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:52.083406+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 15:35:18-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 15:52:19-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-U0bNhq2vYE7zJb0YO9PyC6",
+      "run_id": "physics-6f054269c3a14f8b8a77e066c8e2debf",
+      "reserved_cents": 1500,
+      "receipts": [
+        "work/fept-basis24-r3-42-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:52.077057+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 16:10:48-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 17:03:16-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-aoCLpLRkYdv0kB2mScS7EQ",
+      "run_id": "physics-e4bf17e48707435f846cd8de25a877c1",
+      "reserved_cents": 1500,
+      "receipts": [
+        "work/fept-basis24-r3-48-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:52.789460+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 17:05:02-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 18:00:22-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-R8sy6pUCWDyTBsUNCR9Gja",
+      "run_id": "physics-e35a9f07278d476eae47270ad5f6b623",
+      "reserved_cents": 2000,
+      "receipts": [
+        "work/fept-basis24-r3-62-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:52.788029+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 18:02:54-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 19:19:28-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-hlxzAo3wJ03olNNV0IFFAG",
+      "run_id": "physics-8c6f6db597f74e7f8026cf3802f9d8a9",
+      "reserved_cents": 500,
+      "receipts": [
+        "work/fept-basis-accel-r1-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:52.787928+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 19:34:53-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 19:37:50-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-rzQmgIlgendNnj0FAwSUks",
+      "run_id": "physics-fa55b388e87b4ef7b142b5ac70b0c1a4",
+      "reserved_cents": 2000,
+      "receipts": [
+        "work/fept-radial-mesh-r4-radial001-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:52.787562+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 20:07:35-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 21:10:59-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-wC3sjv625oohp02JTbiQZh",
+      "run_id": "physics-a83f953b5664494492ddfdd892c43bf0",
+      "reserved_cents": 2000,
+      "receipts": [
+        "work/fept-radial-mesh-r4-radial0005-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:53.476082+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 21:23:59-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 22:34:37-06:00",
+        "stopped_by": null
+      }
+    },
+    {
+      "app_id": "ap-T9C0JZoJ11UkXI3i85iOIZ",
+      "run_id": "physics-a85fd1e5c06240278cc3d4217a0526e2",
+      "reserved_cents": 2500,
+      "receipts": [
+        "work/fept-radial-mesh-r4-mesh28-receipt.json"
+      ],
+      "observed_at": "2026-11-15T06:53:53.481900+00:00",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 22:43:55-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-15 00:44:33-06:00",
+        "stopped_by": null
+      }
+    }
+  ],
+  "account_containers": [],
+  "account_containers_empty": true,
+  "actual_billed_usd": null,
+  "scope": "Fresh read-only authoritative lifecycle checks for every app in the preserved cumulative campaign reservation ledger. No app launch or stop performed by this audit."
+}

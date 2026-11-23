@@ -1,0 +1,272 @@
+{
+  "format": "REMAG-NATIVE-INITIALIZATION-EVIDENCE/1",
+  "recorded_at": "2026-11-17T09:53:10.551333+00:00",
+  "status": "initialization_reached_barrier_no_SCF_cycle",
+  "scope": "Actual Ni initialization with a diagnostic interposer. No SCF cycle, usable result, native repair or complete research iteration.",
+  "runtime": {
+    "executable": "/results/research-loop-r8-build/siesta",
+    "executable_sha256": "68fbdc97c03e00d4088b1e4454cb42284eb0af28735e5eabd87e5b8d2e36c0fd",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "1",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "1",
+      "REMAG_DEVICE_VECTOR_CACHE": "1",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "1",
+      "REMAG_ATOMIC_GRID_FORCE": "1",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "1",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "1",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "1",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "1",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "1",
+      "REMAG_POPULATION": "1",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "1",
+      "REMAG_GPU_HISTORY": "1",
+      "REMAG_FINAL_SPECTRA": "1",
+      "REMAG_GATE_H_EXPORT": "1",
+      "REMAG_DEFER_SCF_LOG": "1",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "0",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "1",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "8",
+      "REMAG_SCF_WARM_START": "1",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/results/research-loop-r8-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "threads": 1,
+    "capabilities": {
+      "format": "REMAG-BOUND-CAPABILITIES/1",
+      "executable_sha256": "68fbdc97c03e00d4088b1e4454cb42284eb0af28735e5eabd87e5b8d2e36c0fd",
+      "library": "/results/research-loop-r8-build/libremag_gpu.so",
+      "library_sha256": "e96e212fc6553632b4a66ff0bc5a3b5355bade9b4fee0f09b44b9e09b5774754",
+      "device_scf": {
+        "format": "REMAG-DEVICE-SCF-CAPABILITIES/1",
+        "max_kpoints": 4096,
+        "max_spatial_orbitals": 2048,
+        "max_spinor_dimension": 4096
+      }
+    }
+  },
+  "input_sha256": "7811a0379dfb732c7a72272b8269404d15616b9678a6e8f02c1337dc9fcf0046",
+  "pseudopotential_sha256": "235018d8105a124b4bd114759bdf2dfd632d821173857e3968d8abce326de6b5",
+  "driver": "610.57.04",
+  "failed_original_driver": "620.70.06",
+  "cuda_runtime_version": 12060,
+  "cuda_driver_api_version": 13030,
+  "native": {
+    "returncode": 90,
+    "timed_out": false,
+    "barrier": {
+      "format": "REMAG-CYCLE-BARRIER/1",
+      "geometry": 0,
+      "SCF_cycle_launched": false,
+      "intentional_exit": 90
+    },
+    "barrier_reached": true,
+    "events": [
+      {
+        "phase": "instantiate_begin",
+        "serial": 1,
+        "status": -1,
+        "dump_status": 0,
+        "flags": 0,
+        "runtime": 12060,
+        "driver": 13030,
+        "runtime_query_status": 0,
+        "driver_query_status": 0
+      },
+      {
+        "phase": "instantiate_end",
+        "serial": 1,
+        "status": 0,
+        "dump_status": 0,
+        "flags": 0,
+        "runtime": 12060,
+        "driver": 13030,
+        "runtime_query_status": 0,
+        "driver_query_status": 0
+      },
+      {
+        "phase": "instantiate_begin",
+        "serial": 2,
+        "status": -1,
+        "dump_status": 0,
+        "flags": 0,
+        "runtime": 12060,
+        "driver": 13030,
+        "runtime_query_status": 0,
+        "driver_query_status": 0
+      },
+      {
+        "phase": "instantiate_end",
+        "serial": 2,
+        "status": 0,
+        "dump_status": 0,
+        "flags": 0,
+        "runtime": 12060,
+        "driver": 13030,
+        "runtime_query_status": 0,
+        "driver_query_status": 0
+      }
+    ],
+    "parse_errors": [],
+    "native_runtime_repaired": false,
+    "scientific_acceptance": false,
+    "wall_seconds": 6.668919774999999
+  },
+  "preload_test": {
+    "returncode": 90,
+    "marker": {
+      "format": "REMAG-CYCLE-BARRIER/1",
+      "geometry": 7,
+      "SCF_cycle_launched": false,
+      "intentional_exit": 90
+    }
+  },
+  "actual_cycle_symbol_binding_verified": true,
+  "graph_dumps": {
+    "graph-before-001.dot.log": {
+      "bytes": 3066,
+      "sha256": "299774f9b40b413f95b990994b676ca8cdcc990dd548a72a767493eb002a7787"
+    },
+    "graph-before-002.dot.log": {
+      "bytes": 15395713,
+      "sha256": "4c7993b162a2f0d6dae8a7d6340d76e74d6cc659431b7dc71d7c8ce34336668b"
+    }
+  },
+  "graph_structure": {
+    "nodes": 27501,
+    "edges": 24464,
+    "node_labels": {
+      "KERNEL": 22315,
+      "MEMSET": 1586
+    },
+    "conditional_nodes": 836,
+    "distinct_conditional_handles": 836,
+    "duplicate_node_ids": false,
+    "dangling_dependency_edges": false
+  },
+  "shim_sha256": "20c1aef960eeeca0e7ae62b6b835bd4f60c1ba4554dd7deddcad7ff252fde2ee",
+  "app": {
+    "description": "siesta-remag-single-gpu",
+    "app_id": "ap-5GfPYzsN0DoYAMJmXTzw7e",
+    "lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-17 03:47:58-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-17 03:48:34-06:00",
+      "stopped_by": null
+    },
+    "functions": {
+      "probe": {
+        "id": "fu-wCYQ0YNNZ9zQD2mszdBIYn",
+        "summary": {
+          "gpu_config": [
+            {
+              "count": 1,
+              "gpu_type": "A100-80GB"
+            }
+          ]
+        }
+      }
+    },
+    "servers": {}
+  },
+  "receipt": {
+    "status": "collected",
+    "run_id": "native-setup-37065765913247de93d90079af0e310c",
+    "app_id": "ap-5GfPYzsN0DoYAMJmXTzw7e",
+    "volume": "siesta-remag-acceptance-six-r1",
+    "reserved_cents": 23,
+    "function_call_id": "fc-01M7MEGFF5WW9BWCMKA6JJVF7G",
+    "output": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/general-material-loop-r1/diagnosis/native-setup-r1/collected",
+    "collection_call_seconds": 16.318579625338316,
+    "collection_call_includes_wait_for_function": true,
+    "download_only_seconds": null,
+    "archive_sha256": "1285451c949ba6685f644e33332aa52e75653e5f035230927f904e4b500562cb"
+  },
+  "archive": {
+    "archive_sha256": "1285451c949ba6685f644e33332aa52e75653e5f035230927f904e4b500562cb",
+    "archive_bytes": 1220693,
+    "local_unpack_seconds": 0.08436937443912029
+  },
+  "held_material_owner_unchanged": true,
+  "protected_evidence_sha256": {
+    "work/fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "work/acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8"
+  },
+  "source_sha256": {
+    "native/probe_cycle_barrier.cpp": "efc7a9b651cae4258e723742e4be00c8639d46055d8bf4090332090469bd832f",
+    "native/probe_graph_interpose.cpp": "e208c95585477cfed9a06431f2a2641ac084273a5364e8c75ac29f73d8b64373",
+    "scripts/native_setup_probe_modal.py": "a51aeedb0935a45bc2f5ea42c90419fad3b4acef3af8468f21fee177333a44de",
+    "src/siesta_remag/research/native_setup_probe.py": "521984ba3a1b11a779601ea7aceec59ff1013a9c18b6962a59ea3accb920f547",
+    "tests/test_cycle_barrier.py": "50ece5ee3199a4e61fc30ef7ff4244e383239da222b89086d57a73ad597418a6",
+    "tests/test_native_setup_probe.py": "6513c28f442172346b2676387e0458b005eb5a909cbeef2d84e7433ae4427358",
+    "docs/SPEC_COMPLETION.md": "39d621b75150b2cde1a4ba32ed31801de1571735efa535268d59b3ea202b1cc3",
+    "docs/RESEARCH_EXECUTION.md": "b65b8f7acf57e981e4e2fb2d9f35548adbb682623573e0e956519939cfa22aea"
+  },
+  "frozen_policy_sha256": "e37aa8bf5726d1453d6d8568660cc90b2320660db72ed0f8a497c2e90c4e289e",
+  "driver_script_sha256": "767fdead7ca684f40f073f40165997f22989f3f4daa4abc68fd80a1f4692a2bf",
+  "local_tests": {
+    "focused": "30 passed in 1.94s",
+    "full_suite": "883 passed, 4 skipped in 214.81s (0:03:34)",
+    "full_suite_log_sha256": "f0b07fcc7db949599839fe6fd16b5ed17e3ed0eb587614e9fb4c9ed002d96bec"
+  },
+  "spending": {
+    "reservation_cents": 23,
+    "actual_billed_usd": null,
+    "invoices_known": false,
+    "old_ledgers_unchanged": true,
+    "general_loop_reservations_unchanged": true
+  },
+  "inference": "The original Ni initialization reaches the first-cycle barrier with the unchanged executable/library on driver610.57.04. Earlier native failure was on620.70.06. Instrumentation and allocation differ, so this does not prove driver causality or full-path correctness.",
+  "native_runtime_repaired": false,
+  "scientific_acceptance": false,
+  "completed_feedback_iterations": 0,
+  "old_campaign_closed": true,
+  "no_follow_on_queued": true,
+  "next": "Use the captured original-input graph to resolve driver/instrumentation sensitivity before reviewing a full native execution; retain the incident hold until reviewed validation supports the intended runtime."
+}

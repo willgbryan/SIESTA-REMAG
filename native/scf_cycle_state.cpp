@@ -2,6 +2,7 @@
 // Production handoff. All scientific staging precedes the measured cycle;
 // only device control executes between the two phase markers.
 #include "scf_cycle.hpp"
+#include "scf_export_guard.hpp"
 #include "execution.hpp"
 #include "population_state.hpp"
 #include "final_grid_state.hpp"
@@ -322,8 +323,7 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         current(Stage::grid);require(c&&v&&num&&ptr&&cols&&mapping&&xyz&&kpoints&&weights&&overlap&&kinetic&&nonlocal_h&&
             h&&hold&&density&&old_density&&energy_density,"Missing cycle inputs");
         const int kind=c[0],n=c[1],cap=c[2],nh=c[3],no=c[4],nk=c[5],eh=std::min(nh,4);
-        require(kind>=0&&kind<=3&&n>0&&n<=2048&&cap>0&&cap<=INT_MAX/8&&no>=n&&nk>0&&nk<=128&&
-            (kind%2||nk==1)&&(kind<2?(nh==1||nh==2):(nh==4||nh==8))&&c[13]>0&&c[13]<=4096&&
+        require(remag::scf_shape_supported(kind,n,nh,nk)&&cap>0&&cap<=INT_MAX/8&&no>=n&&c[13]>0&&c[13]<=4096&&
             (c[9]==0||c[9]==1)&&(!c[9]||old_energy_density),"Invalid cycle dimensions/options");
         if(kind%2==0) for(int i=0;i<3;i++) require(kpoints[i]==0.,"Gamma cycle must use zero phases");
         require(state.grid_problem.pbe.spins==eh,"Cycle grid spin mismatch");
@@ -523,7 +523,9 @@ extern "C" int remag_cycle_export(int bank_size,double* energies,double* occupat
 #endif
         const auto& b=state.bindings;const size_t hbytes=size_t(state.capacity)*state.nh*sizeof(double),ebytes=size_t(state.capacity)*state.eh*sizeof(double);
         if(remag::final_grid_state_enabled()) {
-            require(state.result.control.convergence.converged,"Final electronic state requires convergence");
+            const auto& terminal=state.result.control.convergence;
+            remag::require_converged_final_grid(terminal.converged,terminal.exhausted,state.record.geometry,
+                state.result.iterations,[](int i) { return &state.diagnostics[i].step.scalars.values[6]; });
             remag::retain_final_grid_state({state.grid_shape,state.nh,state.eh,state.epoch,
                 state.grid_problem.dvol,state.grid_problem.pbe.volume,b.density,b.energy_density,
                 state.plan->mesh_potential(),state.plan->mesh_auxiliary_potential(),state.plan->mesh_deformation_density(),0,

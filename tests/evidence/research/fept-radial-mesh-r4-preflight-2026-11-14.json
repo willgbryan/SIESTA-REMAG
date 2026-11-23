@@ -1,0 +1,24 @@
+{
+  "format": "REMAG-FEPT-CONTROL-PREFLIGHT/1",
+  "recorded_at": "2026-11-15T01:55:38.886488+00:00",
+  "plan_sha256": "def1db43e57bb43601084a510d377f0dcc09bb604d06c49aa80e8314821379c6",
+  "authoring_script_sha256": "426fe1ef056e9ff23e6e04e5eccd004e82d7ee98472392246fbdf286f3aa2d4b",
+  "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+  "tests": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=src ../.venv/bin/python -m pytest -q tests/test_research_convergence.py tests/test_research_basis.py tests/test_research_budget.py tests/test_research_workspace.py",
+    "passed": 24,
+    "skipped": 2
+  },
+  "input_inventory_and_hashes_verified": true,
+  "one_variable_configuration_changes_verified": true,
+  "criterion_unchanged": true,
+  "max_future_reservations_cents": 6500,
+  "new_reservations_cents": 0,
+  "new_gpu_allocations": 0,
+  "new_native_calculations": 0,
+  "new_pristine_reference": false,
+  "automatic_follow_on": false,
+  "ledger_sha256_at_registration": "07ef65b9de611cdb0edbf5b2554c709a2219307eef6ec253bfef013eb7dc1d73",
+  "scope": "Preparation only. No measured scientific outcome, runtime or physical-accuracy claim."
+}

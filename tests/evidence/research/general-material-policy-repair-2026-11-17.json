@@ -1,0 +1,155 @@
+{
+  "format": "GPAC-REMAG-GENERAL-MATERIAL-POLICY-REPAIR/1",
+  "recorded_at": "2026-11-17T09:06:07.069090+00:00",
+  "status": "local_policy_and_failure_reporting_passed_native_repair_pending",
+  "original_attempt": "outputs/GPAC-REMAG-first-general-material-native-failure-2026-11-17.json",
+  "changes": [
+    "CG/Broyden export and history accounting checked against compiled native reader/history/export policy fragments; other modes and analysis consumers still rejected.",
+    "Postprocessing failures after native exit now preserve an invalid result with exit code, elapsed time, raw evidence and diagnostic traceback; discovery retains a failed stage and does not proceed to SOC.",
+    "Existing attempt directories cannot be overwritten by failure handling. Preflight/setup errors continue to raise."
+  ],
+  "tests": {
+    "compiled_policy_option_combinations": 100,
+    "policy_suite": "72 passed in 11.88s",
+    "native_failure_regression": "24 passed in 1.99s",
+    "full": "853 passed, 4 skipped in 210.08s",
+    "baseline_policy": "Compiled control fails on the previous Broyden rejection.",
+    "baseline_runner": "4 failed, 1 passed against archived pre-fix source with explicit pytest import path.",
+    "scope": "Compiled scalar policy fragments and local dummy-process regression tests; no native solver/material calculation."
+  },
+  "saved_input_review": {
+    "format": "REMAG-SAVED-NI-POLICY-REVIEW/1",
+    "recorded_at": "2026-11-17T09:06:07.069090+00:00",
+    "input_sha256": "7811a0379dfb732c7a72272b8269404d15616b9678a6e8f02c1337dc9fcf0046",
+    "audit": {
+      "energy_exports": 0,
+      "hamiltonian_exports": 4,
+      "density_exports": 2,
+      "density_history": {
+        "depth": 1,
+        "mode": 2
+      }
+    },
+    "full_execution_preflight_rejection": "Native execution held: general-material-loop-r1 SIGSEGV with libcuda stack frames remains unresolved; no spending. Earlier passing FePt checks do not repair this failure.",
+    "no_solver_rerun": true,
+    "no_native_health_claim": true
+  },
+  "native_diagnosis": {
+    "record": "work/general-material-loop-r1/diagnosis/symbolization.json",
+    "symbolized_frames": 4,
+    "passing_saved_control_stages": 5,
+    "failing_API": "cudaGraphInstantiate",
+    "failing_driver": {
+      "CUDA_API": 13050,
+      "module": "libcuda.so.620.70.06"
+    },
+    "passing_driver": {
+      "CUDA_API": 13030,
+      "module": "libcuda.so.610.57.04"
+    },
+    "interpretation": "Driver version and graph/material shape differ; these records cannot distinguish a driver defect from graph construction or prior memory corruption.",
+    "native_crash_fixed": false,
+    "exact_failed_runtime_remains_held": true,
+    "call_chain": [
+      {
+        "frame": 13,
+        "address": "0x2b73e6dafc98",
+        "file_offset": "0xa1c98",
+        "ELF_relative_pc": "0xa1c98",
+        "symbols": [
+          "_ZN5remag12ScfCyclePlan4Impl5buildEv"
+        ],
+        "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/general-material-loop-r1/diagnosis/runtime/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n00000000000a0b60 <_ZN5remag12ScfCyclePlan4Impl5buildEv>:\n   a1c94: e8 77 31 f9 ff               \tcallq\t0x34e10 <.plt.sec+0xb60>"
+      },
+      {
+        "frame": 14,
+        "address": "0x2b73e6db4287",
+        "file_offset": "0xa6287",
+        "ELF_relative_pc": "0xa6287",
+        "symbols": [
+          "_ZN5remag12ScfCyclePlan4ImplC1ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st",
+          "_ZN5remag12ScfCyclePlan4ImplC2ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st"
+        ],
+        "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/general-material-loop-r1/diagnosis/runtime/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n00000000000a4160 <_ZN5remag12ScfCyclePlan4ImplC2ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st>:\n   a6283: e8 58 f0 f8 ff               \tcallq\t0x352e0 <.plt.sec+0x1030>"
+      },
+      {
+        "frame": 15,
+        "address": "0x2b73e6dac0a1",
+        "file_offset": "0x9e0a1",
+        "ELF_relative_pc": "0x9e0a1",
+        "symbols": [
+          "_ZN5remag12ScfCyclePlanC1ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st",
+          "_ZN5remag12ScfCyclePlanC2ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st"
+        ],
+        "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/general-material-loop-r1/diagnosis/runtime/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n000000000009e060 <_ZN5remag12ScfCyclePlanC2ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st>:\n   9e09d: e8 3e 83 f9 ff               \tcallq\t0x363e0 <.plt.sec+0x2130>"
+      },
+      {
+        "frame": 16,
+        "address": "0x2b73e6dbe3a7",
+        "file_offset": "0xb03a7",
+        "ELF_relative_pc": "0xb03a7",
+        "symbols": [
+          "remag_cycle_prepare"
+        ],
+        "call_disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/general-material-loop-r1/diagnosis/runtime/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .text:\n\n00000000000af090 <remag_cycle_prepare>:\n   b03a3: e8 18 60 f8 ff               \tcallq\t0x363c0 <.plt.sec+0x2110>"
+      }
+    ],
+    "PLT_binding": {
+      "disassembly": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/general-material-loop-r1/diagnosis/runtime/libremag_gpu.so:\tfile format elf64-x86-64\n\nDisassembly of section .plt.sec:\n\n00000000000342b0 <.plt.sec>:\n   34e10: f3 0f 1e fa                  \tendbr64\n   34e14: f2 ff 25 ad 77 39 00         \trepne\t\tjmpq\t*3766189(%rip)  # 0x3cc5c8 <_GLOBAL_OFFSET_TABLE_+0x5c8>\n   34e1b: 0f 1f 44 00 00               \tnopl\t(%rax,%rax)",
+      "relocation": "00000000003cc5c8 R_X86_64_JUMP_SLOT       cudaGraphInstantiate"
+    },
+    "archived_source_matches": {
+      "native/scf_cycle.cu": "21d3056f7cfd14b8b1711c2e6835dce822b11ee78b0bf7b73c940d83a21ca5b9",
+      "native/scf_graph_setup.hpp": "fbe93e0224c9fd3191dee2a9d3939d19dcedc1bc9acb0b358f71389312c1b0a9",
+      "native/scf_cycle_state.cpp": "6bc660d1c7a4eb4b784bde3b98cf00f8692707814b7cd86eae7f45d5190d582d",
+      "native/block_jacobi.cu": "dd36de7c23f67f60301ebeef9dac791147635f4292e878e5cc5acf765684e4f5",
+      "native/scf_control.cu": "aad88e0a009355c305883d1332f3090c8235b83c60ee331b5362f502c6d8fede"
+    }
+  },
+  "source_reference": {
+    "upstream_commit": "e486d12067b96ff688179f0496d0ec21b6fae0ab",
+    "kind": "Pinned scalar policy fragments compiled with explicit interface doubles; no pristine solver calculation."
+  },
+  "original_evidence_hashes_unchanged": 28,
+  "old_campaign_closed": true,
+  "operations": {
+    "new_GPU_apps": 0,
+    "new_cloud_builds": 0,
+    "new_model_calls": 0,
+    "new_reservations_cents": 0,
+    "existing_failed_attempt_reservation_cents": 465,
+    "actual_billed_usd": null,
+    "remote_operations": "Read-only download of existing exact failed library from Modal volume for offline symbolization."
+  },
+  "owned_allocation": {
+    "app_id": "ap-Hd50LF1JTeblMEzDcxMMwL",
+    "status": "stopped",
+    "authoritative_observation_record": "work/general-material-loop-r1/stopped-account-observation.json",
+    "no_follow_on_queued": true
+  },
+  "remaining": [
+    "Identify and test a causal native graph-instantiation repair with a bounded diagnostic; do not infer repair from this Python change or merely a new binary hash.",
+    "Complete native relaxation/measurement, source-bound scoring and Astra revision.",
+    "Demonstrate three feedback iterations across at least two non-FePt systems; stability and live Ouro acceptance remain pending."
+  ],
+  "full_goal_complete": false,
+  "evidence_sha256": {
+    "work/general-material-loop-r1/diagnosis/symbolize_saved.py": "b3c90d1120fe5a473872eddecaffdc66661173684eaf1b41b4104265e6857cee",
+    "work/general-material-loop-r1/diagnosis/symbolization.json": "3252cddc7945aed8c750eac80ac0e1281185e5e3691e5d736b191ead6981dcda",
+    "work/general-material-loop-r1/diagnosis/saved-input-policy-review.json": "810ada4b9b0bca78455921ebbf54420418fb7c3557854ff95cc591622fde1590",
+    "work/general-material-loop-r1/diagnosis/policy-before.log": "a4a7e0c23f661c1072394f9def2f1c89ac53eb4452e75cc49a9b1b4899137eb0",
+    "work/general-material-loop-r1/diagnosis/policy-after.log": "9ac3b9c31eaef37f12840ab32bf721eff35e57829438054bff16a405f92ec2d6",
+    "work/general-material-loop-r1/diagnosis/failure-before-r4.log": "bc3ad6fcbdfb3063d839c313c725eac5517c82f0ebd1d8daef2732a0c1bff39e",
+    "work/general-material-loop-r1/diagnosis/failure-after-r2.log": "30a24863df40155d49cab846ce9506cb751711883635be79b9e23d8e83f89b2a",
+    "work/general-material-loop-r1/diagnosis/full-tests.log": "1ec000cf28b225199740bdde5da6e0b084b65c657e3af49d314fcaf9ef9d28db",
+    "work/SIESTA-REMAG/src/siesta_remag/density_history.py": "10ebeab5a85ceffbc8b95294eedc2a0dfb4903e171105419f8f36620802fd191",
+    "work/SIESTA-REMAG/src/siesta_remag/terminal_exports.py": "162881df0de51853e5389acc1a7da12f7e67f45f53c0b4f01e48e3294c6ac45e",
+    "work/SIESTA-REMAG/src/siesta_remag/runner.py": "cf58c0b4376cdd62e0bf5f586ba45f9b62351b6849e10a770e3948cf1cae0155",
+    "work/SIESTA-REMAG/tests/test_runner_failure.py": "1eb8432fa3a5afc902a9654c5a319ceb32c83bfc142c0b48d762949269e12f30",
+    "work/SIESTA-REMAG/tests/test_relaxation_policy_reference.py": "87d86efda4098590776d2b361fdd883506f16a8f3f19cdde60b43e05a9d6e25b",
+    "work/SIESTA-REMAG/upstream/siesta/Src/read_options.F90": "952e3dc3d385f1399f024f332ec22d5dee962efc62280937833471deba1769c8",
+    "work/SIESTA-REMAG/upstream/siesta/Src/m_new_dm.F90": "8cfb2dde16a46781a5c41070b6d90a0669dfef6c2625e2222d67cfd0aaac1b0f",
+    "work/SIESTA-REMAG/native/remag_cycle.F90.in": "2fe89a0621ea88ca9770baf4714c039958cdc32c4c46ce17f9f14b743ed6d423",
+    "work/SIESTA-REMAG/native/remag_history.F90.in": "e613b152517f8067a97e44a4d6aa7c70bfa57d2db22319a531d5bb27157393b1"
+  }
+}

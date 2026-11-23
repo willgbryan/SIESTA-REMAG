@@ -1,0 +1,116 @@
+"""Read existing acceptance artifacts through native validators and direct tools."""
+import asyncio,hashlib,shutil
+from pathlib import Path
+import numpy as np
+from siesta_remag.corpus import sha256
+from siesta_remag.discovery.common import load,save
+from siesta_remag.discovery.collection import verify_archive
+from siesta_remag.discovery.config import Settings
+from siesta_remag.discovery.review import native_review,branch_check
+from siesta_remag.hsx import read_hsx
+from siesta_remag.research.electronic import overlap_from_run,orbital_metadata
+from siesta_remag.research.mechanisms import _basis
+from siesta_remag.research.toolhost import ToolHost
+from fept_control_review import radial_arrays,radial_difference
+
+AXES={'scalar':[0,0,1],'soc-z':[0,0,1],'soc-x':[1,0,0],'soc-y':[0,1,0]}
+
+async def recover(attempt,target):
+    import modal
+    receipt=load(attempt/'receipt.json');collected=attempt/'collected'
+    verify_archive(collected);rp=collected/'query/report.json';report=load(rp)
+    target.mkdir(parents=True,exist_ok=False)
+    volume=modal.Volume.from_name(receipt['volume'],create_if_missing=False)
+    semaphore=asyncio.Semaphore(8)
+    async def one(name,expected):
+        out=target/name
+        if not out.resolve().is_relative_to(target.resolve()):raise ValueError('Unsafe artifact path')
+        local=collected/'query'/name
+        out.parent.mkdir(parents=True,exist_ok=True)
+        if local.is_file():
+            if sha256(local)!=expected:raise ValueError('Collected artifact changed: '+name)
+            shutil.copyfile(local,out)
+        else:
+            async with semaphore:
+                parts=[];size=0
+                async for part in volume.read_file.aio(receipt['run_id']+'/query/'+name):
+                    size+=len(part)
+                    if size>512*1024*1024:raise ValueError('Native artifact exceeds recovery bound')
+                    parts.append(part)
+                payload=b''.join(parts)
+            if hashlib.sha256(payload).hexdigest()!=expected:raise ValueError('Recovered artifact differs: '+name)
+            out.write_bytes(payload)
+        if sha256(out)!=expected:raise ValueError('Saved artifact differs: '+name)
+    await asyncio.gather(*(one(n,h) for n,h in report['artifacts'].items()))
+    manifest=dict(format='REMAG-ACCEPTANCE-NATIVE-RECOVERY/1',report_sha256=sha256(rp),
+        receipt_sha256=sha256(attempt/'receipt.json'),run_id=receipt['run_id'],volume=receipt['volume'],
+        files=report['artifacts'],file_count=len(report['artifacts']),bytes=sum((target/n).stat().st_size for n in report['artifacts']),solver_executions=0)
+    save(target/'recovery-manifest.json',manifest)
+    return manifest
+
+
+def review(root,key):
+    attempt=root/'runs'/key;rp=attempt/'collected/query/report.json';r=load(rp)
+    native=root/'native'/key;settings=Settings.from_dict(r['request']['settings'])
+    if r['status']!='measured' or [s['stage'] for s in r['stages']]!=list(AXES):raise ValueError('Incomplete native stages')
+    recovery=load(native/'recovery-manifest.json')
+    if recovery['report_sha256']!=sha256(rp):raise ValueError('Recovery report binding differs')
+    for name,h in r['artifacts'].items():
+        if recovery['files'].get(name)!=h or sha256(native/name)!=h:raise ValueError('Native hash differs: '+name)
+    branches={};basis={};radial={};base_orbitals=None
+    reference=root/'native/baseline-k6'
+    for stage in r['stages']:
+        name=stage['stage'];view=native/name;result=load(view/'result.json')
+        if result['observables']!=r['observations'][name]:raise ValueError('Native observation changed')
+        checked=native_review(view,result,settings,axis=None if name=='scalar' else AXES[name])
+        expected={k:v for k,v in stage.items() if k not in ('stage','branch','execution_wall_seconds')}
+        if checked!=expected or not checked['accepted']:raise ValueError('Native acceptance does not reproduce: '+name)
+        if name!='scalar':
+            previous='scalar' if name=='soc-z' else 'soc-z'
+            branches[name]=branch_check(r['observations'][name],r['observations'][previous],AXES[name],AXES[previous],settings)
+            if branches[name]!=stage['branch'] or not branches[name]['passed']:raise ValueError('Magnetic branch failed')
+        hsx=read_hsx(view/'remag.HSX');orbitals=orbital_metadata(hsx)
+        def verify(p):
+            h=sha256(p)
+            if h!=r['artifacts'][name+'/'+p.name]:raise ValueError('PAO hash differs')
+            return h
+        layout,arrays,hashes=_basis(view,orbitals,verify)
+        if base_orbitals is None:base_orbitals=orbitals
+        if orbitals!=base_orbitals:raise ValueError('Within-case actual shells differ')
+        basis[name]=dict(spatial_orbitals=len(orbitals),radial_layout=layout,ion_sha256=hashes)
+        radial[name]={}
+        for symbol in ('Fe','Pt'):
+            a=radial_arrays(native/'scalar'/f'{symbol}.ion.xml');b=radial_arrays(view/f'{symbol}.ion.xml')
+            within=radial_difference(a,b)
+            between=radial_difference(b,radial_arrays(reference/name/f'{symbol}.ion.xml'))
+            if max(within,between)>1e-10:raise ValueError('Actual radial identity failed')
+            radial[name][symbol]=dict(within_case_max_abs=within,versus_baseline_k6_max_abs=between)
+    overlap=overlap_from_run(native/'scalar')
+    if not overlap['positive_definite'] or overlap['spatial_orbitals']!=len(base_orbitals) or overlap['native_kpoints']!=r['stages'][0]['native_kpoints']:
+        raise ValueError('Full native KP overlap failed')
+    split=max(abs(r['observations']['soc-x'][f]-r['observations']['soc-y'][f]) for f in ('total_energy_ev','free_energy_ev'))
+    if split>1e-5:raise ValueError('Original transverse gate failed')
+    host=ToolHost(root);soc={}
+    for stage in ('soc-z','soc-x','soc-y'):
+        response=host.call(dict(tool='export_soc_matrices',args=dict(report=str(rp.relative_to(root)),stage=stage,
+            native_directory=str((native/stage).relative_to(root)),output=f'diagnostics/{key}/{stage}',
+            collection=f'runs/{key}/collected/archive-manifest.json',k_indices=[0,1]),
+            rationale='Validate the production device-owned SOC export with actual PAOs, total-H, overlap and state contractions.'),f'tool-receipts/{key}-{stage}-SOC')
+        if not response['ok']:raise ValueError('SOC tool rejected native evidence: '+str(response['error']))
+        data=response['result']
+        if data['native_ownership']['format']!='REMAG-NATIVE-SOC/2' or data['native_ownership']['producer']!='remag-device-nonlocal-h0':
+            raise ValueError('Required production device snapshot missing')
+        soc[stage]=dict(path=f'diagnostics/{key}/{stage}/soc.json',sha256=sha256(root/f'diagnostics/{key}/{stage}/soc.json'),
+            native_ownership=data['native_ownership'],native_max_abs_error_ev=data['native_max_abs_error_ev'])
+    agreement=None
+    if key.startswith('baseline'):
+        old=root.parent/'remag-fept'/('zero' if key.endswith('k6') else 'zero-k12')/'report.json';oldr=load(old)
+        differences={s:{f:(r['observations'][s][f]-oldr['observations'][s][f])*1000 for f in ('total_energy_ev','free_energy_ev')} for s in AXES}
+        anisotropies={f:((r['observations']['soc-x'][f]-r['observations']['soc-z'][f])-(oldr['observations']['soc-x'][f]-oldr['observations']['soc-z'][f]))*1000 for f in ('total_energy_ev','free_energy_ev')}
+        agreement=dict(saved_report_sha256=sha256(old),stage_differences_mev=differences,anisotropy_differences_mev=anisotropies,tolerance_mev=.0010001,
+            passed=all(abs(x)<=.0010001 for d in list(differences.values())+[anisotropies] for x in d.values()))
+    return dict(format='REMAG-SIX-ACCEPTANCE-HEALTH/1',health_passed=True,report_sha256=sha256(rp),
+        branches=branches,actual_basis=basis,radial_identity=radial,overlap=overlap,transverse_split_ev=split,
+        production_SOC_tools=soc,baseline_execution_agreement=agreement,recovery=recovery,
+        anisotropy_mev={f:(r['observations']['soc-x'][f]-r['observations']['soc-z'][f])*1000 for f in ('total_energy_ev','free_energy_ev')},
+        physical_accuracy_qualified=False)

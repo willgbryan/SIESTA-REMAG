@@ -1,0 +1,133 @@
+{
+  "format": "REMAG-DEVICE-SOC-EVIDENCE/1",
+  "date": "2026-11-15",
+  "requirements": [
+    "5.1",
+    "5.2",
+    "5.5"
+  ],
+  "base_remag_commit": "84433eda632cd42f24d3cfe1faeb481bed37041c",
+  "gpac_commit": "44f32c28830e5ec9a6cab2731ab8bb8e78adb314",
+  "delivered": [
+    "Post-SCF device nonlocal SOC snapshot before force-owner release; no host H0 fallback",
+    "Epoch, topology, geometry, production/SCF/force lease and finite-data checks",
+    "Explicit 64-byte-per-sparse-capacity post-SCF copy accounting and strict native ownership metadata",
+    "Real pinned Fortran library and main-program object compilation without a solver executable"
+  ],
+  "tests": {
+    "focused": "84 passed in 7.72s",
+    "regression": "534 passed, 4 deselected in 93.44s (0:01:33)",
+    "excluded": "Four unchanged loopback HTTP tests; previously passed with permitted loopback access",
+    "cpp_owner": "17 compiled production-owner cases with CPU transport doubles; no CUDA hardware",
+    "controls": [
+      "Stale epoch, active SCF, unreleased lease, force borrow, repeated copy, topology mismatch",
+      "Scalar/nonproduction/missing owner, failed transport, nonfinite values, poisoned host independence",
+      "Metadata and phase/copy-count tampering, scalar audit misuse, legacy host behavior and Python/CLI/agent paths"
+    ]
+  },
+  "compile_only": {
+    "source_commit": "e486d12067b96ff688179f0496d0ec21b6fae0ab",
+    "dependencies": [
+      {
+        "path": "External/libfdf",
+        "commit": "206a3d6c4628e584743bd5cd483d0e2e66e95b7c"
+      },
+      {
+        "path": "External/xmlf90",
+        "commit": "963fe5d11487233d43ac59dd0c1340a7b2cc3dc5"
+      },
+      {
+        "path": "External/libpsml",
+        "commit": "b7049e4de25333fe8bd2dbf9a3495ef0f77ba168"
+      },
+      {
+        "path": "External/libgridxc",
+        "commit": "022d2a6371eed0db272ac6922289921f62f30c21"
+      }
+    ],
+    "implementation_sha256": {
+      "scripts/check_native_fortran.py": "de11450283a4b0eec10b8d2a2a9bfa75c5d3cab816d0eac01ef98a70438d16aa",
+      "scripts/patch_siesta.py": "37a9a1ea33ef5e13c463689c217e06a21e80a3457794102cc7edef333616adb9",
+      "native/remag_atomic_basis.F90.in": "9fb04f97d957a87308c147f47c7449cc2cddf5baeb7fab29eb61ed48285d997b",
+      "native/remag_basis.F90.in": "cad205b95b04ebc290d16d57eb355dd72c07e2efad3429977247c638a77e2a04",
+      "native/remag_cycle.F90.in": "2fe89a0621ea88ca9770baf4714c039958cdc32c4c46ce17f9f14b743ed6d423",
+      "native/remag_force.F90.in": "aa111db498994069b2b0abc33f988b3930e2d24041fea4aa9d866745f8a2bb95",
+      "native/remag_history.F90.in": "e613b152517f8067a97e44a4d6aa7c70bfa57d2db22319a531d5bb27157393b1",
+      "native/remag_integral_force.F90.in": "80c7c36afcaed5a682914d291f8fef83647cda4595d0c751e2de0c0bcd7d564b",
+      "native/remag_nonlocal_force.F90.in": "2ab38bb704c88a1b99d213ddd1c2c1b9bdcdb09d70dd572829439dc02f302e20",
+      "native/remag_orientations.F90.in": "1f69b948532049778adc4924a416fb4f0bcadfdaa1e3a8585bd77705269ed858",
+      "native/remag_pair_force.F90.in": "96b5efdc56f3e7dd8908fedae03b926a8cce46ae72dedcfa8e305b98da25bdd6",
+      "native/remag_population.F90.in": "705f1d5679267750a72bbb98fb9dcb84df01c4e85cc41efd270c1048fa090a26",
+      "native/remag_soc_components.F90.in": "642873c3f070a2662c422c813963299812be7a7d1595c346c528bdf7eca317a8",
+      "native/remag_soc_export.F90.in": "7b3582e5d4a97abb230bd93d5e1b62aaf30ee67997039635f08bd58bc0217133",
+      "native/remag_two_center.F90.in": "a3c20f3bebabe508af8f3366b2c2816ff8bceca223ae41b7d2be69a011011e00"
+    },
+    "compiler": "GNU Fortran (Homebrew GCC 14.2.0_1) 14.2.0",
+    "status": "passed",
+    "configured_source_translation_units": 1558,
+    "compiled_library_members": 535,
+    "library_sha256": "5c387d9567699b5be5ee9d888b1ab7723a4d0f98bb3eb6e569cd3d5929a6ad06",
+    "library_bytes": 10307424,
+    "main_object_sha256": "7f4f3c1cf8b553f8b917df7b2fa5b0b2a42a72ede124d11ed350a9f9cdd48e7c",
+    "elapsed_seconds": 65.82620062492788,
+    "logs": {
+      "configure.log": "06a0a1cb9b3e8accd3c09314eb3e61e941dde26d083992dbfac80b8b2f07e093",
+      "library.log": "a783414a9eb44f19cf5c39e739a09a4bedd2bf28417f37b0524a132ffaa888cc",
+      "main.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "native_execution": false,
+    "cuda_compiled": false,
+    "cuda_linked": false,
+    "gpu_allocation": false,
+    "scope": "All patched Fortran library sources and main program object against real pinned modules; unresolved C/CUDA interface dependency"
+  },
+  "build_record_sha256": "ee0db48ecb9501ca29362b303d6a892b9020e0ade9cbb1737c934f7a25a00d8f",
+  "initial_failures_preserved": [
+    "First offline scratch tree lacked dependency module sources; populated exact pinned dependencies, no calculation",
+    "Real-module compilation found unconditional write_cdf import when NetCDF4 is disabled; product guard fixed",
+    "Expanded fixture initially attempted to recreate the pytest temporary root; corrected fixture subdirectory"
+  ],
+  "implementation_sha256": {
+    "docs/NATIVE_SOC.md": "f5badaa88dbffbfc773188d98804782fdd5572863ab395c8ed09406dd2c6892d",
+    "docs/SPEC_COMPLETION.md": "f44a7ed53d80a08698ce784f88bb1e66d1673d861a899d1e4594f4f3bb68d7ff",
+    "native/execution.cpp": "a3f44d3c696ccb222cb7bdab9e2926ff35196ea3ce5b60333047549a39d9eab2",
+    "native/execution.hpp": "969c9b7bac3010575fee9aee78912c5bc6d5b918f1fe140999fd22d697bef0cf",
+    "native/nonlocal_h0_state.cpp": "fbd0ab8379a0449a19c61fe48a119ef1a8407f4ef60bcbb79d56c283e437fe6c",
+    "native/nonlocal_h0_state.hpp": "088ad37229ea30e9a5073e68e1362ff4e4ed3f82c9eb63b78f25c3a8b4af4c89",
+    "native/remag_orientations.F90.in": "1f69b948532049778adc4924a416fb4f0bcadfdaa1e3a8585bd77705269ed858",
+    "native/remag_soc_export.F90.in": "7b3582e5d4a97abb230bd93d5e1b62aaf30ee67997039635f08bd58bc0217133",
+    "scripts/check_native_fortran.py": "de11450283a4b0eec10b8d2a2a9bfa75c5d3cab816d0eac01ef98a70438d16aa",
+    "scripts/patch_siesta.py": "37a9a1ea33ef5e13c463689c217e06a21e80a3457794102cc7edef333616adb9",
+    "src/siesta_remag/nonlocal_h0.py": "76197522f07d11e984ea28b75caa4cb52c360f56dc80d382aed663fad4a37593",
+    "src/siesta_remag/research/experiments.py": "aab7bae174f6745cf21bafa876a1a91f97a40d833eaa1a1e11d59689fbf2f0b0",
+    "src/siesta_remag/research/soc.py": "c8bc08b7c3a2a5507edc6ed34c9ea2b0187ba4de91edc30e3b0a0b00df4b1765",
+    "src/siesta_remag/runner.py": "e27e94b19e1bfdbc84a3763caeb904fcc34dd594d56103d95b6eb26d6f6b2aff",
+    "tests/fixtures/soc_export_driver.f90": "ecdd2b714ec8fa1bef59488b68e8c3b161d02bfc0c03d5861462c5740ca24738",
+    "tests/fixtures/soc_export_stubs.f90": "e1567499c39d78e80a8486af8225da6ee30c9be0a717166b2b10ba261db4661f",
+    "tests/fixtures/soc_owner_cuda/cuda_runtime_api.h": "4ba8e96c7795c3f8b3c5eb9e999cd5704de18021719f6b8b3715016e4b6b790b",
+    "tests/fixtures/soc_owner_driver.cpp": "de7be2ca2880d844921a1632740cb8028de6e853318192a0ba025811d4324dc6",
+    "tests/test_nonlocal_h0.py": "10ffe3b1e60b134250465372c8edd7ceb730726c1360ee9901e4cc9399e4b586",
+    "tests/test_patch.py": "fb55901a02ffd9d2fe13e726ed40c5915c01adf64b891f8e785ab5f272c6d883",
+    "tests/test_research_soc.py": "fa0a35d3f1a9122406c4c973d529f04d6eeb0c3dbd30e65c66cd89db1edfd660",
+    "tests/test_soc_device_owner.py": "c45dffcfb1621969318f6f23a52b3f160475445565f675c9417a5bc7c7c3e4bd"
+  },
+  "regression_log_sha256": "4df558f08b8e6f856cb9d994d0ae55be79ff77424ce7a4d5eeb5f18d66bb0bcf",
+  "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "gpac_frozen_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+  "reservations_cents": 29667,
+  "actual_billed_usd": null,
+  "new_native_calculations": 0,
+  "new_gpu_reservations_cents": 0,
+  "remaining": [
+    "CUDA-linked complete application and measured device SOC export",
+    "Live-model/solver empirical workflow, calibrated uncertainty, measured equal-compute advantage and transfer",
+    "Linked band/reciprocal-region workspace views and browser visual acceptance"
+  ],
+  "claims": {
+    "physical_accuracy": false,
+    "latency_target_met": false,
+    "speedup": false,
+    "production_gpu_export_verified": false,
+    "spec_complete": false
+  }
+}

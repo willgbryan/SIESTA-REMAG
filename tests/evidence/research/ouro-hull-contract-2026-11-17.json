@@ -1,0 +1,767 @@
+{
+  "id": "75fe7f4b-22f5-4883-aa1d-378fd42da47c",
+  "parent_id": "9c71b718-32fa-4fc1-855f-688aa363b663",
+  "org_id": "00000000-0000-0000-0000-000000000000",
+  "team_id": "01956d7e-7f02-7715-9a89-1f847181e199",
+  "visibility": "public",
+  "monetization": "pay-per-use",
+  "price_currency": "btc",
+  "price": 0.0,
+  "price_usd": null,
+  "price_sats": null,
+  "unit_cost": 0.0,
+  "unit_cost_usd": null,
+  "unit_cost_sats": null,
+  "cost_accounting": "fixed",
+  "cost_unit": null,
+  "max_billable_seconds": null,
+  "route": {
+    "description": "Assess the thermodynamic stability of a crystal structure by computing its energy above the convex hull of every structure in Ouro's crystal database: Materials Project, Alexandria and GNoME phases, structures generated on Ouro, and structures submitted earlier. Choose the energy surface: Orb v3 (default), where every reference is scored with the model that scores your structure; PBE, the published DFT energies with your structure scored by Orb v3; or Prophet OAME-MBD, like Orb v3 but with every energy from Prophet (on a GPU; a system's first Prophet hull scores its references). MP2020 corrections are applied on all three. Upload an already-relaxed CIF so the result refers to that geometry; inputs whose max force on an atom or on the cell (stress \u00d7 volume per atom, as ASE's FrechetCellFilter counts it) is over 0.05 eV/\u00c5 are rejected unless `allow_unrelaxed` is set (which relaxes with the surface's model first). A structure the database does not have yet is added to it. Also rejects overlapping-atom CIFs unless `bypass_cif_health_screen` is set. Returns e_above_hull (eV/atom), decomposition products and formation energy; set `include_phase_diagram` for an interactive phase diagram too.",
+    "path": "/crystal-db/ehull",
+    "method": "POST",
+    "parameters": [
+      {
+        "in": "header",
+        "name": "ouro-route-id",
+        "schema": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ouro-Route-Id"
+        },
+        "required": false
+      },
+      {
+        "in": "header",
+        "name": "ouro-route-org-id",
+        "schema": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ouro-Route-Org-Id"
+        },
+        "required": false
+      },
+      {
+        "in": "header",
+        "name": "ouro-route-team-id",
+        "schema": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ouro-Route-Team-Id"
+        },
+        "required": false
+      },
+      {
+        "in": "header",
+        "name": "ouro-action-id",
+        "schema": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ouro-Action-Id"
+        },
+        "required": false
+      },
+      {
+        "in": "header",
+        "name": "ouro-webhook-url",
+        "schema": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ouro-Webhook-Url"
+        },
+        "required": false
+      },
+      {
+        "in": "header",
+        "name": "ouro-webhook-token",
+        "schema": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ouro-Webhook-Token"
+        },
+        "required": false
+      }
+    ],
+    "request_body": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "title": "EhullRequest",
+            "required": [
+              "structure"
+            ],
+            "properties": {
+              "structure": {
+                "type": "object",
+                "title": "StructureFile",
+                "required": [
+                  "url",
+                  "filename"
+                ],
+                "properties": {
+                  "id": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Id"
+                  },
+                  "url": {
+                    "type": "string",
+                    "title": "Url",
+                    "format": "uri",
+                    "maxLength": 2083,
+                    "minLength": 1
+                  },
+                  "name": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Name"
+                  },
+                  "org_id": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Org Id"
+                  },
+                  "team_id": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Team Id"
+                  },
+                  "filename": {
+                    "type": "string",
+                    "title": "Filename",
+                    "pattern": "(?i).+\\.cif$"
+                  },
+                  "upload_id": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Upload Id"
+                  },
+                  "visibility": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Visibility"
+                  },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Description"
+                  }
+                },
+                "description": "A CIF, as Ouro resolves the ``structure`` input: a file asset, or an\nupload made for this run that never became one (``upload_id`` set, the\nasset fields null)."
+              },
+              "energy_cutoff": {
+                "type": "number",
+                "title": "Energy cutoff",
+                "default": 0.5,
+                "maximum": 2,
+                "minimum": 0,
+                "description": "With include_phase_diagram, the highest energy above the hull (eV/atom, 0.0-2.0) of the unstable phases shown in the plot"
+              },
+              "energy_surface": {
+                "enum": [
+                  "orb-v3-conservative-inf-mpa",
+                  "pbe",
+                  "prophet-oame-mbd"
+                ],
+                "type": "string",
+                "title": "Energy surface",
+                "default": "orb-v3-conservative-inf-mpa",
+                "description": "Energies the hull is built from. orb-v3-conservative-inf-mpa: every reference scored with Orb v3 (MPA), the same model that scores your structure, so systematic model errors largely cancel. pbe: the Materials Project and Alexandria PBE/PBE+U energies, with your structure scored by Orb v3; covers every published phase, but model error does not cancel. prophet-oame-mbd: like Orb v3, every reference and your structure scored with Prophet OAME-MBD (Kairos Materials' Matbench Discovery checkpoint), on a GPU; a system's first Prophet hull scores its references and takes longer. All apply MP2020 corrections."
+              },
+              "allow_unrelaxed": {
+                "type": "boolean",
+                "title": "Allow unrelaxed input",
+                "default": false,
+                "description": "If false (default), reject inputs whose max force, on an atom or on the cell (stress \u00d7 volume per atom), exceeds 0.05 eV/\u00c5, so e_above_hull is for the uploaded CIF. If true, relax it first with the surface's model (Orb v3, or Prophet on the Prophet surface); the result then refers to the relaxed geometry, not the raw upload."
+              },
+              "include_generated_p1": {
+                "type": "boolean",
+                "title": "Include generated P1 structures",
+                "default": false,
+                "description": "Also put generated (GGen, Matra-Genoa) structures in space group P1 on the hull. Off by default: they are mostly symmetry-broken leftovers. Published P1 phases are always included."
+              },
+              "include_phase_diagram": {
+                "type": "boolean",
+                "title": "Include phase diagram",
+                "default": false,
+                "description": "Also save an interactive phase diagram of the chemical system as an Ouro file. Off by default: the energy above the hull, decomposition and formation energy are always in the response."
+              },
+              "include_user_materials": {
+                "type": "boolean",
+                "title": "Include user materials",
+                "default": true,
+                "description": "Include structures earlier submitted to Ouro in the hull. Only applies to MLIP surfaces."
+              },
+              "bypass_cif_health_screen": {
+                "type": "boolean",
+                "title": "Bypass CIF health screen",
+                "default": false,
+                "description": "Skip CIF validity checks (partial occupancies, overlapping atoms closer than 0.5 \u00c5). Use only when you have already validated the structure."
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "EhullResponse",
+              "required": [
+                "e_above_hull",
+                "predicted_stable",
+                "decomposition",
+                "formation_energy_per_atom",
+                "is_terminal_entry",
+                "lowest_energy_at_composition",
+                "input_is_lowest_energy",
+                "num_entries_at_composition",
+                "same_composition_entries",
+                "formula",
+                "energy_surface",
+                "input_model",
+                "correction_per_atom",
+                "num_reference_entries",
+                "references_by_source",
+                "num_user_contributions",
+                "user_contribution_ids",
+                "stored"
+              ],
+              "properties": {
+                "file": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "title": "OutputFile",
+                      "required": [
+                        "asset_type",
+                        "name",
+                        "description",
+                        "type",
+                        "extension",
+                        "filename",
+                        "base64"
+                      ],
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "title": "Name"
+                        },
+                        "type": {
+                          "type": "string",
+                          "title": "Type"
+                        },
+                        "base64": {
+                          "type": "string",
+                          "title": "Base64"
+                        },
+                        "org_id": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "Org Id"
+                        },
+                        "team_id": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "Team Id"
+                        },
+                        "filename": {
+                          "type": "string",
+                          "title": "Filename"
+                        },
+                        "extension": {
+                          "type": "string",
+                          "title": "Extension"
+                        },
+                        "asset_type": {
+                          "type": "string",
+                          "title": "Asset Type"
+                        },
+                        "license_id": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "License Id"
+                        },
+                        "visibility": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "Visibility"
+                        },
+                        "attribution": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "additionalProperties": true
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "Attribution"
+                        },
+                        "description": {
+                          "type": "string",
+                          "title": "Description"
+                        }
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "The phase diagram, when include_phase_diagram is set"
+                },
+                "stored": {
+                  "type": "string",
+                  "title": "Stored",
+                  "description": "What happened to the input in the database: added (new), updated (this file was submitted before) or exists (an equal structure was already stored, so it was not added again)"
+                },
+                "formula": {
+                  "type": "string",
+                  "title": "Formula"
+                },
+                "input_model": {
+                  "type": "string",
+                  "title": "Input Model",
+                  "description": "MLIP that scored the input structure"
+                },
+                "relaxed_cif": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Relaxed Cif",
+                  "description": "With allow_unrelaxed, the relaxed geometry the hull refers to, as CIF text (no asset is made; null when the input was already relaxed)"
+                },
+                "space_group": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Space Group",
+                  "description": "Its international symbol"
+                },
+                "e_above_hull": {
+                  "type": "number",
+                  "title": "E Above Hull"
+                },
+                "decomposition": {
+                  "type": "object",
+                  "title": "Decomposition",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "energy_surface": {
+                  "type": "string",
+                  "title": "Energy Surface"
+                },
+                "predicted_stable": {
+                  "type": "boolean",
+                  "title": "Predicted Stable"
+                },
+                "is_terminal_entry": {
+                  "type": "boolean",
+                  "title": "Is Terminal Entry"
+                },
+                "space_group_number": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Space Group Number",
+                  "description": "Space group of the scored geometry (after the relaxation, if one ran)"
+                },
+                "correction_per_atom": {
+                  "type": "number",
+                  "title": "Correction Per Atom",
+                  "description": "MP2020 correction applied to the input's energy (eV/atom)"
+                },
+                "references_by_source": {
+                  "type": "object",
+                  "title": "References By Source",
+                  "additionalProperties": {
+                    "type": "integer"
+                  }
+                },
+                "num_reference_entries": {
+                  "type": "integer",
+                  "title": "Num Reference Entries"
+                },
+                "user_contribution_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "User Contribution Ids"
+                },
+                "input_is_lowest_energy": {
+                  "type": "boolean",
+                  "title": "Input Is Lowest Energy"
+                },
+                "num_missing_references": {
+                  "type": "integer",
+                  "title": "Num Missing References",
+                  "default": 0,
+                  "description": "Reference phases near the PBE hull still without an energy on this surface (left out of the hull)"
+                },
+                "num_user_contributions": {
+                  "type": "integer",
+                  "title": "Num User Contributions"
+                },
+                "num_relaxed_for_this_run": {
+                  "type": "integer",
+                  "title": "Num Relaxed For This Run",
+                  "default": 0,
+                  "description": "Reference phases near the PBE hull that had no energy on this surface yet and were scored for this run"
+                },
+                "same_composition_entries": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Same Composition Entries"
+                },
+                "formation_energy_per_atom": {
+                  "type": "number",
+                  "title": "Formation Energy Per Atom"
+                },
+                "num_entries_at_composition": {
+                  "type": "integer",
+                  "title": "Num Entries At Composition"
+                },
+                "lowest_energy_at_composition": {
+                  "type": "object",
+                  "title": "LowestEnergyEntry",
+                  "required": [
+                    "energy",
+                    "material_id"
+                  ],
+                  "properties": {
+                    "energy": {
+                      "type": "number",
+                      "title": "Energy"
+                    },
+                    "material_id": {
+                      "type": "string",
+                      "title": "Material Id"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Successful Response"
+      },
+      "422": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "HTTPValidationError",
+              "properties": {
+                "detail": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "title": "ValidationError",
+                    "required": [
+                      "loc",
+                      "msg",
+                      "type"
+                    ],
+                    "properties": {
+                      "ctx": {
+                        "type": "object",
+                        "title": "Context"
+                      },
+                      "loc": {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "integer"
+                            }
+                          ]
+                        },
+                        "title": "Location"
+                      },
+                      "msg": {
+                        "type": "string",
+                        "title": "Message"
+                      },
+                      "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                      },
+                      "input": {
+                        "title": "Input"
+                      }
+                    }
+                  },
+                  "title": "Detail"
+                }
+              }
+            }
+          }
+        },
+        "description": "Validation Error"
+      }
+    },
+    "security": null,
+    "input_assets": {
+      "structure": {
+        "asset_type": "file",
+        "asset_types": null,
+        "primary": null,
+        "input_filter": null,
+        "file_extensions": [
+          "cif"
+        ],
+        "contains_file_extensions": null
+      }
+    },
+    "input_type": "file",
+    "input_filter": null,
+    "input_file_extension": "cif",
+    "input_file_extensions": [
+      "cif"
+    ],
+    "output_type": "file",
+    "output_assets": {
+      "file": {
+        "asset_type": "file",
+        "primary": true,
+        "file_extensions": [
+          "phasediagram"
+        ],
+        "contains_file_extensions": null,
+        "when": {
+          "include_phase_diagram": true
+        },
+        "optional": null,
+        "embedded_in": null,
+        "role": null
+      }
+    },
+    "output_file_extension": "phasediagram",
+    "properties": [
+      {
+        "property": "energy_above_hull",
+        "value": "e_above_hull",
+        "unit": "eV/atom",
+        "uncertainty": null,
+        "subject": null,
+        "method": "Orb v3 hull",
+        "conditions": null,
+        "when": {
+          "energy_surface": "orb-v3-conservative-inf-mpa"
+        },
+        "requires": null
+      },
+      {
+        "property": "energy_above_hull",
+        "value": "e_above_hull",
+        "unit": "eV/atom",
+        "uncertainty": null,
+        "subject": null,
+        "method": "PBE hull",
+        "conditions": null,
+        "when": {
+          "energy_surface": "pbe"
+        },
+        "requires": null
+      },
+      {
+        "property": "energy_above_hull",
+        "value": "e_above_hull",
+        "unit": "eV/atom",
+        "uncertainty": null,
+        "subject": null,
+        "method": "Prophet hull",
+        "conditions": null,
+        "when": {
+          "energy_surface": "prophet-oame-mbd"
+        },
+        "requires": null
+      },
+      {
+        "property": "formation_energy",
+        "value": "formation_energy_per_atom",
+        "unit": "eV/atom",
+        "uncertainty": null,
+        "subject": null,
+        "method": "Orb v3 hull",
+        "conditions": null,
+        "when": {
+          "energy_surface": "orb-v3-conservative-inf-mpa"
+        },
+        "requires": null
+      },
+      {
+        "property": "formation_energy",
+        "value": "formation_energy_per_atom",
+        "unit": "eV/atom",
+        "uncertainty": null,
+        "subject": null,
+        "method": "PBE hull",
+        "conditions": null,
+        "when": {
+          "energy_surface": "pbe"
+        },
+        "requires": null
+      },
+      {
+        "property": "formation_energy",
+        "value": "formation_energy_per_atom",
+        "unit": "eV/atom",
+        "uncertainty": null,
+        "subject": null,
+        "method": "Prophet hull",
+        "conditions": null,
+        "when": {
+          "energy_surface": "prophet-oame-mbd"
+        },
+        "requires": null
+      }
+    ],
+    "response_charts": [],
+    "capabilities": {
+      "text_translate_v1": null,
+      "text_speech_v1": null,
+      "speech_transcribe_v1": null
+    },
+    "rate_limit": null,
+    "execution_mode": "async",
+    "observed_execution_mode": "async",
+    "cancel_path": null,
+    "id": "75fe7f4b-22f5-4883-aa1d-378fd42da47c",
+    "name": "Calculate energy above the convex hull",
+    "user_id": "847f4445-78ee-41b1-913b-5bd155c71b13",
+    "service_id": "9c71b718-32fa-4fc1-855f-688aa363b663",
+    "last_updated": "2026-10-19T19:30:05.323+00:00",
+    "execution_mode_mismatch": false
+  }
+}

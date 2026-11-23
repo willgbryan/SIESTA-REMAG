@@ -1,0 +1,129 @@
+{
+  "format": "REMAG-RECIPROCAL-WORKSPACE-EVIDENCE/1",
+  "date": "2026-11-15",
+  "requirements": [
+    "5.1",
+    "8",
+    "9",
+    "10"
+  ],
+  "base_remag_commit": "48dcfe86577dab95c5216b6732abc5173a2ee0b7",
+  "gpac_commit": "44f32c28830e5ec9a6cab2731ab8bb8e78adb314",
+  "delivered": [
+    "Periodic reciprocal-region selection shared by electronic inspection, DOS and comparison",
+    "Native-report/HSX/KP/EIG-bound saved band-path artifacts with Cartesian path metric and segment breaks",
+    "Linked band/k/state and atom/orbit/motif weights, occupation and spin views; regional signed DOS without weight renormalization",
+    "Full sampled browser bounds, explicit empty regions, keyboard controls, shared-array transport and metadata-bound cache resets"
+  ],
+  "tests": {
+    "regression": "546 passed, 4 deselected in 91.64s (0:01:31)",
+    "focused": "92 passed, 4 unchanged loopback HTTP tests deselected in 39.74s",
+    "final_native_and_client": "12 passed in 5.10s before final metadata-cache binding; final full regression includes that binding",
+    "controls": [
+      "Periodic center translations, retained partial k weights, empty selections and boundary-membership disagreement",
+      "Skew-cell reciprocal metric, repeated endpoints, path breaks and invalid indices",
+      "Actual CLI and local agent dispatch; scalar/held-out restrictions and failed branches",
+      "Native HSX mismatch and replaced-but-internally-consistent spectrum reject before output",
+      "Shipped JavaScript with DOM/canvas doubles: regional DOS, signed projection, keyboard selection, metadata reset and empty data",
+      "Native 8-cubed saved client numerical DOS independently reproduced by Python"
+    ],
+    "browser_visual_acceptance": false
+  },
+  "saved_demonstration": {
+    "format": "REMAG-SAVED-RECIPROCAL-DEMO/1",
+    "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+    "report_sha256": "8dc28a82f5476a67b08f8090395b8d5dbfbbc4b8467543d3d3c35ef05d38b686",
+    "hsx_sha256": "0faf0e7bea300a492eae70c71d209cd533a3ce75e39d123328d6dd2b091df03f",
+    "spectrum_sha256": "cddafdd6867a89f22822cd9598409ef09448a978add4bbf663f8f31e85dccd12",
+    "native_k_count": 512,
+    "band_count": 60,
+    "native_max_abs_error_ev": 5.651229113468048e-05,
+    "path_k_indices": [
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223
+    ],
+    "path_distance_inv_angstrom": 2.0138414467650665,
+    "band_artifact_sha256": "01a6c01db8521f5c7d79377746bfed1f42683393cb4732d12f836776ebdefd58",
+    "region": {
+      "center": [
+        0,
+        0,
+        0
+      ],
+      "half_width": [
+        0.126,
+        0.126,
+        0.126
+      ]
+    },
+    "selected_k_weight": 0.052734375,
+    "matching_states": 366,
+    "returned_states": 40,
+    "original_file_count": 422,
+    "original_hash_manifest_sha256": "df7926d488c07b8be7c70c03cff81bc9b9148f5b5bbaa4b7d071088870d99b60",
+    "original_files_unchanged": true,
+    "workspace": {
+      "format": "REMAG-WORKSPACE-SNAPSHOT/1",
+      "path": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/outputs/Spec-reciprocal-workspace-2026-11-15-r3.html",
+      "sha256": "9e22bcefe82cd0f434ddb6e56eb698bcb051939f5423a699009851a4fdfbeab7"
+    },
+    "browser_visual_acceptance": false,
+    "new_native_calculations": 0,
+    "new_gpu_reservations_cents": 0,
+    "scope": "Postprocessing saved finite 8-cubed DZP REMAG data. This coarse configuration is not calibrated or physically qualified. Band ranks are not tracked orbital identities.",
+    "previous_snapshot": {
+      "format": "REMAG-WORKSPACE-SNAPSHOT/1",
+      "path": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/outputs/Spec-reciprocal-workspace-2026-11-15.html",
+      "sha256": "665f3eb0db11eb726dc940b21cb08d112651093831a8be1bb1a7610acb4f5ee2"
+    },
+    "workspace_bytes": 15541828,
+    "reproduced_native_sampling": true,
+    "band_output": "outputs/FePt-saved-band-path-2026-11-15/bands.json",
+    "previous_compact_snapshot": {
+      "format": "REMAG-WORKSPACE-SNAPSHOT/1",
+      "path": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/outputs/Spec-reciprocal-workspace-2026-11-15-r2.html",
+      "sha256": "069ed48d04f2eb9e3c0afa3ca603e9d5e6ad621a8acb1195d22ea5a0cedcdfda"
+    },
+    "saved_client_check": {
+      "selected_k_count": 27,
+      "dos_max_abs_error_states_per_ev": 1.942890293094024e-16,
+      "original_weights_retained": true,
+      "source": "Shipped JavaScript executed with DOM/canvas doubles against the saved 8-cubed dataset; not browser visual acceptance"
+    }
+  },
+  "source_sha256": {
+    "docs/RECIPROCAL_WORKSPACE.md": "c61d9ae78497cec599a341be713e7a4cb58b6b855cb7e239d4dec613b4ab4cc6",
+    "docs/SPEC_COMPLETION.md": "1fc8fcc5bbf2544fa8758f8fcbb5a3fc6039d624eddab07fbf2a515406853365",
+    "docs/WORKSPACE_RESEARCH.md": "394e6241873d55a2f102b81f86b1a410bfb48719eac7dea8199b84ed2e6630cd",
+    "src/siesta_remag/research/__main__.py": "3981b2f40f6bbd75f1a2f1d7221849cb446b38481695502e2ddbe97eff21dbe1",
+    "src/siesta_remag/research/catalog.py": "f82ae3714c2b0021305a43225dd689b8d90d60dc7217a3c11acd4f092169990b",
+    "src/siesta_remag/research/inspection.py": "2c94073fcde3479c2c090db683583f9bd54d7a41ba64d01c90ed25b3082898c5",
+    "src/siesta_remag/research/reciprocal.py": "10b0f84c1ff793a05b9ca080a22ec1f1ad9f92d53cea63ef7faf7648485d6f11",
+    "src/siesta_remag/research/tools.py": "5a95183edb620043220d6e19052d048db0ae00dad855f40c2a4a94b837dad5c5",
+    "src/siesta_remag/research/workspace.html": "1cefbf1a73a94049dd6c4d707ddf90fb7e265cf305fc71d3e1d97e50d7ad1eb5",
+    "src/siesta_remag/research/workspace.py": "dfdca6453b470cd4785f7d46b20200a3b61eb13ddf7bf0036bdeea72b1c965c8",
+    "tests/fixtures/workspace_reciprocal_dom.cjs": "26732fbea095308a4b4e89489cc54dcf682fde201128238448a3c70f3e8df743",
+    "tests/test_research_reciprocal.py": "ccfce208c6d9e15b81b9c49d0a20d0c1fec8eba0ace84950d1fced8fc735d387"
+  },
+  "regression_log_sha256": "66de839e2e799dc68fad42e5b9fac8e907f362202dce5093e30a895dc18577ad",
+  "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "frozen_gpac_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+  "new_native_calculations": 0,
+  "new_gpu_reservations_cents": 0,
+  "reservations_cents": 29667,
+  "actual_billed_usd": null,
+  "remaining": [
+    "Browser visual acceptance",
+    "Tracked band identities or unsampled intermediate eigenvalues",
+    "Live-model/solver empirical research, uncertainty calibration, equal-compute comparison and independent transfer validation"
+  ],
+  "physical_accuracy_qualified": false,
+  "exploratory_latency_target_met": false,
+  "spec_complete": false
+}

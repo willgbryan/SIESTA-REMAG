@@ -25,6 +25,7 @@ struct Record {
     size_t staged=0,allocated=0,exported=0,raw_bytes=0;
     bool compared=false,passed=false,bound=false,force_borrowed=false,complete=false,energy_only_complete=false;
     bool production=false,scf_borrowed=false,scf_released=false,poison_requested=false,host_poisoned=false;
+    size_t soc_export_bytes=0;
     int query_expansion_nodes=0;bool compact_queries=false;
     double scalar_error=0.,soc_error=0.;std::string file;
     double geometry_prepare=-1.,owner_prepare=-1.,graph_execution=-1.,validation_export=-1.;
@@ -48,6 +49,7 @@ struct Evidence {
             std::fprintf(f,",\"compact_queries\":%s,\"query_expansion_nodes\":%d",r.compact_queries?"true":"false",r.query_expansion_nodes);
             std::fprintf(f,",\"production\":%s,\"scf_borrowed\":%s,\"scf_released\":%s,\"energy_only_complete\":%s",
                 r.production?"true":"false",r.scf_borrowed?"true":"false",r.scf_released?"true":"false",r.energy_only_complete?"true":"false");
+            std::fprintf(f,",\"soc_export_bytes\":%zu",r.soc_export_bytes);
             std::fprintf(f,",\"poison_requested\":%s,\"host_poisoned\":%s,\"setup_timing_seconds\":{",
                 r.poison_requested?"true":"false",r.host_poisoned?"true":"false");
             const char* timing_names[]={"geometry_preparation_and_staging","owner_preparation","graph_launch_and_wait","validation_and_export"};
@@ -247,6 +249,29 @@ extern "C" int remag_nonlocal_h0_enabled(){return remag::nonlocal_h0_enabled();}
 extern "C" int remag_nonlocal_h0_active(){return remag::nonlocal_h0_active();}
 extern "C" int remag_nonlocal_h0_poison_enabled(){return remag::nonlocal_h0_poison_enabled();}
 
+extern "C" uint64_t remag_soc_geometry_epoch(){return remag::geometry_epoch();}
+extern "C" int remag_nonlocal_h0_soc_export(int rows,int columns,int capacity,
+        const int* num,const int* ptr,const int* list,remag::H0Complex* output,uint64_t* epoch){
+    try{
+        auto& r=remag::current();auto& s=*remag::state;
+        remag::require(r.production&&r.bound&&r.passed&&r.status==0&&r.consumer==3&&
+            r.scf_borrowed&&r.scf_released&&!r.force_borrowed&&!r.complete&&!r.soc_export_bytes&&
+            r.epoch==remag::geometry_epoch()&&r.rows==rows&&r.columns==columns&&r.capacity==capacity&&
+            s.z&&output&&epoch,"Invalid post-SCF SOC export lease");
+        remag::validate_nonlocal_h0_topology(rows,columns,capacity,num,ptr,list);
+        // No scalar H0 download and no publication into the host H0 arrays.
+        // The caller owns this separate snapshot after the force owner is freed.
+        const size_t count=4*size_t(capacity),bytes=count*sizeof(remag::H0Complex);
+        std::vector<remag::H0Complex> snapshot(count);
+        remag::check(cudaMemcpy(snapshot.data(),s.z,bytes,cudaMemcpyDeviceToHost));
+        remag::transfer(remag::Transfer::soc_operator_output,false,bytes);
+        r.soc_export_bytes=bytes;
+        remag::require(std::all_of(snapshot.begin(),snapshot.end(),[](auto v){return std::isfinite(v.real)&&std::isfinite(v.imag);}),
+            "Nonfinite device SOC diagnostic");
+        std::copy(snapshot.begin(),snapshot.end(),output);*epoch=r.epoch;return 0;
+    }catch(const std::exception& e){std::fprintf(stderr,"REMAG SOC device export: %s\n",e.what());return -281;}
+}
+
 extern "C" int remag_reuse_nonlocal_h0() {
     try {
         auto& old=remag::current();auto& s=*remag::state;
@@ -258,6 +283,7 @@ extern "C" int remag_reuse_nonlocal_h0() {
         auto next=old;next.preparation_epoch=old.epoch;next.epoch=remag::geometry_epoch();
         next.scf_borrowed=false;next.scf_released=false;next.force_borrowed=false;next.complete=false;next.energy_only_complete=false;
         next.staged=0;next.allocated=0;next.exported=0;
+        next.soc_export_bytes=0;
         next.geometry_prepare=-1.;next.owner_prepare=-1.;next.graph_execution=-1.;next.validation_export=-1.;
         s.record=remag::evidence().rows.size();remag::evidence().rows.push_back(next);return 0;
     }catch(const std::exception& e){std::fprintf(stderr,"REMAG H0 geometry reuse: %s\n",e.what());return -280;}

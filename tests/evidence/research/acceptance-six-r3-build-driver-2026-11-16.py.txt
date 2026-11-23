@@ -1,0 +1,52 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import hashlib,json,os,signal,subprocess,sys,time
+from siesta_remag.research.execution import ModalExecution
+from siesta_remag.research.budget import BudgetLedger
+
+W=Path(__file__).resolve().parent;A=W/'acceptance-six-r3';R=W/'SIESTA-REMAG'
+load=lambda p:json.loads(p.read_text())
+def save(p,d):p.write_text(json.dumps(d,indent=2)+'\n')
+assert not (A/'build-driver.json').exists(), 'Do not restart the single build driver'
+transport=ModalExecution(R)
+prior=transport.info('ap-8xkt2QwlHN9AGD6ygr9oou')
+assert prior['lifecycle']['state'].lower()=='stopped'
+save(A/'prior-app.json',prior)
+preflight=load(A/'preflight.json')
+for name,digest in preflight['helpers'].items():
+ assert hashlib.sha256((W/name).read_bytes()).hexdigest()==digest
+state={'status':'starting','started_at':datetime.now(timezone.utc).isoformat(),'pid':os.getpid(),'allocation_stopped':False}
+save(A/'build-driver.json',state)
+command=[sys.executable,'scripts/run_modal.py','--module-file','scripts/acceptance_build_repaired_modal.py']
+env=dict(os.environ,REMAG_ACCEPTANCE_ROOT=str(A))
+start=time.monotonic()
+try:
+ with (A/'build-launch.stdout').open('x') as out,(A/'build-launch.stderr').open('x') as err:
+  p=subprocess.Popen(command,cwd=R,env=env,stdout=out,stderr=err,start_new_session=True)
+  state['client_pid']=p.pid;save(A/'build-driver.json',state)
+  try:code=p.wait(timeout=1500)
+  except BaseException:
+   os.killpg(p.pid,signal.SIGTERM)
+   try:p.wait(timeout=5)
+   except subprocess.TimeoutExpired:os.killpg(p.pid,signal.SIGKILL);p.wait()
+   raise
+  state['client_exit_code']=code
+  state['status']='collected' if code==0 else 'held_launch_or_collection'
+except BaseException as exc:
+ state.update(status='held_client',error={'type':type(exc).__name__,'message':str(exc)})
+finally:
+ receipt=A/'build-receipt.json'
+ if receipt.exists():
+  try:
+   row=load(receipt);ledger=BudgetLedger(W/'acceptance-six-r1/budget.json')
+   matching=[r for r in ledger.snapshot()['reservations'] if r['id']==row['run_id']]
+   assert len(matching)==1 and matching[0]['metadata']['app_id']==row['app_id'] and matching[0]['metadata']['receipt']==str(receipt)
+   life=transport.stopped(row['app_id']);state.update(app_id=row['app_id'],allocation_stopped=True,lifecycle=life['lifecycle'])
+   ledger.record(row['run_id'],{'status':'stopped','lifecycle':life['lifecycle']})
+   save(A/'build-app-stopped.json',life)
+   if (A/'build-collected/build-result.json').exists():state['build_status']=load(A/'build-collected/build-result.json')['status']
+  except Exception as exc:state.update(status='held_shutdown',shutdown_error=str(exc))
+ state['elapsed_seconds']=time.monotonic()-start;state['finished_at']=datetime.now(timezone.utc).isoformat()
+ save(A/'build-driver.json',state)
+ print(json.dumps(state),flush=True)
+if state.get('build_status')!='built' or not state['allocation_stopped']:raise SystemExit(2)

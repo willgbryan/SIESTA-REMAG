@@ -1,0 +1,105 @@
+"""Offline, read-only symbolization; never loads or executes the saved ELF files."""
+from pathlib import Path
+import hashlib,json,re,subprocess,tarfile
+W=Path(__file__).resolve().parents[1];R=W/'SIESTA-REMAG';A=W/'acceptance-two-r6';B=W/'acceptance-six-r3/published-build'
+read=lambda p:json.loads(p.read_text())
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+run=lambda *args:subprocess.check_output(args,text=True)
+exe=B/'siesta';lib=B/'libremag_gpu.so';runtime=read(A/'runtime-built.json')
+assert sha(exe)==runtime['executable_sha256']
+assert sha(lib)==runtime['capabilities']['library_sha256']
+assert runtime==read(W/'acceptance-six-r4/runtime-built.json')
+
+def symbols(path):
+    result=[]
+    for line in run('nm','-n','-S',str(path)).splitlines():
+        p=line.split()
+        if len(p)==4 and re.fullmatch('[0-9a-fA-F]+',p[0]) and re.fullmatch('[0-9a-fA-F]+',p[1]):
+            result.append((int(p[0],16),int(p[1],16),p[3]))
+    return result
+
+def call(path,pc):
+    # gfortran's backtrace reports the return PC minus one. The x86-64 E8
+    # direct-call instruction occupies the five bytes ending at this address.
+    for length in [5,6]:
+        text=run('objdump','-d',f'--start-address={pc+1-length}',f'--stop-address={pc+1}',str(path))
+        if re.search(r'\b(?:e8|ff)\b.*\bcallq?\b',text):return text.strip()
+    raise AssertionError(text)
+
+def names(table,offset):
+    return [name for begin,size,name in table if begin<=offset<begin+size]
+
+stderr=A/'native/fresh-minus-k12/scalar/stderr.log'
+frames={int(i):int(pc,16) for i,pc in re.findall(r'^#(\d+)\s+(0x[0-9a-f]+)',stderr.read_text(),re.M)}
+es=symbols(exe);ls=symbols(lib)
+start=next(x for x,n,name in es if name=='_start')
+# The saved _start call to __libc_start_main returns at _start+0x25.
+ebase=frames[22]-(start+0x24);assert ebase%4096==0
+assert names(es,frames[19]-ebase)==['main']
+assert names(es,frames[18]-ebase)==['__m_siesta_forces_MOD_siesta_forces']
+assert names(es,frames[17]-ebase)==['__m_remag_cycle_MOD_remag_cycle_run']
+prepare=next((x,n) for x,n,name in ls if name=='remag_cycle_prepare')
+candidates=[]
+for offset in range(prepare[0],sum(prepare)):
+    base=frames[16]-offset
+    if base%4096:continue
+    expected={13:'_ZN5remag12ScfCyclePlan4Impl5buildEv',
+              14:'_ZN5remag12ScfCyclePlan4ImplC1ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st',
+              15:'_ZN5remag12ScfCyclePlanC1ERKNS_13ScfCycleShapeERKNS_16ScfCycleBindingsERKNS_17ScfControlProblemEP11CUstream_st',
+              16:'remag_cycle_prepare'}
+    if all(name in names(ls,frames[i]-base) for i,name in expected.items()):candidates.append(base)
+assert candidates==[0x2b32159a6000],candidates
+lbase=candidates[0]
+chain=[]
+for i in [22,19,18,17,16,15,14,13]:
+    path,base,table=(exe,ebase,es) if i>=17 else (lib,lbase,ls)
+    offset=frames[i]-base
+    chain.append(dict(frame=i,address=hex(frames[i]),ELF_relative_pc=hex(offset),
+        binary=path.name,symbols=names(table,offset),call_disassembly=call(path,offset)))
+# Resolve the two critical PLT slots through relocation records, not symbol-name guessing.
+links=[(exe,0xdc10,'7c5918','remag_cycle_prepare'),(lib,0x34d20,'3cb560','cudaGraphInstantiate')]
+plt=[]
+for path,address,slot,callee in links:
+    text=run('objdump','-d',f'--start-address={address}',f'--stop-address={address+16}',str(path))
+    assert '0x'+slot in text
+    relocation=next(line for line in run('objdump','-R',str(path)).splitlines() if line.split() and line.split()[0].lstrip('0')==slot)
+    assert callee in relocation
+    plt.append(dict(binary=path.name,callee=callee,disassembly=text.strip(),relocation=relocation))
+assert '0xdc10' in chain[3]['call_disassembly']
+assert '0x34d20' in chain[-1]['call_disassembly']
+source={}
+with tarfile.open(W/'acceptance-six-r3/build-input/native.tar.gz') as t:
+    for name in ['scf_cycle.cu','scf_cycle_state.cpp','remag_cycle.F90.in','block_jacobi.cu','scf_control.cu']:
+        data=t.extractfile('native/'+name).read()
+        assert data==(R/'native'/name).read_bytes(),name
+        source['native/'+name]=hashlib.sha256(data).hexdigest()
+controls=[]
+for name in ['baseline-k12','minus-k12','plus-k12']:
+    d=W/'acceptance-six-r4/native'/name/'scalar';result=read(d/'result.json')
+    cycle=read(d/'remag-device-scf.json')['cycles'][0]
+    assert result['returncode']==0 and cycle['converged'] and cycle['graph_nodes']==120985
+    assert cycle['eigensystems']['jobs']==1896 and cycle['eigensystems']['solver_lanes']==8
+    controls.append(dict(case=name,returncode=result['returncode'],native_seconds=result['wall_seconds'],
+        graph_nodes=cycle['graph_nodes'],jobs=1896,solver_lanes=8,iterations=cycle['iterations'],
+        files={str(p.relative_to(W)):sha(p) for p in [d/'result.json',d/'remag-device-scf.json',d/'input.fdf']}))
+result=read(A/'native/fresh-minus-k12/scalar/result.json')
+assert result['returncode']==-11 and not result['timed_out']
+report=dict(format='REMAG-SAVED-NATIVE-CRASH-DIAGNOSIS/1',status='callsite_proved_cause_unresolved',
+    executable_sha256=sha(exe),library_sha256=sha(lib),stderr_sha256=sha(stderr),
+    executable_load_bias=hex(ebase),library_load_bias=hex(lbase),call_chain=chain,PLT_bindings=plt,
+    archived_native_source_matches=source,successful_same_binary_runtime_controls=controls,
+    known=dict(signal='SIGSEGV',failing_API='cudaGraphInstantiate',SCF_iterations=0,SOC_stages=0,
+        wall_seconds=result['wall_seconds'],runtime_identical_to_successful_r4=True,
+        failed_input_difference='Only the axial lattice constant changes versus successful r4 minus-k12.',
+        capacity_limit_is_not_a_diagnosis=True),
+    unresolved=['Faulting driver instruction has no saved module map or driver library.',
+        'No core dump or CUDA-driver version was retained.',
+        'A driver defect, earlier memory corruption and environment differences cannot be distinguished from this evidence.',
+        'A structurally equal successful graph does not prove the failed graph had identical runtime state.'],
+    repair=dict(native_crash_fixed=False,native_repair_locally_proved=False,
+        implemented='Exact affected binary pair held by execution preflight; historical records remain readable.',
+        source_solver_changes=0,automatic_retry=False),
+    operations=dict(native_executions=0,GPU_launches=0,cloud_builds=0,model_inference_calls=0,new_reservations_cents=0),
+    scope='Offline symbolization and incident containment only. Not a reproduced CUDA fault or a validated native repair.')
+(W/'native-segfault-repair/saved-diagnosis.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps(dict(status=report['status'],symbolized_frames=len(chain),native_crash_fixed=False,paid_actions=0)))

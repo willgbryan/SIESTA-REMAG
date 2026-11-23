@@ -9,17 +9,18 @@ from .density_history import settings, boolean
 
 
 def requested_hamiltonian_exports(input_text, gated):
-    """Resolve the fixed/CG regression policy; do not certify extra analysis."""
+    """Resolve fixed/CG/Broyden export policy; do not certify extra analysis."""
     if not gated:
         return 1
     values=settings(input_text)
-    if values.get('mdtypeofrun',['cg'])[0].lower()!='cg':
+    if values.get('mdtypeofrun',['cg'])[0].lower() not in ('cg', 'broyden'):
         raise ValueError('Hamiltonian export audit has no reference for this MD mode')
     if boolean(values,'writeh',False):
         raise ValueError('Hamiltonian audit requires per-iteration H writes disabled')
     blocks={re.sub(r'[._-]','',m.group(1)).lower() for m in
             re.finditer(r'^\s*%block\s+(\S+)',input_text,re.I|re.M)}
-    if blocks-{'chemicalspecieslabel','latticevectors','atomiccoordinatesandatomicspecies','kgridmonkhorstpack','dminitspin'}:
+    # Explicit PAO shells define the basis; they do not consume a terminal H.
+    if blocks-{'chemicalspecieslabel','latticevectors','atomiccoordinatesandatomicspecies','kgridmonkhorstpack','dminitspin','paobasis'}:
         raise ValueError('Hamiltonian audit has no qualified additional analysis block')
     analysis=('coopwrite','borncharge','opticalcalculation','tdedwfinitialize',
               'siesta2wannier90writemmn','siesta2wannier90writeunk','siesta2wannier90writeamn','siesta2wannier90writeeig')
@@ -32,9 +33,9 @@ def requested_hamiltonian_exports(input_text, gated):
 
 
 def requested_density_exports(input_text, gpu_history, shadow=False):
-    """Resolve D consumers for the supported fixed/CG material corpus."""
+    """Resolve D consumers for fixed/CG/Broyden (native idyn=0)."""
     values = settings(input_text)
-    if values.get('mdtypeofrun', ['cg'])[0].lower() != 'cg':
+    if values.get('mdtypeofrun', ['cg'])[0].lower() not in ('cg', 'broyden'):
         raise ValueError('Density export audit has no reference for this MD mode')
     if boolean(values, 'writedm', True):
         raise ValueError('Terminal audit requires per-iteration DM writes disabled')

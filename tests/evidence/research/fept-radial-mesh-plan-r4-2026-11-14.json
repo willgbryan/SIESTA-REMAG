@@ -1,0 +1,537 @@
+{
+  "format": "REMAG-FEPT-RADIAL-MESH-PLAN/1",
+  "recorded_at": "2026-11-15T01:54:31.439753+00:00",
+  "authorization": "Existing $250 extension, cumulative $350; remaining basis-r2 $65. REMAG-only, one GPU total, each case reviewed before another launch. No automatic follow-on or retries.",
+  "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "runtime": {
+    "executable": "/opt/remag-candidate/Src/siesta",
+    "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "0",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "0",
+      "REMAG_DEVICE_VECTOR_CACHE": "0",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "0",
+      "REMAG_ATOMIC_GRID_FORCE": "0",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "0",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "0",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "0",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "0",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "0",
+      "REMAG_POPULATION": "0",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "0",
+      "REMAG_GPU_HISTORY": "0",
+      "REMAG_FINAL_SPECTRA": "0",
+      "REMAG_GATE_H_EXPORT": "0",
+      "REMAG_DEFER_SCF_LOG": "0",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "0",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "1",
+      "REMAG_SCF_WARM_START": "0",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "threads": 1
+  },
+  "image": "im-6tiYD2gedKlcxnGESfzwHd",
+  "prior_app_id": "ap-hlxzAo3wJ03olNNV0IFFAG",
+  "prior_app_stopped_at": "2026-11-15T01:37:50Z",
+  "baseline_report": "remag-basis24-r3-62/tzp2-f1-k24/report.json",
+  "baseline_report_sha256": "efdf4264cad8d7d6ff159c505f7031a77778f608c62db3396b17c4216992c7c8",
+  "baseline_native": "remag-basis24-r3-62-native/tzp2-f1-k24",
+  "baseline_recovery_manifest_sha256": "d2f4cadd0d89895f245c6be12fc0c61bb9e4e7ab9073a86cb466e1f4716bc9d7",
+  "baseline16_report": "remag-basis-transfer-r2/tzp2-f1-k16/report.json",
+  "baseline16_report_sha256": "bb60a09ac7a08577d5f482b8de87d04634ea05977e1426f960e118d9680545c1",
+  "baseline_wall_seconds": 4361.268914161999,
+  "baseline_stage_seconds": {
+    "scalar": 870.706708132,
+    "soc-z": 1269.102183805,
+    "soc-x": 1085.8335223230001,
+    "soc-y": 1083.1820220550003
+  },
+  "experiments": [
+    {
+      "id": "tzp2-f1-radial001",
+      "key": "radial001",
+      "prefix": "radial-mesh-r4-radial001",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "radial_extent",
+          "control": "radial001",
+          "baseline": "saved REMAG 62-orbital24-cubed .0025Ry"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 2300,
+          "total_dft_seconds": 6800,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 13824,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "explicit",
+        "basis_energy_shift_ry": 0.01,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "8855dec2671d0b5e44c395f0e867314f912ec2af86f362673eebafeca7453047",
+          "scalar/manifest.json": "85c7fee29c390d240e62add5725186a59da8964e29c2b56198b8e06f0e20cc3a",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "request_sha256": "026ef97ef510bda52da526c874ba785508366fda61215c7e6f39056542966e8a",
+      "scalar_input_sha256": "8855dec2671d0b5e44c395f0e867314f912ec2af86f362673eebafeca7453047",
+      "scalar_input_diff": [
+        "- PAO.EnergyShift 0.0025 Ry",
+        "+ PAO.EnergyShift 0.01 Ry"
+      ],
+      "reserved_cents": 2000,
+      "native_total_seconds": 6800,
+      "native_stage_seconds": 2300,
+      "app_timeout_seconds": 7200,
+      "projected_native_seconds": 4361.268914161999,
+      "timing_margin_factor": 1.4,
+      "execution_requires_review_of": null
+    },
+    {
+      "id": "tzp2-f1-radial0005",
+      "key": "radial0005",
+      "prefix": "radial-mesh-r4-radial0005",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "radial_extent",
+          "control": "radial0005",
+          "baseline": "saved REMAG 62-orbital24-cubed .0025Ry"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 2300,
+          "total_dft_seconds": 6800,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 13824,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "explicit",
+        "basis_energy_shift_ry": 0.005,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "e4755e54ffd0e944d1d0bc8151fae312e3f0bcdfb15a03071ef79e8be382e934",
+          "scalar/manifest.json": "ea1d1474aef4ae4dc856cf5eed4a9437d31d065f7102292b1d3796d7dd7dd07e",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "request_sha256": "f8eb0a77cb75258809c6c46ba38420195e5cffb04bc5c75c03c50751b92b32de",
+      "scalar_input_sha256": "e4755e54ffd0e944d1d0bc8151fae312e3f0bcdfb15a03071ef79e8be382e934",
+      "scalar_input_diff": [
+        "- PAO.EnergyShift 0.0025 Ry",
+        "+ PAO.EnergyShift 0.005 Ry"
+      ],
+      "reserved_cents": 2000,
+      "native_total_seconds": 6800,
+      "native_stage_seconds": 2300,
+      "app_timeout_seconds": 7200,
+      "projected_native_seconds": 4361.268914161999,
+      "timing_margin_factor": 1.4,
+      "execution_requires_review_of": "radial001"
+    },
+    {
+      "id": "tzp2-f1-mesh28",
+      "key": "mesh28",
+      "prefix": "radial-mesh-r4-mesh28",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "kmesh",
+          "control": "mesh28",
+          "baseline": "saved REMAG 62-orbital24-cubed .0025Ry"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 3000,
+          "total_dft_seconds": 8500,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 21952,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          28,
+          28,
+          28
+        ],
+        "basis_size": "explicit",
+        "basis_energy_shift_ry": 0.0025,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "993b2781f2c34461f666788ee8134c70212f9299c206ea18c75e00f086efc827",
+          "scalar/manifest.json": "52eb550d40d72f0be5c2911f415de4e0c594123cdcba1e9e9a077ea0777f9ac4",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "request_sha256": "964667b8b4ccaf53ef76f773f8bb1c52a06f5bbd5948ab6738f0c2f802061a7a",
+      "scalar_input_sha256": "993b2781f2c34461f666788ee8134c70212f9299c206ea18c75e00f086efc827",
+      "scalar_input_diff": [
+        "- 24 0 0 0.0",
+        "+ 28 0 0 0.0",
+        "- 0 24 0 0.0",
+        "+ 0 28 0 0.0",
+        "- 0 0 24 0.0",
+        "+ 0 0 28 0.0"
+      ],
+      "reserved_cents": 2500,
+      "native_total_seconds": 8500,
+      "native_stage_seconds": 3000,
+      "app_timeout_seconds": 9000,
+      "projected_native_seconds": 6925.533507210954,
+      "timing_margin_factor": 1.2,
+      "execution_requires_review_of": "radial0005"
+    }
+  ],
+  "criterion": {
+    "tolerance_ev": 5e-05,
+    "successive_changes": 2,
+    "transverse_tolerance_ev": 1e-05
+  },
+  "native_radial_absolute_tolerance": 1e-10,
+  "budget_stage": "basis-r2",
+  "stage_cap_cents": 15000,
+  "total_maximum_new_reservation_cents": 6500,
+  "reservations_at_registration_cents": 23167,
+  "maximum_cumulative_reservations_after_plan_cents": 29667,
+  "actual_billed_usd": null,
+  "final_stage_untouched_cents": 5000,
+  "timing_rationale": "Use saved host-runtime 62-orbital24-cubed wall4361.27s as the radial estimate without claiming shorter radii are faster. Each radial native bound exceeds1.4times that observation plus120s. For28-cubed use cubic k-scaling, then1.2margin plus120s. Bounds are finite estimates, not guarantees. No retries, extensions, automatic refunds or reallocation.",
+  "runtime_rationale": "Same executable and full host-controlled environment as saved radial/mesh anchors. The corrected integrated-path probe lacks SOC and is not a qualified comparison anchor. No new pristine reference or new runtime-comparison dependency.",
+  "radial_assessment": {
+    "varied": "radial_extent",
+    "ordered_shifts_ry": [
+      0.01,
+      0.005,
+      0.0025
+    ],
+    "ordered_reports": [
+      "remag-radial-mesh-r4-radial001/tzp2-f1-radial001/report.json",
+      "remag-radial-mesh-r4-radial0005/tzp2-f1-radial0005/report.json",
+      "remag-basis24-r3-62/tzp2-f1-k24/report.json"
+    ],
+    "requires": "Both successive E/F anisotropy changes <=0.05meV/cell at24-cubed, transverse<=0.01meV, native/branch health and exact62-orbital shell identity. Radial arrays may change between shifts but must agree across scalar/SOC within each shift."
+  },
+  "mesh_assessment": {
+    "varied": "kmesh",
+    "ordered_meshes": [
+      16,
+      24,
+      28
+    ],
+    "ordered_reports": [
+      "remag-basis-transfer-r2/tzp2-f1-k16/report.json",
+      "remag-basis24-r3-62/tzp2-f1-k24/report.json",
+      "remag-radial-mesh-r4-mesh28/tzp2-f1-mesh28/report.json"
+    ],
+    "known_prior_step_failed": true,
+    "limit": "The saved16to24 failure cannot be erased: even a passing24to28 step cannot satisfy two successive refinements. No32-cubed case fits this registered envelope or is queued. Record individual step and failed overall gate separately."
+  },
+  "native_review": "Verify collected/recovered hashes, source/input/runtime identity, original native acceptance, magnetic branches versus saved same-geometry REMAG, actual shell identity and positive full-native-KP scalar overlap. For mesh, native radial arrays must match the saved24 anchor within1e-10. For radial, retain changing actual cutoff/array evidence and verify within-case scalar/SOC consistency. Overlap health does not establish basis completeness.",
+  "execution": "Individual explicit case launches only through scripts/run_modal.py using the shared lock/account guard/ledger. Immediately before every launch verify authoritative prior app STOPPED and no active owner. Collect, stop authoritatively, recover existing native files, and review before another launch. Native/branch/health failure stops the ladder for diagnosis. Finite convergence failure is retained, not retried. No automatic multi-case queue.",
+  "stop_policy": "At completion of these bounded controls, or earlier health failure/budget constraint that prevents meaningful authorized progress, collect evidence, confirm owned allocations stopped, report failed/passed/pending scope and reservations separately from invoices, and delete the heartbeat. Do not spend final-r2 to cover failed basis work.",
+  "scientific_limits": "The common24 basis gate already fails. Radial or mesh controls cannot turn it into a pass. This plan cannot qualify full FePt accuracy or zero-temperature convergence, select a calibrated exploratory default, or justify final controls or new predictions.",
+  "new_pristine_reference": false,
+  "acceleration_probe_retry": false,
+  "predictions_expansion_allowed": false,
+  "physical_accuracy_qualified": false,
+  "automatic_follow_on": false
+}

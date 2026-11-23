@@ -1,0 +1,131 @@
+{
+  "format": "REMAG-FEPT-REFERENCE-CANCELLATION/1",
+  "recorded_at": "2026-11-15T00:43:28.241966+00:00",
+  "user_instruction": "User explicitly ordered: please STOP running a siesta reference, REMAG is already siesta verified",
+  "stop_receipt_sha256": "e0ba48689249f63112ecbf38ea83cd698884573d538c222518613b8719fee84e",
+  "stop_receipt": {
+    "format": "REMAG-REFERENCE-USER-STOP/1",
+    "recorded_at": "2026-11-15T00:41:52.639858+00:00",
+    "reason": "User explicitly ordered: please STOP running a siesta reference, REMAG is already siesta verified",
+    "observed_before": [
+      {
+        "pid": 61610,
+        "ppid": 70070,
+        "pgid": 61610,
+        "command": "work/.venv/bin/python -u work/run-fept-radial24-reference-r3.py"
+      },
+      {
+        "pid": 65401,
+        "ppid": 61610,
+        "pgid": 65401,
+        "command": "/Users/willgbryan/Desktop/SIESTA-REMAG/build/upstream/Src/siesta"
+      }
+    ],
+    "signals": "SIGTERM to reference driver then its verified native child process group",
+    "remaining_processes": "",
+    "partial_output": "work/pristine-fept-radial24-reference-r3/shift0005",
+    "completed_reference_preserved": "work/pristine-fept-radial24-reference-r3/shift001",
+    "remag_driver_untouched": 62985,
+    "new_reference_runs_allowed": false
+  },
+  "status": "cancelled_by_user",
+  "completed_reference_report_sha256": "e63c28f5773f70a2271b95cd22fad8c247854ab1cdd57c093066b475fcd3ac76",
+  "partial_case": "shift0005",
+  "partial_artifacts": {
+    "scalar/CLOCK": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scalar/Fe.ion": {
+      "sha256": "2f2fefe7cf969f2e1a5567fdf8e5d0a14f852978b67ac81ef20a7b0426c5d729",
+      "bytes": 429151
+    },
+    "scalar/Fe.ion.xml": {
+      "sha256": "5c3be06120270072dffe1cdb022d8d9d81805ca3d28c722e0e25a8fc70a8c1c0",
+      "bytes": 390377
+    },
+    "scalar/Fe.psf": {
+      "sha256": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+      "bytes": 228050
+    },
+    "scalar/INPUT_TMP.44720": {
+      "sha256": "e4755e54ffd0e944d1d0bc8151fae312e3f0bcdfb15a03071ef79e8be382e934",
+      "bytes": 1715
+    },
+    "scalar/MESSAGES": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scalar/NON_TRIMMED_KP_LIST": {
+      "sha256": "8d50fb2fa63342f60447d60232afef563134fd22dd006d088157412353fc83ba",
+      "bytes": 434311
+    },
+    "scalar/PARALLEL_DIST": {
+      "sha256": "bbdcb718a579e2dc5408f8b66b062a6f39cede54a0abf5b59b66832b790c3f39",
+      "bytes": 52
+    },
+    "scalar/Pt.ion": {
+      "sha256": "25f9410d5e742f6b4f171cc071fe785a440ce41e5506a17432bb1109ed4c763d",
+      "bytes": 429151
+    },
+    "scalar/Pt.ion.xml": {
+      "sha256": "16619a8138ddaffbccc546f1d6f8a9a4c8fcb9d161527c368c078f7b0f737a74",
+      "bytes": 390377
+    },
+    "scalar/Pt.psf": {
+      "sha256": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+      "bytes": 245870
+    },
+    "scalar/fdf.20261114T181130.800.log": {
+      "sha256": "ddd47041553f76b128b1240eb41591d2bf5b4373363404427bc30b3c37a40057",
+      "bytes": 28849
+    },
+    "scalar/input.fdf": {
+      "sha256": "e4755e54ffd0e944d1d0bc8151fae312e3f0bcdfb15a03071ef79e8be382e934",
+      "bytes": 1715
+    },
+    "scalar/manifest.json": {
+      "sha256": "baa1c32d0a3b49ed3e185880b10a436c5f8256aba01a1ce7070a35bb31f2ae61",
+      "bytes": 2685
+    },
+    "scalar/remag.BONDS": {
+      "sha256": "c9f411a28075abf1244216c5d627b8ab79ea70b5a59579321bb9bb3538badf96",
+      "bytes": 1952
+    },
+    "scalar/remag.KP": {
+      "sha256": "b5d0336ccb9674b5401116070dd3582ef0ced0f7a24e43e3d07d6817e8779329",
+      "bytes": 505693
+    },
+    "scalar/remag.ORB_INDX": {
+      "sha256": "72472554f370446b161b6d89f0ece255dd63496ffd529de0de712fb912a1d9c4",
+      "bytes": 1959394
+    },
+    "scalar/remag.STRUCT_OUT": {
+      "sha256": "3741bfd3043d36704be0dccf8bff7f6f58b4f248b9aadce82f8f7b0e3d5b9011",
+      "bytes": 315
+    },
+    "scalar/remag.XV": {
+      "sha256": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+      "bytes": 600
+    },
+    "scalar/remag.alloc": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scalar/stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "scalar/stdout.log": {
+      "sha256": "bb5a05ea8c0a9aa19bf78b6f21ec17162373a03290dd254496d3c2c94edd4fb7",
+      "bytes": 595218
+    }
+  },
+  "partial_is_measurement": false,
+  "new_pristine_reference_runs_allowed": false,
+  "existing_verification_evidence_retained": true,
+  "remag_convergence_continues": true,
+  "budget_reservations_unchanged": true,
+  "physical_accuracy_qualified": false,
+  "scope": "User-directed cancellation of upstream/pristine reference work only; no numerical pass or failure inferred from partial output. REMAG convergence criteria remain unchanged."
+}

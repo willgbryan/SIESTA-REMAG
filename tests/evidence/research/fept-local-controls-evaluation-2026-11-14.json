@@ -1,0 +1,224 @@
+{
+  "format": "REMAG-FEPT-LOCAL-CONTROLS/1",
+  "plan_sha256": "410ce74c8d4ac4eeb99441d0e4c673a1ff6c9a8c7c89576bc73fbed4b9721ecb",
+  "plan_commit": "1f70134be769c42f6225d3d593fa14b56e8c300d",
+  "results": [
+    {
+      "id": "tzp16",
+      "varied": "basis",
+      "status": "measured",
+      "report_sha256": "de36053e6a418c3d6880aefe3fa903aab118259fee1b5d31b4bd609fadda4d86",
+      "check": {
+        "format": "REMAG-NUMERICAL-STABILITY/1",
+        "varied": "basis",
+        "samples": [
+          {
+            "parameters": {
+              "basis_size": "DZP"
+            },
+            "energy_anisotropy_ev": 0.00286099999993894,
+            "free_energy_anisotropy_ev": 0.0027159999999639695,
+            "transverse_split_ev": 0.0,
+            "report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e"
+          },
+          {
+            "parameters": {
+              "basis_size": "TZP"
+            },
+            "energy_anisotropy_ev": 0.002735000000029686,
+            "free_energy_anisotropy_ev": 0.0026250000000800355,
+            "transverse_split_ev": 0.0,
+            "report_sha256": "de36053e6a418c3d6880aefe3fa903aab118259fee1b5d31b4bd609fadda4d86"
+          }
+        ],
+        "changes": [
+          {
+            "energy_ev": -0.00012599999990925426,
+            "free_energy_ev": -9.099999988393392e-05
+          }
+        ],
+        "tolerance_ev": 5e-05,
+        "successive_changes_required": 1,
+        "transverse_tolerance_ev": 1e-05,
+        "transverse_passed": true,
+        "sufficient_refinements": true,
+        "observed_stability_passed": false,
+        "fixed_configuration": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ],
+          "basis_energy_shift_ry": 0.02,
+          "pseudopotentials": {
+            "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+            "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+          },
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+          "environment": {}
+        },
+        "physical_accuracy_qualified": false,
+        "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+      },
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.013294263744186826,
+        "net_fractional_change": 0.001099244344598084,
+        "robust_site_flip": false
+      }
+    },
+    {
+      "id": "shift001-k16",
+      "varied": "radial_extent",
+      "status": "measured",
+      "report_sha256": "5182ec3dba8e9334137e572f82e97b554e8c5192280ac0dd8b1812088a2a7ed2",
+      "check": {
+        "format": "REMAG-NUMERICAL-STABILITY/1",
+        "varied": "radial_extent",
+        "samples": [
+          {
+            "parameters": {
+              "basis_energy_shift_ry": 0.02
+            },
+            "energy_anisotropy_ev": 0.00286099999993894,
+            "free_energy_anisotropy_ev": 0.0027159999999639695,
+            "transverse_split_ev": 0.0,
+            "report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e"
+          },
+          {
+            "parameters": {
+              "basis_energy_shift_ry": 0.01
+            },
+            "energy_anisotropy_ev": 0.0026659999998628336,
+            "free_energy_anisotropy_ev": 0.0025789999999688007,
+            "transverse_split_ev": 0.0,
+            "report_sha256": "5182ec3dba8e9334137e572f82e97b554e8c5192280ac0dd8b1812088a2a7ed2"
+          }
+        ],
+        "changes": [
+          {
+            "energy_ev": -0.00019500000007610652,
+            "free_energy_ev": -0.00013699999999516876
+          }
+        ],
+        "tolerance_ev": 5e-05,
+        "successive_changes_required": 1,
+        "transverse_tolerance_ev": 1e-05,
+        "transverse_passed": true,
+        "sufficient_refinements": true,
+        "observed_stability_passed": false,
+        "fixed_configuration": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ],
+          "basis_size": "DZP",
+          "pseudopotentials": {
+            "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+            "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+          },
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+          "environment": {}
+        },
+        "physical_accuracy_qualified": false,
+        "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+      },
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.040374345344537745,
+        "net_fractional_change": 0.00916637633801453,
+        "robust_site_flip": false
+      }
+    },
+    {
+      "id": "temperature150-k16",
+      "varied": "smearing",
+      "status": "measured",
+      "report_sha256": "12e6631ad3afc24594d383c14b0412d2f8ab833d86dbd7ffdd466fa979798b31",
+      "check": {
+        "format": "REMAG-NUMERICAL-STABILITY/1",
+        "varied": "smearing",
+        "samples": [
+          {
+            "parameters": {
+              "smearing_k": 300
+            },
+            "energy_anisotropy_ev": 0.00286099999993894,
+            "free_energy_anisotropy_ev": 0.0027159999999639695,
+            "transverse_split_ev": 0.0,
+            "report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e"
+          },
+          {
+            "parameters": {
+              "smearing_k": 150
+            },
+            "energy_anisotropy_ev": 0.0028379999998833227,
+            "free_energy_anisotropy_ev": 0.0027680000002874294,
+            "transverse_split_ev": 0.0,
+            "report_sha256": "12e6631ad3afc24594d383c14b0412d2f8ab833d86dbd7ffdd466fa979798b31"
+          }
+        ],
+        "changes": [
+          {
+            "energy_ev": -2.300000005561742e-05,
+            "free_energy_ev": 5.200000032345997e-05
+          }
+        ],
+        "tolerance_ev": 5e-05,
+        "successive_changes_required": 1,
+        "transverse_tolerance_ev": 1e-05,
+        "transverse_passed": true,
+        "sufficient_refinements": true,
+        "observed_stability_passed": false,
+        "fixed_configuration": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ],
+          "basis_size": "DZP",
+          "basis_energy_shift_ry": 0.02,
+          "pseudopotentials": {
+            "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+            "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+          },
+          "mesh_ry": 300,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+          "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+          "environment": {}
+        },
+        "physical_accuracy_qualified": false,
+        "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+      },
+      "branch": {
+        "passed": true,
+        "site_rms_mub": 0.002579278193603947,
+        "net_fractional_change": 0.00154675092204375,
+        "robust_site_flip": false
+      }
+    }
+  ],
+  "all_measured": true,
+  "all_observed_controls_passed": false,
+  "physical_accuracy_qualified": false,
+  "scope": "Finite one-variable sensitivity checks at 16 cubed. Neither a basis limit nor a zero-temperature limit is inferred. Existing sealed predictions are not refitted or selectively withheld."
+}

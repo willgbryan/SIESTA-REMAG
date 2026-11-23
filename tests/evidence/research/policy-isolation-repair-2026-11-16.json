@@ -1,0 +1,344 @@
+{
+  "format": "REMAG-POLICY-ISOLATION-REPAIR/1",
+  "recorded_at": "2026-11-16T21:51:18.115616+00:00",
+  "status": "local_software_proof_passed_live_acceptance_pending",
+  "requested_scope": "Fix canonical import and isolate policy contexts; add regressions and local proof; propose smallest remaining plan without paid execution.",
+  "implementation": {
+    "module": "siesta_remag.research.isolated_policy",
+    "canonical_import": "siesta_remag.research.toolhost.ToolHost",
+    "model_interface": "Decision-only Responses request using existing model_policy adapter; no desktop agent harness",
+    "model_functions": [
+      "select_research_action",
+      "finish_research"
+    ],
+    "permitted_broker_tools": [
+      "inspect_scalar_data",
+      "compare_electronic_states (physics only)",
+      "author_structure",
+      "record_hypothesis",
+      "propose_experiment",
+      "record_response_prediction",
+      "record_analysis (post-score only)"
+    ],
+    "local_guards": [
+      "Exact hash-bound scalar/parent seed; physics exports only in physics arm",
+      "No sibling history, environment routing, raw reports, prior notebook or agent/message/shell/compute tools",
+      "Fixed readable paths and confined new candidate paths",
+      "Durable no-retry holds, ten pre-outcome actions, two post-score revisions",
+      "Intact sealed notebook copy and receipts; four typed arm-local scores; external evaluator copies"
+    ],
+    "trusted_boundary": "Operator and local Python tools remain trusted; no claim of OS isolation from a malicious operator",
+    "direct_chat_tools_unchanged": true
+  },
+  "local_proof": {
+    "targeted_tests": "76 passed in 21.43s",
+    "new_isolation_regression_cases": 30,
+    "synthetic_two_arm_fixture": {
+      "arms": 2,
+      "pre_outcome_actions_each": 10,
+      "post_score_revisions_each": 2,
+      "decoder": "production",
+      "tool_host": "production",
+      "GPAC": "production",
+      "model_transport": "injected offline fixture",
+      "scientific_prediction": false
+    },
+    "actual_input_preflights": {
+      "scalar": {
+        "status": "passed",
+        "files": {
+          "packet.json": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+          "parent.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "model_readiness": {
+          "model": "gpt-6-astra",
+          "reasoning_effort": "xhigh",
+          "credential_present": false,
+          "service_access_tested": false,
+          "model_calls": 0
+        }
+      },
+      "physics": {
+        "status": "passed",
+        "files": {
+          "electronic/soc-x/electronic.json": "01744691dacd70c89e2cf3e8e5245baef51b70b153c65438778305aa6b91e9ba",
+          "electronic/soc-x/spectrum.npz": "cc182321df11705357221a289b91e2813617c759ebcaab53cc3917ec0a5440d2",
+          "electronic/soc-z/electronic.json": "6161a5ddb295edf3ac6a4ae97b9a9bcf4422d09afe07b2047de12ef62d524892",
+          "electronic/soc-z/spectrum.npz": "fb2a7216decbe41ed084203fd882ad6a1e3a9f06e2525192d43f2d14890cf39e",
+          "packet.json": "96dfd0512bb70efd2f4b624f6b798da9c5cea3da65c118156f5e34db5190e6cb",
+          "parent.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "model_readiness": {
+          "model": "gpt-6-astra",
+          "reasoning_effort": "xhigh",
+          "credential_present": false,
+          "service_access_tested": false,
+          "model_calls": 0
+        }
+      }
+    },
+    "bundle_capacity": {
+      "fresh-minus-k12": {
+        "format": "REMAG-QUERY-PREFLIGHT/1",
+        "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+        "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+        "device_scf_enabled": true,
+        "paid_actions": 0,
+        "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+        "kmesh": [
+          12,
+          12,
+          12
+        ],
+        "native_kpoints_upper_bound": 1728,
+        "compiled_max_kpoints": 4096,
+        "reduction_assumed": false,
+        "mesh_capacity_passed": true
+      },
+      "fresh-plus-k12": {
+        "format": "REMAG-QUERY-PREFLIGHT/1",
+        "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+        "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+        "device_scf_enabled": true,
+        "paid_actions": 0,
+        "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+        "kmesh": [
+          12,
+          12,
+          12
+        ],
+        "native_kpoints_upper_bound": 1728,
+        "compiled_max_kpoints": 4096,
+        "reduction_assumed": false,
+        "mesh_capacity_passed": true
+      }
+    },
+    "rejected_desktop_routes": [
+      {
+        "probe": "probe-cli",
+        "wire_sha256": "f1fb8b226f62703dcd17d8635ea9342afb71fdd52574c3279ab85bd2ce359c90",
+        "actual_advertised_tools": [
+          "functions.exec",
+          "functions.wait",
+          "functions.request_user_input",
+          "functions.request_user_input_async",
+          "collaboration.followup_task",
+          "collaboration.interrupt_agent",
+          "collaboration.list_agents",
+          "collaboration.send_message",
+          "collaboration.spawn_agent",
+          "collaboration.wait_agent"
+        ],
+        "live_model_requests": 0,
+        "shared_agent_tool_invocations": 0,
+        "verdict": "rejected_for_clean_policy_acceptance"
+      },
+      {
+        "probe": "probe-clean-env",
+        "wire_sha256": "4e6361066565c6e931784c8d361b2fed5f74d430bef7acc56ad8a8c7969bbf2f",
+        "actual_advertised_tools": [
+          "functions.exec",
+          "functions.wait",
+          "functions.request_user_input",
+          "functions.request_user_input_async",
+          "collaboration.followup_task",
+          "collaboration.interrupt_agent",
+          "collaboration.list_agents",
+          "collaboration.send_message",
+          "collaboration.spawn_agent",
+          "collaboration.wait_agent"
+        ],
+        "live_model_requests": 0,
+        "shared_agent_tool_invocations": 0,
+        "verdict": "rejected_for_clean_policy_acceptance"
+      }
+    ],
+    "preservation": {
+      "status": "passed",
+      "protected_files": 33,
+      "all_sha256_unchanged": true,
+      "previous_closeout_verification": {
+        "status": "passed",
+        "hash_bound_evidence_files": 17,
+        "policy_workspaces_unchanged": true,
+        "registered_bundles_unchanged": 2,
+        "old_ledgers_unchanged": 2,
+        "output_equals_repo_evidence": true,
+        "new_GPU_launches": 0,
+        "reserved_cents": 5,
+        "unreserved_cents": 150,
+        "owned_app_stopped": true,
+        "old_heartbeat_deleted": true
+      }
+    },
+    "paid_model_requests": 0,
+    "GPU_launches": 0,
+    "CPU_cloud_launches": 0,
+    "rebuilds": 0,
+    "reservations_added_cents": 0
+  },
+  "plan": {
+    "status": "proposal_only_not_authorized_or_queued",
+    "objective": "Complete clean tool-workflow acceptance on the two registered unmeasured outcomes; preserve original response failure.",
+    "sequence": [
+      {
+        "step": 1,
+        "action": "Locally reverify frozen inputs/runtime, source census, clean registrations and common protocol. Bind two new broker seals to a reviewed operator handoff; never resume the old driver.",
+        "new_allocation_cents": 0
+      },
+      {
+        "step": 2,
+        "action": "Using authorized funded Astra extra-high access, seal both arms before either measurement; 10 decisions each, no restart.",
+        "model_calls_max": 20,
+        "GPU_launches": 0
+      },
+      {
+        "step": 3,
+        "action": "Run the existing minus-1/320 12-cubed bundle once using the saved executable/library; collect, review health and verify authoritative STOPPED.",
+        "reservation_cents": 75
+      },
+      {
+        "step": 4,
+        "action": "Only after previous shutdown and health review, run plus-1/320 12-cubed once; collect/review and verify authoritative STOPPED.",
+        "reservation_cents": 75
+      },
+      {
+        "step": 5,
+        "action": "Score identical outcomes for both sealed notebooks in evaluator copies, release only arm-local scores, append two revisions each, verify shutdown, report pass/fail/pending and close.",
+        "model_calls_max": 4,
+        "new_allocation_cents": 0
+      }
+    ],
+    "bundles": [
+      {
+        "key": "fresh-minus-k12",
+        "source_sha256": "d79f12edad7922290b78d0a41a5e666191312bfa50606158d5d44c5444e89ec2",
+        "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+        "preflight": {
+          "format": "REMAG-QUERY-PREFLIGHT/1",
+          "request_sha256": "551fdd31959642eb108ea91ead0b6e29af2e888830abb873a1067895d4924874",
+          "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+          "device_scf_enabled": true,
+          "paid_actions": 0,
+          "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+          "kmesh": [
+            12,
+            12,
+            12
+          ],
+          "native_kpoints_upper_bound": 1728,
+          "compiled_max_kpoints": 4096,
+          "reduction_assumed": false,
+          "mesh_capacity_passed": true
+        }
+      },
+      {
+        "key": "fresh-plus-k12",
+        "source_sha256": "e754efbac55612ff16c285623ed74b5e7bee1d33b45e9f743c5b17f21ab5a719",
+        "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+        "preflight": {
+          "format": "REMAG-QUERY-PREFLIGHT/1",
+          "request_sha256": "41b07b8d3472b4ed63de5b9b7bb76e1dad367c5f604a5b4ee6785e7fb259ca2f",
+          "runtime_sha256": "ccf9e2af633709788d2671c56a8b46c9cf2ee7f32377e958c19b160f37e44a08",
+          "device_scf_enabled": true,
+          "paid_actions": 0,
+          "scope": "Mesh capability and input/runtime identity only; not numerical acceptance, memory fit or latency.",
+          "kmesh": [
+            12,
+            12,
+            12
+          ],
+          "native_kpoints_upper_bound": 1728,
+          "compiled_max_kpoints": 4096,
+          "reduction_assumed": false,
+          "mesh_capacity_passed": true
+        }
+      }
+    ],
+    "limits": {
+      "GPU_queries": 2,
+      "native_stage_executions": 8,
+      "max_simultaneous_GPUs": 1,
+      "app_seconds_each": 600,
+      "native_seconds_each": 480,
+      "SOC_stage_seconds": 180,
+      "rebuilds": 0,
+      "retries": 0,
+      "extensions": 0,
+      "automatic_queue": false
+    },
+    "new_GPU_reservation_cents": 150,
+    "existing_preflight_reused": true,
+    "additional_paid_preflight": false,
+    "no_new_convergence_or_pristine_reference": true,
+    "no_automatic_queue": true,
+    "expected_result_scope": "May establish clean finite workflow only; cannot guarantee prediction accuracy, advantage, calibrated response or full spec completion"
+  },
+  "budget": {
+    "remaining_r5_unreserved_cents": 150,
+    "existing_r5_reserved_cents": 5,
+    "new_reservations_cents": 0,
+    "proposed_GPU_reservations_cents": 150,
+    "actual_invoices_usd": null,
+    "service_credential_present": false,
+    "service_access_tested": false,
+    "desktop_quota_connected_to_broker": false,
+    "live_model_funding_confirmed": false,
+    "model_configuration": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "requests_max": 24,
+      "output_tokens_each_max": 2048,
+      "total_output_tokens_max": 49152
+    },
+    "standard_API_pricing": {
+      "checked_at": "2026-11-16",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "input_usd_per_million": 10,
+      "output_usd_per_million": 50,
+      "output_ceiling_component_usd": 2.4576,
+      "input_cost_additional": true
+    },
+    "all_in_150_cents_plan_ready": false,
+    "condition": "Two GPU reservations fit $1.50 only if model access is already funded/credited separately. New paid API use with the tested 24x2048 output ceiling is not covered by this remainder. The ceiling is not an invoice or minimum cost."
+  },
+  "passed": [
+    "Canonical ToolHost startup/import in fresh process",
+    "Controlled model/tool boundary in offline two-arm workflow",
+    "Actual seed and mesh-capacity preflight",
+    "Original evidence and ledgers preserved"
+  ],
+  "failed_retained": [
+    "r4 scalar information comparison invalid from staging leak",
+    "r4 response consistency exceeded original 0.05 meV threshold",
+    "r5 setup/information isolation failed before predictions or GPU outcomes",
+    "Desktop CLI disable flags did not remove collaboration tools in local probes"
+  ],
+  "pending": [
+    "Live Astra access/funding for the decision-only connection",
+    "New explicit authorization and broker-seal operator handoff before paid execution",
+    "Two unseen outcomes and clean measured paired workflow",
+    "Useful response calibration, equal actual compute and scientific advantage"
+  ],
+  "old_campaign_closed": true,
+  "old_heartbeat_deleted": true,
+  "old_ledgers_and_attempts_unchanged": true,
+  "previous_allocation_evidence": {
+    "path": "work/acceptance-two-r5/closeout-allocation-observation.json",
+    "sha256": "7d89a251b51278d54bae45a520aa372bae10d30e23428a9ceb59f47944204f77",
+    "fresh_cloud_observation_this_turn": false,
+    "reason": "No cloud calls or allocations made in this repair turn; prior stopped closeout retained"
+  },
+  "evidence_sha256": {
+    "work/policy-isolation-repair/targeted-tests-final.log": "6d37bb98cb1f12eaeb4b2c08c7a79dd517e888a47f952158e8e43bd958b47bcf",
+    "work/policy-isolation-repair/scalar-actual-input-preflight.json": "d69f7d44d3efde195bb308dce0cec37a45ecb795230cfb7a51353d50feed8470",
+    "work/policy-isolation-repair/physics-actual-input-preflight.json": "2e8cc486f699ded7b3d70f2a7a422659604d53bb064da1b3e3aa357f91c05422",
+    "work/policy-isolation-repair/registered-bundle-preflight.json": "edc7f31e51349f74fa55b86fd73b4c74f2e82fde66661071efc6a7ce58a65572",
+    "work/policy-isolation-repair/preservation-verification.json": "fa7cdd55419e1794cff6d961595abdcd64d2ac5198e793dc1f234d4b3a5d759b",
+    "work/policy-isolation-repair/probe-cli.py": "a2e68adca31944b746768f710744422b5fd1e5a816bb24aeaa0f114c77ef7895",
+    "work/policy-isolation-repair/probe-clean-env.py": "0a14c6b6965309391e3f16a18277a50ec9d6652d94e4bf5c4f2f7abe84f89a13",
+    "work/policy-isolation-repair/publish-evidence.py": "a0897532a0cdcdf131dc798ab6ed1b5b164d15ea9216076d1352a56e32fee935",
+    "work/SIESTA-REMAG/src/siesta_remag/research/isolated_policy.py": "ecba309727499c185d2ba81a25034a81a341841ad82c9a828c06e8c711c85fc5",
+    "work/SIESTA-REMAG/tests/test_research_isolated_policy.py": "a525e6f11bb2d3e56f1d8d627a102772b23da6c503966395ed537d324482dfd5"
+  }
+}

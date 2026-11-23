@@ -1,0 +1,83 @@
+{
+  "format": "REMAG-DISCOVERY-OBSERVATION-ACCEPTANCE/1",
+  "recorded_at": "2026-11-17T07:42:02.967455+00:00",
+  "status": "local_engineering_passed_live_acceptance_pending",
+  "base_commit": "16d4ec3439227d7c466efe26639256d33f274aff",
+  "goal_scope": [
+    "General relaxed results to electronic inspection",
+    "Source-bound prospective predictions, scores and revisions",
+    "Exact authored versus numeric relaxed geometry separation"
+  ],
+  "changes": [
+    "New saved-only import_relaxation_result tool produces explicit REMAG-DISCOVERY-OBSERVATION/1 beside an unchanged raw collection.",
+    "Import and reads reproduce source/input/runtime/native/branch/geometry checks, validate the stopped execution and original producer-policy hashes, and verify copied stage bytes.",
+    "Measured relaxed geometry remains separate from the exact source; scalar alias retains native dft-relax identity. Catalog comparison groups separate these from fixed-geometry calculations.",
+    "Research notebook supports source-bound E/F and relaxation Js/volume/force/stress outcomes with explicit units. Unrun SOC after low-moment screening is inconclusive; native failures remain failed.",
+    "New controlled discovery calls request native k-point diagnostics; collection retains ion XML as well as native binary and text evidence.",
+    "Physics-only export_electronic_spectrum binds accepted-stage HSX/KP/EIG files and feeds existing state/DOS inspection without a solver run.",
+    "Native sampling correspondence uses accepted final geometry for relaxed cells while preserving the declared input mesh and native coordinates."
+  ],
+  "validation": {
+    "full_suite": "806 passed, 4 skipped in 218.13s",
+    "focused": "107 passed in 21.33s",
+    "integration": "66 passed in 7.22s",
+    "fixtures": "Synthetic Ni/Co native transport through the real remote function, pipeline, collection and review; separate analytic native-format spectrum and known-grid sampling fixtures. No real solver or scientific predictions.",
+    "checks": [
+      "Prediction before synthetic native measurement, stopped import, scalar and anisotropy inspection, metric score, evidence-bound notebook revision",
+      "Changed relaxed cell preserved separately from authored source and catalog grouping",
+      "Completed low-moment negative screen retained; SOC/anisotropy not fabricated",
+      "Native, optimizer and magnetic-branch failures retained",
+      "Edited source/geometry, copied/raw artifacts, runtime, shutdown and review summaries rejected",
+      "Saved producer identity replay independent of unrelated later current code; fresh execution still checks current hashes",
+      "Withheld source denied before import; scalar profile cannot access electronic export",
+      "Repeated import verifies existing bytes; native solver not rerun",
+      "Electronic export verifies original file bindings, retained spectrum inspection, missing stage and changed-file rejection",
+      "Relaxed native sampling uses final STRUCT_OUT cell; changed accepted-cell claims rejected"
+    ]
+  },
+  "files_sha256": {
+    "docs/RESEARCH_EXECUTION.md": "c1b5707849de8e716c77969c5cfd3fe9854ac3c67bdf315b25100b28e665a91b",
+    "docs/SPEC_COMPLETION.md": "9b3037fe5654670b827585f783425b42f3a6cea4381a13af057ef4ca84cec490",
+    "scripts/research_modal.py": "2aca75ccce9b96d55d8c3fcf1c461192f1ce64174b6650eaff26e82c9c9ea7e8",
+    "src/siesta_remag/discovery/collection.py": "79eeb50cd25dd9432861e5d0afae92dd0fc45999e51cb071dc5226553f348d94",
+    "src/siesta_remag/discovery/pipeline.py": "c4d1b46d4c4f7307e8fa21733526ba2aee2dd2d2e8a283a771d2e54fb477a66a",
+    "src/siesta_remag/research/catalog.py": "ea3c1614ac92ed9fa26087026fc7013d39e8c4db66982f933195c765e03e4d8e",
+    "src/siesta_remag/research/discovery_observation.py": "56d8afecfb4e132c4920067f19471eecc10877d562dcc50967dc31f8028589d9",
+    "src/siesta_remag/research/electronic.py": "a68719a051759bee4148e54aeadad3edcff07565fd20afb5f98d3c2655079f95",
+    "src/siesta_remag/research/execution.py": "9bb35ac6b7d221e708444e6a3d92adf8ed56355002177d5175bb7e8138e91fa8",
+    "src/siesta_remag/research/relaxation_execution.py": "e87252faadedaea35e0510d27f0698d8002f407f8e17f4a5a5504e5c02833c05",
+    "src/siesta_remag/research/sampling.py": "b429aec1e9747acf3008e1f685ed4ebd96f40a015ad20506fc1d67fff9bd12e3",
+    "src/siesta_remag/research/toolhost.py": "9da9ee8ef645a7f2688183f30c4ee063f953616ec04912cf49a3d17702bff168",
+    "src/siesta_remag/research/tools.py": "f69b02a814babecdd8d4060dba25d8b7754249c79ade5cc4ccd67049d8f77794",
+    "src/siesta_remag/research/workspace.py": "bdd0a99cbf2432c528071a110efa1db9608b46db1e6e8356c179be8fed12256b",
+    "tests/test_research_discovery_observation.py": "e925cfdfaaf810356b80f0fc7aecc00e2fa7b3d198b7e9a4b01b97522f1267f5",
+    "tests/test_research_relaxation_execution.py": "dcea93b3864f4dd9a6c4408d4817d3660d323098a15d0dc2521d090c93455d8b",
+    "tests/test_research_sampling.py": "1b7d4c7020dce43aca5b44dbba23582a98f94787fcf82dbe3eaec4abcbabc9c4"
+  },
+  "log_sha256": {
+    "work/general-material-observation-focused-2026-11-17.log": "38ff4269aa9669f7b6d8cfd8fad544ca77917a7b443cf27e531c9215c688c4f6",
+    "work/general-material-observation-integration-2026-11-17.log": "cc7a837ec1d973c9c7bb34dc3193ed18ba9662e2a37c11fb1c0d784df68725ae",
+    "work/general-material-observation-full-2026-11-17.log": "41631ab132447505c8e89165adc0ef0a15377a211b3620a1de5244f98c2b9376"
+  },
+  "new_GPU_launches": 0,
+  "new_native_solver_runs": 0,
+  "new_model_runs": 0,
+  "new_Ouro_calls": 0,
+  "new_production_reservations_cents": 0,
+  "old_campaign_closed": true,
+  "GPAC_unchanged": true,
+  "limitations": [
+    "Local fixtures are engineering evidence; no live non-FePt material, model policy or latency acceptance follows.",
+    "Relaxation force/stress and magnetic screens do not establish thermodynamic, dynamical or synthesis stability.",
+    "Historical results without required native diagnostic bytes are rejected by the relevant export, not recomputed.",
+    "The import view must remain beside its original attempt; both the original and copied evidence are retained.",
+    "Captured hashes establish provenance consistency, not cryptographic remote attestation. Current native/input validators are replayed.",
+    "No IDE layout changed; previously browser-verified minimal viewport layout remains the UI baseline."
+  ],
+  "remaining": [
+    "Live sequential author-relax-measure-score-revise acceptance: three iterations spanning at least two non-FePt systems with existing Codex Astra xhigh access.",
+    "Compatible Ouro temporary-file route adapter, schema/pricing preflight and retained provenance.",
+    "Explicit stability-screen coverage, competing-state evidence and declaration of supported physical constraints.",
+    "Original clean paired-study and exploratory latency evidence, plus requirement-by-requirement completion audit."
+  ]
+}

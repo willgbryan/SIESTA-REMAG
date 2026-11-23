@@ -1,0 +1,66 @@
+{
+  "format": "REMAG-RUNTIME-PROFILE-BUILD-REVIEW/1",
+  "recorded_at": "2026-11-17T10:19:08.104748+00:00",
+  "status": "CPU_build_and_saved_artifact_verification_passed_full_native_validation_pending",
+  "source_commit": "e486d12067b96ff688179f0496d0ec21b6fae0ab",
+  "remag_commit": "a7cf511ddebbc254a2e0aea5bb5faf06726aceb6",
+  "gpac_commit": "b8d94281bdf285d66ddcb1d31e9d2cb1d6d8838d",
+  "manifest_sha256": "1f80cbb921568ba0c9be417e0f1213a3e1489215929527615f2e1fea30f39f9b",
+  "build_result_sha256": "1a899dd669f261a31697c762f4a3be3bc5194b170d5373308783a7ea5412b4fe",
+  "artifacts_sha256": {
+    "siesta": "069227b116ed403cafb44da3c9c706a07953cfa0a3807f25c2104572fc0c15bc",
+    "libremag_gpu.so": "53d4ddd28fdaf47575040d73b943b9ae60a1d749f3fcc92b51fe149ff0b1f1a0",
+    "runtime.json": "2acd36f0eb0f8baba360b4b6bdb0814731d43ae94041a41a0f3cc7baed41af28",
+    "CMakeCache.txt": "11d81676e1b8ed05813cae65f1411f939dac3935f15629b07a88d94d0dde6759"
+  },
+  "log_sha256": {
+    "patch.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "configure.log": "4a5a867898f98b942905d32e948f183317d81675af7fbbb4ba76318c1b1b8e04",
+    "compile.log": "26155a6d8f427e5d3eb98e9e058145f0ddfa4b0bfb95ad42f8e082da397c19fc",
+    "linkage.log": "f1d42d1e57181cf29cba2e4511b1397291a774d5adf8ef6658d67b64cf65ce0a"
+  },
+  "driver_policy": {
+    "format": "REMAG-SCF-RUNTIME-POLICY/1",
+    "cuda_runtime": 12060,
+    "cuda_driver_api": 13030,
+    "nvidia_driver_versions": [
+      "610.57.04"
+    ]
+  },
+  "CPU_build_seconds": 94.791282091,
+  "allocation": {
+    "app_id": "ap-c2nN6cAaah5MqWx4DQc4nt",
+    "stopped": true,
+    "lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-17 04:07:40-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-17 04:09:35-06:00",
+      "stopped_by": null
+    }
+  },
+  "budget": {
+    "reserved_cents": 100,
+    "actual_billed_usd": null,
+    "reservations_are_not_invoices": true
+  },
+  "native_solver_execution": false,
+  "GPU_allocation": false,
+  "native_fault_repaired": false,
+  "completed_non_FePt_feedback_iterations": 0,
+  "old_campaign_closed": true,
+  "held_owner_unchanged": "d3a66c144ff32bea480db511e96cbe3a065ff8e94e0f352133f8a5ecf8bc6f33",
+  "historical_ledgers_unchanged": {
+    "fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8"
+  },
+  "frozen_launcher": "tests/evidence/research/runtime-profile-build-launcher-2026-11-17.py.txt",
+  "frozen_launcher_sha256": "75d29a4d3ea9b5708f55b4771bb3c947c79eb319d7b75480316f262463b52ea3",
+  "limits": [
+    "The exact runtime profile is admitted, not proved safe for complete SCF/SOC execution.",
+    "CPU build and hash verification do not establish scientific acceptance or a causal repair."
+  ]
+}

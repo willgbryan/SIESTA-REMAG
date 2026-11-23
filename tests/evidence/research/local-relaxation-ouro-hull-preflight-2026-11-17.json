@@ -1,0 +1,150 @@
+{
+  "format": "REMAG-LOCAL-RELAXATION-OURO-HULL/1",
+  "recorded_at": "2026-11-17T16:34:34.697866+00:00",
+  "status": "local_preflight_passed_live_hull_pending",
+  "owner_direction": "Local CPU relaxation first; Ouro for hull stability. Keep exact authoring, Orb-relaxed and DFT-relaxed observations distinct.",
+  "existing_account_read_verified": true,
+  "credentials_retained_in_existing_configuration": true,
+  "local_hull_preflight": {
+    "format": "REMAG-LOCAL-ORB-HULL-PREFLIGHT/1",
+    "recorded_at": "2026-11-17T16:29:55.025115+00:00",
+    "source_sha256": "97ab01f3a57f96b64484eb022e51767928fcc31e911ee65cd39f0319c0472e92",
+    "prepared_bundle_sha256": "052e844a871fe5461e2e89d856e57957a3269ba512a2248152b9e542545b6218",
+    "source_binding_sha256": "67bf939dc524f4ed1f2bb6d8a1c6d5b0685e262260a610460b835e31a164e9f5",
+    "local_relaxation_result_sha256": "5f3a429c83e3930b33e33ab96bb1cc40c2fd5a55e74c25d39ce20f9c1820701e",
+    "local_relaxed_geometry_sha256": "40e5102bdc44469aa933ba40c376370669dcbc736b491d637c496979a7474f1b",
+    "cif_sha256": "6a78a351076810c010cebbbc544b411f3435fb09e42697049bad165ec0601598",
+    "model": "orb-v3-conservative-inf-mpa",
+    "weights_sha256": "bd1840d1488f3cd01d213970d9618a63f971590ad45e5e83bf5404d4b95d216a",
+    "local_cpu_relaxation_seconds": 4.087698499672115,
+    "saved_max_atom_force_ev_ang": 0.01474123216547043,
+    "saved_max_atom_or_cell_force_ev_ang": 0.014741232165470429,
+    "route_force_limit_ev_ang": 0.05,
+    "route_force_check_passed": true,
+    "cif_roundtrip_tolerance": 1e-08,
+    "cif_roundtrip_check": "cell metric and periodic fractional sites, species/order exact",
+    "body": {
+      "energy_surface": "orb-v3-conservative-inf-mpa",
+      "allow_unrelaxed": false,
+      "include_generated_p1": false,
+      "include_phase_diagram": false,
+      "include_user_materials": false,
+      "bypass_cif_health_screen": false
+    },
+    "preparation": {
+      "request": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/work/ouro-hull-r1/Ni-local-Orb-r3/request/request.json",
+      "request_sha256": "e5e9c8badfa785f029885e1c3d91aa49883ee439510477f36e5fac582be606f6",
+      "price_ceiling_cents": 0,
+      "uploaded": false,
+      "executed": false
+    },
+    "retained_local_preflight_failures": [
+      "work/ouro-hull-r1/local-Ni-preflight.log",
+      "work/ouro-hull-r1/local-Ni-preflight-r2.log"
+    ],
+    "native_executions": 0,
+    "model_inference_calls": 0,
+    "ouro_route_executions": 0,
+    "uploads": 0,
+    "scope": "Orb MPA hull request for the locally MLIP-relaxed geometry; separate from the DFT-relaxed magnetic evaluation.",
+    "pending": [
+      "Provider route may persist submitted structures in its crystal database; no opt-out in the current contract.",
+      "Provider resource admission and authoritative allocation release are not established.",
+      "Live hull result and route-specific scientific validation are pending."
+    ],
+    "physical_stability_qualified": false,
+    "synthesizability_established": false
+  },
+  "live_route": {
+    "id": "75fe7f4b-22f5-4883-aa1d-378fd42da47c",
+    "url": "https://ouro.foundation/routes/mmoderwell/calculate-energy-above-the-convex-hull",
+    "retrieved_at": "2026-11-17T16:25:08.988690+00:00",
+    "contract_sha256": "72ad6282003883fee3724e3397e140b26cf564b2f5431cdfbe4cd40bc04995cc",
+    "monetization": "pay-per-use",
+    "cost_accounting": "fixed",
+    "price_currency": "btc",
+    "unit_cost": 0.0,
+    "metadata_ceiling_cents": 0,
+    "actual_billing": null,
+    "database_persistence": "Novel submitted structures may be added to the crystal database; no opt-out in the retrieved contract.",
+    "execution_state": "not_submitted"
+  },
+  "implementation_sha256": {
+    "src/siesta_remag/research/catalog.py": "02452ba8b920c691a29e3d805c0ef004083c17b32fd25c1836cfac4c9755d00d",
+    "src/siesta_remag/research/workspace.py": "b4043f454c630ec23668424cbe21bcffc92adb9db210998bbd752c8d48629998",
+    "src/siesta_remag/research/workspace.html": "1f19df73ea9fb4a72253aaddbcdc89495efa812b844b694804d90be6eaa90d93",
+    "src/siesta_remag/research/model_policy.py": "50976b0d1914451ff12d546feddecb91a2557a8f76d3b0039b57d8a4250a31ab",
+    "src/siesta_remag/research/ouro.py": "3291c4a4e338b0d4d0590259b13d54915e49802399ec45a36257c75a6079f1f1"
+  },
+  "tests": {
+    "full_suite": "946 passed, 4 skipped in 218.64s",
+    "full_suite_log_sha256": "ef3160ec51bafae1989fe8d5041ac49620fa34111c653b674d937ab124ad3b52",
+    "policy_driver_local_preflight": "5 passed in 14.98s; no inference or solver",
+    "driver_sha256": "710f590a0e647b4f1618f170d51d0eea22db6d5992d03cd82685b65ba54b0961",
+    "old_driver_preserved_sha256": "6ee79237d7c5206202d8df4de66567f2a83d2f5e5354f0291e2ad878121da8b5",
+    "earlier_test_failures_retained": [
+      "Initial deferred-read test expected ValueError instead of the correctly raised GPACError; assertion corrected.",
+      "Existing authoring test hit its unchanged 30-second deadline under host load; isolated rerun passed.",
+      "One full-suite fixture detected source changes during registration; rerun with frozen source passed."
+    ]
+  },
+  "ide": {
+    "initial_state_bytes_before": 78712098,
+    "initial_state_bytes_after": 2079483,
+    "http_checks": [
+      {
+        "endpoint": "/ide",
+        "status": 200,
+        "seconds": 0.013478082604706287,
+        "bytes": 74889
+      },
+      {
+        "endpoint": "/api/activity",
+        "status": 200,
+        "seconds": 0.006463584490120411,
+        "bytes": 19244
+      },
+      {
+        "endpoint": "/api/state",
+        "status": 200,
+        "seconds": 9.736992041580379,
+        "bytes": 2079483,
+        "families": 7,
+        "deferred_spectra": 5
+      }
+    ],
+    "browser_observed": {
+      "viewport": [
+        480,
+        724
+      ],
+      "document_size": [
+        480,
+        724
+      ],
+      "deferred_k_points_loaded": 1728,
+      "complete_saved_weight": 1.0
+    },
+    "full_arrays_preserved": true,
+    "fresh_desktop_viewport_check": false
+  },
+  "policy": {
+    "fixed_arguments_advertised_and_enforced": true,
+    "versioned_driver_registered": false,
+    "new_model_calls": 0,
+    "operator_recovered_cycles": 1,
+    "unattended_cycles": 0,
+    "three_iterations_two_non_FePt_systems": "pending"
+  },
+  "new_native_calculations": 0,
+  "new_GPU_launches": 0,
+  "new_Ouro_route_executions": 0,
+  "new_uploads": 0,
+  "closed_campaign_restarted": false,
+  "pending": [
+    "Ouro structure-database disclosure decision",
+    "Provider resource admission and authoritative release evidence",
+    "Live hull output validation",
+    "Remaining multi-material iterations and original empirical acceptance"
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "format": "REMAG-FEPT-PRISTINE-RADIAL-REFERENCE-PLAN/1",
+  "recorded_at": "2026-11-14T21:20:15.323859+00:00",
+  "authorization_sha256": "f073325a72e966232fe068427bd143956b98069ec553b6fc812fe955b1952483",
+  "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "reference_report_sha256": "bc0bce1575ec8d2c3102f59551c9e02fa40c64d10ea999616133a46d89277070",
+  "bridge62_review_sha256": "7c0d9ed89737f1b52eadb2af88d306071a077a9200f365aa3c2082bc4be659e6",
+  "runtime": {
+    "executable": "/Users/willgbryan/Desktop/SIESTA-REMAG/build/upstream/Src/siesta",
+    "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+    "threads": 1,
+    "environment": {}
+  },
+  "launcher_commit": "ef6a354e2f2641963dc861ca4fc3ac20306d9085",
+  "experiments": [
+    {
+      "id": "shift001",
+      "request_sha256": "286d9e7295bc7f3d11b0feaaa8fa06e77b50085aa37c21e7444dca92ae9ec1a6",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "radial_runtime_reference",
+          "basis_id": "tzp2-f1",
+          "energy_shift_ry": 0.01
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 8000,
+          "total_dft_seconds": 21600,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 13824,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "explicit",
+        "basis_energy_shift_ry": 0.01,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "8855dec2671d0b5e44c395f0e867314f912ec2af86f362673eebafeca7453047",
+          "scalar/manifest.json": "b80206d37e5d07e83a73e9a9e266bd2726fb8a2abab2e67f8a3b2b76aa198f6d",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "shift0005",
+      "request_sha256": "6ed90456abda02da1c510f5de0fff567b8daf760eaed195319eed77b21b18f02",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "radial_runtime_reference",
+          "basis_id": "tzp2-f1",
+          "energy_shift_ry": 0.005
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 8000,
+          "total_dft_seconds": 21600,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 13824,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "explicit",
+        "basis_energy_shift_ry": 0.005,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "e4755e54ffd0e944d1d0bc8151fae312e3f0bcdfb15a03071ef79e8be382e934",
+          "scalar/manifest.json": "baa1c32d0a3b49ed3e185880b10a436c5f8256aba01a1ce7070a35bb31f2ae61",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "spatial_orbitals": 62,
+  "common_kmesh": [
+    24,
+    24,
+    24
+  ],
+  "measured16_wall_seconds": 5063.746426958591,
+  "projected24_wall_seconds": 17090.144190985244,
+  "timing_rationale": "Cubic k-point scaling from the measured longest-range62-orbital16-cubed case estimates4.75 hours at24 cubed. Each6-hour total and8000-second stage bound adds finite margin; smaller-radius cases are not assumed to finish faster for acceptance.",
+  "per_case_native_timeout_seconds": 21600,
+  "per_stage_native_timeout_seconds": 8000,
+  "max_total_native_seconds": 43200,
+  "cloud_reservation_cents": 0,
+  "execution": "Pinned pristine binary, one thread, sequential .01 then.005 Ry. Stop on native or magnetic-branch failure; no retries or implicit deadline extensions. Do not modify an active calculation.",
+  "review": "Preserve all native shell/radius identities, source/input/runtime hashes, full-KP overlap health and both E/F anisotropies. These are references for matched REMAG24-cubed radial calculations; they do not on their own form a two-refinement radial ladder.",
+  "unchanged_convergence_criterion": {
+    "tolerance_ev": 5e-05,
+    "successive_changes": 2,
+    "transverse_tolerance_ev": 1e-05
+  },
+  "future_transfer_criteria": {
+    "all_scalar_soc_E_F_absolute_tolerance_ev": 1.0001e-06,
+    "E_F_anisotropy_tolerance_ev": 1.0001e-06,
+    "transverse_tolerance_ev": 1e-05,
+    "native_basis_radial_absolute_tolerance": 1e-10,
+    "native_basis_radial_relative_tolerance": 0,
+    "native_stages_and_magnetic_branches_required": true,
+    "spatial_orbitals": 62
+  },
+  "future_cloud": "Preregister matched REMAG24-cubed .01/.005 Ry cases only within the unspent basis-r2 subcap, after these references and native checks are reviewed. Compare with REMAG62-orbital/.0025Ry at the same mesh, using only one executable within that radial ladder. No GPU is queued by this plan.",
+  "predictions_expansion_allowed": false,
+  "physical_accuracy_qualified": false,
+  "scope": "Two dense-common-mesh pristine runtime references for62-orbital radial settings; not a physical-accuracy or complete radial-convergence certificate."
+}

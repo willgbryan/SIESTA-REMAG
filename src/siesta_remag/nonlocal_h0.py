@@ -1,11 +1,12 @@
 """Compare retained material H0 matrices and audit pre-SCF integral lifetimes."""
 import hashlib
+import json
 import math
 from pathlib import Path
 import numpy as np
 
 
-def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_records=None,poisoned=False,compact_queries=False,energy_only=False):
+def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_records=None,poisoned=False,compact_queries=False,energy_only=False,soc_export=False):
     errors=[];checks=[];rows=report.get('cycles',[]);owners=geometry.get('cycles',[])
     if report.get('schema')!=1 or not rows or [r.get('epoch') for r in rows]!=epochs or [r.get('epoch') for r in owners]!=epochs:
         return dict(passed=False,errors=['H0 shadow does not cover every electronic/force geometry'],checks=[])
@@ -14,12 +15,15 @@ def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_recor
     if poisoned and not production:return dict(passed=False,errors=["Host poisoning requires production H0"],checks=[])
     if compact_queries and not production:return dict(passed=False,errors=['Compact queries require production H0'],checks=[])
     totals=dict(host_to_device_bytes=0,device_to_host_bytes=0,copy_calls=0)
+    diagnostic=dict.fromkeys(totals,0)
+    if type(soc_export) is not bool or (soc_export and not production):errors.append('SOC copy requires an explicit production owner')
     for index,(r,owner) in enumerate(zip(rows,owners),1):
         issues=[]
         dimensions=[r.get(k) for k in ('rows','columns','capacity','consumer','split','queries','local_neighbors')]
         if any(type(v) is not int for v in dimensions):
             errors.append('Invalid H0 dimensions');continue
         nr,no,cap,consumer,split,queries,local=dimensions;soc=consumer==3
+        if soc_export and not soc:issues.append('SOC diagnostic requested from a scalar H0 owner')
         if not (0<nr<=no and 0<cap and consumer in (2,3) and split in (0,1) and queries>=0 and 0<=local<=owner.get('neighbors',-1)):
             errors.append('H0 dimensions outside supported geometry');continue
         if any(r.get(k)!=owner.get(k) for k in ('rows','columns','capacity','consumer','queries','epoch')):
@@ -41,6 +45,10 @@ def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_recor
                       export_bytes=4 if production else values+4,raw_bytes=0 if production else 3*values,derivative_upload_bytes=0,integral_download_bytes=0)
         if any(r.get(k)!=v for k,v in expected.items()):issues.append('H0 graph/storage/transfer inventory differs')
         if r.get('production',False) is not production:issues.append('H0 requested mode differs from native owner')
+        copied=64*cap if soc_export and production and soc else 0
+        if type(r.get('soc_export_bytes',0)) is not int or r.get('soc_export_bytes',0)!=copied:
+            issues.append('H0 SOC diagnostic copy differs from the explicit request')
+        diagnostic['device_to_host_bytes']+=copied;diagnostic['copy_calls']+=bool(copied)
         if (any(r.get(k) is not True for k in ('passed','bound')) or
                 any(r.get(k) is not (not energy_only) for k in ('force_borrowed','complete'))):
             issues.append('H0 comparison or retained integral lifetime incomplete')
@@ -92,5 +100,22 @@ def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_recor
         if counter and interval.get('phase')!='initialization':errors.append('H0 shadow transfer outside initialization')
         for key in actual:actual[key]+=counter.get(key,0)
     if actual!=totals:errors.append('H0 transfers do not match raw phase accounting')
+    actual_diagnostic=dict.fromkeys(totals,0)
+    for interval in residency.get('intervals',[]):
+        counter=interval.get('boundaries',{}).get('soc_operator_output',{})
+        if counter and interval.get('phase')!='post_scf':errors.append('SOC diagnostic copy outside post-SCF')
+        for key in actual_diagnostic:actual_diagnostic[key]+=counter.get(key,0)
+    if actual_diagnostic!=diagnostic:errors.append('SOC diagnostic copies do not match phase accounting')
+    if diagnostic['copy_calls']:
+        path=Path(folder)/'remag.SOC.json'
+        try:metadata=json.loads(path.read_text()) if path.stat().st_size<=4096 else {}
+        except (OSError,ValueError):metadata={}
+        expected=dict(format='REMAG-NATIVE-SOC/2',producer='remag-device-nonlocal-h0',host_nonlocal_h0=False,
+            snapshot_epoch=epochs[-1],snapshot_rows=rows[-1]['rows'],snapshot_columns=rows[-1]['columns'],
+            snapshot_capacity=rows[-1]['capacity'],snapshot_phase='post_scf',snapshot_stage='before_forces')
+        if any(metadata.get(k)!=v or type(metadata.get(k)) is not type(v) for k,v in expected.items()):
+            errors.append('SOC snapshot does not bind the final device owner')
+    totals={k:totals[k]+diagnostic[k] for k in totals}
     return dict(passed=not errors,errors=errors,checks=checks,traffic=totals,
-                production_h0=production,integrals_retained_through_forces=not energy_only,strict_residency_verified=False)
+                production_h0=production,integrals_retained_through_forces=not energy_only,strict_residency_verified=False,
+                **(dict(soc_export_traffic=diagnostic) if soc_export or actual_diagnostic!=dict.fromkeys(totals,0) else {}))

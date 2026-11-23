@@ -1,0 +1,35 @@
+{
+  "format": "REMAG-INDEPENDENT-DESCRIPTORS-PLAN/1",
+  "recorded_at": "2026-11-14T07:27:08.729343+00:00",
+  "training_cases": [
+    "reference",
+    "volume-minus",
+    "volume-plus",
+    "shape-minus",
+    "shape-plus"
+  ],
+  "kmesh": [
+    16,
+    16,
+    16
+  ],
+  "axis": "soc-z",
+  "diagnostic": "Signed Fe/Pt d-orbital Mulliken DOS at each structure Fermi level",
+  "gaussian_sigma_ev": [
+    0.08,
+    0.12,
+    0.2
+  ],
+  "reconstruction": "Native HSX with the corresponding native KP/EIG, maximum absolute eigenvalue discrepancy <=0.001 eV; this is a representation check, not MAE accuracy.",
+  "derivatives": "Unequal-step quadratic derivatives at zero log volume or log c/a, using the reference and two independent controls. Report sign consistency across all three existing Gaussian widths.",
+  "selection": "All five training energy outcomes were already known. Widths and orbital groups reuse the earlier descriptor study. This is a post-training diagnostic, not a blind model validation.",
+  "untouched_predictions_sha256": "9d854eeaff57f860472d04f4593b76e9dcb5dec3b085d915c83e147b239c2820",
+  "gpu_cost": 0,
+  "mechanism_verified": false,
+  "physical_accuracy_qualified": false,
+  "limits": [
+    "No mixed held-out spectra or target outcomes enter this diagnostic.",
+    "Descriptor gradients do not identify SOC matrix elements or establish a mechanism.",
+    "16-cubed DOS sampling convergence remains unqualified."
+  ]
+}

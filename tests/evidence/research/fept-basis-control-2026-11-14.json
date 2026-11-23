@@ -1,0 +1,74 @@
+{
+  "format": "REMAG-FEPT-BASIS-CONTROL/1",
+  "plan_sha256": "410ce74c8d4ac4eeb99441d0e4c673a1ff6c9a8c7c89576bc73fbed4b9721ecb",
+  "id": "tzp16",
+  "varied": "basis",
+  "status": "measured",
+  "report_sha256": "de36053e6a418c3d6880aefe3fa903aab118259fee1b5d31b4bd609fadda4d86",
+  "check": {
+    "format": "REMAG-NUMERICAL-STABILITY/1",
+    "varied": "basis",
+    "samples": [
+      {
+        "parameters": {
+          "basis_size": "DZP"
+        },
+        "energy_anisotropy_ev": 0.00286099999993894,
+        "free_energy_anisotropy_ev": 0.0027159999999639695,
+        "transverse_split_ev": 0.0,
+        "report_sha256": "39400d14564708a030384aaa0643c5c978702fa65cd1cb5834f9b0584a01f14e"
+      },
+      {
+        "parameters": {
+          "basis_size": "TZP"
+        },
+        "energy_anisotropy_ev": 0.002735000000029686,
+        "free_energy_anisotropy_ev": 0.0026250000000800355,
+        "transverse_split_ev": 0.0,
+        "report_sha256": "de36053e6a418c3d6880aefe3fa903aab118259fee1b5d31b4bd609fadda4d86"
+      }
+    ],
+    "changes": [
+      {
+        "energy_ev": -0.00012599999990925426,
+        "free_energy_ev": -9.099999988393392e-05
+      }
+    ],
+    "tolerance_ev": 5e-05,
+    "successive_changes_required": 1,
+    "transverse_tolerance_ev": 1e-05,
+    "transverse_passed": true,
+    "sufficient_refinements": true,
+    "observed_stability_passed": false,
+    "fixed_configuration": {
+      "kmesh": [
+        16,
+        16,
+        16
+      ],
+      "basis_energy_shift_ry": 0.02,
+      "pseudopotentials": {
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+      },
+      "mesh_ry": 300,
+      "smearing_k": 300,
+      "dm_tolerance": 1e-05,
+      "h_tolerance_ev": 0.0001,
+      "mixing_weight": 0.03,
+      "mixing_history": 8,
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+      "environment": {}
+    },
+    "physical_accuracy_qualified": false,
+    "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+  },
+  "branch": {
+    "passed": true,
+    "site_rms_mub": 0.013294263744186826,
+    "net_fractional_change": 0.001099244344598084,
+    "robust_site_flip": false
+  },
+  "physical_accuracy_qualified": false
+}

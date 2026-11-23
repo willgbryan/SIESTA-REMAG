@@ -37,9 +37,10 @@ def boolean(values, key, default):
 
 def policy(text):
     values = settings(text)
-    # Full native policy still comes from upstream get_allowed_history_depth.
-    # This audit currently qualifies the fixed-geometry and CG corpus only.
-    if values.get('mdtypeofrun', ['cg'])[0].lower() != 'cg':
+    # Both CG and Broyden select idyn=0 in the pinned read_options.F90.
+    # Compiled native policy controls cover their identical history/export
+    # arithmetic; this does not certify a completed GPU relaxation.
+    if values.get('mdtypeofrun', ['cg'])[0].lower() not in ('cg', 'broyden'):
         raise ValueError('History material audit has no reference for this MD mode')
     depth = int(values.get('dmhistorydepth', ['1'])[0])
     if not boolean(values, 'dmallowreuse', True):

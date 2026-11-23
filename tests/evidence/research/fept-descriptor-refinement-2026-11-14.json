@@ -1,0 +1,42 @@
+{
+  "format": "REMAG-DESCRIPTOR-REFINEMENT/1",
+  "date": "2026-11-14",
+  "gaussian_sigma_ev": 0.12,
+  "projection": "Signed orbital Mulliken",
+  "rows": [
+    {
+      "kmesh": [
+        6,
+        6,
+        6
+      ],
+      "metadata_sha256": "dedc5958bb9d33841e783eee2234ec17a775debc2cb8cd11af00be5705095c1f",
+      "artifact_sha256": "552f6ed1efaf825d5347053c6a60f733595f573eca273ff0ab4ebc24c37b9160",
+      "dos_ef_states_per_ev": {
+        "Fe_d": 1.2001777168353158,
+        "Pt_d": 0.22614419761358762
+      }
+    },
+    {
+      "kmesh": [
+        16,
+        16,
+        16
+      ],
+      "metadata_sha256": "3b536b2a7781fcf0b1545c478e56f8086dd555a0d923160f6df2045b2be0365b",
+      "artifact_sha256": "2abd83c866e3928c491f8f9bc40e114bc0781674bc67f6e22c30e69f099f5bfd",
+      "dos_ef_states_per_ev": {
+        "Fe_d": 0.8745063558664355,
+        "Pt_d": 0.2990348969619324
+      }
+    }
+  ],
+  "fractional_change": {
+    "Fe_d": -0.2713526142008582,
+    "Pt_d": 0.32231956476236046
+  },
+  "conclusion": "At identical geometry/basis and fixed 0.12 eV diagnostic broadening, Fe d-DOS(E_F) falls about 27% and Pt d-DOS(E_F) rises about 32% from pristine k6 to k16. The original coarse descriptor is not sampling-stable; k16 convergence is not established by this two-point check.",
+  "native_spectral_checks": "Both reconstructed spectra passed native EIG comparisons; that checks representation, not BZ sampling accuracy.",
+  "physical_accuracy_qualified": false,
+  "mechanism_verified": false
+}

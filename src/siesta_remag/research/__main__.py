@@ -1,0 +1,248 @@
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from ..discovery.common import load, save
+from ..discovery.config import Settings
+from .experiments import prepare_experiment, run_experiment
+
+
+WORKBENCH_COMMANDS = ('workspace-register', 'prepare-response', 'analyze-response', 'study-register', 'study-run-arm', 'study-grade', 'study-evaluate', 'prediction-scores', 'agent', 'tool-catalog', 'tool-call', 'tools', 'synthesis', 'serve', 'snapshot')
+
+
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    if argv and argv[0] in WORKBENCH_COMMANDS:
+        from ._workbench import load_module
+        return load_module('cli').main(argv)
+    parser = argparse.ArgumentParser(prog='python -m siesta_remag.research',
+        epilog='Workbench commands moved to twins: ' + ', '.join(sorted(WORKBENCH_COMMANDS)))
+    sub = parser.add_subparsers(dest='command', required=True)
+    p = sub.add_parser('bands', help='Export a band path over saved checked k points without new calculations')
+    p.add_argument('report', type=Path)
+    p.add_argument('--stage', required=True)
+    p.add_argument('--spectrum', type=Path, required=True)
+    p.add_argument('--native-hsx', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--k-indices', type=int, nargs='+', required=True)
+    p.add_argument('--breaks', type=int, nargs='*')
+    p.add_argument('--selection', type=Path)
+    p.add_argument('--collection', type=Path)
+    p = sub.add_parser('soc-matrices', help='Inspect a native spin-dependent nonlocal SOC operator in checked selected-k states')
+    p.add_argument('report', type=Path)
+    p.add_argument('--stage', required=True)
+    p.add_argument('--native-directory', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--collection', type=Path)
+    p.add_argument('--k-indices', type=int, nargs='+', default=[0])
+    p = sub.add_parser('orbital-moments', help='Inspect native-density orbital moments from accepted saved SOC evidence')
+    p.add_argument('report', type=Path)
+    p.add_argument('--stage', required=True)
+    p.add_argument('--native-directory', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--collection', type=Path)
+    p = sub.add_parser('matrices', help='Export selected-k eigenvectors, reconstructed density and orbital coupling from saved native evidence')
+    p.add_argument('report', type=Path)
+    p.add_argument('--stage', required=True)
+    p.add_argument('--native-directory', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--k-indices', type=int, nargs='+', default=[0])
+    p.add_argument('--spin', type=int, default=0)
+    p.add_argument('--collection', type=Path)
+    p = sub.add_parser('compare-matrices', help='Compare same-basis endpoint states and total Hamiltonian changes')
+    p.add_argument('before', type=Path)
+    p.add_argument('after', type=Path)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--energy-window-ev', type=float, nargs=2, default=[-3, 3])
+    p.add_argument('--degeneracy-tolerance-ev', type=float, default=1e-5)
+    p.add_argument('--limit', type=int, default=40)
+    p = sub.add_parser('runtime-manifest', help='Bind executable/library hashes to compiled metadata in a trusted CPU builder; no solver')
+    p.add_argument('--executable', type=Path, required=True)
+    p.add_argument('--library', type=Path, required=True)
+    p.add_argument('--environment', type=Path, required=True)
+    p.add_argument('--threads', type=int, default=1)
+    p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('preflight-query', help='Offline input/build-capability check; no cloud calls or reservations')
+    p.add_argument('--runtime', type=Path, required=True)
+    p.add_argument('--bundle', type=Path, action='append', required=True)
+    p = sub.add_parser('execute-query', help='Execute one query using an explicit operator budget/runtime configuration')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--execution-config', type=Path, required=True)
+    p.add_argument('--bundle', required=True)
+    p.add_argument('--output', required=True)
+    p.add_argument('--spectra', type=Path, help='JSON list of requested stage/spin spectra')
+    p = sub.add_parser('preflight-relaxation', help='Offline discovery-bundle/runtime/source validation; no paid actions')
+    p.add_argument('--runtime', type=Path, required=True)
+    p.add_argument('--structure', type=Path, required=True)
+    p.add_argument('--bundle', type=Path, required=True)
+    p = sub.add_parser('execute-relaxation', help='Operator-only relaxation and magnetic screen through the shared single-allocation owner')
+    p.add_argument('--workspace', type=Path, required=True)
+    p.add_argument('--execution-config', type=Path, required=True)
+    p.add_argument('--structure', required=True)
+    p.add_argument('--bundle', required=True)
+    p.add_argument('--output', required=True)
+    p = sub.add_parser('fept', help='Author exact FePt strain family and prepare fixed-geometry bundles')
+    p.add_argument('--pseudos', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--settings', type=Path)
+    p.add_argument('--mesh', type=int, nargs=3, default=[6, 6, 6])
+    p.add_argument('--basis', default='DZP')
+    p.add_argument('--basis-spec', type=Path, help='Validated explicit REMAG-PAO-BASIS/1 JSON')
+    p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
+    p.add_argument('--query', type=Path, help='Scalar, selected SOC directions or angular query JSON')
+    p = sub.add_parser('prepare', help='Prepare a physical query for any GPAC-PHYSICAL/1 structure')
+    p.add_argument('--candidate',type=Path,help='Verified candidate.json provenance to preserve in the prepared bundle')
+    p.add_argument('--soc-matrix', action='store_true', help='Request native off-site SOC operator on SOC stages; host nonlocal H0 required')
+    p.add_argument('structure', type=Path)
+    p.add_argument('--pseudos', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--settings', type=Path)
+    p.add_argument('--mesh', type=int, nargs=3)
+    p.add_argument('--basis', default='DZP')
+    p.add_argument('--basis-spec', type=Path)
+    p.add_argument('--basis-energy-shift-ry', type=float, default=.02)
+    p.add_argument('--query', type=Path, required=True)
+    p = sub.add_parser('run', help='Run one fixed-geometry experiment with an explicit native runtime')
+    p.add_argument('bundle', type=Path)
+    p.add_argument('--runtime', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('electronic', help='Export orbital-resolved spectra from HSX')
+    p.add_argument('hsx', type=Path)
+    p.add_argument('--sampling', type=Path, required=True, help='JSON kpoints (reciprocal fractional) and normalized weights')
+    p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('electronic-run', help='Reconstruct and check spectra against native KP/EIG outputs')
+    p.add_argument('directory', type=Path)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--spin', type=int, default=0)
+    p = sub.add_parser('overlap-run', help='Measure basis overlap conditioning on every native KP point')
+    p.add_argument('directory', type=Path)
+    p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('convergence', help='Compare one numerical control using both E and F anisotropies')
+    p.add_argument('reports', type=Path, nargs='+')
+    p.add_argument('--varied', choices=('kmesh', 'grid', 'scf', 'basis', 'radial_extent', 'smearing'), required=True)
+    p.add_argument('--tolerance-ev', type=float, required=True)
+    p.add_argument('--successive-changes', type=int, default=2)
+    p.add_argument('--transverse-tolerance-ev', type=float)
+    p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('response-fit', help='Fit independently identifiable volume and shape responses')
+    p.add_argument('reports', type=Path, nargs='+')
+    p.add_argument('--reference', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p = sub.add_parser('response-predict', help='Predict E and F anisotropy for an exact structural control')
+    p.add_argument('--model', type=Path, required=True)
+    p.add_argument('--structure', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    args = parser.parse_args(argv)
+    if args.command == 'runtime-manifest':
+        from .preflight import build_runtime
+        if args.output.exists():raise ValueError('Runtime manifest output must be new')
+        result=build_runtime(args.executable,args.library,load(args.environment),args.threads)
+        save(args.output,result)
+        return 0
+    if args.command == 'preflight-query':
+        from .preflight import preflight_query
+        runtime=load(args.runtime)
+        print(json.dumps([preflight_query(bundle,runtime) for bundle in args.bundle],indent=2,allow_nan=False))
+        return 0
+    if args.command == 'execute-query':
+        from .execution import execute_query
+        result=execute_query(args.workspace,args.execution_config,args.bundle,args.output,spectra=load(args.spectra) if args.spectra else None)
+        print(json.dumps(result,indent=2,allow_nan=False))
+        return 0 if result['status']=='measured' else 2
+    if args.command == 'preflight-relaxation':
+        from .relaxation_execution import preflight_relaxation, verify_relaxation_source
+        result = preflight_relaxation(args.bundle, load(args.runtime))
+        result['source_binding'] = verify_relaxation_source(args.structure, args.bundle)
+        print(json.dumps(result, indent=2, allow_nan=False))
+        return 0
+    if args.command == 'execute-relaxation':
+        from .execution import execute_relaxation
+        result = execute_relaxation(args.workspace, args.execution_config, args.structure, args.bundle, args.output)
+        print(json.dumps(result, indent=2, allow_nan=False))
+        return 0 if result['status'] == 'measured' else 2
+    if args.command == 'bands':
+        from .reciprocal import export_band_path
+        result=export_band_path(args.report,args.stage,args.spectrum,args.native_hsx,args.output,
+            k_indices=args.k_indices,breaks=args.breaks,selection=load(args.selection) if args.selection else None,
+            collection=args.collection)
+    elif args.command == 'soc-matrices':
+        from .soc import export_soc
+        result=export_soc(args.report,args.stage,args.native_directory,args.output,k_indices=args.k_indices,collection=args.collection)
+    elif args.command == 'orbital-moments':
+        from .orbital_moments import export_orbital_moments
+        result = export_orbital_moments(args.report,args.stage,args.native_directory,args.output,collection=args.collection)
+    elif args.command == 'matrices':
+        from .mechanisms import export_matrices
+        result = export_matrices(args.report,args.stage,args.native_directory,args.output,
+            k_indices=args.k_indices,collinear_spin=args.spin,collection=args.collection)
+    elif args.command == 'compare-matrices':
+        from .mechanisms import compare_matrices
+        result = compare_matrices(args.before,args.after,args.output,energy_window_ev=args.energy_window_ev,
+            degeneracy_tolerance_ev=args.degeneracy_tolerance_ev,limit=args.limit)
+    elif args.command == 'prepare':
+        result = prepare_experiment(load(args.structure), args.pseudos, args.output,
+            settings=Settings.from_dict(load(args.settings) if args.settings else {}), mesh=args.mesh,
+            basis_size=args.basis, basis_spec=load(args.basis_spec) if args.basis_spec else None,
+            basis_energy_shift_ry=args.basis_energy_shift_ry, query=load(args.query),soc_matrix=args.soc_matrix,candidate=args.candidate)
+    elif args.command == 'fept':
+        from gpac.physical import fept_reference, strain, export_geometry
+        p = fept_reference()
+        settings = Settings.from_dict(load(args.settings) if args.settings else {})
+        args.output.mkdir(parents=True, exist_ok=False)
+        rows = []
+        for label, q in [('m200', '-1/50'), ('m100', '-1/100'), ('m050', '-1/200'), ('zero', '0'),
+                         ('p050', '1/200'), ('p100', '1/100'), ('p200', '1/50')]:
+            intervention = strain(p, 2, q, expected_sha256=p.sha256)
+            export = export_geometry(intervention['child']['program'], length_unit='angstrom')
+            prepare_experiment(export, args.pseudos, args.output/label, settings=settings, mesh=args.mesh,
+                               basis_size=args.basis, basis_spec=load(args.basis_spec) if args.basis_spec else None,
+                               basis_energy_shift_ry=args.basis_energy_shift_ry,
+                               query=load(args.query) if args.query else None,
+                               parameter=dict(name='epsilon_c', exact=q, unit='dimensionless'))
+            rows.append(dict(id=label, strain=q, parent_sha256=p.sha256, source_sha256=export['source']['sha256'],
+                             heldout=label in ('m050', 'p050'), status='prepared'))
+        result = dict(format='REMAG-CAMPAIGN/1', material='L10 FePt',
+            strain_path='fixed a=b=2.73 angstrom; c=3.79*(1+epsilon_c); fixed fractional sites',
+            reference_source_sha256=p.sha256, experiments=rows, physical_accuracy_qualified=False)
+        save(args.output/'campaign.json', result)
+    elif args.command == 'run':
+        runtime = load(args.runtime)
+        result = run_experiment(args.bundle, args.output, runtime['executable'], executable_sha256=runtime['executable_sha256'],
+                                runtime_env=runtime.get('environment', {}), threads=runtime.get('threads', 1))
+    elif args.command in ('response-fit', 'response-predict'):
+        from .response import fit, predict
+        if args.output.exists():
+            raise FileExistsError(args.output)
+        result = (fit(load(args.reference), args.reports) if args.command == 'response-fit'
+                  else predict(load(args.model), load(args.structure)))
+        save(args.output, result)
+    elif args.command == 'convergence':
+        from .convergence import assess
+        if args.output.exists():
+            raise FileExistsError(args.output)
+        result = assess(args.reports, varied=args.varied, tolerance_ev=args.tolerance_ev,
+                        successive_changes=args.successive_changes,
+                        transverse_tolerance_ev=args.transverse_tolerance_ev)
+        save(args.output, result)
+    elif args.command == 'electronic-run':
+        from .electronic import spectrum_from_run
+        result = spectrum_from_run(args.directory, args.output, collinear_spin=args.spin)
+    elif args.command == 'overlap-run':
+        from .electronic import overlap_from_run
+        if args.output.exists():
+            raise FileExistsError(args.output)
+        result = overlap_from_run(args.directory)
+        save(args.output, result)
+    else:
+        from .electronic import spectrum
+        sampling = load(args.sampling)
+        result = spectrum(args.hsx, sampling['kpoints'], sampling['weights'], args.output)
+    print(json.dumps(result, indent=2, allow_nan=False))
+    return 2 if (result.get('status', '').startswith('held') or
+                 result.get('observed_stability_passed') is False or
+                 result.get('positive_definite') is False) else 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

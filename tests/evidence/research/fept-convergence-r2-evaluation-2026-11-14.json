@@ -1,0 +1,205 @@
+{
+  "format": "REMAG-FEPT-CONVERGENCE-R2/1",
+  "plan_sha256": "ac7a944d7b0c2ea12964bd73e6f3810182661c6f25b1ac668c8ab3bc2cca61fa",
+  "campaign_report_sha256": "29631389c86ba951decf7999cfcbdfc39dc632f0c3f154015baa38518d51296f",
+  "receipt_sha256": "9cbcecf302508667ca50ff093d6369ab32dd985c8b6ca1532b164156e6e3c604",
+  "native_recovery_manifest_sha256": "3db3f851d73a75ee58f3fdcdc0102e86e3425e3c31f72de196849f04a214c244",
+  "kmesh": {
+    "format": "REMAG-NUMERICAL-STABILITY/1",
+    "varied": "kmesh",
+    "samples": [
+      {
+        "parameters": {
+          "kmesh": [
+            16,
+            16,
+            16
+          ]
+        },
+        "energy_anisotropy_ev": 0.0028609357073037245,
+        "free_energy_anisotropy_ev": 0.0027155981101714133,
+        "transverse_split_ev": 1.9872459233738482e-10,
+        "report_sha256": "b81ede81f92dd9cf340494b7c1be50e8f4267d90e6593f914be1bb65e3805587"
+      },
+      {
+        "parameters": {
+          "kmesh": [
+            20,
+            20,
+            20
+          ]
+        },
+        "energy_anisotropy_ev": 0.0023652512086300703,
+        "free_energy_anisotropy_ev": 0.0023825046341698908,
+        "transverse_split_ev": 7.321432349272072e-10,
+        "report_sha256": "08e95e242ed5f545e6cf23dff5972d3e44b9c49064aa4605740f5a75f1dc8ad0"
+      },
+      {
+        "parameters": {
+          "kmesh": [
+            24,
+            24,
+            24
+          ]
+        },
+        "energy_anisotropy_ev": 0.0023979853390301287,
+        "free_energy_anisotropy_ev": 0.0024592635500084725,
+        "transverse_split_ev": 3.1604940886609256e-10,
+        "report_sha256": "f5708029dbb273ecbcde1641cf1687a9b251c0c345a5b3defaaf95b6e872257b"
+      },
+      {
+        "parameters": {
+          "kmesh": [
+            28,
+            28,
+            28
+          ]
+        },
+        "energy_anisotropy_ev": 0.002497738555121032,
+        "free_energy_anisotropy_ev": 0.0024761671506894345,
+        "transverse_split_ev": 2.4920154828578234e-10,
+        "report_sha256": "aaf7a1aa7c887edc389d13f0dbf48c0c911d6e7634f6ccb417180c067b83c28d"
+      },
+      {
+        "parameters": {
+          "kmesh": [
+            32,
+            32,
+            32
+          ]
+        },
+        "energy_anisotropy_ev": 0.002469067163019645,
+        "free_energy_anisotropy_ev": 0.002480507896962081,
+        "transverse_split_ev": 1.2505552149377763e-10,
+        "report_sha256": "6e2e0fa40b198336b7b21653c11afbfe2125ec22a97fa5f09930e817136efcb2"
+      }
+    ],
+    "changes": [
+      {
+        "energy_ev": -0.0004956844986736542,
+        "free_energy_ev": -0.0003330934760015225
+      },
+      {
+        "energy_ev": 3.273413040005835e-05,
+        "free_energy_ev": 7.675891583858174e-05
+      },
+      {
+        "energy_ev": 9.975321609090315e-05,
+        "free_energy_ev": 1.6903600680961972e-05
+      },
+      {
+        "energy_ev": -2.8671392101387028e-05,
+        "free_energy_ev": 4.340746272646356e-06
+      }
+    ],
+    "tolerance_ev": 5e-05,
+    "successive_changes_required": 2,
+    "transverse_tolerance_ev": 1e-05,
+    "transverse_passed": true,
+    "sufficient_refinements": true,
+    "observed_stability_passed": false,
+    "fixed_configuration": {
+      "basis_size": "DZP",
+      "basis_energy_shift_ry": 0.02,
+      "pseudopotentials": {
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+      },
+      "mesh_ry": 300,
+      "smearing_k": 300,
+      "dm_tolerance": 1e-05,
+      "h_tolerance_ev": 0.0001,
+      "mixing_weight": 0.03,
+      "mixing_history": 8,
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "environment": {
+        "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+        "REMAG_NONLOCAL_H0": "0",
+        "REMAG_NONLOCAL_H0_SHADOW": "0",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "REMAG_GRID": "1",
+        "REMAG_DM": "1",
+        "REMAG_GRID_EPOCH": "1",
+        "REMAG_GRID_VERIFY_EPOCH": "0",
+        "REMAG_NORMALIZE": "1",
+        "REMAG_OCCUPATIONS": "1",
+        "REMAG_RESIDENT_SPECTRA": "1",
+        "REMAG_HS": "1",
+        "REMAG_HARTREE": "1",
+        "REMAG_RESIDENT_GRID": "1",
+        "REMAG_RESIDENT_SCF": "1",
+        "REMAG_DEVICE_SCF": "0",
+        "REMAG_DEVICE_VECTOR_CACHE": "0",
+        "REMAG_BLOCK_SOLVER": "0",
+        "REMAG_BLOCK_WIDTH": "32",
+        "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+        "REMAG_FORCE_SHADOW": "0",
+        "REMAG_FORCE_SHADOW_RESIDENT": "0",
+        "REMAG_GRID_FORCE": "0",
+        "REMAG_ATOMIC_GRID_FORCE": "0",
+        "REMAG_ATOMIC_FORCE_SHADOW": "0",
+        "REMAG_FINAL_GRID": "0",
+        "REMAG_FINAL_GRID_SHADOW": "0",
+        "REMAG_FINAL_DENSITY": "0",
+        "REMAG_FINAL_DENSITY_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS": "0",
+        "REMAG_ATOMIC_BASIS_SHADOW": "0",
+        "REMAG_ATOMIC_BASIS": "0",
+        "REMAG_TWO_CENTER_SHADOW": "0",
+        "REMAG_PAIR_FORCE_SHADOW": "0",
+        "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+        "REMAG_INTEGRAL_FORCE": "0",
+        "REMAG_POPULATION": "0",
+        "REMAG_TRACE_IO": "0",
+        "REMAG_TRACE_CUDA": "0",
+        "REMAG_GPU_INITIALIZATION": "0",
+        "REMAG_GPU_HISTORY": "0",
+        "REMAG_FINAL_SPECTRA": "0",
+        "REMAG_GATE_H_EXPORT": "0",
+        "REMAG_DEFER_SCF_LOG": "0",
+        "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+        "GFORTRAN_UNBUFFERED_ALL": "0",
+        "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+        "REMAG_BLOCK_SHARED_JACOBI": "1",
+        "REMAG_INITIAL_MESH": "0",
+        "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+        "REMAG_SCF_SOLVER_LANES": "1",
+        "REMAG_SCF_WARM_START": "0",
+        "REMAG_RADIAL_BATCH": "0",
+        "REMAG_GRID_POTENTIAL_SPINS": "1",
+        "REMAG_SCF_STAGE_PROFILE": "0",
+        "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+        "REMAG_BLOCK_FUSED_MATRIX": "0",
+        "REMAG_BLOCK_FP64_VECTORS": "0",
+        "REMAG_BLOCK_FP64_MATRIX": "0",
+        "CUDA_DISABLE_PTX_JIT": "1",
+        "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+        "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+      }
+    },
+    "physical_accuracy_qualified": false,
+    "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+  },
+  "magnetic_branch_checks": [
+    {
+      "id": "k28",
+      "passed": true,
+      "site_rms_mub": 0.006635155047171045,
+      "net_fractional_change": 0.003895421303179153,
+      "robust_site_flip": false
+    },
+    {
+      "id": "k32",
+      "passed": true,
+      "site_rms_mub": 0.007941744298326411,
+      "net_fractional_change": 0.004739379195386869,
+      "robust_site_flip": false
+    }
+  ],
+  "physical_accuracy_qualified": false,
+  "conclusion": "The 28-to-32 E/F changes pass individually, but 24-to-28 E exceeds0.05meV/cell. The unchanged two-successive-step criterion remains unmet. All six reference-continuation experiments completed; transfer predictions remain a separate test."
+}

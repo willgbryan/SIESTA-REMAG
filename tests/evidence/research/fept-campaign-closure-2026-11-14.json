@@ -1,0 +1,48 @@
+{
+  "format": "REMAG-CAMPAIGN-CLOSURE/1",
+  "recorded_at": "2026-11-14T10:34:55.095128+00:00",
+  "owned_campaigns": [
+    {
+      "campaign": "convergence-r1",
+      "app_id": "ap-Rx4RD8L5qwq6bOsWEFYHpT",
+      "state": "stopped",
+      "created_at": "2026-11-13 23:32:16-06:00",
+      "stopped_at": "2026-11-14 00:31:51-06:00",
+      "run_id": "physics-c12a93d4c4ed4dd4939e0e9b8dca6e2e",
+      "receipt_sha256": "88ce8865b7324a18ae3f11870af56831ecd3fb7a1b6be8f4d6b5f9d0923eceb3"
+    },
+    {
+      "campaign": "convergence-r2",
+      "app_id": "ap-pekEMdN51RKiqeaO1vwAUt",
+      "state": "stopped",
+      "created_at": "2026-11-14 00:34:00-06:00",
+      "stopped_at": "2026-11-14 02:19:00-06:00",
+      "run_id": "physics-f228b833278b47c5a32aac3e712d4f65",
+      "receipt_sha256": "9cbcecf302508667ca50ff093d6369ab32dd985c8b6ca1532b164156e6e3c604"
+    },
+    {
+      "campaign": "transfer32-minus",
+      "app_id": "ap-f7zyON1PMhb0fPAiJJpdD4",
+      "state": "stopped",
+      "created_at": "2026-11-14 02:21:55-06:00",
+      "stopped_at": "2026-11-14 03:28:32-06:00",
+      "run_id": "physics-f83472e76a2d4f1892999761e5714a10",
+      "receipt_sha256": "4c53172e343677f29c6903e6b6ac980f8df8ee6815973e206125df2c4ea9c825"
+    },
+    {
+      "campaign": "transfer32-plus",
+      "app_id": "ap-8J6gOKdqSM2QVoKLryDDBD",
+      "state": "stopped",
+      "created_at": "2026-11-14 03:28:45-06:00",
+      "stopped_at": "2026-11-14 04:31:52-06:00",
+      "run_id": "physics-b63a8ce4862e47fc9f7a66493c4ee689",
+      "receipt_sha256": "17b342aa2eed8dfb4cabce413e1eb72d4cd11014ab75fd14211ecabe1881d9e4"
+    }
+  ],
+  "account_active_gpu_count": 0,
+  "owned_app_lifecycle_windows_do_not_overlap": true,
+  "budget_cap_cents": 10000,
+  "cumulative_reserved_cents": 9667,
+  "budget_ledger_sha256": "36e714a8003a33eba68359495788ca429587d812fe0f3381f5cb9333a3dbe4f6",
+  "actual_billed_usd": null
+}

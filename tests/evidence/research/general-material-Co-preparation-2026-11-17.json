@@ -1,0 +1,262 @@
+{
+  "format": "GPAC-REMAG-CO-PREPARATION/1",
+  "recorded_at": "2026-11-17T17:28:22.872741+00:00",
+  "status": "authored_predicted_CPU_prepared_native_in_progress",
+  "source_sha256": "93daca3772e1d7629b7d16c1a3a20806f356397babb6ee2b41375d123e926329",
+  "export_sha256": "7d4da801c6bd637b8bf9295f22a7423edbfbe6924c827e5206e9892a007c9432",
+  "recipe": {
+    "op": "construct",
+    "recipe": {
+      "gram": [
+        [
+          "25/4",
+          "-25/8",
+          0
+        ],
+        [
+          "-25/8",
+          "25/4",
+          0
+        ],
+        [
+          0,
+          0,
+          "165649/10000"
+        ]
+      ],
+      "components": [
+        {
+          "id": "Co",
+          "z": 27,
+          "shape": {
+            "kind": "points",
+            "points": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                "2/3",
+                "1/3",
+                "1/2"
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "policy": {
+    "status": "completed",
+    "calls": [
+      {
+        "id": "r2-02-0-00",
+        "tool": "author_structure",
+        "binding_sha256": "8936a5dcce7de6f647ff036ceb61c84298bd36296e49544253d0dda4f82ef79a",
+        "model": "gpt-6-astra",
+        "reasoning_effort": "xhigh",
+        "receipt_sha256": "831b3f92a5936e9b95ce0583d2669e71942c57677a21fdb8d3055261db3d0605"
+      },
+      {
+        "id": "r2-02-0-01",
+        "tool": "record_hypothesis",
+        "binding_sha256": "98303b6b1b8283e289dcd56d3adea97ba5c76f832775971eba758d9b24e89407",
+        "model": "gpt-6-astra",
+        "reasoning_effort": "xhigh",
+        "receipt_sha256": "f890a2dcbd05df60160b9dbb373e40fb4136f6eea4719d1567aeba609df59cf6"
+      },
+      {
+        "id": "r2-02-0-02",
+        "tool": "propose_experiment",
+        "binding_sha256": "c05593f6adf852d21e020369a51918ea36ed130a0117afe289cde9f5e2106a06",
+        "model": "gpt-6-astra",
+        "reasoning_effort": "xhigh",
+        "receipt_sha256": "a616ce95344a02e49e5c17a7819a24ed12e0228404808e8cf584627c659214a8"
+      },
+      {
+        "id": "r2-02-0-03",
+        "tool": "record_prediction",
+        "binding_sha256": "ef2109a096c18da4e2d86bf03b228672a5b118c419761a82f4b0b5b4de4a9ef3",
+        "model": "gpt-6-astra",
+        "reasoning_effort": "xhigh",
+        "receipt_sha256": "bc948fcbab9844626af8050f74bdc178034944946a5675967004a91db867544c"
+      },
+      {
+        "id": "r2-02-0-04",
+        "tool": "record_prediction",
+        "binding_sha256": "c1864311a1d87e4127de20ef962055af217746a6e6cab07f9becc7d88cebd016",
+        "model": "gpt-6-astra",
+        "reasoning_effort": "xhigh",
+        "receipt_sha256": "c35d1bf08977d28a7b38ff0117ec0cb0b7abe7d348c15ec5e912c7a88260dbc5"
+      },
+      {
+        "id": "r2-02-0-05",
+        "tool": "record_prediction",
+        "binding_sha256": "3b0ad38f8c0b2b3ea39202869604c3de309de7298406fbef359adc71086351a9",
+        "model": "gpt-6-astra",
+        "reasoning_effort": "xhigh",
+        "receipt_sha256": "1ad4006703cfb970f0033d8ae5220d94310b05e0d747e4cc95a0dc190c50de4f"
+      },
+      {
+        "id": "r2-02-0-06",
+        "tool": "record_prediction",
+        "binding_sha256": "be7d15a1a666bc8e49efaabed1e354f663d8ca091205ef61319e7141f3ee2dee",
+        "model": "gpt-6-astra",
+        "reasoning_effort": "xhigh",
+        "receipt_sha256": "a22b56512fe6e33e8ca1ed566d01dfc7b5544bb18f0584f01c70091e1acd4e75"
+      }
+    ],
+    "wall_seconds": 221.87050733249635,
+    "model_process_stopped": true,
+    "prospective_seal": {
+      "notebook_sha256": "5e75cd2d4c6285a1c82a40f547fb36221103fcc90b2e5ce607bd33c804aca214",
+      "candidate_sha256": "aa6dc8f48fef4fd0039240a67a7a93bba52b104f0c5edf755dfc629d8771128e",
+      "sealed_at": "2026-11-17T17:08:52.204270+00:00",
+      "predictions": 4,
+      "candidate_measurements_seen": false
+    },
+    "predictions": [
+      {
+        "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+        "observable": "relaxation.Js_T",
+        "value": 1.8,
+        "unit": "T",
+        "uncertainty": 0.6,
+        "interval_probability": 0.8
+      },
+      {
+        "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+        "observable": "relaxation.volume_a3",
+        "value": 21.5,
+        "unit": "angstrom^3",
+        "uncertainty": 3.0,
+        "interval_probability": 0.8
+      },
+      {
+        "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+        "observable": "anisotropy.total_energy_ev",
+        "value": 6e-05,
+        "unit": "eV/cell",
+        "uncertainty": 0.001,
+        "interval_probability": 0.8
+      },
+      {
+        "experiment_id": "406f29c22b7e4642a3b60f63abbd73a8",
+        "observable": "anisotropy.free_energy_ev",
+        "value": 6e-05,
+        "unit": "eV/cell",
+        "uncertainty": 0.001,
+        "interval_probability": 0.8
+      }
+    ]
+  },
+  "local_relaxation": {
+    "result": {
+      "status": "passed",
+      "accepted": true,
+      "steps": 24,
+      "metrics": {
+        "max_force_ev_ang": 0.006202557124197483,
+        "max_stress_gpa": 0.07189809530973434,
+        "energy_ev": -14.17819595336914,
+        "volume_a3": 21.70745087988265
+      },
+      "geometry_sha256": "b85e44c89568a432d9b025af3f8ec0c8bd2ac841ace10600dde010478deb000e",
+      "wall_seconds": 3.2628412498161197,
+      "model": "orb-v3-conservative-inf-mpa",
+      "weights_sha256": "bd1840d1488f3cd01d213970d9618a63f971590ad45e5e83bf5404d4b95d216a",
+      "rattle_ang": 0.01,
+      "rattle_seed": 0,
+      "settings": {
+        "orb_fmax_ev_ang": 0.02,
+        "orb_stress_gpa": 0.1,
+        "orb_steps": 400,
+        "orb_seconds": 300,
+        "dft_fmax_ev_ang": 0.04,
+        "dft_stress_gpa": 0.5,
+        "dft_steps": 30,
+        "dft_seconds": 1800,
+        "soc_seconds": 600,
+        "total_dft_seconds": 3600,
+        "max_scf": 100,
+        "dm_tolerance": 0.0001,
+        "h_tolerance_ev": 0.001,
+        "mixing_weight": 0.03,
+        "mixing_history": 8,
+        "mesh_ry": 300,
+        "smearing_k": 300,
+        "k_spacing_inv_ang": 0.35,
+        "max_kpoints": 512,
+        "max_atoms": 4,
+        "minimum_js_t": 0.4,
+        "axis_tolerance_deg": 1.0,
+        "branch_rms_mub": 0.2,
+        "branch_net_fraction": 0.05
+      },
+      "physical_stability_qualified": false,
+      "versions": {
+        "ase": "3.26.0",
+        "numpy": "2.3.4",
+        "orb-models": "0.5.5",
+        "torch": "2.15.0"
+      },
+      "worker_wall_seconds": 3.990569000132382
+    },
+    "preparation_worker_seconds": 3.990569000132382,
+    "tool_wall_seconds": 8.849767125211656,
+    "prepared_bundle_sha256": "8e837784ea22d7ad7dc6e996d4c8032baa99d6b0503e39a4624fd6aa7945958e"
+  },
+  "native_preflight": {
+    "format": "REMAG-RELAXATION-PREFLIGHT/1",
+    "request_sha256": "3f2ef433e27b9e8eaad19395b25aefd3635205694bbf14c0406bbf0c0d2e9cdb",
+    "prepared_sha256": "8e837784ea22d7ad7dc6e996d4c8032baa99d6b0503e39a4624fd6aa7945958e",
+    "runtime_sha256": "8c2a2d0428a08ccd0931b61d14c8255df727394452cab6b8b475dae84746d8a6",
+    "kmesh": [
+      9,
+      9,
+      5
+    ],
+    "device_scf_enabled": true,
+    "magnetic_start": {
+      "moments_muB": [
+        2.0,
+        2.0
+      ],
+      "provenance": "explicit"
+    },
+    "physical_conditions": {
+      "positions": "relaxed",
+      "cell": "fully_variable",
+      "external_pressure_gpa": 0,
+      "smearing_k": 300
+    },
+    "paid_actions": 0,
+    "input_audits": {
+      "energy_exports": 0,
+      "hamiltonian_exports": 4,
+      "density_exports": 2,
+      "density_history": {
+        "depth": 1,
+        "mode": 2
+      }
+    },
+    "physical_stability_qualified": false,
+    "scope": "Prepared identity, species, mesh and runtime capability; native convergence and stability remain untested.",
+    "native_kpoints_upper_bound": 405,
+    "compiled_max_kpoints": 4096,
+    "reduction_assumed": false,
+    "mesh_capacity_passed": true,
+    "source_binding": {
+      "source_sha256": "93daca3772e1d7629b7d16c1a3a20806f356397babb6ee2b41375d123e926329",
+      "export_sha256": "7d4da801c6bd637b8bf9295f22a7423edbfbe6924c827e5206e9892a007c9432",
+      "structure_file_sha256": "fd62c018bd71960ec9425032fc7ad920147a58eb83793cfffa9d25f76353c872"
+    }
+  },
+  "native_registration_sha256": "ffe5f6923efb640605400321462def1551177b1dff3622c789239d41a31722df",
+  "reservation_ceiling_cents": 465,
+  "native_attempt": "work/general-material-loop-r1/runs/iteration-2-profile",
+  "scope": "Successful unattended author/predict phase and measured CPU preparation, not a completed feedback cycle. Native predictions refer to eventual native observations, not Orb preparation.",
+  "old_campaign_closed": true,
+  "physical_stability_qualified": false
+}

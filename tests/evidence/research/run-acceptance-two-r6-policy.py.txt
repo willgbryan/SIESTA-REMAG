@@ -1,0 +1,33 @@
+"""Exactly one phase of one new registered Codex policy; no following arm or GPU."""
+from pathlib import Path
+from datetime import datetime,timezone
+import json,os,sys,traceback
+from siesta_remag.discovery.common import load,save
+from siesta_remag.corpus import sha256
+from siesta_remag.research.isolated_policy import PolicyContext
+from siesta_remag.research.codex_policy import CodexPolicy
+W=Path(__file__).resolve().parent;A=W/'acceptance-two-r6'
+if len(sys.argv)!=3 or sys.argv[1] not in ('scalar','physics') or sys.argv[2] not in ('predict','revise'):
+    raise ValueError('Explicit arm and phase required')
+arm,phase=sys.argv[1:];config=A/'codex-config.json';registration=load(A/'registration.json')
+assert sha256(config)==registration['codex_config_sha256']
+for p,h in load(A/'protected-before.json').items():assert sha256(W.parent/p)==h,p
+ctx=PolicyContext(A/'policy-arms'/arm)
+assert sha256(ctx.private/'registration.json')==registration['policy_registrations'][arm]
+state=load(ctx.private/'state.json');expected='ready' if phase=='predict' else 'revising';start=0 if phase=='predict' else 10;count=10 if phase=='predict' else 2
+assert state['status']==expected and state['calls']==start, 'No retry or partial phase restart'
+receipt=A/f'{arm}-{phase}-driver.json';assert not receipt.exists()
+row=dict(status='running',pid=os.getpid(),arm=arm,phase=phase,started_at=datetime.now(timezone.utc).isoformat(),calls_before=start,no_retries=True)
+save(receipt,row)
+backend=CodexPolicy(config,ctx.private/f'codex-{phase}-runtime')
+try:
+    for _ in range(count):
+        ctx.step(config,backend=backend)
+        state=load(ctx.private/'state.json');print(json.dumps(dict(arm=arm,phase=phase,calls=state['calls'],status=state['status'])),flush=True)
+    row.update(status='completed',audit=backend.audit(ctx.private))
+except BaseException as exc:
+    row.update(status='held_error',error=dict(type=type(exc).__name__,message=str(exc)));traceback.print_exc()
+finally:
+    backend.close();row.update(finished_at=datetime.now(timezone.utc).isoformat(),policy_state=load(ctx.private/'state.json'),owned_process_stopped=backend.proc is None or backend.proc.poll() is not None)
+    save(receipt,row);print(json.dumps({k:v for k,v in row.items() if k!='audit'}),flush=True)
+if row['status']!='completed':raise SystemExit(2)

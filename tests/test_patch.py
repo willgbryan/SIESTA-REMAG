@@ -24,5 +24,13 @@ def test_patch_matches_pinned_source_and_rejects_second_application(tmp_path):
     shutil.copyfile(source / "CMakeLists.txt", tmp_path / "CMakeLists.txt")
     patch.patch(tmp_path)
     assert "remag_grid" in (tmp_path / "Src/vmat.F90").read_text()
+    analysis=(tmp_path/'Src/siesta_analysis.F90').read_text()
+    forces=(tmp_path/'Src/siesta_forces.F90').read_text()
+    assert forces.index('remag_phase_enter(2,max(0,istep),0)') < forces.index('call remag_capture_soc(SCFconverged)') < forces.index('call post_scf_work(')
+    assert analysis.index('ucell(1:3, 1:3) = ucell_last(1:3, 1:3)') < analysis.index('call remag_write_soc()')
+    assert analysis.index('call remag_write_soc()') < analysis.index('if (fdf_get("Read-H-from-file", .false.))')
+    for name in ('remag_soc_components','remag_soc_export'):
+        assert (tmp_path/'Src'/f'{name}.F90').read_bytes()==(root/'native'/f'{name}.F90.in').read_bytes()
+        assert f'Src/{name}.F90' in (tmp_path/'CMakeLists.txt').read_text()
     with pytest.raises(ValueError, match="already patched"):
         patch.patch(tmp_path)

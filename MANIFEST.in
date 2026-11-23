@@ -2,6 +2,7 @@ include README.md CONTRIBUTING.md LICENSE NOTICE upstream.lock.json modal_app.py
 recursive-include native *.cpp *.cu *.cuh *.hpp *.in *.inc *.f90 CMakeLists.txt GRIDXC_NOTICE
 recursive-include scripts *.py
 recursive-include tests *.py *.json
+include tests/fixtures/scf_export_guard.cpp
 recursive-include docs *.md
 include benchmarks/README.md
 recursive-include benchmarks/solver-regressions *.json *.npz

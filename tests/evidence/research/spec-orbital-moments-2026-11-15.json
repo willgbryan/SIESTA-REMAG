@@ -1,0 +1,150 @@
+{
+  "format": "REMAG-SPEC-ORBITAL-MOMENTS-DELIVERY/1",
+  "recorded_at": "2026-11-15T18:11:13.108397+00:00",
+  "scope": "Spec 5.1 native-density orbital/atom moment inspection and linked research workspace",
+  "implementation": [
+    "bounded native DM reader",
+    "pinned onsite same-l/same-zeta density contraction",
+    "accepted-stage and native final-table reproduction",
+    "Python/CLI/agent tool",
+    "atom/orbit/direction linked workspace view"
+  ],
+  "tests": {
+    "research_discovery": "133 passed in 13.31s",
+    "final_orbital_moments": "23 passed in 0.75s",
+    "angular_native_component": "All 83 p/d/f int_so_ang calls reproduced; only extracted arithmetic compiled",
+    "workspace": "JavaScript syntax and DOM/canvas stub interaction checks passed; visual rendering unverified"
+  },
+  "examples": [
+    {
+      "stage": "soc-z",
+      "report_sha256": "efdf4264cad8d7d6ff159c505f7031a77778f608c62db3396b17c4216992c7c8",
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "evidence": {
+        "hsx": "ae61de0a502137042bb07bdd042c6ecf899b6c75ff3d017ac19286486aa9a4ce",
+        "dm": "fedf0195d9fda7c8639c51d0d7ad982b033f502cd4fb695248a406c51ebfd329",
+        "stdout": "7d4c3013c074e4a13eab543aae26d6e472afeae7b09e4f254675a920463ad9e9"
+      },
+      "artifact_sha256": "a3ca940954a0b4ca0d9c22e5d6d8b1b05baa09bfc804ecd7db78b0c89aa1d06d",
+      "implementation_sha256": {
+        "orbital_moments.py": "dd238c320688c594893976e253a5dad7dacf60202d362d8c24e6f78e7f256423",
+        "electronic.py": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b",
+        "../density.py": "832c951120600f80d261ede27bf7be2f3e2aa8ebb9c546c7bf4269e0c1d10b19",
+        "../hsx.py": "41a895cdf2abe96d8c0e535a4bd0ce94a5005ef017337450b125ccc3f68b78eb"
+      },
+      "atom_moments_mu_b": [
+        [
+          -5.1595859806791875e-14,
+          -3.252064884163194e-14,
+          0.09928584036206234
+        ],
+        [
+          1.2233680529282484e-13,
+          -1.5868650980038376e-14,
+          0.059001464979768284
+        ]
+      ],
+      "total_moment_mu_b": [
+        7.074094548603297e-14,
+        -4.8389299821670314e-14,
+        0.1582873053418306
+      ],
+      "native_table_max_abs_residual_mu_b": {
+        "orbital": 0.0003561498543342115,
+        "atom": 0.000285840362062334,
+        "total": 0.0002873053418306071
+      }
+    },
+    {
+      "stage": "soc-x",
+      "report_sha256": "efdf4264cad8d7d6ff159c505f7031a77778f608c62db3396b17c4216992c7c8",
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "evidence": {
+        "hsx": "53b183430fbb8df82bfd2a9ae15d9c3d4378b1af9a980f40fc2b54a549321f9d",
+        "dm": "3c47cd8ab1fea580ecdc9cfaa0625388935531f20b0f868cb4acc73f9e3be9e6",
+        "stdout": "29638e1d1aaccf00ec66a0dbdc05ee9d8f027efd4c78376d91784cee1967d50e"
+      },
+      "artifact_sha256": "29755f73c7d721b17600af96bc0e411ce2624ebd4b87986b2b829f4fb2a664f0",
+      "implementation_sha256": {
+        "orbital_moments.py": "dd238c320688c594893976e253a5dad7dacf60202d362d8c24e6f78e7f256423",
+        "electronic.py": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b",
+        "../density.py": "832c951120600f80d261ede27bf7be2f3e2aa8ebb9c546c7bf4269e0c1d10b19",
+        "../hsx.py": "41a895cdf2abe96d8c0e535a4bd0ce94a5005ef017337450b125ccc3f68b78eb"
+      },
+      "atom_moments_mu_b": [
+        [
+          0.10263982876288094,
+          -3.711074893720534e-14,
+          -9.165090493717769e-13
+        ],
+        [
+          0.06496887824641608,
+          8.757470630593099e-14,
+          1.4261155055267025e-12
+        ]
+      ],
+      "total_moment_mu_b": [
+        0.16760870700929703,
+        5.046395736872565e-14,
+        5.096064561549256e-13
+      ],
+      "native_table_max_abs_residual_mu_b": {
+        "orbital": 0.0004825616406634939,
+        "atom": 0.00036017123711905297,
+        "total": 0.0003912929907029794
+      }
+    },
+    {
+      "stage": "soc-y",
+      "report_sha256": "efdf4264cad8d7d6ff159c505f7031a77778f608c62db3396b17c4216992c7c8",
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "evidence": {
+        "hsx": "c81f22fc7028d8960324f249d301f720d29b4d2dc4c4befb95aceeb6e7543301",
+        "dm": "41a0f3f0c811e022bbbe496854fd5a5e7ab61549e5568d838665202ab75739d7",
+        "stdout": "c348e0eb6884daf67e54ec01c0f6d7157b428a5630380c04ccfb12719c7bc07f"
+      },
+      "artifact_sha256": "4199a558da8eb0b370b29e6ee26ba23bc0861350faf681b04240cc165152665a",
+      "implementation_sha256": {
+        "orbital_moments.py": "dd238c320688c594893976e253a5dad7dacf60202d362d8c24e6f78e7f256423",
+        "electronic.py": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b",
+        "../density.py": "832c951120600f80d261ede27bf7be2f3e2aa8ebb9c546c7bf4269e0c1d10b19",
+        "../hsx.py": "41a895cdf2abe96d8c0e535a4bd0ce94a5005ef017337450b125ccc3f68b78eb"
+      },
+      "atom_moments_mu_b": [
+        [
+          6.83346072662476e-14,
+          0.10263986127169757,
+          -9.190696536882492e-13
+        ],
+        [
+          1.2110655232331783e-13,
+          0.06496890470353972,
+          -3.64663358645885e-12
+        ]
+      ],
+      "total_moment_mu_b": [
+        1.8944115958956543e-13,
+        0.16760876597523727,
+        -4.565703240147099e-12
+      ],
+      "native_table_max_abs_residual_mu_b": {
+        "orbital": 0.0004825628154213667,
+        "atom": 0.0003601387283024282,
+        "total": 0.0003912340247627377
+      }
+    }
+  ],
+  "new_native_calculations": 0,
+  "new_gpu_reservations_cents": 0,
+  "qualification_campaign": "closed",
+  "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "limitations": [
+    "Pinned onsite moments are not bulk orbital magnetization or general nonorthogonal operators",
+    "No isolated SOC export or physical mechanism established",
+    "No new-query latency or research-policy advantage measured",
+    "Specification remains incomplete"
+  ]
+}

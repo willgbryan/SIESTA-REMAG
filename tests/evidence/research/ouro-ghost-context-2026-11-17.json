@@ -1,0 +1,131 @@
+{
+  "format": "REMAG-OURO-GHOST-CONTEXT/1",
+  "recorded_at": "2026-11-17T16:59:22.032023+00:00",
+  "status": "configured_tested_hull_held_for_shared_GPU",
+  "owner_permission": {
+    "uploads": "Always permitted; Ghost organization required.",
+    "provider_structure_database_side_effect": "Disclosed before owner permission; accepted.",
+    "separate_provider_database_tenancy": "Not specified by the route; Ghost execution/output scope is not a service database privacy guarantee."
+  },
+  "context": {
+    "name": "ghost",
+    "organization_id": "0194e5db-d49e-7d25-ac3d-fde542f594cb",
+    "team_id": "0194e5db-d4c6-7bc2-9a6e-14e628284eb8",
+    "workspace_default": "research-ouro-context.json",
+    "conflicting_preparation_rejected": true,
+    "client_header_and_route_context_bound": true,
+    "existing_key_scope_verified": true
+  },
+  "route": {
+    "id": "75fe7f4b-22f5-4883-aa1d-378fd42da47c",
+    "model": "orb-v3-conservative-inf-mpa",
+    "metadata_ceiling_cents": 0,
+    "currency": "btc",
+    "actual_billed_cents": null
+  },
+  "input": {
+    "formula": "Ni",
+    "origin": "Saved local CPU Orb relaxation; no relaxation repeated",
+    "cif_sha256": "6a78a351076810c010cebbbc544b411f3435fb09e42697049bad165ec0601598",
+    "request_sha256": "9d6f0310a50e9fcd95319e21fc5f314908ae090b86120e512fc38dd6842a8c21"
+  },
+  "live_attempts": {
+    "temporary_uploads": 1,
+    "route_submissions": 0,
+    "hull_results": 0,
+    "new_native_calculations": 0,
+    "new_owned_GPU_launches": 0,
+    "first": "Upload completed, then local UUID assumption rejected opaque handle before route call. Original receipt did not retain the handle. Failed state, source, driver and log preserved.",
+    "second": "Reviewed correction passed local tests; account guard held invocation before any upload/route call because an unrelated A100 job was active.",
+    "follow_on_queued": false
+  },
+  "fixes": [
+    "Opaque upload strings retained verbatim; raw receipt saved before validation in a private attempt directory.",
+    "Ghost organization/team bound to preparation, client header, execution and output collection. Workspace default rejects conflicting arguments.",
+    "Zero BTC-only metadata quotes retain BTC on the wire.",
+    "CI test collection no longer imports optional GPAC before its skip fixture."
+  ],
+  "validation": {
+    "targeted": "59 passed in 7.32s",
+    "full": "958 passed, 4 skipped in 227.08s",
+    "no_live_services_in_tests": true,
+    "prior_ci_failure": {
+      "id": 44127573707,
+      "head": "fde02d9c41508cffb96bc1057781c8f6e99ee696",
+      "conclusion": "failure",
+      "cause": "New HTTP test imported optional GPAC during collection; moved import into the fixture-dependent test.",
+      "url": "https://github.com/willgbryan/SIESTA-REMAG/actions/runs/44127573707"
+    },
+    "earlier_sandbox_test_failure": "Localhost test server lacked sandbox permission; rerun with loopback access passed."
+  },
+  "account_observation": {
+    "observed_at": "2026-11-17T16:57:58.190296+00:00",
+    "other_app": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-PWjqj8bL0doXoPwKnmAU07",
+      "lifecycle": {
+        "state": "ephemeral (detached)",
+        "created_at": "2026-11-17 10:53:27-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": null,
+        "stopped_by": null
+      },
+      "functions": {
+        "qualify": {
+          "id": "fu-4AQpofRnanA1HudL88ZfJh",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "containers": [
+      {
+        "container_id": "ta-01M7N6VBRDSK9SGRM8DXPQBAHR",
+        "app_id": "ap-PWjqj8bL0doXoPwKnmAU07",
+        "app_name": "siesta-remag-single-gpu",
+        "start_time": "2026-11-17 10:53:43-06:00"
+      }
+    ]
+  },
+  "next": "When the shared account is available, make a separately invoked, freshly checked first hull submission using the same registered request and fixed adapter; no automatic queue or resubmission of an uncertain action.",
+  "pending": [
+    "Live hull action and route-specific result validation",
+    "Remaining non-FePt feedback iterations and original empirical acceptance"
+  ],
+  "provider_GPU_release_verified": false,
+  "stability_or_synthesizability_established": false,
+  "old_campaign_closed": true,
+  "goal_complete": false,
+  "artifacts_sha256": {
+    "research-ouro-context.json": "101fd782000184915ba4f5a880b57a071a5defb4aec749e62c3a2548bdeefd4a",
+    "work/ouro-hull-r1/Ni-ghost-r1/request.json": "3eaed241987ebf963a74d0627eb2e41fd1b708904e898fdecc8529161cfdb982",
+    "work/ouro-hull-r1/Ni-ghost-r1/preflight.json": "c4a56d2e080e176fce4812c2e727a855aec21dab3921a165a5d6fa235edeb284",
+    "work/ouro-hull-r1/upload-handle-diagnosis.json": "c9dd796ad336bd101b772fbf003edad9c363a6ae61886281e5221875e4cb16b1",
+    "work/ouro-hull-r1/Ni-ghost-attempt-r1/state.json": "1f0ee499bef5253113766b06daf8dd866aaa66a5663e3fc67c1acc8529c51031",
+    "work/ouro-hull-r1/Ni-ghost-r2-registration.json": "db2b7f6c730d4f584dd6d18efe992c4e7fe2c0ab8416afcfa51bf74f3fb37ff3",
+    "work/ouro-hull-r1/account-observation-after-tests.json": "59b535dfbc53be7bb9b8932daab32e8f9b48eee29d4593a747a10920af0fed7e",
+    "work/ouro-ghost-final-targeted-tests-2026-11-17.log": "ea96a9df3837040bb8d53d23c5a992f0a80166e5a3064af3008ea030c3faac61",
+    "work/ouro-ghost-full-tests-2026-11-17.log": "b9dd426c2db61085c97d61bd18bd6a560bf2315f62eaa778dd0aac9177397c4a"
+  },
+  "protected_files_unchanged": {
+    "work/fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "work/acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8",
+    "work/.research-execution/owner.json": "302548376d5fdd605a3d31aba177dd4068ced42f5a3618c9d98b8998e913e4d0"
+  },
+  "implementation_sha256": {
+    "src/siesta_remag/research/ouro.py": "bd1dc9559a88814a1b5125b652dbdfb1738ec803a4933ebb80d07cfc645631ab",
+    "src/siesta_remag/research/tools.py": "8f0a0a9617895584d08e4189749d5d6cfad90aba1602fba83291d49e44aeeb35",
+    "tests/test_research_ouro.py": "caf7de1b603fbea6132b5a5389b30f0dbd76378931f8104cfda9119f4d00e4d3",
+    "tests/test_workspace_deferred_sampling.py": "114f9e13ae9e8032f8f7c7f6ba470f42f2945a19f52649e3b6364da36f64832d"
+  }
+}

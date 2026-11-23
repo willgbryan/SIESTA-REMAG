@@ -1,0 +1,60 @@
+{
+  "format": "REMAG-SPEC-IMPLEMENTATION-EVIDENCE/1",
+  "created_at": "2026-11-15T19:47:34.581478+00:00",
+  "scope": "Spec 4.4/8/9: explicit-model research-policy connection and audited decisions/usage",
+  "implementation": [
+    "Opt-in fixed-endpoint Responses adapter with environment-only credentials and explicit model selection",
+    "One strict function selection or conclusion per request; only the existing runner executes actions",
+    "Configuration/catalog/profile/context binding and hash-audited request/response/decision receipts",
+    "Per-session call/output reservation ceilings, retained uncertain attempts and no automatic retries",
+    "Actual runner tool observations supplied to subsequent decisions; no hidden shared service conversation",
+    "Model usage audit integrated into agent reports and paired-study cost inventories"
+  ],
+  "tests": {
+    "targeted": "51 passed in 18.78s: model policy/agent/paired studies",
+    "broad": "261 passed in 31.39s: research and discovery"
+  },
+  "demonstration": {
+    "format": "REMAG-MODEL-POLICY-DEMO/1",
+    "created_at": "2026-11-15T19:46:46.260533+00:00",
+    "kind": "Injected Responses-protocol replies with real local tool subprocesses and SQLite notebook",
+    "session_report_sha256": "1243cd4b8163d4724a68a187ec1a4ac898b1afe526fde89c0d4dfa1de6621804",
+    "config_sha256": "00a9064fa79dbb1f25c0bce94887353c76cf5f8159b7aaac4c22d5b07d9b1a15",
+    "fixture_model_calls": 4,
+    "fixture_reported_tokens": {
+      "input_tokens": 400,
+      "output_tokens": 80,
+      "total_tokens": 480
+    },
+    "actual_model_api_calls": 0,
+    "actual_native_solver_calls": 0,
+    "actual_gpu_calls": 0,
+    "new_real_reservations_cents": 0,
+    "scientific_success_assessed": false
+  },
+  "live_model_inference_verified": false,
+  "empirical_experiment_selection_verified": false,
+  "actual_model_api_calls": 0,
+  "actual_gpu_calls": 0,
+  "actual_native_solver_calls": 0,
+  "new_real_reservations_cents": 0,
+  "qualification_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "limitations": [
+    "No model API key available in this session; live service protocol and model judgment remain unverified",
+    "Injected test replies and token counts are engineering fixtures, not billed inference",
+    "Output reservations do not bound input/total tokens or actual invoices",
+    "Model adapter does not enlarge native compute permissions or reopen the closed campaign",
+    "External policies are trusted operator programs, not an OS sandbox",
+    "No research advantage, physical mechanism, predictive transfer or latency target established"
+  ],
+  "implementation_files": {
+    "src/siesta_remag/research/model_policy.py": "8d145bfb7ead16a78bf11b0e556a0880c888bff6d3e3a9c86fadeb889cfb2ec7",
+    "src/siesta_remag/research/agent.py": "15b703cdf7aa7d1969abfc35e3bae95188c3ad5eb8f3caccc9fc05daf069abf1",
+    "src/siesta_remag/research/study.py": "33b4157c3557bda95ea481aedd18113ba9dbd1e224c0d1e67eb919edc6810524",
+    "tests/test_research_model_policy.py": "2276ee534b07549d33880bfea635a061d22801a1fa4e61c810c6fe666daf0db7"
+  },
+  "official_protocol_sources": [
+    "https://developers.openai.com/api/docs/guides/function-calling",
+    "https://developers.openai.com/api/reference/resources/responses/methods/create"
+  ]
+}

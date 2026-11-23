@@ -1,0 +1,487 @@
+{
+  "format": "REMAG-FEPT-DENSE-BASIS-PLAN/1",
+  "recorded_at": "2026-11-14T22:03:03.031485+00:00",
+  "authorization_sha256": "f073325a72e966232fe068427bd143956b98069ec553b6fc812fe955b1952483",
+  "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "runtime": {
+    "executable": "/opt/remag-candidate/Src/siesta",
+    "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "0",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "0",
+      "REMAG_DEVICE_VECTOR_CACHE": "0",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "0",
+      "REMAG_ATOMIC_GRID_FORCE": "0",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "0",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "0",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "0",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "0",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "0",
+      "REMAG_POPULATION": "0",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "0",
+      "REMAG_GPU_HISTORY": "0",
+      "REMAG_FINAL_SPECTRA": "0",
+      "REMAG_GATE_H_EXPORT": "0",
+      "REMAG_DEFER_SCF_LOG": "0",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "0",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "1",
+      "REMAG_SCF_WARM_START": "0",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "threads": 1
+  },
+  "image": "im-6tiYD2gedKlcxnGESfzwHd",
+  "previous_app_id": "ap-9u2ySapdOKPszH44wS6nGp",
+  "budget_stage": "basis-r2",
+  "stage_cap_cents": 15000,
+  "total_new_reservation_cents": 5000,
+  "experiments": [
+    {
+      "id": "tzp-explicit-k24",
+      "prefix": "basis24-r3-42",
+      "spatial_orbitals": 42,
+      "reference": "remag-basis-transfer-r3-42/tzp-explicit-k16/report.json",
+      "reference_report_sha256": "7122d67178d02f05ef377561fd8363e34735751e527e424c338e6a286a76e3ff",
+      "reference_native": "remag-basis-transfer-r3-42-native/tzp-explicit-k16",
+      "reference_recovery_manifest_sha256": "ab7b5f21d4c04c989671468d77719d8a09ef32e647a86c370f7fcbdc112e7c1a",
+      "transfer_evaluation": "fept-basis-transfer-r3-42-evaluation.json",
+      "transfer_evaluation_sha256": "558dcdb617531fa896e0d6e1a497ac4bd413566d94157b196c6b588e3676d142",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "basis_size",
+          "basis_id": "tzp-explicit",
+          "radial_control": "shift00025"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 1800,
+          "total_dft_seconds": 5000,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 13824,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "explicit",
+        "basis_energy_shift_ry": 0.0025,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "33ccfa52a5bacf588bf0c275aa1a2e9aa5c8c128761ea0e4e8a8ff0c7b967a5f",
+          "scalar/manifest.json": "1cd21985fb33aac2039b1fa0e681987ad81eda3b6f5bc6019419e5a369361b56",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 0,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 0,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "request_sha256": "0a98bbf6a172f2ef8e6cd875c80de645cf041474deaf4abc319e61ad521dbd65",
+      "measured_native16_seconds": 886.4141389299999,
+      "projected_native24_seconds": 2991.6477188887498,
+      "timeout_seconds": 5400,
+      "native_total_seconds": 5000,
+      "native_stage_seconds": 1800,
+      "reserved_cents": 1500
+    },
+    {
+      "id": "tzp2-k24",
+      "prefix": "basis24-r3-48",
+      "spatial_orbitals": 48,
+      "reference": "remag-basis-transfer-r3-48/tzp2-k16/report.json",
+      "reference_report_sha256": "f5c1c70934ccc3c5671ff76eb19000584e667ee66176201430d216ac05af5d54",
+      "reference_native": "remag-basis-transfer-r3-48-native/tzp2-k16",
+      "reference_recovery_manifest_sha256": "dc43c3df79c84fbe2030e7569d28d92b994f471ca3b9ee6b09be5f5cf6e88140",
+      "transfer_evaluation": "fept-basis-transfer-r3-48-evaluation.json",
+      "transfer_evaluation_sha256": "b720694fc58fcf20f7de6e008357da4838adb652e188ab1b261ec700eb7997b2",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "basis_size",
+          "basis_id": "tzp2",
+          "radial_control": "shift00025"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 1800,
+          "total_dft_seconds": 5000,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 13824,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "explicit",
+        "basis_energy_shift_ry": 0.0025,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "fc42c62afef26d56793bef5c41d3b10896809a6753779250091c687db7d0d914",
+          "scalar/manifest.json": "24e21fd79e4a04ecc3207486ac4a57b09260c9ded21da1611f6531b5c6a80648",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 0,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 0,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "request_sha256": "151fbd4d9c9c5f8aa60bb4eb2db4a7f3e6a82fe70bcc0f448ea7d43a13b95b21",
+      "measured_native16_seconds": 973.950449447,
+      "projected_native24_seconds": 3287.082766883625,
+      "timeout_seconds": 5400,
+      "native_total_seconds": 5000,
+      "native_stage_seconds": 1800,
+      "reserved_cents": 1500
+    },
+    {
+      "id": "tzp2-f1-k24",
+      "prefix": "basis24-r3-62",
+      "spatial_orbitals": 62,
+      "reference": "remag-basis-transfer-r2/tzp2-f1-k16/report.json",
+      "reference_report_sha256": "bb60a09ac7a08577d5f482b8de87d04634ea05977e1426f960e118d9680545c1",
+      "reference_native": "remag-basis-transfer-r2-native/tzp2-f1-k16",
+      "reference_recovery_manifest_sha256": "122a3c9d25ce799c0bd2c7747fae876b875f552139457a05d498468d84217e7d",
+      "transfer_evaluation": "fept-basis-transfer-r2-evaluation.json",
+      "transfer_evaluation_sha256": "7c0d9ed89737f1b52eadb2af88d306071a077a9200f365aa3c2082bc4be659e6",
+      "request": {
+        "format": "REMAG-EXPERIMENT/1",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "export_sha256": "6706b1e9a3ad81f7ab7d1baa7acaf92da4b69cd77e13621709574151fab8b314",
+        "parameter": {
+          "name": "basis_size",
+          "basis_id": "tzp2-f1",
+          "radial_control": "shift00025"
+        },
+        "fixed_geometry": true,
+        "settings": {
+          "orb_fmax_ev_ang": 0.02,
+          "orb_stress_gpa": 0.1,
+          "orb_steps": 400,
+          "orb_seconds": 300,
+          "dft_fmax_ev_ang": 0.04,
+          "dft_stress_gpa": 0.5,
+          "dft_steps": 30,
+          "dft_seconds": 1800,
+          "soc_seconds": 2300,
+          "total_dft_seconds": 6800,
+          "max_scf": 150,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "k_spacing_inv_ang": 0.35,
+          "max_kpoints": 13824,
+          "max_atoms": 200,
+          "minimum_js_t": 0.4,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "explicit",
+        "basis_energy_shift_ry": 0.0025,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "files": {
+          "pseudos/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "pseudos/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "scalar/Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47",
+          "scalar/input.fdf": "8cd7f9cec3c5c45c3fa3fc2faa95192aa0927caaba53293077b6f66603f9d398",
+          "scalar/manifest.json": "c2c70c6fede1d700f23a85f066651bddf11c35c92e19125c27596c7ab69b1c34",
+          "structure.json": "4418424e5f0c84461b70c890e71c0629a7a6306182cbc84de87fdb6531a97d12"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "request_sha256": "35fbe2f23da6ba740aa29e4559559d071947fe66c4a2565624247f80bca09881",
+      "measured_native16_seconds": 1407.885896046,
+      "projected_native24_seconds": 4751.61489915525,
+      "timeout_seconds": 7200,
+      "native_total_seconds": 6800,
+      "native_stage_seconds": 2300,
+      "reserved_cents": 2000
+    }
+  ],
+  "criterion": {
+    "tolerance_ev": 5e-05,
+    "successive_changes": 2,
+    "transverse_tolerance_ev": 1e-05
+  },
+  "native_radial_absolute_tolerance": 1e-10,
+  "helpers_sha256": {
+    "fept_basis24_review.py": "c57b2a46b5ebd417c16067b41088a4d496565bdd4faeed1e6130c204d8e45967",
+    "recover-fept-native.py": "687543db5535d222547f93d7cff2820ecda3f429202ae816e60b23877508ea7f",
+    "run-fept-basis24-r3.py": "efa97dc1e9991963159bc78a653de3877b64dcff20d438e8362670264c0cf507"
+  },
+  "timing_rationale": "Use each measured REMAG16-cubed runtime times(24/16)^3. Each native bound exceeds1.4 times that estimate plus120 seconds. Apps reserve$15/$15/$20 at$10/hour, with no retries or deadline extensions. These estimates are not guaranteed runtimes or speedup measurements.",
+  "execution": "42 then48 then62, one GPU total. Confirm preceding app STOPPED, use scripts/run_modal.py with shared lock and ledger, collect and stop, recover native evidence, review all native/branch/transverse/radial identity/full-KP overlap checks before next app. Stop and diagnose health failures. A finite basis energy difference above tolerance is retained and does not prevent the next registered refinement.",
+  "unchanged": "Exact source, pseudopotentials,0.0025Ry confinement,300Ry grid,300K occupations,SCF criteria and executable/runtime. The comparison changes only basis shell enrichment at common24-cubed mesh; actual shared radial functions must remain within1e-10 absolute.",
+  "follow_on": "Review full common-mesh ladder before further cloud work. Up to$70 then remains in basis-r2 for radial confirmation and enlarged-basis mesh rechecks. Prefer radial work and16/20/24 mesh sequence; a28mesh extension is conditional on outcomes and remaining budget, not queued. The$50 final-control cap remains separate. No predictions while reference gates fail.",
+  "predictions_expansion_allowed": false,
+  "physical_accuracy_qualified": false,
+  "scope": "Finite E/F basis-size stability at a common24-cubed mesh. That mesh and radial extent are not yet qualified, and even a pass cannot establish basis completeness or physical accuracy."
+}

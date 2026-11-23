@@ -1,0 +1,67 @@
+{
+  "format": "REMAG-FEPT-BASIS-TRANSFER-SEQUENCE-RESULT/1",
+  "recorded_at": "2026-11-14T21:53:31.078065+00:00",
+  "plan_commit": "ef6a354e2f2641963dc861ca4fc3ac20306d9085",
+  "plan_sha256": "fa4ab05e79e975efd1868a49cb1d7d92f2ab8aa0406abdf7ba4b232e3a63fdfa",
+  "status": "evaluated",
+  "results": [
+    {
+      "id": "tzp-explicit-k16",
+      "prefix": "basis-transfer-r3-42",
+      "report_sha256": "7122d67178d02f05ef377561fd8363e34735751e527e424c338e6a286a76e3ff",
+      "receipt_sha256": "75f402d1724342e6623a7b62935238582c688f7c766570fd370313ae61f27500",
+      "app_id": "ap-Vr7iBbyOhy30pigG61oWCk",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 15:18:45-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 15:34:22-06:00",
+        "stopped_by": null
+      },
+      "passed": true,
+      "gates": {
+        "native": true,
+        "branches": true,
+        "absolute_E_F": true,
+        "anisotropy_E_F": true,
+        "transverse": true,
+        "radial_identity": true,
+        "overlap_positive": true
+      },
+      "evaluation_sha256": "558dcdb617531fa896e0d6e1a497ac4bd413566d94157b196c6b588e3676d142"
+    },
+    {
+      "id": "tzp2-k16",
+      "prefix": "basis-transfer-r3-48",
+      "report_sha256": "f5c1c70934ccc3c5671ff76eb19000584e667ee66176201430d216ac05af5d54",
+      "receipt_sha256": "a55fbe017db3e9bba48b7b35b0a57b254158950180e851c26fcefb1833862d1f",
+      "app_id": "ap-9u2ySapdOKPszH44wS6nGp",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-14 15:35:18-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-14 15:52:19-06:00",
+        "stopped_by": null
+      },
+      "passed": true,
+      "gates": {
+        "native": true,
+        "branches": true,
+        "absolute_E_F": true,
+        "anisotropy_E_F": true,
+        "transverse": true,
+        "radial_identity": true,
+        "overlap_positive": true
+      },
+      "evaluation_sha256": "b720694fc58fcf20f7de6e008357da4838adb652e188ab1b261ec700eb7997b2"
+    }
+  ],
+  "physical_accuracy_qualified": false,
+  "scope": "Executable agreement at16 cubed/.0025 Ry for42 and48 orbitals; neither comparison is a convergence refinement."
+}

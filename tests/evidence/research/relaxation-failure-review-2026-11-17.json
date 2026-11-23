@@ -1,0 +1,21 @@
+{
+  "format": "REMAG-RELAXATION-FAILURE-REVIEW-ENGINEERING/1",
+  "recorded_at": "2026-11-17T10:21:11.359373+00:00",
+  "status": "local_engineering_passed_live_validation_pending",
+  "validation": "910 passed, 4 skipped in 223.71s",
+  "log_sha256": "155cbdf1ba2d3a26f1f95eb067f84e0dd2fac53fd0007301e708d9b2426ffba6",
+  "cases": [
+    "Ni and Co retained native failure with matching runtime can receive one source-bound changed-runtime grant.",
+    "Python review error alone, native exit zero, missing status and unchanged executable/library remain held.",
+    "Wrong operation or source binding fails before launch or reservation.",
+    "Review itself preserves the original failure, owner and ledger; grant cannot execute twice."
+  ],
+  "source_sha256": {
+    "src/siesta_remag/research/execution.py": "52a5161e42368f5c455a59b51369b23e61ae772fa81aa3a9596ed0f47416037b",
+    "tests/test_relaxation_diagnostic_review.py": "bbac711148b74153f9dbf450d5a14f8548705532ab3ffa3543a7842263ae6e95"
+  },
+  "GPU_launches": 0,
+  "native_causal_repair_claimed": false,
+  "completed_non_FePt_feedback_iterations": 0,
+  "old_campaign_closed": true
+}

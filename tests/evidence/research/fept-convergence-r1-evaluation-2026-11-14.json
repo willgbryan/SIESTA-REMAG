@@ -1,0 +1,465 @@
+{
+  "format": "REMAG-CONVERGENCE-EVALUATION/1",
+  "date": "2026-11-14",
+  "preregistered_plan_sha256": "8168c1375c10176c369ea7e25b43df7946e1e1d93a9d98c6317eea2b5d10ea40",
+  "campaign_report_sha256": "533e7c02947fbc1a33a18962de1558c54cbe13ed43931059439f259e57b255b2",
+  "archive_manifest_sha256": "b864baeb079256f2c627e99fb407a4a29bd56ecc23732b198dd3c43cbd3c00b1",
+  "checks": {
+    "scf": {
+      "format": "REMAG-NUMERICAL-STABILITY/1",
+      "varied": "scf",
+      "samples": [
+        {
+          "parameters": {
+            "dm_tolerance": 1e-05,
+            "h_tolerance_ev": 0.0001
+          },
+          "energy_anisotropy_ev": 0.0028609357073037245,
+          "free_energy_anisotropy_ev": 0.0027155981101714133,
+          "transverse_split_ev": 1.9872459233738482e-10,
+          "report_sha256": "b81ede81f92dd9cf340494b7c1be50e8f4267d90e6593f914be1bb65e3805587"
+        },
+        {
+          "parameters": {
+            "dm_tolerance": 1e-06,
+            "h_tolerance_ev": 1e-05
+          },
+          "energy_anisotropy_ev": 0.0028609201090148417,
+          "free_energy_anisotropy_ev": 0.0027155573620802897,
+          "transverse_split_ev": 1.8280843505635858e-10,
+          "report_sha256": "b279cf45a48e1302e35913f074aad9136031ff98fefab2cbaa72a575e82f0d14"
+        }
+      ],
+      "changes": [
+        {
+          "energy_ev": -1.5598288882756606e-08,
+          "free_energy_ev": -4.0748091123532504e-08
+        }
+      ],
+      "tolerance_ev": 5e-05,
+      "successive_changes_required": 1,
+      "transverse_tolerance_ev": 1e-05,
+      "transverse_passed": true,
+      "sufficient_refinements": true,
+      "observed_stability_passed": true,
+      "fixed_configuration": {
+        "kmesh": [
+          16,
+          16,
+          16
+        ],
+        "basis_size": "DZP",
+        "basis_energy_shift_ry": 0.02,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "mesh_ry": 300,
+        "smearing_k": 300,
+        "mixing_weight": 0.03,
+        "mixing_history": 8,
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+        "environment": {
+          "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+          "REMAG_NONLOCAL_H0": "0",
+          "REMAG_NONLOCAL_H0_SHADOW": "0",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "REMAG_GRID": "1",
+          "REMAG_DM": "1",
+          "REMAG_GRID_EPOCH": "1",
+          "REMAG_GRID_VERIFY_EPOCH": "0",
+          "REMAG_NORMALIZE": "1",
+          "REMAG_OCCUPATIONS": "1",
+          "REMAG_RESIDENT_SPECTRA": "1",
+          "REMAG_HS": "1",
+          "REMAG_HARTREE": "1",
+          "REMAG_RESIDENT_GRID": "1",
+          "REMAG_RESIDENT_SCF": "1",
+          "REMAG_DEVICE_SCF": "0",
+          "REMAG_DEVICE_VECTOR_CACHE": "0",
+          "REMAG_BLOCK_SOLVER": "0",
+          "REMAG_BLOCK_WIDTH": "32",
+          "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+          "REMAG_FORCE_SHADOW": "0",
+          "REMAG_FORCE_SHADOW_RESIDENT": "0",
+          "REMAG_GRID_FORCE": "0",
+          "REMAG_ATOMIC_GRID_FORCE": "0",
+          "REMAG_ATOMIC_FORCE_SHADOW": "0",
+          "REMAG_FINAL_GRID": "0",
+          "REMAG_FINAL_GRID_SHADOW": "0",
+          "REMAG_FINAL_DENSITY": "0",
+          "REMAG_FINAL_DENSITY_SHADOW": "0",
+          "REMAG_ORBITAL_BASIS_SHADOW": "0",
+          "REMAG_ORBITAL_BASIS": "0",
+          "REMAG_ATOMIC_BASIS_SHADOW": "0",
+          "REMAG_ATOMIC_BASIS": "0",
+          "REMAG_TWO_CENTER_SHADOW": "0",
+          "REMAG_PAIR_FORCE_SHADOW": "0",
+          "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+          "REMAG_INTEGRAL_FORCE": "0",
+          "REMAG_POPULATION": "0",
+          "REMAG_TRACE_IO": "0",
+          "REMAG_TRACE_CUDA": "0",
+          "REMAG_GPU_INITIALIZATION": "0",
+          "REMAG_GPU_HISTORY": "0",
+          "REMAG_FINAL_SPECTRA": "0",
+          "REMAG_GATE_H_EXPORT": "0",
+          "REMAG_DEFER_SCF_LOG": "0",
+          "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+          "GFORTRAN_UNBUFFERED_ALL": "0",
+          "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+          "REMAG_BLOCK_SHARED_JACOBI": "1",
+          "REMAG_INITIAL_MESH": "0",
+          "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+          "REMAG_SCF_SOLVER_LANES": "1",
+          "REMAG_SCF_WARM_START": "0",
+          "REMAG_RADIAL_BATCH": "0",
+          "REMAG_GRID_POTENTIAL_SPINS": "1",
+          "REMAG_SCF_STAGE_PROFILE": "0",
+          "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+          "REMAG_BLOCK_FUSED_MATRIX": "0",
+          "REMAG_BLOCK_FP64_VECTORS": "0",
+          "REMAG_BLOCK_FP64_MATRIX": "0",
+          "CUDA_DISABLE_PTX_JIT": "1",
+          "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+          "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+        }
+      },
+      "physical_accuracy_qualified": false,
+      "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+    },
+    "grid": {
+      "format": "REMAG-NUMERICAL-STABILITY/1",
+      "varied": "grid",
+      "samples": [
+        {
+          "parameters": {
+            "mesh_ry": 300
+          },
+          "energy_anisotropy_ev": 0.0028609357073037245,
+          "free_energy_anisotropy_ev": 0.0027155981101714133,
+          "transverse_split_ev": 1.9872459233738482e-10,
+          "report_sha256": "b81ede81f92dd9cf340494b7c1be50e8f4267d90e6593f914be1bb65e3805587"
+        },
+        {
+          "parameters": {
+            "mesh_ry": 500
+          },
+          "energy_anisotropy_ev": 0.002822567179464386,
+          "free_energy_anisotropy_ev": 0.0026751651867016335,
+          "transverse_split_ev": 9.868017514236271e-11,
+          "report_sha256": "bb0413222fe98816ba3bac9440b9de657f507fd07f6be6af2bc545cde2c6727f"
+        }
+      ],
+      "changes": [
+        {
+          "energy_ev": -3.836852783933864e-05,
+          "free_energy_ev": -4.043292346977978e-05
+        }
+      ],
+      "tolerance_ev": 5e-05,
+      "successive_changes_required": 1,
+      "transverse_tolerance_ev": 1e-05,
+      "transverse_passed": true,
+      "sufficient_refinements": true,
+      "observed_stability_passed": true,
+      "fixed_configuration": {
+        "kmesh": [
+          16,
+          16,
+          16
+        ],
+        "basis_size": "DZP",
+        "basis_energy_shift_ry": 0.02,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "smearing_k": 300,
+        "dm_tolerance": 1e-05,
+        "h_tolerance_ev": 0.0001,
+        "mixing_weight": 0.03,
+        "mixing_history": 8,
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+        "environment": {
+          "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+          "REMAG_NONLOCAL_H0": "0",
+          "REMAG_NONLOCAL_H0_SHADOW": "0",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "REMAG_GRID": "1",
+          "REMAG_DM": "1",
+          "REMAG_GRID_EPOCH": "1",
+          "REMAG_GRID_VERIFY_EPOCH": "0",
+          "REMAG_NORMALIZE": "1",
+          "REMAG_OCCUPATIONS": "1",
+          "REMAG_RESIDENT_SPECTRA": "1",
+          "REMAG_HS": "1",
+          "REMAG_HARTREE": "1",
+          "REMAG_RESIDENT_GRID": "1",
+          "REMAG_RESIDENT_SCF": "1",
+          "REMAG_DEVICE_SCF": "0",
+          "REMAG_DEVICE_VECTOR_CACHE": "0",
+          "REMAG_BLOCK_SOLVER": "0",
+          "REMAG_BLOCK_WIDTH": "32",
+          "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+          "REMAG_FORCE_SHADOW": "0",
+          "REMAG_FORCE_SHADOW_RESIDENT": "0",
+          "REMAG_GRID_FORCE": "0",
+          "REMAG_ATOMIC_GRID_FORCE": "0",
+          "REMAG_ATOMIC_FORCE_SHADOW": "0",
+          "REMAG_FINAL_GRID": "0",
+          "REMAG_FINAL_GRID_SHADOW": "0",
+          "REMAG_FINAL_DENSITY": "0",
+          "REMAG_FINAL_DENSITY_SHADOW": "0",
+          "REMAG_ORBITAL_BASIS_SHADOW": "0",
+          "REMAG_ORBITAL_BASIS": "0",
+          "REMAG_ATOMIC_BASIS_SHADOW": "0",
+          "REMAG_ATOMIC_BASIS": "0",
+          "REMAG_TWO_CENTER_SHADOW": "0",
+          "REMAG_PAIR_FORCE_SHADOW": "0",
+          "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+          "REMAG_INTEGRAL_FORCE": "0",
+          "REMAG_POPULATION": "0",
+          "REMAG_TRACE_IO": "0",
+          "REMAG_TRACE_CUDA": "0",
+          "REMAG_GPU_INITIALIZATION": "0",
+          "REMAG_GPU_HISTORY": "0",
+          "REMAG_FINAL_SPECTRA": "0",
+          "REMAG_GATE_H_EXPORT": "0",
+          "REMAG_DEFER_SCF_LOG": "0",
+          "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+          "GFORTRAN_UNBUFFERED_ALL": "0",
+          "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+          "REMAG_BLOCK_SHARED_JACOBI": "1",
+          "REMAG_INITIAL_MESH": "0",
+          "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+          "REMAG_SCF_SOLVER_LANES": "1",
+          "REMAG_SCF_WARM_START": "0",
+          "REMAG_RADIAL_BATCH": "0",
+          "REMAG_GRID_POTENTIAL_SPINS": "1",
+          "REMAG_SCF_STAGE_PROFILE": "0",
+          "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+          "REMAG_BLOCK_FUSED_MATRIX": "0",
+          "REMAG_BLOCK_FP64_VECTORS": "0",
+          "REMAG_BLOCK_FP64_MATRIX": "0",
+          "CUDA_DISABLE_PTX_JIT": "1",
+          "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+          "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+        }
+      },
+      "physical_accuracy_qualified": false,
+      "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+    },
+    "kmesh": {
+      "format": "REMAG-NUMERICAL-STABILITY/1",
+      "varied": "kmesh",
+      "samples": [
+        {
+          "parameters": {
+            "kmesh": [
+              16,
+              16,
+              16
+            ]
+          },
+          "energy_anisotropy_ev": 0.0028609357073037245,
+          "free_energy_anisotropy_ev": 0.0027155981101714133,
+          "transverse_split_ev": 1.9872459233738482e-10,
+          "report_sha256": "b81ede81f92dd9cf340494b7c1be50e8f4267d90e6593f914be1bb65e3805587"
+        },
+        {
+          "parameters": {
+            "kmesh": [
+              20,
+              20,
+              20
+            ]
+          },
+          "energy_anisotropy_ev": 0.0023652512086300703,
+          "free_energy_anisotropy_ev": 0.0023825046341698908,
+          "transverse_split_ev": 7.321432349272072e-10,
+          "report_sha256": "08e95e242ed5f545e6cf23dff5972d3e44b9c49064aa4605740f5a75f1dc8ad0"
+        },
+        {
+          "parameters": {
+            "kmesh": [
+              24,
+              24,
+              24
+            ]
+          },
+          "energy_anisotropy_ev": 0.0023979853390301287,
+          "free_energy_anisotropy_ev": 0.0024592635500084725,
+          "transverse_split_ev": 3.1604940886609256e-10,
+          "report_sha256": "f5708029dbb273ecbcde1641cf1687a9b251c0c345a5b3defaaf95b6e872257b"
+        }
+      ],
+      "changes": [
+        {
+          "energy_ev": -0.0004956844986736542,
+          "free_energy_ev": -0.0003330934760015225
+        },
+        {
+          "energy_ev": 3.273413040005835e-05,
+          "free_energy_ev": 7.675891583858174e-05
+        }
+      ],
+      "tolerance_ev": 5e-05,
+      "successive_changes_required": 2,
+      "transverse_tolerance_ev": 1e-05,
+      "transverse_passed": true,
+      "sufficient_refinements": true,
+      "observed_stability_passed": false,
+      "fixed_configuration": {
+        "basis_size": "DZP",
+        "basis_energy_shift_ry": 0.02,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "mesh_ry": 300,
+        "smearing_k": 300,
+        "dm_tolerance": 1e-05,
+        "h_tolerance_ev": 0.0001,
+        "mixing_weight": 0.03,
+        "mixing_history": 8,
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+        "environment": {
+          "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+          "REMAG_NONLOCAL_H0": "0",
+          "REMAG_NONLOCAL_H0_SHADOW": "0",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "REMAG_GRID": "1",
+          "REMAG_DM": "1",
+          "REMAG_GRID_EPOCH": "1",
+          "REMAG_GRID_VERIFY_EPOCH": "0",
+          "REMAG_NORMALIZE": "1",
+          "REMAG_OCCUPATIONS": "1",
+          "REMAG_RESIDENT_SPECTRA": "1",
+          "REMAG_HS": "1",
+          "REMAG_HARTREE": "1",
+          "REMAG_RESIDENT_GRID": "1",
+          "REMAG_RESIDENT_SCF": "1",
+          "REMAG_DEVICE_SCF": "0",
+          "REMAG_DEVICE_VECTOR_CACHE": "0",
+          "REMAG_BLOCK_SOLVER": "0",
+          "REMAG_BLOCK_WIDTH": "32",
+          "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+          "REMAG_FORCE_SHADOW": "0",
+          "REMAG_FORCE_SHADOW_RESIDENT": "0",
+          "REMAG_GRID_FORCE": "0",
+          "REMAG_ATOMIC_GRID_FORCE": "0",
+          "REMAG_ATOMIC_FORCE_SHADOW": "0",
+          "REMAG_FINAL_GRID": "0",
+          "REMAG_FINAL_GRID_SHADOW": "0",
+          "REMAG_FINAL_DENSITY": "0",
+          "REMAG_FINAL_DENSITY_SHADOW": "0",
+          "REMAG_ORBITAL_BASIS_SHADOW": "0",
+          "REMAG_ORBITAL_BASIS": "0",
+          "REMAG_ATOMIC_BASIS_SHADOW": "0",
+          "REMAG_ATOMIC_BASIS": "0",
+          "REMAG_TWO_CENTER_SHADOW": "0",
+          "REMAG_PAIR_FORCE_SHADOW": "0",
+          "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+          "REMAG_INTEGRAL_FORCE": "0",
+          "REMAG_POPULATION": "0",
+          "REMAG_TRACE_IO": "0",
+          "REMAG_TRACE_CUDA": "0",
+          "REMAG_GPU_INITIALIZATION": "0",
+          "REMAG_GPU_HISTORY": "0",
+          "REMAG_FINAL_SPECTRA": "0",
+          "REMAG_GATE_H_EXPORT": "0",
+          "REMAG_DEFER_SCF_LOG": "0",
+          "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+          "GFORTRAN_UNBUFFERED_ALL": "0",
+          "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+          "REMAG_BLOCK_SHARED_JACOBI": "1",
+          "REMAG_INITIAL_MESH": "0",
+          "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+          "REMAG_SCF_SOLVER_LANES": "1",
+          "REMAG_SCF_WARM_START": "0",
+          "REMAG_RADIAL_BATCH": "0",
+          "REMAG_GRID_POTENTIAL_SPINS": "1",
+          "REMAG_SCF_STAGE_PROFILE": "0",
+          "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+          "REMAG_BLOCK_FUSED_MATRIX": "0",
+          "REMAG_BLOCK_FP64_VECTORS": "0",
+          "REMAG_BLOCK_FP64_MATRIX": "0",
+          "CUDA_DISABLE_PTX_JIT": "1",
+          "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+          "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+        }
+      },
+      "physical_accuracy_qualified": false,
+      "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+    }
+  },
+  "measurements": [
+    {
+      "id": "k20",
+      "status": "measured",
+      "report_sha256": "08e95e242ed5f545e6cf23dff5972d3e44b9c49064aa4605740f5a75f1dc8ad0",
+      "energy_anisotropy_ev": 0.0023652512086300703,
+      "free_energy_anisotropy_ev": 0.0023825046341698908,
+      "branch_against_k16": {
+        "passed": true,
+        "site_rms_mub": 0.007181385973473337,
+        "net_fractional_change": 0.0036821792734755094,
+        "robust_site_flip": false
+      }
+    },
+    {
+      "id": "k24",
+      "status": "measured",
+      "report_sha256": "f5708029dbb273ecbcde1641cf1687a9b251c0c345a5b3defaaf95b6e872257b",
+      "energy_anisotropy_ev": 0.0023979853390301287,
+      "free_energy_anisotropy_ev": 0.0024592635500084725,
+      "branch_against_k16": {
+        "passed": true,
+        "site_rms_mub": 0.008207477840359861,
+        "net_fractional_change": 0.004928593954137957,
+        "robust_site_flip": false
+      }
+    },
+    {
+      "id": "scf16",
+      "status": "measured",
+      "report_sha256": "b279cf45a48e1302e35913f074aad9136031ff98fefab2cbaa72a575e82f0d14",
+      "energy_anisotropy_ev": 0.0028609201090148417,
+      "free_energy_anisotropy_ev": 0.0027155573620802897,
+      "branch_against_k16": {
+        "passed": true,
+        "site_rms_mub": 2.1213203435421376e-06,
+        "net_fractional_change": 0.0,
+        "robust_site_flip": false
+      }
+    },
+    {
+      "id": "grid500-k16",
+      "status": "measured",
+      "report_sha256": "bb0413222fe98816ba3bac9440b9de657f507fd07f6be6af2bc545cde2c6727f",
+      "energy_anisotropy_ev": 0.002822567179464386,
+      "free_energy_anisotropy_ev": 0.0026751651867016335,
+      "branch_against_k16": {
+        "passed": true,
+        "site_rms_mub": 0.0011265844398002222,
+        "net_fractional_change": 0.00034839542881171627,
+        "robust_site_flip": false
+      }
+    }
+  ],
+  "allocation_elapsed_seconds": 3439.0123690160003,
+  "reservation_usd": 20,
+  "actual_billed_usd": null,
+  "conclusion": "SCF and 300-to-500 Ry grid sensitivity controls pass the declared single-change test. The 16/20/24 k series fails the required two successive E-and-F changes; conditional 28/32 refinement is proceeding.",
+  "physical_accuracy_qualified": false
+}

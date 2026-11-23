@@ -1,0 +1,1489 @@
+{
+  "format": "REMAG-FEPT-RADIAL-CHECKPOINT/1",
+  "recorded_at": "2026-11-15T03:22:08.812413+00:00",
+  "plan_commit": "9f4df6ea9d6772d82f2bf83ececd5e5e80195b16",
+  "readiness_commit": "b22fa54195ed5ec6c40ae88c7e26e5b6b8aed088",
+  "evaluation": {
+    "format": "REMAG-FEPT-CONTROL-EVALUATION/1",
+    "case": "radial001",
+    "health_passed": true,
+    "native_status": "measured",
+    "plan_commit": "9f4df6ea9d6772d82f2bf83ececd5e5e80195b16",
+    "plan_sha256": "def1db43e57bb43601084a510d377f0dcc09bb604d06c49aa80e8314821379c6",
+    "readiness_commit": "b22fa54195ed5ec6c40ae88c7e26e5b6b8aed088",
+    "readiness_sha256": "2b00ac429488b4536e42df105bba2ec2664aa6519da51794dbec679368b4730a",
+    "app_id": "ap-rzQmgIlgendNnj0FAwSUks",
+    "lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-14 20:07:35-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-14 21:10:59-06:00",
+      "stopped_by": null
+    },
+    "receipt_sha256": "3616d41f0f041f7c2cb0ba73baf24787d7ae087ac09d7a135eaced22848d7ed3",
+    "report_sha256": "f3c95eb66011e8944b50c583ec903055a9a4e3d3a723c0297209c4441029f1c7",
+    "submitted_at": "2026-11-15T02:07:33.816454+00:00",
+    "submission_to_collection_seconds": 3805.4360387083143,
+    "reserved_cents": 2000,
+    "stage_remaining_cents": 4500,
+    "actual_billed_usd": null,
+    "new_pristine_reference": false,
+    "physical_accuracy_qualified": false,
+    "gates": {
+      "native": true,
+      "basis": true,
+      "branches": true,
+      "transverse": true,
+      "within_case_radial_identity": true,
+      "mesh_radial_identity": true,
+      "overlap_positive": true
+    },
+    "review_sha256": "de8a8766778ef676ac926d8fea149e895fd8841ce86d38b0a1411de16d1109e1",
+    "endpoint_comparison": {
+      "format": "REMAG-NUMERICAL-STABILITY/1",
+      "varied": "radial_extent",
+      "samples": [
+        {
+          "parameters": {
+            "basis_energy_shift_ry": 0.01
+          },
+          "energy_anisotropy_ev": 0.00254557400558042,
+          "free_energy_anisotropy_ev": 0.002543004766721424,
+          "transverse_split_ev": 4.083631210960448e-10,
+          "report_sha256": "f3c95eb66011e8944b50c583ec903055a9a4e3d3a723c0297209c4441029f1c7"
+        },
+        {
+          "parameters": {
+            "basis_energy_shift_ry": 0.0025
+          },
+          "energy_anisotropy_ev": 0.00259515296193058,
+          "free_energy_anisotropy_ev": 0.0025854053701550583,
+          "transverse_split_ev": 1.2141754268668592e-10,
+          "report_sha256": "efdf4264cad8d7d6ff159c505f7031a77778f608c62db3396b17c4216992c7c8"
+        }
+      ],
+      "changes": [
+        {
+          "energy_ev": 4.95789563501603e-05,
+          "free_energy_ev": 4.240060343363439e-05
+        }
+      ],
+      "tolerance_ev": 5e-05,
+      "successive_changes_required": 2,
+      "transverse_tolerance_ev": 1e-05,
+      "transverse_passed": true,
+      "sufficient_refinements": false,
+      "observed_stability_passed": false,
+      "fixed_configuration": {
+        "kmesh": [
+          24,
+          24,
+          24
+        ],
+        "basis_size": "explicit",
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "basis_spec": {
+          "format": "REMAG-PAO-BASIS/1",
+          "species": {
+            "Fe": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "Pt": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "polarization": 2,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "polarization": 1,
+                "radii_bohr": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        },
+        "mesh_ry": 300,
+        "smearing_k": 300,
+        "dm_tolerance": 1e-05,
+        "h_tolerance_ev": 0.0001,
+        "mixing_weight": 0.03,
+        "mixing_history": 8,
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+        "environment": {
+          "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+          "REMAG_NONLOCAL_H0": "0",
+          "REMAG_NONLOCAL_H0_SHADOW": "0",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "REMAG_GRID": "1",
+          "REMAG_DM": "1",
+          "REMAG_GRID_EPOCH": "1",
+          "REMAG_GRID_VERIFY_EPOCH": "0",
+          "REMAG_NORMALIZE": "1",
+          "REMAG_OCCUPATIONS": "1",
+          "REMAG_RESIDENT_SPECTRA": "1",
+          "REMAG_HS": "1",
+          "REMAG_HARTREE": "1",
+          "REMAG_RESIDENT_GRID": "1",
+          "REMAG_RESIDENT_SCF": "1",
+          "REMAG_DEVICE_SCF": "0",
+          "REMAG_DEVICE_VECTOR_CACHE": "0",
+          "REMAG_BLOCK_SOLVER": "0",
+          "REMAG_BLOCK_WIDTH": "32",
+          "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+          "REMAG_FORCE_SHADOW": "0",
+          "REMAG_FORCE_SHADOW_RESIDENT": "0",
+          "REMAG_GRID_FORCE": "0",
+          "REMAG_ATOMIC_GRID_FORCE": "0",
+          "REMAG_ATOMIC_FORCE_SHADOW": "0",
+          "REMAG_FINAL_GRID": "0",
+          "REMAG_FINAL_GRID_SHADOW": "0",
+          "REMAG_FINAL_DENSITY": "0",
+          "REMAG_FINAL_DENSITY_SHADOW": "0",
+          "REMAG_ORBITAL_BASIS_SHADOW": "0",
+          "REMAG_ORBITAL_BASIS": "0",
+          "REMAG_ATOMIC_BASIS_SHADOW": "0",
+          "REMAG_ATOMIC_BASIS": "0",
+          "REMAG_TWO_CENTER_SHADOW": "0",
+          "REMAG_PAIR_FORCE_SHADOW": "0",
+          "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+          "REMAG_INTEGRAL_FORCE": "0",
+          "REMAG_POPULATION": "0",
+          "REMAG_TRACE_IO": "0",
+          "REMAG_TRACE_CUDA": "0",
+          "REMAG_GPU_INITIALIZATION": "0",
+          "REMAG_GPU_HISTORY": "0",
+          "REMAG_FINAL_SPECTRA": "0",
+          "REMAG_GATE_H_EXPORT": "0",
+          "REMAG_DEFER_SCF_LOG": "0",
+          "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+          "GFORTRAN_UNBUFFERED_ALL": "0",
+          "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+          "REMAG_BLOCK_SHARED_JACOBI": "1",
+          "REMAG_INITIAL_MESH": "0",
+          "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+          "REMAG_SCF_SOLVER_LANES": "1",
+          "REMAG_SCF_WARM_START": "0",
+          "REMAG_RADIAL_BATCH": "0",
+          "REMAG_GRID_POTENTIAL_SPINS": "1",
+          "REMAG_SCF_STAGE_PROFILE": "0",
+          "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+          "REMAG_BLOCK_FUSED_MATRIX": "0",
+          "REMAG_BLOCK_FP64_VECTORS": "0",
+          "REMAG_BLOCK_FP64_MATRIX": "0",
+          "CUDA_DISABLE_PTX_JIT": "1",
+          "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+          "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+        }
+      },
+      "physical_accuracy_qualified": false,
+      "scope": "Observed E and F stability under the declared controls; no extrapolation, fitted error bar or physical-accuracy certificate"
+    },
+    "comparison_scope": "Nonadjacent.01to.0025 endpoint only; full registered radial ladder needs.005.",
+    "review_completed_at": "2026-11-15T03:13:27.939646+00:00",
+    "submission_to_reviewed_result_seconds": 3954.0217055408284
+  },
+  "health": {
+    "format": "REMAG-FEPT-CONTROL-HEALTH/1",
+    "passed": true,
+    "gates": {
+      "native": true,
+      "basis": true,
+      "branches": true,
+      "transverse": true,
+      "within_case_radial_identity": true,
+      "mesh_radial_identity": true,
+      "overlap_positive": true
+    },
+    "report_sha256": "f3c95eb66011e8944b50c583ec903055a9a4e3d3a723c0297209c4441029f1c7",
+    "baseline_report_sha256": "efdf4264cad8d7d6ff159c505f7031a77778f608c62db3396b17c4216992c7c8",
+    "invocation_sha256": "a1f744c24e4b12c672ea9069a4f9d8a4be31568ebf0924a9c20b5e941e53e1ce",
+    "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+    "environment": {
+      "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+      "REMAG_NONLOCAL_H0": "0",
+      "REMAG_NONLOCAL_H0_SHADOW": "0",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "REMAG_GRID": "1",
+      "REMAG_DM": "1",
+      "REMAG_GRID_EPOCH": "1",
+      "REMAG_GRID_VERIFY_EPOCH": "0",
+      "REMAG_NORMALIZE": "1",
+      "REMAG_OCCUPATIONS": "1",
+      "REMAG_RESIDENT_SPECTRA": "1",
+      "REMAG_HS": "1",
+      "REMAG_HARTREE": "1",
+      "REMAG_RESIDENT_GRID": "1",
+      "REMAG_RESIDENT_SCF": "1",
+      "REMAG_DEVICE_SCF": "0",
+      "REMAG_DEVICE_VECTOR_CACHE": "0",
+      "REMAG_BLOCK_SOLVER": "0",
+      "REMAG_BLOCK_WIDTH": "32",
+      "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+      "REMAG_FORCE_SHADOW": "0",
+      "REMAG_FORCE_SHADOW_RESIDENT": "0",
+      "REMAG_GRID_FORCE": "0",
+      "REMAG_ATOMIC_GRID_FORCE": "0",
+      "REMAG_ATOMIC_FORCE_SHADOW": "0",
+      "REMAG_FINAL_GRID": "0",
+      "REMAG_FINAL_GRID_SHADOW": "0",
+      "REMAG_FINAL_DENSITY": "0",
+      "REMAG_FINAL_DENSITY_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS_SHADOW": "0",
+      "REMAG_ORBITAL_BASIS": "0",
+      "REMAG_ATOMIC_BASIS_SHADOW": "0",
+      "REMAG_ATOMIC_BASIS": "0",
+      "REMAG_TWO_CENTER_SHADOW": "0",
+      "REMAG_PAIR_FORCE_SHADOW": "0",
+      "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+      "REMAG_INTEGRAL_FORCE": "0",
+      "REMAG_POPULATION": "0",
+      "REMAG_TRACE_IO": "0",
+      "REMAG_TRACE_CUDA": "0",
+      "REMAG_GPU_INITIALIZATION": "0",
+      "REMAG_GPU_HISTORY": "0",
+      "REMAG_FINAL_SPECTRA": "0",
+      "REMAG_GATE_H_EXPORT": "0",
+      "REMAG_DEFER_SCF_LOG": "0",
+      "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+      "GFORTRAN_UNBUFFERED_ALL": "0",
+      "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+      "REMAG_BLOCK_SHARED_JACOBI": "1",
+      "REMAG_INITIAL_MESH": "0",
+      "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+      "REMAG_SCF_SOLVER_LANES": "1",
+      "REMAG_SCF_WARM_START": "0",
+      "REMAG_RADIAL_BATCH": "0",
+      "REMAG_GRID_POTENTIAL_SPINS": "1",
+      "REMAG_SCF_STAGE_PROFILE": "0",
+      "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+      "REMAG_BLOCK_FUSED_MATRIX": "0",
+      "REMAG_BLOCK_FP64_VECTORS": "0",
+      "REMAG_BLOCK_FP64_MATRIX": "0",
+      "CUDA_DISABLE_PTX_JIT": "1",
+      "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+      "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+    },
+    "recovery_manifest_sha256": "3a9103c6588bffe607e806b914106d2124334e784951373a8c0d5a8c8f6ad703",
+    "branches": {
+      "scalar": {
+        "passed": true,
+        "site_rms_mub": 0.07123063892034097,
+        "net_fractional_change": 0.0012603762434155277,
+        "robust_site_flip": false
+      },
+      "soc-z": {
+        "passed": true,
+        "site_rms_mub": 0.06982268992598326,
+        "net_fractional_change": 0.0013483364936555612,
+        "robust_site_flip": false
+      },
+      "within_soc-z": {
+        "passed": true,
+        "site_rms_mub": 0.01575611908116968,
+        "net_fractional_change": 0.009242166443316786,
+        "robust_site_flip": false
+      },
+      "soc-x": {
+        "passed": true,
+        "site_rms_mub": 0.07053825044966738,
+        "net_fractional_change": 0.0013651441306403726,
+        "robust_site_flip": false
+      },
+      "within_soc-x": {
+        "passed": true,
+        "site_rms_mub": 0.002022243432428367,
+        "net_fractional_change": 0.001082080025288996,
+        "robust_site_flip": false
+      },
+      "soc-y": {
+        "passed": true,
+        "site_rms_mub": 0.07053825044966738,
+        "net_fractional_change": 0.0013651441306403726,
+        "robust_site_flip": false
+      },
+      "within_soc-y": {
+        "passed": true,
+        "site_rms_mub": 0.002022243432428367,
+        "net_fractional_change": 0.001082080025288996,
+        "robust_site_flip": false
+      }
+    },
+    "native_basis": {
+      "scalar": {
+        "passed": true,
+        "spatial_orbitals": 62,
+        "species": [
+          {
+            "symbol": "Fe",
+            "ion_sha256": "d145ab0c2805b7097986a3179a0ce73022aca7aa8936d8bd78690b92c076cf02",
+            "orbitals": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.94061270033
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.51596047371
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 5.27477377878
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.94061270033
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 5.08790572895
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.08935569587
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.11299921723
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 2.71326033212
+              },
+              {
+                "n": 4,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.08935569587
+              }
+            ]
+          },
+          {
+            "symbol": "Pt",
+            "ion_sha256": "b3b3651b82ebbdc348aff2c6013863f93e8911c5dc6b7bdd00a1eba1a8f65621",
+            "orbitals": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.77578385339
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.413051374
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 5.14944911952
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.77578385339
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 5.09300618448
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.85871389044
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.7905891731
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 3.41749548104
+              },
+              {
+                "n": 5,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.85871389044
+              }
+            ]
+          }
+        ],
+        "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+      },
+      "soc-z": {
+        "passed": true,
+        "spatial_orbitals": 62,
+        "species": [
+          {
+            "symbol": "Fe",
+            "ion_sha256": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640",
+            "orbitals": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.94061270033
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.51596047371
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 5.27477377878
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.94061270033
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 5.08790572895
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.08935569587
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.11299921723
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 2.71326033212
+              },
+              {
+                "n": 4,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.08935569587
+              }
+            ]
+          },
+          {
+            "symbol": "Pt",
+            "ion_sha256": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df",
+            "orbitals": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.77578385339
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.413051374
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 5.14944911952
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.77578385339
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 5.09300618448
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.85871389044
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.7905891731
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 3.41749548104
+              },
+              {
+                "n": 5,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.85871389044
+              }
+            ]
+          }
+        ],
+        "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+      },
+      "soc-x": {
+        "passed": true,
+        "spatial_orbitals": 62,
+        "species": [
+          {
+            "symbol": "Fe",
+            "ion_sha256": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640",
+            "orbitals": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.94061270033
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.51596047371
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 5.27477377878
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.94061270033
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 5.08790572895
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.08935569587
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.11299921723
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 2.71326033212
+              },
+              {
+                "n": 4,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.08935569587
+              }
+            ]
+          },
+          {
+            "symbol": "Pt",
+            "ion_sha256": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df",
+            "orbitals": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.77578385339
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.413051374
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 5.14944911952
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.77578385339
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 5.09300618448
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.85871389044
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.7905891731
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 3.41749548104
+              },
+              {
+                "n": 5,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.85871389044
+              }
+            ]
+          }
+        ],
+        "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+      },
+      "soc-y": {
+        "passed": true,
+        "spatial_orbitals": 62,
+        "species": [
+          {
+            "symbol": "Fe",
+            "ion_sha256": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640",
+            "orbitals": [
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.94061270033
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.51596047371
+              },
+              {
+                "n": 4,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 5.27477377878
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.94061270033
+              },
+              {
+                "n": 4,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 5.08790572895
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.08935569587
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.11299921723
+              },
+              {
+                "n": 3,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 2.71326033212
+              },
+              {
+                "n": 4,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.08935569587
+              }
+            ]
+          },
+          {
+            "symbol": "Pt",
+            "ion_sha256": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df",
+            "orbitals": [
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 1,
+                "cutoff_bohr": 6.77578385339
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 2,
+                "cutoff_bohr": 4.413051374
+              },
+              {
+                "n": 6,
+                "l": 0,
+                "zeta": 3,
+                "cutoff_bohr": 5.14944911952
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 1,
+                "cutoff_bohr": 6.77578385339
+              },
+              {
+                "n": 6,
+                "l": 1,
+                "zeta": 2,
+                "cutoff_bohr": 5.09300618448
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 1,
+                "cutoff_bohr": 4.85871389044
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 2,
+                "cutoff_bohr": 2.7905891731
+              },
+              {
+                "n": 5,
+                "l": 2,
+                "zeta": 3,
+                "cutoff_bohr": 3.41749548104
+              },
+              {
+                "n": 5,
+                "l": 3,
+                "zeta": 1,
+                "cutoff_bohr": 4.85871389044
+              }
+            ]
+          }
+        ],
+        "scope": "Native basis identity and finite positive radii only; no conditioning or completeness certificate"
+      }
+    },
+    "within_case_radial_identity": {
+      "scalar": {
+        "Fe": {
+          "max_abs_difference": 0.0,
+          "passed": true,
+          "ion_sha256": "d145ab0c2805b7097986a3179a0ce73022aca7aa8936d8bd78690b92c076cf02"
+        },
+        "Pt": {
+          "max_abs_difference": 0.0,
+          "passed": true,
+          "ion_sha256": "b3b3651b82ebbdc348aff2c6013863f93e8911c5dc6b7bdd00a1eba1a8f65621"
+        }
+      },
+      "soc-z": {
+        "Fe": {
+          "max_abs_difference": 0.0,
+          "passed": true,
+          "ion_sha256": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640"
+        },
+        "Pt": {
+          "max_abs_difference": 0.0,
+          "passed": true,
+          "ion_sha256": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df"
+        }
+      },
+      "soc-x": {
+        "Fe": {
+          "max_abs_difference": 0.0,
+          "passed": true,
+          "ion_sha256": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640"
+        },
+        "Pt": {
+          "max_abs_difference": 0.0,
+          "passed": true,
+          "ion_sha256": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df"
+        }
+      },
+      "soc-y": {
+        "Fe": {
+          "max_abs_difference": 0.0,
+          "passed": true,
+          "ion_sha256": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640"
+        },
+        "Pt": {
+          "max_abs_difference": 0.0,
+          "passed": true,
+          "ion_sha256": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df"
+        }
+      }
+    },
+    "mesh_radial_identity": null,
+    "transverse_split_ev": 4.083631210960448e-10,
+    "overlap": {
+      "format": "REMAG-OVERLAP-HEALTH/1",
+      "hsx_sha256": "d8f2071df3f08b0b69300696a0811c37230fedff4e8af38fd61012c6d5030280",
+      "kp_sha256": "b5d0336ccb9674b5401116070dd3582ef0ced0f7a24e43e3d07d6817e8779329",
+      "spatial_orbitals": 62,
+      "native_kpoints": 7224,
+      "native_kp_weight_sum": 1.000000512,
+      "native_kp_weight_rounding_bound": 3.3312e-06,
+      "min_eigenvalue": 3.462303876617213e-05,
+      "max_eigenvalue": 10.21546068334338,
+      "min_eigenvalue_kpoint_index": 7224,
+      "min_eigenvalue_k_fractional": [
+        0.4999996486470242,
+        0.4999996486470242,
+        0.5000004576894169
+      ],
+      "nonpositive_kpoints": 0,
+      "positive_definite": true,
+      "max_condition_number": 228395.3024921146,
+      "min_relative_eigenvalue": 4.378373762895256e-06,
+      "max_condition_kpoint_index": 161,
+      "sampling": "Every native SCF KP point; decimal coordinate rounding retained",
+      "hermitian_policy": "Same bounded Hermitian reconstruction as electronic spectra",
+      "physical_accuracy_qualified": false,
+      "scope": "Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate"
+    },
+    "physical_accuracy_qualified": false,
+    "scope": "Native integrity and branch/overlap health only. Changing radial extent intentionally changes arrays between cases. No basis-completeness or scientific-convergence claim."
+  },
+  "measurement": {
+    "energy_anisotropy_mev": 2.54557400558042,
+    "free_energy_anisotropy_mev": 2.543004766721424,
+    "wall_seconds": 3621.502197834,
+    "stages": [
+      {
+        "accepted": true,
+        "errors": [],
+        "solver_seconds": 713.983068203,
+        "scf_iterations": 19,
+        "timed_out": false,
+        "native_optimizer_converged": null,
+        "max_force_ev_ang": 0.0,
+        "native_grid": [
+          30,
+          30,
+          40
+        ],
+        "native_kpoints": 7224,
+        "max_stress_gpa": 2.21372743695936,
+        "axis_deviation_deg": null,
+        "effective_options_sha256": {
+          "fdf.20261115T020829.041.log": "2e635af1f5623fbe3daebac9a950f38a3b9718b357ffdc1a2697e4ab696ed548"
+        },
+        "artifact_sha256": {
+          "input.fdf": "8855dec2671d0b5e44c395f0e867314f912ec2af86f362673eebafeca7453047",
+          "remag.DM": "36299750318c3427d1a07a274456052c09238ab074959a9be302247a595930fe",
+          "remag.HSX": "d8f2071df3f08b0b69300696a0811c37230fedff4e8af38fd61012c6d5030280",
+          "remag.STRUCT_OUT": "3741bfd3043d36704be0dccf8bff7f6f58b4f248b9aadce82f8f7b0e3d5b9011",
+          "remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+          "result.json": "1dd96e0b45ef1f0406c37df8b909a617abb40e619f47c3e64c378dbefa960f40",
+          "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+          "stdout.log": "564fa301b0b5934711c54f03c3d97275f3452932491af89372d804ecf3629baf"
+        },
+        "stage": "scalar"
+      },
+      {
+        "accepted": true,
+        "errors": [],
+        "solver_seconds": 1003.862867447,
+        "scf_iterations": 12,
+        "timed_out": false,
+        "native_optimizer_converged": null,
+        "max_force_ev_ang": 0.0,
+        "native_grid": [
+          30,
+          30,
+          40
+        ],
+        "native_kpoints": 13824,
+        "max_stress_gpa": 1.7106439780281602,
+        "axis_deviation_deg": 0.0,
+        "effective_options_sha256": {
+          "fdf.20261115T022030.653.log": "7c9feb4df133ba0996937752888dae0ac2377c073fa924df2ba6a41fe5c33be3"
+        },
+        "artifact_sha256": {
+          "input.fdf": "60620dcbf86663d79ebb87254bc1efb2cd95358b38baf0c6bb7e6a119b2dae68",
+          "remag.DM": "6f7d703932ab21dfbbc77b55fa1b91b1f951bd082aa74c297584348e93a27360",
+          "remag.HSX": "0cbd3d108a58f17992ca9b1570816b6f53246157e4428f915f83aafbf7e6cdf3",
+          "remag.STRUCT_OUT": "3741bfd3043d36704be0dccf8bff7f6f58b4f248b9aadce82f8f7b0e3d5b9011",
+          "remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+          "result.json": "b3871fb6a5013def3cbd9ed680d7bcdfc9e5f680f6cf3f3b16c565c53d0235e8",
+          "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+          "stdout.log": "f82b4585143d6fe3ca2bc9aab8a07d02a348455095aaeb006e7ca93ee79a3f9f"
+        },
+        "stage": "soc-z",
+        "branch": {
+          "passed": true,
+          "site_rms_mub": 0.01575611908116968,
+          "net_fractional_change": 0.009242166443316786,
+          "robust_site_flip": false
+        }
+      },
+      {
+        "accepted": true,
+        "errors": [],
+        "solver_seconds": 926.8832338640002,
+        "scf_iterations": 11,
+        "timed_out": false,
+        "native_optimizer_converged": null,
+        "max_force_ev_ang": 0.0,
+        "native_grid": [
+          30,
+          30,
+          40
+        ],
+        "native_kpoints": 13824,
+        "max_stress_gpa": 1.80773588124864,
+        "axis_deviation_deg": 0.0,
+        "effective_options_sha256": {
+          "fdf.20261115T023727.184.log": "47d31a7ffebbb8e035b240a079ef749179ed337ef9db22134b738255c646ef81"
+        },
+        "artifact_sha256": {
+          "input.fdf": "695eb00f157ad2769ba816845a2c00e3d41e0f2fa64bfabf3fd451bbfa4489c2",
+          "remag.DM": "97ec8ba238e0ed74b7911f4986b753a529621938fadb4e8071871b5196bc4320",
+          "remag.HSX": "03c51d9f7411d4aa454546cc0c6bf29a6c4832668722a77fe60ab8e90cb64093",
+          "remag.STRUCT_OUT": "3741bfd3043d36704be0dccf8bff7f6f58b4f248b9aadce82f8f7b0e3d5b9011",
+          "remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+          "result.json": "438278691076d244947e57dc1e74159c531c1e8331de6f33e5695ed692c991e4",
+          "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+          "stdout.log": "c379301c58e8f5ce7829fb5281fa58375e1369a5ff43708373b9a4d37ce96cf3"
+        },
+        "stage": "soc-x",
+        "branch": {
+          "passed": true,
+          "site_rms_mub": 0.002022243432428367,
+          "net_fractional_change": 0.001082080025288996,
+          "robust_site_flip": false
+        }
+      },
+      {
+        "accepted": true,
+        "errors": [],
+        "solver_seconds": 926.685743298,
+        "scf_iterations": 11,
+        "timed_out": false,
+        "native_optimizer_converged": null,
+        "max_force_ev_ang": 0.0,
+        "native_grid": [
+          30,
+          30,
+          40
+        ],
+        "native_kpoints": 13824,
+        "max_stress_gpa": 1.80773588124864,
+        "axis_deviation_deg": 0.0,
+        "effective_options_sha256": {
+          "fdf.20261115T025307.908.log": "47d31a7ffebbb8e035b240a079ef749179ed337ef9db22134b738255c646ef81"
+        },
+        "artifact_sha256": {
+          "input.fdf": "186ebf8359b511f98afb9ac52481d91cdc3eece53e0487a597468004b7457474",
+          "remag.DM": "cfbc13145376a81ff49b447bfac591a4b8ad7a4cfa1a92a7a641e2819fb88253",
+          "remag.HSX": "fadc0c9f8ad17f1c8db8dad3dd4368621351314ab725c3dfd632d4c78ad22066",
+          "remag.STRUCT_OUT": "3741bfd3043d36704be0dccf8bff7f6f58b4f248b9aadce82f8f7b0e3d5b9011",
+          "remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+          "result.json": "d3ec850472a93747e0afa37d71a8cdd5facfec83fadd5a2202d24440ec240f79",
+          "stderr.log": "e33f8390d230fd142c5957cdd6a23a9863a3f2bfe5433e7618e8931b1c5b4d8f",
+          "stdout.log": "53b964bab0d7f92f55f6ff9cf227014fc26e644e2f1dc6e3c78cdddb9f9acc6e"
+        },
+        "stage": "soc-y",
+        "branch": {
+          "passed": true,
+          "site_rms_mub": 0.002022243432428367,
+          "net_fractional_change": 0.001082080025288996,
+          "robust_site_flip": false
+        }
+      }
+    ]
+  },
+  "native_radial_endpoint_changes": {
+    "Fe": [
+      {
+        "shell_n_l_z_ispol": [
+          4,
+          0,
+          1,
+          0
+        ],
+        "cutoff_bohr_001": 6.94061270033,
+        "cutoff_bohr_00025": 8.16294912714,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          4,
+          0,
+          2,
+          0
+        ],
+        "cutoff_bohr_001": 4.51596047371,
+        "cutoff_bohr_00025": 4.80545151776,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          4,
+          0,
+          3,
+          0
+        ],
+        "cutoff_bohr_001": 5.27477377878,
+        "cutoff_bohr_00025": 5.77246356394,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          4,
+          1,
+          1,
+          0
+        ],
+        "cutoff_bohr_001": 6.94061270033,
+        "cutoff_bohr_00025": 8.16294912714,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          4,
+          1,
+          2,
+          0
+        ],
+        "cutoff_bohr_001": 5.08790572895,
+        "cutoff_bohr_00025": 5.76091019403,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "cutoff_bohr_001": 4.08935569587,
+        "cutoff_bohr_00025": 4.96701251287,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          3,
+          2,
+          2,
+          0
+        ],
+        "cutoff_bohr_001": 2.11299921723,
+        "cutoff_bohr_00025": 2.23079298417,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          3,
+          2,
+          3,
+          0
+        ],
+        "cutoff_bohr_001": 2.71326033212,
+        "cutoff_bohr_00025": 2.96972142324,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          4,
+          3,
+          1,
+          0
+        ],
+        "cutoff_bohr_001": 4.08935569587,
+        "cutoff_bohr_00025": 4.96701251287,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      }
+    ],
+    "Pt": [
+      {
+        "shell_n_l_z_ispol": [
+          6,
+          0,
+          1,
+          0
+        ],
+        "cutoff_bohr_001": 6.77578385339,
+        "cutoff_bohr_00025": 7.93728065369,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          6,
+          0,
+          2,
+          0
+        ],
+        "cutoff_bohr_001": 4.413051374,
+        "cutoff_bohr_00025": 4.67717386783,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          6,
+          0,
+          3,
+          0
+        ],
+        "cutoff_bohr_001": 5.14944911952,
+        "cutoff_bohr_00025": 5.61280030103,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          6,
+          1,
+          1,
+          0
+        ],
+        "cutoff_bohr_001": 6.77578385339,
+        "cutoff_bohr_00025": 7.93728065369,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          6,
+          1,
+          2,
+          0
+        ],
+        "cutoff_bohr_001": 5.09300618448,
+        "cutoff_bohr_00025": 5.78983700176,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          5,
+          2,
+          1,
+          0
+        ],
+        "cutoff_bohr_001": 4.85871389044,
+        "cutoff_bohr_00025": 5.81890880571,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          5,
+          2,
+          2,
+          0
+        ],
+        "cutoff_bohr_001": 2.7905891731,
+        "cutoff_bohr_00025": 2.93417845051,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          5,
+          2,
+          3,
+          0
+        ],
+        "cutoff_bohr_001": 3.41749548104,
+        "cutoff_bohr_00025": 3.71784311858,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      },
+      {
+        "shell_n_l_z_ispol": [
+          5,
+          3,
+          1,
+          0
+        ],
+        "cutoff_bohr_001": 4.85871389044,
+        "cutoff_bohr_00025": 5.81890880571,
+        "radial_data_shape_001": [
+          1000
+        ],
+        "radial_data_shape_00025": [
+          1000
+        ],
+        "radial_arrays_identical": false
+      }
+    ]
+  },
+  "recovered_native_files": 23,
+  "recovered_native_bytes": 131966776,
+  "provenance": {
+    "report_sha256": "f3c95eb66011e8944b50c583ec903055a9a4e3d3a723c0297209c4441029f1c7",
+    "evaluation_sha256": "998bc74869f0aafe28a029fcc33ecd9d6f99d74478d4f1c09a1bcaccc7bcb361",
+    "review_sha256": "de8a8766778ef676ac926d8fea149e895fd8841ce86d38b0a1411de16d1109e1",
+    "plan_sha256": "def1db43e57bb43601084a510d377f0dcc09bb604d06c49aa80e8314821379c6",
+    "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+    "input_sha256": "8855dec2671d0b5e44c395f0e867314f912ec2af86f362673eebafeca7453047",
+    "invocation_sha256": "a1f744c24e4b12c672ea9069a4f9d8a4be31568ebf0924a9c20b5e941e53e1ce",
+    "source_code": {
+      "__init__.py": "24f91aa34873a757427724a85bd052e9e738e000e1e952a42d565f08ad8c168d",
+      "cli.py": "f344fd5a62352591e70079ef413585a23d5bf1b3e6b167aa16be4c7e124b5da2",
+      "collection.py": "01daa11f0ff42a14010b831f6fe11f2aec8f5cccd1cfa99caa3ebd550a708c2f",
+      "common.py": "2c99c1f091bb0af59af5b06de69fe429582a2ec508fa850cb8ae9f5cddbcde8a",
+      "config.py": "76ae475671a6269d9910ccaa592814ff70b57f029a162611e1a8e65a9d53c343",
+      "inputs.py": "7db64d2ee4981ce91afac2beaa7883435036e173714d8ddf150097ef6da54796",
+      "orb.py": "e7daa9465e7ec9f7232bac37e5e9d6a7549b3f6b00dc6f98e5e65bb22088ec4e",
+      "pipeline.py": "f60961203027eea42fd73a9a028180a98f6fd8b023ad07ed38459efe1c20b66e",
+      "review.py": "153652c9cab7194b69bd2b3522246f1e2bb2e518dc642513363820437a24f946",
+      "seed.py": "d25acf7144d32bcbdd44fc27d2615928fe74d2d0a06a9b1a06147aeb57a962e0",
+      "../runner.py": "98d49c6688805c38e8fb115826b031de906abd6b8fc24af26f588dcd4c9d61a2",
+      "../output.py": "83cfe25f907265651237e24b08dd71664e420b670fe357c7aa3d0b8da72cfc71",
+      "research/basis.py": "0cefb5469aac12cae67188b918e1f0517fdb79279b52d6472a2c2a016b6c6733",
+      "research/__init__.py": "5d9878d3db7f53bf90f3859797af7c5d587c3ff6700b6822936a74e0a21fb47b",
+      "research/experiments.py": "93f88c7df3536335eb6fd6d5462a508ef32d09a6957af7f8f7e6a8859dd447a6",
+      "research/workspace.py": "f785563ffa31c87d3d1396cbc38384cc281e1de2b1159b32b9e017629ae113a9",
+      "research/response.py": "12ce1f617e850ec2793772c0b40f8e7cd1663343025e14a60968876d3bf64ce0",
+      "research/convergence.py": "2ad2a97f845b6b1fbb424b5f38490773d58870cfc3f834121fa2ce6e71ae9194",
+      "research/budget.py": "3c7991b8f09618661024cb1ac64820ebfc16a2c0625f3a45c77c1b8cb8d44fdd",
+      "research/__main__.py": "23bee9011dadfb25da9dc32990fe51cd21a010994c34c3e4a5238780a53b75e9",
+      "research/electronic.py": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b",
+      "research/memory.py": "0614d683b0908c53933ead96e8b1de2d0cb18d2a9aae2c2e932f843d8bf5517e"
+    },
+    "archive_sha256": "20f969291b924890b1bcd8e220369f3f021a407f668c9f8484380936a2ef7efa",
+    "native_manifest": {
+      "format": "REMAG-NATIVE-RECOVERY/1",
+      "run_id": "physics-fa55b388e87b4ef7b142b5ac70b0c1a4",
+      "app_id": "ap-rzQmgIlgendNnj0FAwSUks",
+      "volume": "siesta-remag-fept-convergence",
+      "source_report_sha256": {
+        "tzp2-f1-radial001": "f3c95eb66011e8944b50c583ec903055a9a4e3d3a723c0297209c4441029f1c7"
+      },
+      "files": {
+        "tzp2-f1-radial001/scalar/Fe.ion.xml": "d145ab0c2805b7097986a3179a0ce73022aca7aa8936d8bd78690b92c076cf02",
+        "tzp2-f1-radial001/scalar/Pt.ion.xml": "b3b3651b82ebbdc348aff2c6013863f93e8911c5dc6b7bdd00a1eba1a8f65621",
+        "tzp2-f1-radial001/scalar/remag.DM": "36299750318c3427d1a07a274456052c09238ab074959a9be302247a595930fe",
+        "tzp2-f1-radial001/scalar/remag.HSX": "d8f2071df3f08b0b69300696a0811c37230fedff4e8af38fd61012c6d5030280",
+        "tzp2-f1-radial001/scalar/remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+        "tzp2-f1-radial001/seed-x.DM": "1d7996ac191c2e1f7119dd978a5012f01e7b2596936ebab8eb0ab743b99c2eec",
+        "tzp2-f1-radial001/seed-y.DM": "16477c304c14d8ed6fdfee7d39cc4dc66ae441cd0d1012f9f98dfbd7bd1366b0",
+        "tzp2-f1-radial001/seed-z.DM": "8a42c05c60ef986aa296d6b64213be62265e9b393b760eb53d2f7189b28604f1",
+        "tzp2-f1-radial001/soc-x/Fe.ion.xml": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640",
+        "tzp2-f1-radial001/soc-x/Pt.ion.xml": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df",
+        "tzp2-f1-radial001/soc-x/remag.DM": "97ec8ba238e0ed74b7911f4986b753a529621938fadb4e8071871b5196bc4320",
+        "tzp2-f1-radial001/soc-x/remag.HSX": "03c51d9f7411d4aa454546cc0c6bf29a6c4832668722a77fe60ab8e90cb64093",
+        "tzp2-f1-radial001/soc-x/remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+        "tzp2-f1-radial001/soc-y/Fe.ion.xml": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640",
+        "tzp2-f1-radial001/soc-y/Pt.ion.xml": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df",
+        "tzp2-f1-radial001/soc-y/remag.DM": "cfbc13145376a81ff49b447bfac591a4b8ad7a4cfa1a92a7a641e2819fb88253",
+        "tzp2-f1-radial001/soc-y/remag.HSX": "fadc0c9f8ad17f1c8db8dad3dd4368621351314ab725c3dfd632d4c78ad22066",
+        "tzp2-f1-radial001/soc-y/remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c",
+        "tzp2-f1-radial001/soc-z/Fe.ion.xml": "dad6bc8228e9e05ad21b36898707d3609f426d86643770728926650e1cbdd640",
+        "tzp2-f1-radial001/soc-z/Pt.ion.xml": "b860a2eda3ce748e37385fa9132ee420d2fd2edf86a1f5dd3ebae9d5b75b20df",
+        "tzp2-f1-radial001/soc-z/remag.DM": "6f7d703932ab21dfbbc77b55fa1b91b1f951bd082aa74c297584348e93a27360",
+        "tzp2-f1-radial001/soc-z/remag.HSX": "0cbd3d108a58f17992ca9b1570816b6f53246157e4428f915f83aafbf7e6cdf3",
+        "tzp2-f1-radial001/soc-z/remag.XV": "df30f3682b60832b14b3cbcaa559905fdec8ac337e5929e141a7c79a8ea43d3c"
+      },
+      "scope": "Read existing native artifacts only; no calculation launch or retry."
+    }
+  },
+  "validation": "Saved native acceptance, branches, shell/radial identity, source/input/runtime/invocation and all recovered hashes reproduced; cached full-KP overlap bound to exact HSX/KP hashes; endpoint E/F assessment reproduced. No solver rerun.",
+  "reserved_cents_at_review": 25167,
+  "remaining_basis_cents": 4500,
+  "actual_billed_usd": null,
+  "new_pristine_reference": false,
+  "radial_convergence_qualified": false,
+  "basis_gate_passed": false,
+  "enlarged_basis_mesh_gate_passed": false,
+  "physical_accuracy_qualified": false,
+  "exploratory_target_demonstrated": false,
+  "scope": "The nonadjacent .01-to-.0025 endpoint is within tolerance but does not supply two successive refinements. The .005 point remains pending. Prior basis and mesh failures are unchanged."
+}

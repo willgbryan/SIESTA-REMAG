@@ -1,0 +1,446 @@
+{
+  "format": "REMAG-SCALAR-DATA/1",
+  "cases": {
+    "baseline-k6": {
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "report_sha256": "01e4b75194aeaf147c45c6044a15611041b52b69908535cc838030cc674e3710",
+      "executable_sha256": "afeabb67ad88ed8ab5735970b3e43008b800755c5ba28f2d2db66db02d2f9604",
+      "collection_sha256": "5fc0003d58bc83788e871f57e7c6eca6a1b42dcda836d4156521555e37202547",
+      "observations": {
+        "scalar": {
+          "total_energy_ev": -2223.249043,
+          "free_energy_ev": -2223.25374,
+          "forces_ev_ang": [
+            [
+              -0.0,
+              0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "stress_ev_ang3": [
+            [
+              -0.006098,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.006098,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -0.018405
+            ]
+          ],
+          "total_moment_muB": [
+            0.0,
+            0.0,
+            3.41048
+          ],
+          "scf_iterations": 31,
+          "atom_moments_muB": [
+            [
+              0.0,
+              0.0,
+              3.263008
+            ],
+            [
+              0.0,
+              0.0,
+              0.147468
+            ]
+          ],
+          "spin_components": 2
+        },
+        "soc-z": {
+          "total_energy_ev": -2223.533672,
+          "free_energy_ev": -2223.539043,
+          "forces_ev_ang": [
+            [
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              0.0
+            ]
+          ],
+          "stress_ev_ang3": [
+            [
+              -0.007654,
+              0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              -0.007654,
+              0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.022179
+            ]
+          ],
+          "total_moment_muB": [
+            0.0,
+            -0.0,
+            3.37322
+          ],
+          "scf_iterations": 15,
+          "atom_moments_muB": [
+            [
+              0.0,
+              0.0,
+              3.240058
+            ],
+            [
+              0.0,
+              -0.0,
+              0.133158
+            ]
+          ],
+          "spin_components": 8
+        },
+        "soc-x": {
+          "total_energy_ev": -2223.532361,
+          "free_energy_ev": -2223.537758,
+          "forces_ev_ang": [
+            [
+              -0.0,
+              0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              -0.0,
+              0.0
+            ]
+          ],
+          "stress_ev_ang3": [
+            [
+              -0.005464,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.007922,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -0.022674
+            ]
+          ],
+          "total_moment_muB": [
+            3.37473,
+            0.0,
+            0.0
+          ],
+          "scf_iterations": 15,
+          "atom_moments_muB": [
+            [
+              3.239177,
+              0.0,
+              0.0
+            ],
+            [
+              0.13555,
+              0.0,
+              0.0
+            ]
+          ],
+          "spin_components": 8
+        },
+        "soc-y": {
+          "total_energy_ev": -2223.532361,
+          "free_energy_ev": -2223.537758,
+          "forces_ev_ang": [
+            [
+              -0.0,
+              0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "stress_ev_ang3": [
+            [
+              -0.007922,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.005464,
+              -0.0
+            ],
+            [
+              0.0,
+              -0.0,
+              -0.022674
+            ]
+          ],
+          "total_moment_muB": [
+            0.0,
+            3.37473,
+            0.0
+          ],
+          "scf_iterations": 15,
+          "atom_moments_muB": [
+            [
+              0.0,
+              3.239178,
+              0.0
+            ],
+            [
+              0.0,
+              0.13555,
+              0.0
+            ]
+          ],
+          "spin_components": 8
+        }
+      },
+      "report_interval": {
+        "started_at": "2026-11-16T19:57:15.222634+00:00",
+        "wall_seconds": 46.349852487
+      }
+    },
+    "baseline-k12": {
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "report_sha256": "4440edb7fdf38b58f70d3808644b6258290993509d98eec89bab6259b3f4b7a7",
+      "executable_sha256": "afeabb67ad88ed8ab5735970b3e43008b800755c5ba28f2d2db66db02d2f9604",
+      "collection_sha256": "b7f262d04b9bdf0786ae705b7af20c12da54256dc9af68197db5270a4440448f",
+      "observations": {
+        "scalar": {
+          "total_energy_ev": -2223.22181,
+          "free_energy_ev": -2223.225053,
+          "forces_ev_ang": [
+            [
+              -0.0,
+              0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "stress_ev_ang3": [
+            [
+              -0.008895,
+              0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              -0.008895,
+              0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.014364
+            ]
+          ],
+          "total_moment_muB": [
+            0.0,
+            0.0,
+            3.38077
+          ],
+          "scf_iterations": 19,
+          "atom_moments_muB": [
+            [
+              0.0,
+              0.0,
+              3.241146
+            ],
+            [
+              0.0,
+              0.0,
+              0.139627
+            ]
+          ],
+          "spin_components": 2
+        },
+        "soc-z": {
+          "total_energy_ev": -2223.515675,
+          "free_energy_ev": -2223.519089,
+          "forces_ev_ang": [
+            [
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              0.0
+            ]
+          ],
+          "stress_ev_ang3": [
+            [
+              -0.010609,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.010609,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              -0.018734
+            ]
+          ],
+          "total_moment_muB": [
+            0.0,
+            -0.0,
+            3.35361
+          ],
+          "scf_iterations": 13,
+          "atom_moments_muB": [
+            [
+              -0.0,
+              -0.0,
+              3.224756
+            ],
+            [
+              0.0,
+              0.0,
+              0.128852
+            ]
+          ],
+          "spin_components": 8
+        },
+        "soc-x": {
+          "total_energy_ev": -2223.51327,
+          "free_energy_ev": -2223.516547,
+          "forces_ev_ang": [
+            [
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              0.0
+            ]
+          ],
+          "stress_ev_ang3": [
+            [
+              -0.010462,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.010948,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -0.018014
+            ]
+          ],
+          "total_moment_muB": [
+            3.35531,
+            0.0,
+            0.0
+          ],
+          "scf_iterations": 11,
+          "atom_moments_muB": [
+            [
+              3.226299,
+              -0.0,
+              0.0
+            ],
+            [
+              0.129007,
+              0.0,
+              -0.0
+            ]
+          ],
+          "spin_components": 8
+        },
+        "soc-y": {
+          "total_energy_ev": -2223.51327,
+          "free_energy_ev": -2223.516547,
+          "forces_ev_ang": [
+            [
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              0.0
+            ]
+          ],
+          "stress_ev_ang3": [
+            [
+              -0.010948,
+              -0.0,
+              0.0
+            ],
+            [
+              -0.0,
+              -0.010462,
+              -0.0
+            ],
+            [
+              0.0,
+              -0.0,
+              -0.018014
+            ]
+          ],
+          "total_moment_muB": [
+            0.0,
+            3.35531,
+            0.0
+          ],
+          "scf_iterations": 11,
+          "atom_moments_muB": [
+            [
+              0.0,
+              3.226299,
+              0.0
+            ],
+            [
+              0.0,
+              0.129007,
+              0.0
+            ]
+          ],
+          "spin_components": 8
+        }
+      },
+      "report_interval": {
+        "started_at": "2026-11-16T20:00:05.475634+00:00",
+        "wall_seconds": 170.461954923
+      }
+    }
+  },
+  "sha256": "de102214923b57f344048c07768a015693d2c9982cda48150eeba57eda40653e"
+}

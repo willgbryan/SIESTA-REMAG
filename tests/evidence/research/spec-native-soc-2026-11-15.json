@@ -1,0 +1,54 @@
+{
+  "format": "REMAG-SPEC-IMPLEMENTATION-EVIDENCE/1",
+  "created_at": "2026-11-15T19:30:02.845145+00:00",
+  "scope": "Spec 5.1/5.2: opt-in native spin-dependent off-site nonlocal operator and nonorthogonal state projections",
+  "implementation": [
+    "explicit host-H0 SOC export in pinned native analysis hook",
+    "scalar trace removed from nonlocal operator only",
+    "hash-bound native operator and total-H/S/PAO/KP/EIG identity",
+    "checked C\u2020V C and Lowdin representations",
+    "prepared-query request and unsupported-runtime preflight",
+    "Python, CLI, tool worker and bounded policy-session integration"
+  ],
+  "tests": {
+    "broad": "240 passed in 27.07s: research/discovery/patch/terminal-H",
+    "final_integration": "81 passed in 21.89s: SOC/agent/execution/paired-study",
+    "native": "gfortran compiled pure component and adapter against explicit interface doubles; 10 adapter ownership cases; no SIESTA application run"
+  },
+  "demonstration": {
+    "kind": "Synthetic native-format engineering fixture; no material measurement",
+    "report_sha256": "3c9e87c402aa69744af7ad371102d75531932c776814b256e0adf0d53f518c3d",
+    "soc_result_sha256": "4f4eeefc96be3aeb20aafe37dcf16291b2b7d618509b07d143b324085201a42b",
+    "native_k_count": 2,
+    "selected_k_indices": [
+      0,
+      1
+    ],
+    "selected_k_weight": 1.0,
+    "operator": "spin-traceless-offsite-nonlocal",
+    "native_eigenvalue_reconstruction_residual_ev": 1.3322676295501878e-15,
+    "sampled_operator_expectation_ev": -0.004681317183856226
+  },
+  "full_native_application_build_verified": false,
+  "measured_production_export_verified": false,
+  "actual_gpu_calls": 0,
+  "actual_native_solver_calls": 0,
+  "new_real_reservations_cents": 0,
+  "qualification_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "limitations": [
+    "retained host nonlocal H0 only; device-owned or poisoned H0 rejected",
+    "onsite-only SOC and multiple MPI ranks unsupported",
+    "state phases and degenerate subspaces affect individual entries",
+    "Lowdin block partitions are basis-dependent",
+    "operator expectation is not total MAE or second-order SOC energy",
+    "no physical accuracy, empirical advantage, latency or speedup established"
+  ],
+  "implementation_files": {
+    "native/remag_soc_components.F90.in": "642873c3f070a2662c422c813963299812be7a7d1595c346c528bdf7eca317a8",
+    "native/remag_soc_export.F90.in": "f53d57df5681bf983c28070e02175b35ecedb2b553e20f02eda41d5f31a75871",
+    "src/siesta_remag/research/soc.py": "efe835b0cece3bd50ec2fcb4ff00e6e5fedf8aff3abe7a0e2f99b2c780fb0c02",
+    "scripts/patch_siesta.py": "99269aa3b9adc0e3af0d19d58a7c601e26cdf7207745cdcebf4b0d6f873b5320",
+    "src/siesta_remag/research/experiments.py": "e86b303369f82c434897b0896ebc0bf3c9f1fd0556dd3265eed6c720f4b536ee",
+    "src/siesta_remag/research/execution.py": "95552d28b88f6c28b62991174bd4d59894ba5c56f40408ce76f69b656f1ee116"
+  }
+}

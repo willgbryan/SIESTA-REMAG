@@ -1,0 +1,376 @@
+{
+  "format": "REMAG-GENERAL-MATERIAL-NATIVE-FAILURE/1",
+  "recorded_at": "2026-11-17T08:46:25.230576+00:00",
+  "status": "native_failed_stopped_local_preflight_fix_verified",
+  "supersedes_status_record": "outputs/GPAC-REMAG-first-general-material-preparation-2026-11-17.json",
+  "preserved_preparation_checkpoint": true,
+  "old_campaign_closed": true,
+  "passed": [
+    "Existing Codex Astra xhigh exact Ni authoring and four sealed prospective predictions",
+    "Real CPU Orb preparation under declared conditions",
+    "Collected artifact hash verification",
+    "Authoritative shutdown of this owned GPU app",
+    "Offline input-policy and incident-hold regression tests"
+  ],
+  "failed": [
+    "Native DFT relaxation: SIGSEGV before an accepted SCF result",
+    "Subsequent Python Broyden export audit: unsupported MD mode, masking the native error in the pipeline summary"
+  ],
+  "pending": [
+    "Native causal repair and supported relaxation audit coverage",
+    "Native measurements and magnetic/electronic/stability assessment",
+    "Prediction scoring and evidence-bound Astra revision",
+    "Three completed feedback iterations across at least two non-FePt systems",
+    "Live Ouro route selection/access and allocation admission"
+  ],
+  "completed_feedback_iterations": 0,
+  "source_sha256": "97ab01f3a57f96b64484eb022e51767928fcc31e911ee65cd39f0319c0472e92",
+  "model_phase": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "xhigh",
+    "calls": 7,
+    "seconds": 265.4937244998291,
+    "existing_Codex_access": true,
+    "owned_model_process_stopped": true,
+    "call_and_context_hashes_verified": true
+  },
+  "CPU_preparation": {
+    "status": "passed",
+    "accepted": true,
+    "steps": 10,
+    "metrics": {
+      "max_force_ev_ang": 0.014741231687366962,
+      "max_stress_gpa": 0.081990085542202,
+      "energy_ev": -23.13178253173828,
+      "volume_a3": 43.48593301333186
+    },
+    "geometry_sha256": "40e5102bdc44469aa933ba40c376370669dcbc736b491d637c496979a7474f1b",
+    "wall_seconds": 3.2914263335987926,
+    "model": "orb-v3-conservative-inf-mpa",
+    "weights_sha256": "bd1840d1488f3cd01d213970d9618a63f971590ad45e5e83bf5404d4b95d216a",
+    "rattle_ang": 0.01,
+    "rattle_seed": 0,
+    "settings": {
+      "orb_fmax_ev_ang": 0.02,
+      "orb_stress_gpa": 0.1,
+      "orb_steps": 400,
+      "orb_seconds": 300,
+      "dft_fmax_ev_ang": 0.04,
+      "dft_stress_gpa": 0.5,
+      "dft_steps": 30,
+      "dft_seconds": 1800,
+      "soc_seconds": 600,
+      "total_dft_seconds": 3600,
+      "max_scf": 100,
+      "dm_tolerance": 0.0001,
+      "h_tolerance_ev": 0.001,
+      "mixing_weight": 0.03,
+      "mixing_history": 8,
+      "mesh_ry": 300,
+      "smearing_k": 300,
+      "k_spacing_inv_ang": 0.35,
+      "max_kpoints": 512,
+      "max_atoms": 4,
+      "minimum_js_t": 0.4,
+      "axis_tolerance_deg": 1.0,
+      "branch_rms_mub": 0.2,
+      "branch_net_fraction": 0.05
+    },
+    "physical_stability_qualified": false,
+    "versions": {
+      "ase": "3.26.0",
+      "numpy": "2.3.4",
+      "orb-models": "0.5.5",
+      "torch": "2.15.0"
+    },
+    "worker_wall_seconds": 4.087698499672115
+  },
+  "native": {
+    "app_id": "ap-Hd50LF1JTeblMEzDcxMMwL",
+    "run_id": "physics-f69c608781204cd08a12073eaf3b57db",
+    "status": "failed",
+    "allocation_stopped": true,
+    "lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-17 02:32:55-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-17 02:33:33-06:00",
+      "stopped_by": null
+    },
+    "execution_status": {
+      "returncode": -11,
+      "timed_out": false,
+      "wall_seconds": 2.7495249909999995
+    },
+    "report_reason": "Hamiltonian export audit has no reference for this MD mode",
+    "review_error": {
+      "type": "ValueError",
+      "message": "Unexpected discovery stage sequence"
+    },
+    "accepted_stages": [],
+    "SOC_ran": false,
+    "usable_result_seconds": null,
+    "submission_through_failure_review_seconds": 42.60046595800668,
+    "no_follow_on_queued": true
+  },
+  "diagnosis": {
+    "setup_checkpoints": [
+      {
+        "schema": 1,
+        "phase": "version_query_begin",
+        "status": -1,
+        "dimension": 76,
+        "spins": 2,
+        "jobs": 264,
+        "lanes": 8,
+        "graph_nodes": 27501,
+        "forbidden_nodes": 0,
+        "runtime_version": -1,
+        "driver_cuda_version": -1,
+        "runtime_query_status": -1,
+        "driver_query_status": -1
+      },
+      {
+        "schema": 1,
+        "phase": "instantiate_begin",
+        "status": -1,
+        "dimension": 76,
+        "spins": 2,
+        "jobs": 264,
+        "lanes": 8,
+        "graph_nodes": 27501,
+        "forbidden_nodes": 0,
+        "runtime_version": 12060,
+        "driver_cuda_version": 13050,
+        "runtime_query_status": 0,
+        "driver_query_status": 0
+      }
+    ],
+    "stack_file_mapping": [
+      {
+        "frame": 0,
+        "address": "0x2b73e441c960",
+        "path": "/usr/lib/x86_64-linux-gnu/libgfortran.so.5.0.0",
+        "file_offset": "0x23960"
+      },
+      {
+        "frame": 1,
+        "address": "0x2b73e441bac5",
+        "path": "/usr/lib/x86_64-linux-gnu/libgfortran.so.5.0.0",
+        "file_offset": "0x22ac5"
+      },
+      {
+        "frame": 2,
+        "address": "0x2b73e714051f",
+        "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "file_offset": "0x4251f"
+      },
+      {
+        "frame": 3,
+        "address": "0x2b744006dccc",
+        "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.620.70.06",
+        "file_offset": "0x32dccc"
+      },
+      {
+        "frame": 4,
+        "address": "0x2b74415925b2",
+        "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.620.70.06",
+        "file_offset": "0x18525b2"
+      },
+      {
+        "frame": 5,
+        "address": "0x2b74415925f2",
+        "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.620.70.06",
+        "file_offset": "0x18525f2"
+      },
+      {
+        "frame": 6,
+        "address": "0x2b74415f63ed",
+        "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.620.70.06",
+        "file_offset": "0x18b63ed"
+      },
+      {
+        "frame": 7,
+        "address": "0x2b744008d4fd",
+        "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.620.70.06",
+        "file_offset": "0x34d4fd"
+      },
+      {
+        "frame": 8,
+        "address": "0x2b743ff8013e",
+        "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.620.70.06",
+        "file_offset": "0x24013e"
+      },
+      {
+        "frame": 9,
+        "address": "0x2b744016e271",
+        "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.620.70.06",
+        "file_offset": "0x42e271"
+      },
+      {
+        "frame": 10,
+        "address": "0x2b744014c0c9",
+        "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.620.70.06",
+        "file_offset": "0x40c0c9"
+      },
+      {
+        "frame": 11,
+        "address": "0x2b73e7621ae4",
+        "path": "/usr/local/cuda-12.6/targets/x86_64-linux/lib/libcudart.so.12.6.77",
+        "file_offset": "0x21ae4"
+      },
+      {
+        "frame": 12,
+        "address": "0x2b73e766ba7d",
+        "path": "/usr/local/cuda-12.6/targets/x86_64-linux/lib/libcudart.so.12.6.77",
+        "file_offset": "0x6ba7d"
+      },
+      {
+        "frame": 13,
+        "address": "0x2b73e6dafc98",
+        "path": "/__modal/volumes/vo-66ADUZg8OAgmKZ6M0x7YQr/research-loop-r8-build/libremag_gpu.so",
+        "file_offset": "0xa1c98"
+      },
+      {
+        "frame": 14,
+        "address": "0x2b73e6db4287",
+        "path": "/__modal/volumes/vo-66ADUZg8OAgmKZ6M0x7YQr/research-loop-r8-build/libremag_gpu.so",
+        "file_offset": "0xa6287"
+      },
+      {
+        "frame": 15,
+        "address": "0x2b73e6dac0a1",
+        "path": "/__modal/volumes/vo-66ADUZg8OAgmKZ6M0x7YQr/research-loop-r8-build/libremag_gpu.so",
+        "file_offset": "0x9e0a1"
+      },
+      {
+        "frame": 16,
+        "address": "0x2b73e6dbe3a7",
+        "path": "/__modal/volumes/vo-66ADUZg8OAgmKZ6M0x7YQr/research-loop-r8-build/libremag_gpu.so",
+        "file_offset": "0xb03a7"
+      },
+      {
+        "frame": 17,
+        "address": "0x55f4488e511e",
+        "path": "/__modal/volumes/vo-66ADUZg8OAgmKZ6M0x7YQr/research-loop-r8-build/siesta",
+        "file_offset": "0x6811e"
+      },
+      {
+        "frame": 18,
+        "address": "0x55f4488949f4",
+        "path": "/__modal/volumes/vo-66ADUZg8OAgmKZ6M0x7YQr/research-loop-r8-build/siesta",
+        "file_offset": "0x179f4"
+      },
+      {
+        "frame": 19,
+        "address": "0x55f44888c364",
+        "path": "/__modal/volumes/vo-66ADUZg8OAgmKZ6M0x7YQr/research-loop-r8-build/siesta",
+        "file_offset": "0xf364"
+      },
+      {
+        "frame": 20,
+        "address": "0x2b73e7127d8f",
+        "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "file_offset": "0x29d8f"
+      },
+      {
+        "frame": 21,
+        "address": "0x2b73e7127e3f",
+        "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "file_offset": "0x29e3f"
+      },
+      {
+        "frame": 22,
+        "address": "0x55f44888c3f4",
+        "path": "/__modal/volumes/vo-66ADUZg8OAgmKZ6M0x7YQr/research-loop-r8-build/siesta",
+        "file_offset": "0xf3f4"
+      }
+    ],
+    "mapping_method": "Backtrace addresses matched to saved live process maps; not core-dump attestation or complete symbolization",
+    "finding": "Last setup checkpoint is instantiate_begin, without instantiate_end; frames 3-10 map into libcuda. This localizes the phase but does not establish a causal defect or repair.",
+    "causal_native_fix_proven": false,
+    "original_failure_artifacts_unchanged": true
+  },
+  "fix": {
+    "input_policies_checked_before_account_intent_or_reservation": true,
+    "existing_CG_audit_scope_preserved": true,
+    "actual_failed_bundle_offline_rejections": {
+      "incident_hold": "Native execution held: general-material-loop-r1 SIGSEGV with libcuda stack frames remains unresolved; no spending. Earlier passing FePt checks do not repair this failure.",
+      "input_audit": "Hamiltonian export audit has no reference for this MD mode"
+    },
+    "exact_device_runtime_pair_held": true,
+    "does_not_repair_native_crash": true,
+    "runner_error_masking_not_yet_fixed": true
+  },
+  "tests": {
+    "focused": "62 passed in 11.22s",
+    "full": "847 passed, 4 skipped in 208.92s",
+    "no_paid_actions_during_fix": true
+  },
+  "verification": {
+    "preparation_hashes_verified": 15,
+    "collected_files_verified": 19,
+    "collected_bytes_verified": 1063275,
+    "runtime_executable_sha256": "68fbdc97c03e00d4088b1e4454cb42284eb0af28735e5eabd87e5b8d2e36c0fd",
+    "runtime_library_sha256": "e96e212fc6553632b4a66ff0bc5a3b5355bade9b4fee0f09b44b9e09b5774754",
+    "protected_ledgers_unchanged": {
+      "work/fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+      "work/acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8"
+    }
+  },
+  "allocation_observation": {
+    "observed_at": "2026-11-17T08:39:44.736992+00:00",
+    "owned_app_stopped": true,
+    "owned_container_present": false,
+    "other_account_containers_observed": 1,
+    "account_empty": false,
+    "note": "Another application was present; no empty-account or global-GPU-release claim is made. No unrelated allocation was changed."
+  },
+  "budget": {
+    "new_development_reserved_cents": 465,
+    "actual_billed_usd": null,
+    "reservations_are_not_invoices": true,
+    "old_ledgers_unchanged": true
+  },
+  "claims": {
+    "physical_accuracy_qualified": false,
+    "stability_qualified": false,
+    "synthesizability_established": false,
+    "interactive_latency_established": false,
+    "speedup_established": false,
+    "full_goal_complete": false
+  },
+  "artifact_sha256": {
+    "work/general-material-loop-r1/runs/iteration-1/execution.json": "07590535868269138ab422516af0af67ee2ce1e785eadb71f3ec588d4dcafc47",
+    "work/general-material-loop-r1/runs/iteration-1/receipt.json": "f8b125b35caf55ffb10fc43bf5e7beaaeb51ecf171e15b4bea740b2319728249",
+    "work/general-material-loop-r1/runs/iteration-1/runtime.json": "1f89136dd9560c7ae2cd541278a296fdd16caedbfb973062182907d99fc47102",
+    "work/general-material-loop-r1/runs/iteration-1/collected/archive-manifest.json": "55b12cc89ce68d074a8afff43d35bda6829223ee2696fb3f5a5b4b45117e5bbd",
+    "work/general-material-loop-r1/runs/iteration-1/collected/collection.json": "1648e8b1297a58aa7173326bf55b53d8a114ae677bdd9d8860716134fc85f9eb",
+    "work/general-material-loop-r1/stopped-account-observation.json": "27e061b81b3ebbcc65a3130e9e2ce725832efbb7e6807bbb511b53404bf4a9cc",
+    "work/general-material-loop-r1/budget.json": "5ab67375a32ef9cea04ec4ff861c3210a9badf57496875ae4eab877324074622",
+    "work/general-material-loop-r1/failure-preflight-regression.log": "13c1349ccc6d64cb09dc86c8e85b8735b52e84a35f7e189e52ff06d993cdea08",
+    "work/general-material-loop-r1/failure-preflight-full.log": "9e169ae77d2eaebf113bc24a4ec64054b86fcb05e5fbf9ba7eafa28530cd1ba8",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/Ni.ion.xml": "35cc12e4295910d424dab8e3095d83c678cc7b3bb9359726972dbb9c161c5e3d",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/Ni.psml": "235018d8105a124b4bd114759bdf2dfd632d821173857e3968d8abce326de6b5",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/execution-status.json": "775dafbbdde4177a94767e3f6748e71f1e6d99278c9f8dd9deb587e8a7ac92dc",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/fdf.20261117T083325.126.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/gpu.csv": "c5586c6a040f564bd30ef6f9eed087176066b608c3d6ecd9cb1e818bba5c59a6",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/input.fdf": "7811a0379dfb732c7a72272b8269404d15616b9678a6e8f02c1337dc9fcf0046",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/manifest.json": "ba97f99a65273a575a0abe34c1af75e4b2f0f469ca64193c23bac36b5e7fafcf",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/native-process.json": "f6b933e0604dd303bdd4521b79947ce47c7d3ecfcc27c27030d9165a8b6c54e8",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/remag-scf-setup.log": "58b258bf8b9a03c504466e5947b62af657e45535ba0236fe6673df27be1593a9",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/remag.KP": "1db6ee97c118264263b663468a5c29feb2d978875c35b6ce003314cf7a453cb8",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/remag.STRUCT_OUT": "6dd2e7673ab146bf08639320b9a761940cd6752b5058a0fadd4816a777b22c25",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/remag.XV": "7856905cd965097c686c294a7f268656c887977820828f4ed745d5daab4b3c9c",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/stderr.log": "8d15146b7895df865197accec0afa3f85f8fbf7bcb9d8f0f54463116685d2245",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/dft-relax/stdout.log": "e0dea6f9a1226c3750c687138da6fd48775e271083ff8543914fd154bbe83254",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/inputs/dft-relax/Ni.psml": "235018d8105a124b4bd114759bdf2dfd632d821173857e3968d8abce326de6b5",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/inputs/dft-relax/input.fdf": "7811a0379dfb732c7a72272b8269404d15616b9678a6e8f02c1337dc9fcf0046",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/inputs/dft-relax/manifest.json": "ba97f99a65273a575a0abe34c1af75e4b2f0f469ca64193c23bac36b5e7fafcf",
+    "work/general-material-loop-r1/runs/iteration-1/collected/query/report.json": "dde2a1df01ee3600b98bd9d1461b6ac31635973b2fcfa9f904fbc7f45aaa967e",
+    "work/general-material-loop-r1/runs/iteration-1/collected/report.json": "e058c802d561d63126827fd7a4cb9e5c664ed32dcf7521d2bc06f6dfbe53710e"
+  }
+}

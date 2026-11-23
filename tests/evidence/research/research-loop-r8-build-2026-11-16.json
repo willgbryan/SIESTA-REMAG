@@ -1,0 +1,15 @@
+{
+  "status": "built",
+  "elapsed_seconds": 66.390061336,
+  "executable_sha256": "68fbdc97c03e00d4088b1e4454cb42284eb0af28735e5eabd87e5b8d2e36c0fd",
+  "library_sha256": "e96e212fc6553632b4a66ff0bc5a3b5355bade9b4fee0f09b44b9e09b5774754",
+  "cmake_cache_sha256": "765a2db5945a917f2b97013435d11894cd7e9713c5e86adc1015c22163bf407d",
+  "runtime_sha256": "1f89136dd9560c7ae2cd541278a296fdd16caedbfb973062182907d99fc47102",
+  "recorded_at": "2026-11-17T05:52:32.240989+00:00",
+  "app_id": "ap-9rtbO9vDQo1YkMJRuN23dg",
+  "allocation_stopped": true,
+  "native_solver_execution": false,
+  "GPU_allocation": false,
+  "native_fault_repaired": false,
+  "manifest_sha256": "f29239ff13b0dbdba399a8b52b75256ef5076355a3fb06755711a317875a57ec"
+}

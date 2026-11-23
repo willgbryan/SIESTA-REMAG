@@ -1,0 +1,107 @@
+{
+  "format": "REMAG-FEPT-BASIS-REPLICATION/1",
+  "recorded_at": "2026-11-14T18:17:35.857170+00:00",
+  "plan_sha256": "6c5b75cf06164720669c7463f5f9110f06452f0da7b905fc3ca6ada1552b4a0f",
+  "plan_commit": "a3fbecce1eefab47189e48ece313713ae34eeb89",
+  "selection": {
+    "radial_id": "shift00025",
+    "radial_evaluation_sha256": "7e35fd06d76d768cffe887f7573292162c26fb149ce8cfbebf176e0254e83857",
+    "radial_gate_passed": false,
+    "reference_report_sha256": "ce1fc97c1c4c9a115c41636854bf05266679b514f227638aa8cfd271256b1de8",
+    "plan_sha256": "6c5b75cf06164720669c7463f5f9110f06452f0da7b905fc3ca6ada1552b4a0f"
+  },
+  "result": {
+    "id": "tzp-explicit",
+    "status": "measured",
+    "report_sha256": "e98976221dd1650ee794dd6b30bfae7a18963239829ed2d4d8222acc290e50f0",
+    "branch": {
+      "passed": true,
+      "site_rms_mub": 0.0,
+      "net_fractional_change": 0.0,
+      "robust_site_flip": false
+    },
+    "replication": {
+      "differences_ev": {
+        "scalar": {
+          "total_energy_ev": 0.0,
+          "free_energy_ev": 0.0
+        },
+        "soc-z": {
+          "total_energy_ev": 0.0,
+          "free_energy_ev": 0.0
+        },
+        "soc-x": {
+          "total_energy_ev": 0.0,
+          "free_energy_ev": 0.0
+        },
+        "soc-y": {
+          "total_energy_ev": 0.0,
+          "free_energy_ev": 0.0
+        }
+      },
+      "tolerance_ev": 1.0001e-06,
+      "passed": true
+    }
+  },
+  "native_identity": {
+    "scalar": {
+      "remag.HSX": "2c7db3b1b9cd5ba2fda0861d138057e27c204dfc320042adf4fb524f44c57ac2",
+      "remag.KP": "3d98643c0530e3e36522528f990ef5bce5f0977129b88087aed495ebaf3ffce8",
+      "Fe.ion.xml": "633f38db6563cb3437a603fa8d3d7ae3aabb955659bee8938f760f726efe33c6",
+      "Pt.ion.xml": "dc3c0b099a9bc93d436b5a54edf3e172c3ac9a62bf65245a029519686699e782"
+    },
+    "soc-z": {
+      "remag.HSX": "f91ed25f56fba2b2ace6fb542fd59edac6e4ad339683b14e78739373d0f5dc7a",
+      "remag.KP": "d7ca2abbeec973c6aa229cdad1552917b6ee8ff535c653f6d9889e3278e6309d",
+      "Fe.ion.xml": "d35007cabb626efb587b0cd52b8fd93269b25e28f266d954084718a80990ada7",
+      "Pt.ion.xml": "4bd2816409c2afbcf930e00104824fba3196c74329e940fb9db4f7ef926d5956"
+    },
+    "soc-x": {
+      "remag.HSX": "e420dc67dda7edf8dce2dee3a4272967010752fe7330fb3e06e5ec7a863bbdd3",
+      "remag.KP": "d7ca2abbeec973c6aa229cdad1552917b6ee8ff535c653f6d9889e3278e6309d",
+      "Fe.ion.xml": "d35007cabb626efb587b0cd52b8fd93269b25e28f266d954084718a80990ada7",
+      "Pt.ion.xml": "4bd2816409c2afbcf930e00104824fba3196c74329e940fb9db4f7ef926d5956"
+    },
+    "soc-y": {
+      "remag.HSX": "524be841c3270477f2df9345e916deee67b89d32ab858eb607f08247e890133a",
+      "remag.KP": "d7ca2abbeec973c6aa229cdad1552917b6ee8ff535c653f6d9889e3278e6309d",
+      "Fe.ion.xml": "d35007cabb626efb587b0cd52b8fd93269b25e28f266d954084718a80990ada7",
+      "Pt.ion.xml": "4bd2816409c2afbcf930e00104824fba3196c74329e940fb9db4f7ef926d5956"
+    }
+  },
+  "basis_checks_passed": true,
+  "spatial_orbitals": 42,
+  "wall_seconds": 1985.3752035824582,
+  "reused_overlap": {
+    "source_sha256": "9ca5315e3b93aa68b199da81f4fdc7c9d5c3fca2ddb9509a0ed6ce9b79628369",
+    "reason": "Native HSX and KP files are byte-identical to the already-diagnosed automatic TZP reference",
+    "result": {
+      "format": "REMAG-OVERLAP-HEALTH/1",
+      "hsx_sha256": "2c7db3b1b9cd5ba2fda0861d138057e27c204dfc320042adf4fb524f44c57ac2",
+      "kp_sha256": "3d98643c0530e3e36522528f990ef5bce5f0977129b88087aed495ebaf3ffce8",
+      "spatial_orbitals": 42,
+      "native_kpoints": 2192,
+      "native_kp_weight_sum": 0.999999632,
+      "native_kp_weight_rounding_bound": 1.096e-06,
+      "min_eigenvalue": 2.0814279337566974e-05,
+      "max_eigenvalue": 12.477433852185339,
+      "min_eigenvalue_kpoint_index": 2187,
+      "min_eigenvalue_k_fractional": [
+        0.18750017614492015,
+        0.4999996486470242,
+        0.5000004576894169
+      ],
+      "nonpositive_kpoints": 0,
+      "positive_definite": true,
+      "max_condition_number": 298404.22234533436,
+      "min_relative_eigenvalue": 3.351159015580985e-06,
+      "max_condition_kpoint_index": 1384,
+      "sampling": "Every native SCF KP point; decimal coordinate rounding retained",
+      "hermitian_policy": "Same bounded Hermitian reconstruction as electronic spectra",
+      "physical_accuracy_qualified": false,
+      "scope": "Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate"
+    }
+  },
+  "physical_accuracy_qualified": false,
+  "scope": "Explicit-versus-automatic TZP replication at fixed16-cubed and.0025Ry only. Zero printed E/F differences and matching native exports. This is not a basis refinement or a passing radial gate."
+}

@@ -1,0 +1,999 @@
+{
+  "format": "REMAG-SPEC-IMPLEMENTATION-EVIDENCE/1",
+  "created_at": "2026-11-15T21:29:25.621099+00:00",
+  "scope": "Spec 5.2/5.3/7D/8/9: native spectral correspondence for structural responses and direct electronic comparison",
+  "tests": {
+    "initial_focused": "78 passed in 24.31s",
+    "research_discovery_regression": "334 passed, 2 unchanged HTTP tests deselected in 82.41s",
+    "final_comparison_adapters": "122 passed in 27.97s; includes native matcher, series, prediction outcomes, DOS/agent path and held-out protections, model-policy and session tests",
+    "saved_native": "Five spectral response observables, ten independent pairwise matches, and one 81-point DOS comparison using the original archived 216-point native meshes"
+  },
+  "demonstration": {
+    "format": "REMAG-SPEC-NATIVE-SAMPLING-DEMO/1",
+    "created_at": "2026-11-15T21:29:25.621099+00:00",
+    "purpose": "Native precision-aware reciprocal sampling enables saved structural spectral responses and DOS comparisons; no new calculation",
+    "algorithm": "Original input/KP hash binding; stored coordinate reproduction; unique declared-grid labels within literal decimal printing intervals; identical ordered labels and native multiplicities",
+    "saved_example": {
+      "series_sha256": "ba599d0b2ca9038c0a4878da4ec52601f09bf491f3945cd44e6cbe7cf0911373",
+      "analysis_sha256": "4dac170a71d8b8fa9138cb28dedc3cc26cda7cd2e660a37602c6df0797f973c0",
+      "design": {
+        "format": "REMAG-RESPONSE-DESIGN/1",
+        "parameter": "epsilon_c",
+        "values": [
+          "-1/50",
+          "-1/100",
+          "-1/200",
+          "0",
+          "1/200",
+          "1/100",
+          "1/50"
+        ],
+        "control": {
+          "kind": "axial_strain",
+          "axis": 2
+        }
+      },
+      "configuration": {
+        "kmesh": [
+          6,
+          6,
+          6
+        ],
+        "basis_size": "DZP",
+        "basis_energy_shift_ry": 0.02,
+        "pseudopotentials": {
+          "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+          "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+        },
+        "basis_spec": null,
+        "settings": {
+          "mesh_ry": 300,
+          "smearing_k": 300,
+          "dm_tolerance": 1e-05,
+          "h_tolerance_ev": 0.0001,
+          "mixing_weight": 0.03,
+          "mixing_history": 8,
+          "axis_tolerance_deg": 1.0,
+          "branch_rms_mub": 0.2,
+          "branch_net_fraction": 0.05
+        },
+        "query": {
+          "kind": "anisotropy"
+        }
+      },
+      "responses": {
+        "Fe_d_weight_z": {
+          "definition": {
+            "kind": "spectral",
+            "stage": "soc-z",
+            "spin": 0,
+            "metric": "projected_weight",
+            "selection": {
+              "energy_window_ev": [
+                -1,
+                1
+              ],
+              "atom_indices": [
+                0
+              ],
+              "l": [
+                2
+              ]
+            }
+          },
+          "unit": "states/cell",
+          "points": [
+            {
+              "id": "point-000",
+              "q_exact": "-1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-001",
+              "q_exact": "-1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-002",
+              "q_exact": "-1/200",
+              "status": "measured",
+              "value": 2.5352122828607198,
+              "delta_from_baseline": 0.005792867090215648,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-003",
+              "q_exact": "0",
+              "status": "measured",
+              "value": 2.529419415770504,
+              "delta_from_baseline": 0.0,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-004",
+              "q_exact": "1/200",
+              "status": "measured",
+              "value": 2.4832422987240608,
+              "delta_from_baseline": -0.04617711704644334,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-005",
+              "q_exact": "1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-006",
+              "q_exact": "1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            }
+          ],
+          "derivatives": [
+            {
+              "at_exact": "-1/100",
+              "sample_ids": [
+                "point-000",
+                "point-001",
+                "point-002"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "-1/200",
+              "sample_ids": [
+                "point-001",
+                "point-002",
+                "point-003"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "0",
+              "sample_ids": [
+                "point-002",
+                "point-003",
+                "point-004"
+              ],
+              "status": "measured",
+              "derivative": {
+                "at": 0.0,
+                "first": -5.196998413665899,
+                "second": -1615.3699982491078,
+                "first_unit": "states/cell/dimensionless",
+                "second_unit": "states/cell/dimensionless^2",
+                "propagated_error_bound": null,
+                "truncation_error": null,
+                "approximation": "local quadratic three-point finite difference"
+              }
+            },
+            {
+              "at_exact": "1/200",
+              "sample_ids": [
+                "point-003",
+                "point-004",
+                "point-005"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "1/100",
+              "sample_ids": [
+                "point-004",
+                "point-005",
+                "point-006"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            }
+          ]
+        },
+        "Pt_d_occupation_z": {
+          "definition": {
+            "kind": "spectral",
+            "stage": "soc-z",
+            "spin": 0,
+            "metric": "projected_occupation",
+            "selection": {
+              "energy_window_ev": [
+                -1,
+                1
+              ],
+              "atom_indices": [
+                1
+              ],
+              "l": [
+                2
+              ]
+            }
+          },
+          "unit": "electrons/cell",
+          "points": [
+            {
+              "id": "point-000",
+              "q_exact": "-1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-001",
+              "q_exact": "-1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-002",
+              "q_exact": "-1/200",
+              "status": "measured",
+              "value": 0.6696102538111541,
+              "delta_from_baseline": -0.004454249616254069,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-003",
+              "q_exact": "0",
+              "status": "measured",
+              "value": 0.6740645034274082,
+              "delta_from_baseline": 0.0,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-004",
+              "q_exact": "1/200",
+              "status": "measured",
+              "value": 0.6786327556443649,
+              "delta_from_baseline": 0.00456825221695667,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-005",
+              "q_exact": "1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-006",
+              "q_exact": "1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            }
+          ],
+          "derivatives": [
+            {
+              "at_exact": "-1/100",
+              "sample_ids": [
+                "point-000",
+                "point-001",
+                "point-002"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "-1/200",
+              "sample_ids": [
+                "point-001",
+                "point-002",
+                "point-003"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "0",
+              "sample_ids": [
+                "point-002",
+                "point-003",
+                "point-004"
+              ],
+              "status": "measured",
+              "derivative": {
+                "at": 0.0,
+                "first": 0.9022501833210739,
+                "second": 4.5601040281040355,
+                "first_unit": "electrons/cell/dimensionless",
+                "second_unit": "electrons/cell/dimensionless^2",
+                "propagated_error_bound": null,
+                "truncation_error": null,
+                "approximation": "local quadratic three-point finite difference"
+              }
+            },
+            {
+              "at_exact": "1/200",
+              "sample_ids": [
+                "point-003",
+                "point-004",
+                "point-005"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "1/100",
+              "sample_ids": [
+                "point-004",
+                "point-005",
+                "point-006"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            }
+          ]
+        },
+        "Fe_d_energy_z": {
+          "definition": {
+            "kind": "spectral",
+            "stage": "soc-z",
+            "spin": 0,
+            "metric": "projected_energy_moment",
+            "selection": {
+              "energy_window_ev": [
+                -1,
+                1
+              ],
+              "atom_indices": [
+                0
+              ],
+              "l": [
+                2
+              ]
+            }
+          },
+          "unit": "eV/cell",
+          "points": [
+            {
+              "id": "point-000",
+              "q_exact": "-1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-001",
+              "q_exact": "-1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-002",
+              "q_exact": "-1/200",
+              "status": "measured",
+              "value": 0.15555024015963487,
+              "delta_from_baseline": -0.006983780481069735,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-003",
+              "q_exact": "0",
+              "status": "measured",
+              "value": 0.1625340206407046,
+              "delta_from_baseline": 0.0,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-004",
+              "q_exact": "1/200",
+              "status": "measured",
+              "value": 0.12859929876241183,
+              "delta_from_baseline": -0.03393472187829277,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-005",
+              "q_exact": "1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-006",
+              "q_exact": "1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            }
+          ],
+          "derivatives": [
+            {
+              "at_exact": "-1/100",
+              "sample_ids": [
+                "point-000",
+                "point-001",
+                "point-002"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "-1/200",
+              "sample_ids": [
+                "point-001",
+                "point-002",
+                "point-003"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "0",
+              "sample_ids": [
+                "point-002",
+                "point-003",
+                "point-004"
+              ],
+              "status": "measured",
+              "derivative": {
+                "at": 0.0,
+                "first": -2.695094139722304,
+                "second": -1636.7400943745001,
+                "first_unit": "eV/cell/dimensionless",
+                "second_unit": "eV/cell/dimensionless^2",
+                "propagated_error_bound": null,
+                "truncation_error": null,
+                "approximation": "local quadratic three-point finite difference"
+              }
+            },
+            {
+              "at_exact": "1/200",
+              "sample_ids": [
+                "point-003",
+                "point-004",
+                "point-005"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "1/100",
+              "sample_ids": [
+                "point-004",
+                "point-005",
+                "point-006"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            }
+          ]
+        },
+        "Fe_d_weight_x": {
+          "definition": {
+            "kind": "spectral",
+            "stage": "soc-x",
+            "spin": 0,
+            "metric": "projected_weight",
+            "selection": {
+              "energy_window_ev": [
+                -1,
+                1
+              ],
+              "atom_indices": [
+                0
+              ],
+              "l": [
+                2
+              ]
+            }
+          },
+          "unit": "states/cell",
+          "points": [
+            {
+              "id": "point-000",
+              "q_exact": "-1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-001",
+              "q_exact": "-1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-002",
+              "q_exact": "-1/200",
+              "status": "measured",
+              "value": 2.515247706523785,
+              "delta_from_baseline": -0.018773357454777262,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-003",
+              "q_exact": "0",
+              "status": "measured",
+              "value": 2.534021063978562,
+              "delta_from_baseline": 0.0,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-004",
+              "q_exact": "1/200",
+              "status": "measured",
+              "value": 2.5207519076230422,
+              "delta_from_baseline": -0.01326915635551984,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-005",
+              "q_exact": "1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-006",
+              "q_exact": "1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            }
+          ],
+          "derivatives": [
+            {
+              "at_exact": "-1/100",
+              "sample_ids": [
+                "point-000",
+                "point-001",
+                "point-002"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "-1/200",
+              "sample_ids": [
+                "point-001",
+                "point-002",
+                "point-003"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "0",
+              "sample_ids": [
+                "point-002",
+                "point-003",
+                "point-004"
+              ],
+              "status": "measured",
+              "derivative": {
+                "at": 0.0,
+                "first": 0.5504201099257422,
+                "second": -1281.700552411884,
+                "first_unit": "states/cell/dimensionless",
+                "second_unit": "states/cell/dimensionless^2",
+                "propagated_error_bound": null,
+                "truncation_error": null,
+                "approximation": "local quadratic three-point finite difference"
+              }
+            },
+            {
+              "at_exact": "1/200",
+              "sample_ids": [
+                "point-003",
+                "point-004",
+                "point-005"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "1/100",
+              "sample_ids": [
+                "point-004",
+                "point-005",
+                "point-006"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            }
+          ]
+        },
+        "Pt_d_weight_y": {
+          "definition": {
+            "kind": "spectral",
+            "stage": "soc-y",
+            "spin": 0,
+            "metric": "projected_weight",
+            "selection": {
+              "energy_window_ev": [
+                -1,
+                1
+              ],
+              "atom_indices": [
+                1
+              ],
+              "l": [
+                2
+              ]
+            }
+          },
+          "unit": "states/cell",
+          "points": [
+            {
+              "id": "point-000",
+              "q_exact": "-1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-001",
+              "q_exact": "-1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-002",
+              "q_exact": "-1/200",
+              "status": "measured",
+              "value": 1.0282945791808564,
+              "delta_from_baseline": -0.00954140594381192,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-003",
+              "q_exact": "0",
+              "status": "measured",
+              "value": 1.0378359851246683,
+              "delta_from_baseline": 0.0,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-004",
+              "q_exact": "1/200",
+              "status": "measured",
+              "value": 1.0396615284070552,
+              "delta_from_baseline": 0.0018255432823868212,
+              "derivative_eligible": true
+            },
+            {
+              "id": "point-005",
+              "q_exact": "1/100",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            },
+            {
+              "id": "point-006",
+              "q_exact": "1/50",
+              "status": "pending",
+              "value": null,
+              "delta_from_baseline": null,
+              "derivative_eligible": false
+            }
+          ],
+          "derivatives": [
+            {
+              "at_exact": "-1/100",
+              "sample_ids": [
+                "point-000",
+                "point-001",
+                "point-002"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "-1/200",
+              "sample_ids": [
+                "point-001",
+                "point-002",
+                "point-003"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "0",
+              "sample_ids": [
+                "point-002",
+                "point-003",
+                "point-004"
+              ],
+              "status": "measured",
+              "derivative": {
+                "at": 0.0,
+                "first": 1.1366949226198741,
+                "second": -308.634506457004,
+                "first_unit": "states/cell/dimensionless",
+                "second_unit": "states/cell/dimensionless^2",
+                "propagated_error_bound": null,
+                "truncation_error": null,
+                "approximation": "local quadratic three-point finite difference"
+              }
+            },
+            {
+              "at_exact": "1/200",
+              "sample_ids": [
+                "point-003",
+                "point-004",
+                "point-005"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            },
+            {
+              "at_exact": "1/100",
+              "sample_ids": [
+                "point-004",
+                "point-005",
+                "point-006"
+              ],
+              "status": "inconclusive",
+              "derivative": null,
+              "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+            }
+          ]
+        }
+      },
+      "pairwise_checks": {
+        "Fe_d_weight_z/point-002": {
+          "status": "measured",
+          "value": 0.005792867090215648,
+          "unit": "states/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Fe_d_weight_z/point-004": {
+          "status": "measured",
+          "value": -0.04617711704644334,
+          "unit": "states/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Pt_d_occupation_z/point-002": {
+          "status": "measured",
+          "value": -0.004454249616254069,
+          "unit": "electrons/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Pt_d_occupation_z/point-004": {
+          "status": "measured",
+          "value": 0.00456825221695667,
+          "unit": "electrons/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Fe_d_energy_z/point-002": {
+          "status": "measured",
+          "value": -0.006983780481069735,
+          "unit": "eV/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Fe_d_energy_z/point-004": {
+          "status": "measured",
+          "value": -0.03393472187829277,
+          "unit": "eV/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Fe_d_weight_x/point-002": {
+          "status": "measured",
+          "value": -0.018773357454777262,
+          "unit": "states/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Fe_d_weight_x/point-004": {
+          "status": "measured",
+          "value": -0.01326915635551984,
+          "unit": "states/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Pt_d_weight_y/point-002": {
+          "status": "measured",
+          "value": -0.00954140594381192,
+          "unit": "states/cell",
+          "mode": "native_KP_printing_intervals"
+        },
+        "Pt_d_weight_y/point-004": {
+          "status": "measured",
+          "value": 0.0018255432823868212,
+          "unit": "states/cell",
+          "mode": "native_KP_printing_intervals"
+        }
+      },
+      "dos_comparison": {
+        "metadata_before": "da366d7751ca4e36982926026217875bd8a7e0e7a1bfef60de037137516faf3b",
+        "metadata_after": "58521a718ce1616ba390adb51e1450d6195e3e18fa9e064cc317cacd95c7e906",
+        "points": 81,
+        "proof": {
+          "mode": "native_KP_printing_intervals",
+          "before": {
+            "input_sha256": "eb3ffb89a5a91bd630ccf4c0df6279231c9f12129dbe16210e2bfd90e8766022",
+            "kp_sha256": "ddb1303c24ab13271f04965f72625168dd404a1571fad14f6e1a3102cac918c7",
+            "native_sample_count": 216,
+            "full_mesh_size": 216,
+            "represented_weight_sum": 1.00000008,
+            "native_weight_printing_bound": 1.08e-06,
+            "identity_sha256": "94b49328543c995c1b3ed25ec7962314c1fa68b37aac399c90be3a10cb6beb54",
+            "admitted_length_conventions": [
+              {
+                "length_convention": "codata2018",
+                "bohr_angstrom": 0.529177210903,
+                "maximum_fractional_printing_bound": 5.699388002074909e-07,
+                "maximum_fractional_mesh_residual": 5.325223296770432e-07,
+                "array_reproduction_roundoff_bound": 1.4210854715202004e-14,
+                "cartesian_conversion_roundoff_allowance": 1.9728622480078975e-14
+              }
+            ],
+            "scope": "All stored native samples uniquely labeled on the declared mesh; symmetry multiplicities retained; no coordinate/state resampling"
+          },
+          "after": {
+            "input_sha256": "4ec1b992c841936c9472d804454a3c2d3679dbb697b77ee1e9994bf39ef6441d",
+            "kp_sha256": "93c8f83537d875ed6848ce875eae06ac829652e9e0b522e05492f9025151c335",
+            "native_sample_count": 216,
+            "full_mesh_size": 216,
+            "represented_weight_sum": 1.00000008,
+            "native_weight_printing_bound": 1.08e-06,
+            "identity_sha256": "94b49328543c995c1b3ed25ec7962314c1fa68b37aac399c90be3a10cb6beb54",
+            "admitted_length_conventions": [
+              {
+                "length_convention": "codata2018",
+                "bohr_angstrom": 0.529177210903,
+                "maximum_fractional_printing_bound": 5.72788494137474e-07,
+                "maximum_fractional_mesh_residual": 3.9080857960893667e-07,
+                "array_reproduction_roundoff_bound": 1.4210854715202004e-14,
+                "cartesian_conversion_roundoff_allowance": 1.982726559247937e-14
+              }
+            ],
+            "scope": "All stored native samples uniquely labeled on the declared mesh; symmetry multiplicities retained; no coordinate/state resampling"
+          },
+          "common_length_conventions": [
+            "codata2018"
+          ],
+          "maximum_stored_fractional_difference": 7.922149126704525e-07,
+          "coordinates_modified": false,
+          "states_interpolated": false,
+          "energy_error_bound": null,
+          "scope": "Sampling correspondence only; printed-coordinate effects on spectra and response accuracy remain unbounded"
+        }
+      },
+      "native_source_files_verified_unchanged": 41,
+      "original_source_file_hashes": {
+        "work/remag-heldout/m050/report.json": "826754fcd49ad3473ec7cf73e889227b2400edb0bcccdc5b8f5497289a010610",
+        "work/remag-heldout/archive-manifest.json": "e0db0371d7aa36a94533bd3ba7cb748494e1cd4b6051e585211b5057df4a891e",
+        "work/remag-heldout/m050/electronic-z/electronic.json": "51c28dc86c7f94fc908e6cb2b03160a499b6447a2f156298fdafbc976665a919",
+        "work/remag-heldout/m050/electronic-x/electronic.json": "abc200e51db640ff997c56e55f41eb6aa0c8c374bcfe8e34d351f94d3d33bb60",
+        "work/remag-heldout/m050/electronic-y/electronic.json": "f09cc50dbcc60897be54661f3bb90bc29a2c7d05c3eaa61137c57f1aa7529c7e",
+        "work/remag-heldout/m050/soc-z/input.fdf": "26fc0a9d19433cca53108913d49228c6eafb216ca90f72a6edd80c91322aa965",
+        "work/remag-heldout/m050/soc-z/remag.KP": "9b033976d7d38fc4e05dc9a88c20a5c3bfab367060b09933a5d72ac51561ac68",
+        "work/remag-heldout/m050/soc-x/input.fdf": "9c039622241dcfe375a5ab61c8a472bddb6c2ad630a8c9c4534801b621051e24",
+        "work/remag-heldout/m050/soc-x/remag.KP": "9b033976d7d38fc4e05dc9a88c20a5c3bfab367060b09933a5d72ac51561ac68",
+        "work/remag-heldout/m050/soc-y/input.fdf": "621215eb9bd0b3f9eac534302297e7470f4da7d6b863b84c5d88b5b5c7d19162",
+        "work/remag-heldout/m050/soc-y/remag.KP": "9b033976d7d38fc4e05dc9a88c20a5c3bfab367060b09933a5d72ac51561ac68",
+        "work/remag-fept/zero/report.json": "930f1ef54165c6ab59f5b66c38918974f19f7d9c7fc3c64a84884d76ce76481a",
+        "work/remag-fept/archive-manifest.json": "b92d7bacee05e0c27403cd0f13b841227c91d8ec23431324548f675e1d3d8981",
+        "work/remag-fept/zero/electronic-z/electronic.json": "da366d7751ca4e36982926026217875bd8a7e0e7a1bfef60de037137516faf3b",
+        "work/remag-fept/zero/electronic-x/electronic.json": "3a9a7ee04339bd99a7ddbd2806355c3642d78e968e29d01377868473b0f65c41",
+        "work/remag-fept/zero/electronic-y/electronic.json": "c8511a76690f341df76a27d2a18f43431223bdfb7c2125b0206c4bc8a1041f43",
+        "work/remag-fept/zero/soc-z/input.fdf": "eb3ffb89a5a91bd630ccf4c0df6279231c9f12129dbe16210e2bfd90e8766022",
+        "work/remag-fept/zero/soc-z/remag.KP": "ddb1303c24ab13271f04965f72625168dd404a1571fad14f6e1a3102cac918c7",
+        "work/remag-fept/zero/soc-x/input.fdf": "88bb07f0861922f083e84a012d4ef3aa64d0b542e3b69f3f6e760d3954e42320",
+        "work/remag-fept/zero/soc-x/remag.KP": "ddb1303c24ab13271f04965f72625168dd404a1571fad14f6e1a3102cac918c7",
+        "work/remag-fept/zero/soc-y/input.fdf": "afb1e18dc8dcf52ff884dc5c357f3f04fcaf58605fc5bd4eda6f91ece81703ba",
+        "work/remag-fept/zero/soc-y/remag.KP": "ddb1303c24ab13271f04965f72625168dd404a1571fad14f6e1a3102cac918c7",
+        "work/remag-heldout/p050/report.json": "6f44527fa55aa2fb0a24fdc18a147cadff23796e0f3db194b2b605eb7b1e54ee",
+        "work/remag-heldout/p050/electronic-z/electronic.json": "58521a718ce1616ba390adb51e1450d6195e3e18fa9e064cc317cacd95c7e906",
+        "work/remag-heldout/p050/electronic-x/electronic.json": "93095356cb05e76f35490ce171991ca1b7246f4d9f8a5d5fd31cb29288ae281a",
+        "work/remag-heldout/p050/electronic-y/electronic.json": "612f43e83302821dc94cc8a050e2b2ef3570890ffd41b5a49d7bd4ebd3478e35",
+        "work/remag-heldout/p050/soc-z/input.fdf": "4ec1b992c841936c9472d804454a3c2d3679dbb697b77ee1e9994bf39ef6441d",
+        "work/remag-heldout/p050/soc-z/remag.KP": "93c8f83537d875ed6848ce875eae06ac829652e9e0b522e05492f9025151c335",
+        "work/remag-heldout/p050/soc-x/input.fdf": "8e090803419a94dc377d9a5b834ec95ff4078e45162032616cfe17632db2a915",
+        "work/remag-heldout/p050/soc-x/remag.KP": "93c8f83537d875ed6848ce875eae06ac829652e9e0b522e05492f9025151c335",
+        "work/remag-heldout/p050/soc-y/input.fdf": "61cc12b22f2165ca36813959e2ddb4e5c1e57064e8ec2390b50283a8e3b38bd0",
+        "work/remag-heldout/p050/soc-y/remag.KP": "93c8f83537d875ed6848ce875eae06ac829652e9e0b522e05492f9025151c335",
+        "work/remag-heldout/m050/electronic-z/spectrum.npz": "8d930d73f1ab4a93b8b4152a5040b55f99a4ee275d5eae34ea20ae7418d54257",
+        "work/remag-heldout/m050/electronic-x/spectrum.npz": "d962f38a177c47ddd42750e53b45e3f25b2b993d25fdb9c188fb6c7c085b2264",
+        "work/remag-heldout/m050/electronic-y/spectrum.npz": "abc727abbbe4784c64a91d4c1815eb658eb050f92477dbdfbc55b1c0a5711ecf",
+        "work/remag-fept/zero/electronic-z/spectrum.npz": "250203b563b50b32fecdb2dfa7ef46d9671b426b538871f8d3c22aa45382265e",
+        "work/remag-fept/zero/electronic-x/spectrum.npz": "064e260044927f37b9bdd6dfc99d0a6e8dd0a091077794c4f5e1edac733831ba",
+        "work/remag-fept/zero/electronic-y/spectrum.npz": "63419c7b99d0216fde88d3a78ce6c89e4f70c6063f894c809f97ef6ff6fa47e5",
+        "work/remag-heldout/p050/electronic-z/spectrum.npz": "2b0335da4980ad8a4280a138cb55effba87c461147ba40921a46653dcd77c13e",
+        "work/remag-heldout/p050/electronic-x/spectrum.npz": "9d4c492dd134030cbd728cc07a342aee934908dd4fc243ccdb69c71bf2f4eb05",
+        "work/remag-heldout/p050/electronic-y/spectrum.npz": "bdc3ed8abf37380eb44ba8607f8b3b8b4b4d09dc971ace80f53d3f7ca48bc875"
+      },
+      "prior_rejection_preserved": {
+        "path": "work/spec-structural-response-demo-r1/spectral-held.json",
+        "sha256": "451d375bc1fc60c25d813c29269939a19d48eb9fc470f615dcfe9f25284042b9"
+      }
+    },
+    "validation": {
+      "initial_focused": "78 passed in 24.31s",
+      "research_discovery_regression": "334 passed, 2 unchanged HTTP tests deselected in 82.41s",
+      "final_comparison_adapters": "122 passed in 27.97s; includes native matcher, series, prediction outcomes, DOS/agent path and held-out protections, model-policy and session tests",
+      "saved_native": "Five spectral response observables, ten independent pairwise matches, and one 81-point DOS comparison using the original archived 216-point native meshes"
+    },
+    "limitations": [
+      "Declared diagonal, undisplaced Monkhorst-Pack input; skew real-space cells supported",
+      "Same ordered represented point set and multiplicities required; no hidden reordering or symmetry remapping",
+      "No coordinate snapping, changed weights, state interpolation or band tracking",
+      "Energy errors due to printed coordinates, finite differences and convergence remain unknown",
+      "Existing coarse FePt evidence remains unqualified; no new prediction, physical mechanism, physical accuracy or speedup claim"
+    ],
+    "native_calculations": 0,
+    "model_api_calls": 0,
+    "gpu_reservations_cents": 0,
+    "ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7"
+  },
+  "implementation_files": {
+    "src/siesta_remag/research/sampling.py": "0d875f811d262079d8a593fc8502e91165ef64e73965dc70c8a2e05e3febee2c",
+    "src/siesta_remag/research/evaluation.py": "9c2e1e5fbe9070fc54b80fa483997f76494708b3c692256a85339c76a03b1d65",
+    "src/siesta_remag/research/series.py": "65c45e9106e510b7e3295c863dc74ba26ecebc2875013c9e98afa8e3089f8e35",
+    "src/siesta_remag/research/inspection.py": "69776240c27181dd2874e74fbbd2d8dcb52cb7119f17c03a5a468a8fb7bcae88",
+    "src/siesta_remag/research/tools.py": "970fc5c356563a9184c09300b84d869e6ad4ac63d4efa596c6a687c6815d616b",
+    "src/siesta_remag/research/model_policy.py": "e81bc2b168f0ca518508d2a0ddb8b68ae9bb425f75061711aa901cca88a867ac"
+  },
+  "producer_source_pin": {
+    "url": "https://gitlab.com/siesta-project/siesta.git",
+    "tag": "5.4.2",
+    "commit": "e486d12067b96ff688179f0496d0ec21b6fae0ab",
+    "submodules": [
+      "External/libfdf",
+      "External/xmlf90",
+      "External/libpsml",
+      "External/libgridxc"
+    ]
+  },
+  "producer_source_files": {
+    "Src/iokp.f": "b2cf134bbe288ce7f012f5ed27f31d85085b66ac26217e5f8d500e4139550454",
+    "Src/libunits/units.F90": "c39f12d15962d35fdd6a28c27c69ee04933d2b41438bde1e7abc394ec716cbe1",
+    "Src/libunits/units_codata2018.f90": "571578792f3527dc2a4f115caf28c88850e966ac57939a819a17dfb23a90e2ca",
+    "Src/libunits/units_legacy.f90": "6487a6a384243e4fdd4058ae648626b97e58f1a87c794cd525813fd49e9e868d"
+  },
+  "new_native_calculations": 0,
+  "new_gpu_reservations_cents": 0,
+  "physical_accuracy_qualified": false
+}

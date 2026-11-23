@@ -1,0 +1,117 @@
+{
+  "format": "REMAG-FINITE-TOOL-ACCEPTANCE-RESULT/1",
+  "date": "2026-11-16",
+  "recorded_at": "2026-11-16T16:10:48.702135+00:00",
+  "status": "closed_after_failed_build_prerequisite",
+  "authorization": "Owner approved six-bundle plan, $10 cap, one GPU at a time, no retries or extensions.",
+  "results": [
+    {
+      "check": "Exact source/input and budget preflight",
+      "result": "passed",
+      "details": "Six bundles frozen; baseline scalar FDF and pseudopotential bytes match saved input; numerical acceptance settings unchanged; two new heldout source identities absent from 89 saved native reports."
+    },
+    {
+      "check": "Candidate-only CPU build prerequisite",
+      "result": "failed",
+      "details": "Shared results volume reached its 500000 inode/file-entry limit while unpacking the source. Build-result writing also failed with ENOSPC. No patched candidate was compiled or linked."
+    },
+    {
+      "check": "Production SOC acceptance",
+      "result": "not_run",
+      "reason": "Build prerequisite failed."
+    },
+    {
+      "check": "Three-query exploratory latency and response consistency",
+      "result": "not_run",
+      "reason": "Build prerequisite failed."
+    },
+    {
+      "check": "Independent scalar/physics predictive workflow",
+      "result": "not_run",
+      "reason": "Build prerequisite failed; neither policy arm was started."
+    }
+  ],
+  "execution": {
+    "CPU_build_attempts": 1,
+    "query_bundles_prepared": 6,
+    "query_bundles_executed": 0,
+    "native_stage_executions": 0,
+    "GPU_launches": 0,
+    "model_contexts_started": 0,
+    "retries": 0,
+    "extensions": 0,
+    "driver_elapsed_seconds": 86.69681054074317,
+    "scope": "The elapsed time measures failed build setup and shutdown, not a usable scientific result."
+  },
+  "failure": {
+    "type": "OSError",
+    "errno": 28,
+    "message": "No space left on device",
+    "resource": "shared results-volume inodes/file entries",
+    "initial_used_entries": 497390,
+    "limit": 500000,
+    "new_root_directory_entries": 1,
+    "retained_descendant_entries": 2609,
+    "retained_listed_bytes": 50636948,
+    "only_retained_top_level_tree": "source",
+    "stage_inference": "Failure occurred during source extraction: no native tree, patch/configure/compile log, executable or build-result record was created.",
+    "responsibility": "The acceptance launcher placed build scratch on the nearly-full shared results volume. This is an execution-planning failure, not evidence about REMAG numerical correctness.",
+    "future_change_required": "An explicitly authorized future build would need ephemeral build scratch and bounded artifact publication, with a file-capacity check before dispatch. No such retry or change was executed."
+  },
+  "ownership": {
+    "app_id": "ap-dtocyT3LdAV46PcwKBp8l4",
+    "function_call_id": "fc-01M7JHNYEYYTFFN3728HPS96TG",
+    "volume": "siesta-remag-results",
+    "run_id": "acceptance-six-r1-build",
+    "authoritative_lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-16 10:04:30-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-16 10:05:51-06:00",
+      "stopped_by": "will-bryan421"
+    },
+    "checked_at": "2026-11-16T16:07:38.245748+00:00",
+    "account_containers": [],
+    "all_owned_allocations_stopped": true
+  },
+  "budget": {
+    "authorization_cap_cents": 1000,
+    "reserved_cents": 200,
+    "unreserved_cents": 800,
+    "GPU_reservations_cents": 0,
+    "actual_billed_usd": null,
+    "reservations_are_not_invoices": true,
+    "unused_allowance_does_not_authorize_retry": true,
+    "new_ledger_sha256": "824d2c2a3776bdee34ee1423a27ef16edd5a0da7d9e0b555ca473d86b21d0ad9",
+    "old_campaign_closed": true,
+    "old_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "old_reservations_cents": 29667,
+    "old_final_stage_untouched": true
+  },
+  "evidence_sha256": {
+    "work/acceptance-six-r1/registration.json": "7359bec854bc24a634dc08dd407e58457ce90f2b19af140e64b6e2718ff133c0",
+    "work/acceptance-six-r1/source-census.json": "4cbcc10944340965019efe7571b17047f991391c893a64e0ea29763118270362",
+    "work/acceptance-six-r1/preflight.json": "bbe1d74d923a82aa7695418ab28e017253edadfccf0fc59952cd78897f7dbdac",
+    "work/acceptance-six-r1/build-input/manifest.json": "d0ff40f60580da0fac1ba33fa47346726c21e71d90ebdce8efedb3694e039bd7",
+    "work/acceptance-six-r1/build-driver.json": "f568a3cc24727f8e526765e9003d2db89247399cb5900432a8f72125b0ffeef2",
+    "work/acceptance-six-r1/build-receipt.json": "b00dbe6a6563070159c1b140c6c0c39d241b20f1ac281fb285b46a7110ca4760",
+    "work/acceptance-six-r1/build-launch.stdout": "5fc7119830d71aa77eddf0330f868cb70c9988a37dd77894f052d81931ba6cdc",
+    "work/acceptance-six-r1/build-launch.stderr": "0b77b8b6bc57de020858f2c1e7b54b6d1043902682604532c52a6426d502e341",
+    "work/acceptance-six-r1/closeout-allocation.json": "f03f8b426af4490a5bb3ce6f93b2c36f5a574c3ef7cff90d1354104cab632647",
+    "work/acceptance-six-r1/failure-diagnosis.json": "7b371d2c53fd11e4c71ce20edd19037effb2a2cc357f8b7001bb77f5bcf16f64",
+    "work/acceptance-six-r1/partial-build-inventory.json": "c447569c968f239cffaa8a734b224df5fdf76f0e9b0859a34c7a8da5ea94a65b",
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r1-build-launcher-2026-11-16.py.txt": "3613a75a87423f613baf43e821b60f67d2dcdf0841ceda6a3fef17247317e8c9",
+    "work/SIESTA-REMAG/tests/evidence/research/acceptance-six-r1-build-failure-2026-11-16.log": "5fc7119830d71aa77eddf0330f868cb70c9988a37dd77894f052d81931ba6cdc"
+  },
+  "preservation": "The six unexecuted bundles, original exception, build receipt, source archives and remote partial source tree are retained. No old evidence was removed.",
+  "claims": {
+    "full_spec_complete": false,
+    "production_SOC_verified": false,
+    "exploratory_latency_demonstrated": false,
+    "predictive_advantage_demonstrated": false,
+    "physical_accuracy_qualified": false
+  }
+}

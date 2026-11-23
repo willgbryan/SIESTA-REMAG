@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "scf_cycle.hpp"
+#include "scf_graph_setup.hpp"
 #include "block_jacobi.hpp"
 #include "sparse_state.hpp"
 #include <algorithm>
@@ -121,13 +122,13 @@ struct ScfCyclePlan::Impl {
     Impl(const ScfCycleShape& s,const ScfCycleBindings& inputs,const ScfControlProblem& c,cudaStream_t execution)
         :shape(s),b(inputs),settings(c),stream(execution) {
         const auto& h=s.assembly.shape;const auto& d=s.density.shape;const auto& g=s.grid.shape;
-        if(h.n<1||h.n>2048||d.nnz<1||d.nnz>INT_MAX/8||h.nk<1||h.nk>128||
-           (h.kind<2?(h.nh!=1&&h.nh!=2):(h.nh!=4&&h.nh!=8))||!s.assembly.config)
+        if(!scf_shape_supported(h.kind,h.n,h.nh,h.nk)||d.nnz<1||d.nnz>INT_MAX/8||!s.assembly.config)
             throw std::runtime_error("Invalid device SCF capacity");
         if(s.density.unique_pairs<0||s.density.unique_pairs>d.pairs||
            (s.density.unique_pairs&&(!s.density.unique_rows||!s.density.unique_cols||!s.density.pair_unique)))
             throw std::runtime_error("Invalid unique density layout");
-        dim=h.n*(h.kind>=2?2:1);spins=h.kind<2?h.nh:1;jobs=h.nk*spins;ng=std::min(h.nh,4);
+        const auto layout=scf_spectral_layout(h.kind,h.n,h.nh,h.nk);
+        dim=layout.dimension;spins=layout.spins;jobs=layout.jobs;ng=std::min(h.nh,4);
         const char* cache=std::getenv("REMAG_DEVICE_VECTOR_CACHE");
         if(cache&&std::strcmp(cache,"0")&&std::strcmp(cache,"1"))throw std::runtime_error("Invalid device vector-cache mode");
         full_vector_bank=h.kind%2==0||(cache&&std::strcmp(cache,"1")==0);
@@ -143,9 +144,9 @@ struct ScfCyclePlan::Impl {
         if(warm&&std::strcmp(warm,"0")&&std::strcmp(warm,"1"))throw std::runtime_error("REMAG_SCF_WARM_START must be 0 or 1");
         warm_start=warm&&std::strcmp(warm,"1")==0;
         if(warm_start&&!full_vector_bank)throw std::runtime_error("Eigensolver warm start requires the complete vector bank");
-        capacity=d.nnz;nh=d.nh;eh=d.eh;vector_bytes=size_t(dim)*dim*(h.kind?sizeof(cuDoubleComplex):sizeof(double));
+        capacity=d.nnz;nh=d.nh;eh=d.eh;vector_bytes=layout.vector_bytes;
         const auto& m=c.mixer;const auto& v=c.convergence;
-        if(!stream||dim<1||dim>4096||h.nk<1||h.nk>128||h.kind<0||h.kind>3||
+        if(!stream||dim<1||dim>scf_max_dimension||!scf_shape_supported(h.kind,h.n,h.nh,h.nk)||
            (h.kind%2==0&&h.nk!=1)||d.kind!=h.kind||d.n!=h.n||h.ldh!=capacity||h.nh!=nh||
            eh!=ng||g.nuo!=h.n||g.nnz!=capacity||g.np<1||g.nsp<1||
            s.mesh[0]<1||s.mesh[1]<1||s.mesh[2]<1||
@@ -331,7 +332,7 @@ struct ScfCyclePlan::Impl {
         for(const auto& solver:solvers) {nodes+=solver->graph_nodes();forbidden+=solver->forbidden_nodes();}
         nodes+=control->graph_nodes();forbidden+=control->forbidden_nodes();
         if(forbidden) throw std::runtime_error("Forbidden nested SCF cycle node");
-        check(cudaGraphInstantiate(&exec,graph,0));check(cudaGraphUpload(exec,stream));check(cudaStreamSynchronize(stream));
+        check(instantiate_scf_graph(&exec,graph,stream,{dim,spins,jobs,lanes,nodes,forbidden}));
     }
 };
 ScfCyclePlan::ScfCyclePlan(const ScfCycleShape& s,const ScfCycleBindings& b,const ScfControlProblem& p,cudaStream_t stream)

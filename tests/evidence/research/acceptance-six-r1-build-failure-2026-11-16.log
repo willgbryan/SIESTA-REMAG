@@ -1,0 +1,70 @@
+Note that running a local entrypoint in detached mode only keeps the last triggered Modal function alive after the parent process has been killed or disconnected.
+✓ Initialized. View run at 
+https://modal.com/apps/will-bryan421/main/ap-dtocyT3LdAV46PcwKBp8l4
+Building image im-tAeEK6MbqBnZOzvrJ5tWwT
+
+Using legacy Image Builder version. We suggest upgrading at https://modal.com/settings/image-config.
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 4.23s
+
+Built image im-tAeEK6MbqBnZOzvrJ5tWwT in 18.34s
+
+
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-active
+│   ly-commit-2/work/SIESTA-REMAG/scripts/acceptance_build_modal.py
+├── ✓ Uploaded 
+│   /Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-active
+│   ly-commit-2/work/acceptance-six-r1/build-input
+└── ✓ Created Function build_candidate.
+{"status": "running", "app_id": "ap-dtocyT3LdAV46PcwKBp8l4", "run_id": "acceptance-six-r1-build", "volume": "siesta-remag-results", "reserved_cents": 200, "function_call_id": "fc-01M7JHNYEYYTFFN3728HPS96TG"}
+Volume mounted at /results is using 99.5% of available inodes (497390 out of 500000). If you reach the limit, creating new files will fail.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.6.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+Traceback (most recent call last):
+  File "/pkg/modal/_runtime/container_io_manager.py", line 987, in handle_input_exception
+    yield
+  File "/pkg/modal/_container_entrypoint.py", line 189, in run_input_sync
+    values = io_context.call_function_sync()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/pkg/modal/_runtime/container_io_manager.py", line 266, in call_function_sync
+    expected_value_or_values = self.finalized_function.callable(*args, **kwargs)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/acceptance_build_modal.py", line 97, in build_candidate
+    result['finished_at']=datetime.now(timezone.utc).isoformat();flush()
+                                                                 ^^^^^^^
+  File "/root/acceptance_build_modal.py", line 60, in flush
+    save(root/'build-result.json',result);volume.commit()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/acceptance_build_modal.py", line 16, in save
+    def save(path,value):path.write_text(json.dumps(value,indent=2)+'\n')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/pathlib.py", line 1047, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device: '/results/acceptance-six-r1-build/build-result.json'

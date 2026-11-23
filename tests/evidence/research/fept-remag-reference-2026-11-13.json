@@ -1,0 +1,181 @@
+{
+  "format": "REMAG-FEPT-GPU-REFERENCE/1",
+  "status": "measured",
+  "app_id": "ap-kYVHoVuEBnpkjuFfEdjTfu",
+  "gpu_count": 1,
+  "timeout_seconds": 7200,
+  "reserved_cost_bound_usd": 20,
+  "billed_cost_usd": null,
+  "allocation_elapsed_seconds": 1054.2432924070001,
+  "rows": [
+    {
+      "kmesh": [
+        6,
+        6,
+        6
+      ],
+      "mae_mev_cell": 1.3107700724503957,
+      "report_sha256": "930f1ef54165c6ab59f5b66c38918974f19f7d9c7fc3c64a84884d76ce76481a",
+      "wall_seconds": 72.37389211499999,
+      "spectra": [
+        {
+          "axis": "z",
+          "passed": true,
+          "max_abs_error_ev": 5.8471514076785525e-05,
+          "metadata_sha256": "da366d7751ca4e36982926026217875bd8a7e0e7a1bfef60de037137516faf3b",
+          "recovered_locally": false
+        },
+        {
+          "axis": "x",
+          "passed": true,
+          "max_abs_error_ev": 5.8467591113497974e-05,
+          "metadata_sha256": "3a9a7ee04339bd99a7ddbd2806355c3642d78e968e29d01377868473b0f65c41",
+          "recovered_locally": false
+        },
+        {
+          "axis": "y",
+          "passed": true,
+          "max_abs_error_ev": 5.846776254614383e-05,
+          "metadata_sha256": "c8511a76690f341df76a27d2a18f43431223bdfb7c2125b0206c4bc8a1041f43",
+          "recovered_locally": false
+        }
+      ]
+    },
+    {
+      "kmesh": [
+        8,
+        8,
+        8
+      ],
+      "mae_mev_cell": 3.296427013083303,
+      "report_sha256": "8dc28a82f5476a67b08f8090395b8d5dbfbbc4b8467543d3d3c35ef05d38b686",
+      "wall_seconds": 96.642808264,
+      "spectra": [
+        {
+          "axis": "z",
+          "passed": true,
+          "max_abs_error_ev": 5.651229113468048e-05,
+          "metadata_sha256": "cddafdd6867a89f22822cd9598409ef09448a978add4bbf663f8f31e85dccd12",
+          "recovered_locally": true
+        },
+        {
+          "axis": "x",
+          "passed": true,
+          "max_abs_error_ev": 5.650682048496947e-05,
+          "metadata_sha256": "49bc14cc5b169f7b3631d5547eb152beacfb99958bde9fb11664b3c7d7a8b866",
+          "recovered_locally": true
+        },
+        {
+          "axis": "y",
+          "passed": true,
+          "max_abs_error_ev": 5.650350612640409e-05,
+          "metadata_sha256": "cea65b8955fbc1402a868150a3f9ebe66165e03f5e3d84e7152b966f5d11bfa9",
+          "recovered_locally": true
+        }
+      ]
+    },
+    {
+      "kmesh": [
+        12,
+        12,
+        12
+      ],
+      "mae_mev_cell": 2.4055740464064,
+      "report_sha256": "0fee1557e57bd5d6e89e72ddd503954f74c8692687b6a184e24b2969eaa0b6b5",
+      "wall_seconds": 227.886417206,
+      "spectra": [
+        {
+          "axis": "z",
+          "passed": true,
+          "max_abs_error_ev": 6.881307160711003e-05,
+          "metadata_sha256": "2f9d0e4afba946801de0db2b178f152bf9463e626bf607cdaf724eb15d66d42a",
+          "recovered_locally": false
+        },
+        {
+          "axis": "x",
+          "passed": true,
+          "max_abs_error_ev": 6.871816988507362e-05,
+          "metadata_sha256": "b3dd6aa06d9ba1ce702612f1a9e1e36a4793121494d72194003fcdad7c63cfef",
+          "recovered_locally": false
+        },
+        {
+          "axis": "y",
+          "passed": true,
+          "max_abs_error_ev": 6.90069346802602e-05,
+          "metadata_sha256": "9523981b317f30cd93813636fd1c434be53a3179702c33de979f71278d556b34",
+          "recovered_locally": false
+        }
+      ]
+    },
+    {
+      "kmesh": [
+        16,
+        16,
+        16
+      ],
+      "mae_mev_cell": 2.8609357073037245,
+      "report_sha256": "b81ede81f92dd9cf340494b7c1be50e8f4267d90e6593f914be1bb65e3805587",
+      "wall_seconds": 461.988415174,
+      "spectra": [
+        {
+          "axis": "z",
+          "passed": true,
+          "max_abs_error_ev": 8.512934961402152e-05,
+          "metadata_sha256": "ce1139854b8bd6e366c60764b404512c58ba58b55af83f7d73416823050b0032",
+          "recovered_locally": false
+        },
+        {
+          "axis": "x",
+          "passed": true,
+          "max_abs_error_ev": 8.540422290082006e-05,
+          "metadata_sha256": "abb2769cbbba474c914c00c32f1ed3c794460c48015e44afb1e07b9b941f9cad",
+          "recovered_locally": false
+        },
+        {
+          "axis": "y",
+          "passed": true,
+          "max_abs_error_ev": 8.524780461982573e-05,
+          "metadata_sha256": "b2430b35cdb9e565973765e9c967c66e3e2cc019a3d3e068f2771d09e2c52f45",
+          "recovered_locally": false
+        }
+      ]
+    }
+  ],
+  "pristine_comparisons": [
+    {
+      "kmesh": [
+        6,
+        6,
+        6
+      ],
+      "mae_error_ev": -2.2992753656581044e-07,
+      "energy_errors_ev": {
+        "scalar": -3.4167305784649216e-07,
+        "soc-z": -1.2067994248354807e-07,
+        "soc-x": -3.506074790493585e-07,
+        "soc-y": -3.5040193324675784e-07
+      },
+      "same_prepared_scalar_input": true
+    },
+    {
+      "kmesh": [
+        8,
+        8,
+        8
+      ],
+      "mae_error_ev": 4.2701276470324956e-07,
+      "energy_errors_ev": {
+        "scalar": 2.3872962628956884e-07,
+        "soc-z": -2.2360745788319036e-07,
+        "soc-x": 2.034053068200592e-07,
+        "soc-y": 2.0357447283458896e-07
+      },
+      "same_prepared_scalar_input": true
+    }
+  ],
+  "k_converged": false,
+  "physical_accuracy_qualified": false,
+  "last_mesh_change_mev_cell": 0.4553616608973243,
+  "collection_sha256": "22f7165c83db26b77d4b29c0d85b9c70d49bb4178d431fa01fc02958c1be8830",
+  "diagnostic_recovery": "k8 spectra initially held on printed-weight rounding. Recomputed locally from hash-matched remote HSX, using a per-token decimal rounding bound; original failures retained."
+}

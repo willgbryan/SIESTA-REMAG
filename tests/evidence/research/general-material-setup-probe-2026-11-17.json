@@ -1,0 +1,112 @@
+{
+  "format": "REMAG-GENERAL-MATERIAL-SETUP-PROBE/1",
+  "recorded_at": "2026-11-17T09:28:44.922893+00:00",
+  "status": "five_synthetic_setups_passed_native_cause_unresolved",
+  "scope": "Synthetic SCF graph setup only; no cycle launch or material/reference calculation",
+  "cases": [
+    {
+      "name": "n30-k132-grid4",
+      "dimension": 30,
+      "kpoints": 132,
+      "mesh": 4,
+      "graph_nodes": 16935,
+      "driver_cuda_version": 13030,
+      "runtime_version": 12060,
+      "wall_seconds": 0.9312472290000002,
+      "constructed": true
+    },
+    {
+      "name": "n76-k132-grid4",
+      "dimension": 76,
+      "kpoints": 132,
+      "mesh": 4,
+      "graph_nodes": 27495,
+      "driver_cuda_version": 13030,
+      "runtime_version": 12060,
+      "wall_seconds": 0.9827816560000002,
+      "constructed": true
+    },
+    {
+      "name": "n30-k948-grid4",
+      "dimension": 30,
+      "kpoints": 948,
+      "mesh": 4,
+      "graph_nodes": 120975,
+      "driver_cuda_version": 13030,
+      "runtime_version": 12060,
+      "wall_seconds": 2.6071598499999986,
+      "constructed": true
+    },
+    {
+      "name": "n76-k948-grid4",
+      "dimension": 76,
+      "kpoints": 948,
+      "mesh": 4,
+      "graph_nodes": 196815,
+      "driver_cuda_version": 13030,
+      "runtime_version": 12060,
+      "wall_seconds": 3.5685615849999976,
+      "constructed": true
+    },
+    {
+      "name": "n76-k132-grid40",
+      "dimension": 76,
+      "kpoints": 132,
+      "mesh": 40,
+      "graph_nodes": 27501,
+      "driver_cuda_version": 13030,
+      "runtime_version": 12060,
+      "wall_seconds": 0.9315723399999953,
+      "constructed": true
+    }
+  ],
+  "interpretation": "All tested shapes construct on driver 610.57.04. The failed Ni run used 620.70.06; driver, material data and preceding initialization remain confounded. Equal node count is not graph or material equivalence.",
+  "library_sha256": "e96e212fc6553632b4a66ff0bc5a3b5355bade9b4fee0f09b44b9e09b5774754",
+  "probe_executable_sha256": "ac2fee1b1de119baf6c0fdd6404d5c5297827551100a3edc3c692a512a74d097",
+  "policy_sha256": "e3c79d0f5af32bbc8546bc411a4a9374d986853dbed7eeda78d9224101d92c47",
+  "archive_sha256": "1698cce72fa162ef771128cde5ea09c71c0ea6c409815a1584e0e1da8d3f4cd8",
+  "artifact_count": 69,
+  "prior_material_owner_preserved": true,
+  "native_runtime_hold_preserved": true,
+  "native_runtime_repaired": false,
+  "material_solver_runs": 0,
+  "pristine_solver_runs": 0,
+  "old_campaign_closed": true,
+  "completed_feedback_iterations": 0,
+  "allocation": {
+    "app_id": "ap-e6D9l3OcF0v8UdWkV1jQcW",
+    "run_id": "setup-probe-1e1db8e0d894422ba28a15b077fc1549",
+    "state": "stopped",
+    "lifecycle": {
+      "state": "stopped",
+      "created_at": "2026-11-17 03:24:57-06:00",
+      "created_by": "will-bryan421",
+      "deployed_at": null,
+      "deployed_by": null,
+      "version": null,
+      "stopped_at": "2026-11-17 03:26:03-06:00",
+      "stopped_by": null
+    }
+  },
+  "budget": {
+    "reserved_cents": 53,
+    "actual_billed_usd": null,
+    "reservations_are_not_invoices": true
+  },
+  "tests": {
+    "focused": "14 passed in 0.04s",
+    "full_initial": "860 passed, 4 skipped; seven localhost-binding failures caused by sandbox restrictions, 211.71s",
+    "localhost_rerun": "7 passed in 8.33s with loopback permission",
+    "combined_local_passed": 867,
+    "skipped": 4,
+    "native": "Actual diagnostic translation unit compiled against the unchanged r8 library; all five fresh-process setup controls constructed/uploaded/synchronized on one A100.",
+    "CMake_target": "Added standard target; native probe compilation was exercised directly with g++ against retained library, not a full CMake rebuild."
+  },
+  "files": {
+    "native/probe_scf_setup.cpp": "b92175f92cbd5fbba07cb09d5822d3c725d75df9c4536f890c3a13f5266d066c",
+    "scripts/scf_setup_probe_modal.py": "ba0bb402bc8ad4ddb08e712c0f3dd678e84ddd79eb9590d9c1c7024760b936d6",
+    "src/siesta_remag/research/scf_setup_probe.py": "f66376c5ecdcb5e41d80ca261bf5f7239e031c0bed2eb0d255290665e59f09de",
+    "tests/test_scf_setup_probe.py": "1a22de7b63c2d6ea2d9e58b72ec260b2cbd1174b7955e549748f5009504933fc"
+  },
+  "next": "Establish a driver-matched reproduction or diagnose native graph construction/earlier memory corruption before changing or clearing the production hold."
+}

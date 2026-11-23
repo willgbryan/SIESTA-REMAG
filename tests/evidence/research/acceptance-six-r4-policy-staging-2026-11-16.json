@@ -1,0 +1,110 @@
+{
+  "recorded_at": "2026-11-16T20:09:40.902810+00:00",
+  "status": "protocol_deviation_retained",
+  "issue": "Common baseline staging included native observation fields beyond the scalar ToolHost profile. Original bytes retained; only subsequent analysis is restricted to standard observations. Contexts are not restarted.",
+  "original_scalar_data_sha256": "19784ee5ff13c7a91b1c87ff33866315b731232e39834a82121250cbd73c337a",
+  "filtered_scalar_data_sha256": "fb5f1bd6f89edb81e191aa7a01425368e2c2ab2fe123bf272a271655230eec85",
+  "extra_fields": {
+    "baseline-k6": {
+      "scalar": [
+        "atom_net_charges_e",
+        "completed",
+        "converged",
+        "eigenvalues",
+        "fermi_energy_ev",
+        "geometry",
+        "soc_energy_ev",
+        "soc_energy_representation",
+        "spin_degenerate"
+      ],
+      "soc-z": [
+        "atom_net_charges_e",
+        "completed",
+        "converged",
+        "eigenvalues",
+        "fermi_energy_ev",
+        "geometry",
+        "soc_energy_ev",
+        "soc_energy_representation",
+        "spin_degenerate"
+      ],
+      "soc-x": [
+        "atom_net_charges_e",
+        "completed",
+        "converged",
+        "eigenvalues",
+        "fermi_energy_ev",
+        "geometry",
+        "soc_energy_ev",
+        "soc_energy_representation",
+        "spin_degenerate"
+      ],
+      "soc-y": [
+        "atom_net_charges_e",
+        "completed",
+        "converged",
+        "eigenvalues",
+        "fermi_energy_ev",
+        "geometry",
+        "soc_energy_ev",
+        "soc_energy_representation",
+        "spin_degenerate"
+      ]
+    },
+    "baseline-k12": {
+      "scalar": [
+        "atom_net_charges_e",
+        "completed",
+        "converged",
+        "eigenvalues",
+        "fermi_energy_ev",
+        "geometry",
+        "soc_energy_ev",
+        "soc_energy_representation",
+        "spin_degenerate"
+      ],
+      "soc-z": [
+        "atom_net_charges_e",
+        "completed",
+        "converged",
+        "eigenvalues",
+        "fermi_energy_ev",
+        "geometry",
+        "soc_energy_ev",
+        "soc_energy_representation",
+        "spin_degenerate"
+      ],
+      "soc-x": [
+        "atom_net_charges_e",
+        "completed",
+        "converged",
+        "eigenvalues",
+        "fermi_energy_ev",
+        "geometry",
+        "soc_energy_ev",
+        "soc_energy_representation",
+        "spin_degenerate"
+      ],
+      "soc-y": [
+        "atom_net_charges_e",
+        "completed",
+        "converged",
+        "eigenvalues",
+        "fermi_energy_ev",
+        "geometry",
+        "soc_energy_ev",
+        "soc_energy_representation",
+        "spin_degenerate"
+      ]
+    }
+  },
+  "heldout_outcomes_exposed": false,
+  "strict_scalar_information_ablation_validated": false,
+  "context_retries": 0,
+  "scientific_tools_profile_filters_unchanged": true,
+  "exposure_confirmed": {
+    "scalar": "Initial permitted-file prints exposed Fermi energies, SOC fields, charges/spin metadata and portions of unprojected eigenvalue rows. Agent reports these were not used to choose predictions. Exposure cannot be undone.",
+    "physics": "Initial permitted-file print exposed the same extra common fields. Agent reports electronic reasoning uses the separately authorized diagnostic."
+  },
+  "interpretation": "Prospective outcome access remained withheld, but strict scalar-versus-electronic information isolation failed at operator staging; prediction scores are descriptive and cannot support an ablation advantage claim."
+}

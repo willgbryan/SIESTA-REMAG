@@ -1,0 +1,73 @@
+{
+  "format": "REMAG-OURO-TEMPORARY-INPUT-ENGINEERING/1",
+  "recorded_at": "2026-11-17T08:10:35.224560+00:00",
+  "status": "local_SDK_protocol_verified_live_integration_pending",
+  "scope": "Optional temporary-file tool preparation, operator-only submit/observe/collect APIs. No live route or scientific acceptance.",
+  "sdk": {
+    "package": "ouro-py",
+    "version": "2.24.0",
+    "wheel_sha256": "1dce99505afd54d654df4b4691482e6bec64c4692e5392754178ed5163d2c9e0",
+    "source": "https://github.com/ourofoundation/ouro-py"
+  },
+  "guide": "https://ouro.foundation/guides/route-input-output-assets#file-inputs-that-dont-need-to-be-assets",
+  "tests": {
+    "full_suite": "842 passed, 4 skipped in 209.74s (0:03:29)",
+    "transport": "Real pinned SDK and model parsing over httpx.MockTransport; no live provider requests",
+    "scope": [
+      "copied/hash-bound file inputs",
+      "declared request schema and parameters",
+      "resolved USD pricing including rounded runtime metadata ceiling",
+      "fresh schema/price recheck before upload",
+      "one temporary upload and one asynchronous submission",
+      "no SDK mutation retry on 401 or timeout",
+      "partial evidence and uncertain submission preserved",
+      "bounded action observation and identity checks",
+      "file collection with missing/unexpected output controls",
+      "scalar/withheld-source policy restriction and direct-tool registration"
+    ],
+    "earlier_failures": [
+      "Initial integration caught missing direct-tool effect registration; corrected before final full suite.",
+      "Sandboxed full run interrupted after three loopback socket permission failures; rerun with local socket access.",
+      "One mistyped integration-test filename caused no tests to run; no execution."
+    ]
+  },
+  "source_sha256": {
+    "src/siesta_remag/research/ouro.py": "236ac02645d76cbc4a9602dc19b4749b98eddeac57d533cb8d12d178ae4f992e",
+    "src/siesta_remag/research/tools.py": "c07279ed243b6a4e0a10c4da24b2356c9171e5a0e20a075718966d3895cc9de1",
+    "src/siesta_remag/research/toolhost.py": "165973275c9f87b16c291bb06f41c9018346bf2b482404be2708b02a69af0df6",
+    "tests/test_research_ouro.py": "f889d201d9af13ed05b37cf2a8fea817bc93df8ee55427266575822884bb57dd",
+    "pyproject.toml": "c16ba468e88933a76497d3c3bc5a91fbb9e60cd940e668436d4fd7bb4a8c00e5",
+    ".github/workflows/tests.yml": "0101af82fc33b9112391249b9c6694884893b798e3d05eacea394ef6e6527cd5",
+    "docs/OURO_ROUTES.md": "c950acd996d9280300e753909692c37652269da1dd9b49b2737e9ad12d00df5f",
+    "docs/SPEC_COMPLETION.md": "27ce8a676d21010d0b4af56663db21b0c47e9a597ca4ad4ae67432c5b052589c"
+  },
+  "logs_sha256": {
+    "ouro-adapter-focused-2026-11-17.log": "8c7644c56d616b378d9bcbfe8fd4a2d7815d7d9336f1d62e5805141b85042e07",
+    "ouro-adapter-integration-final-2026-11-17.log": "da766faa772bda0c3081907b999eb54e977c1f9e0d58103db39fe219f7718a5a",
+    "ouro-adapter-full-2026-11-17.log": "1c895e9f49b492789d2a37cc3586b90fd40bcce635cd66300159254dc801d130",
+    "ouro-adapter-full-final-2026-11-17.log": "99306e343ef4bef96bfd396909b4bdc96056c67c267230449fde2fb643cd8614"
+  },
+  "execution": {
+    "new_GPU_launches": 0,
+    "new_model_runs": 0,
+    "live_Ouro_route_calls": 0,
+    "live_Ouro_uploads": 0,
+    "new_reservations_cents": 0,
+    "old_campaign_restarted": false
+  },
+  "limits": [
+    "Selected live route and configured credentials remain pending.",
+    "No default provider allocation admission controller: operator API requires a durable caller-supplied shared-lock/ledger/deadline gate.",
+    "Ouro terminal action status is not authoritative GPU release.",
+    "USD ceiling is metadata preflight, not a server-enforced quote or invoice; concurrent provider changes need provider guarantees.",
+    "Collected files are not automatically validated native results or GPAC-linked structures.",
+    "No stability, synthesizability, speedup, latency or scientific advantage is established.",
+    "Three sequential iterations spanning two non-FePt systems and original empirical acceptance remain open."
+  ],
+  "protected_evidence_sha256": {
+    "work/fept-total-budget.json": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "work/acceptance-six-r1/budget.json": "d13fd45d7d17aaf9bc8901e55f3137e04bf0c3e270016cc6165913421b2e06c8"
+  },
+  "GPAC_unchanged": true,
+  "IDE_layout_unchanged": true
+}

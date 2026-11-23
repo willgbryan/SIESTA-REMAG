@@ -1,0 +1,40 @@
+{
+  "format": "REMAG-AUTHORIZATION-EXTENSION/1",
+  "recorded_at": "2026-11-14T16:00:11.827597+00:00",
+  "authorization": "Authorize up to $250 additional, one GPU at a time. Start with the $50 mesh stage, then prioritize basis convergence before more predictions. Keep committing and pushing to main in both packages.",
+  "extension": {
+    "id": "fept-2026-11-14-additional-250",
+    "additional_cents": 25000,
+    "authorization": "Authorize up to $250 additional, one GPU at a time. Start with the $50 mesh stage, then prioritize basis convergence before more predictions. Keep committing and pushing to main in both packages.",
+    "previous_cap_cents": 10000,
+    "new_cap_cents": 35000,
+    "recorded_at": "2026-11-14T16:00:11.825238+00:00"
+  },
+  "original_ledger_sha256": "36e714a8003a33eba68359495788ca429587d812fe0f3381f5cb9333a3dbe4f6",
+  "extended_ledger_sha256": "c97f417c30063123708abfac7ae8300a5e973e606783acb20dbc18649405a290",
+  "original_reservations_preserved": true,
+  "effective_cap_cents": 35000,
+  "reserved_cents": 9667,
+  "stages": [
+    {
+      "id": "mesh-r3",
+      "cap_cents": 5000,
+      "authorization": "Authorize up to $250 additional, one GPU at a time. Start with the $50 mesh stage, then prioritize basis convergence before more predictions. Keep committing and pushing to main in both packages.",
+      "recorded_at": "2026-11-14T16:00:11.826066+00:00"
+    },
+    {
+      "id": "basis-r2",
+      "cap_cents": 15000,
+      "authorization": "Authorize up to $250 additional, one GPU at a time. Start with the $50 mesh stage, then prioritize basis convergence before more predictions. Keep committing and pushing to main in both packages.",
+      "recorded_at": "2026-11-14T16:00:11.826608+00:00"
+    },
+    {
+      "id": "final-r2",
+      "cap_cents": 5000,
+      "authorization": "Authorize up to $250 additional, one GPU at a time. Start with the $50 mesh stage, then prioritize basis convergence before more predictions. Keep committing and pushing to main in both packages.",
+      "recorded_at": "2026-11-14T16:00:11.827124+00:00"
+    }
+  ],
+  "max_simultaneous_gpu": 1,
+  "actual_billed_usd": null
+}

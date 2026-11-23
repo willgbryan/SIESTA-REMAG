@@ -1,0 +1,1518 @@
+{
+  "format": "REMAG-SPEC-IMPLEMENTATION-EVIDENCE/1",
+  "created_at": "2026-11-15T21:10:36.059692+00:00",
+  "scope": "Spec 5.3/7C-D/8/9: controlled structural-response families and saved analysis",
+  "tests": {
+    "focused": "32 passed in 22.75s",
+    "research_discovery_regression": "313 passed, 2 unchanged loopback HTTP tests deselected in 82.61s",
+    "agent": "Actual local policy/tool subprocess prepared a family and analyzed pending evidence; no model API",
+    "saved_native": "Three original compact collections verified; exact source/configuration/runtime gates pass; centered derivatives independently reproduced",
+    "negative_saved_native": "Strained-cell spectral KP rounding mismatch rejected; no tolerance relaxed; original spectra preserved"
+  },
+  "implementation": [
+    "Six exact GPAC paths with direct common-parent lineage and independent immutable queries",
+    "E/F, anisotropy, force, stress, moment and bound spectral integrals; parent atom selection follows exact permutation",
+    "Matching scientific/acceptance settings, runtime and original artifact bindings; thread count recorded for new results",
+    "Consecutive unequal-step stencils retain missing/failed/changed-branch points; caller-supplied errors only",
+    "Python, CLI, both agent profiles and model-policy instructions; scalar electronic restrictions and held-out source controls"
+  ],
+  "demonstration": {
+    "format": "REMAG-SPEC-STRUCTURAL-RESPONSE-DEMO/1",
+    "created_at": "2026-11-15T21:10:36.059692+00:00",
+    "purpose": "Retrospective integration of exact controlled families and existing FePt measurements; no native calculation or new prediction",
+    "series_sha256": "ba599d0b2ca9038c0a4878da4ec52601f09bf491f3945cd44e6cbe7cf0911373",
+    "analysis_sha256": "47c6dfa1e65fe4af8a411c89b9cfe4d49585c9981f7834a6156ff5788a8bc2ef",
+    "design": {
+      "format": "REMAG-RESPONSE-DESIGN/1",
+      "parameter": "epsilon_c",
+      "values": [
+        "-1/50",
+        "-1/100",
+        "-1/200",
+        "0",
+        "1/200",
+        "1/100",
+        "1/50"
+      ],
+      "control": {
+        "kind": "axial_strain",
+        "axis": 2
+      }
+    },
+    "configuration": {
+      "kmesh": [
+        6,
+        6,
+        6
+      ],
+      "basis_size": "DZP",
+      "basis_energy_shift_ry": 0.02,
+      "pseudopotentials": {
+        "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+        "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+      },
+      "basis_spec": null,
+      "settings": {
+        "mesh_ry": 300,
+        "smearing_k": 300,
+        "dm_tolerance": 1e-05,
+        "h_tolerance_ev": 0.0001,
+        "mixing_weight": 0.03,
+        "mixing_history": 8,
+        "axis_tolerance_deg": 1.0,
+        "branch_rms_mub": 0.2,
+        "branch_net_fraction": 0.05
+      },
+      "query": {
+        "kind": "anisotropy"
+      }
+    },
+    "runtime": {
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "environment_identical": true,
+      "threads": null,
+      "historical_runner_revisions_identical": false
+    },
+    "measured_points": {
+      "point-002": {
+        "report_sha256": "826754fcd49ad3473ec7cf73e889227b2400edb0bcccdc5b8f5497289a010610",
+        "source_sha256": "ddcfd55a13fba01f6e7bc375af125414786bb296f4b59b682775dacd41f2e3ea",
+        "verification": {
+          "mode": "compact collection",
+          "omitted_artifacts": [
+            "inputs/x/Fe.psf",
+            "inputs/x/Pt.psf",
+            "inputs/y/Fe.psf",
+            "inputs/y/Pt.psf",
+            "inputs/z/Fe.psf",
+            "inputs/z/Pt.psf",
+            "scalar/0_NORMAL_EXIT",
+            "scalar/BASIS_ENTHALPY",
+            "scalar/BASIS_HARRIS_ENTHALPY",
+            "scalar/CLOCK",
+            "scalar/FORCE_STRESS",
+            "scalar/Fe.ion",
+            "scalar/Fe.ion.nc",
+            "scalar/Fe.ion.xml",
+            "scalar/Fe.psf",
+            "scalar/INPUT_TMP.03543",
+            "scalar/MESSAGES",
+            "scalar/NON_TRIMMED_KP_LIST",
+            "scalar/OUTVARS.yml",
+            "scalar/PARALLEL_DIST",
+            "scalar/Pt.ion",
+            "scalar/Pt.ion.nc",
+            "scalar/Pt.ion.xml",
+            "scalar/Pt.psf",
+            "scalar/remag.BASIS_ENTHALPY",
+            "scalar/remag.BONDS",
+            "scalar/remag.BONDS_FINAL",
+            "scalar/remag.DM",
+            "scalar/remag.FA",
+            "scalar/remag.HSX",
+            "scalar/remag.ORB_INDX",
+            "scalar/remag.XV",
+            "scalar/remag.alloc",
+            "scalar/remag.bib",
+            "seed-x.DM",
+            "seed-y.DM",
+            "seed-z.DM",
+            "soc-x/0_NORMAL_EXIT",
+            "soc-x/BASIS_ENTHALPY",
+            "soc-x/BASIS_HARRIS_ENTHALPY",
+            "soc-x/CLOCK",
+            "soc-x/FORCE_STRESS",
+            "soc-x/Fe.ion",
+            "soc-x/Fe.ion.nc",
+            "soc-x/Fe.ion.xml",
+            "soc-x/Fe.psf",
+            "soc-x/INPUT_TMP.41745",
+            "soc-x/MESSAGES",
+            "soc-x/OUTVARS.yml",
+            "soc-x/PARALLEL_DIST",
+            "soc-x/Pt.ion",
+            "soc-x/Pt.ion.nc",
+            "soc-x/Pt.ion.xml",
+            "soc-x/Pt.psf",
+            "soc-x/remag.BASIS_ENTHALPY",
+            "soc-x/remag.BONDS",
+            "soc-x/remag.BONDS_FINAL",
+            "soc-x/remag.DM",
+            "soc-x/remag.FA",
+            "soc-x/remag.HSX",
+            "soc-x/remag.ORB_INDX",
+            "soc-x/remag.XV",
+            "soc-x/remag.alloc",
+            "soc-x/remag.bib",
+            "soc-y/0_NORMAL_EXIT",
+            "soc-y/BASIS_ENTHALPY",
+            "soc-y/BASIS_HARRIS_ENTHALPY",
+            "soc-y/CLOCK",
+            "soc-y/FORCE_STRESS",
+            "soc-y/Fe.ion",
+            "soc-y/Fe.ion.nc",
+            "soc-y/Fe.ion.xml",
+            "soc-y/Fe.psf",
+            "soc-y/INPUT_TMP.60590",
+            "soc-y/MESSAGES",
+            "soc-y/OUTVARS.yml",
+            "soc-y/PARALLEL_DIST",
+            "soc-y/Pt.ion",
+            "soc-y/Pt.ion.nc",
+            "soc-y/Pt.ion.xml",
+            "soc-y/Pt.psf",
+            "soc-y/remag.BASIS_ENTHALPY",
+            "soc-y/remag.BONDS",
+            "soc-y/remag.BONDS_FINAL",
+            "soc-y/remag.DM",
+            "soc-y/remag.FA",
+            "soc-y/remag.HSX",
+            "soc-y/remag.ORB_INDX",
+            "soc-y/remag.XV",
+            "soc-y/remag.alloc",
+            "soc-y/remag.bib",
+            "soc-z/0_NORMAL_EXIT",
+            "soc-z/BASIS_ENTHALPY",
+            "soc-z/BASIS_HARRIS_ENTHALPY",
+            "soc-z/CLOCK",
+            "soc-z/FORCE_STRESS",
+            "soc-z/Fe.ion",
+            "soc-z/Fe.ion.nc",
+            "soc-z/Fe.ion.xml",
+            "soc-z/Fe.psf",
+            "soc-z/INPUT_TMP.21783",
+            "soc-z/MESSAGES",
+            "soc-z/OUTVARS.yml",
+            "soc-z/PARALLEL_DIST",
+            "soc-z/Pt.ion",
+            "soc-z/Pt.ion.nc",
+            "soc-z/Pt.ion.xml",
+            "soc-z/Pt.psf",
+            "soc-z/remag.BASIS_ENTHALPY",
+            "soc-z/remag.BONDS",
+            "soc-z/remag.BONDS_FINAL",
+            "soc-z/remag.DM",
+            "soc-z/remag.FA",
+            "soc-z/remag.HSX",
+            "soc-z/remag.ORB_INDX",
+            "soc-z/remag.XV",
+            "soc-z/remag.alloc",
+            "soc-z/remag.bib"
+          ],
+          "collection_manifest_sha256": "e0db0371d7aa36a94533bd3ba7cb748494e1cd4b6051e585211b5057df4a891e",
+          "scope": "All collected and locally present report artifacts verified; omitted remote bytes are not reverified"
+        },
+        "native_status": "measured",
+        "report": "work/remag-heldout/m050/report.json",
+        "source_code_inventory_sha256": "657b3356d6831ad2ecfc68455b2a5d58874bd400178fc78a459b9afc37117214"
+      },
+      "point-003": {
+        "report_sha256": "930f1ef54165c6ab59f5b66c38918974f19f7d9c7fc3c64a84884d76ce76481a",
+        "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+        "verification": {
+          "mode": "compact collection",
+          "omitted_artifacts": [
+            "inputs/x/Fe.psf",
+            "inputs/x/Pt.psf",
+            "inputs/y/Fe.psf",
+            "inputs/y/Pt.psf",
+            "inputs/z/Fe.psf",
+            "inputs/z/Pt.psf",
+            "scalar/0_NORMAL_EXIT",
+            "scalar/BASIS_ENTHALPY",
+            "scalar/BASIS_HARRIS_ENTHALPY",
+            "scalar/CLOCK",
+            "scalar/FORCE_STRESS",
+            "scalar/Fe.ion",
+            "scalar/Fe.ion.nc",
+            "scalar/Fe.ion.xml",
+            "scalar/Fe.psf",
+            "scalar/INPUT_TMP.02674",
+            "scalar/MESSAGES",
+            "scalar/NON_TRIMMED_KP_LIST",
+            "scalar/OUTVARS.yml",
+            "scalar/PARALLEL_DIST",
+            "scalar/Pt.ion",
+            "scalar/Pt.ion.nc",
+            "scalar/Pt.ion.xml",
+            "scalar/Pt.psf",
+            "scalar/remag.BASIS_ENTHALPY",
+            "scalar/remag.BONDS",
+            "scalar/remag.BONDS_FINAL",
+            "scalar/remag.DM",
+            "scalar/remag.FA",
+            "scalar/remag.HSX",
+            "scalar/remag.ORB_INDX",
+            "scalar/remag.XV",
+            "scalar/remag.alloc",
+            "scalar/remag.bib",
+            "seed-x.DM",
+            "seed-y.DM",
+            "seed-z.DM",
+            "soc-x/0_NORMAL_EXIT",
+            "soc-x/BASIS_ENTHALPY",
+            "soc-x/BASIS_HARRIS_ENTHALPY",
+            "soc-x/CLOCK",
+            "soc-x/FORCE_STRESS",
+            "soc-x/Fe.ion",
+            "soc-x/Fe.ion.nc",
+            "soc-x/Fe.ion.xml",
+            "soc-x/Fe.psf",
+            "soc-x/INPUT_TMP.37412",
+            "soc-x/MESSAGES",
+            "soc-x/OUTVARS.yml",
+            "soc-x/PARALLEL_DIST",
+            "soc-x/Pt.ion",
+            "soc-x/Pt.ion.nc",
+            "soc-x/Pt.ion.xml",
+            "soc-x/Pt.psf",
+            "soc-x/remag.BASIS_ENTHALPY",
+            "soc-x/remag.BONDS",
+            "soc-x/remag.BONDS_FINAL",
+            "soc-x/remag.DM",
+            "soc-x/remag.FA",
+            "soc-x/remag.HSX",
+            "soc-x/remag.ORB_INDX",
+            "soc-x/remag.XV",
+            "soc-x/remag.alloc",
+            "soc-x/remag.bib",
+            "soc-y/0_NORMAL_EXIT",
+            "soc-y/BASIS_ENTHALPY",
+            "soc-y/BASIS_HARRIS_ENTHALPY",
+            "soc-y/CLOCK",
+            "soc-y/FORCE_STRESS",
+            "soc-y/Fe.ion",
+            "soc-y/Fe.ion.nc",
+            "soc-y/Fe.ion.xml",
+            "soc-y/Fe.psf",
+            "soc-y/INPUT_TMP.55794",
+            "soc-y/MESSAGES",
+            "soc-y/OUTVARS.yml",
+            "soc-y/PARALLEL_DIST",
+            "soc-y/Pt.ion",
+            "soc-y/Pt.ion.nc",
+            "soc-y/Pt.ion.xml",
+            "soc-y/Pt.psf",
+            "soc-y/remag.BASIS_ENTHALPY",
+            "soc-y/remag.BONDS",
+            "soc-y/remag.BONDS_FINAL",
+            "soc-y/remag.DM",
+            "soc-y/remag.FA",
+            "soc-y/remag.HSX",
+            "soc-y/remag.ORB_INDX",
+            "soc-y/remag.XV",
+            "soc-y/remag.alloc",
+            "soc-y/remag.bib",
+            "soc-z/0_NORMAL_EXIT",
+            "soc-z/BASIS_ENTHALPY",
+            "soc-z/BASIS_HARRIS_ENTHALPY",
+            "soc-z/CLOCK",
+            "soc-z/FORCE_STRESS",
+            "soc-z/Fe.ion",
+            "soc-z/Fe.ion.nc",
+            "soc-z/Fe.ion.xml",
+            "soc-z/Fe.psf",
+            "soc-z/INPUT_TMP.18559",
+            "soc-z/MESSAGES",
+            "soc-z/OUTVARS.yml",
+            "soc-z/PARALLEL_DIST",
+            "soc-z/Pt.ion",
+            "soc-z/Pt.ion.nc",
+            "soc-z/Pt.ion.xml",
+            "soc-z/Pt.psf",
+            "soc-z/remag.BASIS_ENTHALPY",
+            "soc-z/remag.BONDS",
+            "soc-z/remag.BONDS_FINAL",
+            "soc-z/remag.DM",
+            "soc-z/remag.FA",
+            "soc-z/remag.HSX",
+            "soc-z/remag.ORB_INDX",
+            "soc-z/remag.XV",
+            "soc-z/remag.alloc",
+            "soc-z/remag.bib"
+          ],
+          "collection_manifest_sha256": "b92d7bacee05e0c27403cd0f13b841227c91d8ec23431324548f675e1d3d8981",
+          "scope": "All collected and locally present report artifacts verified; omitted remote bytes are not reverified"
+        },
+        "native_status": "measured",
+        "report": "work/remag-fept/zero/report.json",
+        "source_code_inventory_sha256": "73964ea6f05b42c2c4b59e44c9c974fc536c8b4205cc6d0bc97640a7e2f8495e"
+      },
+      "point-004": {
+        "report_sha256": "6f44527fa55aa2fb0a24fdc18a147cadff23796e0f3db194b2b605eb7b1e54ee",
+        "source_sha256": "e29b79512c3c34b91edda4535110380a0b7fd09299b01a655a9e192790502c16",
+        "verification": {
+          "mode": "compact collection",
+          "omitted_artifacts": [
+            "inputs/x/Fe.psf",
+            "inputs/x/Pt.psf",
+            "inputs/y/Fe.psf",
+            "inputs/y/Pt.psf",
+            "inputs/z/Fe.psf",
+            "inputs/z/Pt.psf",
+            "scalar/0_NORMAL_EXIT",
+            "scalar/BASIS_ENTHALPY",
+            "scalar/BASIS_HARRIS_ENTHALPY",
+            "scalar/CLOCK",
+            "scalar/FORCE_STRESS",
+            "scalar/Fe.ion",
+            "scalar/Fe.ion.nc",
+            "scalar/Fe.ion.xml",
+            "scalar/Fe.psf",
+            "scalar/INPUT_TMP.90749",
+            "scalar/MESSAGES",
+            "scalar/NON_TRIMMED_KP_LIST",
+            "scalar/OUTVARS.yml",
+            "scalar/PARALLEL_DIST",
+            "scalar/Pt.ion",
+            "scalar/Pt.ion.nc",
+            "scalar/Pt.ion.xml",
+            "scalar/Pt.psf",
+            "scalar/remag.BASIS_ENTHALPY",
+            "scalar/remag.BONDS",
+            "scalar/remag.BONDS_FINAL",
+            "scalar/remag.DM",
+            "scalar/remag.FA",
+            "scalar/remag.HSX",
+            "scalar/remag.ORB_INDX",
+            "scalar/remag.XV",
+            "scalar/remag.alloc",
+            "scalar/remag.bib",
+            "seed-x.DM",
+            "seed-y.DM",
+            "seed-z.DM",
+            "soc-x/0_NORMAL_EXIT",
+            "soc-x/BASIS_ENTHALPY",
+            "soc-x/BASIS_HARRIS_ENTHALPY",
+            "soc-x/CLOCK",
+            "soc-x/FORCE_STRESS",
+            "soc-x/Fe.ion",
+            "soc-x/Fe.ion.nc",
+            "soc-x/Fe.ion.xml",
+            "soc-x/Fe.psf",
+            "soc-x/INPUT_TMP.28931",
+            "soc-x/MESSAGES",
+            "soc-x/OUTVARS.yml",
+            "soc-x/PARALLEL_DIST",
+            "soc-x/Pt.ion",
+            "soc-x/Pt.ion.nc",
+            "soc-x/Pt.ion.xml",
+            "soc-x/Pt.psf",
+            "soc-x/remag.BASIS_ENTHALPY",
+            "soc-x/remag.BONDS",
+            "soc-x/remag.BONDS_FINAL",
+            "soc-x/remag.DM",
+            "soc-x/remag.FA",
+            "soc-x/remag.HSX",
+            "soc-x/remag.ORB_INDX",
+            "soc-x/remag.XV",
+            "soc-x/remag.alloc",
+            "soc-x/remag.bib",
+            "soc-y/0_NORMAL_EXIT",
+            "soc-y/BASIS_ENTHALPY",
+            "soc-y/BASIS_HARRIS_ENTHALPY",
+            "soc-y/CLOCK",
+            "soc-y/FORCE_STRESS",
+            "soc-y/Fe.ion",
+            "soc-y/Fe.ion.nc",
+            "soc-y/Fe.ion.xml",
+            "soc-y/Fe.psf",
+            "soc-y/INPUT_TMP.49137",
+            "soc-y/MESSAGES",
+            "soc-y/OUTVARS.yml",
+            "soc-y/PARALLEL_DIST",
+            "soc-y/Pt.ion",
+            "soc-y/Pt.ion.nc",
+            "soc-y/Pt.ion.xml",
+            "soc-y/Pt.psf",
+            "soc-y/remag.BASIS_ENTHALPY",
+            "soc-y/remag.BONDS",
+            "soc-y/remag.BONDS_FINAL",
+            "soc-y/remag.DM",
+            "soc-y/remag.FA",
+            "soc-y/remag.HSX",
+            "soc-y/remag.ORB_INDX",
+            "soc-y/remag.XV",
+            "soc-y/remag.alloc",
+            "soc-y/remag.bib",
+            "soc-z/0_NORMAL_EXIT",
+            "soc-z/BASIS_ENTHALPY",
+            "soc-z/BASIS_HARRIS_ENTHALPY",
+            "soc-z/CLOCK",
+            "soc-z/FORCE_STRESS",
+            "soc-z/Fe.ion",
+            "soc-z/Fe.ion.nc",
+            "soc-z/Fe.ion.xml",
+            "soc-z/Fe.psf",
+            "soc-z/INPUT_TMP.08900",
+            "soc-z/MESSAGES",
+            "soc-z/OUTVARS.yml",
+            "soc-z/PARALLEL_DIST",
+            "soc-z/Pt.ion",
+            "soc-z/Pt.ion.nc",
+            "soc-z/Pt.ion.xml",
+            "soc-z/Pt.psf",
+            "soc-z/remag.BASIS_ENTHALPY",
+            "soc-z/remag.BONDS",
+            "soc-z/remag.BONDS_FINAL",
+            "soc-z/remag.DM",
+            "soc-z/remag.FA",
+            "soc-z/remag.HSX",
+            "soc-z/remag.ORB_INDX",
+            "soc-z/remag.XV",
+            "soc-z/remag.alloc",
+            "soc-z/remag.bib"
+          ],
+          "collection_manifest_sha256": "e0db0371d7aa36a94533bd3ba7cb748494e1cd4b6051e585211b5057df4a891e",
+          "scope": "All collected and locally present report artifacts verified; omitted remote bytes are not reverified"
+        },
+        "native_status": "measured",
+        "report": "work/remag-heldout/p050/report.json",
+        "source_code_inventory_sha256": "657b3356d6831ad2ecfc68455b2a5d58874bd400178fc78a459b9afc37117214"
+      }
+    },
+    "pending_points": [
+      "point-000",
+      "point-001",
+      "point-005",
+      "point-006"
+    ],
+    "responses": {
+      "E": {
+        "definition": {
+          "kind": "energy",
+          "stage": "scalar",
+          "quantity": "total_energy_ev"
+        },
+        "unit": "eV/cell",
+        "derivatives": [
+          {
+            "at_exact": "-1/100",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "-1/200",
+            "sample_ids": [
+              "point-001",
+              "point-002",
+              "point-003"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-002",
+              "point-003",
+              "point-004"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": -0.45841604660381563,
+              "second": 71.2835336162243,
+              "first_unit": "eV/cell/dimensionless",
+              "second_unit": "eV/cell/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          },
+          {
+            "at_exact": "1/200",
+            "sample_ids": [
+              "point-003",
+              "point-004",
+              "point-005"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "1/100",
+            "sample_ids": [
+              "point-004",
+              "point-005",
+              "point-006"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          }
+        ],
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-001",
+            "q_exact": "-1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-002",
+            "q_exact": "-1/200",
+            "value": -2223.2458602172696,
+            "delta_from_baseline": 0.003183124403221882,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-003",
+            "q_exact": "0",
+            "value": -2223.249043341673,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-004",
+            "q_exact": "1/200",
+            "value": -2223.2504443777357,
+            "delta_from_baseline": -0.0014010360628162744,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-005",
+            "q_exact": "1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-006",
+            "q_exact": "1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          }
+        ]
+      },
+      "F": {
+        "definition": {
+          "kind": "energy",
+          "stage": "scalar",
+          "quantity": "free_energy_ev"
+        },
+        "unit": "eV/cell",
+        "derivatives": [
+          {
+            "at_exact": "-1/100",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "-1/200",
+            "sample_ids": [
+              "point-001",
+              "point-002",
+              "point-003"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-002",
+              "point-003",
+              "point-004"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": -0.5223126084729302,
+              "second": 68.75123528516269,
+              "first_unit": "eV/cell/dimensionless",
+              "second_unit": "eV/cell/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          },
+          {
+            "at_exact": "1/200",
+            "sample_ids": [
+              "point-003",
+              "point-004",
+              "point-005"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "1/100",
+            "sample_ids": [
+              "point-004",
+              "point-005",
+              "point-006"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          }
+        ],
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-001",
+            "q_exact": "-1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-002",
+            "q_exact": "-1/200",
+            "value": -2223.2502691848913,
+            "delta_from_baseline": 0.0034709534834291844,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-003",
+            "q_exact": "0",
+            "value": -2223.2537401383747,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-004",
+            "q_exact": "1/200",
+            "value": -2223.255492310976,
+            "delta_from_baseline": -0.001752172601300117,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-005",
+            "q_exact": "1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-006",
+            "q_exact": "1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          }
+        ]
+      },
+      "K_E": {
+        "definition": {
+          "kind": "anisotropy",
+          "stages": [
+            "soc-x",
+            "soc-z"
+          ],
+          "quantity": "total_energy_ev"
+        },
+        "unit": "eV/cell",
+        "derivatives": [
+          {
+            "at_exact": "-1/100",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "-1/200",
+            "sample_ids": [
+              "point-001",
+              "point-002",
+              "point-003"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-002",
+              "point-003",
+              "point-004"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": -0.07901549902271654,
+              "second": 0.31401325031765737,
+              "first_unit": "eV/cell/dimensionless",
+              "second_unit": "eV/cell/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          },
+          {
+            "at_exact": "1/200",
+            "sample_ids": [
+              "point-003",
+              "point-004",
+              "point-005"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "1/100",
+            "sample_ids": [
+              "point-004",
+              "point-005",
+              "point-006"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          }
+        ],
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-001",
+            "q_exact": "-1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-002",
+            "q_exact": "-1/200",
+            "value": 0.001709772733192949,
+            "delta_from_baseline": 0.0003990026607425534,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-003",
+            "q_exact": "0",
+            "value": 0.0013107700724503957,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-004",
+            "q_exact": "1/200",
+            "value": 0.0009196177429657837,
+            "delta_from_baseline": -0.000391152329484612,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-005",
+            "q_exact": "1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-006",
+            "q_exact": "1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          }
+        ]
+      },
+      "K_F": {
+        "definition": {
+          "kind": "anisotropy",
+          "stages": [
+            "soc-x",
+            "soc-z"
+          ],
+          "quantity": "free_energy_ev"
+        },
+        "unit": "eV/cell",
+        "derivatives": [
+          {
+            "at_exact": "-1/100",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "-1/200",
+            "sample_ids": [
+              "point-001",
+              "point-002",
+              "point-003"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-002",
+              "point-003",
+              "point-004"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": -0.03064906436520687,
+              "second": 0.41237637560698204,
+              "first_unit": "eV/cell/dimensionless",
+              "second_unit": "eV/cell/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          },
+          {
+            "at_exact": "1/200",
+            "sample_ids": [
+              "point-003",
+              "point-004",
+              "point-005"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "1/100",
+            "sample_ids": [
+              "point-004",
+              "point-005",
+              "point-006"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          }
+        ],
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-001",
+            "q_exact": "-1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-002",
+            "q_exact": "-1/200",
+            "value": 0.0014438135453929135,
+            "delta_from_baseline": 0.00015840002652112162,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-003",
+            "q_exact": "0",
+            "value": 0.001285413518871792,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-004",
+            "q_exact": "1/200",
+            "value": 0.0011373229017408448,
+            "delta_from_baseline": -0.00014809061713094707,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-005",
+            "q_exact": "1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-006",
+            "q_exact": "1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          }
+        ]
+      },
+      "moment": {
+        "definition": {
+          "kind": "moment",
+          "stage": "soc-z",
+          "site": null,
+          "component": "norm"
+        },
+        "unit": "muB",
+        "derivatives": [
+          {
+            "at_exact": "-1/100",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "-1/200",
+            "sample_ids": [
+              "point-001",
+              "point-002",
+              "point-003"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-002",
+              "point-003",
+              "point-004"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": -0.641999999999987,
+              "second": -10.399999999979315,
+              "first_unit": "muB/dimensionless",
+              "second_unit": "muB/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          },
+          {
+            "at_exact": "1/200",
+            "sample_ids": [
+              "point-003",
+              "point-004",
+              "point-005"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "1/100",
+            "sample_ids": [
+              "point-004",
+              "point-005",
+              "point-006"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          }
+        ],
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-001",
+            "q_exact": "-1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-002",
+            "q_exact": "-1/200",
+            "value": 3.3763,
+            "delta_from_baseline": 0.0030800000000001937,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-003",
+            "q_exact": "0",
+            "value": 3.37322,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-004",
+            "q_exact": "1/200",
+            "value": 3.36988,
+            "delta_from_baseline": -0.0033399999999996766,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-005",
+            "q_exact": "1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-006",
+            "q_exact": "1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          }
+        ]
+      },
+      "stress_zz": {
+        "definition": {
+          "kind": "stress",
+          "stage": "scalar",
+          "component": [
+            2,
+            2
+          ]
+        },
+        "unit": "eV/angstrom^3",
+        "derivatives": [
+          {
+            "at_exact": "-1/100",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "-1/200",
+            "sample_ids": [
+              "point-001",
+              "point-002",
+              "point-003"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-002",
+              "point-003",
+              "point-004"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": 2.4749,
+              "second": -44.2799999999998,
+              "first_unit": "eV/angstrom^3/dimensionless",
+              "second_unit": "eV/angstrom^3/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          },
+          {
+            "at_exact": "1/200",
+            "sample_ids": [
+              "point-003",
+              "point-004",
+              "point-005"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "1/100",
+            "sample_ids": [
+              "point-004",
+              "point-005",
+              "point-006"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          }
+        ],
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-001",
+            "q_exact": "-1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-002",
+            "q_exact": "-1/200",
+            "value": -0.031333,
+            "delta_from_baseline": -0.012927999999999999,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-003",
+            "q_exact": "0",
+            "value": -0.018405,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-004",
+            "q_exact": "1/200",
+            "value": -0.006584,
+            "delta_from_baseline": 0.011821000000000002,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-005",
+            "q_exact": "1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-006",
+            "q_exact": "1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          }
+        ]
+      },
+      "Fe_force_z": {
+        "definition": {
+          "kind": "force",
+          "stage": "scalar",
+          "site": 0,
+          "component": 2
+        },
+        "unit": "eV/angstrom",
+        "derivatives": [
+          {
+            "at_exact": "-1/100",
+            "sample_ids": [
+              "point-000",
+              "point-001",
+              "point-002"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "-1/200",
+            "sample_ids": [
+              "point-001",
+              "point-002",
+              "point-003"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "0",
+            "sample_ids": [
+              "point-002",
+              "point-003",
+              "point-004"
+            ],
+            "status": "measured",
+            "derivative": {
+              "at": 0.0,
+              "first": 0.0,
+              "second": 0.0,
+              "first_unit": "eV/angstrom/dimensionless",
+              "second_unit": "eV/angstrom/dimensionless^2",
+              "propagated_error_bound": null,
+              "truncation_error": null,
+              "approximation": "local quadratic three-point finite difference"
+            }
+          },
+          {
+            "at_exact": "1/200",
+            "sample_ids": [
+              "point-003",
+              "point-004",
+              "point-005"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          },
+          {
+            "at_exact": "1/100",
+            "sample_ids": [
+              "point-004",
+              "point-005",
+              "point-006"
+            ],
+            "status": "inconclusive",
+            "derivative": null,
+            "reason": "Missing/failed evidence or unmatched magnetic branch; no interpolation across gaps"
+          }
+        ],
+        "points": [
+          {
+            "id": "point-000",
+            "q_exact": "-1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-001",
+            "q_exact": "-1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-002",
+            "q_exact": "-1/200",
+            "value": 0.0,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-003",
+            "q_exact": "0",
+            "value": -0.0,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-004",
+            "q_exact": "1/200",
+            "value": -0.0,
+            "delta_from_baseline": 0.0,
+            "status": "measured",
+            "derivative_eligible": true,
+            "error_bound": null
+          },
+          {
+            "id": "point-005",
+            "q_exact": "1/100",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          },
+          {
+            "id": "point-006",
+            "q_exact": "1/50",
+            "value": null,
+            "delta_from_baseline": null,
+            "status": "pending",
+            "derivative_eligible": false,
+            "error_bound": null
+          }
+        ]
+      }
+    },
+    "spectral_native_example": {
+      "status": "held_sampling_correspondence",
+      "error": "Response spectral sampling differs",
+      "evidence": {
+        "point-002": {
+          "report_sha256": "826754fcd49ad3473ec7cf73e889227b2400edb0bcccdc5b8f5497289a010610",
+          "spectrum_sha256": "51c28dc86c7f94fc908e6cb2b03160a499b6447a2f156298fdafbc976665a919"
+        },
+        "point-003": {
+          "report_sha256": "930f1ef54165c6ab59f5b66c38918974f19f7d9c7fc3c64a84884d76ce76481a",
+          "spectrum_sha256": "da366d7751ca4e36982926026217875bd8a7e0e7a1bfef60de037137516faf3b"
+        },
+        "point-004": {
+          "report_sha256": "6f44527fa55aa2fb0a24fdc18a147cadff23796e0f3db194b2b605eb7b1e54ee",
+          "spectrum_sha256": "58521a718ce1616ba390adb51e1450d6195e3e18fa9e064cc317cacd95c7e906"
+        }
+      },
+      "calculation_performed": false,
+      "reason": "Historical Cartesian KP text rounding differs after conversion for strained cells; matching intended grid does not imply identical stored fractional arrays. No tolerance relaxed."
+    },
+    "native_calculations": 0,
+    "model_api_calls": 0,
+    "gpu_reservations_cents": 0,
+    "ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+    "scope": {
+      "geometry": "Fixed GPAC-authored geometry; parent atom indices transported by exact lineage",
+      "vector_frame": "Each authored right-handed Cholesky Cartesian frame; no hidden rotation or lattice matching",
+      "spectral": "Signed Mulliken window integrals relative to each Fermi level; no band tracking, radial-basis identity or unique SOC attribution",
+      "uncertainty": "Supplied absolute observable error bounds propagated conservatively; truncation and convergence errors unknown",
+      "runtime": "Recorded executable/environment/thread count must agree; legacy reports may leave thread count unknown",
+      "physical_accuracy_qualified": false,
+      "mechanism_verified": false,
+      "calculation_performed": false
+    },
+    "remaining_acceptance": [
+      "Precision-aware native reciprocal sampling correspondence across strained cells",
+      "Derivative truncation/convergence uncertainty and independent mechanism tests",
+      "Live authorized model/solver workflow and empirical equal-compute evaluation",
+      "Full spec completion remains active"
+    ],
+    "validation": {
+      "focused": "32 passed in 22.75s",
+      "research_discovery_regression": "313 passed, 2 unchanged loopback HTTP tests deselected in 82.61s",
+      "agent": "Actual local policy/tool subprocess prepared a family and analyzed pending evidence; no model API",
+      "saved_native": "Three original compact collections verified; exact source/configuration/runtime gates pass; centered derivatives independently reproduced",
+      "negative_saved_native": "Strained-cell spectral KP rounding mismatch rejected; no tolerance relaxed; original spectra preserved"
+    }
+  },
+  "implementation_files": {
+    "src/siesta_remag/research/series.py": "a0bb58f51d5fec5e1800a7196e34ac876632942294e19d02069f3c97f8697c5d",
+    "src/siesta_remag/research/experiments.py": "98cbe76c97004fbb108e26ec2e3c266b692fcfc68821e705d457226aa52e4b3e",
+    "src/siesta_remag/research/tools.py": "4d7e07be340b51b7d2491deb5226c279d298e50508658f3bd5c99081657c8d67",
+    "src/siesta_remag/research/agent.py": "ec950acbc291b3ad7f6f731cb8de79ebbfaedacfd3cbb3999165c08048d9e87a",
+    "src/siesta_remag/research/model_policy.py": "96ea22724c2ae538af9b7ecb791f1b54e38c041e8755583dad489baaae6fa8ca",
+    "src/siesta_remag/research/__main__.py": "73c9279be074d8cceff579db065c2ed801cd9d821f328177f89393e33f468f70"
+  },
+  "new_native_calculations": 0,
+  "new_gpu_reservations_cents": 0,
+  "physical_accuracy_qualified": false
+}

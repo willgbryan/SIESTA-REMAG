@@ -1,0 +1,224 @@
+{
+  "format": "REMAG-FEPT-PILOT-EVALUATION/1",
+  "date": "2026-11-13",
+  "engine": "pristine SIESTA (CPU), pinned upstream e486d12067b96ff688179f0496d0ec21b6fae0ab",
+  "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+  "settings": {
+    "orb_fmax_ev_ang": 0.02,
+    "orb_stress_gpa": 0.1,
+    "orb_steps": 400,
+    "orb_seconds": 300,
+    "dft_fmax_ev_ang": 0.04,
+    "dft_stress_gpa": 0.5,
+    "dft_steps": 30,
+    "dft_seconds": 1800,
+    "soc_seconds": 300,
+    "total_dft_seconds": 900,
+    "max_scf": 150,
+    "dm_tolerance": 1e-05,
+    "h_tolerance_ev": 0.0001,
+    "mixing_weight": 0.03,
+    "mixing_history": 8,
+    "mesh_ry": 300,
+    "smearing_k": 300,
+    "k_spacing_inv_ang": 0.35,
+    "max_kpoints": 4096,
+    "max_atoms": 200,
+    "minimum_js_t": 0.4,
+    "axis_tolerance_deg": 1.0,
+    "branch_rms_mub": 0.2,
+    "branch_net_fraction": 0.05
+  },
+  "kmesh": [
+    6,
+    6,
+    6
+  ],
+  "basis_size": "DZP",
+  "basis_energy_shift_ry": 0.02,
+  "pseudopotentials": {
+    "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+    "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+  },
+  "rows": [
+    {
+      "id": "m200",
+      "strain": "-1/50",
+      "source_sha256": "4eb83ebcd7a9dfda0d4aef6fc186a288da9ad7dbac137a824c34cfd73a4f2880",
+      "report_sha256": "a94aa9eb1ce939455bc6dc14bc3e32ab28ab597e76f1fb90ec6c0c8c8a4dc261",
+      "status": "measured",
+      "mae_mev_cell": 2.423999999791704,
+      "free_energy_mae_mj_m3": 10.805979227467066,
+      "native_spectrum_max_error_ev": 6.713166290239769e-05,
+      "native_spectrum_compared": true,
+      "wall_seconds": 88.20569070801139
+    },
+    {
+      "id": "m100",
+      "strain": "-1/100",
+      "source_sha256": "3c5d75da61405c9274189a67c07ebbd48291aeec13f7ece56167bb24a1bf04d7",
+      "report_sha256": "7386dc19800c2918e312b792104cd08f05bae2fac7c299343d3fe0a3c82f3617",
+      "status": "measured",
+      "mae_mev_cell": 2.0799999997507257,
+      "free_energy_mae_mj_m3": 9.27593165658144,
+      "native_spectrum_max_error_ev": 6.780775187920085e-05,
+      "native_spectrum_compared": true,
+      "wall_seconds": 96.45157608296722
+    },
+    {
+      "id": "m050",
+      "strain": "-1/200",
+      "source_sha256": "ddcfd55a13fba01f6e7bc375af125414786bb296f4b59b682775dacd41f2e3ea",
+      "report_sha256": "cc0695fc3c3954926fc6ee757ff3e3066c7aa8fc31114a5062051c5b2b0fc4fd",
+      "status": "measured",
+      "mae_mev_cell": 1.7100000000027649,
+      "free_energy_mae_mj_m3": 8.231708798260943,
+      "native_spectrum_max_error_ev": 9.066033193505518e-05,
+      "native_spectrum_compared": true,
+      "wall_seconds": 95.19141979049891
+    },
+    {
+      "id": "zero",
+      "strain": "0",
+      "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+      "report_sha256": "4cc6ed1fc2363aa6c39ca6ec7b86c9834296ac6d589d0275ebcab9ba43513caf",
+      "status": "measured",
+      "mae_mev_cell": 1.3109999999869615,
+      "free_energy_mae_mj_m3": 7.2886821877328964,
+      "native_spectrum_max_error_ev": 5.8447593687560584e-05,
+      "native_spectrum_compared": true,
+      "wall_seconds": 98.72348408214748
+    },
+    {
+      "id": "p050",
+      "strain": "1/200",
+      "source_sha256": "e29b79512c3c34b91edda4535110380a0b7fd09299b01a655a9e192790502c16",
+      "report_sha256": "e39380b9b13ec3e912c0b73a78f05e3691d6f04512bcd9ee235a9ea6638a4317",
+      "status": "measured",
+      "mae_mev_cell": 0.9189999996124243,
+      "free_energy_mae_mj_m3": 6.417121897978086,
+      "native_spectrum_max_error_ev": 5.8389213748455404e-05,
+      "native_spectrum_compared": true,
+      "wall_seconds": 99.3880162909627
+    },
+    {
+      "id": "p100",
+      "strain": "1/100",
+      "source_sha256": "11589a0be06745502d7637f99d72e78919380d1cb0d99ed56dbe9e28be913d1d",
+      "report_sha256": "c6f8552df565e1fea37299622450a9ba5980111f5fb4e4b4f393dacd3e4fc184",
+      "status": "measured",
+      "mae_mev_cell": 0.6920000000718574,
+      "free_energy_mae_mj_m3": 6.054011939019449,
+      "native_spectrum_max_error_ev": 6.664875708395357e-05,
+      "native_spectrum_compared": true,
+      "wall_seconds": 94.05342770833522
+    },
+    {
+      "id": "p200",
+      "strain": "1/50",
+      "source_sha256": "423ef0317d6b62151c423427da2b8cd76ea7134720057eadea20dda0fb18bb7f",
+      "report_sha256": "75760651d2c4e94035e6083af566ebb5bc4d8e1a463b96eb82b542f8e080201a",
+      "status": "measured",
+      "mae_mev_cell": 0.7519999999203719,
+      "free_energy_mae_mj_m3": 6.333874273117097,
+      "native_spectrum_max_error_ev": 6.0764942226398944e-05,
+      "native_spectrum_compared": true,
+      "wall_seconds": 103.16083570756018
+    }
+  ],
+  "preregistered": {
+    "format": "REMAG-RESEARCH-PREDICTIONS/1",
+    "hypothesis_id": "4caa9feb864246818dc3694861162bc7",
+    "training": [
+      {
+        "q": -0.02,
+        "value": 2.423999999791704,
+        "report_sha256": "a94aa9eb1ce939455bc6dc14bc3e32ab28ab597e76f1fb90ec6c0c8c8a4dc261"
+      },
+      {
+        "q": 0.0,
+        "value": 1.3109999999869615,
+        "report_sha256": "4cc6ed1fc2363aa6c39ca6ec7b86c9834296ac6d589d0275ebcab9ba43513caf"
+      },
+      {
+        "q": 0.02,
+        "value": 0.7519999999203719,
+        "report_sha256": "75760651d2c4e94035e6083af566ebb5bc4d8e1a463b96eb82b542f8e080201a"
+      }
+    ],
+    "method": "Agent-selected local quadratic scalar response; not an electronic mechanism model",
+    "coefficients": [
+      692.4999996726907,
+      -41.7999999967833,
+      1.3109999999869613
+    ],
+    "trials": [
+      {
+        "label": "m050",
+        "q": -0.005,
+        "event_id": "38ab1eefbb9a46c48b674c87bafc7c40",
+        "prediction_id": "1f32d0ead93c422f92663d05c056d3e0",
+        "prediction_mev_cell": 1.537312499962695,
+        "observed_mev_cell": 1.7100000000027649,
+        "evaluation": {
+          "status": "evaluated",
+          "error": 0.17268750004006983,
+          "absolute_error": 0.17268750004006983,
+          "unit": "meV/cell",
+          "within_predicted_uncertainty": null,
+          "mechanism_verified": false
+        },
+        "report_sha256": "cc0695fc3c3954926fc6ee757ff3e3066c7aa8fc31114a5062051c5b2b0fc4fd"
+      },
+      {
+        "label": "p050",
+        "q": 0.005,
+        "event_id": "4cfaf816b6de46a782ba726d81d56cb2",
+        "prediction_id": "3e06d10fe36543158702b2739ef338bf",
+        "prediction_mev_cell": 1.119312499994862,
+        "observed_mev_cell": 0.9189999996124243,
+        "evaluation": {
+          "status": "evaluated",
+          "error": -0.20031250038243775,
+          "absolute_error": 0.20031250038243775,
+          "unit": "meV/cell",
+          "within_predicted_uncertainty": null,
+          "mechanism_verified": false
+        },
+        "report_sha256": "e39380b9b13ec3e912c0b73a78f05e3691d6f04512bcd9ee235a9ea6638a4317"
+      }
+    ],
+    "physical_accuracy_qualified": false
+  },
+  "baseline_evaluation": {
+    "agent": {
+      "mae": 0.1865000002112538,
+      "rmse": 0.187010789099925
+    },
+    "linear": {
+      "mae": 0.1865000002112538,
+      "rmse": 0.26000694456739826
+    },
+    "interpolation": {
+      "mae": 0.1865000002112538,
+      "rmse": 0.19775063235823115
+    }
+  },
+  "k_sampling_check": {
+    "reference_mae_mev_cell": 1.3109999999869615,
+    "k8_mae_mev_cell": 3.2960000003185996,
+    "k8_report_sha256": "8b3a573a85c54666d8e7ef84d660e21afb30680bb85f91910dad4782740bbbc5",
+    "difference_mev_cell": 1.9850000003316381,
+    "converged": false
+  },
+  "mechanism_verified": false,
+  "physical_accuracy_qualified": false,
+  "value_beyond_scalar_baselines_demonstrated": false,
+  "interpretation": "All three predictors tie in held-out MAE; the selected quadratic has lower RMSE on these two points. Reference k-mesh sensitivity exceeds the strain signal. No transferable physical mechanism or superiority to scalar optimization is established.",
+  "errata": "The zero and \u00b12% report axis_convention field inherited a relaxed-c label. These inputs have zero ionic steps and a fixed authored tetragonal frame; no relaxation occurred. Later source corrects the label; original reports are preserved.",
+  "failures_retained": [
+    "Original integer-looking FDF origin parsed as species zero; no SCF result accepted.",
+    "Original spinor HSX spatial-index convention failed native EIG comparison by 1.2302 eV and is withheld. Corrected spectra pass."
+  ],
+  "gpu_comparison": "Pending single-GPU slot; no REMAG comparison claimed"
+}

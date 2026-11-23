@@ -30,7 +30,10 @@ contains
   subroutine remag_orientations_init()
     use fdf
     use sys, only: die
-    use siesta_options, only: idyn,nmove,td_elec_dyn,harrisfun,write_cdf,usesavedm
+    use siesta_options, only: idyn,nmove,td_elec_dyn,harrisfun,usesavedm
+#ifdef NCDF_4
+    use siesta_options, only: write_cdf
+#endif
     use m_steps, only: inicoor,fincoor
     use m_spin, only: spin
     use parallel, only: Nodes
@@ -48,7 +51,9 @@ contains
       call die('REMAG spin rotations require NC/SOC device SCF and GPU density history')
     if(fdf_get('DM.AllowExtrapolation',.false.).or.usesavedm) &
       call die('REMAG spin rotations require atomic initialization or last-density reuse without extrapolation')
+#ifdef NCDF_4
     if(write_cdf)call die('REMAG spin rotations: per-direction NetCDF output is not yet supported')
+#endif
     if(.not.fdf_get('SCF.MustConverge',.true.))call die('REMAG spin rotations require converged SCF at every direction')
     cache_geometry=fdf_get('REMAG.ReuseOrientationGeometry',.false.)
     call remag_dm_check(remag_orientation_cache_mode(merge(1,0,cache_geometry), &

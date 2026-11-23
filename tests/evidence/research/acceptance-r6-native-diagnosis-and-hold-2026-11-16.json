@@ -1,0 +1,150 @@
+{
+  "format": "REMAG-NATIVE-SEGFAULT-LOCAL-DIAGNOSIS/1",
+  "recorded_at": "2026-11-17T02:30:59.809845+00:00",
+  "status": "native_fix_blocked_preflight_containment_tested",
+  "native_crash_fixed": false,
+  "native_fix_proved_locally": false,
+  "diagnosis": {
+    "status": "callsite_proved_cause_unresolved",
+    "executable_sha256": "afeabb67ad88ed8ab5735970b3e43008b800755c5ba28f2d2db66db02d2f9604",
+    "library_sha256": "8594a158fbacef1adb7a5a175ffad3f76ddd4f0c8cd1fce76e6b253d27956534",
+    "known": {
+      "signal": "SIGSEGV",
+      "failing_API": "cudaGraphInstantiate",
+      "SCF_iterations": 0,
+      "SOC_stages": 0,
+      "wall_seconds": 4.9523744579999995,
+      "runtime_identical_to_successful_r4": true,
+      "failed_input_difference": "Only the axial lattice constant changes versus successful r4 minus-k12.",
+      "capacity_limit_is_not_a_diagnosis": true
+    },
+    "unresolved": [
+      "Faulting driver instruction has no saved module map or driver library.",
+      "No core dump or CUDA-driver version was retained.",
+      "A driver defect, earlier memory corruption and environment differences cannot be distinguished from this evidence.",
+      "A structurally equal successful graph does not prove the failed graph had identical runtime state."
+    ],
+    "scope": "Offline symbolization and incident containment only. Not a reproduced CUDA fault or a validated native repair."
+  },
+  "local_change": "Execution preflight holds the exact failed binary pair before account access, image creation or reservation, and before worker library loading. Historical manifests remain readable.",
+  "validation": {
+    "targeted_tests": "53 passed",
+    "new_regression_tests": 6,
+    "before_change": "5 new tests failed; 1 negative-control test passed",
+    "full_suite": "692 passed, 4 sandbox loopback failures, 4 skipped; all four loopback tests passed outside the sandbox (696 passed combined).",
+    "offline_symbolized_frames": 8,
+    "archived_native_source_matches": 5,
+    "preserved_prior_files": 33,
+    "preserved_sealed_files": 174,
+    "preserved_partial_native_files": 28,
+    "initial_invocation_note": "An initial uninstalled-venv invocation omitted inherited PYTHONPATH and produced six subprocess import failures; rerun with both repository source paths resolved them."
+  },
+  "cost": {
+    "new_paid_compute_calls": 0,
+    "new_model_inference": 0,
+    "new_reservations_cents": 0,
+    "remaining_cents": 75,
+    "actual_billed_usd": null
+  },
+  "allocations": {
+    "app": {
+      "description": "siesta-remag-single-gpu",
+      "app_id": "ap-ubh1HQKSBcK0xWwxDNzKka",
+      "lifecycle": {
+        "state": "stopped",
+        "created_at": "2026-11-16 20:04:00-06:00",
+        "created_by": "will-bryan421",
+        "deployed_at": null,
+        "deployed_by": null,
+        "version": null,
+        "stopped_at": "2026-11-16 20:04:41-06:00",
+        "stopped_by": null
+      },
+      "functions": {
+        "calculate": {
+          "id": "fu-MVZmXaWyYnrspvnuevFSNn",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "A100-80GB"
+              }
+            ]
+          }
+        }
+      },
+      "servers": {}
+    },
+    "account_containers": [],
+    "recorded_at": "2026-11-17T02:29:46.285968+00:00",
+    "read_only": true
+  },
+  "old_campaign_closed": true,
+  "heartbeat_deleted": true,
+  "budget_plan": {
+    "status": "blocked_not_registered_not_authorized",
+    "remaining_cents": 75,
+    "prerequisites": [
+      "Identify and repair the native fault, with a local reproducer/regression proof. The current containment patch does not meet this prerequisite.",
+      "Review a concrete repaired runtime and any new build; do not release the affected binary just because its hash or graph settings change.",
+      "Register new bounded attempts without editing old inputs, predictions, evidence, or budgets. Bind any timeout-only changes to their original scientific inputs."
+    ],
+    "conditional_envelope": [
+      {
+        "action": "One CPU build if a native repair requires it",
+        "maximum_seconds": 528,
+        "reservation_cents": 11,
+        "hourly_reservation_usd": 0.75
+      },
+      {
+        "action": "One minus outcome attempt",
+        "app_seconds": 256,
+        "total_native_seconds": 196,
+        "per_stage_seconds": 180,
+        "reservation_cents": 32,
+        "hourly_reservation_usd": 4.5
+      },
+      {
+        "action": "One plus outcome attempt, only after preceding health review and authoritative shutdown",
+        "app_seconds": 256,
+        "total_native_seconds": 196,
+        "per_stage_seconds": 180,
+        "reservation_cents": 32,
+        "hourly_reservation_usd": 4.5
+      }
+    ],
+    "total_ceiling_cents": 75,
+    "rate_basis": "Previously used conservative reservation envelopes, not provider prices or invoices.",
+    "empirical_basis": {
+      "saved_CPU_build_seconds": 88.63,
+      "saved_minus_k12_native_seconds": 78.110683761,
+      "saved_plus_k12_native_seconds": 65.160992531,
+      "saved_minus_submission_through_review_seconds": 151.20106537546962,
+      "saved_plus_submission_through_review_seconds": 144.3808359997347
+    },
+    "limits": {
+      "GPUs_at_once": 1,
+      "retries": 0,
+      "extensions": 0,
+      "automatic_queue": false,
+      "new_policy_inference": 0
+    },
+    "scoring": "Reuse the eight immutable r6 predictions; score and record revisions locally after accepted outcomes.",
+    "reservations_now": 0,
+    "finish_guaranteed": false,
+    "limitation": "This arithmetic is a provisional envelope, not a runnable completion plan. Repair cost and validity remain unresolved; a repair that cannot fit must stay blocked. Existing response-calibration failure remains."
+  },
+  "evidence": {
+    "work/native-segfault-repair/saved-diagnosis.json": "6e5d7366a45b385e3d3326a525b48a0815384fe11fc3772ac4355a5687c83f08",
+    "work/native-segfault-repair/diagnose_saved.py": "f193e489e60df690580f531500576803c513c54541331311bd174df956bc62b6",
+    "work/native-segfault-repair/before-tests.log": "8ee4dfc5831dfd7763030893ab49c69b1f162d20e2c554b1f58bde73bc38bdec",
+    "work/native-segfault-repair/allocation-observation.json": "2413d7eca12a2dad99c595399d813c26e7774b3fd525f21b8afc8624726dff0f",
+    "work/acceptance-two-r6/budget.json": "99d87af39be378be6683736530c28329d8bd70a49e39ed2b6b91aea7ab22bb5f",
+    "work/acceptance-two-r6/closeout.json": "4fa9cf54a8e12fcafdd7852af206a647faa7c321e26710875b728f0ed2b1ea2c",
+    "work/native-segfault-repair/full-tests.log": "32373f67bb62fabd9e959f260ba0ca7959d2b6260a890645f9be461a74c6776d",
+    "work/native-segfault-repair/loopback-tests.log": "4b0e8fe4a5cee60d17a9a5bbc3675786a42a24bac07ad58b0f2be92bb4e73875",
+    "work/SIESTA-REMAG/src/siesta_remag/research/preflight.py": "1f5e45cb2266ccb4c2bd474abf1132db9084707826d69126ea16c1c79a4dd155",
+    "work/SIESTA-REMAG/tests/test_research_preflight.py": "101b8aece2a4af059ad83ed79665d1f1767280a5dcac615925612f890df4a77a",
+    "work/SIESTA-REMAG/docs/RESEARCH_EXECUTION.md": "4b419a5b9ff597e8bebce80e44ff9abce71b41d5e56576412b08da9b72b7fd75"
+  }
+}

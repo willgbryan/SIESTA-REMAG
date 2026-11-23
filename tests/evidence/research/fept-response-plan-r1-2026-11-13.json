@@ -1,0 +1,171 @@
+{
+  "format": "REMAG-RESPONSE-PLAN/1",
+  "recorded_before_new_measurements": true,
+  "reference_source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+  "experiments": [
+    {
+      "id": "volume-minus",
+      "heldout": false,
+      "source_sha256": "287e42532878b39e779963ccf5cb49526fdc4c3f216bf7282bd8280a2666c80b",
+      "request_sha256": "a29fcfb8a5deff973ca4a0a7e810e2cc8275454a24c25d83251fa9cb85126a44",
+      "operation": {
+        "kind": "isotropic_scale",
+        "scale": "399/400",
+        "scale_parameter": "uniform linear factor",
+        "lattice_scale_factors": [
+          "399/400",
+          "399/400",
+          "399/400"
+        ],
+        "volume_ratio_exact": "63521199/64000000",
+        "c_over_a_factor_exact": "1",
+        "path": "fixed fractional coordinates"
+      }
+    },
+    {
+      "id": "volume-plus",
+      "heldout": false,
+      "source_sha256": "7bb61c54412dc20843cddae68cc90b88c0763001c9670694b2daf9be838f8ff2",
+      "request_sha256": "6133083dc0abacb8eedfd7cf21bcabcd65b86014f3b3fefadfe5fe7723b5cf54",
+      "operation": {
+        "kind": "isotropic_scale",
+        "scale": "401/400",
+        "scale_parameter": "uniform linear factor",
+        "lattice_scale_factors": [
+          "401/400",
+          "401/400",
+          "401/400"
+        ],
+        "volume_ratio_exact": "64481201/64000000",
+        "c_over_a_factor_exact": "1",
+        "path": "fixed fractional coordinates"
+      }
+    },
+    {
+      "id": "shape-minus",
+      "heldout": false,
+      "source_sha256": "2903d1be30db1bf417a85407aaaed2ff257a194015163c764e66a0f61fa10a69",
+      "request_sha256": "ea0d807bac04c4f85d65bf849c0fe9d39d850a994fb4905a700598acaaf5f364",
+      "operation": {
+        "kind": "volume_preserving_tetragonal",
+        "scale": "399/400",
+        "scale_parameter": "in-plane linear factor",
+        "lattice_scale_factors": [
+          "399/400",
+          "399/400",
+          "160000/159201"
+        ],
+        "volume_ratio_exact": "1",
+        "c_over_a_factor_exact": "64000000/63521199",
+        "path": "fixed fractional coordinates"
+      }
+    },
+    {
+      "id": "shape-plus",
+      "heldout": false,
+      "source_sha256": "3618f18cee64c52f29d21a5fbcf77f293c049b4009808ca67dc7ee3deaf6d15f",
+      "request_sha256": "bd265aa9745899876e5333cde9bc65ecbb3b1c5fd956c2c7738997de07c85180",
+      "operation": {
+        "kind": "volume_preserving_tetragonal",
+        "scale": "401/400",
+        "scale_parameter": "in-plane linear factor",
+        "lattice_scale_factors": [
+          "401/400",
+          "401/400",
+          "160000/160801"
+        ],
+        "volume_ratio_exact": "1",
+        "c_over_a_factor_exact": "64000000/64481201",
+        "path": "fixed fractional coordinates"
+      }
+    },
+    {
+      "id": "mixed-minus",
+      "heldout": true,
+      "source_sha256": "37bac79111d9f32986fb9a79361d0ade8bbc928452b9b1667fb01a913d8c5942",
+      "request_sha256": "fb33ed599c3095b1396017a70e067fa110aaf3773576575c458cf7a7294401c3",
+      "operation": {
+        "kind": "axial_strain",
+        "axis": 2,
+        "amount": "-1/400",
+        "path": "fixed other lattice vectors and fractional coordinates"
+      }
+    },
+    {
+      "id": "mixed-plus",
+      "heldout": true,
+      "source_sha256": "ea6ee4c5baac8a9e28371b0691e0a69107aa89d54a556d9520486b6fbd5cfb2a",
+      "request_sha256": "965341905b0cc9fa324a02da204cc273105530aa520aba73e91b01cc33c8f288",
+      "operation": {
+        "kind": "axial_strain",
+        "axis": 2,
+        "amount": "1/400",
+        "path": "fixed other lattice vectors and fractional coordinates"
+      }
+    }
+  ],
+  "runtime": {
+    "executable": "/Users/willgbryan/Desktop/SIESTA-REMAG/build/upstream/Src/siesta",
+    "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+    "threads": 1,
+    "environment": {}
+  },
+  "settings": {
+    "orb_fmax_ev_ang": 0.02,
+    "orb_stress_gpa": 0.1,
+    "orb_steps": 400,
+    "orb_seconds": 300,
+    "dft_fmax_ev_ang": 0.04,
+    "dft_stress_gpa": 0.5,
+    "dft_steps": 30,
+    "dft_seconds": 1800,
+    "soc_seconds": 900,
+    "total_dft_seconds": 3000,
+    "max_scf": 150,
+    "dm_tolerance": 1e-05,
+    "h_tolerance_ev": 0.0001,
+    "mixing_weight": 0.03,
+    "mixing_history": 8,
+    "mesh_ry": 300,
+    "smearing_k": 300,
+    "k_spacing_inv_ang": 0.35,
+    "max_kpoints": 32768,
+    "max_atoms": 200,
+    "minimum_js_t": 0.4,
+    "axis_tolerance_deg": 1.0,
+    "branch_rms_mub": 0.2,
+    "branch_net_fraction": 0.05
+  },
+  "kmesh": [
+    16,
+    16,
+    16
+  ],
+  "training_reference": "The separately running pristine k16 replication, only if measured and matching controls",
+  "hypothesis": "Near this fixed ordered FePt reference, a tetragonal crystal-field response dominates an isotropic volume/bandwidth response: |dK/dlog(c/a)| > |dK/dlog(V)| and dK/dlog(c/a) < 0.",
+  "hypothesis_status": "Prospective hypothesis motivated by the old confounded c-strain response; not a result of electronic SOC matrix-element analysis.",
+  "alternatives": [
+    "Volume response dominates",
+    "Mixed volume-shape interaction invalidates additive response",
+    "Sampling or basis dependence dominates the apparent response"
+  ],
+  "model": "Additive quadratic K0+A*v+B*s+C*v^2+D*s^2, fit separately to E and F anisotropy with v=log(V/V0), s=log((c/a)/(c/a)0). Fit remains unchanged if the dominance hypothesis fails.",
+  "baselines": [
+    "Constant mean of the same five training measurements",
+    "Least-squares quadratic in s only, using the same five training measurements",
+    "Least-squares quadratic in v only, using the same five training measurements"
+  ],
+  "heldout_protocol": "Do not run mixed-minus/plus until all five training outcomes are collected, the model and baseline predictions are committed and notebook prediction events exist. New +/-0.25% c strains; old +/-0.5% outcomes were already known and are not reused as blind tests.",
+  "evaluation": "MAE and RMSE across both held-out structures for each model, reported separately for E and F. Response-direction correctness relative to the measured same-runtime reference. No significance or physical-accuracy claim without additional numerical controls.",
+  "qualification": "Exploratory at fixed k16/DZP/PBE/300 K settings; global convergence checks remain separate. No orbital mechanism established by geometric response alone.",
+  "references": [
+    {
+      "url": "https://arxiv.org/abs/1307.5961",
+      "role": "Primary work identifies important Pt SOC contributions; does not prove our strain-response hypothesis."
+    },
+    {
+      "url": "https://arxiv.org/abs/1604.00176",
+      "role": "Primary convergence/SOC study motivates independent numerical controls; its different functional and basis are not a calibration target."
+    }
+  ]
+}

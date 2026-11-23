@@ -9,6 +9,7 @@ import signal
 import subprocess
 import threading
 import time
+import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -35,8 +36,56 @@ from .population import record_errors as population_errors
 from .initial_state import record_errors as initial_state_errors
 from .nonlocal_h0 import audit as audit_nonlocal_h0
 from .frozen_reference import requested as frozen_reference_requested, evidence_errors as frozen_reference_errors
+from .native_diagnostics import NativeProcessDiagnostics
 
-def run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None):
+def run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None, restart=None):
+    """Retain the native outcome even when its subsequent review raises.
+
+    Input/setup errors still raise. Only a newly created attempt with a saved
+    terminal process status can become a failed result; an old attempt is never
+    rewritten. A review exception cannot produce an accepted observation.
+    """
+    destination = Path(destination).resolve()
+    existed = destination.exists()
+    try:
+        return _run_case(case, executable, destination, threads=threads, timeout=timeout,
+                         extra_env=extra_env, restart=restart)
+    except Exception as error:
+        status_path = destination/'execution-status.json'
+        if existed or not status_path.is_file():
+            raise
+        status = json.loads(status_path.read_text())
+        detail = dict(type=type(error).__name__, message=str(error), traceback=traceback.format_exc())
+        (destination/'postprocessing-error.json').write_text(json.dumps(detail, indent=2)+'\n')
+        code = status['returncode']
+        native_error = 'Native process timed out' if status['timed_out'] else f'Native process exit code {code}'
+        if code < 0:
+            try: name = signal.Signals(-code).name
+            except ValueError: name = 'unknown signal'
+            native_error = f'Native process terminated by {name} ({-code})'
+        # Partial observables stay diagnostic only. Malformed/nonfinite output
+        # cannot prevent persistence of the native failure status either.
+        try:
+            output = parse_output((destination/'stdout.log').read_text(errors='replace'))
+            json.dumps(output, allow_nan=False)
+        except Exception:
+            output = parse_output('')
+        result = dict(schema_version=1,
+            benchmark=json.loads((destination/'manifest.json').read_text()),
+            created_at=datetime.now(timezone.utc).isoformat(),
+            executable=dict(path=str(Path(executable).resolve()), sha256=sha256(Path(executable))),
+            returncode=code, timed_out=status['timed_out'], wall_seconds=status['wall_seconds'],
+            valid=False, observables=output, profile=None,
+            parse_errors=[native_error, f'Postprocessing failed: {detail["type"]}: {detail["message"]}'],
+            postprocessing_complete=False, postprocessing_error=dict(type=detail['type'], message=detail['message']),
+            telemetry=dict(native_process_file='native-process.json',
+                postprocessing_error_file='postprocessing-error.json', raw_evidence_retained=True,
+                notes='Review failed; partial native observables and timing are not usable-result evidence.'))
+        (destination/'result.json').write_text(json.dumps(result, indent=2, allow_nan=False)+'\n')
+        return result
+
+
+def _run_case(case: Path, executable: Path, destination: Path, *, threads=1, timeout=1800, extra_env=None, restart=None):
     if threads < 1 or timeout <= 0:
         raise ValueError("Positive thread count and timeout required")
     case, executable, destination = case.resolve(), executable.resolve(), destination.resolve()
@@ -48,6 +97,15 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
     if unexpected:
         raise ValueError(f"Prepared input contains unexpected files: {sorted(unexpected)}")
     shutil.copytree(case, destination)  # refuse reuse of stale DM or output files
+    if restart is not None:
+        # Explicit, hash-bound density only; never inherit an arbitrary work directory.
+        import re
+        if not re.search(r'^\s*DM\.UseSaveDM\s+true\s*$', (case/'input.fdf').read_text(), re.M | re.I):
+            raise ValueError('Restart requires DM.UseSaveDM true')
+        source = Path(restart['path'])
+        if sha256(source) != restart['sha256']:
+            raise ValueError('Restart density checksum mismatch')
+        shutil.copyfile(source, destination/'remag.DM')
     manifest = json.loads((destination / "manifest.json").read_text())
     if sha256(destination / "input.fdf") != manifest["input_sha256"]:
         raise ValueError("Input differs from benchmark manifest")
@@ -149,11 +207,15 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         start = time.perf_counter()
         process = subprocess.Popen(command, stdin=inp, stdout=out, stderr=err,
                                    cwd=destination, env=env, start_new_session=True)
+        native_diagnostics = NativeProcessDiagnostics(process.pid, traced=trace_io)
         # strace is the parent in diagnostic runs; do not mislabel its CPU/RSS
         # as SIESTA usage. These runs are excluded from performance qualification.
-        monitor = None if trace_io else psutil.Process(process.pid)
-        if monitor:
-            monitor.cpu_percent()
+        try:
+            monitor = None if trace_io else psutil.Process(process.pid)
+            if monitor:
+                monitor.cpu_percent()
+        except psutil.NoSuchProcess:
+            monitor = None  # A fast native exit still has a waitable status.
         gpu = None
         gpu_lines, gpu_reader = [], None
         if shutil.which("nvidia-smi"):
@@ -169,6 +231,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         try:
             while process.poll() is None:
                 elapsed = time.perf_counter() - start
+                native_diagnostics.sample(elapsed)
                 if monitor:
                     try:
                         cpu = monitor.cpu_times()
@@ -197,6 +260,10 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
                 gpu.wait()
                 gpu_reader.join()
                 (destination / "gpu.csv").write_bytes(b"".join(gpu_lines))
+    # Persist before parsing native output: a malformed final record must not
+    # lose the exit status or the last live process sample.
+    (destination/'execution-status.json').write_text(json.dumps(dict(returncode=returncode, timed_out=timed_out, wall_seconds=wall)))
+    (destination/'native-process.json').write_text(json.dumps(native_diagnostics.finish(returncode, timed_out), indent=2)+'\n')
     output = parse_output((destination / "stdout.log").read_text(errors="replace"))
     eigenfile = destination / "remag.EIG"
     parse_errors = []
@@ -218,10 +285,15 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         if not output["relaxation_converged"]:
             parse_errors.append("Structural relaxation did not reach its force tolerance")
     timefile = destination / "time.json"
-    profile = summarize(json.loads(timefile.read_text()), wall) if timefile.exists() else None
+    try:
+        profile = summarize(json.loads(timefile.read_text()), wall) if timefile.exists() else None
+    except (json.JSONDecodeError, KeyError, ValueError) as error:
+        profile = None
+        (destination/'timing-parse-error.json').write_text(json.dumps(dict(error=str(error), raw_file_retained=True)))
     telemetry = dict(cpu_samples=samples, peak_rss_bytes=max((s["rss_bytes"] for s in samples), default=None),
                      host_to_device_bytes=None, device_to_host_bytes=None, kernel_launch_count=None,
                      device_allocation_count=None, gpu_samples_file="gpu.csv" if gpu else None,
+                     native_process_file="native-process.json",
                      notes="CPU/RSS sampled at 100ms; GPU at 200ms. Unmeasured counters are null.")
     if trace_io:
         telemetry["notes"] = "Filesystem tracing perturbs timing. CPU/RSS sampling disabled; GPU sampled at 200ms. Unmeasured counters are null."
@@ -311,6 +383,8 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
             if any(r["status"] or not r["converged"] or r["forbidden_nodes"] or r["graph_nodes"]<1 for r in rows):
                 parse_errors.append("Device cycle failed, did not converge or has invalid graph evidence")
             parse_errors.extend(vector_cache_errors(rows, output.get('eigenvalues'), manifest, vector_cache, int(solver_lanes), warm_start == '1'))
+            if profile is None:
+                profile = {}
             profile["device_cycle_seconds"]=sum(r["seconds"] for r in rows)
             profile["device_iterations"]=sum(r["iterations"] for r in rows)
             profile["average_device_iteration_seconds"]=(profile["device_cycle_seconds"]/profile["device_iterations"]
@@ -559,7 +633,7 @@ def run_case(case: Path, executable: Path, destination: Path, *, threads=1, time
         p=destination/'remag-nonlocal-h0.json';report=json.loads(p.read_text()) if p.is_file() else {}
         raw=destination/'remag-residency.json';trace=json.loads(raw.read_text()) if raw.is_file() else {}
         epochs=[c.get('epoch') for c in telemetry.get('gpu_device_cycle',{}).get('cycles',[])]
-        h0_audit=audit_nonlocal_h0(report,destination,epochs,telemetry.get('integral_geometry',{}).get('nonlocal',{}),trace,production=h0_production,cycle_records=telemetry.get('gpu_device_cycle',{}).get('cycles',[]),poisoned=h0_poisoned,compact_queries=h0_production,energy_only=energy_only)
+        h0_audit=audit_nonlocal_h0(report,destination,epochs,telemetry.get('integral_geometry',{}).get('nonlocal',{}),trace,production=h0_production,cycle_records=telemetry.get('gpu_device_cycle',{}).get('cycles',[]),poisoned=h0_poisoned,compact_queries=h0_production,energy_only=energy_only,soc_export=manifest.get('soc_matrix',False) if h0_production else False)
         parse_errors.extend(h0_audit['errors']);telemetry['nonlocal_h0']=report;telemetry['nonlocal_h0_audit']=h0_audit
         telemetry['gpu_nonlocal_h0']=h0_audit.get('traffic',{})
     if env.get('REMAG_INITIAL_MESH')=='1':

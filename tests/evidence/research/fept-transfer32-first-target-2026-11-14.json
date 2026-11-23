@@ -1,0 +1,58 @@
+{
+  "format": "REMAG-FEPT-TRANSFER-PARTIAL/1",
+  "recorded_at": "2026-11-14T09:42:31.500784+00:00",
+  "status": "partial",
+  "predictions_sha256": "7e9d74e5d8f9519649d50cf61edad5885c6aa573b2c381bf8537e2a97c5b7a9c",
+  "predictions_commit": "1676854545f8889689198c8e79e146fe5ce02306",
+  "model_sha256": "71671a143b0ef8ae23a66674e1cd27bfdd66b89d9e628a319114d1f16f633256",
+  "outcomes": [
+    {
+      "id": "mixed-minus",
+      "status": "measured",
+      "report_sha256": "1e13499cfd730ec1e33370b36480bed722cf9c637e987d5c061a3e8ac6f57fff",
+      "actual": {
+        "energy_anisotropy_ev": 0.002439251333271386,
+        "free_energy_anisotropy_ev": 0.0024564516088503296
+      }
+    }
+  ],
+  "metrics": {
+    "energy_anisotropy_ev": {
+      "actual_ev": 0.002439251333271386,
+      "model_predictions_ev": {
+        "additive": 0.002429275250093035,
+        "constant": 0.002443267163107521,
+        "shape_only": 0.002402963449721385,
+        "volume_only": 0.002457145060018749
+      },
+      "errors_ev": {
+        "additive": -9.976083178351008e-06,
+        "constant": 4.015829836134712e-06,
+        "shape_only": -3.6287883550001256e-05,
+        "volume_only": 1.7893726747362972e-05
+      },
+      "k16_response_ev": -3.999999989900971e-05,
+      "k32_response_ev": -2.9815829748258693e-05
+    },
+    "free_energy_anisotropy_ev": {
+      "actual_ev": 0.0024564516088503296,
+      "model_predictions_ev": {
+        "additive": 0.0024535399556951366,
+        "constant": 0.0024641078968670625,
+        "shape_only": 0.0024308978850407295,
+        "volume_only": 0.002478850704505034
+      },
+      "errors_ev": {
+        "additive": -2.911653155193098e-06,
+        "constant": 7.656288016732841e-06,
+        "shape_only": -2.5553723809600137e-05,
+        "volume_only": 2.2399095654704413e-05
+      },
+      "k16_response_ev": -2.5999999706982635e-05,
+      "k32_response_ev": -2.40562881117512e-05
+    }
+  },
+  "physical_accuracy_qualified": false,
+  "mechanism_verified": false,
+  "scope": "Completed negative target only; the positive target is running. All same-training model errors are retained. No aggregate two-target conclusion is made."
+}

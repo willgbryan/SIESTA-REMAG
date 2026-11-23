@@ -1,0 +1,96 @@
+{
+  "format": "REMAG-WORKSPACE-RESEARCH-EVIDENCE/1",
+  "date": "2026-11-15",
+  "requirements": [
+    "v3 \u00a710 crystal/electronic selection",
+    "v3 \u00a710 scientific experiment workspace"
+  ],
+  "base_remag_commit": "3565dc2ac8e00f727f80031c3ad1d94076fbaecb",
+  "gpac_commit": "44f32c28830e5ec9a6cab2731ab8bb8e78adb314",
+  "delivered": [
+    "Registered immutable query profiles with explicit saved numerical settings and pseudopotentials",
+    "Hash-checked exact-source query and structural-response input preparation",
+    "Exact parent-bound saved response values, deltas, statuses, derivatives and observable definitions",
+    "Unique-site periodic coordination motif selection linked to electronic diagnostics",
+    "Append-only research registration CLI/Python and opt-in same-origin local preparation API"
+  ],
+  "tests": {
+    "focused": "38 passed, 4 HTTP tests deselected in 36.65s",
+    "http": "4 passed, 32 deselected in 7.26s; real loopback requests",
+    "regression": "352 passed, 4 unchanged HTTP tests deselected in 83.61s",
+    "client": "Actual shipped JavaScript against DOM/canvas stubs; query/family/metric request fields, source/profile bindings, errors, immutable read-only/relaxed guards, response selection/branch holds and motif deduplication",
+    "visual_rendering": "Unverified; DOM/canvas stubs are not visual QA"
+  },
+  "saved_demonstration": {
+    "original_source_count": 145,
+    "registered_items": [
+      {
+        "id": "saved6",
+        "kind": "profile",
+        "path": "series/point-003/query",
+        "sha256": "7e0710249dd0f353112b6e15c53c052917f61b29fd1e3f17cd05efe5b819157d"
+      },
+      {
+        "id": "strain",
+        "kind": "series",
+        "path": "series",
+        "sha256": "9904bc40821894f53d78d6a8f4f2633cb50377645964f21ba119712e6cce68d0"
+      },
+      {
+        "id": "standard",
+        "kind": "response",
+        "path": "responses/standard.json",
+        "sha256": "dd08f75591ce7b253d6a5a01fb39132657110c96339d89d3e71d462a585319b6"
+      },
+      {
+        "id": "spectral",
+        "kind": "response",
+        "path": "responses/spectral.json",
+        "sha256": "dd4c8bac4a82d347cd93814baead4e6a616732c23da2bdc0b17d6de15ecbcabb"
+      },
+      {
+        "id": "query-29d045564dd24c98",
+        "kind": "query",
+        "path": "prepared/query-29d045564dd24c98",
+        "sha256": "b3ac25c822e95ddd8939d7fa9dafe66253f7c33a377a4e0b37dc8f3ac56703d8"
+      }
+    ],
+    "copied_series_manifest_sha256": "9904bc40821894f53d78d6a8f4f2633cb50377645964f21ba119712e6cce68d0",
+    "saved_response_observables": {
+      "standard": [
+        "E",
+        "F",
+        "K_E",
+        "K_F",
+        "moment",
+        "stress_zz",
+        "Fe_force_z"
+      ],
+      "spectral": [
+        "Fe_d_weight_z",
+        "Pt_d_occupation_z",
+        "Fe_d_energy_z",
+        "Fe_d_weight_x",
+        "Pt_d_weight_y"
+      ]
+    },
+    "saved_sample_scope": "Seven exact samples; only three saved native points measured, four remain pending",
+    "output": {
+      "format": "REMAG-WORKSPACE-SNAPSHOT/1",
+      "path": "/Users/willgbryan/Documents/Codex/2026-11-13/while-building-this-tool-actively-commit-2/outputs/Spec-workspace-experiments-2026-11-15.html",
+      "sha256": "52911e86f100b2b7888cb7c4a4070033f311e074a0b313252fa819671d5eda9e"
+    }
+  },
+  "original_source_manifest_sha256": "0cae4c37d922169410ea275872fdbde0ab7efad220a5ec61ccf85d54e3858266",
+  "saved_evidence_sha256": "67a5e171af011f6c6221e65b8a573a81c18965137f963df7b78a9d2e7eeaaf94",
+  "no_new_native_calculations": true,
+  "new_gpu_reservations_cents": 0,
+  "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "frozen_gpac_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+  "remaining": [
+    "Browser visual acceptance",
+    "Additional GUI directional/angular/local response designs and reciprocal-space region/band views",
+    "Full spec scientific and performance acceptance remains unproven"
+  ],
+  "scope": "Saved analyses retain original hashes, exact series, failures and unknown errors; viewing does not recollect native evidence, rerun a solver, certify convergence, establish a mechanism or demonstrate 1\u20135 minute exploratory latency."
+}

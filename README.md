@@ -31,6 +31,28 @@ CPU geometry/setup and ionic work remain. Requested scientific outputs are
 exported explicitly. See [execution and configuration](docs/RUNNING.md) for the
 integrated GPU path and its supported settings.
 
+## Candidate discovery
+
+`remag-discover` runs a bounded **Orb relaxation → REMAG DFT relaxation → xyz SOC
+screen**, using default SCF tolerances and practical geometry targets. It reuses
+accepted densities, stops on failed handoffs, and writes a machine-readable report
+for a discovery loop. See [the discovery guide](docs/DISCOVERY_SCREEN.md) for
+installation, defaults, one-A100 execution and result recovery. Screening signals
+are preliminary; they do not establish K1 or synthesis stability.
+
+REMAG prepares and runs native experiments, computes electronic and magnetic
+observables, and exposes `siesta_remag.evidence.verify_report` for consumers of
+saved calculations. GPAC supplies the exact source program and site identity.
+The [TWINS workbench](https://github.com/willgbryan/TWINS) owns the structure IDE,
+research notebook, chat tools, provider integrations and study orchestration.
+Install TWINS separately to use its `twins` command. Existing workbench commands
+under `python -m siesta_remag.research` forward to an installed TWINS package.
+
+The [physics research guide](docs/PHYSICS_RESEARCH.md) and
+[direct tool guide](docs/DIRECT_RESEARCH_TOOLS.md) describe the original
+interfaces. Keep production catalogs, calculation outputs, and provider receipts
+in external workspaces. Use small, redistributable fixtures for regressions.
+
 ## Benchmarks
 
 The latest repeated comparisons use the same A100-SXM4-80GB allocation and

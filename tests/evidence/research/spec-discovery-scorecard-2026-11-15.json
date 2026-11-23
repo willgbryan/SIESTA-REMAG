@@ -1,0 +1,115 @@
+{
+  "format": "REMAG-DISCOVERY-SCORECARD-EVIDENCE/1",
+  "created_at": "2026-11-15T23:41:59.897511+00:00",
+  "requirements": [
+    "12 discovery metrics",
+    "12 computational efficiency"
+  ],
+  "base_remag_commit": "f55cb0441fa767631fcc341af0223b68d77017a8",
+  "gpac_commit": "44f32c28830e5ec9a6cab2731ab8bb8e78adb314",
+  "delivered": [
+    "Complete persisted author_structure cohort with exact-source duplicate groups, failed authoring counts, registered geometric screening and retained pending/failed validations",
+    "Source/geometry/artifact-bound native reports, registered E/F finite controls, transverse and cross-case magnetic branches, recorded post-session validation timing",
+    "Signed anisotropy per cell/atom/volume and native spin polarization; density rankings separated by numerical configuration",
+    "Explicit measured allocation imports with identity/time/report bindings and known acquisition/search/validation/grading coverage; unknown totals when coverage is incomplete",
+    "Validated exact-source candidates and paired prediction-error improvement per supported attributed GPU-hour; shared costs split explicitly, device types retained",
+    "CLI optional candidate/usage manifests; existing prediction-only studies retained"
+  ],
+  "tests": {
+    "regression": "573 passed, 4 unchanged loopback HTTP tests deselected in 135.35s before final legacy-timestamp fix",
+    "final_focused": "46 passed in 58.38s after legacy-timestamp fix; covers new scorecard and existing paired-study tests",
+    "additional_accounting": "2 passed, 25 deselected in 1.96s; included in subsequent full regression",
+    "negative_controls": [
+      "Changed candidate/source/geometry/native artifacts and frozen criteria",
+      "Missing, failed, branch-changing, unstable, old and untimed candidate reports",
+      "Duplicate control endpoints and unknown candidate sources",
+      "Tampered/duplicate/overlapping allocation rows, invalid GPU counts/timezones/durations and escaped paths",
+      "Missing acquisition/grading/report time coverage; intervals that cannot contain the saved report"
+    ],
+    "execution_scope": "Actual local policy/tool subprocesses with injected native transports; no native solver or model service"
+  },
+  "saved_demonstration": {
+    "format": "REMAG-SAVED-DISCOVERY-SCORECARD-DEMO/1",
+    "created_at": "2026-11-15T23:41:02.836315+00:00",
+    "report_sha256": "5a310821e7ece945986b324647e6ace392665feb0bbb9f9522936f84813233e4",
+    "original_file_count": 303,
+    "original_hash_manifest_sha256": "9d3c4d168344ab8c55a829698bc0df849cbbd0aeba6b2a82607a6e699069e3e7",
+    "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4",
+    "properties": {
+      "E_anisotropy_ev_cell": 0.00259515296193058,
+      "E_anisotropy_ev_atom": 0.00129757648096529,
+      "E_anisotropy_MJ_m3": 14.720035268313742,
+      "F_anisotropy_ev_cell": 0.0025854053701550583,
+      "F_anisotropy_ev_atom": 0.0012927026850775292,
+      "F_anisotropy_MJ_m3": 14.664745697016155,
+      "volume_angstrom3": 28.246491,
+      "site_count": 2,
+      "spin_moment_muB": 3.28553,
+      "spin_polarization_tesla": 1.355558800309327,
+      "moment_scope": "Native soc-z total spin moment; not a proven saturation or magnetic-ground-state value"
+    },
+    "existing_radial_controls_passed": true,
+    "post_session_run_recorded": null,
+    "independent_new_validation_claimed": false,
+    "actual_gpu_hours": null,
+    "actual_invoices": null,
+    "actual_model_service_calls": 0,
+    "new_native_calculations": 0,
+    "new_gpu_reservations_cents": 0,
+    "scope": "Explicit fixed policy imports an existing exact source in both arms. Archived FePt properties and finite radial controls reproduce. Their absent legacy start timestamps correctly prevent claiming new independent post-session validation. No empirical scalar/physics comparison is inferred."
+  },
+  "source_sha256": {
+    "src/siesta_remag/research/discovery_scores.py": "9c4c6c27fcde53fabad35217fe19dd584276e51d1bde56a1369be04016cbc626",
+    "src/siesta_remag/research/study.py": "8460eb38196617f844453d9360ee28229ed6e135d21d4ae8ffc0bdb313abb4db",
+    "src/siesta_remag/research/__main__.py": "3c81e592c04607632a4e78659c20cafdc90680a8b5e63098192cfb9cc180a262",
+    "tests/test_research_discovery_scores.py": "d0ef2c291489f1b99a66e5d693f602d1b7c115b1bc607beeb8de42d72806d323",
+    "docs/DISCOVERY_SCORECARD.md": "b4ef2fe6d878266d990d9e5a9b6b42e0b39e4e314cf145e7d4918869f316a2d7",
+    "docs/PAIRED_RESEARCH_STUDY.md": "57484b845f0b5ed98e199590acdd892393844a891fb1f882ba9ac5af400222f9"
+  },
+  "local_log_sha256": {
+    "spec-discovery-scores-first.log": "a9ac716afac700337e8c586db6aacad5662ab504f238d553d64a4baf442e48cc",
+    "spec-discovery-scores-second.log": "6c7355e503958575cb128224a91d69d0095bf87adf996c01919eebf4baafb03f",
+    "spec-discovery-scores-focused.log": "c7421195ceee2f0bd7493f0eedd361876a2ca9da948c5a702a44e5700d27b319",
+    "spec-discovery-scores-accounting.log": "ce75e8331ff51b1753241cb52dd02c42b90dd337a821d038fad3e15418f95f1a",
+    "spec-discovery-scores-regression.log": "ec73590bd7cb3a25e8dad0c46307fe1c4b9a8fa9b73bebcef80e22b3030d1cf0",
+    "spec-discovery-scores-final.log": "49b690ea4753b75b96b72bb4efe0eedba91d7cdd0c219a7e07ce7d6defd011f8",
+    "spec-discovery-scorecard-demo.log": "c53f2b0c24c8a3e335cce7cacd351e31f550da8405ab00e70622c6efcce948f5",
+    "spec-discovery-scorecard-demo-r2.log": "f49d5380cd70557925e320e067d92978c64b6dd5cb06809d1664d9de80372973"
+  },
+  "saved_artifact_sha256": {
+    "scores.json": "5a310821e7ece945986b324647e6ace392665feb0bbb9f9522936f84813233e4",
+    "candidate-evidence.json": "ea0eb81f356b2e3d6a8236a01fd89e897eac06138d5e66ba48dc27ce7258471c",
+    "definition.json": "6c7b3732a92d81c9bb7e56da10f800d8af8a1ab674e517cba36918b36dd7b817",
+    "evidence.json": "f49d5380cd70557925e320e067d92978c64b6dd5cb06809d1664d9de80372973",
+    "original-hashes.json": "9d3c4d168344ab8c55a829698bc0df849cbbd0aeba6b2a82607a6e699069e3e7"
+  },
+  "retained_failures": [
+    {
+      "log": "spec-discovery-scores-first.log",
+      "cause": "Test policy incorrectly expected an unexposed workspace context; corrected local fixture"
+    },
+    {
+      "log": "spec-discovery-scores-second.log",
+      "cause": "Intentionally interrupted repetitive fixture setup; replaced with one immutable module snapshot plus isolated copies"
+    },
+    {
+      "log": "spec-discovery-scorecard-demo.log",
+      "cause": "Legacy native reports lack started_at; fixed evaluator to retain unknown chronology and deny new validation credit; original local attempt retained"
+    }
+  ],
+  "remaining": [
+    "Source-bound stability and structural-variation robustness metrics",
+    "Explicit distinct-crystal/candidate equivalence policy beyond exact-source grouping",
+    "Saturation and magnetic-ground-state interpretation requires appropriate independent evidence",
+    "Actual paired autonomous comparison and scientific advantage",
+    "Provider authentication, external cost completeness, empirical equal compute and actual invoices"
+  ],
+  "new_native_calculations": 0,
+  "new_model_service_calls": 0,
+  "new_gpu_reservations_cents": 0,
+  "budget_ledger_sha256": "7e55e72b6a90d5f2ebd33408b044c0e592ebe9bf9222391c4ae61466f1e08bf7",
+  "gpac_frozen_manifest_sha256": "e9fdc77177cfa5a8879fb6c7502bc305c927d7db747d931564b6c54a1936638e",
+  "reservations_cents": 29667,
+  "actual_invoices": null,
+  "overall_spec_complete": false
+}

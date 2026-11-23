@@ -1,5 +1,6 @@
 from copy import deepcopy
 import io
+import json
 import tarfile
 import numpy as np
 import pytest
@@ -42,11 +43,11 @@ def test_matrix_evidence_survives_returned_archive(tmp_path):
         assert archive.extractfile(name).read()==payload
 
 
-@pytest.mark.parametrize('soc',[False,True])
+@pytest.mark.parametrize('soc,diagnostic',[(False,False),(True,False),(True,True)])
 @pytest.mark.parametrize('queries',[0,2])
 @pytest.mark.parametrize('poisoned',[False,True])
 @pytest.mark.parametrize('compact',[False,True])
-def test_resident_h0_requires_scf_and_force_leases_without_matrix_exports(tmp_path,soc,queries,poisoned,compact):
+def test_resident_h0_requires_scf_and_force_leases_without_matrix_exports(tmp_path,soc,diagnostic,queries,poisoned,compact):
     local=1 if queries else 0;values=144 if soc else 16
     owner=dict(epoch=2,rows=1,columns=2,capacity=2,consumer=3 if soc else 2,
                queries=queries,neighbors=local)
@@ -66,9 +67,18 @@ def test_resident_h0_requires_scf_and_force_leases_without_matrix_exports(tmp_pa
     cycles=[dict(epoch=2,nonlocal_h0=dict(device=True,retained_bytes=values))]
     trace=dict(intervals=[dict(phase='initialization',boundaries={'nonlocal_h0':dict(
         host_to_device_bytes=staged,device_to_host_bytes=4,copy_calls=3+bool(local))})])
-    def check(report=report,cycles=cycles,trace=trace):
-        return audit(report,tmp_path,[2],geometry,trace,production=True,cycle_records=cycles,poisoned=poisoned,compact_queries=compact)
+    if diagnostic:
+        r['soc_export_bytes']=128
+        trace['intervals'].append(dict(phase='post_scf',boundaries={'soc_operator_output':dict(
+            host_to_device_bytes=0,device_to_host_bytes=128,copy_calls=1)}))
+        metadata=dict(format='REMAG-NATIVE-SOC/2',producer='remag-device-nonlocal-h0',host_nonlocal_h0=False,
+            snapshot_epoch=2,snapshot_rows=1,snapshot_columns=2,snapshot_capacity=2,
+            snapshot_phase='post_scf',snapshot_stage='before_forces')
+        (tmp_path/'remag.SOC.json').write_text(json.dumps(metadata))
+    def check(report=report,cycles=cycles,trace=trace,soc_export=diagnostic):
+        return audit(report,tmp_path,[2],geometry,trace,production=True,cycle_records=cycles,poisoned=poisoned,compact_queries=compact,soc_export=soc_export)
     assert check()['passed']
+    if not soc:assert not check(soc_export=True)['passed']
     for key,value in [('scf_borrowed',False),('scf_released',False),('force_borrowed',False),
                       ('compared',True),('production',False),('export_bytes',4+values),
                       ('scalar_max_error',0.),('raw_bytes',3*values),
@@ -84,5 +94,16 @@ def test_resident_h0_requires_scf_and_force_leases_without_matrix_exports(tmp_pa
         for key,value in [('compact_queries',False),('query_expansion_nodes',7),('graph_nodes',99)]:
             bad=deepcopy(report);bad['cycles'][0][key]=value
             assert not check(report=bad)['passed'],key
+    bad=deepcopy(report);bad['cycles'][0]['soc_export_bytes']=0 if diagnostic else 128
+    assert not check(report=bad)['passed']
+    if diagnostic:
+        assert check()['traffic']['device_to_host_bytes']==132
+        bad=deepcopy(trace);bad['intervals'][-1]['phase']='scf';assert not check(trace=bad)['passed']
+        bad=deepcopy(trace);bad['intervals'][-1]['boundaries']['soc_operator_output']['device_to_host_bytes']+=64
+        assert not check(trace=bad)['passed']
+        for key,value in [('snapshot_epoch',3),('snapshot_rows',2),('snapshot_capacity',1),('host_nonlocal_h0',True)]:
+            (tmp_path/'remag.SOC.json').write_text(json.dumps(metadata|{key:value}));assert not check()['passed']
+        (tmp_path/'remag.SOC.json').unlink();assert not check()['passed']
+        (tmp_path/'remag.SOC.json').write_text(json.dumps(metadata))
     (tmp_path/'remag-nonlocal-h0-0001.bin').write_bytes(b'unexpected matrix export')
     assert not check()['passed']

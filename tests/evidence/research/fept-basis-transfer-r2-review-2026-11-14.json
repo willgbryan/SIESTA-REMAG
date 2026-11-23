@@ -1,0 +1,458 @@
+{
+  "format": "REMAG-FEPT-RUNTIME-AGREEMENT/1",
+  "passed": true,
+  "gates": {
+    "native": true,
+    "branches": true,
+    "absolute_E_F": true,
+    "anisotropy_E_F": true,
+    "transverse": true,
+    "radial_identity": true,
+    "overlap_positive": true
+  },
+  "criteria": {
+    "all_scalar_soc_E_F_absolute_tolerance_ev": 1.0001e-06,
+    "E_F_anisotropy_tolerance_ev": 1.0001e-06,
+    "transverse_tolerance_ev": 1e-05,
+    "native_basis_radial_absolute_tolerance": 1e-10,
+    "native_basis_radial_relative_tolerance": 0,
+    "native_stages_and_magnetic_branches_required": true,
+    "spatial_orbitals": 62
+  },
+  "numerical_configuration": {
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "basis_size": "explicit",
+    "basis_energy_shift_ry": 0.0025,
+    "pseudopotentials": {
+      "Fe.psf": "47a51f8ef02f4f64146a55f5445d5c7142489b1dafdeb300d25adc1ccc9f1978",
+      "Pt.psf": "2be713b0971d72ab0b47d1965b0539e494a20a42a2002a09cd9d5f3eec0d6c47"
+    },
+    "basis_spec": {
+      "format": "REMAG-PAO-BASIS/1",
+      "species": {
+        "Fe": [
+          {
+            "n": 4,
+            "l": 0,
+            "zeta": 3,
+            "polarization": 2,
+            "radii_bohr": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "n": 3,
+            "l": 2,
+            "zeta": 3,
+            "polarization": 1,
+            "radii_bohr": [
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "Pt": [
+          {
+            "n": 6,
+            "l": 0,
+            "zeta": 3,
+            "polarization": 2,
+            "radii_bohr": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "n": 5,
+            "l": 2,
+            "zeta": 3,
+            "polarization": 1,
+            "radii_bohr": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "mesh_ry": 300,
+    "smearing_k": 300,
+    "dm_tolerance": 1e-05,
+    "h_tolerance_ev": 0.0001,
+    "mixing_weight": 0.03,
+    "mixing_history": 8,
+    "source_sha256": "93060660a1f9e5979f6b9aaeee2920d1a24cb330919f6930cef54d9f06eeb0c4"
+  },
+  "absolute_differences_ev": {
+    "scalar": {
+      "total_energy_ev": -1.5741716197226197e-07,
+      "free_energy_ev": 1.0896383173530921e-07
+    },
+    "soc-z": {
+      "total_energy_ev": -4.978460310667288e-07,
+      "free_energy_ev": 3.319019015179947e-07
+    },
+    "soc-x": {
+      "total_energy_ev": -2.2286985768005252e-07,
+      "free_energy_ev": -3.80317032977473e-07
+    },
+    "soc-y": {
+      "total_energy_ev": -2.2264657673076726e-07,
+      "free_energy_ev": -3.8009602576494217e-07
+    }
+  },
+  "anisotropy": {
+    "total_energy_ev": {
+      "pristine": 0.0029020000001764856,
+      "remag": 0.0029022749763498723,
+      "difference_ev": 2.7497617338667624e-07
+    },
+    "free_energy_ev": {
+      "pristine": 0.0027609999997366685,
+      "remag": 0.002760287780802173,
+      "difference_ev": -7.122189344954677e-07
+    }
+  },
+  "transverse_split_ev": {
+    "pristine": 0.0,
+    "remag": 2.2328094928525388e-10
+  },
+  "branches": {
+    "scalar": {
+      "passed": true,
+      "site_rms_mub": 0.0,
+      "net_fractional_change": 0.0,
+      "robust_site_flip": false
+    },
+    "soc-z": {
+      "passed": true,
+      "site_rms_mub": 0.0,
+      "net_fractional_change": 0.0,
+      "robust_site_flip": false
+    },
+    "soc-x": {
+      "passed": true,
+      "site_rms_mub": 1.000000000070389e-06,
+      "net_fractional_change": 0.0,
+      "robust_site_flip": false
+    },
+    "soc-y": {
+      "passed": true,
+      "site_rms_mub": 1.000000000070389e-06,
+      "net_fractional_change": 0.0,
+      "robust_site_flip": false
+    }
+  },
+  "native_basis": {
+    "scalar": [
+      {
+        "species": "Fe",
+        "radial_functions": 9,
+        "max_abs_difference": 1.0000333894311098e-13,
+        "pristine_xml_sha256": "d5630c86fe520b40539b69bcb320d0700075c15818d1d61747555d3f412fed4c",
+        "remag_xml_sha256": "c539304b0a69223f5a918ebf4fe98e0e6b797e37e2b0180279462efd48f2a507"
+      },
+      {
+        "species": "Pt",
+        "radial_functions": 9,
+        "max_abs_difference": 9.999778782798785e-13,
+        "pristine_xml_sha256": "9b313cc7edb4cf1aeec0fd4bd1da889d31eb75f9c0e5d1d9b5881574fadb4eeb",
+        "remag_xml_sha256": "bc5267ffa592f7a4f1e486b5d3c18129872cd6cd97d7ed5812fc85d6313301e3"
+      }
+    ],
+    "soc-z": [
+      {
+        "species": "Fe",
+        "radial_functions": 9,
+        "max_abs_difference": 1.0000333894311098e-13,
+        "pristine_xml_sha256": "e100aef52105856cc606e9c32ba5bb9516348e77178e28b13c3ed098e3e09962",
+        "remag_xml_sha256": "b380f43f021333ee1f2c8ed8b0e68f58f525534959db6644a6273364c7da0aa2"
+      },
+      {
+        "species": "Pt",
+        "radial_functions": 9,
+        "max_abs_difference": 9.999778782798785e-13,
+        "pristine_xml_sha256": "57e6ba21c1ce854337a3d1ed9caa75dc5436738ebe1d3e8d57a9656be9735bed",
+        "remag_xml_sha256": "8292a2f5e6cd553114722cb875e7e6826af9a9761c2eb4775a4edab34c1edc4d"
+      }
+    ],
+    "soc-x": [
+      {
+        "species": "Fe",
+        "radial_functions": 9,
+        "max_abs_difference": 1.0000333894311098e-13,
+        "pristine_xml_sha256": "e100aef52105856cc606e9c32ba5bb9516348e77178e28b13c3ed098e3e09962",
+        "remag_xml_sha256": "b380f43f021333ee1f2c8ed8b0e68f58f525534959db6644a6273364c7da0aa2"
+      },
+      {
+        "species": "Pt",
+        "radial_functions": 9,
+        "max_abs_difference": 9.999778782798785e-13,
+        "pristine_xml_sha256": "57e6ba21c1ce854337a3d1ed9caa75dc5436738ebe1d3e8d57a9656be9735bed",
+        "remag_xml_sha256": "8292a2f5e6cd553114722cb875e7e6826af9a9761c2eb4775a4edab34c1edc4d"
+      }
+    ],
+    "soc-y": [
+      {
+        "species": "Fe",
+        "radial_functions": 9,
+        "max_abs_difference": 1.0000333894311098e-13,
+        "pristine_xml_sha256": "e100aef52105856cc606e9c32ba5bb9516348e77178e28b13c3ed098e3e09962",
+        "remag_xml_sha256": "b380f43f021333ee1f2c8ed8b0e68f58f525534959db6644a6273364c7da0aa2"
+      },
+      {
+        "species": "Pt",
+        "radial_functions": 9,
+        "max_abs_difference": 9.999778782798785e-13,
+        "pristine_xml_sha256": "57e6ba21c1ce854337a3d1ed9caa75dc5436738ebe1d3e8d57a9656be9735bed",
+        "remag_xml_sha256": "8292a2f5e6cd553114722cb875e7e6826af9a9761c2eb4775a4edab34c1edc4d"
+      }
+    ]
+  },
+  "input_and_stdout_hashes": {
+    "scalar": {
+      "pristine": {
+        "input.fdf": "07252f5b6a7e5d5fe8f4ee6900d410da0782b81350afa781edec41c2d2854656",
+        "stdout.log": "7f61f35a50ead13b89b297982ffded514555ff2119ddcdb6cde66faafd8637e0"
+      },
+      "remag": {
+        "input.fdf": "07252f5b6a7e5d5fe8f4ee6900d410da0782b81350afa781edec41c2d2854656",
+        "stdout.log": "735aff85ee585383496c848fb0b4a467b9156b7f58a134231c220ef99893b8d9"
+      }
+    },
+    "soc-z": {
+      "pristine": {
+        "input.fdf": "0988e54ebf4b42ba20dfb3956554ae093987e4b7de5daf82409dc24d0ddf2eda",
+        "stdout.log": "acafab66c09e05178776914c1419b4f7704988484b044f75decd10c499578754"
+      },
+      "remag": {
+        "input.fdf": "0988e54ebf4b42ba20dfb3956554ae093987e4b7de5daf82409dc24d0ddf2eda",
+        "stdout.log": "223c7fb2921566b4954a30bd0534bcc859ba1d8ff04e6bc86836e07677558a4a"
+      }
+    },
+    "soc-x": {
+      "pristine": {
+        "input.fdf": "3e25a20beab08c1f36225d657cdb2d705afc3e8eb179beba2d720234ed2aee16",
+        "stdout.log": "972bac023121f72da6a0971ed5d1869c62d5ecae8a3d4771b57a42447756bbda"
+      },
+      "remag": {
+        "input.fdf": "3e25a20beab08c1f36225d657cdb2d705afc3e8eb179beba2d720234ed2aee16",
+        "stdout.log": "c61d8d62a7590126ce7d3849bc16729168a0ca7fb34f5a982a08e26cfb720dd2"
+      }
+    },
+    "soc-y": {
+      "pristine": {
+        "input.fdf": "5605a308a58ca8f77c1534c4507d1fbbd7a14e10434a1f84225abf2233917759",
+        "stdout.log": "73976f3401c6455be96405cb3b1c17b430d02cd6737610e8b5c021445e6ea3fe"
+      },
+      "remag": {
+        "input.fdf": "5605a308a58ca8f77c1534c4507d1fbbd7a14e10434a1f84225abf2233917759",
+        "stdout.log": "d1b5dcd5ad2c11494b2c17d0d9f6ec4b67269a11e2efcf27274095585448626b"
+      }
+    }
+  },
+  "overlap": {
+    "format": "REMAG-OVERLAP-HEALTH/1",
+    "hsx_sha256": "d673b72e5c2d909a00632731359c894626e10f89a39ba6a305eb5bad5630c345",
+    "kp_sha256": "3d98643c0530e3e36522528f990ef5bce5f0977129b88087aed495ebaf3ffce8",
+    "spatial_orbitals": 62,
+    "native_kpoints": 2192,
+    "native_kp_weight_sum": 0.999999632,
+    "native_kp_weight_rounding_bound": 1.096e-06,
+    "min_eigenvalue": 1.5358871265460194e-05,
+    "max_eigenvalue": 13.220497335202634,
+    "min_eigenvalue_kpoint_index": 2128,
+    "min_eigenvalue_k_fractional": [
+      0.4999996486470242,
+      0.2500002348598935,
+      0.5000004576894169
+    ],
+    "nonpositive_kpoints": 0,
+    "positive_definite": true,
+    "max_condition_number": 631434.3171101885,
+    "min_relative_eigenvalue": 1.5836959964047929e-06,
+    "max_condition_kpoint_index": 483,
+    "sampling": "Every native SCF KP point; decimal coordinate rounding retained",
+    "hermitian_policy": "Same bounded Hermitian reconstruction as electronic spectra",
+    "physical_accuracy_qualified": false,
+    "scope": "Unregularized overlap eigenvalues on the sampled mesh; no basis-completeness, energy-error or unsampled-k certificate"
+  },
+  "provenance": {
+    "pristine": {
+      "report_sha256": "bc0bce1575ec8d2c3102f59551c9e02fa40c64d10ea999616133a46d89277070",
+      "executable_sha256": "209670fa98a083509b377e4297024fe65162591b4bf12a5b3f3c7c1ab29787aa",
+      "environment": {},
+      "source_code": {
+        "__init__.py": "24f91aa34873a757427724a85bd052e9e738e000e1e952a42d565f08ad8c168d",
+        "cli.py": "f344fd5a62352591e70079ef413585a23d5bf1b3e6b167aa16be4c7e124b5da2",
+        "collection.py": "01daa11f0ff42a14010b831f6fe11f2aec8f5cccd1cfa99caa3ebd550a708c2f",
+        "common.py": "2c99c1f091bb0af59af5b06de69fe429582a2ec508fa850cb8ae9f5cddbcde8a",
+        "config.py": "76ae475671a6269d9910ccaa592814ff70b57f029a162611e1a8e65a9d53c343",
+        "inputs.py": "7db64d2ee4981ce91afac2beaa7883435036e173714d8ddf150097ef6da54796",
+        "orb.py": "e7daa9465e7ec9f7232bac37e5e9d6a7549b3f6b00dc6f98e5e65bb22088ec4e",
+        "pipeline.py": "f60961203027eea42fd73a9a028180a98f6fd8b023ad07ed38459efe1c20b66e",
+        "review.py": "153652c9cab7194b69bd2b3522246f1e2bb2e518dc642513363820437a24f946",
+        "seed.py": "d25acf7144d32bcbdd44fc27d2615928fe74d2d0a06a9b1a06147aeb57a962e0",
+        "../runner.py": "98d49c6688805c38e8fb115826b031de906abd6b8fc24af26f588dcd4c9d61a2",
+        "../output.py": "83cfe25f907265651237e24b08dd71664e420b670fe357c7aa3d0b8da72cfc71",
+        "research/basis.py": "0cefb5469aac12cae67188b918e1f0517fdb79279b52d6472a2c2a016b6c6733",
+        "research/convergence.py": "2ad2a97f845b6b1fbb424b5f38490773d58870cfc3f834121fa2ce6e71ae9194",
+        "research/memory.py": "0614d683b0908c53933ead96e8b1de2d0cb18d2a9aae2c2e932f843d8bf5517e",
+        "research/budget.py": "3c7991b8f09618661024cb1ac64820ebfc16a2c0625f3a45c77c1b8cb8d44fdd",
+        "research/__init__.py": "5d9878d3db7f53bf90f3859797af7c5d587c3ff6700b6822936a74e0a21fb47b",
+        "research/response.py": "12ce1f617e850ec2793772c0b40f8e7cd1663343025e14a60968876d3bf64ce0",
+        "research/experiments.py": "93f88c7df3536335eb6fd6d5462a508ef32d09a6957af7f8f7e6a8859dd447a6",
+        "research/electronic.py": "13800cbcb08f90540e257784969fef3113f662c454ef1527343e0fcf8dd9b262",
+        "research/workspace.py": "f785563ffa31c87d3d1396cbc38384cc281e1de2b1159b32b9e017629ae113a9",
+        "research/__main__.py": "02fcb0c7f2a1b71826fb1be47b97bc0b6c25a02e10de2155cb53a1d02badc3d6"
+      }
+    },
+    "remag": {
+      "report_sha256": "bb60a09ac7a08577d5f482b8de87d04634ea05977e1426f960e118d9680545c1",
+      "executable_sha256": "7e34af2f20d655a09d2dc77a731fb6d4b25799a745f17ff486633f33ed7fa274",
+      "environment": {
+        "REMAG_NONLOCAL_H0_POISON_HOST": "0",
+        "REMAG_NONLOCAL_H0": "0",
+        "REMAG_NONLOCAL_H0_SHADOW": "0",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "REMAG_GRID": "1",
+        "REMAG_DM": "1",
+        "REMAG_GRID_EPOCH": "1",
+        "REMAG_GRID_VERIFY_EPOCH": "0",
+        "REMAG_NORMALIZE": "1",
+        "REMAG_OCCUPATIONS": "1",
+        "REMAG_RESIDENT_SPECTRA": "1",
+        "REMAG_HS": "1",
+        "REMAG_HARTREE": "1",
+        "REMAG_RESIDENT_GRID": "1",
+        "REMAG_RESIDENT_SCF": "1",
+        "REMAG_DEVICE_SCF": "0",
+        "REMAG_DEVICE_VECTOR_CACHE": "0",
+        "REMAG_BLOCK_SOLVER": "0",
+        "REMAG_BLOCK_WIDTH": "32",
+        "REMAG_BLOCK_LOCAL_SOLVER": "jacobi",
+        "REMAG_FORCE_SHADOW": "0",
+        "REMAG_FORCE_SHADOW_RESIDENT": "0",
+        "REMAG_GRID_FORCE": "0",
+        "REMAG_ATOMIC_GRID_FORCE": "0",
+        "REMAG_ATOMIC_FORCE_SHADOW": "0",
+        "REMAG_FINAL_GRID": "0",
+        "REMAG_FINAL_GRID_SHADOW": "0",
+        "REMAG_FINAL_DENSITY": "0",
+        "REMAG_FINAL_DENSITY_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS_SHADOW": "0",
+        "REMAG_ORBITAL_BASIS": "0",
+        "REMAG_ATOMIC_BASIS_SHADOW": "0",
+        "REMAG_ATOMIC_BASIS": "0",
+        "REMAG_TWO_CENTER_SHADOW": "0",
+        "REMAG_PAIR_FORCE_SHADOW": "0",
+        "REMAG_NONLOCAL_FORCE_SHADOW": "0",
+        "REMAG_INTEGRAL_FORCE": "0",
+        "REMAG_POPULATION": "0",
+        "REMAG_TRACE_IO": "0",
+        "REMAG_TRACE_CUDA": "0",
+        "REMAG_GPU_INITIALIZATION": "0",
+        "REMAG_GPU_HISTORY": "0",
+        "REMAG_FINAL_SPECTRA": "0",
+        "REMAG_GATE_H_EXPORT": "0",
+        "REMAG_DEFER_SCF_LOG": "0",
+        "GFORTRAN_FORMATTED_BUFFER_SIZE": "1048576",
+        "GFORTRAN_UNBUFFERED_ALL": "0",
+        "GFORTRAN_UNBUFFERED_PRECONNECTED": "1",
+        "REMAG_BLOCK_SHARED_JACOBI": "1",
+        "REMAG_INITIAL_MESH": "0",
+        "REMAG_DENSITY_UNIQUE_PAIRS": "1",
+        "REMAG_SCF_SOLVER_LANES": "1",
+        "REMAG_SCF_WARM_START": "0",
+        "REMAG_RADIAL_BATCH": "0",
+        "REMAG_GRID_POTENTIAL_SPINS": "1",
+        "REMAG_SCF_STAGE_PROFILE": "0",
+        "LD_LIBRARY_PATH": "/opt/hopper-build:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+        "REMAG_BLOCK_FUSED_MATRIX": "0",
+        "REMAG_BLOCK_FP64_VECTORS": "0",
+        "REMAG_BLOCK_FP64_MATRIX": "0",
+        "CUDA_DISABLE_PTX_JIT": "1",
+        "REMAG_ORBITAL_BASIS_MAX_GIB": "8",
+        "REMAG_GRID_LOOKUP_MAX_MIB": "4096"
+      },
+      "source_code": {
+        "__init__.py": "24f91aa34873a757427724a85bd052e9e738e000e1e952a42d565f08ad8c168d",
+        "cli.py": "f344fd5a62352591e70079ef413585a23d5bf1b3e6b167aa16be4c7e124b5da2",
+        "collection.py": "01daa11f0ff42a14010b831f6fe11f2aec8f5cccd1cfa99caa3ebd550a708c2f",
+        "common.py": "2c99c1f091bb0af59af5b06de69fe429582a2ec508fa850cb8ae9f5cddbcde8a",
+        "config.py": "76ae475671a6269d9910ccaa592814ff70b57f029a162611e1a8e65a9d53c343",
+        "inputs.py": "7db64d2ee4981ce91afac2beaa7883435036e173714d8ddf150097ef6da54796",
+        "orb.py": "e7daa9465e7ec9f7232bac37e5e9d6a7549b3f6b00dc6f98e5e65bb22088ec4e",
+        "pipeline.py": "f60961203027eea42fd73a9a028180a98f6fd8b023ad07ed38459efe1c20b66e",
+        "review.py": "153652c9cab7194b69bd2b3522246f1e2bb2e518dc642513363820437a24f946",
+        "seed.py": "d25acf7144d32bcbdd44fc27d2615928fe74d2d0a06a9b1a06147aeb57a962e0",
+        "../runner.py": "98d49c6688805c38e8fb115826b031de906abd6b8fc24af26f588dcd4c9d61a2",
+        "../output.py": "83cfe25f907265651237e24b08dd71664e420b670fe357c7aa3d0b8da72cfc71",
+        "research/basis.py": "0cefb5469aac12cae67188b918e1f0517fdb79279b52d6472a2c2a016b6c6733",
+        "research/response.py": "12ce1f617e850ec2793772c0b40f8e7cd1663343025e14a60968876d3bf64ce0",
+        "research/__main__.py": "23bee9011dadfb25da9dc32990fe51cd21a010994c34c3e4a5238780a53b75e9",
+        "research/budget.py": "3c7991b8f09618661024cb1ac64820ebfc16a2c0625f3a45c77c1b8cb8d44fdd",
+        "research/convergence.py": "2ad2a97f845b6b1fbb424b5f38490773d58870cfc3f834121fa2ce6e71ae9194",
+        "research/memory.py": "0614d683b0908c53933ead96e8b1de2d0cb18d2a9aae2c2e932f843d8bf5517e",
+        "research/experiments.py": "93f88c7df3536335eb6fd6d5462a508ef32d09a6957af7f8f7e6a8859dd447a6",
+        "research/workspace.py": "f785563ffa31c87d3d1396cbc38384cc281e1de2b1159b32b9e017629ae113a9",
+        "research/electronic.py": "0e2f9274fe43ebd241f49fcfc36bac8fa2ac4d10127b901df64a94bda3f6193b",
+        "research/__init__.py": "5d9878d3db7f53bf90f3859797af7c5d587c3ff6700b6822936a74e0a21fb47b"
+      }
+    }
+  },
+  "timings": {
+    "pristine": {
+      "wall_seconds": 5063.746426958591,
+      "solver_seconds": {
+        "scalar": 1827.2279824586585,
+        "soc-z": 1208.1483101667836,
+        "soc-x": 1010.6523988749832,
+        "soc-y": 1012.7604155419394
+      }
+    },
+    "remag": {
+      "wall_seconds": 1407.885896046,
+      "solver_seconds": {
+        "scalar": 358.15499247,
+        "soc-z": 377.383020762,
+        "soc-x": 323.92221931200004,
+        "soc-y": 322.19894516
+      }
+    }
+  },
+  "physical_accuracy_qualified": false,
+  "scope": "Matched executable agreement at the declared inputs. Timing informs finite allocation bounds; no upstream-GPU speedup, basis completeness or physical-accuracy claim.",
+  "recorded_at": "2026-11-14T21:13:21.303587+00:00",
+  "plan_commit": "5649781bb20ccd1204fd2006c7979f0947565ac5",
+  "plan_sha256": "479f1aefe90034c231cf3d8400963f32516c7884489d26d79a20e56052fb3068",
+  "receipt_sha256": "a0cdb2661ca225bd1add9e17c913e54e28c3cb65b76c68dbe1f745287d7426ca",
+  "lifecycle": {
+    "state": "stopped",
+    "created_at": "2026-11-14 14:34:27-06:00",
+    "created_by": "will-bryan421",
+    "deployed_at": null,
+    "deployed_by": null,
+    "version": null,
+    "stopped_at": "2026-11-14 14:59:39-06:00",
+    "stopped_by": null
+  },
+  "recovery_manifest_sha256": "122a3c9d25ce799c0bd2c7747fae876b875f552139457a05d498468d84217e7d",
+  "budget": {
+    "total_reserved_cents": 16667,
+    "basis_reserved_cents": 2000,
+    "basis_remaining_cents": 13000,
+    "actual_invoice_usd": null
+  }
+}
