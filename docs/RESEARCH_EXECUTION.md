@@ -344,6 +344,16 @@ SCF diagnostic, ledger receipt, and stopped allocation. It compares atomic
 fractions so a relabeled structure or supercell of the same composition
 cannot qualify. The original rejection stays in the campaign record.
 
+For a fixed-geometry scalar query that exhausts its native SCF iteration
+limit, use a fresh single-use grant with `operation: query` and
+`previous_scalar_scf_failure_report_sha256` set to the digest of the
+collected query report. Bind the previous app ID, runtime, image, volume
+and ledger. The controller verifies the archive, terminal iteration count,
+native SCF rejection, exit status, reservation and different chemical
+composition before checking the previous app's current state. The new query
+has its own prepared bundle and reservation. The failed calculation retains
+its original status.
+
 ### Review a stopped failure for one changed-runtime diagnostic
 
 A worker can reject its host driver before calling the solver. A fresh single-use

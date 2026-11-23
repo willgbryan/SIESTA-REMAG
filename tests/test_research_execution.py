@@ -231,3 +231,112 @@ def test_remote_calculation_uses_selected_channels_and_retains_legacy_diagnostic
     assert exports==([('soc-z',0),('soc-x',0),('soc-y',0)] if selection is None else [(r['stage'],r['spin']) for r in selection])
     assert report['timing']['native_seconds']>0 and report['timing']['diagnostics_seconds']>=0
     assert report['timing']['queue_seconds'] is None and report['timing']['startup_seconds'] is None
+
+
+@pytest.fixture
+def scalar_limit(prepared, monkeypatch, request):
+    """Retain an actual synthetic collection, stopped owner and ledger entry."""
+    import test_research_execution as suite
+    root = prepared.parent
+    original = backend
+    reason = getattr(request, 'param', 'limit')
+    selected = load(prepared/'experiment.json')
+    save(prepared/'experiment.json', dict(selected, query={'kind':'scalar'}))
+
+    def backend_factory(calls, **kwargs):
+        wrapped = original(calls, **kwargs)
+        def runner(source, exe, destination, **options):
+            out = wrapped(source, exe, destination, **options)
+            code = -11 if reason == 'segfault' else -6
+            msg = 'SCF_NOT_CONV: SCF did not converge in maximum number of steps (required).'
+            (destination/'stderr.log').write_text('other abort\n' if reason=='other' else msg+'\n')
+            (destination/'stdout.log').write_text((destination/'stdout.log').read_text().replace('SCF cycle converged','SCF_NOT_CONV'))
+            save(destination/'execution-status.json', dict(returncode=code, timed_out=reason=='timeout'))
+            out.update(valid=False,returncode=code)
+            out['observables'].update(converged=False,scf_iterations=50 if reason=='early' else selected['settings']['max_scf'])
+            save(destination/'result.json',out)
+            return out
+        return runner
+
+    transport = SyntheticTransport()
+    with monkeypatch.context() as patch:
+        patch.setattr(suite, 'backend', backend_factory)
+        first = execute_query(root,'execution-config.json','bundle','failed',transport=transport)
+    assert first['status']=='held_native_review' and first['allocation_stopped']
+    config = load(root/'execution-config.json')
+    config.update(authorization_id='independent', operation='query', max_queries=1, max_reserved_cents=10,
+        previous_app_id=first['app_id'], previous_scalar_scf_failure_report_sha256=first['review']['report_sha256'])
+    save(root/'separate.json',config)
+    return root, transport
+
+
+def independent_ni_bundle(root):
+    src = load(root/'bundle/structure.json')
+    src.update(source=dict(sha256='c'*64),sha256='d'*64)
+    src['geometry']['atomic_numbers'] = [28,28]
+    folder = root/'ni'
+    pseudos = folder/'pseudos'
+    pseudos.mkdir(parents=True)
+    (pseudos/'Ni.psf').write_text(' Ni pb rel pcec\nfixture only\n')
+    atom = Atoms('Ni2', scaled_positions=src['geometry']['fractional'], cell=src['geometry']['cell'], pbc=True)
+    req = load(root/'bundle/experiment.json')
+    prepare_case(atom,pseudos,folder/'scalar',Settings.from_dict(req['settings']),mesh=req['kmesh'],allow_psf=True,
+                 diagnostics=True,basis_size=req['basis_size'],basis_energy_shift_ry=req['basis_energy_shift_ry'])
+    save(folder/'structure.json',src)
+    save(folder/'experiment.json',dict(req,source_sha256=src['source']['sha256'],export_sha256=src['sha256'],
+        pseudopotentials={'Ni.psf':sha256(pseudos/'Ni.psf')}, query={'kind':'anisotropy'},
+        files={str(p.relative_to(folder)):sha256(p) for p in folder.rglob('*') if p.is_file()}))
+    return folder
+
+
+def test_stopped_scalar_limit_permits_one_independent_query(scalar_limit):
+    root, transport = scalar_limit
+    bundle = independent_ni_bundle(root)
+    with pytest.raises(ValueError,match='different chemical composition'):
+        execute_query(root,'separate.json','bundle','repeated',transport=transport)
+    transport.failure='prior_active'
+    with pytest.raises(ValueError,match='authoritatively STOPPED'):
+        execute_query(root,'separate.json',bundle,'overlap',transport=transport)
+    transport.failure=None
+    result = execute_query(root,'separate.json',bundle,'independent',transport=transport)
+    assert result['status']=='measured' and result['allocation_stopped']
+    assert len(transport.calls)==2
+    assert load(root/'independent/authorization.json')['diagnostic_review']=='failed/collected/query/report.json'
+    assert load(root/'failed/execution.json')['status']=='held_native_review'
+    assert len(BudgetLedger(root/'budget.json').snapshot()['reservations'])==2
+    with pytest.raises(ValueError):
+        execute_query(root,'separate.json',bundle,'another',transport=transport)
+    assert len(transport.calls)==2
+
+
+@pytest.mark.parametrize('scalar_limit',['segfault','other','timeout','early'],indirect=True)
+def test_independent_query_requires_native_scalar_limit(scalar_limit):
+    root, transport = scalar_limit
+    with pytest.raises(ValueError,match='SCF limit'):
+        execute_query(root,'separate.json',independent_ni_bundle(root),'independent',transport=transport)
+    assert len(transport.calls)==1 and not (root/'independent').exists()
+
+
+def test_scalar_limit_grant_checks_actual_native_species(scalar_limit):
+    root, transport = scalar_limit
+    bundle = independent_ni_bundle(root)
+    fdf = bundle/'scalar/input.fdf'
+    fdf.write_bytes((root/'bundle/scalar/input.fdf').read_bytes())
+    request = load(bundle/'experiment.json')
+    request['files']['scalar/input.fdf'] = sha256(fdf)
+    save(bundle/'experiment.json',request)
+    with pytest.raises(ValueError,match='authored species differ'):
+        execute_query(root,'separate.json',bundle,'independent',transport=transport)
+    assert len(transport.calls)==1 and not (root/'independent').exists()
+
+
+@pytest.mark.parametrize('change', [dict(max_queries=2),dict(operation='relaxation'),
+    dict(previous_scf_failure_report_sha256='a'*64),dict(previous_scalar_scf_failure_report_sha256='invalid')])
+def test_scalar_limit_grant_rejects_incompatible_config(prepared, change):
+    root=prepared.parent
+    config=load(root/'execution-config.json')
+    config.update(operation='query',max_queries=1,previous_scalar_scf_failure_report_sha256='a'*64)
+    config.update(change)
+    save(root/'separate.json',config)
+    with pytest.raises(ValueError):
+        read_execution_config(root,'separate.json')

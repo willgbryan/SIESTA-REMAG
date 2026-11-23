@@ -27,6 +27,7 @@ from .experiments import verify_experiment, experiment_code
 from .queries import requested_spectra
 from .preflight import validate_runtime, preflight_query
 
+SCALAR_SCF_FAILURE = 'previous_scalar_scf_failure_report_sha256'
 
 def _path(root, value):
     if not isinstance(value,str) or not value:
@@ -47,12 +48,17 @@ def read_execution_config(workspace, path):
                 'runtime_sha256','image','previous_app_id','app_timeout_seconds',
                 'hourly_reservation_usd','max_queries','max_reserved_cents'}
     endpoint = 'relaxation_endpoint_report_sha256'
-    optional = {'volume', 'operation', 'driver_rejection_report_sha256', 'final_axis_checkpoint_sha256', 'seed_rejection_sha256', 'previous_scf_failure_report_sha256', endpoint}
+    optional = {'volume', 'operation', 'driver_rejection_report_sha256', 'final_axis_checkpoint_sha256', 'seed_rejection_sha256', 'previous_scf_failure_report_sha256', endpoint, SCALAR_SCF_FAILURE}
     if (not isinstance(c,dict) or not required <= set(c) or set(c)-required-optional
             or c['format'] != 'REMAG-RESEARCH-EXECUTION/1'):
         raise ValueError('Expected explicit REMAG research execution configuration')
     if c.get('operation', 'query') not in ('query', 'relaxation'):
         raise ValueError('Unsupported execution operation')
+    if SCALAR_SCF_FAILURE in c and (
+            c.get('operation') != 'query' or c['max_queries'] != 1
+            or (optional - {SCALAR_SCF_FAILURE, 'volume', 'operation'}) & c.keys()
+            or not isinstance(c[SCALAR_SCF_FAILURE], str) or not re.fullmatch('[0-9a-f]{64}', c[SCALAR_SCF_FAILURE])):
+        raise ValueError('A stopped scalar SCF failure requires one independent report-bound query grant')
     if endpoint in c and (c.get('operation', 'query') != 'query' or c['max_queries'] != 1
             or (optional - {endpoint, 'volume', 'operation'}) & c.keys()
             or not isinstance(c[endpoint], str) or not re.fullmatch('[0-9a-f]{64}', c[endpoint])):
@@ -308,12 +314,8 @@ def _review_driver_rejection(root, owner, config, preflight, source_binding, *, 
     raise ValueError('Previous runtime rejection does not reproduce')
 
 
-def _review_prior_scf_failure(root, owner, plan, structure):
-    """Admit an independent composition after a reproducible, stopped SCF rejection."""
-    from collections import Counter
-    from fractions import Fraction
-    from .relaxation_execution import review_relaxation
-
+def _stopped_scf_attempt(root, owner, plan, report_field):
+    """Bind the recorded failure to its stopped owner, receipt and reservation."""
     config = plan['config']
     previous = config['previous_app_id']
     attempt = _path(root, owner['attempt'])
@@ -321,14 +323,13 @@ def _review_prior_scf_failure(root, owner, plan, structure):
     receipt = load(attempt/'receipt.json')
     grant = load(attempt/'authorization.json')
     report = attempt/'collected/query/report.json'
-    stage = report.parent/'dft-relax'
     if (owner.get('status') != 'held_native_review' or owner.get('allocation_stopped') is not True
             or owner.get('app_id') != previous or receipt.get('app_id') != previous
             or any(result.get(k) != owner[k] for k in ('app_id', 'status', 'allocation_stopped'))
             or result.get('app_lifecycle', {}).get('state', '').lower() != 'stopped'
             or grant['config']['authorization_id'] == config['authorization_id']
             or grant['config_sha256'] != result['config_sha256']
-            or sha256(report) != config['previous_scf_failure_report_sha256']
+            or sha256(report) != config[report_field]
             or result['review']['report_sha256'] != sha256(report)):
         raise ValueError('Independent composition requires its reviewed stopped predecessor')
     reservation = next((row for row in plan['ledger'].snapshot()['reservations']
@@ -336,6 +337,28 @@ def _review_prior_scf_failure(root, owner, plan, structure):
     if (not reservation or reservation['metadata'].get('app_id') != previous
             or reservation['metadata'].get('receipt') != str(attempt/'receipt.json')):
         raise ValueError('Previous receipt differs from its reservation')
+    return attempt, result, reservation
+
+
+def _require_different_composition(prior_structure, next_structure):
+    from collections import Counter
+    from fractions import Fraction
+
+    def composition(path):
+        numbers = load(path)['geometry']['atomic_numbers']
+        return {z: Fraction(n, len(numbers)) for z, n in Counter(numbers).items()}
+
+    if composition(prior_structure) == composition(next_structure):
+        raise ValueError('This grant requires a different chemical composition')
+
+
+def _review_prior_scf_failure(root, owner, plan, structure):
+    """Admit an independent composition after a reproducible, stopped SCF rejection."""
+    from .relaxation_execution import review_relaxation
+
+    attempt, result, _ = _stopped_scf_attempt(root, owner, plan, 'previous_scf_failure_report_sha256')
+    report = attempt/'collected/query/report.json'
+    stage = report.parent/'dft-relax'
     reproduced = review_relaxation(attempt, load(attempt/'campaign/query/request.json'),
                                    load(attempt/'runtime.json'), require_current_code=False)
     exit_status = load(stage/'execution-status.json')
@@ -346,13 +369,51 @@ def _review_prior_scf_failure(root, owner, plan, structure):
             or marker not in (stage/'stderr.log').read_text().splitlines()):
         raise ValueError('Prior native artifacts do not establish the terminal SCF convergence rejection')
 
-    def composition(path):
-        numbers = load(path)['geometry']['atomic_numbers']
-        return {z: Fraction(n, len(numbers)) for z, n in Counter(numbers).items()}
-
-    if composition(attempt/'campaign/structure.json') == composition(structure):
-        raise ValueError('This grant requires a different chemical composition')
+    _require_different_composition(attempt/'campaign/structure.json', structure)
     return str(report.relative_to(root))
+
+
+def _review_fixed_scalar_failure(root, owner, plan, bundle):
+    from ase.io.siesta import read_fdf
+
+    attempt, result, reservation = _stopped_scf_attempt(root, owner, plan, SCALAR_SCF_FAILURE)
+    config = plan['config']
+    old = load(attempt/'authorization.json')['config']
+    prior = attempt/'campaign/query'
+    request = verify_experiment(prior)
+    policy = load(attempt/'campaign/execution.json')
+    if (result.get('format') != 'REMAG-QUERY-EXECUTION/1' or old.get('operation', 'query') != 'query'
+            or request.get('query') != {'kind': 'scalar'} or result['source_sha256'] != request['source_sha256']
+            or result['request_sha256'] != sha256(prior/'experiment.json')
+            or sha256(attempt/'runtime.json') != config['runtime_sha256']
+            or any(old.get(k) != config.get(k) for k in ('runtime_sha256', 'image', 'volume', 'budget_ledger'))
+            or reservation['metadata'].get('policy_sha256') != digest(policy)
+            or reservation.get('stage') != old['budget_stage']
+            or reservation.get('cents') != result['reservation_recorded_cents']):
+        raise ValueError('Fixed scalar request, runtime or reservation does not match the stopped attempt')
+    reproduced = _review(attempt, request, load(attempt/'runtime.json'))
+    path = attempt/'collected/query/report.json'
+    report = load(path)
+    stages = report['stages']
+    stage = path.parent/'scalar'
+    exit_status = load(stage/'execution-status.json')
+    marker = 'SCF_NOT_CONV: SCF did not converge in maximum number of steps (required).'
+    if (reproduced['healthy'] or reproduced['native_status'] != 'held_scalar' or len(stages) != 1
+            or stages[0]['stage'] != 'scalar' or stages[0]['accepted'] is not False
+            or stages[0]['scf_iterations'] != request['settings']['max_scf']
+            or report['observations']['scalar']['converged'] is not False
+            or exit_status['timed_out'] is not False or exit_status['returncode'] != -6
+            or marker not in (stage/'stderr.log').read_text().splitlines()):
+        raise ValueError('Fixed scalar artifacts do not establish exhaustion of the native SCF limit')
+    for prepared in (prior, bundle):
+        numbers = load(prepared/'structure.json')['geometry']['atomic_numbers']
+        native = read_fdf(str(prepared/'scalar/input.fdf'))
+        species = {index: int(z) for index, z, label in native['chemicalspecieslabel']}
+        ordered = [species[row[3]] for row in native['atomiccoordinatesandatomicspecies']]
+        if ordered != numbers or native['numberofatoms'] != [str(len(numbers))]:
+            raise ValueError('Fixed scalar native input and authored species differ')
+    _require_different_composition(prior/'structure.json', bundle/'structure.json')
+    return str(path.relative_to(root))
 
 
 def _diagnostic_review(root, owner, plan, preflight, source_binding=None):
@@ -488,7 +549,7 @@ review. Disappearing local sessions never count as allocation release.
             raise ValueError('Missing owner for final SOC direction')
         if 'driver_rejection_report_sha256' in c and not owner_path.exists():
             raise ValueError('No owned driver rejection for this grant')
-        if 'previous_scf_failure_report_sha256' in c and not owner_path.exists():
+        if ('previous_scf_failure_report_sha256' in c or SCALAR_SCF_FAILURE in c) and not owner_path.exists():
             raise ValueError('No owned SCF rejection for this grant')
         if 'relaxation_endpoint_report_sha256' in c and not owner_path.exists():
             raise ValueError('No owned relaxation endpoint for this grant')
@@ -498,6 +559,8 @@ review. Disappearing local sessions never count as allocation release.
                 from .endpoint_diagnostic import review_endpoint_query
                 continuation_review = review_endpoint_query(
                     root, _path(root, owner['attempt']), owner, plan, bundle)
+            elif SCALAR_SCF_FAILURE in c:
+                continuation_review = _review_fixed_scalar_failure(root, owner, plan, bundle)
             elif 'previous_scf_failure_report_sha256' in c:
                 continuation_review = _review_prior_scf_failure(root, owner, plan, structure)
             elif 'seed_rejection_sha256' in c:
