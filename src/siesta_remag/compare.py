@@ -1,6 +1,7 @@
 """Strict scientific regression and paired directional-energy comparisons."""
 import numpy as np
 from .output import read_grid
+from .frozen_reference import scf_soc_mode
 
 # Absolute tolerances in the named units; provisional regression gates, not physical accuracy claims.
 TOLERANCES = {"energy_per_atom_ev": 1.e-5, "fermi_energy_ev": 1.e-5, "soc_energy_ev": 1.e-5,
@@ -17,15 +18,19 @@ def difference(reference, candidate, tolerance):
     error = float(np.max(np.abs(a-b)))
     return dict(passed=error <= tolerance, max_absolute_error=error, tolerance=tolerance)
 
-def compare(reference, candidate, tolerances=None, reference_dir=None, candidate_dir=None):
+def compare(reference, candidate, tolerances=None, reference_dir=None, candidate_dir=None, *, electronic_only=False):
     tol = {**TOLERANCES, **(tolerances or {})}
     reasons = []
+    if electronic_only and candidate.get('calculation_scope') != 'energy_only':
+        reasons.append('Electronic-only comparison requires an explicitly declared energy-only candidate')
     for r in (reference, candidate):
         if not r["valid"]:
             reasons.append("Run failed, did not complete, or did not converge")
     for key in ("input_sha256", "pseudopotentials", "atoms", "spin"):
         if reference["benchmark"].get(key) != candidate["benchmark"].get(key):
             reasons.append(f"Non-equivalent benchmark: {key}")
+    if scf_soc_mode(reference) != scf_soc_mode(candidate):
+        reasons.append("Non-equivalent SCF SOC treatment")
     a, b = reference["observables"], candidate["observables"]
     n = reference["benchmark"]["atoms"]
     energies = [r.get("total_energy_ev") for r in (a, b)]
@@ -37,6 +42,11 @@ def compare(reference, candidate, tolerances=None, reference_dir=None, candidate
             reasons.append("SOC energy reporting differs")
         if a.get("soc_energy_representation") != "included_in_nonlocal":
             fields.append("soc_energy_ev")
+    if electronic_only:
+        fields = [field for field in fields if field not in ('forces_ev_ang', 'stress_ev_ang3')]
+        checks['free_energy_per_atom_ev'] = difference(
+            *(r.get('free_energy_ev')/n if r.get('free_energy_ev') is not None else None for r in (a, b)),
+            tol['energy_per_atom_ev'])
     for field in fields:
         checks[field] = difference(a.get(field), b.get(field), tol[field])
     ea, eb = a.get("eigenvalues", {}), b.get("eigenvalues", {})
@@ -80,6 +90,11 @@ def compare(reference, candidate, tolerances=None, reference_dir=None, candidate
     same_hardware = reference["hardware"] == candidate["hardware"]
     traced = any(r.get("runtime_settings", {}).get("REMAG_TRACE_IO") == "1" for r in (reference, candidate))
     performance_reasons = []
+    if any(r.get('runtime_settings', {}).get('REMAG_FROZEN_ROTATIONS') is not None or
+           'frozen_potential_probe' in r.get('telemetry', {}) for r in (reference, candidate)):
+        performance_reasons.append('Frozen-potential qualification adds spectral solves and raw exports')
+    if reference.get('calculation_scope', 'energy_forces_stress') != candidate.get('calculation_scope', 'energy_forces_stress'):
+        performance_reasons.append('Requested force/stress work differs; timings have different observable scope')
     if not same_hardware:
         performance_reasons.append("Hardware or runtime allocation differs")
     if traced:
@@ -118,11 +133,11 @@ def compare(reference, candidate, tolerances=None, reference_dir=None, candidate
                 reference_seconds=reference["wall_seconds"], candidate_seconds=candidate["wall_seconds"],
                 reference_iterations=a["scf_iterations"], candidate_iterations=b["scf_iterations"])
 
-def compare_mae(reference_x, reference_z, candidate_x, candidate_z, tolerance_ev=5.e-6, directories=None):
+def compare_mae(reference_x, reference_z, candidate_x, candidate_z, tolerance_ev=5.e-6, directories=None, *, electronic_only=False):
     directories = directories or (None, None, None, None)
     rx, rz, cx, cz = directories
-    regressions = [compare(reference_x, candidate_x, reference_dir=rx, candidate_dir=cx),
-                   compare(reference_z, candidate_z, reference_dir=rz, candidate_dir=cz)]
+    regressions = [compare(reference_x, candidate_x, reference_dir=rx, candidate_dir=cx, electronic_only=electronic_only),
+                   compare(reference_z, candidate_z, reference_dir=rz, candidate_dir=cz, electronic_only=electronic_only)]
     runs = (reference_x, reference_z, candidate_x, candidate_z)
     energies = [r["observables"].get("total_energy_ev") for r in runs]
     if any(v is None for v in energies):
@@ -131,6 +146,14 @@ def compare_mae(reference_x, reference_z, candidate_x, candidate_z, tolerance_ev
     gate = difference(ref, cand, tolerance_ev)
     gate.update(reference_mae_ev=ref, candidate_mae_ev=cand, convention="E(x)-E(z)")
     gate["passed"] &= all(r["passed"] for r in regressions)
+    if electronic_only:
+        free = [r['observables'].get('free_energy_ev') for r in runs]
+        ref_free = free[0]-free[1] if all(v is not None for v in free[:2]) else None
+        cand_free = free[2]-free[3] if all(v is not None for v in free[2:]) else None
+        free_gate = difference(ref_free, cand_free, tolerance_ev)
+        free_gate.update(reference_ev=ref_free, candidate_ev=cand_free, convention='F(x)-F(z)')
+        gate['free_energy_difference'] = free_gate
+        gate['passed'] &= free_gate['passed']
     signatures = [r["benchmark"].get("orientation_family_sha256") for r in runs]
     if None in signatures or len(set(signatures)) != 1:
         gate.update(passed=False, reason="Directional runs differ beyond magnetic initialization")

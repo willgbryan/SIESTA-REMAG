@@ -11,6 +11,9 @@
 #include "initial_state.hpp"
 #include "nonlocal_h0_state.hpp"
 #include "initial_mesh_state.hpp"
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+#include "frozen_potential_probe.hpp"
+#endif
 #include <algorithm>
 #include <chrono>
 #include <climits>
@@ -46,6 +49,7 @@ struct Record {
     size_t spectrum_exports[2]{}; // eigenvalues, occupations at cycle publication
     int eigensystem_jobs=0,solves_per_iteration=0,solver_lanes=1;bool retains_all_vectors=false,warm_start=false;size_t vector_bank_bytes=0;
     size_t staged=0,exported=0,workspace=0;double seconds=0.;
+    bool soc_free_reference=false;size_t scalar_offsite_bytes=0,spin_dependent_soc_bytes=0;
     bool device_initialization=false;size_t resident_h0_bytes=0,initial_mesh_density_bytes=0;
     remag::InitialDensityResult initial{};
     bool profiling=false;remag::ScfStageProfile profile{};
@@ -138,6 +142,8 @@ struct Counts {
                     r.resident_h0_bytes?"true":"false",r.resident_h0_bytes);
                 std::fprintf(f,"\"initial_mesh\":{\"device\":%s,\"density_bytes\":%zu,\"harris_device_bound\":%s},",
                     r.initial_mesh_density_bytes?"true":"false",r.initial_mesh_density_bytes,r.initial_mesh_density_bytes?"true":"false");
+                std::fprintf(f,"\"soc_free_reference\":%s,\"soc_free_decomposition\":\"%s\",\"scalar_offsite_workspace_bytes\":%zu,\"spin_dependent_soc_workspace_bytes\":%zu,",
+                    r.soc_free_reference?"true":"false",r.soc_free_reference?"spin_trace":"not_applied",r.scalar_offsite_bytes,r.spin_dependent_soc_bytes);
                 std::fprintf(f,"\"warm_start\":%s,",r.warm_start?"true":"false");
                 std::fprintf(f,"\"eigensystems\":{\"jobs\":%d,\"solves_per_iteration\":%d,\"retains_all_vectors\":%s,\"vector_bank_bytes\":%zu,\"solver_lanes\":%d},\"stage_profile\":",
                     r.eigensystem_jobs,r.solves_per_iteration,r.retains_all_vectors?"true":"false",r.vector_bank_bytes,r.solver_lanes);
@@ -160,6 +166,10 @@ struct State {
     bool hs_lease=false,dm_lease=false,grid_lease=false;
     int capacity=0,nh=0,eh=0,bank_size=0,dimension=0,complex_values=0;
     remag::GridPotentialProblem grid_problem{};remag::ScfCycleBindings bindings{};
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+    remag::HamiltonianAssemblyView frozen_assembly{};
+    const cuDoubleComplex* frozen_soc=nullptr;
+#endif
     remag::GridContractionShape grid_shape{};remag::GridContractionView final_grid_view{};
     int soc=0,final_h_required=0;
     std::vector<void*> storage;std::unique_ptr<remag::ScfCyclePlan> plan;
@@ -236,6 +246,11 @@ extern "C" int remag_cycle_initial_grid() {
 }
 extern "C" int remag_cycle_request() {
     try {
+#ifndef REMAG_BUILD_FROZEN_POTENTIAL
+        require(!std::getenv("REMAG_FROZEN_ROTATIONS")&&!std::getenv("REMAG_FROZEN_SOC_FREE")&&
+                !std::getenv("REMAG_EXPORT_MAGNETIC_STATE"),
+            "Frozen-potential probe requires REMAG_BUILD_FROZEN_POTENTIAL=ON");
+#endif
         require(remag_cycle_enabled()&&remag_gpu_enabled()&&remag_grid_enabled()&&!remag::in_scf()&&
             (state.stage==Stage::idle||state.stage==Stage::exported)&&remag::geometry_epoch(),"Device-cycle request conflicts with active work");
         remag::reset_final_grid_state();
@@ -247,6 +262,18 @@ extern "C" int remag_cycle_request() {
         state.release();state.epoch=remag::geometry_epoch();state.record={};state.result={};state.diagnostics.clear();
         state.record.epoch=state.epoch;state.initial=nullptr;
         state.record.device_initialization=remag_initialization_enabled();
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        state.frozen_soc=nullptr;
+        if(const char* option=std::getenv("REMAG_FROZEN_SOC_FREE")) {
+            require(!std::strcmp(option,"0")||!std::strcmp(option,"1"),"Invalid frozen SOC-free option");
+            state.record.soc_free_reference=!std::strcmp(option,"1");
+        }
+        if(state.record.soc_free_reference) {
+            const char* rotations=std::getenv("REMAG_FROZEN_ROTATIONS");
+            require(rotations&&*rotations&&state.record.device_initialization&&remag::energy_only_enabled(),
+                "SOC-free reference requires frozen rotations, GPU initialization and energy-only execution");
+        }
+#endif
         state.record.deferred_spectrum=remag_cycle_spectrum_deferred();
         require(!state.record.deferred_spectrum||(remag::final_grid_state_enabled()&&remag::integral_force_enabled()),
             "Deferred spectrum requires final device state and force ownership");
@@ -303,6 +330,9 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
             remag_hs_prepare(kind,n,cap,nh,no,nk,cap,num,ptr,cols,mapping,xyz,kpoints,h,overlap);
         require(hs_status==0,"H/S geometry preparation failed");
         remag::ScfCycleShape shape{};shape.assembly=remag::lease_hamiltonian_assembly();state.hs_lease=true;
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        state.frozen_assembly=shape.assembly;
+#endif
         require(remag_dm_begin(kind,n,cap,nh,eh,no,num,ptr,cols,mapping,xyz)==0,"Density geometry preparation failed");
         shape.density=remag::lease_density_matrix();state.dm_lease=true;
         shape.grid=remag::lease_grid_contraction();state.grid_lease=true;
@@ -323,6 +353,8 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
             (state.record.gated_hamiltonian?(remag::integral_force_enabled()&&!(c[18]&1)):c[18]==1),
             "Invalid Hamiltonian export reasons");
         state.record.hamiltonian_export_reasons=c[18];
+        require(!state.record.soc_free_reference||(c[8]==2&&nh==8&&!c[14]),
+            "SOC-free reference requires full offsite spinor layout and no final Hamiltonian recomputation");
         std::copy(state.grid_problem.pbe.mesh,state.grid_problem.pbe.mesh+3,shape.mesh);
         shape.normalization={cap,nh,eh,std::min(nh,2),v[4],v[5]};shape.occupation_cutoff=v[6];
         for(int i=0;i<nk;i++) shape.kpoints.push_back({kpoints[3*i],kpoints[3*i+1],kpoints[3*i+2]});
@@ -342,6 +374,21 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         }else b.nonlocal_h=state.allocate<double>(cap,nonlocal_h);
         if(c[8]==1) {require(onsite,"Missing onsite SOC");b.onsite=state.allocate<double>(size_t(cap)*6,onsite);}
         if(c[8]==2&&!remag::nonlocal_h0_enabled()) {require(offsite,"Missing offsite SOC");b.offsite=state.allocate<cuDoubleComplex>(size_t(cap)*4,offsite);}
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        // With upstream split=0 the offsite buffer includes scalar nonlocal
+        // terms. Keep its spin trace in ALL SCF seeds/energy contractions and
+        // restore only the spin-dependent remainder in the terminal probe.
+        state.frozen_soc=b.offsite;
+        const auto* original_offsite=b.offsite;
+        cuDoubleComplex *scalar_offsite=nullptr,*spin_dependent_soc=nullptr;
+        if(state.record.soc_free_reference) {
+            require(state.frozen_soc,"Missing frozen lattice SOC operator");
+            scalar_offsite=state.allocate<cuDoubleComplex>(size_t(cap)*4);
+            spin_dependent_soc=state.allocate<cuDoubleComplex>(size_t(cap)*4);
+            b.offsite=scalar_offsite;state.frozen_soc=spin_dependent_soc;
+            state.record.scalar_offsite_bytes=state.record.spin_dependent_soc_bytes=size_t(cap)*4*sizeof(cuDoubleComplex);
+        }
+#endif
         b.scalars=state.allocate<remag::ScfScalarsProblem>(1,&sp);b.constants=state.allocate<remag::ScfEnergySeeds>(1,&constants);
         b.num=state.allocate<int>(n,num);b.ptr=state.allocate<int>(n,ptr);b.overlap=shape.assembly.overlap;
         remag::bind_population_topology(state.epoch,b.num,b.ptr,b.overlap,state.stream);
@@ -357,7 +404,16 @@ extern "C" int remag_cycle_prepare(const int* c,const double* v,const int* num,c
         state.record.compact_exports=remag::integral_force_enabled();state.record.old_energy_host=old_energy_density!=nullptr;
         // Legacy staging uses the default stream. All preparation completes
         // before the new nondefault-stream owner can execute.
-        check(cudaDeviceSynchronize());state.plan=std::make_unique<remag::ScfCyclePlan>(shape,b,control,state.stream);
+        check(cudaDeviceSynchronize());
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        // The split reads both uploaded assembly indices and the retained (or
+        // uploaded) nonlocal operator. Queue it only after their setup barrier,
+        // on the same stream as the SCF consumers of the split buffers.
+        if(state.record.soc_free_reference)
+            check(remag::prepare_soc_free_offsite(shape.assembly,original_offsite,
+                scalar_offsite,spin_dependent_soc,state.stream));
+#endif
+        state.plan=std::make_unique<remag::ScfCyclePlan>(shape,b,control,state.stream);
         if(initialize) {
             const remag::InitialDensityProblem initial{cap,nh,std::min(nh,2),c[10],v[4]};
             auto problem=state.allocate<remag::InitialDensityProblem>(1,&initial);
@@ -443,6 +499,22 @@ extern "C" int remag_cycle_initial_result(double* values,int* mix,int* note) {
 extern "C" int remag_cycle_export(int bank_size,double* energies,double* occupations) {
     try {
         current(Stage::executed);require(bank_size==state.bank_size,"Cycle spectrum shape mismatch");
+#ifdef REMAG_BUILD_FROZEN_POTENTIAL
+        if(std::getenv("REMAG_EXPORT_MAGNETIC_STATE")) {
+            require(state.result.control.convergence.converged&&state.soc==2&&state.nh==8,
+                "Magnetic export requires a converged full offsite spinor generator");
+            remag::export_magnetic_state(state.frozen_assembly,state.plan->old_hamiltonian(),
+                state.frozen_soc,state.bindings.fermi,state.bindings.weights,state.plan->energies(),state.stream,
+                !state.record.soc_free_reference);
+        }
+        if(std::getenv("REMAG_FROZEN_ROTATIONS")) {
+            require(state.result.control.convergence.converged&&state.soc==2&&state.nh==8,
+                "Frozen-potential probe requires converged full offsite SOC");
+            remag::frozen_potential_probe(state.frozen_assembly,state.plan->old_hamiltonian(),
+                state.frozen_soc,state.bindings.fermi,state.bindings.weights,state.plan->energies(),state.stream,
+                !state.record.soc_free_reference);
+        }
+#endif
         const auto& b=state.bindings;const size_t hbytes=size_t(state.capacity)*state.nh*sizeof(double),ebytes=size_t(state.capacity)*state.eh*sizeof(double);
         if(remag::final_grid_state_enabled()) {
             const auto& terminal=state.result.control.convergence;
@@ -538,11 +610,34 @@ extern "C" int remag_cycle_export(int bank_size,double* energies,double* occupat
         counts.cycles.push_back(state.record);state.stage=Stage::exported;return 0;
     } catch(const std::exception& e) {return failure("export",e);}
 }
+extern "C" int remag_energy_only_enabled() {
+    try {return remag::energy_only_enabled()?1:0;}catch(...){return -1;}
+}
+extern "C" int remag_cycle_energy_publish(int* iterations) {
+    try {
+        current(Stage::exported);
+        require(iterations&&remag::energy_only_enabled()&&state.result.control.convergence.converged&&
+            state.result.iterations>0&&size_t(state.result.iterations)<=state.diagnostics.size()&&
+            state.final_grid_pending&&!state.final_grid_used&&!state.final_h_required&&state.final_h.empty(),
+            "Energy-only finalization requires the accepted final device cycle");
+        remag::complete_energy_only_state(state.epoch);
+        state.final_grid_used=true;*iterations=state.result.iterations;
+        FILE* receipt=std::fopen("remag-energy-only.json","w");require(receipt,"Cannot record energy-only publication");
+        const int written=std::fprintf(receipt,
+            "{\"schema\":1,\"mode\":\"energy_only\",\"epoch\":%llu,\"status\":0,\"capacity\":%d,\"spins\":%d,"
+            "\"iterations\":%d,\"forces_calculated\":false,\"stress_calculated\":false,"
+            "\"hamiltonian_required\":false,\"hamiltonian_cycle_export_bytes\":0}\n",
+            static_cast<unsigned long long>(state.epoch),state.capacity,state.nh,*iterations);
+        const int closed=std::fclose(receipt);require(written>0&&closed==0,"Incomplete energy-only publication record");
+        std::printf("REMAG: energy-only finalization; forces and stress not calculated\n");
+        return 0;
+    } catch(const std::exception& e) {return failure("energy-only finalization",e);}
+}
 extern "C" int remag_cycle_analysis_spectrum(int bank_size,double* energies) {
     try {
         current(Stage::exported);
         require(state.record.deferred_spectrum&&remag_cycle_spectrum_deferred()&&state.final_spectrum&&
-            energies==state.host_spectrum&&bank_size==state.bank_size&&remag::final_grid_forces_complete(state.epoch),
+            energies==state.host_spectrum&&bank_size==state.bank_size&&remag::final_electronic_state_complete(state.epoch),
             "Invalid final-analysis spectrum consumer");
         auto& r=counts.spectra.at(state.spectrum_record);
         require(!r.consumed&&!r.discarded&&r.epoch==state.epoch&&r.bank_size==bank_size,"Stale or repeated spectrum consumer");
@@ -618,7 +713,7 @@ extern "C" int remag_final_density(int kind,int capacity,int spins,int grid_spin
     try {
         current(Stage::exported);
         require(remag_final_density_active()&&remag_final_grid_enabled()&&state.final_grid_used&&
-            remag::final_grid_forces_complete(state.epoch)&&(kind==1||kind==2)&&(state.final_rho_requested&kind)&&
+            remag::final_electronic_state_complete(state.epoch)&&(kind==1||kind==2)&&(state.final_rho_requested&kind)&&
             (kind==1?state.final_rho:state.final_drho)&&counts.densities.size()>=2&&capacity==state.capacity&&spins==state.nh&&grid_spins==state.eh&&
             mesh&&std::equal(mesh,mesh+3,state.grid_problem.pbe.mesh)&&nsm==state.grid_problem.nsm&&density&&rho&&
             state.final_grid_pending&&density==state.host_d,

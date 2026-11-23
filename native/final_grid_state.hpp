@@ -68,7 +68,12 @@ void complete_final_grid_force(uint64_t epoch,int consumer=4);
 void reset_final_grid_state();
 // Read-only ownership check for a requested analysis export after all forces.
 bool final_grid_forces_complete(uint64_t epoch);
-// A single history lease after accepted final forces. The caller must complete
+// Energy-only publication never satisfies the force-completion predicate.
+// Electronic analysis/history can use either accepted publication mode.
+bool energy_only_enabled();
+bool final_electronic_state_complete(uint64_t epoch);
+void complete_energy_only_state(uint64_t epoch);
+// A single history lease after accepted electronic publication. The caller must complete
 // every queued use before returning it; reset cannot discard an active lease.
 FinalGridStateView borrow_final_history_state(uint64_t epoch);
 void complete_final_history_state(uint64_t epoch);

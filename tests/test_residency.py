@@ -41,3 +41,17 @@ def test_terminal_integral_publication_reconciles_without_counting_as_scf_traffi
     assert result['total_explicit']==dict(host_to_device_bytes=180,device_to_host_bytes=180,copy_calls=4)
     telemetry['gpu_integral_force']['device_to_host_bytes']=0
     assert summarize_residency(trace,telemetry,9)['accounting_errors']
+
+def test_frozen_probe_downloads_reconcile_without_hiding_missing_traffic():
+    trace=dict(scope='explicit',execution_mode='device_cycle',phase_markers_seen=True,geometry_epochs=1,
+               intervals=[dict(phase='scf',iteration=1,boundaries={}),
+                          dict(phase='analysis_export',iteration=0,boundaries={'spectral_export':dict(
+                              host_to_device_bytes=0,device_to_host_bytes=541352,copy_calls=9)})])
+    telemetry={'gpu_device_cycle':dict(cycles=[dict(iterations=40)]),
+               'frozen_potential_probe':dict(qualification_download_bytes=541352)}
+    result=summarize_residency(trace,telemetry,40)
+    assert result['accounting_errors']==[]
+    assert result['total_explicit']['device_to_host_bytes']==541352
+    assert result['steady_state_explicit']['device_to_host_bytes']==0
+    telemetry['frozen_potential_probe']['qualification_download_bytes']-=1
+    assert len(summarize_residency(trace,telemetry,40)['accounting_errors'])==1

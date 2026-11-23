@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 
 
-def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_records=None,poisoned=False,compact_queries=False,soc_export=False):
+def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_records=None,poisoned=False,compact_queries=False,energy_only=False,soc_export=False):
     errors=[];checks=[];rows=report.get('cycles',[]);owners=geometry.get('cycles',[])
     if report.get('schema')!=1 or not rows or [r.get('epoch') for r in rows]!=epochs or [r.get('epoch') for r in owners]!=epochs:
         return dict(passed=False,errors=['H0 shadow does not cover every electronic/force geometry'],checks=[])
@@ -49,7 +49,8 @@ def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_recor
         if type(r.get('soc_export_bytes',0)) is not int or r.get('soc_export_bytes',0)!=copied:
             issues.append('H0 SOC diagnostic copy differs from the explicit request')
         diagnostic['device_to_host_bytes']+=copied;diagnostic['copy_calls']+=bool(copied)
-        if any(r.get(k) is not True for k in ('passed','bound','force_borrowed','complete')):
+        if (any(r.get(k) is not True for k in ('passed','bound')) or
+                any(r.get(k) is not (not energy_only) for k in ('force_borrowed','complete'))):
             issues.append('H0 comparison or retained integral lifetime incomplete')
         if r.get('poison_requested',False) is not poisoned or r.get('host_poisoned',False) is not poisoned:
             issues.append('H0 host poisoning control is incomplete or unexpected')
@@ -116,5 +117,5 @@ def audit(report,folder,epochs,geometry,residency,*,production=False,cycle_recor
             errors.append('SOC snapshot does not bind the final device owner')
     totals={k:totals[k]+diagnostic[k] for k in totals}
     return dict(passed=not errors,errors=errors,checks=checks,traffic=totals,
-                production_h0=production,integrals_retained_through_forces=True,strict_residency_verified=False,
+                production_h0=production,integrals_retained_through_forces=not energy_only,strict_residency_verified=False,
                 **(dict(soc_export_traffic=diagnostic) if soc_export or actual_diagnostic!=dict.fromkeys(totals,0) else {}))

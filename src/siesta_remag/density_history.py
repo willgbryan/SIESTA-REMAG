@@ -54,7 +54,7 @@ def policy(text):
     return dict(depth=depth, mode=mode)
 
 
-def record_errors(records, cycles, initial, forces, expected):
+def record_errors(records, cycles, initial, forces, expected, *, energy_only=False):
     errors = []
     if not records or not len(records) == len(cycles) == len(initial) == len(forces):
         return ['History ownership does not cover every electronic/force geometry']
@@ -69,7 +69,7 @@ def record_errors(records, cycles, initial, forces, expected):
             epoch = cycle['epoch']
             wanted = dict(token=token, epoch=epoch, atoms=atoms, rows=rows, capacity=capacity, spins=spins,
                 depth=depth, mode=mode, previous_count=count, count=min(depth, count+1) if save else count,
-                reused=reuse, bound=True, finished=True, saved=save, forces_accepted=True, status=0,
+                reused=reuse, bound=True, finished=True, saved=save, forces_accepted=not energy_only, status=0,
                 setup_bytes=48*(1+int(token == 1))+8*rows+4*capacity+24*atoms,
                 setup_copies=5+int(token == 1), initial_status_copies=1+int(token == 1)+int(reuse),
                 initial_status_bytes=40*(1+int(token == 1)+int(reuse)),

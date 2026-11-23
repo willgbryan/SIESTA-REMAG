@@ -24,7 +24,7 @@ struct Snapshot {
     int pair_consumed=0,pair_active=0;
     int atoms=0,forces=0,stress=0;
     bool integral=false,hartree_added=false,publication_attempted=false,collected=false,published=false;
-    bool history_active=false,history_consumed=false;
+    bool history_active=false,history_consumed=false,energy_only=false;
     FinalForceAccumulatorView accumulator{};
     std::vector<double> initial_force,initial_stress;
     std::vector<AtomicForceRecord> atomic_records;
@@ -49,6 +49,11 @@ struct Snapshot {
 };
 std::unique_ptr<Snapshot> snapshot;
 }
+bool energy_only_enabled() {
+    const char* value=std::getenv("REMAG_ENERGY_ONLY");
+    require(!value||!std::strcmp(value,"0")||!std::strcmp(value,"1"),"REMAG_ENERGY_ONLY must be 0 or 1");
+    return value&&!std::strcmp(value,"1");
+}
 bool final_grid_state_enabled() {
     const char* v=std::getenv("REMAG_FORCE_SHADOW_RESIDENT");const char* force=std::getenv("REMAG_GRID_FORCE");
     return (v&&std::strcmp(v,"1")==0)||(force&&std::strcmp(force,"1")==0);
@@ -66,13 +71,33 @@ void reset_final_grid_state() {
         (!snapshot->integral||snapshot->published))),"Final force consumer incomplete before new geometry");reset_population_state();snapshot.reset();
 }
 bool final_grid_forces_complete(uint64_t epoch) {
-    return !in_scf()&&snapshot&&!snapshot->active&&!snapshot->history_active&&snapshot->consumed==snapshot->required&&
+    return !in_scf()&&snapshot&&!snapshot->energy_only&&!snapshot->active&&!snapshot->history_active&&snapshot->consumed==snapshot->required&&
         !snapshot->pair_active&&(!snapshot->pair_required||snapshot->pair_consumed==snapshot->pair_required)&&
         (!snapshot->integral||snapshot->published)&&
         snapshot->view.epoch==epoch&&epoch==geometry_epoch();
 }
+bool final_electronic_state_complete(uint64_t epoch) {
+    return final_grid_forces_complete(epoch)||(!in_scf()&&snapshot&&snapshot->energy_only&&snapshot->published&&
+        !snapshot->active&&!snapshot->pair_active&&!snapshot->history_active&&
+        snapshot->view.epoch==epoch&&epoch==geometry_epoch());
+}
+void complete_energy_only_state(uint64_t epoch) {
+    require(energy_only_enabled()&&!in_scf()&&snapshot&&snapshot->energy_only&&snapshot->integral&&
+        snapshot->view.epoch==epoch&&epoch==geometry_epoch()&&!snapshot->publication_attempted&&
+        !snapshot->active&&!snapshot->pair_active&&!snapshot->consumed&&!snapshot->pair_consumed&&
+        snapshot->atomic_records.empty()&&snapshot->integral_records.empty(),"Invalid energy-only publication");
+    auto& s=*snapshot;s.publication_attempted=true;
+    check(cudaStreamCreateWithFlags(&s.accumulator.stream,cudaStreamNonBlocking));
+    int zero=0;s.accumulator.status=s.stage(1,&zero);
+    evaluate_final_population(s.view,s.accumulator);
+    check(cudaStreamSynchronize(s.accumulator.stream));
+    int status=-1;check(cudaMemcpy(&status,s.accumulator.status,sizeof(int),cudaMemcpyDeviceToHost));
+    transfer(Transfer::final_force_output,false,sizeof(int));
+    require(status==0,"Energy-only population publication failed");
+    s.collected=true;s.published=true;complete_population_publication(epoch);
+}
 FinalGridStateView borrow_final_history_state(uint64_t epoch) {
-    require(final_grid_forces_complete(epoch)&&!snapshot->history_consumed&&snapshot->view.convergence,
+    require(final_electronic_state_complete(epoch)&&!snapshot->history_consumed&&snapshot->view.convergence,
         "History requested stale, unfinished or already retained final electronic state");
     snapshot->history_active=true;return snapshot->view;
 }
@@ -84,14 +109,16 @@ void complete_final_history_state(uint64_t epoch) {
 bool final_population_window(uint64_t epoch,const double* density) {
     return !in_scf()&&snapshot&&snapshot->integral&&snapshot->view.epoch==epoch&&epoch==geometry_epoch()&&
         snapshot->view.density==density&&snapshot->publication_attempted&&!snapshot->collected&&!snapshot->published&&
-        !snapshot->active&&!snapshot->pair_active&&snapshot->consumed==snapshot->required&&snapshot->pair_consumed==7&&
-        snapshot->hartree_added&&snapshot->integral_records.size()==3;
+        !snapshot->active&&!snapshot->pair_active&&
+        (snapshot->energy_only?(!snapshot->consumed&&!snapshot->pair_consumed&&snapshot->integral_records.empty()):
+        (snapshot->consumed==snapshot->required&&snapshot->pair_consumed==7&&
+        snapshot->hartree_added&&snapshot->integral_records.size()==3));
 }
 bool pair_force_shadow_enabled() {
     const char* v=std::getenv("REMAG_PAIR_FORCE_SHADOW");return v&&std::strcmp(v,"1")==0;
 }
 FinalGridStateView borrow_final_pair_state(uint64_t epoch,int consumer) {
-    require(pair_force_active()&&!in_scf()&&snapshot&&snapshot->integral==integral_force_enabled()&&snapshot->pair_required&&
+    require(pair_force_active()&&!in_scf()&&snapshot&&!snapshot->energy_only&&snapshot->integral==integral_force_enabled()&&snapshot->pair_required&&
         !snapshot->active&&!snapshot->pair_active&&snapshot->view.epoch==epoch&&epoch==geometry_epoch()&&
         ((consumer==1&&snapshot->pair_consumed==0&&snapshot->consumed==0)||
          ((consumer==2||consumer==3)&&snapshot->pair_required==7&&snapshot->pair_consumed==1&&snapshot->consumed==0&&
@@ -116,7 +143,7 @@ void retain_final_grid_state(const FinalGridStateView& v,cudaStream_t stream) {
             v.shape.nsp==v.nsm*v.nsm*v.nsm&&v.mesh[0]>0&&v.mesh[1]>0&&v.mesh[2]>0&&
             v.mesh[0]%v.nsm==0&&v.mesh[1]%v.nsm==0&&v.mesh[2]%v.nsm==0&&
             size_t(v.mesh[0])*v.mesh[1]*v.mesh[2]==size_t(v.shape.np)*v.shape.nsp,"Invalid final mesh metadata");
-    auto s=std::make_unique<Snapshot>();s->view=v;s->view.bytes=0;s->integral=integral_force_enabled();
+    auto s=std::make_unique<Snapshot>();s->view=v;s->view.bytes=0;s->integral=integral_force_enabled();s->energy_only=energy_only_enabled();
     require(!s->integral||(atomic_grid_force_enabled()&&!pair_force_shadow_enabled()&&!remag_nonlocal_force_shadow_enabled()&&v.hartree_stress),
         "Integral forces require authoritative atomic/grid forces, retained Hartree stress and no pair/nonlocal shadows");
     require(!remag_nonlocal_force_shadow_enabled()||pair_force_shadow_enabled(),"Nonlocal shadow requires kinetic/overlap leases");
@@ -137,7 +164,7 @@ void retain_final_grid_state(const FinalGridStateView& v,cudaStream_t stream) {
     snapshot=std::move(s);
 }
 FinalGridStateView borrow_final_grid_state(uint64_t epoch,int consumer) {
-    require(!in_scf()&&snapshot&&snapshot->integral==integral_force_enabled()&&(consumer==1||consumer==2||consumer==4)&&
+    require(!in_scf()&&snapshot&&!snapshot->energy_only&&snapshot->integral==integral_force_enabled()&&(consumer==1||consumer==2||consumer==4)&&
             (!snapshot->integral||snapshot->hartree_added)&&
             !snapshot->pair_active&&(!snapshot->pair_required||snapshot->pair_consumed==(snapshot->pair_required&3))&&
             (snapshot->required&consumer)&&!(snapshot->borrowed&consumer)&&!snapshot->active&&

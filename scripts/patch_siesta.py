@@ -1864,6 +1864,7 @@ def patch(source: Path):
     patch_initialization(source)
     patch_density_history(source)
     patch_orientations(source)
+    patch_energy_only(source)
     patch_soc_export(source)
     with (source / "CMakeLists.txt").open("a") as f:
         f.write('''
@@ -2174,6 +2175,39 @@ C       Advance the electronic lifetime while retaining immutable geometry.
 '''+text[pos:]
     path.write_text(text)
 
+
+
+def patch_energy_only(source):
+    """Separate accepted electronic analysis from optional force finalization."""
+    path = source / 'Src/final_H_f_stress.F'
+    text = path.read_text()
+    text = replace_once(text, '      use units, only: eV, Ang',
+        '      use m_remag_cycle, only: remag_energy_only_enabled,\n'
+        '     &                         remag_cycle_energy_finish\n'
+        '      use units, only: eV, Ang')
+    # TSHS exports also use not_using_auxcell; initialize it in both modes.
+    start = text.index('!     Initialize Hamiltonian ........................................')
+    end = text.index('      ! Determine whether anything should be saved', start)
+    text = (text[:start] + '      if(remag_energy_only_enabled()==1)then\n'
+        '        call remag_cycle_energy_finish()\n      else\n' +
+        text[start:end] + '      endif\n\n' + text[end:])
+    path.write_text(text)
+    path = source / 'Src/state_analysis.F'
+    text = path.read_text()
+    text = replace_once(text, '      use m_forces\n',
+        '      use m_remag_cycle, only: remag_energy_only_enabled\n      use m_forces\n')
+    start = text.index('!     Substract egg box effect from the forces')
+    end = text.index('!     Population and moment analysis', start)
+    text = text[:start] + '      if(remag_energy_only_enabled()/=1)then\n' + text[start:end] + '      endif\n\n' + text[end:]
+    path.write_text(text)
+    path = source / 'Src/siesta_analysis.F90'
+    text = path.read_text()
+    text = replace_once(text, '      use m_forces, only: fa',
+        '      use m_remag_cycle, only: remag_energy_only_enabled\n      use m_forces, only: fa')
+    start = text.index('            call siesta_write_forces(-1)')
+    end = text.index('            call write_basis_enthalpy(', start)
+    text = text[:start] + '            if(remag_energy_only_enabled()/=1)then\n' + text[start:end] + '            endif\n' + text[end:]
+    path.write_text(text)
 
 
 if __name__ == "__main__":
