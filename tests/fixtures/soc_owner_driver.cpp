@@ -5,6 +5,9 @@ uint64_t test_epoch=2;bool test_scf=false;size_t transferred=0;int transfers=0;
 namespace remag {
 uint64_t geometry_epoch(){return test_epoch;}
 bool in_scf(){return test_scf;}
+// This fixture exercises SOC copying, not energy-only completion.
+bool energy_only_enabled(){std::abort();}
+bool final_electronic_state_complete(uint64_t){std::abort();}
 void transfer(Transfer boundary,bool to_device,size_t bytes,size_t copies){
     if(boundary!=Transfer::soc_operator_output||to_device||copies!=1)std::abort();
     transferred+=bytes;++transfers;
